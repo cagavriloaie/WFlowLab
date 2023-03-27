@@ -1,0 +1,22 @@
+^C:\USERS\CONSTANTIN\DESKTOP\STREAM\CONTOR\CMAKEFILES\361286648E4595CF48DAC2B7631971ED\CONTOR_LUPDATE.RULE
+setlocal
+C:\Qt\Tools\CMake_64\bin\cmake.exe -DIN_FILE=C:/Users/Constantin/Desktop/stream/contor/.lupdate/contor_project.Debug.cmake -DOUT_FILE=C:/Users/Constantin/Desktop/stream/contor/.lupdate/contor_project.json -P C:/Qt/6.4.1/mingw_64/lib/cmake/Qt6LinguistTools/GenerateLUpdateProject.cmake
+if %errorlevel% neq 0 goto :cmEnd
+call .qt\bin\qt_setup_tool_path.bat C:/Qt/6.4.1/mingw_64/bin/lupdate.exe -project C:/Users/Constantin/Desktop/stream/contor/.lupdate/contor_project.json
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\CONSTANTIN\DESKTOP\STREAM\CONTOR\CMAKELISTS.TXT
+setlocal
+C:\Qt\Tools\CMake_64\bin\cmake.exe -SC:/Users/Constantin/Desktop/stream/contor -BC:/Users/Constantin/Desktop/stream/contor --check-stamp-file C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

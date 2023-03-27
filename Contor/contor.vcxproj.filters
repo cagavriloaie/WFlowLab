@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\air-density.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\md5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\licence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\helpabout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\EWIEGA46WW\qrc_resourcescontor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\flow-meter-type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\air-density.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\md5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\licence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\helpabout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Debug\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Debug\ui_dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Debug\ui_licence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Debug\ui_helpabout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Release\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Release\ui_dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Release\ui_licence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_Release\ui_helpabout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_MinSizeRel\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_MinSizeRel\ui_dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_MinSizeRel\ui_licence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_MinSizeRel\ui_helpabout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_RelWithDebInfo\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_RelWithDebInfo\ui_dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_RelWithDebInfo\ui_licence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\include_RelWithDebInfo\ui_helpabout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Constantin\Desktop\stream\contor\CMakeFiles\a773372457cefaa2513f92c35521cec0\autouic_(CONFIG).stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Constantin\Desktop\stream\contor\CMakeFiles\f9187ce8c654137d23c893be2945c8a2\qrc_resourcescontor.cpp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Constantin\Desktop\stream\contor\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\mainwindow.ui" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\dialog.ui" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\licence.ui" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\helpabout.ui" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\resourcescontor.qrc" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\autouic_Debug.stamp" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\autouic_Release.stamp" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\autouic_MinSizeRel.stamp" />
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\contor_autogen\autouic_RelWithDebInfo.stamp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0EEF1D77-912A-3C29-A123-4AEBC1FF92F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{77DE1086-0C2B-3834-A05B-B8546295CC58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E9C51BD8-9A91-36A6-A3C5-1ECD7D87A81E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

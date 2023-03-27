@@ -1,0 +1,10 @@
+^C:\USERS\CONSTANTIN\DESKTOP\STREAM\CONTOR\CMAKEFILES\361286648E4595CF48DAC2B7631971ED\GENERATE.STAMP.RULE
+setlocal
+C:\Qt\Tools\CMake_64\bin\cmake.exe -SC:/Users/Constantin/Desktop/stream/contor -BC:/Users/Constantin/Desktop/stream/contor --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Constantin/Desktop/stream/contor/contor.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

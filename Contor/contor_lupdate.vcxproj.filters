@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Constantin\Desktop\stream\contor\CMakeFiles\361286648e4595cf48dac2b7631971ed\contor_lupdate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Constantin\Desktop\stream\contor\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Constantin\Desktop\stream\contor\CMakeFiles\contor_lupdate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0EEF1D77-912A-3C29-A123-4AEBC1FF92F1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

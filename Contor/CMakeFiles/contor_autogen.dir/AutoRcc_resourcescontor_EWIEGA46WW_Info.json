@@ -1,0 +1,37 @@
+{
+	"BUILD_DIR" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
+	"CMAKE_SOURCE_DIR" : "C:\\Users\\Constantin\\Desktop\\stream\\contor",
+	"INCLUDE_DIR" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include",
+	"INCLUDE_DIR_Debug" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_Debug",
+	"INCLUDE_DIR_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_MinSizeRel",
+	"INCLUDE_DIR_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_RelWithDebInfo",
+	"INCLUDE_DIR_Release" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_Release",
+	"INPUTS" : 
+	[
+		"C:/Users/Constantin/Desktop/stream/contor/noun-water-tap-4377080.png",
+		"C:/Users/Constantin/Desktop/stream/contor/icons8-plumbing-80.png",
+		"C:/Users/Constantin/Desktop/stream/contor/Elegantthemes-Beautiful-Flat-Water.128.png",
+		"C:/Users/Constantin/Desktop/stream/contor/Elegantthemes-Beautiful-Flat-Water.96.png",
+		"C:/Users/Constantin/Desktop/stream/contor/Elegantthemes-Beautiful-Flat-Water.ico",
+		"C:/Users/Constantin/Desktop/stream/contor/Elegantthemes-Beautiful-Flat-Water.64.png",
+		"C:/Users/Constantin/Desktop/stream/contor/icons8-blur-80.png",
+		"C:/Users/Constantin/Desktop/stream/contor/Elegantthemes-Beautiful-Flat-Water.72.png"
+	],
+	"LOCK_FILE" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : true,
+	"OPTIONS" : [ "-name", "resourcescontor" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resourcescontor.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.4.1/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Used.txt",
+	"SETTINGS_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Used_Debug.txt",
+	"SETTINGS_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Used_MinSizeRel.txt",
+	"SETTINGS_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Used_RelWithDebInfo.txt",
+	"SETTINGS_FILE_Release" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutoRcc_resourcescontor_EWIEGA46WW_Used_Release.txt",
+	"SOURCE" : "C:/Users/Constantin/Desktop/stream/contor/resourcescontor.qrc",
+	"VERBOSITY" : 0
+}

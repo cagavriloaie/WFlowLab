@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0"/>
+  <qresource>
+	<file>Elegantthemes-Beautiful-Flat-Water.64.png</file>
+	<file>Elegantthemes-Beautiful-Flat-Water.72.png</file>
+	<file>Elegantthemes-Beautiful-Flat-Water.96.png</file>
+	<file>Elegantthemes-Beautiful-Flat-Water.128.png</file>
+	<file>Elegantthemes-Beautiful-Flat-Water.ico</file>
+  </qresource>
+ </RCC>
