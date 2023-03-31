@@ -23,14 +23,6 @@
 
 extern QTranslator *appTranslator;
 
-enum SELECTED_LANGUAGE {
-    ROMANIAN,
-    ENGLISH,
-    DEFAULT = ENGLISH
-};
-
-SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
-
 /*
  *  readConfiguration()
  *  The file is checked for MD5 "company" field
@@ -260,7 +252,7 @@ MainWindow::MainWindow ( QWidget *parent )
     connect ( ui->pbExit, &QPushButton::clicked, this, &MainWindow::onExitApplication );
 
     connect ( this, SIGNAL ( meterTypeChangedSignal() ), inputData, SLOT ( onTypeMeterChanged() ) );
-    connect ( this, SIGNAL ( NumberOfWaterMetersChangedSignal() ), inputData, SLOT ( onNumberOfWaterMetersChanged() ) );
+    connect ( this, SIGNAL ( numberOfWaterMetersChangedSignal() ), inputData, SLOT ( onNumberOfWaterMetersChanged() ) );
     connect ( this, SIGNAL ( measurementTypeChangedSignal() ), inputData, SLOT ( onMeasurementTypeChanged() ) );
 
     connect ( ui->action_License, SIGNAL ( triggered() ), this, SLOT ( onShowLicense() ) );
@@ -310,7 +302,7 @@ void MainWindow::onMeterTypeChanged ( int index ) {
 
 void MainWindow::onNumberOfWaterMetersChanged ( int index ) {
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
-    emit NumberOfWaterMetersChangedSignal();
+    emit numberOfWaterMetersChangedSignal();
 }
 
 void MainWindow::onNewSessionClicked() {
@@ -362,7 +354,7 @@ void MainWindow::onGeneralDescription() {
     std::ofstream generalDescriptionHtmlFile ( htmlFile.toStdString() );
     std::stringstream output;
 
-    if ( ENGLISH == selectedLanguage ) {
+    if ( ENGLISH == selectedInfo.selectedLanguage ) {
         output <<
                "<!DOCTYPE html>"
                "<html>"
@@ -423,7 +415,7 @@ void MainWindow::onWaterDensityPage() {
     std::ofstream densityHtmlFile ( htmlFile.toStdString() );
     std::stringstream output;
 
-    if ( ROMANIAN == selectedLanguage ) {
+    if ( ROMANIAN == selectedInfo.selectedLanguage ) {
         output <<
                "<!DOCTYPE html>"
                "<html>"
@@ -499,7 +491,7 @@ void MainWindow::onSetRomanian() {
         helpAbout->Translate();
     }
 
-    selectedLanguage = ROMANIAN;
+    selectedInfo.selectedLanguage = ROMANIAN;
 }
 
 void MainWindow::onSetEnglish() {
@@ -519,7 +511,7 @@ void MainWindow::onSetEnglish() {
         helpAbout->Translate();
     }
 
-    selectedLanguage = ENGLISH;
+    selectedInfo.selectedLanguage = ENGLISH;
 }
 
 void MainWindow::mousePressEvent ( QMouseEvent *event ) {

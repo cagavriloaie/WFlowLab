@@ -35,8 +35,6 @@ public:
     void PopulateTable();
     void ShowUsedRows ( int rows );
     static void printPdfThread ( QString report );
-    void SaveCurrentInputData();
-    void OpenInputData();
     void Translate();
 
 private:
@@ -71,17 +69,18 @@ private:
     bool eventFilter ( QObject *, QEvent * );
 
 private slots:
+
+    void onTypeMeterChanged();
+    void onNumberOfWaterMetersChanged();
+    void onMeasurementTypeChanged();
+    void onSelectAllChanged();
+    void onCbClicked ( bool status );
     void onCalculateClicked();
     void onCleanClicked();
     void onCloseClicked();
-    void onTypeMeterChanged();
-    void onNumberOfWaterMetersChanged();
-    void onSelectAllChanged();
-    void onMeasurementTypeChanged();
-    void onPrintPdfDoc();
-    void onCbClicked ( bool status );
-
-
+    void onSaveCurrentInputDataClicked();
+    void onOpenInputDataClicked();
+    void onPrintPdfDocClicked();
 
 protected:
     void showEvent ( QShowEvent *event );

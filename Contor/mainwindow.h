@@ -13,6 +13,11 @@
 #include "licence.h"
 #include "helpabout.h"
 
+enum SELECTED_LANGUAGE {
+    ROMANIAN,
+    ENGLISH,
+    DEFAULT = ENGLISH
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -47,6 +52,8 @@ struct SelectedInfo {
     bool rbManual {true};
     bool rbInterface {false};
     bool rbTerminal {false};
+
+    SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 };
 
 class MainWindow : public QMainWindow {
@@ -71,8 +78,6 @@ public:
     unsigned MAX_NR_WATER_METERS {20};
     unsigned NUMBER_ENTRIES_METER_FLOW_DB {0};
     std::map<std::string, std::string> optionsConfiguration;
-
-    //QTranslator *appTranslator {nullptr};
 
 private slots:
     void onMeterTypeChanged ( int index );
@@ -101,7 +106,7 @@ private slots:
     void mousePressEvent ( QMouseEvent *event );
 
 signals:
-    void NumberOfWaterMetersChangedSignal();
+    void numberOfWaterMetersChangedSignal();
     void meterTypeChangedSignal();
     void measurementTypeChangedSignal();
 
