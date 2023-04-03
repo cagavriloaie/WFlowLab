@@ -1,15 +1,15 @@
 {
-	"BUILD_DIR" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen",
-	"CMAKE_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/Constantin/Desktop/stream/contor",
+	"BUILD_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/Users/Constantin/Desktop/stream/contor/CMakeLists.txt",
-		"C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/3.24.2/CMakeSystem.cmake",
+		"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeLists.txt",
+		"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/3.24.2/CMakeSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake",
-		"C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/3.24.2/CMakeCXXCompiler.cmake",
+		"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/3.24.2/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeGenericSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake",
@@ -22,7 +22,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/Platform/Windows-MSVC-CXX.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/Platform/Windows-MSVC.cmake",
-		"C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/3.24.2/CMakeRCCompiler.cmake",
+		"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/3.24.2/CMakeRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeRCInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake",
 		"C:/Qt/6.4.1/mingw_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
@@ -292,67 +292,67 @@
 		"C:/Qt/6.4.1/mingw_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsVersionlessTargets.cmake",
 		"C:/Qt/6.4.1/mingw_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsMacros.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.24/Modules/CMakeParseArguments.cmake",
-		"C:/Users/Constantin/Desktop/stream/contor/resourcescontor.qrc"
+		"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/resourcescontor.qrc"
 	],
-	"CMAKE_SOURCE_DIR" : "C:\\Users\\Constantin\\Desktop\\stream\\contor",
+	"CMAKE_SOURCE_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/air-density.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/air-density.h",
 			"MU",
 			"EWIEGA46WW/moc_air-density.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/dialog.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/dialog.h",
 			"MU",
 			"EWIEGA46WW/moc_dialog.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/flow-meter-type.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/flow-meter-type.h",
 			"MU",
 			"EWIEGA46WW/moc_flow-meter-type.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/helpabout.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/helpabout.h",
 			"MU",
 			"EWIEGA46WW/moc_helpabout.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/licence.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/licence.h",
 			"MU",
 			"EWIEGA46WW/moc_licence.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/mainwindow.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
 		],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/md5.h",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/md5.h",
 			"MU",
 			"EWIEGA46WW/moc_md5.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include",
-	"INCLUDE_DIR_Debug" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_Debug",
-	"INCLUDE_DIR_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_MinSizeRel",
-	"INCLUDE_DIR_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_RelWithDebInfo",
-	"INCLUDE_DIR_Release" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/include_Release",
-	"MOC_COMPILATION_FILE" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/mocs_compilation.cpp",
-	"MOC_COMPILATION_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/mocs_compilation_Debug.cpp",
-	"MOC_COMPILATION_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/mocs_compilation_MinSizeRel.cpp",
-	"MOC_COMPILATION_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/mocs_compilation_RelWithDebInfo.cpp",
-	"MOC_COMPILATION_FILE_Release" : "C:/Users/Constantin/Desktop/stream/contor/contor_autogen/mocs_compilation_Release.cpp",
+	"INCLUDE_DIR" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/include",
+	"INCLUDE_DIR_Debug" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/include_Debug",
+	"INCLUDE_DIR_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/include_MinSizeRel",
+	"INCLUDE_DIR_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/include_RelWithDebInfo",
+	"INCLUDE_DIR_Release" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/include_Release",
+	"MOC_COMPILATION_FILE" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/mocs_compilation.cpp",
+	"MOC_COMPILATION_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/mocs_compilation_Debug.cpp",
+	"MOC_COMPILATION_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/mocs_compilation_MinSizeRel.cpp",
+	"MOC_COMPILATION_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/mocs_compilation_RelWithDebInfo.cpp",
+	"MOC_COMPILATION_FILE_Release" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/contor_autogen/mocs_compilation_Release.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -416,37 +416,57 @@
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : true,
 	"PARALLEL" : 8,
-	"PARSE_CACHE_FILE" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/ParseCache.txt",
-	"PARSE_CACHE_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/ParseCache_Debug.txt",
-	"PARSE_CACHE_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/ParseCache_MinSizeRel.txt",
-	"PARSE_CACHE_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/ParseCache_RelWithDebInfo.txt",
-	"PARSE_CACHE_FILE_Release" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/ParseCache_Release.txt",
+	"PARSE_CACHE_FILE" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/ParseCache_Debug.txt",
+	"PARSE_CACHE_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/ParseCache_MinSizeRel.txt",
+	"PARSE_CACHE_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/ParseCache_RelWithDebInfo.txt",
+	"PARSE_CACHE_FILE_Release" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/ParseCache_Release.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.4.1/mingw_64/./bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.4.1/mingw_64/./bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 4,
-	"SETTINGS_FILE" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutogenUsed.txt",
-	"SETTINGS_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutogenUsed_Debug.txt",
-	"SETTINGS_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutogenUsed_MinSizeRel.txt",
-	"SETTINGS_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutogenUsed_RelWithDebInfo.txt",
-	"SETTINGS_FILE_Release" : "C:/Users/Constantin/Desktop/stream/contor/CMakeFiles/contor_autogen.dir/AutogenUsed_Release.txt",
+	"SETTINGS_FILE" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE_Debug" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/AutogenUsed_Debug.txt",
+	"SETTINGS_FILE_MinSizeRel" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/AutogenUsed_MinSizeRel.txt",
+	"SETTINGS_FILE_RelWithDebInfo" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/AutogenUsed_RelWithDebInfo.txt",
+	"SETTINGS_FILE_Release" : "C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/CMakeFiles/contor_autogen.dir/AutogenUsed_Release.txt",
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/air-density.cpp",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/air-density.cpp",
 			"MU",
 			null
 		],
-		[ "C:/Users/Constantin/Desktop/stream/contor/dialog.cpp", "MU", null ],
-		[ "C:/Users/Constantin/Desktop/stream/contor/helpabout.cpp", "MU", null ],
-		[ "C:/Users/Constantin/Desktop/stream/contor/licence.cpp", "MU", null ],
-		[ "C:/Users/Constantin/Desktop/stream/contor/main.cpp", "MU", null ],
 		[
-			"C:/Users/Constantin/Desktop/stream/contor/mainwindow.cpp",
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/dialog.cpp",
 			"MU",
 			null
 		],
-		[ "C:/Users/Constantin/Desktop/stream/contor/md5.cpp", "MU", null ]
+		[
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/helpabout.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/licence.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/Constantin/Desktop/stream/WFlowLab/Contor/md5.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

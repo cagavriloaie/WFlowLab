@@ -91,13 +91,13 @@ set(TRANSLATE_SOURCES
         helpabout.ui
 )
 
-file(GLOB TS_FILES
-    ${CMAKE_SOURCE_DIR}romanian.ts
-    ${CMAKE_SOURCE_DIR}/english.ts)
+set(TS_FILES_APP
+        romanian.ts
+        english.ts
+)
 
-qt_add_lupdate(contor TS_FILES romanian.ts english.ts
+qt_add_lupdate(contor TS_FILES ${TS_FILES_APP}
                       SOURCES ${TRANSLATE_SOURCES})
-
 
 install(TARGETS contor
     BUNDLE DESTINATION .

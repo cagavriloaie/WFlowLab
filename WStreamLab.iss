@@ -12,7 +12,7 @@
 AppId={{1E742ED4-BB2E-41C5-80E5-3BB818C42C23}
 AppName={#MyAppName}
 AppPublisher={#MyAppPublisher}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AppVerName={#MyAppVerName}
 OutputBaseFilename="WStreamLabSetup"
@@ -53,7 +53,7 @@ Source: ".\build\WStreamLab.ico"; DestDir: "{app}"
 Source: ".\build\WStreamLab.txt"; DestDir: "{app}"
 
 [Icons]
-Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon;
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon;
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}";
 

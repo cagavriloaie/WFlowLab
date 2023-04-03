@@ -53,18 +53,19 @@ goto start
 
 :Debug
 ECHO Debug build
-C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\Debug --target clean
-C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\Debug --target all
+C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\WFlowLab\Debug --target clean
+C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\WFlowLab\Debug --target all
+
 copy C:\Users\Constantin\Desktop\stream\WFlowLab\Debug\WStreamLab.exe C:\Users\Constantin\Desktop\stream\WFlowLab\build
-copy C:\Users\Constantin\Desktop\stream\WFlowLab\WFlowLabcontor\watermeters.conf C:\Users\Constantin\Desktop\stream\WFlowLab\Debug
+copy C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\watermeters.conf C:\Users\Constantin\Desktop\stream\WFlowLab\Debug
 goto end
 
 :Release
 ECHO Relese build
-C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\Release --target clean
-C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\Release --target all
+C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\WFlowLab\Release --target clean
+C:\Qt\Tools\CMake_64\bin\cmake.exe --build C:\Users\Constantin\Desktop\stream\WFlowLab\Release --target all
 copy C:\Users\Constantin\Desktop\stream\WFlowLab\Release\WStreamLab.exe C:\Users\Constantin\Desktop\stream\WFlowLab\build
-copy C:\Users\Constantin\Desktop\stream\WFlowLab\contor\watermeters.conf C:\Users\Constantin\Desktop\stream\WFlowLab\Release
+copy C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\watermeters.conf C:\Users\Constantin\Desktop\stream\WFlowLab\Release
 goto end
 
 :end

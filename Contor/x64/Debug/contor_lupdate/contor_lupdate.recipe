@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Constantin\Desktop\stream\contor\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Constantin\Desktop\stream\contor\x64\Debug\contor_lupdate</FullPath>
+      <FullPath>C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\x64\Debug\contor_lupdate</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

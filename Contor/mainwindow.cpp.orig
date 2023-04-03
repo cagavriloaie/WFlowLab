@@ -23,14 +23,6 @@
 
 extern QTranslator *appTranslator;
 
-enum SELECTED_LANGUAGE {
-    ROMANIAN,
-    ENGLISH,
-    DEFAULT = ENGLISH
-};
-
-SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
-
 /*
  *  readConfiguration()
  *  The file is checked for MD5 "company" field
@@ -214,7 +206,7 @@ MainWindow::MainWindow ( QWidget *parent )
 
     ui->setupUi ( this );
     inputData = new Dialog ( this );
-    licenseDialog = new Licence ( this );
+    licenseDialog = new License ( this );
     helpAbout = new HelpAbout ( this );
 
     alignmentGroup = new QActionGroup ( this );
@@ -260,7 +252,7 @@ MainWindow::MainWindow ( QWidget *parent )
     connect ( ui->pbExit, &QPushButton::clicked, this, &MainWindow::onExitApplication );
 
     connect ( this, SIGNAL ( meterTypeChangedSignal() ), inputData, SLOT ( onTypeMeterChanged() ) );
-    connect ( this, SIGNAL ( NumberOfWaterMetersChangedSignal() ), inputData, SLOT ( onNumberOfWaterMetersChanged() ) );
+    connect ( this, SIGNAL ( numberOfWaterMetersChangedSignal() ), inputData, SLOT ( onNumberOfWaterMetersChanged() ) );
     connect ( this, SIGNAL ( measurementTypeChangedSignal() ), inputData, SLOT ( onMeasurementTypeChanged() ) );
 
     connect ( ui->action_License, SIGNAL ( triggered() ), this, SLOT ( onShowLicense() ) );
@@ -310,7 +302,7 @@ void MainWindow::onMeterTypeChanged ( int index ) {
 
 void MainWindow::onNumberOfWaterMetersChanged ( int index ) {
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
-    emit NumberOfWaterMetersChangedSignal();
+    emit numberOfWaterMetersChangedSignal();
 }
 
 void MainWindow::onNewSessionClicked() {
@@ -362,7 +354,7 @@ void MainWindow::onGeneralDescription() {
     std::ofstream generalDescriptionHtmlFile ( htmlFile.toStdString() );
     std::stringstream output;
 
-    if ( ENGLISH == selectedLanguage ) {
+    if ( ENGLISH == selectedInfo.selectedLanguage ) {
         output <<
                   "<!DOCTYPE html>"
                   "<html>"
@@ -395,18 +387,18 @@ void MainWindow::onGeneralDescription() {
                   "   </head>"
                   "   <body  oncopy=\"return false\" onpaste=\"return false\" oncut=\"return false\">"
                   "   <div onmousedown=\"return false\" onselectstart=\"return false\">"
-                  "   <h2 style=\"font-family:Courier; font-size: 20px; color:Black;\"> [ WWStreamLab 1.0 Windows OS ]</h2>"
+                  "   <h2 style=\"font-family:Courier; font-size: 20px; color:Black;\"> [ WStreamLab 1.0 Windows OS ]</h2>"
                   "   <h3 style=\"font-family:Courier; color:Blue; font-size: 18px; background-color:powderblue;\">"
-                  "   Aplicația WStreamLab este concepută pentru a fi utilizată împreună cu un ștand de testare a contoarelor de apă.</br></br>"
-                  "   Ștandul de testare a contoarelor de apă este instrumentul de măsură necesar pentru testarea și repararea contoarelor de apă în cadrul serviciilor de metrologie, al fabricării contoarelor de apă, al companiilor de alimentare cu apă și al altor unități industriale.</br></br>"
-                  "   Deoarece fiecare client are nevoi diferite și specifice, proiectăm și construim ștanduri de testare care să se potrivească nevoilor dumneavoastră, pe baza experienței noastre dovedite în mare măsură de-a lungul anilor.</br></br>"
-                  "   Un ștand de testare a contoarelor de apă este un echipament care poate fi construit de la o instalatie simplă și complet manuală, până la cele mai înalte niveluri de înaltă tehnologie, proiectat cu comenzi automate și cu suport software și hardware.</br></br>"
+                  "   Aplicația WStreamLab este concepută pentru a fi utilizată împreună cu o instalatie de verificare metrologica a contoarelor de apă.</br></br>"
+                  "   Instalatie de verificare metrologica a contoarelor de apă este instrumentul de măsură necesar pentru testarea și repararea contoarelor de apă în cadrul serviciilor de metrologie, al fabricării contoarelor de apă, al companiilor de alimentare cu apă și al altor unități industriale.</br></br>"
+                  "   Deoarece fiecare client are nevoi diferite și specifice exista instalatii de verificare metrologica care se potriveasc nevoilor clientului.</br></br>"
+                  "   O instalatie de verificare metrologica a contoarelor de apă este un echipament care poate fi construit intr-o gama variata pornind de la o instalatie simplă și complet manuală, până la cele mai înalte niveluri de înaltă tehnologie, proiectat cu comenzi automate și cu suport software și hardware.</br></br>"
                   "   Fiecare proiect este discutat cu clientul și este personalizat pentru a se potrivi atât nevoilor tehnice, cât și constrângerilor bugetare.</br></br>"
-                  "   Ștandul de testare poate fi în următoarele categorii și diametre (gama de apometre) DN15 - DN40, DN15 - DN50, DN50 - DN200.</br></br>"
+                  "   Instalatia de verificare metrologica poate fi în următoarele categorii și diametre (gama de contoare apa) DN15 - DN40, DN15 - DN50, DN50 - DN200.</br></br>"
                   "   Metodele de măsurare din punct de vedere al volumului masurat sunt următoarele:</br></br>"
                   "   - debitmetru de referință (metodă comparativă);</br></br>"
                   "   - cântar pentru determinare masa (metoda gravimetrică);</br></br>"
-                  "   În a doua opțiune, utilizăm cântare digitale de înaltă precizie și performanță și includem metoda comparativă.</br></br>"
+                  "   În a doua opțiune se utilizează cântare digitale de înaltă precizie și performanță și sunt include metode comparativă.</br></br>"
                   "   La ambele metode se folosesc debitmetre electromagnetice de mare precizie.</br></br>"
                   "   </body></br></br>"
                   "</html>"
@@ -423,7 +415,7 @@ void MainWindow::onWaterDensityPage() {
     std::ofstream densityHtmlFile ( htmlFile.toStdString() );
     std::stringstream output;
 
-    if ( ROMANIAN == selectedLanguage ) {
+    if ( ROMANIAN == selectedInfo.selectedLanguage ) {
         output <<
                   "<!DOCTYPE html>"
                   "<html>"
@@ -499,7 +491,7 @@ void MainWindow::onSetRomanian() {
         helpAbout->Translate();
     }
 
-    selectedLanguage = ROMANIAN;
+    selectedInfo.selectedLanguage = ROMANIAN;
 }
 
 void MainWindow::onSetEnglish() {
@@ -519,7 +511,7 @@ void MainWindow::onSetEnglish() {
         helpAbout->Translate();
     }
 
-    selectedLanguage = ENGLISH;
+    selectedInfo.selectedLanguage = ENGLISH;
 }
 
 void MainWindow::mousePressEvent ( QMouseEvent *event ) {
