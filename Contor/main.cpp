@@ -27,6 +27,10 @@ int main ( int argc, char *argv[] ) {
         qApp->installTranslator ( appTranslator );
     }
 
+    QCoreApplication::setOrganizationName ( "WStreamLab" );
+    QCoreApplication::setOrganizationDomain ( "WStreamLab.com" );
+    QCoreApplication::setApplicationName ( "WStreamLab" );
+
     if ( ! shared->create ( 512, QSharedMemory::ReadWrite ) ) {
         QMessageBox warningMessage;
 

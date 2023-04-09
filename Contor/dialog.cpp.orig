@@ -32,6 +32,8 @@
 
 constexpr size_t MAX_ENTRIES {20};
 
+extern MainWindow *pw;
+
 namespace {
 MainWindow *mainwindow;
 }
@@ -562,7 +564,8 @@ Dialog::Dialog ( QWidget *parent ) :
     ui ( new Ui::Dialog )
 
 {
-    mainwindow = dynamic_cast<MainWindow *> ( parent );
+    //mainwindow = dynamic_cast<MainWindow *> ( parent );
+    mainwindow = pw;
     ui->setupUi ( this );
 
     setWindowFlags ( Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint | Qt::Dialog | Qt::WindowTitleHint );
@@ -618,8 +621,8 @@ void Dialog::onCleanClicked() {
 
 void Dialog::onCalculateClicked() {
 
-    double nominalError = mainwindow->selectedInfo.nominalError;
-    double maximumError = mainwindow->selectedInfo.maximumError;
+    //double nominalError = mainwindow->selectedInfo.nominalError;
+    //double maximumError = mainwindow->selectedInfo.maximumError;
 
     QPalette paletteOddRowErr;
     paletteOddRowErr.setColor ( QPalette::Base, QColor ( 220, 235, 220, 255 ) );
@@ -781,7 +784,7 @@ void Dialog::onCalculateClicked() {
             ui->leVolume2->setText ( streamObj.str().c_str() );
         }
 
-        if ( VolumeThird > 0 && result_t3 && result_m3) {
+        if ( VolumeThird > 0 && result_t3 && result_m3 ) {
             streamObj.str ( "" );
             streamObj << std::fixed << std::setprecision ( 4 ) << VolumeThird;
             ui->leVolume3->setText ( streamObj.str().c_str() );
@@ -930,6 +933,7 @@ void Dialog::onCalculateClicked() {
                     }
                 }
             }
+
         result = result_t1 && result_m1 &&
                 result_t2 && result_m2 &&
                 result_t3 && result_m3;
@@ -1762,5 +1766,14 @@ void Dialog::PopulateTable() {
     ui->lbIndex1->setText ( QString ( "Index [L] -  Qmin: %1  [L/h]  Err: %2 %" ).arg ( QString::number ( minimumFlowMain ) ).arg ( QString::number ( maximumError ) ) );
     ui->lbIndex2->setText ( QString ( "Index [L] -  Qt:  %1  [L/h]  Err: %2 %" ).arg ( QString::number ( transitoriuFlowMain ) ).arg ( QString::number ( nominalError ) ) );
     ui->lbIndex3->setText ( QString ( "Index [L] -  Qn: %1  [L/h]  Err: %2 %" ).arg ( QString::number ( nominalFlowMain ) ).arg ( QString::number ( nominalError ) ) );
+}
 
+void Dialog::focusInEvent(QFocusEvent* event)
+{
+    QDialog::focusInEvent(event);
+}
+
+void Dialog::focusOutEvent(QFocusEvent* event)
+{
+    QDialog::focusOutEvent(event);
 }

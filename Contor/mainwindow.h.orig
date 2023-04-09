@@ -12,7 +12,13 @@
 #include "dialog.h"
 #include "licence.h"
 #include "helpabout.h"
+#include "interface.h"
 
+enum SELECTED_LANGUAGE {
+    ROMANIAN,
+    ENGLISH,
+    DEFAULT = ENGLISH
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -47,7 +53,11 @@ struct SelectedInfo {
     bool rbManual {true};
     bool rbInterface {false};
     bool rbTerminal {false};
+
+    bool serialPort {false};
+    SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 };
+
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -60,8 +70,9 @@ public:
 
     Ui::MainWindow *ui {nullptr};
     Dialog *inputData{nullptr};
-    Licence *licenseDialog{nullptr};
+    License *licenseDialog{nullptr};
     HelpAbout *helpAbout;
+    Interface* interfaceDialog{nullptr};
     QActionGroup *alignmentGroup;
 
     void Translate();
@@ -72,7 +83,8 @@ public:
     unsigned NUMBER_ENTRIES_METER_FLOW_DB {0};
     std::map<std::string, std::string> optionsConfiguration;
 
-    QTranslator* appTranslator {nullptr};
+    typedef const wchar_t * ( *EnumerateSerialPorts ) ();
+    EnumerateSerialPorts serialPorts{nullptr};
 
 private slots:
     void onMeterTypeChanged ( int index );
@@ -86,7 +98,6 @@ private slots:
 
     void onRbManualClicked();
     void onRbInterfaceClicked();
-    void onRbTerminalClicked();
 
     void onAmbientTemperatureTextChanged();
     void onRelativeAirHumidityTextChanged();
@@ -98,11 +109,13 @@ private slots:
     void onShowLicense();
     void onWaterDensityPage();
     void onHelpAbout();
+    void onPortSettings();
 
     void mousePressEvent ( QMouseEvent *event );
+    void closeEvent ( QCloseEvent *event );
 
 signals:
-    void NumberOfWaterMetersChangedSignal();
+    void numberOfWaterMetersChangedSignal();
     void meterTypeChangedSignal();
     void measurementTypeChangedSignal();
 

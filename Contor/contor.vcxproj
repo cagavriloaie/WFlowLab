@@ -358,7 +358,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\autouic_Debug.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
@@ -373,7 +373,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\autouic_Release.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
@@ -388,7 +388,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\autouic_MinSizeRel.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
@@ -403,7 +403,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\licence.ui;C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\helpabout.ui;C:\Qt\6.4.1\mingw_64\.\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\autouic_RelWithDebInfo.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
@@ -573,6 +573,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.h" />
     <None Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\mainwindow.ui">
     </None>
+    <None Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.ui">
+    </None>
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.h" />
+    <ClCompile Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\interface.cpp" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.h" />
     <ClCompile Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.cpp" />
     <None Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\dialog.ui">
@@ -593,6 +597,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\resourcescontor.qrc">
     </None>
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Debug\ui_mainwindow.h" />
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Debug\ui_interface.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Debug\ui_dialog.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Debug\ui_licence.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Debug\ui_helpabout.h" />
@@ -605,6 +610,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Release\ui_mainwindow.h" />
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Release\ui_interface.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Release\ui_dialog.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Release\ui_licence.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_Release\ui_helpabout.h" />
@@ -616,6 +622,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_MinSizeRel\ui_mainwindow.h" />
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_MinSizeRel\ui_interface.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_MinSizeRel\ui_dialog.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_MinSizeRel\ui_licence.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_MinSizeRel\ui_helpabout.h" />
@@ -627,6 +634,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_RelWithDebInfo\ui_mainwindow.h" />
+    <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_RelWithDebInfo\ui_interface.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_RelWithDebInfo\ui_dialog.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_RelWithDebInfo\ui_licence.h" />
     <ClInclude Include="C:\Users\Constantin\Desktop\stream\WFlowLab\Contor\contor_autogen\include_RelWithDebInfo\ui_helpabout.h" />

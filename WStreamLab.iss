@@ -29,6 +29,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: ".\build\WStreamLab.exe"; DestDir: "{app}"
+Source: ".\build\SerialPorts.dll"; DestDir: "{app}"
 Source: ".\build\D3Dcompiler_47.dll"; DestDir: "{app}"
 Source: ".\build\libgcc_s_seh-1.dll"; DestDir: "{app}"
 Source: ".\build\libstdc++-6.dll"; DestDir: "{app}"

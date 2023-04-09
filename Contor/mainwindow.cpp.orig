@@ -10,6 +10,10 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QValidator>
+#include <QSettings>
+#include <QLibrary>
+#include <QMessageBox>
+#include <map>
 
 #include <sstream>
 #include <iomanip>
@@ -22,6 +26,7 @@
 #include "air-density.h"
 
 extern QTranslator *appTranslator;
+MainWindow *pw;
 
 /*
  *  readConfiguration()
@@ -40,13 +45,8 @@ void MainWindow::ReadConfiguration() {
 
     std::ifstream inConfigurationFile ( "watermeters.conf" );
 
-    std::string md5Read;
-    std::string md5Calculate;
-    bool license{ false };
-
     if ( inConfigurationFile.is_open() ) {
 
-        std::string line;
         std::string key;
 
         while ( std::getline ( inConfigurationFile, key, '=' ) ) {
@@ -61,6 +61,9 @@ void MainWindow::ReadConfiguration() {
         if ( optionsConfiguration.find ( "control" ) != optionsConfiguration.end() &&
              optionsConfiguration.find ( "company" ) != optionsConfiguration.end() &&
              optionsConfiguration.find ( "density_20" ) != optionsConfiguration.end() ) {
+
+            std::string md5Read;
+            std::string md5Calculate;
 
             md5Read = optionsConfiguration["control"];
             std::string wordControl = optionsConfiguration["company"] + optionsConfiguration["density_20"];
@@ -205,9 +208,65 @@ MainWindow::MainWindow ( QWidget *parent )
     , ui ( new Ui::MainWindow ) {
 
     ui->setupUi ( this );
-    inputData = new Dialog ( this );
+    pw = this;
+
+    bool serialDll {false};
+    if ( QLibrary::isLibrary ( "SerialPorts.dll" ) ) {
+        QLibrary library ( "SerialPorts.dll" );
+        library.load();
+
+        if ( library.isLoaded() ) {
+            serialPorts = ( EnumerateSerialPorts ) library.resolve ( "enumerateSerialPorts" );
+            serialDll = true;
+        }
+    }
+
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    settings.beginGroup("RS485");
+
+    if (!settings.childKeys().contains("baudRate", Qt::CaseInsensitive)){
+        settings.setValue("baudRate", 7);
+    }
+
+    if (!settings.childKeys().contains("dataBits", Qt::CaseInsensitive)){
+        settings.setValue("dataBits", 1);
+    }
+
+    if (!settings.childKeys().contains("parity", Qt::CaseInsensitive)){
+        settings.setValue("parity", 2);
+    }
+
+    if (!settings.childKeys().contains("stopBits", Qt::CaseInsensitive)){
+        settings.setValue("stopBits", 0);
+    }
+
+    if (!settings.childKeys().contains("selectedSerial", Qt::CaseInsensitive)){
+        settings.setValue("selectedSerial", 0);
+    }
+
+    if(!serialDll) {
+        QMessageBox warningMessage;
+        QApplication::beep();
+        warningMessage.addButton ( QMessageBox::Ok );
+        warningMessage.setWindowTitle ( QObject::tr ( "Warning" ) );
+        warningMessage.setText ( QObject::tr ( "Serial interfaces is not available." ) );
+        warningMessage.setInformativeText ( QObject::tr ( "The application cannot use serial driver because the dll package is not available." ) );
+        warningMessage.setWindowFlags ( Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint );
+        warningMessage.exec();
+        this->close();
+    }
+
+    ui->rbInterface->setDisabled ( true );
+
+    inputData = new Dialog ( nullptr );
+    inputData->setAttribute ( Qt::WA_DeleteOnClose );
     licenseDialog = new License ( this );
     helpAbout = new HelpAbout ( this );
+    interfaceDialog = new Interface( this );
+
+    licenseDialog->setModal(true);
+    helpAbout->setModal(true);
+    interfaceDialog->setModal(true);
 
     alignmentGroup = new QActionGroup ( this );
     alignmentGroup->addAction ( ui->action_English );
@@ -222,8 +281,8 @@ MainWindow::MainWindow ( QWidget *parent )
     ReadConfiguration();
     //setWindowIcon(QIcon(":/images/Elegantthemes-Beautiful-Flat-Water.64.png"));
 
-    unsigned MAX_NR_WATER_METERS = std::stoi ( optionsConfiguration["maximum"] );
-    unsigned NUMBER_ENTRIES_METER_FLOW_DB = sizeof ( MeterFlowDB ) / sizeof ( MeterFlowType );
+    MAX_NR_WATER_METERS = std::stoi ( optionsConfiguration["maximum"] );
+    NUMBER_ENTRIES_METER_FLOW_DB = sizeof ( MeterFlowDB ) / sizeof ( MeterFlowType );
 
     for ( int iter = 1; iter <=  MAX_NR_WATER_METERS; ++iter ) {
         std::string value = std::to_string ( iter );
@@ -242,7 +301,7 @@ MainWindow::MainWindow ( QWidget *parent )
     connect ( ui->rbGravitmetric, &QRadioButton::clicked, this, &MainWindow::onRbGavritmetricClicked );
 
     connect ( ui->rbManual, &QRadioButton::clicked, this, &MainWindow::onRbManualClicked );
-    connect ( ui->rbInterface, &QRadioButton::clicked, this, &MainWindow::onRbGavritmetricClicked );
+    connect ( ui->rbInterface, &QRadioButton::clicked, this, &MainWindow::onRbInterfaceClicked );
 
     connect ( ui->leTemperature, &QLineEdit::textChanged, this, &MainWindow::onAmbientTemperatureTextChanged );
     connect ( ui->leHumidity, &QLineEdit::textChanged, this, &MainWindow::onRelativeAirHumidityTextChanged );
@@ -263,6 +322,7 @@ MainWindow::MainWindow ( QWidget *parent )
     connect ( ui->action_General_Description, SIGNAL ( triggered() ), this, SLOT ( onGeneralDescription() ) );
     connect ( ui->action_Romana, SIGNAL ( triggered() ), this, SLOT ( onSetRomanian() ) );
     connect ( ui->action_English, SIGNAL ( triggered() ), this, SLOT ( onSetEnglish() ) );
+    connect ( ui->action_Configure_Serial_Port, SIGNAL( triggered() ), this, SLOT( onPortSettings()));
 
     QValidator *validatorNaturalNumber = new QIntValidator ( 0, 999999999, this );
     ui->leHumidity->setValidator ( validatorNaturalNumber );
@@ -312,6 +372,12 @@ void MainWindow::onNewSessionClicked() {
 }
 
 void MainWindow::onExitApplication() {
+    if ( inputData ) {
+        inputData->close();
+        delete inputData;
+        inputData = nullptr;
+    }
+
     this->close();
 }
 
@@ -329,12 +395,12 @@ void MainWindow::onRbGavritmetricClicked() {
 
 void MainWindow::onRbManualClicked() {
     selectedInfo.rbManual = ui->rbManual->isChecked();
-    selectedInfo.rbGravitmetric = ui->rbInterface->isChecked();
+    selectedInfo.rbInterface = ui->rbInterface->isChecked();
 }
 
 void MainWindow::onRbInterfaceClicked() {
-    selectedInfo.rbManual = ui->rbManual->isChecked();
-    selectedInfo.rbGravitmetric = ui->rbInterface->isChecked();
+
+
 }
 
 void MainWindow::onAmbientTemperatureTextChanged() {
@@ -468,9 +534,33 @@ void MainWindow::onWaterDensityPage() {
     QFile ( htmlFile ).remove();
 }
 
+void MainWindow::onShowLicense() {
+    licenseDialog->show();
+}
+
 void MainWindow::onHelpAbout() {
-    helpAbout->setModal ( true );
     helpAbout->show();
+}
+
+void MainWindow::onPortSettings()
+{
+    selectedInfo.rbManual = ui->rbManual->isChecked();
+    selectedInfo.rbInterface = ui->rbInterface->isChecked();
+    const wchar_t *serial = serialPorts();
+
+    if ( !std::wcslen ( serial ) ) {
+        QMessageBox warningMessage;
+        QApplication::beep();
+        warningMessage.addButton ( QMessageBox::Ok );
+        warningMessage.setWindowTitle ( QObject::tr ( "Warning" ) );
+        warningMessage.setText ( QObject::tr ( "Serial interfaces." ) );
+        warningMessage.setInformativeText ( QObject::tr ( "The application did not detect any serial interface on this computer." ) );
+        warningMessage.setWindowFlags ( Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint );
+        warningMessage.exec();
+        ui->rbManual->setChecked ( true );
+    } else {
+        interfaceDialog->show();
+    }
 }
 
 void MainWindow::onSetRomanian() {
@@ -518,7 +608,12 @@ void MainWindow::mousePressEvent ( QMouseEvent *event ) {
     this->raise();
 }
 
-void MainWindow::onShowLicense() {
-    helpAbout->setModal ( true );
-    licenseDialog->show();
+void MainWindow::closeEvent ( QCloseEvent *event ) {
+    if ( inputData ) {
+        inputData->close();
+        delete inputData;
+        inputData = nullptr;
+    }
+
+    event->accept();
 }

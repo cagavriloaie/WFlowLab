@@ -18,6 +18,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        interface.ui
+        interface.h
+        interface.cpp
         dialog.h
         dialog.cpp
         dialog.ui

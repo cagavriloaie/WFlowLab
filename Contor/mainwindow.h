@@ -12,6 +12,7 @@
 #include "dialog.h"
 #include "licence.h"
 #include "helpabout.h"
+#include "interface.h"
 
 enum SELECTED_LANGUAGE {
     ROMANIAN,
@@ -53,8 +54,10 @@ struct SelectedInfo {
     bool rbInterface {false};
     bool rbTerminal {false};
 
+    bool serialPort {false};
     SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 };
+
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -69,6 +72,7 @@ public:
     Dialog *inputData{nullptr};
     License *licenseDialog{nullptr};
     HelpAbout *helpAbout;
+    Interface *interfaceDialog{nullptr};
     QActionGroup *alignmentGroup;
 
     void Translate();
@@ -78,6 +82,9 @@ public:
     unsigned MAX_NR_WATER_METERS {20};
     unsigned NUMBER_ENTRIES_METER_FLOW_DB {0};
     std::map<std::string, std::string> optionsConfiguration;
+
+    typedef const wchar_t * ( *EnumerateSerialPorts ) ();
+    EnumerateSerialPorts serialPorts{nullptr};
 
 private slots:
     void onMeterTypeChanged ( int index );
@@ -102,8 +109,10 @@ private slots:
     void onShowLicense();
     void onWaterDensityPage();
     void onHelpAbout();
+    void onPortSettings();
 
     void mousePressEvent ( QMouseEvent *event );
+    void closeEvent ( QCloseEvent *event );
 
 signals:
     void numberOfWaterMetersChangedSignal();

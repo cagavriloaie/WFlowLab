@@ -81,6 +81,8 @@ private slots:
     void onSaveCurrentInputDataClicked();
     void onOpenInputDataClicked();
     void onPrintPdfDocClicked();
+    void focusInEvent ( QFocusEvent *event );
+    void focusOutEvent ( QFocusEvent *event );
 
 protected:
     void showEvent ( QShowEvent *event );

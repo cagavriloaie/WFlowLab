@@ -33,7 +33,72 @@
     <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QEdit 
+   <string notr="true">QLabel 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+
+QPushButton 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QComboBox 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QGroupBox  {
+    border: 2px solid gray;
+    border-color: #FF17365D;
+    background-color: #E6E6FF;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: -5px 5px 0px 5px;
+}
+
+QMenu {
+    background-color: white;
+    margin: 2px; /* some spacing around the menu */
+}
+
+QMenu::item {
+    padding: 2px 25px 2px 20px;
+    border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected {
+    border-color: darkblue;
+    background: rgba(100, 100, 100, 150);
+}
+
+QRadioButton::indicator {
+    width:                  10px;
+    height:                 10px;
+    border-radius:       7px;
+}
+
+QRadioButton::indicator:checked {
+    background-color:       black;
+    border:                         4px;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color:       white;
+    border:                         4px;
+}
+
+QEdit 
 {
 	font-family: &quot;Segoe UI&quot;;
 	font-size: 12pt;
@@ -73,6 +138,7 @@ QMessageBox  {
        </property>
        <property name="font">
         <font>
+         <family>Segoe UI</family>
          <pointsize>12</pointsize>
         </font>
        </property>
@@ -242,7 +308,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -269,7 +336,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -296,7 +364,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -323,7 +392,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -350,7 +420,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -377,7 +448,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -404,7 +476,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -431,7 +504,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -458,7 +532,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -485,7 +560,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -512,7 +588,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -539,7 +616,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -566,7 +644,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -593,7 +672,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -620,7 +700,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -647,7 +728,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -674,7 +756,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -701,7 +784,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -728,7 +812,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -755,7 +840,8 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>9</pointsize>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
                    </font>
                   </property>
                   <property name="text">

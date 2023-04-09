@@ -41,14 +41,6 @@
 	font-size: 12pt;
 }
 
-QEdit 
-{
-	font-family: &quot;Segoe UI&quot;;
-	font-size: 12pt;
-    border-width: 2px;
-    border-radius: 10px;
-    color: #37F054083F
-}
 
 QPushButton 
 {
@@ -967,7 +959,7 @@ QRadioButton::indicator:unchecked {
      <number>-1</number>
     </property>
     <property name="title">
-     <string/>
+     <string>e</string>
     </property>
     <addaction name="action_StartSession"/>
     <addaction name="separator"/>
@@ -975,14 +967,14 @@ QRadioButton::indicator:unchecked {
    </widget>
    <widget class="QMenu" name="menu_Language">
     <property name="title">
-     <string/>
+     <string>l</string>
     </property>
     <addaction name="action_English"/>
     <addaction name="action_Romana"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
-     <string/>
+     <string>h</string>
     </property>
     <addaction name="action_General_Description"/>
     <addaction name="action_WaterDensity"/>
@@ -991,7 +983,14 @@ QRadioButton::indicator:unchecked {
     <addaction name="separator"/>
     <addaction name="action_About"/>
    </widget>
+   <widget class="QMenu" name="menuInterface">
+    <property name="title">
+     <string>Interface</string>
+    </property>
+    <addaction name="action_Configure_Serial_Port"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menuInterface"/>
    <addaction name="menu_Language"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -1065,6 +1064,11 @@ QRadioButton::indicator:unchecked {
   <action name="action_About">
    <property name="text">
     <string/>
+   </property>
+  </action>
+  <action name="action_Configure_Serial_Port">
+   <property name="text">
+    <string>Configure Serial Port</string>
    </property>
   </action>
  </widget>

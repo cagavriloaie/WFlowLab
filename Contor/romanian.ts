@@ -4,119 +4,119 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="dialog.cpp" line="104"/>
+        <location filename="dialog.cpp" line="106"/>
         <source>Save input data</source>
         <translation>Salvare date</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="117"/>
+        <location filename="dialog.cpp" line="119"/>
         <source>Open Input Data</source>
         <translation>Deschide date</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="118"/>
+        <location filename="dialog.cpp" line="120"/>
         <source>Input data (*.in);;All file (*.*)</source>
         <translation>Date intrare (*.in);;Toate fisierele (*.*)</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="499"/>
+        <location filename="dialog.cpp" line="501"/>
         <source>WFlowLab - Input Table</source>
         <translation>WFlowLab - Date intrare</translation>
-    </message>
-    <message>
-        <location filename="dialog.cpp" line="523"/>
-        <location filename="dialog.cpp" line="528"/>
-        <location filename="dialog.cpp" line="533"/>
-        <source>Index</source>
-        <translation>Index</translation>
-    </message>
-    <message>
-        <location filename="dialog.cpp" line="524"/>
-        <location filename="dialog.cpp" line="529"/>
-        <location filename="dialog.cpp" line="534"/>
-        <source>Start</source>
-        <translation>Start</translation>
     </message>
     <message>
         <location filename="dialog.cpp" line="525"/>
         <location filename="dialog.cpp" line="530"/>
         <location filename="dialog.cpp" line="535"/>
+        <source>Index</source>
+        <translation>Index</translation>
+    </message>
+    <message>
+        <location filename="dialog.cpp" line="526"/>
+        <location filename="dialog.cpp" line="531"/>
+        <location filename="dialog.cpp" line="536"/>
+        <source>Start</source>
+        <translation>Start</translation>
+    </message>
+    <message>
+        <location filename="dialog.cpp" line="527"/>
+        <location filename="dialog.cpp" line="532"/>
+        <location filename="dialog.cpp" line="537"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="526"/>
+        <location filename="dialog.cpp" line="528"/>
         <source>Err Qmin</source>
         <translation>Err Qmin</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="531"/>
+        <location filename="dialog.cpp" line="533"/>
         <source>Err Qt</source>
         <translation>Err Qt</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="536"/>
+        <location filename="dialog.cpp" line="538"/>
         <source>Err Qn</source>
         <translation>Err Qn</translation>
-    </message>
-    <message>
-        <location filename="dialog.cpp" line="538"/>
-        <location filename="dialog.cpp" line="541"/>
-        <location filename="dialog.cpp" line="544"/>
-        <source>Mass [kg]</source>
-        <translation>Masă [kg]</translation>
-    </message>
-    <message>
-        <location filename="dialog.cpp" line="539"/>
-        <location filename="dialog.cpp" line="542"/>
-        <location filename="dialog.cpp" line="545"/>
-        <source>Temperature [°C]</source>
-        <translation>Temperatură  [°C]</translation>
     </message>
     <message>
         <location filename="dialog.cpp" line="540"/>
         <location filename="dialog.cpp" line="543"/>
         <location filename="dialog.cpp" line="546"/>
+        <source>Mass [kg]</source>
+        <translation>Masă [kg]</translation>
+    </message>
+    <message>
+        <location filename="dialog.cpp" line="541"/>
+        <location filename="dialog.cpp" line="544"/>
+        <location filename="dialog.cpp" line="547"/>
+        <source>Temperature [°C]</source>
+        <translation>Temperatură  [°C]</translation>
+    </message>
+    <message>
+        <location filename="dialog.cpp" line="542"/>
+        <location filename="dialog.cpp" line="545"/>
+        <location filename="dialog.cpp" line="548"/>
         <source>Volume [L]</source>
         <translation>Volum [L]</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="548"/>
+        <location filename="dialog.cpp" line="550"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Tipărire PDF</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="549"/>
+        <location filename="dialog.cpp" line="551"/>
         <source>&amp;Open</source>
         <translation>&amp;Deschide</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="550"/>
+        <location filename="dialog.cpp" line="552"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvează</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="551"/>
+        <location filename="dialog.cpp" line="553"/>
         <source>Check it out</source>
         <translation>&amp;Verifică</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="552"/>
+        <location filename="dialog.cpp" line="554"/>
         <source>Clean &amp;Input</source>
         <translation>Șter&amp;ge date</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="553"/>
+        <location filename="dialog.cpp" line="555"/>
         <source>&amp;Close</source>
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="1147"/>
+        <location filename="dialog.cpp" line="1150"/>
         <source>Collected data from flow meters.</source>
         <translation>Date colectate de la contoare apă</translation>
     </message>
     <message>
-        <location filename="dialog.cpp" line="1148"/>
+        <location filename="dialog.cpp" line="1151"/>
         <source>Some user input data are not available or are outside the normal rage!</source>
         <translation>Sunt date introduse de utilizator care nu sunt disponibile sau care sunt in afara domeniului de utilizare!</translation>
     </message>
@@ -240,219 +240,240 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="1005"/>
+        <location filename="mainwindow.ui" line="962"/>
+        <source>e</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="970"/>
+        <source>l</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="977"/>
+        <source>h</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="1004"/>
         <source>&amp;Save</source>
         <translation>&amp;Salveaza</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1010"/>
+        <location filename="mainwindow.ui" line="1009"/>
         <source>&amp;Print</source>
         <translation>&amp;Tipărește</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1015"/>
+        <location filename="mainwindow.ui" line="1014"/>
         <source>&amp;Exit</source>
         <translation>&amp;Iesire</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1049"/>
+        <location filename="mainwindow.ui" line="1048"/>
         <source>LineEntry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1052"/>
+        <location filename="mainwindow.ui" line="1051"/>
         <source>water meter entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1057"/>
-        <location filename="mainwindow.cpp" line="163"/>
+        <location filename="mainwindow.ui" line="1056"/>
+        <location filename="mainwindow.cpp" line="166"/>
         <source>About</source>
         <translation>Des&amp;pre</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="150"/>
+        <location filename="mainwindow.ui" line="1071"/>
+        <source>Configure Serial Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="153"/>
         <source>WFlowLab - Dashboard</source>
         <translation>WFlowLab - Dashboard</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="152"/>
+        <location filename="mainwindow.cpp" line="155"/>
         <source>File</source>
         <translation>&amp;Fișier</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="153"/>
+        <location filename="mainwindow.cpp" line="156"/>
         <source>Language</source>
         <translation>&amp;Limbă</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="154"/>
+        <location filename="mainwindow.cpp" line="157"/>
         <source>Help</source>
         <translation>&amp;Ajutor</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="156"/>
+        <location filename="mainwindow.cpp" line="159"/>
         <source>Start Session</source>
         <translation>&amp;Start Sesiune</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="157"/>
-        <location filename="mainwindow.cpp" line="200"/>
+        <location filename="mainwindow.cpp" line="160"/>
+        <location filename="mainwindow.cpp" line="203"/>
         <source>Exit</source>
         <translation>&amp;Iesire</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="158"/>
+        <location filename="mainwindow.cpp" line="161"/>
         <source>English</source>
         <translation>&amp;English</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="159"/>
+        <location filename="mainwindow.cpp" line="162"/>
         <source>Română</source>
         <translation>&amp;Română</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="160"/>
+        <location filename="mainwindow.cpp" line="163"/>
         <source>General Description</source>
         <translation>&amp;Descriere Generală</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="161"/>
+        <location filename="mainwindow.cpp" line="164"/>
         <source>Water Density</source>
         <translation>Densitate &amp;Apă</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="162"/>
+        <location filename="mainwindow.cpp" line="165"/>
         <source>License</source>
         <translation>&amp;Licentă</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="165"/>
+        <location filename="mainwindow.cpp" line="168"/>
         <source>Water meter type:</source>
         <translation>Tip contor apă:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="166"/>
+        <location filename="mainwindow.cpp" line="169"/>
         <source>Number of water meters:</source>
         <translation>Numar contoare apă:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="167"/>
+        <location filename="mainwindow.cpp" line="170"/>
         <source>Temperature</source>
         <translation>Temperatură:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="168"/>
+        <location filename="mainwindow.cpp" line="171"/>
         <source>Athmosferic pressure:</source>
         <translation>Presiune atmosferică:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="169"/>
+        <location filename="mainwindow.cpp" line="172"/>
         <source>Relative air humidity:</source>
         <translation>Umiditate relativă aer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="170"/>
+        <location filename="mainwindow.cpp" line="173"/>
         <source>[mbar]</source>
         <translation>[mbar]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="171"/>
+        <location filename="mainwindow.cpp" line="174"/>
         <source>°C</source>
         <translation>[°C]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="172"/>
-        <location filename="mainwindow.cpp" line="196"/>
-        <location filename="mainwindow.cpp" line="197"/>
+        <location filename="mainwindow.cpp" line="175"/>
+        <location filename="mainwindow.cpp" line="199"/>
+        <location filename="mainwindow.cpp" line="200"/>
         <source>[%]</source>
         <translation>[%]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="174"/>
+        <location filename="mainwindow.cpp" line="177"/>
         <source>Measurement method</source>
         <translation>Metoda masurare</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="175"/>
+        <location filename="mainwindow.cpp" line="178"/>
         <source>Volumetric</source>
         <translation>Volumetric</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="176"/>
+        <location filename="mainwindow.cpp" line="179"/>
         <source>Gravimetric</source>
         <translation>Gravitmetric</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="178"/>
+        <location filename="mainwindow.cpp" line="181"/>
         <source>Read method</source>
         <translation>Metodă de citire</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="179"/>
+        <location filename="mainwindow.cpp" line="182"/>
         <source>Manual</source>
         <translation>Manual</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="180"/>
+        <location filename="mainwindow.ui" line="988"/>
+        <location filename="mainwindow.cpp" line="183"/>
         <source>Interface</source>
         <translation>Interfată</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="182"/>
+        <location filename="mainwindow.cpp" line="185"/>
         <source>Water meter features</source>
         <translation>Caracteristici contor apă</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="183"/>
+        <location filename="mainwindow.cpp" line="186"/>
         <source>Nominal diameter:</source>
         <translation>Diametrul nominal:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="184"/>
+        <location filename="mainwindow.cpp" line="187"/>
         <source>Maximum flow:</source>
         <translation>Debit maxim:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="185"/>
+        <location filename="mainwindow.cpp" line="188"/>
         <source>Nominal flow:</source>
         <translation>Debit nominal:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="186"/>
+        <location filename="mainwindow.cpp" line="189"/>
         <source>Transition flow:</source>
         <translation>Debit trazitoriu:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="187"/>
+        <location filename="mainwindow.cpp" line="190"/>
         <source>Minimum flow:</source>
         <translation>Debit minim:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="188"/>
+        <location filename="mainwindow.cpp" line="191"/>
         <source>Maximum error:</source>
         <translation>Eroare maxima:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="189"/>
+        <location filename="mainwindow.cpp" line="192"/>
         <source>Nominal error:</source>
         <translation>Eroare nominală:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="191"/>
+        <location filename="mainwindow.cpp" line="194"/>
         <source>[mm]</source>
         <translation>[mm]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="192"/>
-        <location filename="mainwindow.cpp" line="193"/>
-        <location filename="mainwindow.cpp" line="194"/>
         <location filename="mainwindow.cpp" line="195"/>
+        <location filename="mainwindow.cpp" line="196"/>
+        <location filename="mainwindow.cpp" line="197"/>
+        <location filename="mainwindow.cpp" line="198"/>
         <source>[l/h]</source>
         <translation>[l/h]</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="199"/>
+        <location filename="mainwindow.cpp" line="202"/>
         <source>New Session</source>
         <translation>&amp;Sesiune Nouă</translation>
     </message>
@@ -460,19 +481,41 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="36"/>
+        <location filename="main.cpp" line="40"/>
+        <location filename="mainwindow.cpp" line="252"/>
+        <location filename="mainwindow.cpp" line="555"/>
         <source>Warning</source>
         <translation>Atentie</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="38"/>
+        <location filename="main.cpp" line="42"/>
         <source>Already running</source>
         <translation>Deja rulează</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="39"/>
+        <location filename="main.cpp" line="43"/>
         <source>More than one instance of the WFlowLab program is not permitted.</source>
         <translation>Doar o singură instanță a WFlowLab este permisă.</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="253"/>
+        <source>Serial interfaces is not available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="254"/>
+        <source>The application cannot use serial driver because the dll package is not available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="556"/>
+        <source>Serial interfaces.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="557"/>
+        <source>The application did not detect any serial interface on this computer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
