@@ -1,8 +1,0 @@
-﻿  pch.cpp
-  dllmain.cpp
-  SerialPorts.cpp
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 146 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  SerialPorts.vcxproj -> C:\Users\Constantin\Desktop\stream\WFlowLab\SerialPorts\Release\SerialPorts.dll
