@@ -2,27 +2,35 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WStreamLab"
-#define MyAppVerName "1.0"
+#define MyAppVersion "1.0"
 #define MyAppPublisher "ELCOST"
 #define MyAppExeName "WStreamLab.exe"
 #define MyAppIcoName "WStreamLab.ico"
 #define MyAppReadme "WStreamLab.txt"
+#define MyWebsite  "http://www.elcost.com/"
 
 [Setup]
-AppId={{1E742ED4-BB2E-41C5-80E5-3BB818C42C23}
 AppName={#MyAppName}
+AppVersion={#MyAppVersion}
+AppVerName="{#MyAppName} {#MyAppVersion}"
 AppPublisher={#MyAppPublisher}
-DefaultDirName={commonpf}\{#MyAppName}
-DefaultGroupName={#MyAppName}
-AppVerName={#MyAppVerName}
-OutputBaseFilename="WStreamLabSetup"
+AppSupportURL={#MyWebsite}
+AppUpdatesURL={#MyWebsite}
 Compression=lzma
+DefaultDirName={commonpf}\{#MyAppName}
+DisableDirPage=yes
+DisableProgramGroupPage=yes
+LicenseFile=".\build\LICENSE"
+AppId={{1E742ED4-BB2E-41C5-80E5-3BB818C42C23}
+DefaultGroupName={#MyAppName}
 SolidCompression=yes
 UserInfoPage=yes
 PrivilegesRequiredOverridesAllowed=dialog
+OutputBaseFilename="{#MyAppName} v{#MyAppVersion} Setup"
+UninstallDisplayName="{#MyAppName}_Uninstall"   
 
 [Languages]
-Name: "english";    MessagesFile: "compiler:Default.isl"
+Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
@@ -48,23 +56,16 @@ Source: ".\build\imageformats\qjpeg.dll";DestDir: "{app}\imageformats"
 Source: ".\build\imageformats\qsvg.dll";DestDir: "{app}\imageformats"
 Source: ".\build\platforms\qwindows.dll";DestDir: "{app}\platforms"
 Source: ".\build\styles\qwindowsvistastyle.dll";DestDir: "{app}\styles"
-Source: ".\build\translations\romanian.qm";DestDir: "{app}\translations"
-Source: ".\build\translations\english.qm";DestDir: "{app}\translations"
+Source: ".\build\translations\meter_ro_RO.qm";DestDir: "{app}\translations"
+Source: ".\build\translations\meter_en_EN.qm";DestDir: "{app}\translations"
 Source: ".\build\WStreamLab.ico"; DestDir: "{app}"
 Source: ".\build\WStreamLab.txt"; DestDir: "{app}"
 
 [Icons]
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon;
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}";
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";IconFilename: "{app}\{#MyAppIcoName}";
+Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}";IconFilename: "{app}\{#MyAppIcoName}";
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 Filename: "{app}\WStreamLab.txt"; Description: "View the license.txt file"; Flags: postinstall shellexec skipifsilent
-
-
-
-
-
-
-
