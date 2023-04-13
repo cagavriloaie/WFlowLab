@@ -11,25 +11,25 @@ echo ===== Start refactoring sources =====
 
 echo
 
-cd C:\Users\Constantin\Desktop\w\Meter\translations
-copy *.qm C:\Users\Constantin\Desktop\w\Build\translations
-copy *.qm C:\Users\Constantin\Desktop\w\Debug\translations
-copy *.qm C:\Users\Constantin\Desktop\w\Debug\debug\translations
-copy *.qm C:\Users\Constantin\Desktop\w\Release\translations
-copy *.qm C:\Users\Constantin\Desktop\w\Release\release\translations
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
+copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
+copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\translations
+copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\translations
+copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
+copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\translations
 
-copy *.ts C:\Users\Constantin\Desktop\w\Build\translations
-copy *.ts C:\Users\Constantin\Desktop\w\Debug\translations
-copy *.ts C:\Users\Constantin\Desktop\w\Debug\debug\translations
-copy *.ts C:\Users\Constantin\Desktop\w\Release\translations
-copy *.ts C:\Users\Constantin\Desktop\w\Release\release\translations
+copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
+copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\translations
+copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\translations
+copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
+copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\translations
 
 
 echo
 
 echo ===== Compile apllication =====
 echo Open QT Creator and set Debug / Release mode
-cd C:\Users\Constantin\Desktop\w\Meter
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
 
 :start
 ECHO.
@@ -47,44 +47,61 @@ goto start
 :Debug
 ECHO echo ===== Debug build =====
 
-cd C:\Users\Constantin\Desktop\w\Debug
-c:\msys64\mingw64\bin\mingw32-make.exe clean -j16
+echo ">>>>>>>>>>>>>>>>>>> STEP 1"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe clean -j16
 
-cd C:\Users\Constantin\Desktop\w\Meter
-C:\Qt6.5\6.5.0\mingw_64\bin\qmake meter.pro
+echo ">>>>>>>>>>>>>>>>>>> STEP 2"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 
-cd C:\Users\Constantin\Desktop\w\Debug
-c:\msys64\mingw64\bin\mingw32-make.exe -j16
+echo ">>>>>>>>>>>>>>>>>>> STEP 3"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -f C:/Users/Constantin/Desktop/HERE_WFlowLab/Debug/Makefile qmake_all
 
-echo >>>> Copy from C:\Users\Constantin\Desktop\w\Debug\debug\WStreamLab.exe to C:\Users\Constantin\Desktop\w\Build
-copy C:\Users\Constantin\Desktop\w\Debug\debug\WStreamLab.exe C:\Users\Constantin\Desktop\w\Build
+echo ">>>>>>>>>>>>>>>>>>> STEP 4"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -j16
+
+echo >>>> Copy from C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\WStreamLab.exe to C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
+copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
 
 echo >>>> Copy watermeters.conf
-copy C:\Users\Constantin\Desktop\w\Meter\watermeters.conf C:\Users\Constantin\Desktop\w\build
+copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\watermeters.conf C:\Users\Constantin\Desktop\HERE_WFlowLab\build
+
 goto end
 
 :Release
 ECHO echo ===== Release build =====
 
-cd C:\Users\Constantin\Desktop\w\Release
-c:\msys64\mingw64\bin\mingw32-make.exe clean -j16
+echo ">>>>>>>>>>>>>>>>>>> STEP 1"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe clean -j16
 
-cd C:\Users\Constantin\Release\w\Meter
-C:\Qt6.5\6.5.0\mingw_64\bin\qmake meter.pro
+echo ">>>>>>>>>>>>>>>>>>> STEP 2"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 
-cd C:\Users\Constantin\Release\w\Debug
-c:\msys64\mingw64\bin\mingw32-make.exe -j16
+echo ">>>>>>>>>>>>>>>>>>> STEP 3"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Release
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -f C:/Users/Constantin/Desktop/HERE_WFlowLab/Release/Makefile qmake_all
 
-echo >>>> Copy from C:\Users\Constantin\Desktop\w\Release\release\WStreamLab.exe to C:\Users\Constantin\Desktop\w\Build
-copy C:\Users\Constantin\Desktop\w\Release\release\WStreamLab.exe C:\Users\Constantin\Desktop\w\Build
+echo ">>>>>>>>>>>>>>>>>>> STEP 4"
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Release
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -j16
+
+echo >>>> Copy from C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\WStreamLab.exe to C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
+copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
 
 echo >>>> Copy watermeters.conf
-copy C:\Users\Constantin\Desktop\w\Meter\watermeters.conf C:\Users\Constantin\Desktop\w\Build
+copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\watermeters.conf C:\Users\Constantin\Desktop\HERE_WFlowLab\build
+
 goto end
 
 
+
 echo 
-cd C:\Users\Constantin\Desktop\w\
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
 echo ===== Create the build =====
 "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WStreamLab.iss
 
