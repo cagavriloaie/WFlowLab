@@ -16,7 +16,7 @@ SOURCES += \
     helpabout.cpp \
     interface.cpp \
     ledindicator.cpp \
-    licence.cpp \
+    license.cpp \
     main.cpp \
     mainwindow.cpp \
     md5.cpp \
@@ -28,7 +28,7 @@ HEADERS += \
     helpabout.h \
     interface.h \
     ledindicator.h \
-    licence.h \
+    license.h \
     mainwindow.h \
     md5.h \
     tableBoard.h
@@ -36,7 +36,7 @@ HEADERS += \
 FORMS += \
     helpabout.ui \
     interface.ui \
-    licence.ui \
+    license.ui \
     mainwindow.ui \
     tableBoard.ui
 

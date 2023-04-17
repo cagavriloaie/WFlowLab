@@ -5,9 +5,58 @@ echo off
 
 cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
 
-echo ===== Start refactoring sources =====
-.\AStyle\bin\AStyle.exe .\Meter\*.cpp --style=java --indent=spaces=4 --break-blocks --pad-oper --pad-comma --pad-paren --align-pointer=name --add-braces --mode=c --recursive --indent-col1-comments --indent-classes --style=whitesmith --add-brackets
-.\AStyle\bin\AStyle.exe .\Meter\*.h --style=java --indent=spaces=4 --break-blocks --pad-oper --pad-comma --pad-paren --align-pointer=name --add-braces --mode=c --recursive --indent-col1-comments --indent-classes --style=whitesmith --add-brackets
+  echo ===== Start refactoring sources =====
+.\AStyle\bin\AStyle.exe .\Meter\*.cpp ^
+--recursive ^
+--add-brackets ^
+--add-braces ^
+--style=allman ^
+--indent=spaces=4 ^
+--indent-modifiers ^
+--indent-switches ^
+--indent-cases ^
+--indent-namespaces ^
+--indent-preproc-block ^
+--min-conditional-indent=2 ^
+--pad-oper ^
+--pad-header ^
+--unpad-paren ^
+--delete-empty-lines ^
+--align-pointer=name ^
+--align-reference=name ^
+--keep-one-line-statements ^
+--convert-tabs ^
+--close-templates ^
+--max-code-length=70 ^
+--suffix=none ^
+--lineend=linux ^
+--verbose 
+
+.\AStyle\bin\AStyle.exe .\Meter\*.h ^
+--recursive ^
+--add-brackets ^
+--add-braces ^
+--style=allman ^
+--indent=spaces=4 ^
+--indent-modifiers ^
+--indent-switches ^
+--indent-cases ^
+--indent-namespaces ^
+--indent-preproc-block ^
+--min-conditional-indent=2 ^
+--pad-oper ^
+--pad-header ^
+--unpad-paren ^
+--delete-empty-lines ^
+--align-pointer=name ^
+--align-reference=name ^
+--keep-one-line-statements ^
+--convert-tabs ^
+--close-templates ^
+--max-code-length=70 ^
+--suffix=none ^
+--lineend=linux ^
+--verbose 
 
 echo
 

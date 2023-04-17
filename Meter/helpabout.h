@@ -5,23 +5,23 @@
 
 namespace Ui
 {
-class HelpAbout;
+    class HelpAbout;
 }
 
 class HelpAbout : public QDialog
-    {
-        Q_OBJECT
+{
+    Q_OBJECT
 
-    public:
-        explicit HelpAbout ( QWidget *parent = nullptr );
-        ~HelpAbout();
-        void Translate (  );
+  public:
+    explicit HelpAbout(QWidget *parent = nullptr);
+    ~HelpAbout();
+    void Translate();
 
-    private:
-        Ui::HelpAbout *ui;
+  private:
+    Ui::HelpAbout *ui;
 
-    private slots:
-        void onCloseClicked();
-    };
+  private slots:
+    void onCloseClicked();
+};
 
 #endif // HELPABOUT_H

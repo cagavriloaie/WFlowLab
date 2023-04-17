@@ -9,37 +9,37 @@
 
 namespace Ui
 {
-class Interface;
+    class Interface;
 }
 
 class Interface : public QDialog
-    {
-        Q_OBJECT
+{
+    Q_OBJECT
 
-    public:
-        explicit Interface ( QWidget *parent = nullptr );
-        ~Interface();
-        void Translate (  );
+  public:
+    explicit Interface(QWidget *parent = nullptr);
+    ~Interface();
+    void Translate();
 
-    private:
-        Ui::Interface *ui;
-        QVector<QString> entries;
-        bool isOpenPort {false};
-        void DisconnectSerialPort();
+  private:
+    Ui::Interface *ui;
+    QVector<QString> entries;
+    bool isOpenPort {false};
+    void DisconnectSerialPort();
 
-    private slots:
+  private slots:
 
-        void onCloseClicked();
-        void onSaveClicked();
-        void onRefreshClicked();
+    void onCloseClicked();
+    void onSaveClicked();
+    void onRefreshClicked();
 
-        void showEvent ( QShowEvent *event );
+    void showEvent(QShowEvent *event);
 
-        void onSelectSerialChanged();
-        void onBaudRateChanged();
-        void onSelectDataBitsnChanged();
-        void onSelectParityChanged();
-        void onSelectStopBitsChanged();
-    };
+    void onSelectSerialChanged();
+    void onBaudRateChanged();
+    void onSelectDataBitsnChanged();
+    void onSelectParityChanged();
+    void onSelectStopBitsChanged();
+};
 
 #endif // INTERFACE_H

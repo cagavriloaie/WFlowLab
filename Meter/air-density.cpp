@@ -9,7 +9,7 @@
 #include <fstream>
 
 const double temperaturePoints[] =
-    {
+{
     0.0,  1.0,  2.0,  3.0,  4.0,  5.0,  6.0,  7.0,  8.0,  9.0,
     10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0,
     20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0,
@@ -21,10 +21,10 @@ const double temperaturePoints[] =
     80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0,
     90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0,
     100.0, 101.
-    };
+};
 
 const double densityPoints[] =
-    {
+{
     999.8395,   999.8986,   999.9399,   999.9642,   999.9719,
     999.9637,   999.9399,   999.9011,   999.8476,   999.7800,
     999.6985,   999.6036,   999.4957,   999.3752,   999.2422,
@@ -46,61 +46,60 @@ const double densityPoints[] =
     965.3043,   964.6295,   963.9500,   963.2657,   962.5768,
     961.8831,   961.1848,   960.4818,   959.7741,   959.0618,
     958.3449,   957.6451
-    };
+};
 
-double liniarInterpolationTemperature ( double temperature, double correction )
+double liniarInterpolationTemperature(double temperature,
+                                      double correction)
+{
+    if (temperature <= 0.0)
     {
-
-    if ( temperature <= 0.0 )
-        {
         return 999.8395;
-        }
-
-    if ( temperature >= 100.0 )
-        {
+    }
+    if (temperature >= 100.0)
+    {
         return 958.3449;
-        }
-
-    double startTemperature = temperaturePoints[static_cast<size_t> ( std::floor ( temperature ) )];
-    double startDensity = densityPoints[static_cast<size_t> ( std::floor ( temperature ) )];
-    double stopDensity  = densityPoints[static_cast<size_t> ( std::floor ( temperature + 1 ) )];
-
-    double density = startDensity + ( stopDensity - startDensity ) * ( temperature - startTemperature );
-
+    }
+    double startTemperature = temperaturePoints[static_cast<size_t>
+                              (std::floor(temperature))];
+    double startDensity = densityPoints[static_cast<size_t> (std::floor(
+                                                                temperature))];
+    double stopDensity  = densityPoints[static_cast<size_t> (std::floor(
+                                                                temperature + 1))];
+    double density = startDensity + (stopDensity - startDensity) *
+                     (temperature - startTemperature);
     //Because same particular condition the water density has to be corrected
     density = correction - densityPoints[20] + density;
-
     return density;
-    }
+}
 
-double quadraticInterpolationTemperature ( double temperature, double correction )
+double quadraticInterpolationTemperature(double temperature,
+        double correction)
+{
+    if (temperature <= 0.0)
     {
-
-    if ( temperature <= 0.0 )
-        {
         return 999.8395;
-        }
-
-    if ( temperature >= 100.0 )
-        {
+    }
+    if (temperature >= 100.0)
+    {
         return 958.3449;
-        }
-
-    double firstTemperature = std::floor ( temperature );
-    double secondTemperature = std::floor ( temperature + 1 );
-    double thirdTemperature = std::floor ( temperature + 2 );
-
-    double firstDensity = densityPoints[static_cast<size_t> ( firstTemperature )];
-    double secondDensity  = densityPoints[static_cast<size_t> ( secondTemperature )];
-    double thirdDensity  = densityPoints[static_cast<size_t> ( thirdTemperature )];
-
+    }
+    double firstTemperature = std::floor(temperature);
+    double secondTemperature = std::floor(temperature + 1);
+    double thirdTemperature = std::floor(temperature + 2);
+    double firstDensity = densityPoints[static_cast<size_t>
+                                        (firstTemperature)];
+    double secondDensity  = densityPoints[static_cast<size_t>
+                                          (secondTemperature)];
+    double thirdDensity  = densityPoints[static_cast<size_t>
+                                         (thirdTemperature)];
     double density =
-        0.5 * firstDensity * ( temperature - secondTemperature ) * ( temperature - thirdTemperature ) -
-        secondDensity * ( temperature - firstTemperature ) * ( temperature - thirdTemperature ) +
-        0.5 * thirdDensity * ( temperature - firstTemperature ) * ( temperature - secondTemperature );
-
+        0.5 * firstDensity * (temperature - secondTemperature) *
+        (temperature - thirdTemperature) -
+        secondDensity * (temperature - firstTemperature) *
+        (temperature - thirdTemperature) +
+        0.5 * thirdDensity * (temperature - firstTemperature) *
+        (temperature - secondTemperature);
     //Because same particular condition the water density has to be corrected
     density = correction - densityPoints[20] + density;
-
     return density;
-    }
+}
