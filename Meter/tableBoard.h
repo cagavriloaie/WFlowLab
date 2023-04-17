@@ -2,8 +2,8 @@
  *  Author: Constantin
  */
 
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef TABLEBOARD_H
+#define TABLEBOARD_H
 
 #include <QDialog>
 #include <QLineEdit>
@@ -91,4 +91,4 @@ class Dialog : public QDialog
 
     };
 
-#endif // DIALOG_H
+#endif // TABLEBOARD_H

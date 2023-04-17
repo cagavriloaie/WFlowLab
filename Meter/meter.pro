@@ -13,32 +13,32 @@ CONFIG += c++17
 
 SOURCES += \
     air-density.cpp \
-    dialog.cpp \
     helpabout.cpp \
     interface.cpp \
     ledindicator.cpp \
     licence.cpp \
     main.cpp \
     mainwindow.cpp \
-    md5.cpp
+    md5.cpp \
+    tableBoard.cpp
 
 HEADERS += \
     air-density.h \
-    dialog.h \
     flow-meter-type.h \
     helpabout.h \
     interface.h \
     ledindicator.h \
     licence.h \
     mainwindow.h \
-    md5.h
+    md5.h \
+    tableBoard.h
 
 FORMS += \
-    dialog.ui \
     helpabout.ui \
     interface.ui \
     licence.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    tableBoard.ui
 
 
 CONFIG += lrelease

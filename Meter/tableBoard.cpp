@@ -2,7 +2,7 @@
  *  Author: Constantin
  */
 
-#include "dialog.h"
+#include "tableBoard.h"
 #include "ui_dialog.h"
 
 #include <QValidator>

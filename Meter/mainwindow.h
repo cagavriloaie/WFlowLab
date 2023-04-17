@@ -10,7 +10,7 @@
 #include <QApplication>
 #include <QtSerialPort/QSerialPort>
 #include <QTranslator>
-#include "dialog.h"
+#include "tableBoard.h"
 #include "licence.h"
 #include "helpabout.h"
 #include "interface.h"
