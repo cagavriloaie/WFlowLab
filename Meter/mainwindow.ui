@@ -31,7 +31,7 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset resource="resourcescontor.qrc">
+   <iconset>
     <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
   </property>
   <property name="styleSheet">
@@ -913,6 +913,22 @@ QRadioButton::indicator:unchecked {
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
+         <widget class="LedIndicator" name="SerialLedIndicator" native="true"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbConnected">
+          <property name="font">
+           <font>
+            <family>Segoe UI</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -1072,6 +1088,14 @@ QRadioButton::indicator:unchecked {
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LedIndicator</class>
+   <extends>QWidget</extends>
+   <header location="global">ledindicator.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>cbNumberOfWaterMeters</tabstop>
   <tabstop>cbWaterMeterType</tabstop>
@@ -1081,9 +1105,7 @@ QRadioButton::indicator:unchecked {
   <tabstop>pbNewSession</tabstop>
   <tabstop>pbExit</tabstop>
  </tabstops>
- <resources>
-  <include location="resourcescontor.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>pbExit</sender>

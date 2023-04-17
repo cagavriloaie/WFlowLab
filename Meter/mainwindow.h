@@ -8,11 +8,13 @@
 #include <QMainWindow>
 #include <QActionGroup>
 #include <QApplication>
+#include <QtSerialPort/QSerialPort>
 #include <QTranslator>
 #include "dialog.h"
 #include "licence.h"
 #include "helpabout.h"
 #include "interface.h"
+#include "ledindicator.h"
 
 enum SELECTED_LANGUAGE
     {
@@ -59,6 +61,9 @@ struct SelectedInfo
 
     bool serialPort {false};
     SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
+
+    QSerialPort *serialPortSelected{nullptr};
+
     };
 
 
@@ -78,6 +83,7 @@ class MainWindow : public QMainWindow
         HelpAbout *helpAbout;
         Interface *interfaceDialog{nullptr};
         QActionGroup *alignmentGroup;
+        LedIndicator *LED;
 
         void Translate();
         void SelectMeterComboBox();

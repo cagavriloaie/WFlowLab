@@ -3,7 +3,7 @@ rem Turns the echo on so that each command will be shown as executed
 cls
 echo off 
 
-cd C:\Users\Constantin\Desktop\w
+cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
 
 echo ===== Start refactoring sources =====
 .\AStyle\bin\AStyle.exe .\Meter\*.cpp --style=java --indent=spaces=4 --break-blocks --pad-oper --pad-comma --pad-paren --align-pointer=name --add-braces --mode=c --recursive --indent-col1-comments --indent-classes --style=whitesmith --add-brackets

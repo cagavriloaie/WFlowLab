@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en">
+<TS version="2.1" language="en_US">
 <context>
     <name>Dialog</name>
     <message>
@@ -197,49 +197,108 @@
         <translation>Serial Port Configuration</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="49"/>
+        <location filename="../interface.cpp" line="61"/>
+        <source>RS485</source>
+        <translation>RS485</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="68"/>
+        <location filename="../interface.cpp" line="434"/>
+        <source>Connect</source>
+        <translation>Conn&amp;ect</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="76"/>
+        <source>Device Addresses</source>
+        <translation>Device Addresses</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="72"/>
+        <source>Small Scale:</source>
+        <translation>Small Scale:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="75"/>
+        <source>Water Meters [11..20]:</source>
+        <translation>Water Meters [11..20]:</translation>
+    </message>
+    <message>
+        <source>Large Scale:</source>
+        <translation type="vanished">Large Scale:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="73"/>
+        <source>Temperature:</source>
+        <translation>Temperature:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="74"/>
+        <source>Water Meters [1..10]:</source>
+        <translation>Water Meters [1..10]:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="62"/>
         <source>Serial port</source>
-        <translation>Serial port</translation>
+        <translation>Serial port:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="50"/>
+        <location filename="../interface.cpp" line="63"/>
         <source>Baud Rate</source>
-        <translation>Baud Rate</translation>
+        <translation>Baud Rate:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="51"/>
+        <location filename="../interface.cpp" line="64"/>
         <source>Data Bits</source>
-        <translation>Data Bits</translation>
+        <translation>Data Bits:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="52"/>
+        <location filename="../interface.cpp" line="65"/>
         <source>Parity</source>
-        <translation>Parity</translation>
+        <translation>Parity:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="53"/>
+        <location filename="../interface.cpp" line="66"/>
         <source>Stop Bits</source>
-        <translation>Stop Bits</translation>
+        <translation>Stop Bits:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="54"/>
+        <location filename="../interface.cpp" line="67"/>
         <source>Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="55"/>
-        <source>Save</source>
-        <translation>Save</translation>
+        <location filename="../interface.cpp" line="249"/>
+        <source>Disconnect</source>
+        <translation type="unfinished">&amp;Disconnect</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="56"/>
+        <location filename="../interface.cpp" line="423"/>
+        <source>Not connected to RS485 network</source>
+        <translation>Not connected to RS485 network</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="vanished">Save</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="69"/>
         <source>Refresh Serial Ports</source>
         <translation>Refresh Serial Ports</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="57"/>
+        <location filename="../interface.cpp" line="71"/>
+        <source>Large Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="223"/>
+        <location filename="../interface.cpp" line="254"/>
+        <source>Serial Interface Settings</source>
+        <translation>Serial Interface Settings</translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Select the computer COM port for MODBUS RS485 from&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;the list and configure its settings.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Select the computer COM port for MODBUS RS485 from&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;the list and configure its settings.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Select the computer COM port for MODBUS RS485 from&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;the list and configure its settings.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -293,38 +352,38 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="1004"/>
+        <location filename="../mainwindow.ui" line="1020"/>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1009"/>
+        <location filename="../mainwindow.ui" line="1025"/>
         <source>&amp;Print</source>
         <translation>&amp;Print</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1014"/>
+        <location filename="../mainwindow.ui" line="1030"/>
         <source>&amp;Exit</source>
         <translation>&amp;Exit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1048"/>
+        <location filename="../mainwindow.ui" line="1064"/>
         <source>LineEntry</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1051"/>
+        <location filename="../mainwindow.ui" line="1067"/>
         <source>water meter entry</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1056"/>
+        <location filename="../mainwindow.ui" line="1072"/>
         <location filename="../mainwindow.cpp" line="174"/>
         <source>About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1071"/>
+        <location filename="../mainwindow.ui" line="1087"/>
         <source>Configure Serial Port</source>
         <translation>Configure Serial Port</translation>
     </message>
@@ -452,7 +511,12 @@
         <translation>Manual</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="988"/>
+        <location filename="../mainwindow.cpp" line="237"/>
+        <source>Not connected to RS485 network</source>
+        <translation type="unfinished">Not connected to RS485 network</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1004"/>
         <location filename="../mainwindow.cpp" line="191"/>
         <source>Interface</source>
         <translation>Interface</translation>
@@ -521,8 +585,8 @@
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="43"/>
-        <location filename="../mainwindow.cpp" line="269"/>
-        <location filename="../mainwindow.cpp" line="604"/>
+        <location filename="../mainwindow.cpp" line="324"/>
+        <location filename="../mainwindow.cpp" line="659"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
@@ -537,22 +601,22 @@
         <translation>More than one instance of the WStreamLab program is not permitted.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="270"/>
+        <location filename="../mainwindow.cpp" line="325"/>
         <source>Serial interfaces is not available.</source>
         <translation>Serial interfaces is not available.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="271"/>
+        <location filename="../mainwindow.cpp" line="326"/>
         <source>The application cannot use serial driver because the dll package is not available.</source>
         <translation>The application cannot use serial driver because the dll package is not available.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="660"/>
         <source>Serial interfaces.</source>
         <translation>Serial interfaces.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="606"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>The application did not detect any serial interface on this computer.</translation>
     </message>

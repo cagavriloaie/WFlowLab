@@ -197,49 +197,112 @@
         <translation>Configurare Port Serial</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="49"/>
-        <source>Serial port</source>
-        <translation>Port serial</translation>
+        <location filename="../interface.cpp" line="61"/>
+        <source>RS485</source>
+        <translation>RS485</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="50"/>
+        <location filename="../interface.cpp" line="68"/>
+        <location filename="../interface.cpp" line="434"/>
+        <source>Connect</source>
+        <translation>Conecteaza</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="76"/>
+        <source>Device Addresses</source>
+        <translation>Adresa dispozitive</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="72"/>
+        <source>Small Scale:</source>
+        <translation>Cantar Mic:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="75"/>
+        <source>Water Meters [11..20]:</source>
+        <translation>Contoare apa [11..20]:</translation>
+    </message>
+    <message>
+        <source>MODBUS ADDR</source>
+        <translation type="vanished">Adresa MODBUS</translation>
+    </message>
+    <message>
+        <source>Large Scale:</source>
+        <translation type="vanished">Cantar Mare:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="73"/>
+        <source>Temperature:</source>
+        <translation>Temperatura:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="74"/>
+        <source>Water Meters [1..10]:</source>
+        <translation>Contoare apa [1..10]:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="62"/>
+        <source>Serial port</source>
+        <translation>Port serial:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="63"/>
         <source>Baud Rate</source>
         <translation>Rata Baud</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="51"/>
+        <location filename="../interface.cpp" line="64"/>
         <source>Data Bits</source>
-        <translation>Biti Date</translation>
+        <translation>Biti Date:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="52"/>
+        <location filename="../interface.cpp" line="65"/>
         <source>Parity</source>
-        <translation>Paritate</translation>
+        <translation>Paritate:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="53"/>
+        <location filename="../interface.cpp" line="66"/>
         <source>Stop Bits</source>
-        <translation>Biti Stop</translation>
+        <translation>Biti Stop:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="54"/>
+        <location filename="../interface.cpp" line="67"/>
         <source>Close</source>
-        <translation>Inchide</translation>
+        <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="55"/>
+        <location filename="../interface.cpp" line="249"/>
+        <source>Disconnect</source>
+        <translation>Deconecteaza</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="423"/>
+        <source>Not connected to RS485 network</source>
+        <translation>Fara conexiune la reteaua 485</translation>
+    </message>
+    <message>
         <source>Save</source>
-        <translation>Salveaza</translation>
+        <translation type="vanished">&amp;Salveaza</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="56"/>
+        <location filename="../interface.cpp" line="69"/>
         <source>Refresh Serial Ports</source>
         <translation>Reincarca porturi seriale</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="57"/>
+        <location filename="../interface.cpp" line="71"/>
+        <source>Large Scale</source>
+        <translation>Cantar mare:</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="223"/>
+        <location filename="../interface.cpp" line="254"/>
+        <source>Serial Interface Settings</source>
+        <translation>Setare Interfata Seriala</translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Select the computer COM port for MODBUS RS485 from&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;the list and configure its settings.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Selecteaza portul COM pentru MODBUS 485 din&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;lista si configureaza setarile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Selecteaza portul COM pentru MODBUS 485 din&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;lista si configureaza setarile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -293,44 +356,44 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="988"/>
+        <location filename="../mainwindow.ui" line="1004"/>
         <location filename="../mainwindow.cpp" line="191"/>
         <source>Interface</source>
         <translation>Interfata</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1004"/>
+        <location filename="../mainwindow.ui" line="1020"/>
         <source>&amp;Save</source>
         <translation>&amp;Salveaza</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1009"/>
+        <location filename="../mainwindow.ui" line="1025"/>
         <source>&amp;Print</source>
         <translation>&amp;Tipărește</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1014"/>
+        <location filename="../mainwindow.ui" line="1030"/>
         <source>&amp;Exit</source>
         <translation>&amp;Iesire</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1048"/>
+        <location filename="../mainwindow.ui" line="1064"/>
         <source>LineEntry</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1051"/>
+        <location filename="../mainwindow.ui" line="1067"/>
         <source>water meter entry</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1056"/>
+        <location filename="../mainwindow.ui" line="1072"/>
         <location filename="../mainwindow.cpp" line="174"/>
         <source>About</source>
         <translation>Des&amp;pre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1071"/>
+        <location filename="../mainwindow.ui" line="1087"/>
         <source>Configure Serial Port</source>
         <translation>Configurare Port Serial</translation>
     </message>
@@ -440,17 +503,17 @@
     <message>
         <location filename="../mainwindow.cpp" line="186"/>
         <source>Volumetric</source>
-        <translation>Volumetric</translation>
+        <translation>Volumetric:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="187"/>
         <source>Gravimetric</source>
-        <translation>Gravitmetric</translation>
+        <translation>Gravitmetric:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="189"/>
         <source>Read method</source>
-        <translation>Metodă de citire</translation>
+        <translation>Metodă de Citire:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="190"/>
@@ -515,13 +578,18 @@
         <source>New Session</source>
         <translation>&amp;Sesiune Nouă</translation>
     </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="237"/>
+        <source>Not connected to RS485 network</source>
+        <translation>Fara conexiune la reteaua 485</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <location filename="../main.cpp" line="43"/>
-        <location filename="../mainwindow.cpp" line="269"/>
-        <location filename="../mainwindow.cpp" line="604"/>
+        <location filename="../mainwindow.cpp" line="324"/>
+        <location filename="../mainwindow.cpp" line="659"/>
         <source>Warning</source>
         <translation>Atentie</translation>
     </message>
@@ -536,22 +604,22 @@
         <translation>Doar o singură instanță a WStreamLab este permisă.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="270"/>
+        <location filename="../mainwindow.cpp" line="325"/>
         <source>Serial interfaces is not available.</source>
         <translation>Interfată</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="271"/>
+        <location filename="../mainwindow.cpp" line="326"/>
         <source>The application cannot use serial driver because the dll package is not available.</source>
         <translation>Aplicatia nu poate utiliza driverul serial deoarece libraria DLL nu este disponibila.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="605"/>
+        <location filename="../mainwindow.cpp" line="660"/>
         <source>Serial interfaces.</source>
         <translation>Interfata serială</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="606"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>Aplicatia nu a detectat nici o interfata seriala la acest calculator.</translation>
     </message>

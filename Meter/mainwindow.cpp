@@ -233,7 +233,12 @@ MainWindow::MainWindow ( QWidget *parent )
             }
         }
 
-    QSettings settings ( "HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat );
+    ui->SerialLedIndicator->setState ( false );
+    ui->lbConnected->setText ( tr ( "Not connected to RS485 network" ) );
+    ui->lbConnected->setStyleSheet ( "QLabel{font-family: \"Segoe UI\"; font-size: 10pt}" );
+
+    QSettings settings ( "HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
+                         QSettings::NativeFormat );
     settings.beginGroup ( "RS485" );
 
     if ( !settings.childKeys().contains ( "baudRate", Qt::CaseInsensitive ) )
@@ -259,6 +264,56 @@ MainWindow::MainWindow ( QWidget *parent )
     if ( !settings.childKeys().contains ( "selectedSerial", Qt::CaseInsensitive ) )
         {
         settings.setValue ( "selectedSerial", 0 );
+        }
+
+    if ( !settings.childKeys().contains ( "smallScale", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "smallScale", 1 );
+        }
+
+    if ( !settings.childKeys().contains ( "largeScale", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "largeScale", 1 );
+        }
+
+    if ( !settings.childKeys().contains ( "temperature", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "temperature", 1 );
+        }
+
+    if ( !settings.childKeys().contains ( "waterMeters1_10", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "waterMeters1_10", 1 );
+        }
+
+    if ( !settings.childKeys().contains ( "waterMeters11_20", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "waterMeters11_20", 1 );
+        }
+
+    if ( !settings.childKeys().contains ( "smallScaleValue", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "smallScaleValue", 100 );
+        }
+
+    if ( !settings.childKeys().contains ( "largeScaleValue", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "largeScaleValue", 101 );
+        }
+
+    if ( !settings.childKeys().contains ( "temperatureValue", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "temperatureValue", 102 );
+        }
+
+    if ( !settings.childKeys().contains ( "waterMeters1_10Value", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "waterMeters1_10Value", 103 );
+        }
+
+    if ( !settings.childKeys().contains ( "waterMeters11_20Value", Qt::CaseInsensitive ) )
+        {
+        settings.setValue ( "waterMeters11_20Value", 104 );
         }
 
     if ( !serialDll )
@@ -633,6 +688,7 @@ void MainWindow::onSetRomanian()
         inputData->Translate();
         licenseDialog->Translate();
         helpAbout->Translate();
+        interfaceDialog->Translate();
         }
 
     selectedInfo.selectedLanguage = ROMANIAN;

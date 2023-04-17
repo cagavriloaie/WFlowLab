@@ -6,45 +6,73 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
-    <height>340</height>
+    <width>450</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>440</width>
-    <height>340</height>
+    <width>450</width>
+    <height>485</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>440</width>
-    <height>340</height>
+    <width>450</width>
+    <height>485</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Serial Port Configuration</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
+  <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="lbSerialMessage">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="groupBox">
+       <property name="styleSheet">
+        <string notr="true">QGroupBox  {
+    border: 2px solid gray;
+    border-color: #FF17365D;
+    background-color: #E6E6FF;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: -5px 5px 0px 5px;
+}
+
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+    background: rgb(100, 100, 100);
+ }
+
+QCheckBox::indicator:checked
+ {
+    width: 15px;
+    height: 15px;
+    background: rgb(240, 255, 240);
+ }
+
+QCheckBox {
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QLineEdit {	
+	background: rgb(240, 255, 240);
+	selection-background-color: rgb(233, 99, 0);
+ }</string>
+       </property>
        <property name="title">
         <string/>
        </property>
-       <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
           <item row="1" column="1">
@@ -83,15 +111,246 @@
           <item row="0" column="1">
            <widget class="QComboBox" name="cbSelectSerial"/>
           </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="lbSelectStopBits">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="lbSelectSerial">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="styleSheet">
+        <string notr="true">QGroupBox  {
+    border: 2px solid gray;
+    border-color: #FF17365D;
+    background-color: #E6E6FF;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: -5px 5px 0px 5px;
+}
+
+QCheckBox::indicator {
+    width:   10px;
+    height:  10px;
+    background: rgb(240, 255, 240);   
+ }
+
+QCheckBox::indicator:checked
+ {
+    width:   10px;
+    height: 10px;
+    background-color:       black;
+ }
+
+QCheckBox {
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 12pt;
+}
+
+QLineEdit {	
+	background: rgb(240, 255, 240);
+	selection-background-color: rgb(233, 99, 0);
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 12pt;
+ }
+</string>
+       </property>
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="leSmallScale"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkSmallScale">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="checkWaterMeters_11_20">
+            <property name="styleSheet">
+             <string notr="true">QLabel 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+
+QPushButton 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QComboBox 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QGroupBox  {
+    border: 2px solid gray;
+    border-color: #FF17365D;
+    background-color: #E6E6FF;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: -5px 5px 0px 5px;
+}
+
+QMenu {
+    background-color: white;
+    margin: 2px; /* some spacing around the menu */
+}
+
+QMenu::item {
+    padding: 2px 25px 2px 20px;
+    border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected {
+    border-color: darkblue;
+    background: rgba(100, 100, 100, 150);
+}
+
+QRadioButton::indicator {
+    width:                  10px;
+    height:                 10px;
+    border-radius:       7px;
+}
+
+QRadioButton::indicator:checked {
+    background-color:       black;
+    border:                         4px;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color:       white;
+    border:                         4px;
+}
+
+
+</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="leTemperature"/>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="leWaterMeters_11_20"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="lbAddress">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkLargeScale">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="leLargeScale"/>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="leWaterMeters_1_10"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkTemperature">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_2">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="lbSelectStopBits">
+           <widget class="QCheckBox" name="checkWaterMeters_1_10">
             <property name="text">
              <string/>
             </property>
@@ -116,7 +375,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -124,7 +383,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
+           <width>259</width>
            <height>20</height>
           </size>
          </property>
@@ -138,7 +397,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbSave">
+        <widget class="QPushButton" name="pbConnect">
          <property name="text">
           <string/>
          </property>
@@ -164,7 +423,7 @@
   <tabstop>cbSelectParity</tabstop>
   <tabstop>cbSelectStopBits</tabstop>
   <tabstop>pbRefresh</tabstop>
-  <tabstop>pbSave</tabstop>
+  <tabstop>pbConnect</tabstop>
   <tabstop>pbClose</tabstop>
  </tabstops>
  <resources/>

@@ -2,6 +2,10 @@
 #define INTERFACE_H
 
 #include <QDialog>
+#include <Qstring>
+#include <QVector>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialBus/QModbusRtuSerialServer>
 
 namespace Ui
 {
@@ -19,6 +23,9 @@ class Interface : public QDialog
 
     private:
         Ui::Interface *ui;
+        QVector<QString> entries;
+        bool isOpenPort {false};
+        void DisconnectSerialPort();
 
     private slots:
 

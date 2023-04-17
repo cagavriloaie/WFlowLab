@@ -1,6 +1,7 @@
 QT += core gui
 QT += printsupport
 QT += widgets
+QT += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,6 +16,7 @@ SOURCES += \
     dialog.cpp \
     helpabout.cpp \
     interface.cpp \
+    ledindicator.cpp \
     licence.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,6 +28,7 @@ HEADERS += \
     flow-meter-type.h \
     helpabout.h \
     interface.h \
+    ledindicator.h \
     licence.h \
     mainwindow.h \
     md5.h
