@@ -220,6 +220,10 @@ MainWindow::MainWindow(QWidget *parent)
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
     settings.beginGroup("RS485");
+    if (!settings.childKeys().contains("selectedSerial", Qt::CaseInsensitive))
+    {
+        settings.setValue("selectedSerial", 0);
+    }
     if (!settings.childKeys().contains("baudRate", Qt::CaseInsensitive))
     {
         settings.setValue("baudRate", 7);
@@ -236,11 +240,15 @@ MainWindow::MainWindow(QWidget *parent)
     {
         settings.setValue("stopBits", 0);
     }
-    if (!settings.childKeys().contains("selectedSerial",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("timeout", Qt::CaseInsensitive))
     {
-        settings.setValue("selectedSerial", 0);
+        settings.setValue("timeout", 1000);
     }
+    if (!settings.childKeys().contains("retriesNumber", Qt::CaseInsensitive))
+    {
+        settings.setValue("retriesNumber", 0);
+    }
+
     if (!settings.childKeys().contains("smallScale", Qt::CaseInsensitive))
     {
         settings.setValue("smallScale", 1);
@@ -249,46 +257,41 @@ MainWindow::MainWindow(QWidget *parent)
     {
         settings.setValue("largeScale", 1);
     }
-    if (!settings.childKeys().contains("temperature",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("temperature", Qt::CaseInsensitive))
     {
         settings.setValue("temperature", 1);
     }
-    if (!settings.childKeys().contains("waterMeters1_10",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("waterMeters1_10", Qt::CaseInsensitive))
     {
         settings.setValue("waterMeters1_10", 1);
     }
-    if (!settings.childKeys().contains("waterMeters11_20",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("waterMeters11_20", Qt::CaseInsensitive))
     {
         settings.setValue("waterMeters11_20", 1);
+
+
     }
-    if (!settings.childKeys().contains("smallScaleValue",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("smallScaleValue", Qt::CaseInsensitive))
     {
         settings.setValue("smallScaleValue", 100);
     }
-    if (!settings.childKeys().contains("largeScaleValue",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("largeScaleValue", Qt::CaseInsensitive))
     {
         settings.setValue("largeScaleValue", 101);
     }
-    if (!settings.childKeys().contains("temperatureValue",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("temperatureValue", Qt::CaseInsensitive))
     {
         settings.setValue("temperatureValue", 102);
     }
-    if (!settings.childKeys().contains("waterMeters1_10Value",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("waterMeters1_10Value", Qt::CaseInsensitive))
     {
         settings.setValue("waterMeters1_10Value", 103);
     }
-    if (!settings.childKeys().contains("waterMeters11_20Value",
-                                       Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("waterMeters11_20Value", Qt::CaseInsensitive))
     {
         settings.setValue("waterMeters11_20Value", 104);
     }
+
     if (!serialDll)
     {
         QMessageBox warningMessage;

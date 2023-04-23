@@ -64,9 +64,17 @@ QCheckBox {
 	font-size: 12pt;
 }
 
+QSpinBox {
+	background: rgb(240, 255, 240);
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
 QLineEdit {	
 	background: rgb(240, 255, 240);
 	selection-background-color: rgb(233, 99, 0);
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
  }</string>
        </property>
        <property name="title">
@@ -75,46 +83,17 @@ QLineEdit {
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="1">
-           <widget class="QComboBox" name="cbBaudRate"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QComboBox" name="cbSelectDataBits"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="lbDataBits">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="lbBaudRate">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="lbSelectParity">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="cbSelectParity"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QComboBox" name="cbSelectStopBits"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="cbSelectSerial"/>
-          </item>
           <item row="4" column="0">
            <widget class="QLabel" name="lbSelectStopBits">
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="lbTimeout">
+            <property name="text">
+             <string>Timeout [ms]:</string>
             </property>
            </widget>
           </item>
@@ -136,6 +115,55 @@ QLineEdit {
              <string/>
             </property>
            </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="cbSelectDataBits"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lbDataBits">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="cbBaudRate"/>
+          </item>
+          <item row="4" column="1">
+           <widget class="QComboBox" name="cbSelectStopBits"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="cbSelectSerial"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lbSelectParity">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="leTimeout"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbBaudRate">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="cbSelectParity"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="lbNumberOfRetries">
+            <property name="text">
+             <string>Number of Retries:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QComboBox" name="cbNumberRetries"/>
           </item>
          </layout>
         </item>

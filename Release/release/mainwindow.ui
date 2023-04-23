@@ -41,6 +41,7 @@
 	font-size: 12pt;
 }
 
+
 QPushButton 
 {
 	font-family: &quot;Segoe UI&quot;;
@@ -1110,7 +1111,6 @@ QRadioButton::indicator:unchecked {
    <sender>pbExit</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>slot1()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>521</x>
@@ -1124,6 +1124,5 @@ QRadioButton::indicator:unchecked {
   </connection>
  </connections>
  <slots>
-  <slot>slot1()</slot>
  </slots>
 </ui>
