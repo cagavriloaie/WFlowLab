@@ -230,7 +230,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     if (!settings.childKeys().contains("dataBits", Qt::CaseInsensitive))
     {
-        settings.setValue("dataBits", 1);
+        settings.setValue("dataBits", 3);
     }
     if (!settings.childKeys().contains("parity", Qt::CaseInsensitive))
     {
@@ -261,16 +261,35 @@ MainWindow::MainWindow(QWidget *parent)
     {
         settings.setValue("temperature", 1);
     }
-    if (!settings.childKeys().contains("waterMeters1_10", Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("emFlowMeter1", Qt::CaseInsensitive))
     {
-        settings.setValue("waterMeters1_10", 1);
+        settings.setValue("emFlowMeter1", 1);
     }
-    if (!settings.childKeys().contains("waterMeters11_20", Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("emFlowMeter2", Qt::CaseInsensitive))
     {
-        settings.setValue("waterMeters11_20", 1);
-
-
+        settings.setValue("emFlowMeter2", 1);
     }
+    if (!settings.childKeys().contains("emFlowMeter3", Qt::CaseInsensitive))
+    {
+        settings.setValue("emFlowMeter3", 1);
+    }
+    if (!settings.childKeys().contains("waterMeters1_5", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters1_5", 1);
+    }
+    if (!settings.childKeys().contains("waterMeters6_10", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters6_10", 1);
+    }
+    if (!settings.childKeys().contains("waterMeters11_15", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters11_15", 1);
+    }
+    if (!settings.childKeys().contains("waterMeters16_20", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters16_20", 1);
+    }
+
     if (!settings.childKeys().contains("smallScaleValue", Qt::CaseInsensitive))
     {
         settings.setValue("smallScaleValue", 100);
@@ -283,13 +302,34 @@ MainWindow::MainWindow(QWidget *parent)
     {
         settings.setValue("temperatureValue", 102);
     }
-    if (!settings.childKeys().contains("waterMeters1_10Value", Qt::CaseInsensitive))
+
+    if (!settings.childKeys().contains("emFlowMeter1Value", Qt::CaseInsensitive))
     {
-        settings.setValue("waterMeters1_10Value", 103);
+        settings.setValue("emFlowMeter1Value", 103);
     }
-    if (!settings.childKeys().contains("waterMeters11_20Value", Qt::CaseInsensitive))
+    if (!settings.childKeys().contains("emFlowMeter2Value", Qt::CaseInsensitive))
     {
-        settings.setValue("waterMeters11_20Value", 104);
+        settings.setValue("emFlowMeter2Value", 104);
+    }
+    if (!settings.childKeys().contains("emFlowMeter3Value", Qt::CaseInsensitive))
+    {
+        settings.setValue("emFlowMeter3Value", 105);
+    }
+    if (!settings.childKeys().contains("waterMeters1_5Value", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters1_5Value", 103);
+    }
+    if (!settings.childKeys().contains("waterMeters6_10Value", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters6_10Value", 104);
+    }
+    if (!settings.childKeys().contains("waterMeters10_15Value", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters10_15Value", 103);
+    }
+    if (!settings.childKeys().contains("waterMeters16_20Value", Qt::CaseInsensitive))
+    {
+        settings.setValue("waterMeters16_20Value", 104);
     }
 
     if (!serialDll)

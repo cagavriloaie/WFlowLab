@@ -1,7 +1,7 @@
 QT += core gui
 QT += printsupport
 QT += widgets
-QT += serialport
+QT += serialbus
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -59,6 +59,7 @@ DISTFILES += \
     Elegantthemes-Beautiful-Flat-Water.64.png \
     Elegantthemes-Beautiful-Flat-Water.72.png \
     Elegantthemes-Beautiful-Flat-Water.96.png \
-    Elegantthemes-Beautiful-Flat-Water.ico
+    Elegantthemes-Beautiful-Flat-Water.ico \
+    icons8-factory-96.png
 
 TARGET = WStreamLab

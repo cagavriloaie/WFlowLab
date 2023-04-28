@@ -21,7 +21,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +28,6 @@ class Ui_Interface
 {
 public:
     QGridLayout *gridLayout_3;
-    QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_4;
     QGridLayout *gridLayout;
@@ -50,19 +48,29 @@ public:
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_5;
     QGridLayout *gridLayout_2;
-    QLineEdit *leSmallScale;
-    QCheckBox *checkSmallScale;
-    QCheckBox *checkWaterMeters_11_20;
-    QLineEdit *leTemperature;
-    QLineEdit *leWaterMeters_11_20;
-    QLabel *lbAddress;
+    QCheckBox *checkWaterMeters_6_10;
     QCheckBox *checkLargeScale;
-    QLineEdit *leLargeScale;
-    QLineEdit *leWaterMeters_1_10;
-    QLabel *label_10;
     QCheckBox *checkTemperature;
+    QCheckBox *checkWaterMeter2;
+    QCheckBox *checkWaterMeters_1_5;
+    QLineEdit *leSmallScale;
+    QLineEdit *leTemperature;
+    QLineEdit *leWaterMeter2;
+    QCheckBox *checkWaterMeter3;
+    QLabel *lbAddress;
+    QLabel *label_10;
+    QCheckBox *checkSmallScale;
+    QLineEdit *leLargeScale;
     QLabel *label_2;
-    QCheckBox *checkWaterMeters_1_10;
+    QLineEdit *leWaterMeters_1_5;
+    QCheckBox *checkWaterMeter1;
+    QLineEdit *leWaterMeter1;
+    QLineEdit *leWaterMeter3;
+    QLineEdit *leWaterMeters_11_15;
+    QLineEdit *leWaterMeters_16_20;
+    QCheckBox *checkWaterMeters_11_15;
+    QCheckBox *checkWaterMeters_16_20;
+    QLineEdit *leWaterMeters_6_10;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
@@ -74,13 +82,11 @@ public:
     {
         if (Interface->objectName().isEmpty())
             Interface->setObjectName("Interface");
-        Interface->resize(450, 485);
-        Interface->setMinimumSize(QSize(450, 485));
-        Interface->setMaximumSize(QSize(450, 485));
+        Interface->resize(500, 700);
+        Interface->setMinimumSize(QSize(500, 650));
+        Interface->setMaximumSize(QSize(500, 784));
         gridLayout_3 = new QGridLayout(Interface);
         gridLayout_3->setObjectName("gridLayout_3");
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName("verticalLayout");
         groupBox = new QGroupBox(Interface);
         groupBox->setObjectName("groupBox");
         groupBox->setStyleSheet(QString::fromUtf8("QGroupBox  {\n"
@@ -208,7 +214,7 @@ public:
         gridLayout_4->addLayout(gridLayout, 0, 0, 1, 1);
 
 
-        verticalLayout->addWidget(groupBox);
+        gridLayout_3->addWidget(groupBox, 0, 0, 1, 1);
 
         groupBox_2 = new QGroupBox(Interface);
         groupBox_2->setObjectName("groupBox_2");
@@ -256,21 +262,9 @@ public:
         gridLayout_5->setObjectName("gridLayout_5");
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName("gridLayout_2");
-        leSmallScale = new QLineEdit(groupBox_2);
-        leSmallScale->setObjectName("leSmallScale");
-
-        gridLayout_2->addWidget(leSmallScale, 1, 1, 1, 1);
-
-        checkSmallScale = new QCheckBox(groupBox_2);
-        checkSmallScale->setObjectName("checkSmallScale");
-        checkSmallScale->setMinimumSize(QSize(200, 0));
-        checkSmallScale->setMaximumSize(QSize(200, 16777215));
-
-        gridLayout_2->addWidget(checkSmallScale, 1, 0, 1, 1);
-
-        checkWaterMeters_11_20 = new QCheckBox(groupBox_2);
-        checkWaterMeters_11_20->setObjectName("checkWaterMeters_11_20");
-        checkWaterMeters_11_20->setStyleSheet(QString::fromUtf8("QLabel \n"
+        checkWaterMeters_6_10 = new QCheckBox(groupBox_2);
+        checkWaterMeters_6_10->setObjectName("checkWaterMeters_6_10");
+        checkWaterMeters_6_10->setStyleSheet(QString::fromUtf8("QLabel \n"
 "{\n"
 "	font-family: \"Segoe UI\";\n"
 "	font-size: 12pt;\n"
@@ -339,69 +333,131 @@ public:
 "\n"
 ""));
 
-        gridLayout_2->addWidget(checkWaterMeters_11_20, 5, 0, 1, 1);
-
-        leTemperature = new QLineEdit(groupBox_2);
-        leTemperature->setObjectName("leTemperature");
-
-        gridLayout_2->addWidget(leTemperature, 3, 1, 1, 1);
-
-        leWaterMeters_11_20 = new QLineEdit(groupBox_2);
-        leWaterMeters_11_20->setObjectName("leWaterMeters_11_20");
-
-        gridLayout_2->addWidget(leWaterMeters_11_20, 5, 1, 1, 1);
-
-        lbAddress = new QLabel(groupBox_2);
-        lbAddress->setObjectName("lbAddress");
-
-        gridLayout_2->addWidget(lbAddress, 0, 1, 1, 1);
+        gridLayout_2->addWidget(checkWaterMeters_6_10, 8, 0, 1, 1);
 
         checkLargeScale = new QCheckBox(groupBox_2);
         checkLargeScale->setObjectName("checkLargeScale");
 
         gridLayout_2->addWidget(checkLargeScale, 2, 0, 1, 1);
 
-        leLargeScale = new QLineEdit(groupBox_2);
-        leLargeScale->setObjectName("leLargeScale");
+        checkTemperature = new QCheckBox(groupBox_2);
+        checkTemperature->setObjectName("checkTemperature");
 
-        gridLayout_2->addWidget(leLargeScale, 2, 1, 1, 1);
+        gridLayout_2->addWidget(checkTemperature, 3, 0, 1, 1);
 
-        leWaterMeters_1_10 = new QLineEdit(groupBox_2);
-        leWaterMeters_1_10->setObjectName("leWaterMeters_1_10");
+        checkWaterMeter2 = new QCheckBox(groupBox_2);
+        checkWaterMeter2->setObjectName("checkWaterMeter2");
 
-        gridLayout_2->addWidget(leWaterMeters_1_10, 4, 1, 1, 1);
+        gridLayout_2->addWidget(checkWaterMeter2, 5, 0, 1, 1);
+
+        checkWaterMeters_1_5 = new QCheckBox(groupBox_2);
+        checkWaterMeters_1_5->setObjectName("checkWaterMeters_1_5");
+
+        gridLayout_2->addWidget(checkWaterMeters_1_5, 7, 0, 1, 1);
+
+        leSmallScale = new QLineEdit(groupBox_2);
+        leSmallScale->setObjectName("leSmallScale");
+
+        gridLayout_2->addWidget(leSmallScale, 1, 1, 1, 1);
+
+        leTemperature = new QLineEdit(groupBox_2);
+        leTemperature->setObjectName("leTemperature");
+
+        gridLayout_2->addWidget(leTemperature, 3, 1, 1, 1);
+
+        leWaterMeter2 = new QLineEdit(groupBox_2);
+        leWaterMeter2->setObjectName("leWaterMeter2");
+
+        gridLayout_2->addWidget(leWaterMeter2, 5, 1, 1, 1);
+
+        checkWaterMeter3 = new QCheckBox(groupBox_2);
+        checkWaterMeter3->setObjectName("checkWaterMeter3");
+
+        gridLayout_2->addWidget(checkWaterMeter3, 6, 0, 1, 1);
+
+        lbAddress = new QLabel(groupBox_2);
+        lbAddress->setObjectName("lbAddress");
+
+        gridLayout_2->addWidget(lbAddress, 0, 1, 1, 1);
 
         label_10 = new QLabel(groupBox_2);
         label_10->setObjectName("label_10");
 
         gridLayout_2->addWidget(label_10, 0, 0, 1, 1);
 
-        checkTemperature = new QCheckBox(groupBox_2);
-        checkTemperature->setObjectName("checkTemperature");
+        checkSmallScale = new QCheckBox(groupBox_2);
+        checkSmallScale->setObjectName("checkSmallScale");
+        checkSmallScale->setMinimumSize(QSize(200, 0));
+        checkSmallScale->setMaximumSize(QSize(200, 16777215));
 
-        gridLayout_2->addWidget(checkTemperature, 3, 0, 1, 1);
+        gridLayout_2->addWidget(checkSmallScale, 1, 0, 1, 1);
+
+        leLargeScale = new QLineEdit(groupBox_2);
+        leLargeScale->setObjectName("leLargeScale");
+
+        gridLayout_2->addWidget(leLargeScale, 2, 1, 1, 1);
 
         label_2 = new QLabel(groupBox_2);
         label_2->setObjectName("label_2");
-        label_2->setMinimumSize(QSize(100, 0));
-        label_2->setMaximumSize(QSize(100, 16777215));
+        label_2->setMinimumSize(QSize(150, 0));
+        label_2->setMaximumSize(QSize(150, 16777215));
 
         gridLayout_2->addWidget(label_2, 0, 2, 1, 1);
 
-        checkWaterMeters_1_10 = new QCheckBox(groupBox_2);
-        checkWaterMeters_1_10->setObjectName("checkWaterMeters_1_10");
+        leWaterMeters_1_5 = new QLineEdit(groupBox_2);
+        leWaterMeters_1_5->setObjectName("leWaterMeters_1_5");
 
-        gridLayout_2->addWidget(checkWaterMeters_1_10, 4, 0, 1, 1);
+        gridLayout_2->addWidget(leWaterMeters_1_5, 7, 1, 1, 1);
+
+        checkWaterMeter1 = new QCheckBox(groupBox_2);
+        checkWaterMeter1->setObjectName("checkWaterMeter1");
+
+        gridLayout_2->addWidget(checkWaterMeter1, 4, 0, 1, 1);
+
+        leWaterMeter1 = new QLineEdit(groupBox_2);
+        leWaterMeter1->setObjectName("leWaterMeter1");
+
+        gridLayout_2->addWidget(leWaterMeter1, 4, 1, 1, 1);
+
+        leWaterMeter3 = new QLineEdit(groupBox_2);
+        leWaterMeter3->setObjectName("leWaterMeter3");
+
+        gridLayout_2->addWidget(leWaterMeter3, 6, 1, 1, 1);
+
+        leWaterMeters_11_15 = new QLineEdit(groupBox_2);
+        leWaterMeters_11_15->setObjectName("leWaterMeters_11_15");
+
+        gridLayout_2->addWidget(leWaterMeters_11_15, 9, 1, 1, 1);
+
+        leWaterMeters_16_20 = new QLineEdit(groupBox_2);
+        leWaterMeters_16_20->setObjectName("leWaterMeters_16_20");
+
+        gridLayout_2->addWidget(leWaterMeters_16_20, 10, 1, 1, 1);
+
+        checkWaterMeters_11_15 = new QCheckBox(groupBox_2);
+        checkWaterMeters_11_15->setObjectName("checkWaterMeters_11_15");
+
+        gridLayout_2->addWidget(checkWaterMeters_11_15, 9, 0, 1, 1);
+
+        checkWaterMeters_16_20 = new QCheckBox(groupBox_2);
+        checkWaterMeters_16_20->setObjectName("checkWaterMeters_16_20");
+
+        gridLayout_2->addWidget(checkWaterMeters_16_20, 10, 0, 1, 1);
+
+        leWaterMeters_6_10 = new QLineEdit(groupBox_2);
+        leWaterMeters_6_10->setObjectName("leWaterMeters_6_10");
+
+        gridLayout_2->addWidget(leWaterMeters_6_10, 8, 1, 1, 1);
 
 
         gridLayout_5->addLayout(gridLayout_2, 0, 0, 1, 1);
 
 
-        verticalLayout->addWidget(groupBox_2);
+        gridLayout_3->addWidget(groupBox_2, 1, 0, 1, 1);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer);
+        gridLayout_3->addItem(verticalSpacer, 2, 0, 1, 1);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
@@ -425,10 +481,7 @@ public:
         horizontalLayout->addWidget(pbClose);
 
 
-        verticalLayout->addLayout(horizontalLayout);
-
-
-        gridLayout_3->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout_3->addLayout(horizontalLayout, 3, 0, 1, 1);
 
         QWidget::setTabOrder(cbSelectSerial, cbBaudRate);
         QWidget::setTabOrder(cbBaudRate, cbSelectDataBits);
@@ -448,21 +501,34 @@ public:
         Interface->setWindowTitle(QCoreApplication::translate("Interface", "Serial Port Configuration", nullptr));
         groupBox->setTitle(QString());
         lbSelectStopBits->setText(QString());
-        lbTimeout->setText(QCoreApplication::translate("Interface", "Timeout [ms]:", nullptr));
+        lbTimeout->setText(QString());
         lbSelectSerial->setText(QString());
         lbDataBits->setText(QString());
         lbSelectParity->setText(QString());
         lbBaudRate->setText(QString());
-        lbNumberOfRetries->setText(QCoreApplication::translate("Interface", "Number of Retries:", nullptr));
+        lbNumberOfRetries->setText(QString());
         groupBox_2->setTitle(QString());
-        checkSmallScale->setText(QString());
-        checkWaterMeters_11_20->setText(QString());
-        lbAddress->setText(QString());
+        checkWaterMeters_6_10->setText(QString());
         checkLargeScale->setText(QString());
-        label_10->setText(QString());
         checkTemperature->setText(QString());
+        checkWaterMeter2->setText(QString());
+        checkWaterMeters_1_5->setText(QString());
+        leSmallScale->setText(QString());
+        leTemperature->setText(QString());
+        leWaterMeter2->setText(QString());
+        checkWaterMeter3->setText(QString());
+        lbAddress->setText(QString());
+        label_10->setText(QString());
+        checkSmallScale->setText(QString());
+        leLargeScale->setText(QString());
         label_2->setText(QString());
-        checkWaterMeters_1_10->setText(QString());
+        leWaterMeters_1_5->setText(QString());
+        checkWaterMeter1->setText(QString());
+        leWaterMeter1->setText(QString());
+        leWaterMeter3->setText(QString());
+        checkWaterMeters_11_15->setText(QString());
+        checkWaterMeters_16_20->setText(QString());
+        leWaterMeters_6_10->setText(QString());
         pbRefresh->setText(QString());
         pbConnect->setText(QString());
         pbClose->setText(QString());

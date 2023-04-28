@@ -24,7 +24,7 @@ class Interface : public QDialog
   private:
     Ui::Interface *ui;
     QVector<QString> entries;
-    bool isOpenPort {false};
+    bool isOpenModbusPort {false};
     void DisconnectSerialPort();
 
   private slots:

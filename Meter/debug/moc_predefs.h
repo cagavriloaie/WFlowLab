@@ -80,7 +80,7 @@
 #define __FLT32X_MANT_DIG__ 53
 #define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
 #define __cpp_aligned_new 201606L
-#define __USER_LABEL_PREFIX__
+#define __USER_LABEL_PREFIX__ 
 #define __FLT32_MAX_10_EXP__ 38
 #define __FLT64X_EPSILON__ 1.08420217248550443400745280086994171e-19F64x
 #define __STDC_HOSTED__ 1
@@ -190,7 +190,7 @@
 #define __FLT64_MIN_10_EXP__ (-307)
 #define __FLT64X_DECIMAL_DIG__ 21
 #define __DEC128_MIN__ 1E-6143DL
-#define __REGISTER_PREFIX__
+#define __REGISTER_PREFIX__ 
 #define __UINT16_MAX__ 0xffff
 #define __cdecl __attribute__((__cdecl__))
 #define __LDBL_HAS_INFINITY__ 1

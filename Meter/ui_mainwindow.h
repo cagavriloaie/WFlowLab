@@ -139,7 +139,7 @@ public:
         font.setPointSize(14);
         MainWindow->setFont(font);
         QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/icons8-blur-80.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8("icons8-factory-96.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QString::fromUtf8("QLabel \n"
 "{\n"
@@ -208,7 +208,6 @@ public:
 "\n"
 "\n"
 ""));
-        MainWindow->setIconSize(QSize(50, 50));
         MainWindow->setUnifiedTitleAndToolBarOnMac(true);
         action_StartSession = new QAction(MainWindow);
         action_StartSession->setObjectName("action_StartSession");

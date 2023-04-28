@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
+    <normaloff>icons8-factory-96.png</normaloff>icons8-factory-96.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel 
@@ -101,12 +101,6 @@ QRadioButton::indicator:unchecked {
 
 
 </string>
-  </property>
-  <property name="iconSize">
-   <size>
-    <width>50</width>
-    <height>50</height>
-   </size>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>

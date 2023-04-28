@@ -8,7 +8,9 @@
 #include <QMainWindow>
 #include <QActionGroup>
 #include <QApplication>
-#include <QtSerialPort/QSerialPort>
+#include <QtSerialBus/QModbusRtuSerialClient>
+#include <QSerialPort>
+#include <QSerialPortInfo>
 #include <QTranslator>
 #include "tableBoard.h"
 #include "license.h"
@@ -62,7 +64,8 @@ struct SelectedInfo
     bool serialPort {false};
     SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 
-    QSerialPort *serialPortSelected{nullptr};
+  //  QSerialPort *serialPortSelected{nullptr};
+    QModbusClient *modbusDevice{nullptr};
 
 };
 
