@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialBus/QModbusRtuSerialServer>
+#include "ledindicator.h"
 
 namespace Ui
 {
@@ -21,17 +22,20 @@ class Interface : public QDialog
     ~Interface();
     void Translate();
 
+    bool checkModbusAddress(qint16 address);
   private:
     Ui::Interface *ui;
     QVector<QString> entries;
     bool isOpenModbusPort {false};
     void DisconnectSerialPort();
+    LedIndicator *ledStateTable[10];
 
   private slots:
 
     void onCloseClicked();
-    void onSaveClicked();
-    void onRefreshClicked();
+    void onTestConfigurationClicked();
+    void onSaveConfigurationClicked();
+    void onRefreshSerialPortClicked();
 
     void showEvent(QShowEvent *event);
 
@@ -40,6 +44,8 @@ class Interface : public QDialog
     void onSelectDataBitsnChanged();
     void onSelectParityChanged();
     void onSelectStopBitsChanged();
+
+    void onReadModbusReady();
 };
 
 #endif // INTERFACE_H

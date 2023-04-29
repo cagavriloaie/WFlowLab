@@ -24,8 +24,10 @@ class LedIndicator: public QWidget
     bool lit;
     QColor ledOnColor;
     QColor ledOffColor;
+    QColor ledNeutral;
     Qt::BrushStyle ledOnPattern;
     Qt::BrushStyle ledOffPattern;
+    Qt::BrushStyle ledNeutralPattern;
     int ledSize;
 };
 

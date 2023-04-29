@@ -64,7 +64,7 @@ struct SelectedInfo
     bool serialPort {false};
     SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 
-  //  QSerialPort *serialPortSelected{nullptr};
+    //  QSerialPort *serialPortSelected{nullptr};
     QModbusClient *modbusDevice{nullptr};
 
 };
