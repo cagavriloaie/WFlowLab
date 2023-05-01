@@ -2,7 +2,7 @@
 #define INTERFACE_H
 
 #include <QDialog>
-#include <Qstring>
+#include <QString>
 #include <QVector>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialBus/QModbusRtuSerialServer>
@@ -36,16 +36,13 @@ class Interface : public QDialog
     void onTestConfigurationClicked();
     void onSaveConfigurationClicked();
     void onRefreshSerialPortClicked();
-
-    void showEvent(QShowEvent *event);
-
     void onSelectSerialChanged();
     void onBaudRateChanged();
     void onSelectDataBitsnChanged();
     void onSelectParityChanged();
     void onSelectStopBitsChanged();
-
     void onReadModbusReady();
+    void showEvent(QShowEvent *event);
 };
 
 #endif // INTERFACE_H

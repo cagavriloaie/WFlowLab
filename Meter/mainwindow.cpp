@@ -214,6 +214,7 @@ MainWindow::MainWindow(QWidget *parent)
             serialDll = true;
         }
     }
+    CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(tr("Not connected to RS485 network"));
     ui->lbConnected->setStyleSheet("QLabel{font-family: \"Segoe UI\"; font-size: 10pt}");
@@ -367,11 +368,14 @@ MainWindow::MainWindow(QWidget *parent)
     inputData = new Dialog(nullptr);
     inputData->setAttribute(Qt::WA_DeleteOnClose);
     licenseDialog = new License(this);
+    licenseDialog->setModal(true);
+    CenterToScreen(licenseDialog);
     helpAbout = new HelpAbout(this);
+    helpAbout->setModal(true);
+    CenterToScreen(helpAbout);
     interfaceDialog = new Interface(this);
     licenseDialog->setModal(true);
-    helpAbout->setModal(true);
-    interfaceDialog->setModal(true);
+    CenterToScreen(licenseDialog);
     alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -501,8 +505,7 @@ void MainWindow::onExitApplication()
 {
     if (inputData)
     {
-        inputData->close();
-        delete inputData;
+        //delete inputData;
         inputData = nullptr;
     }
     this->close();
@@ -752,9 +755,21 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (inputData)
     {
-        inputData->close();
+        //inputData->close();
         delete inputData;
         inputData = nullptr;
     }
     event->accept();
+}
+
+void MainWindow::CenterToScreen(QWidget *widget)
+{
+    if (!widget)
+    {
+        return;
+    }
+    QRect size = QGuiApplication::primaryScreen()->geometry();
+    int x = widget->width();
+    int y = widget->height();
+    widget->move(size.center().x() - x / 2, size.center().y() - y / 2);
 }

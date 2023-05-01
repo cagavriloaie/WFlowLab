@@ -49,19 +49,14 @@ class Dialog : public QDialog
     double maximumError {0};
 
     std::vector<QLabel *> vectorNumber;
-
     std::vector<QCheckBox *> vectorCheckNumber;
-
     std::vector<QLineEdit *> vectorSerialNumber;
-
     std::vector<QLineEdit *> vectorFirstIndexStart;
     std::vector<QLineEdit *> vectorFirstIndexStop;
     std::vector<QLineEdit *> vectorFirstError;
-
     std::vector<QLineEdit *> vectorSecondIndexStart;
     std::vector<QLineEdit *> vectorSecondIndexStop;
     std::vector<QLineEdit *> vectorSecondError;
-
     std::vector<QLineEdit *> vectorThirdIndexStart;
     std::vector<QLineEdit *> vectorThirdIndexStop;
     std::vector<QLineEdit *> vectorThirdError;

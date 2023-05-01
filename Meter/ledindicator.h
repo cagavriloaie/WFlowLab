@@ -18,8 +18,10 @@ class LedIndicator: public QWidget
 
   public slots:
     void switchLedIndicator();
+
   protected:
     void paintEvent(QPaintEvent *);
+
   private:
     bool lit;
     QColor ledOnColor;

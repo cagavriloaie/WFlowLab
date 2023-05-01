@@ -64,9 +64,7 @@ struct SelectedInfo
     bool serialPort {false};
     SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
 
-    //  QSerialPort *serialPortSelected{nullptr};
     QModbusClient *modbusDevice{nullptr};
-
 };
 
 
@@ -91,6 +89,7 @@ class MainWindow : public QMainWindow
     void Translate();
     void SelectMeterComboBox();
     void ReadConfiguration();
+    void CenterToScreen(QWidget *widget);
 
     unsigned MAX_NR_WATER_METERS {20};
     unsigned NUMBER_ENTRIES_METER_FLOW_DB {0};
@@ -101,21 +100,16 @@ class MainWindow : public QMainWindow
 
   private slots:
     void onMeterTypeChanged(int index);
-
     void onNumberOfWaterMetersChanged(int index);
     void onNewSessionClicked();
     void onExitApplication();
-
     void onRbVolumeClicked();
     void onRbGavritmetricClicked();
-
     void onRbManualClicked();
     void onRbInterfaceClicked();
-
     void onAmbientTemperatureTextChanged();
     void onRelativeAirHumidityTextChanged();
     void onAthmosphericPressureTextChanged();
-
     void onSetRomanian();
     void onSetEnglish();
     void onGeneralDescription();
@@ -123,7 +117,6 @@ class MainWindow : public QMainWindow
     void onWaterDensityPage();
     void onHelpAbout();
     void onPortSettings();
-
     void mousePressEvent(QMouseEvent *event);
     void closeEvent(QCloseEvent *event);
 

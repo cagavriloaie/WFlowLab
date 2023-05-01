@@ -64,7 +64,7 @@ void Dialog::printPdfThread(QString report)
 
 void Dialog::onSaveCurrentInputDataClicked()
 {
-    size_t entries = mainwindow->selectedInfo.entriesNumber;
+    size_t entriesNumber = mainwindow->selectedInfo.entriesNumber;
     QDateTime now = QDateTime::currentDateTime();
     QString fileName = QString(
                            mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/" +
@@ -84,7 +84,7 @@ void Dialog::onSaveCurrentInputDataClicked()
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
     outputDataFile << mainwindow->selectedInfo.rbInterface << "\n";
     outputDataFile << mainwindow->selectedInfo.rbTerminal << "\n";
-    for (size_t iter = 0; iter < entries; ++iter)
+    for (size_t iter = 0; iter < entriesNumber; ++iter)
     {
         outputDataFile << vectorSerialNumber[iter]->text().toStdString() <<
                        "\n";
@@ -549,7 +549,8 @@ void Dialog::Translate()
         arg(QString::number(minimumFlowMain), QString::number(maximumError)));
     ui->lbIndex2->setText(
         QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %").
-        arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
+        arg(QString::number(transitoriuFlowMain),
+            QString::number(nominalError)));
     ui->lbIndex3->setText(
         QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").
         arg(QString::number(nominalFlowMain), QString::number(nominalError)));
@@ -1874,7 +1875,8 @@ void Dialog::PopulateTable()
         arg(QString::number(minimumFlowMain), QString::number(maximumError)));
     ui->lbIndex2->setText(
         QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %").
-        arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
+        arg(QString::number(transitoriuFlowMain),
+            QString::number(nominalError)));
     ui->lbIndex3->setText(
         QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").
         arg(QString::number(nominalFlowMain), QString::number(nominalError)));

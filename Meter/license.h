@@ -16,7 +16,6 @@ class License : public QDialog
     explicit License(QWidget *parent = nullptr);
     ~License();
     void Translate();
-
     Ui::Licence *ui;
 
   private slots:
