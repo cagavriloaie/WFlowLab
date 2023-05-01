@@ -218,6 +218,166 @@ QLineEdit {
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout_2">
+        <item row="9" column="0">
+         <widget class="QCheckBox" name="checkWaterMeters_11_15">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="LedIndicator" name="ledWaterMeters_1_5State" native="true"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="lbAddress">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="checkSmallScale">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QCheckBox" name="checkWaterMeters_16_20">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="leWaterMeters_1_5">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="leSmallScale">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLineEdit" name="leWaterMeters_11_15"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="checkTemperature">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="leWaterMeter1">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="LedIndicator" name="ledSmallScaleState" native="true"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="leWaterMeter2">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QCheckBox" name="checkWaterMeter3">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="leLargeScale">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="LedIndicator" name="ledWaterMeter3State" native="true"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="leWaterMeter3">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="LedIndicator" name="ledTemperatureState" native="true"/>
+        </item>
+        <item row="9" column="2">
+         <widget class="LedIndicator" name="ledWaterMeters_11_15Status" native="true"/>
+        </item>
+        <item row="4" column="0">
+         <widget class="QCheckBox" name="checkWaterMeter1">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLineEdit" name="leWaterMeters_6_10">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="LedIndicator" name="ledWaterMeter2State" native="true"/>
+        </item>
+        <item row="10" column="2">
+         <widget class="LedIndicator" name="ledWaterMeters_16_20State" native="true"/>
+        </item>
         <item row="8" column="0">
          <widget class="QCheckBox" name="checkWaterMeters_6_10">
           <property name="styleSheet">
@@ -301,33 +461,11 @@ QRadioButton::indicator:unchecked {
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QCheckBox" name="checkTemperature">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
+        <item row="10" column="1">
+         <widget class="QLineEdit" name="leWaterMeters_16_20"/>
         </item>
-        <item row="5" column="0">
-         <widget class="QCheckBox" name="checkWaterMeter2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QCheckBox" name="checkWaterMeters_1_5">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="leSmallScale">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
+        <item row="2" column="2">
+         <widget class="LedIndicator" name="ledLargeScaleState" native="true"/>
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="leTemperature">
@@ -336,129 +474,21 @@ QRadioButton::indicator:unchecked {
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="leWaterMeter2">
+        <item row="8" column="2">
+         <widget class="LedIndicator" name="ledWaterMeters_6_10State" native="true"/>
+        </item>
+        <item row="7" column="0">
+         <widget class="QCheckBox" name="checkWaterMeters_1_5">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QCheckBox" name="checkWaterMeter3">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
+        <item row="4" column="2">
+         <widget class="LedIndicator" name="ledWaterMeter1State" native="true"/>
         </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="lbAddress">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="checkSmallScale">
-          <property name="minimumSize">
-           <size>
-            <width>200</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="leLargeScale">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_2">
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>150</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <widget class="QLineEdit" name="leWaterMeters_1_5">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QCheckBox" name="checkWaterMeter1">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="leWaterMeter1">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLineEdit" name="leWaterMeter3">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="1">
-         <widget class="QLineEdit" name="leWaterMeters_11_15"/>
-        </item>
-        <item row="10" column="1">
-         <widget class="QLineEdit" name="leWaterMeters_16_20"/>
-        </item>
-        <item row="9" column="0">
-         <widget class="QCheckBox" name="checkWaterMeters_11_15">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0">
-         <widget class="QCheckBox" name="checkWaterMeters_16_20">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QLineEdit" name="leWaterMeters_6_10">
+        <item row="5" column="0">
+         <widget class="QCheckBox" name="checkWaterMeter2">
           <property name="text">
            <string/>
           </property>
@@ -498,14 +528,21 @@ QRadioButton::indicator:unchecked {
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pbRefresh">
+      <widget class="QPushButton" name="pbRefreshSerialPort">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pbConnect">
+      <widget class="QPushButton" name="pbTestConnection">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbSaveConfiguration">
        <property name="text">
         <string/>
        </property>
@@ -522,14 +559,45 @@ QRadioButton::indicator:unchecked {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LedIndicator</class>
+   <extends>QWidget</extends>
+   <header location="global">ledindicator.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>cbSelectSerial</tabstop>
   <tabstop>cbBaudRate</tabstop>
   <tabstop>cbSelectDataBits</tabstop>
   <tabstop>cbSelectParity</tabstop>
   <tabstop>cbSelectStopBits</tabstop>
-  <tabstop>pbRefresh</tabstop>
-  <tabstop>pbConnect</tabstop>
+  <tabstop>leTimeout</tabstop>
+  <tabstop>cbNumberRetries</tabstop>
+  <tabstop>checkSmallScale</tabstop>
+  <tabstop>checkLargeScale</tabstop>
+  <tabstop>checkTemperature</tabstop>
+  <tabstop>checkWaterMeter1</tabstop>
+  <tabstop>checkWaterMeter2</tabstop>
+  <tabstop>checkWaterMeter3</tabstop>
+  <tabstop>checkWaterMeters_1_5</tabstop>
+  <tabstop>checkWaterMeters_6_10</tabstop>
+  <tabstop>checkWaterMeters_11_15</tabstop>
+  <tabstop>checkWaterMeters_16_20</tabstop>
+  <tabstop>leSmallScale</tabstop>
+  <tabstop>leLargeScale</tabstop>
+  <tabstop>leTemperature</tabstop>
+  <tabstop>leWaterMeter1</tabstop>
+  <tabstop>leWaterMeter2</tabstop>
+  <tabstop>leWaterMeter3</tabstop>
+  <tabstop>leWaterMeters_1_5</tabstop>
+  <tabstop>leWaterMeters_6_10</tabstop>
+  <tabstop>leWaterMeters_11_15</tabstop>
+  <tabstop>leWaterMeters_16_20</tabstop>
+  <tabstop>pbRefreshSerialPort</tabstop>
+  <tabstop>pbTestConnection</tabstop>
+  <tabstop>pbSaveConfiguration</tabstop>
   <tabstop>pbClose</tabstop>
  </tabstops>
  <resources/>

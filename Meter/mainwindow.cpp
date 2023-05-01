@@ -13,13 +13,13 @@
 #include <QSettings>
 #include <QLibrary>
 #include <QMessageBox>
-#include <map>
 
 #include <sstream>
 #include <iomanip>
 #include <fstream>
 #include <filesystem>
 #include <sstream>
+#include <map>
 
 #include "flow-meter-type.h"
 #include "md5.h"

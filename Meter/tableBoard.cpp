@@ -545,14 +545,14 @@ void Dialog::Translate()
     ui->pbClean->setText(tr("Clean &Input"));
     ui->pbClose->setText(tr("&Close"));
     ui->lbIndex1->setText(
-        QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %").arg(
-            QString::number(minimumFlowMain)).arg(QString::number(maximumError)));
+        QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %").
+        arg(QString::number(minimumFlowMain), QString::number(maximumError)));
     ui->lbIndex2->setText(
-        QString("Index [L] -  Qt:  %1  [L/h]  Err: % 2%").arg(QString::number(
-                    transitoriuFlowMain)).arg(QString::number(nominalError)));
+        QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %").
+        arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
     ui->lbIndex3->setText(
-        QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").arg(QString::number(
-                    nominalFlowMain)).arg(QString::number(nominalError)));
+        QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").
+        arg(QString::number(nominalFlowMain), QString::number(nominalError)));
 }
 
 Dialog::Dialog(QWidget *parent) :
@@ -1870,14 +1870,14 @@ void Dialog::PopulateTable()
         }
     }
     ui->lbIndex1->setText(
-        QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %").arg(
-            QString::number(minimumFlowMain)).arg(QString::number(maximumError)));
+        QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %").
+        arg(QString::number(minimumFlowMain), QString::number(maximumError)));
     ui->lbIndex2->setText(
-        QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %").arg(QString::number(
-                    transitoriuFlowMain)).arg(QString::number(nominalError)));
+        QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %").
+        arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
     ui->lbIndex3->setText(
-        QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").arg(QString::number(
-                    nominalFlowMain)).arg(QString::number(nominalError)));
+        QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %").
+        arg(QString::number(nominalFlowMain), QString::number(nominalError)));
 }
 
 void Dialog::focusInEvent(QFocusEvent *event)

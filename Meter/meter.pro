@@ -54,12 +54,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    Elegantthemes-Beautiful-Flat-Water.128.png \
-    Elegantthemes-Beautiful-Flat-Water.64.png \
-    Elegantthemes-Beautiful-Flat-Water.72.png \
-    Elegantthemes-Beautiful-Flat-Water.96.png \
-    Elegantthemes-Beautiful-Flat-Water.ico \
-    icons8-factory-96.png
 
 TARGET = WStreamLab

@@ -32,7 +32,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons8-factory-96.png</normaloff>icons8-factory-96.png</iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel 
@@ -1104,7 +1104,6 @@ QRadioButton::indicator:unchecked {
    <sender>pbExit</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>slot1()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>521</x>
@@ -1118,6 +1117,5 @@ QRadioButton::indicator:unchecked {
   </connection>
  </connections>
  <slots>
-  <slot>slot1()</slot>
  </slots>
 </ui>

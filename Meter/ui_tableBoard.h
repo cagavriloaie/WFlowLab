@@ -3571,7 +3571,6 @@ public:
         QWidget::setTabOrder(cbSet19, cbSet20);
 
         retranslateUi(Dialog);
-        QObject::connect(pbSave, SIGNAL(clicked()), Dialog, SLOT(slot1()));
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi

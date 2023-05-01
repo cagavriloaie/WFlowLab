@@ -7747,7 +7747,6 @@ QMessageBox  {
    <sender>pbSave</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>slot1()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>865</x>
@@ -7761,7 +7760,5 @@ QMessageBox  {
   </connection>
  </connections>
  <slots>
-  <slot>slot1()</slot>
-  <slot>slot2()</slot>
  </slots>
 </ui>

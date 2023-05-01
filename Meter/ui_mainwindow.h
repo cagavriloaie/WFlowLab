@@ -139,7 +139,7 @@ public:
         font.setPointSize(14);
         MainWindow->setFont(font);
         QIcon icon;
-        icon.addFile(QString::fromUtf8("icons8-factory-96.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QString::fromUtf8("QLabel \n"
 "{\n"
