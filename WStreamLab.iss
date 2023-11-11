@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WStreamLab"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "ELCOST"
 #define MyAppExeName "WStreamLab.exe"
 #define MyAppIcoName "WStreamLab.ico"
@@ -49,6 +49,7 @@ Source: ".\build\Qt6PrintSupport.dll"; DestDir: "{app}"
 Source: ".\build\Qt6Svg.dll"; DestDir: "{app}"
 Source: ".\build\Qt6Widgets.dll"; DestDir: "{app}"
 Source: ".\build\Qt6SerialBus.dll"; DestDir: "{app}"
+Source: ".\build\Qt6SerialPort.dll"; DestDir: "{app}"
 Source: ".\build\watermeters.conf"; DestDir: "{app}"
 Source: ".\build\iconengines\qsvgicon.dll";DestDir: "{app}\iconengines"
 Source: ".\build\imageformats\qgif.dll";DestDir: "{app}\imageformats"
@@ -60,7 +61,7 @@ Source: ".\build\styles\qwindowsvistastyle.dll";DestDir: "{app}\styles"
 Source: ".\build\translations\meter_ro_RO.qm";DestDir: "{app}\translations"
 Source: ".\build\translations\meter_en_EN.qm";DestDir: "{app}\translations"
 Source: ".\build\WStreamLab.ico"; DestDir: "{app}"
-Source: ".\build\WStreamLab.txt"; DestDir: "{app}"
+Source: ".\build\README"; DestDir: "{app}"
 
 [Icons]
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon;

@@ -9,7 +9,7 @@
 void HelpAbout::Translate() {
     this->setWindowTitle(tr("WStreamLab - About"));
     ui->lbName->setText(tr("WStreamLab version:"));
-    ui->lbNameValue->setText(tr("1.1 Windows x86_64"));
+    ui->lbNameValue->setText(tr("1.1 Windows x86_32"));
     ui->lbCopyright->setText(tr("Copyright:"));
     ui->lbCopyrightValue->setText(tr("2023 Elcost Company srl"));
     ui->lbEmail->setText(tr("Email:"));

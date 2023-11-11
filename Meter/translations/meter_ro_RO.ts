@@ -126,7 +126,7 @@
     <message>
         <location filename="../helpabout.ui" line="26"/>
         <source>WMeter - About</source>
-        <translation>WFlowLab - Despre</translation>
+        <translation>WStreamLab - Despre</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="6"/>
@@ -140,8 +140,8 @@
     </message>
     <message>
         <location filename="../helpabout.cpp" line="8"/>
-        <source>1.0 Windows x86_64</source>
-        <translation>1.0 Windows x86_64</translation>
+        <source>1.1 Windows x86</source>
+        <translation>1.1 Windows x86_64</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="9"/>

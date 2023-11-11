@@ -388,10 +388,17 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(onSetEnglish()));
     connect(ui->action_Configure_Serial_Port, SIGNAL(triggered()), this,
             SLOT(onPortSettings()));
-    QValidator *validatorNaturalNumber = new QIntValidator(0, 999999999, this);
-    ui->leHumidity->setValidator(validatorNaturalNumber);
-    ui->leTemperature->setValidator(validatorNaturalNumber);
-    ui->leHumidity->setValidator(validatorNaturalNumber);
+
+
+    QDoubleValidator *validatorTemperature = new QDoubleValidator(0.0, 100.0, 2, ui->leTemperature);
+    ui->leTemperature->setValidator(validatorTemperature);
+
+    QDoubleValidator *validatorHumidity = new QDoubleValidator(0.0, 100.0, 2, ui->leHumidity);
+    ui->leHumidity->setValidator(validatorHumidity);
+
+    QDoubleValidator *validatorPressure = new QDoubleValidator(500.0, 1500.0, 2, ui->lePressure);
+    ui->lePressure->setValidator(validatorPressure);
+
     if (optionsConfiguration.find("maximum") != optionsConfiguration.end()) {
         size_t index = std::stoi(optionsConfiguration["maximum"]);
         ui->cbNumberOfWaterMeters->setCurrentIndex(index - 1);
