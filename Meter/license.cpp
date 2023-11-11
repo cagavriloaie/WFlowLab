@@ -1,38 +1,31 @@
 #include "license.h"
-#include "ui_license.h"
 #include "mainwindow.h"
+#include "ui_license.h"
 
-namespace
-{
-    MainWindow *mainwindow;
+namespace {
+MainWindow *mainwindow;
 }
 
-void License::Translate()
-{
+void License::Translate() {
     this->setWindowTitle(tr("WStreamLab - License"));
     ui->lbCertificate->setText(tr("Certificate:"));
     ui->lbDensity->setText(tr("Water density at 20 °C:"));
-    ui->lbDensityUnit->setText(tr("[kg/m²]"));
-    ui->lbArchive->setText(tr("Archive folder:"));
+        ui->lbDensityUnit->setText(tr("[kg/m²]"));
+        ui->lbArchive->setText(tr("Archive folder:"));
     ui->lbCompany->setText(tr("Company:"));
     ui->lbMaximum->setText(tr("Maxim number entries"));
     ui->lbChecksum->setText(tr("Checksum:"));
     ui->pbClose->setText(tr("Close"));
 }
 
-License::License(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Licence)
-{
+License::License(QWidget *parent) : QDialog(parent), ui(new Ui::Licence) {
     ui->setupUi(this);
     mainwindow = dynamic_cast<MainWindow *>(parent);
     Translate();
-    connect(ui->pbClose, &QPushButton::clicked, this,
-            &License::onCloseClicked);
+    connect(ui->pbClose, &QPushButton::clicked, this, &License::onCloseClicked);
 }
 
-void License::showEvent(QShowEvent *event)
-{
+void License::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
     mainwindow->optionsConfiguration["company"];
     mainwindow->optionsConfiguration["certificate"];
@@ -54,12 +47,6 @@ void License::showEvent(QShowEvent *event)
         mainwindow->optionsConfiguration["control"].c_str());
 }
 
-void License::onCloseClicked()
-{
-    this->hide();
-}
+void License::onCloseClicked() { this->hide(); }
 
-License::~License()
-{
-    delete ui;
-}
+License::~License() { delete ui; }

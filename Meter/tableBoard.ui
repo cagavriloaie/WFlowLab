@@ -29,7 +29,7 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset resource="resourcescontor.qrc">
+   <iconset>
     <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
   </property>
   <property name="styleSheet">
@@ -7503,7 +7503,7 @@ QMessageBox  {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pbSave">
+           <widget class="QPushButton" name="pbSaveResults">
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>
             </property>
@@ -7739,26 +7739,9 @@ QMessageBox  {
   <tabstop>cbSet19</tabstop>
   <tabstop>cbSet20</tabstop>
  </tabstops>
- <resources>
-  <include location="resourcescontor.qrc"/>
- </resources>
- <connections>
-  <connection>
-   <sender>pbSave</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <hints>
-    <hint type="sourcelabel">
-     <x>865</x>
-     <y>695</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>749</x>
-     <y>672</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources/>
+ <connections/>
  <slots>
+  <slot></slot>
  </slots>
 </ui>

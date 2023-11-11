@@ -942,7 +942,7 @@ QRadioButton::indicator:unchecked {
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pbExit">
+         <widget class="QPushButton" name="pbExitApplication">
           <property name="text">
            <string/>
           </property>
@@ -960,7 +960,7 @@ QRadioButton::indicator:unchecked {
      <x>0</x>
      <y>0</y>
      <width>580</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -1096,26 +1096,11 @@ QRadioButton::indicator:unchecked {
   <tabstop>rbManual</tabstop>
   <tabstop>rbInterface</tabstop>
   <tabstop>pbNewSession</tabstop>
-  <tabstop>pbExit</tabstop>
+  <tabstop>pbExitApplication</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>pbExit</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <hints>
-    <hint type="sourcelabel">
-     <x>521</x>
-     <y>520</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>252</x>
-     <y>522</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
+  <slot></slot>
  </slots>
 </ui>

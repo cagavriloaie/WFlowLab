@@ -2,28 +2,25 @@
  *  Author: Constantin
  */
 
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-
-#include <QLineEdit>
-#include <QScrollArea>
 #include <QDesktopServices>
 #include <QDir>
-#include <QValidator>
-#include <QSettings>
 #include <QLibrary>
+#include <QLineEdit>
 #include <QMessageBox>
-
-#include <sstream>
-#include <iomanip>
-#include <fstream>
+#include <QScrollArea>
+#include <QSettings>
+#include <QValidator>
 #include <filesystem>
-#include <sstream>
+#include <fstream>
+#include <iomanip>
 #include <map>
+#include <sstream>
 
-#include "flow-meter-type.h"
-#include "md5.h"
 #include "air-density.h"
+#include "flow-meter-type.h"
+#include "mainwindow.h"
+#include "md5.h"
+#include "ui_mainwindow.h"
 
 extern QTranslator *appTranslator;
 MainWindow *pw;
@@ -41,34 +38,30 @@ MainWindow *pw;
  *
  *      company + density_20 => MD5
  */
-void MainWindow::ReadConfiguration()
-{
+void MainWindow::ReadConfiguration() {
     std::ifstream inConfigurationFile("watermeters.conf");
-    if (inConfigurationFile.is_open())
-    {
+    if (inConfigurationFile.is_open()) {
         std::string key;
-        while (std::getline(inConfigurationFile, key, '='))
-        {
+        while (std::getline(inConfigurationFile, key, '=')) {
             std::string value;
-            if (std::getline(inConfigurationFile, value, '>'))
-            {
+            if (std::getline(inConfigurationFile, value, '>')) {
                 optionsConfiguration[key] = value;
                 std::getline(inConfigurationFile, value);
             }
         }
-        if (optionsConfiguration.find("control") != optionsConfiguration.end()
-                &&
-                optionsConfiguration.find("company") != optionsConfiguration.end() &&
-                optionsConfiguration.find("density_20") != optionsConfiguration.end())
-        {
+        if (optionsConfiguration.find("control") !=
+                optionsConfiguration.end() &&
+            optionsConfiguration.find("company") !=
+                optionsConfiguration.end() &&
+            optionsConfiguration.find("density_20") !=
+                optionsConfiguration.end()) {
             std::string md5Read;
             std::string md5Calculate;
             md5Read = optionsConfiguration["control"];
             std::string wordControl = optionsConfiguration["company"] +
                                       optionsConfiguration["density_20"];
             md5Calculate = md5(wordControl);
-            if (md5Read == md5Calculate)
-            {
+            if (md5Read == md5Calculate) {
                 return;
             }
         }
@@ -83,12 +76,10 @@ void MainWindow::ReadConfiguration()
     return;
 }
 
-void MainWindow::SelectMeterComboBox()
-{
-    selectedInfo.density_20 = std::stof(
-                                  optionsConfiguration["density_20"]);
+void MainWindow::SelectMeterComboBox() {
+    selectedInfo.density_20 = std::stof(optionsConfiguration["density_20"]);
     selectedInfo.pathResults = optionsConfiguration["archive"];
-    selectedInfo.certificate =  optionsConfiguration["certificate"];
+    selectedInfo.certificate = optionsConfiguration["certificate"];
     selectedInfo.entriesNumber =
         ui->cbNumberOfWaterMeters->currentText().toInt();
     selectedInfo.ambientTemperature = ui->leTemperature->text().toInt();
@@ -99,18 +90,12 @@ void MainWindow::SelectMeterComboBox()
         MeterFlowDB[selectedWaterMeter].nameWaterMeter;
     selectedInfo.nominalDiameter =
         MeterFlowDB[selectedWaterMeter].nominalDiameter;
-    selectedInfo.nominalFlow =
-        MeterFlowDB[selectedWaterMeter].nominalFlow;
-    selectedInfo.maximumFlow =
-        MeterFlowDB[selectedWaterMeter].maximumFlow;
-    selectedInfo.trasitionFlow =
-        MeterFlowDB[selectedWaterMeter].trasitionFlow;
-    selectedInfo.minimumFlow =
-        MeterFlowDB[selectedWaterMeter].minimumFlow;
-    selectedInfo.nominalError =
-        MeterFlowDB[selectedWaterMeter].nominalError;
-    selectedInfo.maximumError =
-        MeterFlowDB[selectedWaterMeter].maximumError;
+    selectedInfo.nominalFlow = MeterFlowDB[selectedWaterMeter].nominalFlow;
+    selectedInfo.maximumFlow = MeterFlowDB[selectedWaterMeter].maximumFlow;
+    selectedInfo.trasitionFlow = MeterFlowDB[selectedWaterMeter].trasitionFlow;
+    selectedInfo.minimumFlow = MeterFlowDB[selectedWaterMeter].minimumFlow;
+    selectedInfo.nominalError = MeterFlowDB[selectedWaterMeter].nominalError;
+    selectedInfo.maximumError = MeterFlowDB[selectedWaterMeter].maximumError;
     selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
@@ -119,38 +104,34 @@ void MainWindow::SelectMeterComboBox()
     std::filesystem::create_directories(selectedInfo.pathResults +
                                         "/inputData");
     std::ostringstream streamObj;
-    streamObj << std::fixed << std::setprecision(0) <<
-              selectedInfo.nominalDiameter;
+    streamObj << std::fixed << std::setprecision(0)
+              << selectedInfo.nominalDiameter;
     ui->lbNominalDiameterCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.maximumFlow;
+    streamObj << std::fixed << std::setprecision(2) << selectedInfo.maximumFlow;
     ui->lbMaximumFlowCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.nominalFlow;
+    streamObj << std::fixed << std::setprecision(2) << selectedInfo.nominalFlow;
     ui->lbNominalFlowCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.trasitionFlow;
+    streamObj << std::fixed << std::setprecision(2)
+              << selectedInfo.trasitionFlow;
     ui->lbTransitionFlowCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.minimumFlow;
+    streamObj << std::fixed << std::setprecision(2) << selectedInfo.minimumFlow;
     ui->lbMinimumFlowCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(1) <<
-              selectedInfo.maximumError;
+    streamObj << std::fixed << std::setprecision(1)
+              << selectedInfo.maximumError;
     ui->lbMaximumErrorCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
-    streamObj << std::fixed << std::setprecision(1) <<
-              selectedInfo.nominalError;
+    streamObj << std::fixed << std::setprecision(1)
+              << selectedInfo.nominalError;
     ui->lbNominalErrorCurrent->setText(streamObj.str().c_str());
     streamObj.str("");
 }
 
-void MainWindow::Translate()
-{
+void MainWindow::Translate() {
     this->setWindowTitle(tr("WStreamLab - Dashboard"));
     ui->menu_File->setTitle(tr("File"));
     ui->menu_Language->setTitle(tr("Language"));
@@ -193,164 +174,126 @@ void MainWindow::Translate()
     ui->lbMaximumErrorUnit->setText(tr("[%]"));
     ui->lbNominalErrorUnit->setText(tr("[%]"));
     ui->pbNewSession->setText(tr("New Session"));
-    ui->pbExit->setText(tr("Exit"));
+    ui->pbExitApplication->setText(tr("Exit"));
 }
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     pw = this;
-    bool serialDll {false};
-    if (QLibrary::isLibrary("SerialPorts.dll"))
-    {
+    bool serialDll{false};
+    if (QLibrary::isLibrary("SerialPorts.dll")) {
         QLibrary library("SerialPorts.dll");
         library.load();
-        if (library.isLoaded())
-        {
-            serialPorts = (EnumerateSerialPorts)
-                          library.resolve("enumerateSerialPorts");
+        if (library.isLoaded()) {
+            serialPorts =
+                (EnumerateSerialPorts)library.resolve("enumerateSerialPorts");
             serialDll = true;
         }
     }
     CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(tr("Not connected to RS485 network"));
-    ui->lbConnected->setStyleSheet("QLabel{font-family: \"Segoe UI\"; font-size: 10pt}");
+    ui->lbConnected->setStyleSheet(
+        "QLabel{font-family: \"Segoe UI\"; font-size: 10pt}");
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
     settings.beginGroup("RS485");
-    if (!settings.childKeys().contains("selectedSerial",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("selectedSerial", Qt::CaseInsensitive)) {
         settings.setValue("selectedSerial", 0);
     }
-    if (!settings.childKeys().contains("baudRate", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("baudRate", Qt::CaseInsensitive)) {
         settings.setValue("baudRate", 7);
     }
-    if (!settings.childKeys().contains("dataBits", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("dataBits", Qt::CaseInsensitive)) {
         settings.setValue("dataBits", 3);
     }
-    if (!settings.childKeys().contains("parity", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("parity", Qt::CaseInsensitive)) {
         settings.setValue("parity", 2);
     }
-    if (!settings.childKeys().contains("stopBits", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("stopBits", Qt::CaseInsensitive)) {
         settings.setValue("stopBits", 0);
     }
-    if (!settings.childKeys().contains("timeout", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("timeout", Qt::CaseInsensitive)) {
         settings.setValue("timeout", 1000);
     }
-    if (!settings.childKeys().contains("retriesNumber",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("retriesNumber", Qt::CaseInsensitive)) {
         settings.setValue("retriesNumber", 0);
     }
-    if (!settings.childKeys().contains("smallScale", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("smallScale", Qt::CaseInsensitive)) {
         settings.setValue("smallScale", 1);
     }
-    if (!settings.childKeys().contains("largeScale", Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("largeScale", Qt::CaseInsensitive)) {
         settings.setValue("largeScale", 1);
     }
-    if (!settings.childKeys().contains("temperature",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("temperature", Qt::CaseInsensitive)) {
         settings.setValue("temperature", 1);
     }
-    if (!settings.childKeys().contains("emFlowMeter1",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("emFlowMeter1", Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter1", 1);
     }
-    if (!settings.childKeys().contains("emFlowMeter2",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("emFlowMeter2", Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter2", 1);
     }
-    if (!settings.childKeys().contains("emFlowMeter3",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("emFlowMeter3", Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter3", 1);
     }
-    if (!settings.childKeys().contains("waterMeters1_5",
-                                       Qt::CaseInsensitive))
-    {
+    if (!settings.childKeys().contains("waterMeters1_5", Qt::CaseInsensitive)) {
         settings.setValue("waterMeters1_5", 1);
     }
     if (!settings.childKeys().contains("waterMeters6_10",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters6_10", 1);
     }
     if (!settings.childKeys().contains("waterMeters11_15",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters11_15", 1);
     }
     if (!settings.childKeys().contains("waterMeters16_20",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters16_20", 1);
     }
     if (!settings.childKeys().contains("smallScaleValue",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("smallScaleValue", 100);
     }
     if (!settings.childKeys().contains("largeScaleValue",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("largeScaleValue", 101);
     }
     if (!settings.childKeys().contains("temperatureValue",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("temperatureValue", 102);
     }
     if (!settings.childKeys().contains("emFlowMeter1Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter1Value", 103);
     }
     if (!settings.childKeys().contains("emFlowMeter2Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter2Value", 104);
     }
     if (!settings.childKeys().contains("emFlowMeter3Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("emFlowMeter3Value", 105);
     }
     if (!settings.childKeys().contains("waterMeters1_5Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters1_5Value", 103);
     }
     if (!settings.childKeys().contains("waterMeters6_10Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters6_10Value", 104);
     }
     if (!settings.childKeys().contains("waterMeters10_15Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters10_15Value", 103);
     }
     if (!settings.childKeys().contains("waterMeters16_20Value",
-                                       Qt::CaseInsensitive))
-    {
+                                       Qt::CaseInsensitive)) {
         settings.setValue("waterMeters16_20Value", 104);
     }
-    if (!serialDll)
-    {
+    if (!serialDll) {
         QMessageBox warningMessage;
         QApplication::beep();
         warningMessage.addButton(QMessageBox::Ok);
@@ -358,9 +301,11 @@ MainWindow::MainWindow(QWidget *parent)
         warningMessage.setText(
             QObject::tr("Serial interfaces is not available."));
         warningMessage.setInformativeText(
-            QObject::tr("The application cannot use serial driver because the dll package is not available."));
+            QObject::tr("The application cannot use serial driver because the "
+                        "dll package is not available."));
         warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                      Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+                                      Qt::WindowTitleHint |
+                                      Qt::WindowCloseButtonHint);
         warningMessage.exec();
         this->close();
     }
@@ -386,22 +331,19 @@ MainWindow::MainWindow(QWidget *parent)
                    Qt::Dialog | Qt::WindowTitleHint);
     Translate();
     ReadConfiguration();
-    //setWindowIcon(QIcon(":/images/Elegantthemes-Beautiful-Flat-Water.64.png"));
+    // setWindowIcon(QIcon(":/images/Elegantthemes-Beautiful-Flat-Water.64.png"));
     MAX_NR_WATER_METERS = std::stoi(optionsConfiguration["maximum"]);
-    NUMBER_ENTRIES_METER_FLOW_DB = sizeof(MeterFlowDB) / sizeof(
-                                       MeterFlowType);
-    for (unsigned iter = 1; iter <=  MAX_NR_WATER_METERS; ++iter)
-    {
+    NUMBER_ENTRIES_METER_FLOW_DB = sizeof(MeterFlowDB) / sizeof(MeterFlowType);
+    for (unsigned iter = 1; iter <= MAX_NR_WATER_METERS; ++iter) {
         std::string value = std::to_string(iter);
         ui->cbNumberOfWaterMeters->addItem(value.c_str());
     }
-    for (unsigned iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter)
-    {
+    for (unsigned iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
         std::string nameWaterMeter = MeterFlowDB[iter].nameWaterMeter;
         ui->cbWaterMeterType->addItem(nameWaterMeter.c_str());
     }
-    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged,
-            this, &MainWindow::onNumberOfWaterMetersChanged);
+    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this,
+            &MainWindow::onNumberOfWaterMetersChanged);
     connect(ui->cbWaterMeterType, &QComboBox::currentIndexChanged, this,
             &MainWindow::onMeterTypeChanged);
     connect(ui->rbVolumetric, &QRadioButton::clicked, this,
@@ -420,7 +362,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::onAthmosphericPressureTextChanged);
     connect(ui->pbNewSession, &QPushButton::clicked, this,
             &MainWindow::onNewSessionClicked);
-    connect(ui->pbExit, &QPushButton::clicked, this,
+    connect(ui->pbExitApplication, &QPushButton::clicked, this,
             &MainWindow::onExitApplication);
     connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
             SLOT(onTypeMeterChanged()));
@@ -436,8 +378,7 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(onNewSessionClicked()));
     connect(ui->action_WaterDensity, SIGNAL(triggered()), this,
             SLOT(onWaterDensityPage()));
-    connect(ui->action_About, SIGNAL(triggered()), this,
-            SLOT(onHelpAbout()));
+    connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onHelpAbout()));
     connect(ui->action_General_Description, SIGNAL(triggered()), this,
             SLOT(onGeneralDescription()));
     connect(ui->action_Romana, SIGNAL(triggered()), this,
@@ -446,19 +387,14 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(onSetEnglish()));
     connect(ui->action_Configure_Serial_Port, SIGNAL(triggered()), this,
             SLOT(onPortSettings()));
-    QValidator *validatorNaturalNumber = new QIntValidator(0, 999999999,
-            this);
+    QValidator *validatorNaturalNumber = new QIntValidator(0, 999999999, this);
     ui->leHumidity->setValidator(validatorNaturalNumber);
     ui->leTemperature->setValidator(validatorNaturalNumber);
     ui->leHumidity->setValidator(validatorNaturalNumber);
-    if (optionsConfiguration.find("maximum") !=
-            optionsConfiguration.end())
-    {
+    if (optionsConfiguration.find("maximum") != optionsConfiguration.end()) {
         size_t index = std::stoi(optionsConfiguration["maximum"]);
         ui->cbNumberOfWaterMeters->setCurrentIndex(index - 1);
-    }
-    else
-    {
+    } else {
         ui->cbNumberOfWaterMeters->setCurrentIndex(0);
     }
     ui->rbGravitmetric->setChecked(true);
@@ -466,144 +402,180 @@ MainWindow::MainWindow(QWidget *parent)
     ui->leTemperature->setText("18");
     ui->leHumidity->setText("51");
     ui->lePressure->setText("1026");
-    ui->cbWaterMeterType->setStyleSheet("QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0);}");
-    ui->cbNumberOfWaterMeters->setStyleSheet("QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0);}");
-    ui->leTemperature->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leHumidity->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
-    ui->lePressure->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
+    ui->cbWaterMeterType->setStyleSheet(
+        "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
+        "selection-background-color: rgb(240, 255, 240); selection-color: "
+        "rgb(0, 0, 0);}");
+    ui->cbNumberOfWaterMeters->setStyleSheet(
+        "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
+        "selection-background-color: rgb(240, 255, 240); selection-color: "
+        "rgb(0, 0, 0);}");
+    ui->leTemperature->setStyleSheet(
+        "QLineEdit { background: rgb(240, 255, 240); "
+        "selection-background-color: rgb(0, 0, 0); }");
+    ui->leHumidity->setStyleSheet(
+        "QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
+    ui->lePressure->setStyleSheet(
+        "QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
     SelectMeterComboBox();
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+MainWindow::~MainWindow() { delete ui; }
 
-void MainWindow::onMeterTypeChanged(int index)
-{
+void MainWindow::onMeterTypeChanged(int index) {
     Q_UNUSED(index);
     SelectMeterComboBox();
     emit meterTypeChangedSignal();
 }
 
-void MainWindow::onNumberOfWaterMetersChanged(int index)
-{
+void MainWindow::onNumberOfWaterMetersChanged(int index) {
     Q_UNUSED(index);
     selectedInfo.entriesNumber =
         ui->cbNumberOfWaterMeters->currentText().toInt();
     emit numberOfWaterMetersChangedSignal();
 }
 
-void MainWindow::onNewSessionClicked()
-{
+void MainWindow::onNewSessionClicked() {
     this->inputData->setModal(false);
     this->inputData->show();
     this->inputData->showMaximized();
 }
 
-void MainWindow::onExitApplication()
-{
-    if (inputData)
-    {
-        //delete inputData;
+void MainWindow::onExitApplication() {
+    if (inputData) {
+        // delete inputData;
         inputData = nullptr;
     }
     this->close();
 }
 
-void MainWindow::onRbVolumeClicked()
-{
+void MainWindow::onRbVolumeClicked() {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
     emit measurementTypeChangedSignal();
 }
 
-void MainWindow::onRbGavritmetricClicked()
-{
+void MainWindow::onRbGavritmetricClicked() {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
     emit measurementTypeChangedSignal();
 }
 
-void MainWindow::onRbManualClicked()
-{
+void MainWindow::onRbManualClicked() {
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
 }
 
-void MainWindow::onRbInterfaceClicked()
-{
-}
+void MainWindow::onRbInterfaceClicked() {}
 
-void MainWindow::onAmbientTemperatureTextChanged()
-{
+void MainWindow::onAmbientTemperatureTextChanged() {
     selectedInfo.ambientTemperature = ui->leTemperature->text().toInt();
 }
 
-void MainWindow::onRelativeAirHumidityTextChanged()
-{
+void MainWindow::onRelativeAirHumidityTextChanged() {
     selectedInfo.athmosphericPressure = ui->lePressure->text().toInt();
 }
 
-void MainWindow::onAthmosphericPressureTextChanged()
-{
+void MainWindow::onAthmosphericPressureTextChanged() {
     selectedInfo.relativeAirHumidity = ui->leHumidity->text().toInt();
 }
 
-void MainWindow::onGeneralDescription()
-{
+void MainWindow::onGeneralDescription() {
     QString htmlFile = QDir::temp().path() + QString("/5igsg2ly2v.html");
     std::ofstream generalDescriptionHtmlFile(htmlFile.toStdString());
     std::stringstream output;
-    if (ENGLISH == selectedInfo.selectedLanguage)
-    {
-        output <<
-               "<!DOCTYPE html>"
+    if (ENGLISH == selectedInfo.selectedLanguage) {
+        output
+            << "<!DOCTYPE html>"
                "<html>"
                "   <head>"
                "      <title>WStreamLab 1.0 Windows OS</title>"
                "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" oncut=\"return false\">"
-               "   <div onmousedown=\"return false\" onselectstart=\"return false\">"
-               "   <h2 style=\"font-family:Courier; font-size: 20px; color:Black;\"> [ WWStreamLab 1.0 Windows OS ]</h2>"
-               "   <h3 style=\"font-family:Courier; color:Blue; font-size: 18px; background-color:powderblue;\">"
-               "   The WStreamLab application is designed to be used in conjunction with a water meter testing bench.</br></br>"
-               "   The water meter testing bench is the necessary measure instrument for the test and repair of water meter in metrological service, water meter manufacture, water supply company and other industrial establishments.</br></br>"
-               "   As each client has different and specific needs, we design and construct test benches to fit your needs, based on our largely proven experience throughout the years.</br></br>"
-               "   A Water Meter Test Bench is equipment that can be built from a simple and completely manually operated machine, to the highest levels of high-tech, designed with automatic controls, and software and hardware support.</br></br>"
-               "   Each project is discussed with the client and tailor-made to fit both the technical needs and budget constraints.</br></br>"
-               "   The Test Bench can be in the following sort and diameters (water meters range) DN15 - DN40, DN15 - DN50, DN50 - DN200.</br></br>"
-               "   Measurement method from the point of  counted volume are as follows:</br></br>"
+               "   <body  oncopy=\"return false\" onpaste=\"return false\" "
+               "oncut=\"return false\">"
+               "   <div onmousedown=\"return false\" onselectstart=\"return "
+               "false\">"
+               "   <h2 style=\"font-family:Courier; font-size: 20px; "
+               "color:Black;\"> [ WWStreamLab 1.0 Windows OS ]</h2>"
+               "   <h3 style=\"font-family:Courier; color:Blue; font-size: "
+               "18px; background-color:powderblue;\">"
+               "   The WStreamLab application is designed to be used in "
+               "conjunction with a water meter testing bench.</br></br>"
+               "   The water meter testing bench is the necessary measure "
+               "instrument for the test and repair of water meter in "
+               "metrological service, water meter manufacture, water supply "
+               "company and other industrial establishments.</br></br>"
+               "   As each client has different and specific needs, we design "
+               "and construct test benches to fit your needs, based on our "
+               "largely proven experience throughout the years.</br></br>"
+               "   A Water Meter Test Bench is equipment that can be built "
+               "from a simple and completely manually operated machine, to the "
+               "highest levels of high-tech, designed with automatic controls, "
+               "and software and hardware support.</br></br>"
+               "   Each project is discussed with the client and tailor-made "
+               "to fit both the technical needs and budget "
+               "constraints.</br></br>"
+               "   The Test Bench can be in the following sort and diameters "
+               "(water meters range) DN15 - DN40, DN15 - DN50, DN50 - "
+               "DN200.</br></br>"
+               "   Measurement method from the point of  counted volume are as "
+               "follows:</br></br>"
                "   - Reference flow meter (comparative method);</br></br>"
                "   - Weighing scales (gravimetric method);</br></br>"
-               "   In the latter option, we utilize high precision and performance digital scales and  include comparative method.</br></br>"
-               "   The both methods are used electromagnetic flow meters of high precision.</br>"
+               "   In the latter option, we utilize high precision and "
+               "performance digital scales and  include comparative "
+               "method.</br></br>"
+               "   The both methods are used electromagnetic flow meters of "
+               "high precision.</br>"
                "   </body>"
                "</html>";
-    }
-    else
-    {
-        output <<
-               "<!DOCTYPE html>"
+    } else {
+        output
+            << "<!DOCTYPE html>"
                "<html>"
                "   <head>"
                "      <title>WStreamLab 1.0 Windows OS</title>"
                "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" oncut=\"return false\">"
-               "   <div onmousedown=\"return false\" onselectstart=\"return false\">"
-               "   <h2 style=\"font-family:Courier; font-size: 20px; color:Black;\"> [ WStreamLab 1.0 Windows OS ]</h2>"
-               "   <h3 style=\"font-family:Courier; color:Blue; font-size: 18px; background-color:powderblue;\">"
-               "   Aplicația WStreamLab este concepută pentru a fi utilizată împreună cu o instalatie de verificare metrologica a contoarelor de apă.</br></br>"
-               "   Instalatie de verificare metrologica a contoarelor de apă este instrumentul de măsură necesar pentru testarea și repararea contoarelor de apă în cadrul serviciilor de metrologie, al fabricării contoarelor de apă, al companiilor de alimentare cu apă și al altor unități industriale.</br></br>"
-               "   Deoarece fiecare client are nevoi diferite și specifice exista instalatii de verificare metrologica care se potriveasc nevoilor clientului.</br></br>"
-               "   O instalatie de verificare metrologica a contoarelor de apă este un echipament care poate fi construit intr-o gama variata pornind de la o instalatie simplă și complet manuală, până la cele mai înalte niveluri de înaltă tehnologie, proiectat cu comenzi automate și cu suport software și hardware.</br></br>"
-               "   Fiecare proiect este discutat cu clientul și este personalizat pentru a se potrivi atât nevoilor tehnice, cât și constrângerilor bugetare.</br></br>"
-               "   Instalatia de verificare metrologica poate fi în următoarele categorii și diametre (gama de contoare apa) DN15 - DN40, DN15 - DN50, DN50 - DN200.</br></br>"
-               "   Metodele de măsurare din punct de vedere al volumului masurat sunt următoarele:</br></br>"
+               "   <body  oncopy=\"return false\" onpaste=\"return false\" "
+               "oncut=\"return false\">"
+               "   <div onmousedown=\"return false\" onselectstart=\"return "
+               "false\">"
+               "   <h2 style=\"font-family:Courier; font-size: 20px; "
+               "color:Black;\"> [ WStreamLab 1.0 Windows OS ]</h2>"
+               "   <h3 style=\"font-family:Courier; color:Blue; font-size: "
+               "18px; background-color:powderblue;\">"
+               "   Aplicația WStreamLab este concepută pentru a fi utilizată "
+               "împreună cu o instalatie de verificare metrologica a "
+               "contoarelor de apă.</br></br>"
+               "   Instalatie de verificare metrologica a contoarelor de apă "
+               "este instrumentul de măsură necesar pentru testarea și "
+               "repararea contoarelor de apă în cadrul serviciilor de "
+               "metrologie, al fabricării contoarelor de apă, al companiilor "
+               "de alimentare cu apă și al altor unități industriale.</br></br>"
+               "   Deoarece fiecare client are nevoi diferite și specifice "
+               "exista instalatii de verificare metrologica care se potriveasc "
+               "nevoilor clientului.</br></br>"
+               "   O instalatie de verificare metrologica a contoarelor de apă "
+               "este un echipament care poate fi construit intr-o gama variata "
+               "pornind de la o instalatie simplă și complet manuală, până la "
+               "cele mai înalte niveluri de înaltă tehnologie, proiectat cu "
+               "comenzi automate și cu suport software și hardware.</br></br>"
+               "   Fiecare proiect este discutat cu clientul și este "
+               "personalizat pentru a se potrivi atât nevoilor tehnice, cât și "
+               "constrângerilor bugetare.</br></br>"
+               "   Instalatia de verificare metrologica poate fi în "
+               "următoarele categorii și diametre (gama de contoare apa) DN15 "
+               "- DN40, DN15 - DN50, DN50 - DN200.</br></br>"
+               "   Metodele de măsurare din punct de vedere al volumului "
+               "masurat sunt următoarele:</br></br>"
                "   - debitmetru de referință (metodă comparativă);</br></br>"
-               "   - cântar pentru determinare masa (metoda gravimetrică);</br></br>"
-               "   În a doua opțiune se utilizează cântare digitale de înaltă precizie și performanță și sunt include metode comparativă.</br></br>"
-               "   La ambele metode se folosesc debitmetre electromagnetice de mare precizie.</br></br>"
+               "   - cântar pentru determinare masa (metoda "
+               "gravimetrică);</br></br>"
+               "   În a doua opțiune se utilizează cântare digitale de înaltă "
+               "precizie și performanță și sunt include metode "
+               "comparativă.</br></br>"
+               "   La ambele metode se folosesc debitmetre electromagnetice de "
+               "mare precizie.</br></br>"
                "   </body></br></br>"
                "</html>"
                "</br></br>";
@@ -612,110 +584,101 @@ void MainWindow::onGeneralDescription()
     QDesktopServices::openUrl(QUrl::fromUserInput(htmlFile));
 }
 
-void MainWindow::onWaterDensityPage()
-{
+void MainWindow::onWaterDensityPage() {
     QString htmlFile = QDir::temp().path() + QString("/5igsg2ly2t.html");
     std::ofstream densityHtmlFile(htmlFile.toStdString());
     std::stringstream output;
-    if (ROMANIAN == selectedInfo.selectedLanguage)
-    {
-        output <<
-               "<!DOCTYPE html>"
-               "<html>"
-               "   <head>"
-               "      <title>Densitate apa in functie de temperatura</title>"
-               "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" oncut=\"return false\">"
-               "     <div onmousedown=\"return false\" onselectstart=\"return false\">";
+    if (ROMANIAN == selectedInfo.selectedLanguage) {
+        output << "<!DOCTYPE html>"
+                  "<html>"
+                  "   <head>"
+                  "      <title>Densitate apa in functie de temperatura</title>"
+                  "   </head>"
+                  "   <body  oncopy=\"return false\" onpaste=\"return false\" "
+                  "oncut=\"return false\">"
+                  "     <div onmousedown=\"return false\" "
+                  "onselectstart=\"return false\">";
         output << "     <pre><h2  style=\"color:DodgerBlue\">";
-        output << "Tabelul de mai jos reprezinta densitatea apei in kg/m² in functie de temperatura intre 0 si 100°C</br>"
-               "cu pas de 0.1°C la presiune normala (1013.25 kPa). Aceste valori sunt generate prin interpolare</br>"
+        output
+            << "Tabelul de mai jos reprezinta densitatea apei in kg/m² in "
+               "functie de temperatura intre 0 si 100°C</br>"
+               "cu pas de 0.1°C la presiune normala (1013.25 kPa). Aceste "
+               "valori sunt generate prin interpolare</br>"
                "plecand de la datele existente in apliactie.</pre></br></br>";
         output << "     <pre>   T [°C]  ρ[kg/m²]</pre><hr />";
-    }
-    else
-    {
-        output <<
-               "<!DOCTYPE html>"
-               "<html>"
-               "   <head>"
-               "      <title>Water density by temperature</title>"
-               "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" oncut=\"return false\">"
-               "     <div onmousedown=\"return false\" onselectstart=\"return false\">";
+    } else {
+        output << "<!DOCTYPE html>"
+                  "<html>"
+                  "   <head>"
+                  "      <title>Water density by temperature</title>"
+                  "   </head>"
+                  "   <body  oncopy=\"return false\" onpaste=\"return false\" "
+                  "oncut=\"return false\">"
+                  "     <div onmousedown=\"return false\" "
+                  "onselectstart=\"return false\">";
         output << "     <pre><h2  style=\"color:DodgerBlue\">";
-        output << "The table below shows the density of water in kg/m² for different temperatures between 0 and 100°C</br>"
-               "with the step of 0.1°C under normal pressure (1013.25 kPa). These values ​​are generated by interpolation</br>"
-               "starting from the existing database in the application.</pre></br></br>";
+        output << "The table below shows the density of water in kg/m² for "
+                  "different temperatures between 0 and 100°C</br>"
+                  "with the step of 0.1°C under normal pressure (1013.25 kPa). "
+                  "These values ​​are generated by interpolation</br>"
+                  "starting from the existing database in the "
+                  "application.</pre></br></br>";
         output << "     <pre>   T [°C]  ρ[kg/m²]</pre><hr />";
     }
-    for (int i = 0; i <= 1000; ++i)
-    {
+    for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
-        double density = quadraticInterpolationTemperature(temperature,
-                         998.2009);
-        output << "     <pre>   " << std::fixed << std::setprecision(
-                   1) << temperature
-               << "     " << std::setprecision(4) << density << "</pre>";
-        if ((i + 1) % 10 == 0)
-        {
+        double density =
+            quadraticInterpolationTemperature(temperature, 998.2009);
+        output << "     <pre>   " << std::fixed << std::setprecision(1)
+               << temperature << "     " << std::setprecision(4) << density
+               << "</pre>";
+        if ((i + 1) % 10 == 0) {
             output << "<hr />\n";
         }
     }
     output << "     </h2>"
-           "     </div>"
-           "   </body>"
-           "</html>";
+              "     </div>"
+              "   </body>"
+              "</html>";
     densityHtmlFile << output.str() << std::endl;
     QDesktopServices::openUrl(QUrl::fromUserInput(htmlFile));
     QFile(htmlFile).remove();
 }
 
-void MainWindow::onShowLicense()
-{
-    licenseDialog->show();
-}
+void MainWindow::onShowLicense() { licenseDialog->show(); }
 
-void MainWindow::onHelpAbout()
-{
-    helpAbout->show();
-}
+void MainWindow::onHelpAbout() { helpAbout->show(); }
 
-void MainWindow::onPortSettings()
-{
+void MainWindow::onPortSettings() {
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
     const wchar_t *serial = serialPorts();
-    if (!std::wcslen(serial))
-    {
+    if (!std::wcslen(serial)) {
         QMessageBox warningMessage;
         QApplication::beep();
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
         warningMessage.setText(QObject::tr("Serial interfaces."));
         warningMessage.setInformativeText(
-            QObject::tr("The application did not detect any serial interface on this computer."));
+            QObject::tr("The application did not detect any serial interface "
+                        "on this computer."));
         warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                      Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+                                      Qt::WindowTitleHint |
+                                      Qt::WindowCloseButtonHint);
         warningMessage.exec();
         ui->rbManual->setChecked(true);
-    }
-    else
-    {
+    } else {
         interfaceDialog->show();
     }
 }
 
-void MainWindow::onSetRomanian()
-{
+void MainWindow::onSetRomanian() {
     QString qmPath = qApp->applicationDirPath() + "/translations";
-    if (appTranslator)
-    {
+    if (appTranslator) {
         qApp->removeTranslator(appTranslator);
     }
     appTranslator = new QTranslator(nullptr);
-    if (appTranslator->load(qmPath + "/meter_ro_RO.qm"))
-    {
+    if (appTranslator->load(qmPath + "/meter_ro_RO.qm")) {
         qApp->installTranslator(appTranslator);
         Translate();
         inputData->Translate();
@@ -726,16 +689,13 @@ void MainWindow::onSetRomanian()
     selectedInfo.selectedLanguage = ROMANIAN;
 }
 
-void MainWindow::onSetEnglish()
-{
+void MainWindow::onSetEnglish() {
     QString qmPath = qApp->applicationDirPath() + "/translations";
-    if (appTranslator)
-    {
+    if (appTranslator) {
         qApp->removeTranslator(appTranslator);
     }
     appTranslator = new QTranslator(nullptr);
-    if (appTranslator->load(qmPath + "/meter_en_EN.qm"))
-    {
+    if (appTranslator->load(qmPath + "/meter_en_EN.qm")) {
         qApp->installTranslator(appTranslator);
         Translate();
         inputData->Translate();
@@ -745,27 +705,22 @@ void MainWindow::onSetEnglish()
     selectedInfo.selectedLanguage = ENGLISH;
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
+void MainWindow::mousePressEvent(QMouseEvent *event) {
     Q_UNUSED(event);
     this->raise();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    if (inputData)
-    {
-        //inputData->close();
+void MainWindow::closeEvent(QCloseEvent *event) {
+    if (inputData) {
+        // inputData->close();
         delete inputData;
         inputData = nullptr;
     }
     event->accept();
 }
 
-void MainWindow::CenterToScreen(QWidget *widget)
-{
-    if (!widget)
-    {
+void MainWindow::CenterToScreen(QWidget *widget) {
+    if (!widget) {
         return;
     }
     QRect size = QGuiApplication::primaryScreen()->geometry();
