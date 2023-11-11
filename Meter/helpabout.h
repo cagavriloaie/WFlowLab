@@ -1,3 +1,8 @@
+/*
+ *  Author: Constantin
+ *  File: helpabout.h
+ */
+
 #ifndef HELPABOUT_H
 #define HELPABOUT_H
 

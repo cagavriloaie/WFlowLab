@@ -1,6 +1,6 @@
 /*
- * Water flow meters structure and DB
- * Author: Constantin
+ *  Author: Constantin
+ *  File: flow-meter-type.h
  */
 
 #ifndef FLOWMETERTYPE_H
@@ -10,7 +10,6 @@
 
 /*
  * Water Flow Meters type structure
- *
  */
 struct MeterFlowType
 {

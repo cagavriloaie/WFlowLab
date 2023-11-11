@@ -1,5 +1,6 @@
 /*
  *  Author: Constantin
+ *  File: tableBoard.h
  */
 
 #ifndef TABLEBOARD_H

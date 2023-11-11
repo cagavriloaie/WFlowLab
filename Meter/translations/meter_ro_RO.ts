@@ -97,7 +97,7 @@
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="544"/>
-        <source>Check it out</source>
+        <source>&amp;Data evaluate</source>
         <translation>&amp;Verifică</translation>
     </message>
     <message>

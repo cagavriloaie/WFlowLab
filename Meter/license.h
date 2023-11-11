@@ -1,3 +1,8 @@
+/*
+ *  Author: Constantin
+ *  File: license.h
+ */
+
 #ifndef LICENSE_H
 #define LICENSE_H
 

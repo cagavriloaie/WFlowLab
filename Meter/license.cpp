@@ -1,3 +1,8 @@
+/*
+ *  Author: Constantin
+ *  File: license.cpp
+ */
+
 #include "license.h"
 #include "mainwindow.h"
 #include "ui_license.h"

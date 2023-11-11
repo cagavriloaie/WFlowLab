@@ -1,3 +1,8 @@
+/*
+ *  Author: Constantin
+ *  File: ledindicator.cpp
+ */
+
 #include <QPainter>
 
 #include "ledindicator.h"

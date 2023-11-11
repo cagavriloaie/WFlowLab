@@ -1,4 +1,7 @@
-#include <unistd.h>
+/*
+ *  Author: Constantin
+ *  File: interface.cpp
+ */
 
 #include <QMessageBox>
 #include <QSettings>
@@ -6,6 +9,7 @@
 #include <QtSerialBus/QModbusClient>
 #include <QtSerialBus/QModbusRtuSerialServer>
 #include <QtSerialPort/QSerialPort>
+#include <unistd.h>
 #include <mutex>
 #include <thread>
 
@@ -337,14 +341,7 @@ void Interface::onTestConfigurationClicked() {
         if (messageSerialInterface.exec() == QMessageBox::Ok) {
             messageSerialInterface.close();
         }
-        //        mainwindow->ui->SerialLedIndicator->setState(true);
-        //        QString messageMain("%1 (B:%2  D:%3  P:%4  S:%5)");
-        //        messageMain = messageMain
-        //                          .arg(ui->cbSelectSerial->currentText(),ui->cbBaudRate->currentText())
-        //                          .arg(ui->cbSelectDataBits->currentText())
-        //                          .arg(ui->cbSelectParity->currentText())
-        //                          .arg(ui->cbSelectStopBits->currentText());
-        //        mainwindow->ui->lbConnected->setText(messageMain);
+
         positionTable = 0;
         checkModbusAddress(ui->leSmallScale->text().toUShort());
         checkModbusAddress(ui->leLargeScale->text().toUShort());

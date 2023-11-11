@@ -1,8 +1,7 @@
 /*
  *  Author: Constantin
+ *  File: tableBoard.cpp
  */
-
-#include <string.h>
 
 #include <QDesktopServices>
 #include <QDoubleValidator>
@@ -13,6 +12,7 @@
 #include <QString>
 #include <QValidator>
 #include <QtPrintSupport/QPrinter>
+#include <string.h>
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
@@ -473,7 +473,7 @@ void Dialog::Translate() {
     ui->pbPrint->setText(tr("&Print PDF"));
     ui->pbOpen->setText(tr("&Open"));
     ui->pbSaveResults->setText(tr("&Save"));
-    ui->pbCalculate->setText(tr("Check it out"));
+    ui->pbCalculate->setText(tr("&Data evaluate"));
     ui->pbClean->setText(tr("Clean &Input"));
     ui->pbClose->setText(tr("&Close"));
     ui->lbIndex1->setText(QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %")

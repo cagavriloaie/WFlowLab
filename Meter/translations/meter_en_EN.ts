@@ -97,8 +97,8 @@
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="544"/>
-        <source>Check it out</source>
-        <translation>&amp;Verification</translation>
+        <source>&amp;Data evaluate</source>
+        <translation>&amp;Data evaluate</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="545"/>

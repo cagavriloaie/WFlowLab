@@ -1,5 +1,6 @@
 /*
  *  Author: Constantin
+ *  File: mainwindow.cpp
  */
 
 #include <QDesktopServices>
@@ -146,7 +147,7 @@ void MainWindow::Translate() {
     ui->action_About->setText(tr("About"));
     ui->lbWaterMeterType->setText(tr("Water meter type:"));
     ui->lbNumberOfWaterMeters->setText(tr("Number of water meters:"));
-    ui->lbTemperature->setText(tr("Temperature"));
+    ui->lbTemperature->setText(tr("Temperature:"));
     ui->lbPressure->setText(tr("Athmosferic pressure:"));
     ui->lbHumidity->setText(tr("Relative air humidity:"));
     ui->lbTab5->setText(tr("[mbar]"));
@@ -195,7 +196,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(tr("Not connected to RS485 network"));
     ui->lbConnected->setStyleSheet(
-        "QLabel{font-family: \"Segoe UI\"; font-size: 10pt}");
+        "QLabel{font-family: \"Courier\"; font-size: 10pt}");
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
     settings.beginGroup("RS485");

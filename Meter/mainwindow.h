@@ -1,5 +1,6 @@
 /*
  *  Author: Constantin
+ *  File: mainwindow.h
  */
 
 #ifndef MAINWINDOW_H
@@ -32,39 +33,61 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
-struct SelectedInfo
-{
+struct SelectedInfo {
 
-    float density_20{0};
-    std::string pathResults{""};
+    SelectedInfo():
+        density_20{0},
+        entriesNumber{0},
+        nominalDiameter{0},
+        nominalFlow{0},
+        maximumFlow{0},
+        trasitionFlow{0},
+        minimumFlow{0},
+        nominalError{0},
+        maximumError{0},
+        ambientTemperature{0},
+        relativeAirHumidity{0},
+        athmosphericPressure{0},
+        rbVolumetric{true},
+        rbGravitmetric{false},
+        rbManual{true},
+        rbInterface{false},
+        rbTerminal{false},
+        serialPort{false},
+        selectedLanguage{ROMANIAN},
+        modbusDevice{nullptr} {
+        };
 
-    size_t entriesNumber {0};
+    float density_20;
+    std::string pathResults;
+
+    size_t entriesNumber;
     std::string certificate;
 
     std::string nameWaterMeter;
-    unsigned nominalDiameter {0};
+    unsigned nominalDiameter;
     double nominalFlow;
-    double maximumFlow {0};
-    double trasitionFlow {0};
-    double minimumFlow {0};
-    double nominalError {0};
-    double maximumError {0};
+    double maximumFlow;
+    double trasitionFlow;
+    double minimumFlow;
+    double nominalError;
+    double maximumError;
 
-    double ambientTemperature {0};
-    double relativeAirHumidity {0};
-    double athmosphericPressure {0};
+    double ambientTemperature;
+    double relativeAirHumidity;
+    double athmosphericPressure;
 
-    bool rbVolumetric{true};
-    bool rbGravitmetric{false};
+    bool rbVolumetric;
+    bool rbGravitmetric;
 
-    bool rbManual {true};
-    bool rbInterface {false};
-    bool rbTerminal {false};
+    bool rbManual;
+    bool rbInterface;
+    bool rbTerminal;
 
-    bool serialPort {false};
-    SELECTED_LANGUAGE selectedLanguage{ROMANIAN};
+    bool serialPort;
+    SELECTED_LANGUAGE selectedLanguage;
 
-    QModbusClient *modbusDevice{nullptr};
+    QModbusClient *modbusDevice;
 };
 
 
@@ -73,7 +96,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
   public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     SelectedInfo selectedInfo;
