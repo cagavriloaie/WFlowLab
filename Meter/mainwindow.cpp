@@ -215,7 +215,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
-    ui->lbConnected->setText(tr("Not connected to RS485 network"));
+    ui->lbConnected->setText(tr("Not connected to RS-485 network"));
     ui->lbConnected->setStyleSheet(
         "QLabel{font-family: \"Courier\"; font-size: 10pt}");
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
@@ -390,7 +390,6 @@ MainWindow::MainWindow(QWidget *parent)
                    Qt::Dialog | Qt::WindowTitleHint);
     Translate();
     ReadConfiguration();
-    // setWindowIcon(QIcon(":/images/Elegantthemes-Beautiful-Flat-Water.64.png"));
     MAX_NR_WATER_METERS = std::stoi(optionsConfiguration["maximum"]);
     NUMBER_ENTRIES_METER_FLOW_DB = sizeof(MeterFlowDB) / sizeof(
                                        MeterFlowType);

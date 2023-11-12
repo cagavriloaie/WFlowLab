@@ -1968,6 +1968,8 @@ void Dialog::onCopy12Clicked()
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
+
+    ui->leStop2_1->setFocus();
 }
 
 void Dialog::onCopy23Clicked_new()
@@ -1997,5 +1999,7 @@ void Dialog::onCopy23Clicked_new()
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
+
+    ui->leStop3_1->setFocus();
 }
 

@@ -6,7 +6,7 @@
 #define MyAppPublisher "ELCOST"
 #define MyAppExeName "WStreamLab.exe"
 #define MyAppIcoName "WStreamLab.ico"
-#define MyAppReadme "WStreamLab.txt"
+#define MyAppReadme "README.txt"
 #define MyWebsite  "http://www.elcost.com/"
 
 [Setup]
@@ -61,7 +61,7 @@ Source: ".\build\styles\qwindowsvistastyle.dll";DestDir: "{app}\styles"
 Source: ".\build\translations\meter_ro_RO.qm";DestDir: "{app}\translations"
 Source: ".\build\translations\meter_en_EN.qm";DestDir: "{app}\translations"
 Source: ".\build\WStreamLab.ico"; DestDir: "{app}"
-Source: ".\build\README"; DestDir: "{app}"
+Source: ".\build\README.txt"; DestDir: "{app}"
 
 [Icons]
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon;
@@ -70,4 +70,4 @@ Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}";IconFilename:
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-Filename: "{app}\WStreamLab.txt"; Description: "View the license.txt file"; Flags: postinstall shellexec skipifsilent
+Filename: "{app}\README.txt"; Description: "View the README.txt file"; Flags: postinstall shellexec skipifsilent

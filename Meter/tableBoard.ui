@@ -43,13 +43,11 @@ QPushButton
 {
 	font-family: &quot;Segoe UI&quot;;
 	font-size: 12pt;
-    margin: 1px;
 }
 
 QPushButton:focus {
     font-family: &quot;Segoe UI&quot;;
 	font-size: 12pt;
-    margin: 0px;
 }
 
 QComboBox 
@@ -3878,29 +3876,38 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QPushButton" name="pbCopy12">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
-                    <height>22</height>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>60</width>
-                    <height>100</height>
+                    <width>50</width>
+                    <height>20</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Segoe UI</family>
-                    <pointsize>12</pointsize>
-                   </font>
-                  </property>
                   <property name="focusPolicy">
-                   <enum>Qt::ClickFocus</enum>
+                   <enum>Qt::NoFocus</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton:focus {
+    font-family: &quot;Segoe UI&quot;;
+	font-size: 11pt;
+}
+
+QComboBox 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11pt;
+}</string>
                   </property>
                   <property name="text">
-                   <string>&amp;1-&gt;2</string>
+                   <string>1-&gt;2</string>
                   </property>
                  </widget>
                 </item>
@@ -3908,13 +3915,13 @@ QMessageBox  {
                  <widget class="QLabel" name="lbTab53">
                   <property name="minimumSize">
                    <size>
-                    <width>0</width>
+                    <width>50</width>
                     <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
+                    <width>50</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -5637,13 +5644,13 @@ QMessageBox  {
                   <property name="minimumSize">
                    <size>
                     <width>60</width>
-                    <height>22</height>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>60</width>
-                    <height>100</height>
+                    <width>50</width>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="font">
@@ -5653,7 +5660,7 @@ QMessageBox  {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::ClickFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                   <property name="text">
                    <string>&amp;2-&gt;3</string>
@@ -5664,13 +5671,13 @@ QMessageBox  {
                  <widget class="QLabel" name="label_3">
                   <property name="minimumSize">
                    <size>
-                    <width>0</width>
+                    <width>50</width>
                     <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>16777215</width>
+                    <width>50</width>
                     <height>20</height>
                    </size>
                   </property>

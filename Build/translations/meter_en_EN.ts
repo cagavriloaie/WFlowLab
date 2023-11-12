@@ -233,9 +233,8 @@
         <translation type="obsolete">&amp;Disconnect</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="602"/>
-        <source>Not connected to RS485 network</source>
-        <translation>Not connected to RS485 network</translation>
+        <source>Not connected to RS-485 network</source>
+        <translation type="vanished">Not connected to RS-485 network</translation>
     </message>
     <message>
         <source>Save</source>
@@ -349,6 +348,11 @@
         <location filename="../interface.cpp" line="394"/>
         <source>Serial Interface Settings</source>
         <translation>Serial Interface Settings</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="602"/>
+        <source>Not connected to RS485 network</source>
+        <translation type="unfinished">Not connected to RS485 network</translation>
     </message>
 </context>
 <context>
@@ -509,6 +513,11 @@
         <translation type="unfinished">Ambient temperature:</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="218"/>
+        <source>Not connected to RS-485 network</source>
+        <translation type="unfinished">Not connected to RS-485 network</translation>
+    </message>
+    <message>
         <source>Temperature</source>
         <translation type="vanished">Temperature:</translation>
     </message>
@@ -565,9 +574,8 @@
         <translation>Manual</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="218"/>
         <source>Not connected to RS485 network</source>
-        <translation>Not connected to RS485 network</translation>
+        <translation type="vanished">Not connected to RS485 network</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="997"/>
@@ -639,7 +647,7 @@
     <message>
         <location filename="../main.cpp" line="38"/>
         <location filename="../mainwindow.cpp" line="359"/>
-        <location filename="../mainwindow.cpp" line="775"/>
+        <location filename="../mainwindow.cpp" line="774"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
@@ -664,12 +672,12 @@
         <translation>The application cannot use serial driver because the dll package is not available.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="776"/>
+        <location filename="../mainwindow.cpp" line="775"/>
         <source>Serial interfaces.</source>
         <translation>Serial interfaces.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="778"/>
+        <location filename="../mainwindow.cpp" line="777"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>The application did not detect any serial interface on this computer.</translation>
     </message>

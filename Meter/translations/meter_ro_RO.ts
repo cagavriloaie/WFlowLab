@@ -547,7 +547,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="177"/>
         <source>Read method</source>
-        <translation>Metodă de Citire:</translation>
+        <translation>Metodă de citire:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="178"/>
@@ -614,8 +614,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="218"/>
-        <source>Not connected to RS485 network</source>
-        <translation>Fara conexiune la reteaua 485</translation>
+        <source>Not connected to RS-485 network</source>
+        <translation>Fara conexiune la RS-485</translation>
     </message>
 </context>
 <context>
@@ -623,7 +623,7 @@
     <message>
         <location filename="../main.cpp" line="38"/>
         <location filename="../mainwindow.cpp" line="359"/>
-        <location filename="../mainwindow.cpp" line="775"/>
+        <location filename="../mainwindow.cpp" line="774"/>
         <source>Warning</source>
         <translation>Atentie</translation>
     </message>
@@ -648,12 +648,12 @@
         <translation>Aplicatia nu poate utiliza driverul serial deoarece libraria DLL nu este disponibila.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="776"/>
+        <location filename="../mainwindow.cpp" line="775"/>
         <source>Serial interfaces.</source>
         <translation>Interfata serială</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="778"/>
+        <location filename="../mainwindow.cpp" line="777"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>Aplicatia nu a detectat nici o interfata seriala la acest calculator.</translation>
     </message>
