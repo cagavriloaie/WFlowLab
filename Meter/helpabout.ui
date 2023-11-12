@@ -26,8 +26,8 @@
    <string>WMeter - About</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resourcescontor.qrc">
-    <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
+   <iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -189,8 +189,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resourcescontor.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -30,7 +30,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel 
@@ -39,11 +39,17 @@
 	font-size: 12pt;
 }
 
-
 QPushButton 
 {
 	font-family: &quot;Segoe UI&quot;;
 	font-size: 12pt;
+    margin: 1px;
+}
+
+QPushButton:focus {
+    font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin: 0px;
 }
 
 QComboBox 
@@ -3276,7 +3282,7 @@ QMessageBox  {
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>12</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                  </widget>
@@ -3871,21 +3877,30 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab21">
+                 <widget class="QPushButton" name="pbCopy12">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
-                    <height>20</height>
+                    <width>60</width>
+                    <height>22</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>20</height>
+                    <width>60</width>
+                    <height>100</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::ClickFocus</enum>
+                  </property>
                   <property name="text">
-                   <string/>
+                   <string>&amp;1-&gt;2</string>
                   </property>
                  </widget>
                 </item>
@@ -5618,21 +5633,30 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab26">
+                 <widget class="QPushButton" name="pbCopy23">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
-                    <height>20</height>
+                    <width>60</width>
+                    <height>22</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>20</height>
+                    <width>60</width>
+                    <height>100</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::ClickFocus</enum>
+                  </property>
                   <property name="text">
-                   <string/>
+                   <string>&amp;2-&gt;3</string>
                   </property>
                  </widget>
                 </item>

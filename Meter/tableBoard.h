@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: tableBoard.h
+ *  File:   tableBoard.h
  */
 
 #ifndef TABLEBOARD_H
@@ -32,7 +32,7 @@ class Dialog : public QDialog
     Q_OBJECT
 
   public:
-    explicit Dialog(QWidget *parent = nullptr);
+    explicit Dialog(QWidget *_parent = nullptr);
     ~Dialog();
 
     void ValidatorInput();
@@ -41,8 +41,10 @@ class Dialog : public QDialog
     void Translate();
 
   private:
+    QWidget *parent;
     Ui::Dialog *ui;
     size_t entries {0};
+    std::string nameWaterMeter;
     double minimumFlowMain {0};
     double transitoriuFlowMain {0};
     double nominalFlowMain {0};
@@ -81,6 +83,10 @@ class Dialog : public QDialog
     void onPrintPdfDocClicked();
     void focusInEvent(QFocusEvent *event);
     void focusOutEvent(QFocusEvent *event);
+
+    void onCopy12Clicked();
+
+    void onCopy23Clicked_new();
 
   protected:
     void showEvent(QShowEvent *event);

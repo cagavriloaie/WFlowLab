@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: license.h
+ *  File:   license.h
  */
 
 #ifndef LICENSE_H

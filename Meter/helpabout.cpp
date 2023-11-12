@@ -1,12 +1,13 @@
 /*
  *  Author: Constantin
- *  File: helpabout.cpp
+ *  File:   helpabout.cpp
  */
 
 #include "helpabout.h"
 #include "ui_helpabout.h"
 
-void HelpAbout::Translate() {
+void HelpAbout::Translate()
+{
     this->setWindowTitle(tr("WStreamLab - About"));
     ui->lbName->setText(tr("WStreamLab version:"));
     ui->lbNameValue->setText(tr("1.1 Windows x86_32"));
@@ -18,16 +19,24 @@ void HelpAbout::Translate() {
     ui->lbAddressValue->setText(tr("Pascani / RO Morilor #8"));
     ui->lbAuthor->setText(tr("Author:"));
     ui->lbAuthorValue->setText(tr("constantin"));
-    ui->pbClose->setText(tr("Close"));
+    ui->pbClose->setText(tr("&Close"));
 }
 
-HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent), ui(new Ui::HelpAbout) {
+HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent),
+    ui(new Ui::HelpAbout)
+{
     ui->setupUi(this);
     Translate();
     connect(ui->pbClose, &QPushButton::clicked, this,
             &HelpAbout::onCloseClicked);
 }
 
-HelpAbout::~HelpAbout() { delete ui; }
+HelpAbout::~HelpAbout()
+{
+    delete ui;
+}
 
-void HelpAbout::onCloseClicked() { this->hide(); }
+void HelpAbout::onCloseClicked()
+{
+    this->hide();
+}

@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: interface.cpp
+ *  File:   interface.cpp
  */
 
 #include <QMessageBox>
@@ -18,14 +18,17 @@
 #include "ui_interface.h"
 #include "ui_mainwindow.h"
 
-namespace {
-MainWindow *mainwindow;
-unsigned positionTable = 0;
+namespace
+{
+    MainWindow *mainwindow;
+    unsigned positionTable = 0;
 }  // namespace
 
 std::mutex modbusLock;
 
-Interface::Interface(QWidget *parent) : QDialog(parent), ui(new Ui::Interface) {
+Interface::Interface(QWidget *parent) : QDialog(parent),
+    ui(new Ui::Interface)
+{
     ui->setupUi(this);
     mainwindow = dynamic_cast<MainWindow *>(parent);
     connect(ui->pbClose, &QPushButton::clicked, this,
@@ -51,8 +54,10 @@ Interface::Interface(QWidget *parent) : QDialog(parent), ui(new Ui::Interface) {
     ui->leTemperature->setValidator(new QIntValidator(0, 100, this));
     ui->leWaterMeters_1_5->setValidator(new QIntValidator(0, 100, this));
     ui->leWaterMeters_6_10->setValidator(new QIntValidator(0, 100, this));
-    ui->leWaterMeters_11_15->setValidator(new QIntValidator(0, 100, this));
-    ui->leWaterMeters_16_20->setValidator(new QIntValidator(0, 100, this));
+    ui->leWaterMeters_11_15->setValidator(new QIntValidator(0, 100,
+                                          this));
+    ui->leWaterMeters_16_20->setValidator(new QIntValidator(0, 100,
+                                          this));
     ui->cbSelectSerial->setStyleSheet(
         "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
         "selection-background-color: rgb(240, 255, 240); selection-color: "
@@ -130,9 +135,13 @@ Interface::Interface(QWidget *parent) : QDialog(parent), ui(new Ui::Interface) {
     Translate();
 }
 
-Interface::~Interface() { delete ui; }
+Interface::~Interface()
+{
+    delete ui;
+}
 
-void Interface::Translate() {
+void Interface::Translate()
+{
     ui->groupBox->setTitle(tr("RS485 MODBUS"));
     ui->lbSelectSerial->setText(tr("Serial Port:"));
     ui->lbBaudRate->setText(tr("Baud Rate:"));
@@ -158,45 +167,61 @@ void Interface::Translate() {
     ui->pbRefreshSerialPort->setText(tr("Refresh Ports"));
 }
 
-void Interface::onCloseClicked() { this->hide(); }
+void Interface::onCloseClicked()
+{
+    this->hide();
+}
 
-void Interface::onReadModbusReady() {
+void Interface::onReadModbusReady()
+{
     auto reply = qobject_cast<QModbusReply *>(sender());
     ledStateTable[positionTable]->setState(false);
-    if (!reply) {
+    if (!reply)
+    {
         return;
     }
-    if (reply->error() == QModbusDevice::NoError) {
+    if (reply->error() == QModbusDevice::NoError)
+    {
         ledStateTable[positionTable]->setState(true);
     }
     ++positionTable;
     reply->deleteLater();
 }
 
-bool Interface::checkModbusAddress(qint16 address) {
+bool Interface::checkModbusAddress(qint16 address)
+{
     std::lock_guard<std::mutex> lock(modbusLock);
     usleep(50000);
-    QModbusRtuSerialClient *portModbus = static_cast<QModbusRtuSerialClient *>(
-        mainwindow->selectedInfo.modbusDevice);
+    QModbusRtuSerialClient *portModbus =
+        static_cast<QModbusRtuSerialClient *>(
+            mainwindow->selectedInfo.modbusDevice);
     ledStateTable[positionTable]->setState(false);
     ;
     if (QModbusReply *reply = portModbus->sendReadRequest(
-            QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address)) {
-        if (!reply->isFinished()) {
+                                  QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address))
+    {
+        if (!reply->isFinished())
+        {
             connect(reply, &QModbusReply::finished, this,
                     &Interface::onReadModbusReady);
-        } else {
+        }
+        else
+        {
             delete reply;  // broadcast replies return immediately
         }
-    } else {
+    }
+    else
+    {
         return false;
     };
     return true;
 }
 
-void Interface::onTestConfigurationClicked() {
+void Interface::onTestConfigurationClicked()
+{
     DisconnectSerialPort();
-    for (auto iter = 0; iter < 10; ++iter) {
+    for (auto iter = 0; iter < 10; ++iter)
+    {
         ledStateTable[iter]->setState(false);
     }
     QModbusClient *&portModbus = mainwindow->selectedInfo.modbusDevice;
@@ -204,124 +229,132 @@ void Interface::onTestConfigurationClicked() {
     mainwindow->selectedInfo.serialPort = true;
     mainwindow->ui->rbInterface->setDisabled(false);
     portModbus = new QModbusRtuSerialClient(this);
-    QString serialName = "COM" + entries.at(ui->cbSelectSerial->currentIndex());
-    portModbus->setConnectionParameter(QModbusDevice::SerialPortNameParameter,
-                                       serialName);
-    switch (ui->cbBaudRate->currentIndex()) {
-    case 0:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
-        break;
-    case 1:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud2400);
-        break;
-    case 2:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud4800);
-        break;
-    case 3:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud9600);
-        break;
-    case 4:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud19200);
-        break;
-    case 5:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud38400);
-        break;
-    case 6:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
-        break;
-    case 7:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter,
-            QSerialPort::Baud115200);
-        break;
-    default:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud9600);
-        break;
+    QString serialName = "COM" + entries.at(
+                             ui->cbSelectSerial->currentIndex());
+    portModbus->setConnectionParameter(
+        QModbusDevice::SerialPortNameParameter,
+        serialName);
+    switch (ui->cbBaudRate->currentIndex())
+    {
+        case 0:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
+            break;
+        case 1:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud2400);
+            break;
+        case 2:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud4800);
+            break;
+        case 3:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud9600);
+            break;
+        case 4:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud19200);
+            break;
+        case 5:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud38400);
+            break;
+        case 6:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud57600);
+            break;
+        case 7:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter,
+                QSerialPort::Baud115200);
+            break;
+        default:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud9600);
+            break;
     }
-    switch (ui->cbSelectDataBits->currentIndex()) {
-    case 0:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
-        break;
-    case 1:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data6);
-        break;
-    case 2:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data7);
-        break;
-    case 3:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
-        break;
-    default:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
-        break;
+    switch (ui->cbSelectDataBits->currentIndex())
+    {
+        case 0:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
+            break;
+        case 1:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialDataBitsParameter, QSerialPort::Data6);
+            break;
+        case 2:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialDataBitsParameter, QSerialPort::Data7);
+            break;
+        case 3:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
+            break;
+        default:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialDataBitsParameter, QSerialPort::Data8);
+            break;
     }
-    switch (ui->cbSelectParity->currentIndex()) {
-    case 0:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
-        break;
-    case 1:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::EvenParity);
-        break;
-    case 2:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::OddParity);
-        break;
-    case 3:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::SpaceParity);
-        break;
-    case 4:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::MarkParity);
-        break;
-    default:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
-        break;
+    switch (ui->cbSelectParity->currentIndex())
+    {
+        case 0:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
+            break;
+        case 1:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::EvenParity);
+            break;
+        case 2:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::OddParity);
+            break;
+        case 3:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::SpaceParity);
+            break;
+        case 4:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::MarkParity);
+            break;
+        default:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
+            break;
     }
-    switch (ui->cbSelectParity->currentIndex()) {
-    case 0:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
-        break;
-    case 1:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialStopBitsParameter,
-            QSerialPort::OneAndHalfStop);
-        break;
-    case 2:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialStopBitsParameter, QSerialPort::TwoStop);
-        break;
-    default:
-        portModbus->setConnectionParameter(
-            QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
-        break;
+    switch (ui->cbSelectParity->currentIndex())
+    {
+        case 0:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
+            break;
+        case 1:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialStopBitsParameter,
+                QSerialPort::OneAndHalfStop);
+            break;
+        case 2:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialStopBitsParameter, QSerialPort::TwoStop);
+            break;
+        default:
+            portModbus->setConnectionParameter(
+                QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
+            break;
     }
     int timeout = ui->leTimeout->text().toInt();
     portModbus->setTimeout(timeout);
     int retries = ui->cbNumberRetries->currentIndex();
     portModbus->setNumberOfRetries(retries);
-    if (!isOpenModbusPort) {
+    if (!isOpenModbusPort)
+    {
         portModbus->disconnectDevice();
     }
     isOpenModbusPort = portModbus->connectDevice();
-    if (isOpenModbusPort) {
+    if (isOpenModbusPort)
+    {
         QMessageBox messageSerialInterface;
         messageSerialInterface.setWindowTitle(
             tr("Serial RTU MODBUS Interface Settings"));
@@ -338,10 +371,10 @@ void Interface::onTestConfigurationClicked() {
         messageSerialInterface.setWindowFlags(
             Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint |
             Qt::WindowCloseButtonHint);
-        if (messageSerialInterface.exec() == QMessageBox::Ok) {
+        if (messageSerialInterface.exec() == QMessageBox::Ok)
+        {
             messageSerialInterface.close();
         }
-
         positionTable = 0;
         checkModbusAddress(ui->leSmallScale->text().toUShort());
         checkModbusAddress(ui->leLargeScale->text().toUShort());
@@ -353,9 +386,12 @@ void Interface::onTestConfigurationClicked() {
         checkModbusAddress(ui->leWaterMeters_6_10->text().toUShort());
         checkModbusAddress(ui->leWaterMeters_11_15->text().toUShort());
         checkModbusAddress(ui->leWaterMeters_16_20->text().toUShort());
-    } else {
+    }
+    else
+    {
         QMessageBox messageSerialInterface;
-        messageSerialInterface.setWindowTitle(tr("Serial Interface Settings"));
+        messageSerialInterface.setWindowTitle(
+            tr("Serial Interface Settings"));
         QString message("Serial interface %1 is not available.");
         message = message.arg(ui->cbSelectSerial->currentText());
         messageSerialInterface.setText(message);
@@ -363,7 +399,8 @@ void Interface::onTestConfigurationClicked() {
         messageSerialInterface.setWindowFlags(
             Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint |
             Qt::WindowCloseButtonHint);
-        if (messageSerialInterface.exec() == QMessageBox::Ok) {
+        if (messageSerialInterface.exec() == QMessageBox::Ok)
+        {
             messageSerialInterface.close();
         }
         mainwindow->ui->SerialLedIndicator->setState(false);
@@ -371,7 +408,8 @@ void Interface::onTestConfigurationClicked() {
     ui->pbTestConnection->setDisabled(false);
 }
 
-void Interface::onRefreshSerialPortClicked() {
+void Interface::onRefreshSerialPortClicked()
+{
     ui->pbRefreshSerialPort->setDisabled(true);
     entries.clear();
     const wchar_t *ports = mainwindow->serialPorts();
@@ -380,12 +418,16 @@ void Interface::onRefreshSerialPortClicked() {
     int even{0};
     QString portEntry;
     ui->cbSelectSerial->clear();
-    while (pwc != NULL) {
+    while (pwc != NULL)
+    {
         even = (even + 1) % 2;
-        if (even) {
+        if (even)
+        {
             portEntry = QString::fromWCharArray(pwc);
             entries.push_back(portEntry);
-        } else {
+        }
+        else
+        {
             portEntry += "  " + QString::fromWCharArray(pwc);
             ui->cbSelectSerial->addItem(portEntry);
             portEntry.clear();
@@ -397,23 +439,27 @@ void Interface::onRefreshSerialPortClicked() {
     ui->pbRefreshSerialPort->setDisabled(false);
 }
 
-void Interface::onSaveConfigurationClicked() {
+void Interface::onSaveConfigurationClicked()
+{
     ui->pbSaveConfiguration->setDisabled(true);
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("RS485");
-    settings.setValue("selectedSerial", ui->cbSelectSerial->currentIndex());
+    settings.setValue("selectedSerial",
+                      ui->cbSelectSerial->currentIndex());
     settings.setValue("baudRate", ui->cbBaudRate->currentIndex());
     settings.setValue("dataBits", ui->cbSelectDataBits->currentIndex());
     settings.setValue("parity", ui->cbSelectParity->currentIndex());
     settings.setValue("stopBits", ui->cbSelectStopBits->currentIndex());
     settings.setValue("timeout", ui->leTimeout->text().toInt());
-    settings.setValue("retriesNumber", ui->cbNumberRetries->currentIndex());
+    settings.setValue("retriesNumber",
+                      ui->cbNumberRetries->currentIndex());
     settings.setValue("smallScale", ui->checkSmallScale->isChecked());
     settings.setValue("largeScale", ui->checkLargeScale->isChecked());
     settings.setValue("temperature", ui->checkTemperature->isChecked());
-    settings.setValue("waterMeters1_5", ui->checkWaterMeters_1_5->isChecked());
+    settings.setValue("waterMeters1_5",
+                      ui->checkWaterMeters_1_5->isChecked());
     settings.setValue("waterMeters6_10",
                       ui->checkWaterMeters_6_10->isChecked());
     settings.setValue("waterMeters11_15",
@@ -423,9 +469,12 @@ void Interface::onSaveConfigurationClicked() {
     settings.setValue("waterMeter1", ui->checkWaterMeter1->isChecked());
     settings.setValue("waterMeter2", ui->checkWaterMeter2->isChecked());
     settings.setValue("waterMeter3", ui->checkWaterMeter3->isChecked());
-    settings.setValue("smallScaleValue", ui->leSmallScale->text().toInt());
-    settings.setValue("largeScaleValue", ui->leLargeScale->text().toInt());
-    settings.setValue("temperatureValue", ui->leTemperature->text().toInt());
+    settings.setValue("smallScaleValue",
+                      ui->leSmallScale->text().toInt());
+    settings.setValue("largeScaleValue",
+                      ui->leLargeScale->text().toInt());
+    settings.setValue("temperatureValue",
+                      ui->leTemperature->text().toInt());
     settings.setValue("waterMeters1_5Value",
                       ui->leWaterMeters_1_5->text().toInt());
     settings.setValue("waterMeters6_10Value",
@@ -434,15 +483,19 @@ void Interface::onSaveConfigurationClicked() {
                       ui->leWaterMeters_11_15->text().toInt());
     settings.setValue("waterMeters16_20Value",
                       ui->leWaterMeters_16_20->text().toInt());
-    settings.setValue("waterMeter1Value", ui->leWaterMeter1->text().toInt());
-    settings.setValue("waterMeter2Value", ui->leWaterMeter2->text().toInt());
-    settings.setValue("waterMeter3Value", ui->leWaterMeter3->text().toInt());
+    settings.setValue("waterMeter1Value",
+                      ui->leWaterMeter1->text().toInt());
+    settings.setValue("waterMeter2Value",
+                      ui->leWaterMeter2->text().toInt());
+    settings.setValue("waterMeter3Value",
+                      ui->leWaterMeter3->text().toInt());
     settings.endGroup();
     settings.sync();
     ui->pbSaveConfiguration->setDisabled(false);
 }
 
-void Interface::showEvent(QShowEvent *event) {
+void Interface::showEvent(QShowEvent *event)
+{
     QWidget::showEvent(event);
     QStringList baudRates{"1200",  "2400",  "4800",  "9600",
                           "19200", "38400", "57600", "115200"};
@@ -461,12 +514,16 @@ void Interface::showEvent(QShowEvent *event) {
     pwc = std::wcstok(const_cast<wchar_t *>(ports), L"|");
     int even{0};
     QString portEntry;
-    while (pwc != NULL) {
+    while (pwc != NULL)
+    {
         even = (even + 1) % 2;
-        if (even) {
+        if (even)
+        {
             portEntry = QString::fromWCharArray(pwc);
             entries.push_back(portEntry);
-        } else {
+        }
+        else
+        {
             portEntry += "  " + QString::fromWCharArray(pwc);
             ui->cbSelectSerial->addItem(portEntry);
             portEntry.clear();
@@ -474,7 +531,8 @@ void Interface::showEvent(QShowEvent *event) {
         wprintf(L"%ls\n", pwc);
         pwc = wcstok(NULL, L"|");
     }
-    if (!ui->cbSelectSerial->count()) {
+    if (!ui->cbSelectSerial->count())
+    {
     }
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
@@ -482,18 +540,23 @@ void Interface::showEvent(QShowEvent *event) {
     settings.beginGroup("RS485");
     ui->cbSelectSerial->setCurrentIndex(
         settings.value("selectedSerial", 0).toInt());
-    ui->cbBaudRate->setCurrentIndex(settings.value("baudRate", 7).toInt());
+    ui->cbBaudRate->setCurrentIndex(settings.value("baudRate",
+                                    7).toInt());
     ui->cbSelectDataBits->setCurrentIndex(
         settings.value("dataBits", 1).toInt());
-    ui->cbSelectParity->setCurrentIndex(settings.value("parity", 2).toInt());
+    ui->cbSelectParity->setCurrentIndex(settings.value("parity",
+                                        2).toInt());
     ui->cbSelectStopBits->setCurrentIndex(
         settings.value("stopBits", 1).toInt());
     ui->leTimeout->setText((settings.value("timeout", 1000).toString()));
     ui->cbNumberRetries->setCurrentIndex(
         settings.value("retriesNumber", 0).toInt());
-    ui->checkSmallScale->setChecked(settings.value("smallScale", 1).toBool());
-    ui->checkLargeScale->setChecked(settings.value("largeScale", 1).toBool());
-    ui->checkTemperature->setChecked(settings.value("temperature", 1).toBool());
+    ui->checkSmallScale->setChecked(settings.value("smallScale",
+                                    1).toBool());
+    ui->checkLargeScale->setChecked(settings.value("largeScale",
+                                    1).toBool());
+    ui->checkTemperature->setChecked(settings.value("temperature",
+                                     1).toBool());
     ui->checkWaterMeters_1_5->setChecked(
         settings.value("waterMeters1_5", 1).toBool());
     ui->checkWaterMeters_6_10->setChecked(
@@ -502,9 +565,12 @@ void Interface::showEvent(QShowEvent *event) {
         settings.value("waterMeters11_15", 1).toBool());
     ui->checkWaterMeters_16_20->setChecked(
         settings.value("waterMeters16_20", 1).toBool());
-    ui->checkWaterMeter1->setChecked(settings.value("waterMeter1", 1).toBool());
-    ui->checkWaterMeter2->setChecked(settings.value("waterMeter2", 1).toBool());
-    ui->checkWaterMeter3->setChecked(settings.value("waterMeter3", 1).toBool());
+    ui->checkWaterMeter1->setChecked(settings.value("waterMeter1",
+                                     1).toBool());
+    ui->checkWaterMeter2->setChecked(settings.value("waterMeter2",
+                                     1).toBool());
+    ui->checkWaterMeter3->setChecked(settings.value("waterMeter3",
+                                     1).toBool());
     ui->leSmallScale->setText(
         settings.value("smallScaleValue", 100).toString());
     ui->leLargeScale->setText(
@@ -530,23 +596,41 @@ void Interface::showEvent(QShowEvent *event) {
     ui->cbSelectSerial->setFocus();
 }
 
-void Interface::DisconnectSerialPort() {
-    mainwindow->ui->lbConnected->setText(tr("Not connected to RS485 network"));
+void Interface::DisconnectSerialPort()
+{
+    mainwindow->ui->lbConnected->setText(
+        tr("Not connected to RS485 network"));
     mainwindow->ui->SerialLedIndicator->setState(false);
     QModbusClient *&portModbus = mainwindow->selectedInfo.modbusDevice;
-    if (portModbus) {
+    if (portModbus)
+    {
         delete portModbus;
         portModbus = nullptr;
     }
     isOpenModbusPort = false;
 }
 
-void Interface::onSelectSerialChanged() { DisconnectSerialPort(); }
+void Interface::onSelectSerialChanged()
+{
+    DisconnectSerialPort();
+}
 
-void Interface::onBaudRateChanged() { DisconnectSerialPort(); }
+void Interface::onBaudRateChanged()
+{
+    DisconnectSerialPort();
+}
 
-void Interface::onSelectDataBitsnChanged() { DisconnectSerialPort(); }
+void Interface::onSelectDataBitsnChanged()
+{
+    DisconnectSerialPort();
+}
 
-void Interface::onSelectParityChanged() { DisconnectSerialPort(); }
+void Interface::onSelectParityChanged()
+{
+    DisconnectSerialPort();
+}
 
-void Interface::onSelectStopBitsChanged() { DisconnectSerialPort(); }
+void Interface::onSelectStopBitsChanged()
+{
+    DisconnectSerialPort();
+}

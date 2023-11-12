@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: mainwindow.h
+ *  File:    mainwindow.h
  */
 
 #ifndef MAINWINDOW_H
@@ -33,7 +33,8 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
-struct SelectedInfo {
+struct SelectedInfo
+{
 
     SelectedInfo():
         density_20{0},
@@ -55,8 +56,9 @@ struct SelectedInfo {
         rbTerminal{false},
         serialPort{false},
         selectedLanguage{ROMANIAN},
-        modbusDevice{nullptr} {
-        };
+        modbusDevice{nullptr}
+    {
+    };
 
     float density_20;
     std::string pathResults;

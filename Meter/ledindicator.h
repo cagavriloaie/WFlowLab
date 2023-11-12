@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: ledindicator.h
+ *  File:   ledindicator.h
  */
 
 #ifndef LEDINDICATOR_H

@@ -168,13 +168,13 @@ QRadioButton::indicator:unchecked {
               <widget class="QComboBox" name="cbWaterMeterType">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>300</width>
                  <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>200</width>
+                 <width>300</width>
                  <height>20</height>
                 </size>
                </property>

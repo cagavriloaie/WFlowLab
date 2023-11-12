@@ -26,8 +26,8 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset resource="resourcescontor.qrc">
-    <normaloff>:/images/icons8-blur-80.png</normaloff>:/images/icons8-blur-80.png</iconset>
+   <iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
@@ -280,8 +280,6 @@
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="resourcescontor.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

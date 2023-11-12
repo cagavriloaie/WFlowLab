@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Serial Port Configuration</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">

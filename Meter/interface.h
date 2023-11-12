@@ -1,6 +1,6 @@
 /*
  *  Author: Constantin
- *  File: interface.h
+ *  File:   interface.h
  */
 
 #ifndef INTERFACE_H
