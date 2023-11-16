@@ -41,7 +41,8 @@ MainWindow *pw;
  */
 void MainWindow::ReadConfiguration()
 {
-    std::ifstream inConfigurationFile("watermeters.conf");
+    std::ifstream
+    inConfigurationFile("watermeters.conf");
     if (inConfigurationFile.is_open())
     {
         std::string key;
@@ -65,7 +66,7 @@ void MainWindow::ReadConfiguration()
             std::string md5Calculate;
             md5Read = optionsConfiguration["control"];
             std::string wordControl = optionsConfiguration["company"] +
-                                      optionsConfiguration["density_20"];
+                                      optionsConfiguration["maximum"];
             md5Calculate = md5(wordControl);
             if (md5Read == md5Calculate)
             {
@@ -76,7 +77,7 @@ void MainWindow::ReadConfiguration()
     optionsConfiguration.clear();
     optionsConfiguration["company"] = "NONE";
     optionsConfiguration["archive"] = "C:/watermeters/reports";
-    optionsConfiguration["maximum"] = "5";
+    optionsConfiguration["maximum"] = "2";
     optionsConfiguration["certificate"] = "NONE";
     optionsConfiguration["density_20"] = "998.2009";
     optionsConfiguration["control"] = "00000000000000000000000000000000";
@@ -215,9 +216,10 @@ MainWindow::MainWindow(QWidget *parent)
     }
     CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
-    ui->lbConnected->setText(tr("Not connected to RS-485 network"));
+    ui->lbConnected->setText(
+        tr("RS485 protocol MODBUS ITF off."));
     ui->lbConnected->setStyleSheet(
-        "QLabel{font-family: \"Courier\"; font-size: 10pt}");
+        "QLabel{font-family: \"Segoe UI\"; font-size: 12pt}");
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
     settings.beginGroup("RS485");

@@ -47,6 +47,10 @@ QPushButton
 	font-size: 12pt;
 }
 
+QPushButton:hover {
+       background-color: #d7d9d7;
+}
+
 QComboBox 
 {
 	font-family: &quot;Segoe UI&quot;;
@@ -936,6 +940,12 @@ QRadioButton::indicator:unchecked {
         </item>
         <item>
          <widget class="QPushButton" name="pbNewSession">
+          <property name="styleSheet">
+           <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -943,6 +953,12 @@ QRadioButton::indicator:unchecked {
         </item>
         <item>
          <widget class="QPushButton" name="pbExitApplication">
+          <property name="styleSheet">
+           <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+          </property>
           <property name="text">
            <string/>
           </property>

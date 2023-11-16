@@ -29,6 +29,11 @@
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:hover {
+       background-color: #d7d9d7;
+}</string>
+  </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -256,6 +261,12 @@
          <font>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
         </property>
         <property name="text">
          <string/>

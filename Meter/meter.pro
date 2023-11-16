@@ -36,10 +36,9 @@ HEADERS += \
 FORMS += \
     helpabout.ui \
     interface.ui \
+    tableBoard.ui \
     license.ui \
-    mainwindow.ui \
-    tableBoard.ui
-
+    mainwindow.ui
 
 CONFIG += lrelease
 lrelease.input = TRANSLATIONS

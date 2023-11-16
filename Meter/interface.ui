@@ -29,6 +29,11 @@
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:hover {
+       background-color: #d7d9d7;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
@@ -533,6 +538,12 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbRefreshSerialPort">
+       <property name="styleSheet">
+        <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -540,6 +551,12 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbTestConnection">
+       <property name="styleSheet">
+        <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -547,6 +564,12 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbSaveConfiguration">
+       <property name="styleSheet">
+        <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -554,6 +577,12 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbClose">
+       <property name="styleSheet">
+        <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+       </property>
        <property name="text">
         <string/>
        </property>

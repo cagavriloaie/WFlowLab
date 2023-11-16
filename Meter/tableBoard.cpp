@@ -32,7 +32,7 @@ extern MainWindow *pw;
 
 namespace
 {
-    MainWindow *mainwindow;
+MainWindow *mainwindow;
 }
 
 QString Dialog::report;
@@ -73,9 +73,9 @@ void Dialog::onSaveCurrentInputDataClicked()
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
     outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
     outputDataFile << mainwindow->selectedInfo.relativeAirHumidity <<
-                   "\n";
+        "\n";
     outputDataFile << mainwindow->selectedInfo.athmosphericPressure <<
-                   "\n";
+        "\n";
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
@@ -119,9 +119,9 @@ void Dialog::onSaveCurrentInputDataClicked()
 void Dialog::onOpenInputDataClicked()
 {
     QString fileName = QFileDialog::getOpenFileName(
-                           this, tr("Open Input Data"),
-                           QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/",
-                           tr("Input data (*.in);;All file (*.*)"));
+        this, tr("Open Input Data"),
+        QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/",
+        tr("Input data (*.in);;All file (*.*)"));
     std::ifstream inputDataFile(fileName.toStdString());
     Translate();
     size_t entriesNumber;
@@ -147,13 +147,13 @@ void Dialog::onOpenInputDataClicked()
     inputDataFile >> rbInterface;
     inputDataFile >> rbTerminal;
     int index = mainwindow->ui->cbNumberOfWaterMeters->findText(
-                    std::to_string(entriesNumber).c_str());
+        std::to_string(entriesNumber).c_str());
     if (index != -1)
     {
         mainwindow->ui->cbNumberOfWaterMeters->setCurrentIndex(index);
     }
     index = mainwindow->ui->cbWaterMeterType->findText(
-                nameWaterMeter.c_str());
+        nameWaterMeter.c_str());
     if (index != -1)
     {
         mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
@@ -235,22 +235,22 @@ bool XOR(bool a, bool b)
 void Dialog::ValidatorInput()
 {
     QLabel *pNumber[] = {ui->lbN1,  ui->lbN2,  ui->lbN3,  ui->lbN4,  ui->lbN5,
-                         ui->lbN6,  ui->lbN7,  ui->lbN8,  ui->lbN9,  ui->lbN10,
-                         ui->lbN11, ui->lbN12, ui->lbN13, ui->lbN14, ui->lbN15,
-                         ui->lbN16, ui->lbN17, ui->lbN18, ui->lbN19, ui->lbN20
-                        };
+        ui->lbN6,  ui->lbN7,  ui->lbN8,  ui->lbN9,  ui->lbN10,
+        ui->lbN11, ui->lbN12, ui->lbN13, ui->lbN14, ui->lbN15,
+        ui->lbN16, ui->lbN17, ui->lbN18, ui->lbN19, ui->lbN20
+    };
     vectorNumber.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         vectorNumber.push_back(pNumber[iter]);
     }
     QCheckBox *pCheckNumber[] =
-    {
-        ui->cbSet1,  ui->cbSet2,  ui->cbSet3,  ui->cbSet4,  ui->cbSet5,
-        ui->cbSet6,  ui->cbSet7,  ui->cbSet8,  ui->cbSet9,  ui->cbSet10,
-        ui->cbSet11, ui->cbSet12, ui->cbSet13, ui->cbSet14, ui->cbSet15,
-        ui->cbSet16, ui->cbSet17, ui->cbSet18, ui->cbSet19, ui->cbSet20,
-    };
+        {
+            ui->cbSet1,  ui->cbSet2,  ui->cbSet3,  ui->cbSet4,  ui->cbSet5,
+            ui->cbSet6,  ui->cbSet7,  ui->cbSet8,  ui->cbSet9,  ui->cbSet10,
+            ui->cbSet11, ui->cbSet12, ui->cbSet13, ui->cbSet14, ui->cbSet15,
+            ui->cbSet16, ui->cbSet17, ui->cbSet18, ui->cbSet19, ui->cbSet20,
+        };
     vectorCheckNumber.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -258,12 +258,12 @@ void Dialog::ValidatorInput()
         pCheckNumber[iter]->installEventFilter(this);
     }
     QLineEdit *pSerialNumber[] =
-    {
-        ui->leSN1,  ui->leSN2,  ui->leSN3,  ui->leSN4,  ui->leSN5,
-        ui->leSN6,  ui->leSN7,  ui->leSN8,  ui->leSN9,  ui->leSN10,
-        ui->leSN11, ui->leSN12, ui->leSN13, ui->leSN14, ui->leSN15,
-        ui->leSN16, ui->leSN17, ui->leSN18, ui->leSN19, ui->leSN20
-    };
+        {
+            ui->leSN1,  ui->leSN2,  ui->leSN3,  ui->leSN4,  ui->leSN5,
+            ui->leSN6,  ui->leSN7,  ui->leSN8,  ui->leSN9,  ui->leSN10,
+            ui->leSN11, ui->leSN12, ui->leSN13, ui->leSN14, ui->leSN15,
+            ui->leSN16, ui->leSN17, ui->leSN18, ui->leSN19, ui->leSN20
+        };
     vectorSerialNumber.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -271,13 +271,13 @@ void Dialog::ValidatorInput()
         pSerialNumber[iter]->installEventFilter(this);
     }
     QLineEdit *pFirstIndexStart[] =
-    {
-        ui->leStart1_1,  ui->leStart1_2,  ui->leStart1_3,  ui->leStart1_4,
-        ui->leStart1_5,  ui->leStart1_6,  ui->leStart1_7,  ui->leStart1_8,
-        ui->leStart1_9,  ui->leStart1_10, ui->leStart1_11, ui->leStart1_12,
-        ui->leStart1_13, ui->leStart1_14, ui->leStart1_15, ui->leStart1_16,
-        ui->leStart1_17, ui->leStart1_18, ui->leStart1_19, ui->leStart1_20
-    };
+        {
+            ui->leStart1_1,  ui->leStart1_2,  ui->leStart1_3,  ui->leStart1_4,
+            ui->leStart1_5,  ui->leStart1_6,  ui->leStart1_7,  ui->leStart1_8,
+            ui->leStart1_9,  ui->leStart1_10, ui->leStart1_11, ui->leStart1_12,
+            ui->leStart1_13, ui->leStart1_14, ui->leStart1_15, ui->leStart1_16,
+            ui->leStart1_17, ui->leStart1_18, ui->leStart1_19, ui->leStart1_20
+        };
     vectorFirstIndexStart.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -285,13 +285,13 @@ void Dialog::ValidatorInput()
         pFirstIndexStart[iter]->installEventFilter(this);
     }
     QLineEdit *pFirstIndexStop[] =
-    {
-        ui->leStop1_1,  ui->leStop1_2,  ui->leStop1_3,  ui->leStop1_4,
-        ui->leStop1_5,  ui->leStop1_6,  ui->leStop1_7,  ui->leStop1_8,
-        ui->leStop1_9,  ui->leStop1_10, ui->leStop1_11, ui->leStop1_12,
-        ui->leStop1_13, ui->leStop1_14, ui->leStop1_15, ui->leStop1_16,
-        ui->leStop1_17, ui->leStop1_18, ui->leStop1_19, ui->leStop1_20
-    };
+        {
+            ui->leStop1_1,  ui->leStop1_2,  ui->leStop1_3,  ui->leStop1_4,
+            ui->leStop1_5,  ui->leStop1_6,  ui->leStop1_7,  ui->leStop1_8,
+            ui->leStop1_9,  ui->leStop1_10, ui->leStop1_11, ui->leStop1_12,
+            ui->leStop1_13, ui->leStop1_14, ui->leStop1_15, ui->leStop1_16,
+            ui->leStop1_17, ui->leStop1_18, ui->leStop1_19, ui->leStop1_20
+        };
     vectorFirstIndexStop.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -299,26 +299,26 @@ void Dialog::ValidatorInput()
         pFirstIndexStop[iter]->installEventFilter(this);
     }
     QLineEdit *pFirstError[] =
-    {
-        ui->leError1_1,  ui->leError1_2,  ui->leError1_3,  ui->leError1_4,
-        ui->leError1_5,  ui->leError1_6,  ui->leError1_7,  ui->leError1_8,
-        ui->leError1_9,  ui->leError1_10, ui->leError1_11, ui->leError1_12,
-        ui->leError1_13, ui->leError1_14, ui->leError1_15, ui->leError1_16,
-        ui->leError1_17, ui->leError1_18, ui->leError1_19, ui->leError1_20
-    };
+        {
+            ui->leError1_1,  ui->leError1_2,  ui->leError1_3,  ui->leError1_4,
+            ui->leError1_5,  ui->leError1_6,  ui->leError1_7,  ui->leError1_8,
+            ui->leError1_9,  ui->leError1_10, ui->leError1_11, ui->leError1_12,
+            ui->leError1_13, ui->leError1_14, ui->leError1_15, ui->leError1_16,
+            ui->leError1_17, ui->leError1_18, ui->leError1_19, ui->leError1_20
+        };
     vectorFirstError.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         vectorFirstError.push_back(pFirstError[iter]);
     }
     QLineEdit *pSecondIndexStart[] =
-    {
-        ui->leStart2_1,  ui->leStart2_2,  ui->leStart2_3,  ui->leStart2_4,
-        ui->leStart2_5,  ui->leStart2_6,  ui->leStart2_7,  ui->leStart2_8,
-        ui->leStart2_9,  ui->leStart2_10, ui->leStart2_11, ui->leStart2_12,
-        ui->leStart2_13, ui->leStart2_14, ui->leStart2_15, ui->leStart2_16,
-        ui->leStart2_17, ui->leStart2_18, ui->leStart2_19, ui->leStart2_20
-    };
+        {
+            ui->leStart2_1,  ui->leStart2_2,  ui->leStart2_3,  ui->leStart2_4,
+            ui->leStart2_5,  ui->leStart2_6,  ui->leStart2_7,  ui->leStart2_8,
+            ui->leStart2_9,  ui->leStart2_10, ui->leStart2_11, ui->leStart2_12,
+            ui->leStart2_13, ui->leStart2_14, ui->leStart2_15, ui->leStart2_16,
+            ui->leStart2_17, ui->leStart2_18, ui->leStart2_19, ui->leStart2_20
+        };
     vectorSecondIndexStart.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -326,13 +326,13 @@ void Dialog::ValidatorInput()
         pSecondIndexStart[iter]->installEventFilter(this);
     }
     QLineEdit *pSecondIndexStop[] =
-    {
-        ui->leStop2_1,  ui->leStop2_2,  ui->leStop2_3,  ui->leStop2_4,
-        ui->leStop2_5,  ui->leStop2_6,  ui->leStop2_7,  ui->leStop2_8,
-        ui->leStop2_9,  ui->leStop2_10, ui->leStop2_11, ui->leStop2_12,
-        ui->leStop2_13, ui->leStop2_14, ui->leStop2_15, ui->leStop2_16,
-        ui->leStop2_17, ui->leStop2_18, ui->leStop2_19, ui->leStop2_20
-    };
+        {
+            ui->leStop2_1,  ui->leStop2_2,  ui->leStop2_3,  ui->leStop2_4,
+            ui->leStop2_5,  ui->leStop2_6,  ui->leStop2_7,  ui->leStop2_8,
+            ui->leStop2_9,  ui->leStop2_10, ui->leStop2_11, ui->leStop2_12,
+            ui->leStop2_13, ui->leStop2_14, ui->leStop2_15, ui->leStop2_16,
+            ui->leStop2_17, ui->leStop2_18, ui->leStop2_19, ui->leStop2_20
+        };
     vectorSecondIndexStop.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -340,26 +340,26 @@ void Dialog::ValidatorInput()
         pSecondIndexStop[iter]->installEventFilter(this);
     }
     QLineEdit *pSecondError[] =
-    {
-        ui->leError2_1,  ui->leError2_2,  ui->leError2_3,  ui->leError2_4,
-        ui->leError2_5,  ui->leError2_6,  ui->leError2_7,  ui->leError2_8,
-        ui->leError2_9,  ui->leError2_10, ui->leError2_11, ui->leError2_12,
-        ui->leError2_13, ui->leError2_14, ui->leError2_15, ui->leError2_16,
-        ui->leError2_17, ui->leError2_18, ui->leError2_19, ui->leError2_20
-    };
+        {
+            ui->leError2_1,  ui->leError2_2,  ui->leError2_3,  ui->leError2_4,
+            ui->leError2_5,  ui->leError2_6,  ui->leError2_7,  ui->leError2_8,
+            ui->leError2_9,  ui->leError2_10, ui->leError2_11, ui->leError2_12,
+            ui->leError2_13, ui->leError2_14, ui->leError2_15, ui->leError2_16,
+            ui->leError2_17, ui->leError2_18, ui->leError2_19, ui->leError2_20
+        };
     vectorSecondError.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         vectorSecondError.push_back(pSecondError[iter]);
     }
     QLineEdit *pThirdIndexStart[] =
-    {
-        ui->leStart3_1,  ui->leStart3_2,  ui->leStart3_3,  ui->leStart3_4,
-        ui->leStart3_5,  ui->leStart3_6,  ui->leStart3_7,  ui->leStart3_8,
-        ui->leStart3_9,  ui->leStart3_10, ui->leStart3_11, ui->leStart3_12,
-        ui->leStart3_13, ui->leStart3_14, ui->leStart3_15, ui->leStart3_16,
-        ui->leStart3_17, ui->leStart3_18, ui->leStart3_19, ui->leStart3_20
-    };
+        {
+            ui->leStart3_1,  ui->leStart3_2,  ui->leStart3_3,  ui->leStart3_4,
+            ui->leStart3_5,  ui->leStart3_6,  ui->leStart3_7,  ui->leStart3_8,
+            ui->leStart3_9,  ui->leStart3_10, ui->leStart3_11, ui->leStart3_12,
+            ui->leStart3_13, ui->leStart3_14, ui->leStart3_15, ui->leStart3_16,
+            ui->leStart3_17, ui->leStart3_18, ui->leStart3_19, ui->leStart3_20
+        };
     vectorThirdIndexStart.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -367,13 +367,13 @@ void Dialog::ValidatorInput()
         pThirdIndexStart[iter]->installEventFilter(this);
     }
     QLineEdit *pThirdIndexStop[] =
-    {
-        ui->leStop3_1,  ui->leStop3_2,  ui->leStop3_3,  ui->leStop3_4,
-        ui->leStop3_5,  ui->leStop3_6,  ui->leStop3_7,  ui->leStop3_8,
-        ui->leStop3_9,  ui->leStop3_10, ui->leStop3_11, ui->leStop3_12,
-        ui->leStop3_13, ui->leStop3_14, ui->leStop3_15, ui->leStop3_16,
-        ui->leStop3_17, ui->leStop3_18, ui->leStop3_19, ui->leStop3_20
-    };
+        {
+            ui->leStop3_1,  ui->leStop3_2,  ui->leStop3_3,  ui->leStop3_4,
+            ui->leStop3_5,  ui->leStop3_6,  ui->leStop3_7,  ui->leStop3_8,
+            ui->leStop3_9,  ui->leStop3_10, ui->leStop3_11, ui->leStop3_12,
+            ui->leStop3_13, ui->leStop3_14, ui->leStop3_15, ui->leStop3_16,
+            ui->leStop3_17, ui->leStop3_18, ui->leStop3_19, ui->leStop3_20
+        };
     vectorThirdIndexStop.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -381,13 +381,13 @@ void Dialog::ValidatorInput()
         pThirdIndexStop[iter]->installEventFilter(this);
     }
     QLineEdit *pThirdError[] =
-    {
-        ui->leError3_1,  ui->leError3_2,  ui->leError3_3,  ui->leError3_4,
-        ui->leError3_5,  ui->leError3_6,  ui->leError3_7,  ui->leError3_8,
-        ui->leError3_9,  ui->leError3_10, ui->leError3_11, ui->leError3_12,
-        ui->leError3_13, ui->leError3_14, ui->leError3_15, ui->leError3_16,
-        ui->leError3_17, ui->leError3_18, ui->leError3_19, ui->leError3_20
-    };
+        {
+            ui->leError3_1,  ui->leError3_2,  ui->leError3_3,  ui->leError3_4,
+            ui->leError3_5,  ui->leError3_6,  ui->leError3_7,  ui->leError3_8,
+            ui->leError3_9,  ui->leError3_10, ui->leError3_11, ui->leError3_12,
+            ui->leError3_13, ui->leError3_14, ui->leError3_15, ui->leError3_16,
+            ui->leError3_17, ui->leError3_18, ui->leError3_19, ui->leError3_20
+        };
     vectorThirdError.clear();
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter)
     {
@@ -412,23 +412,23 @@ void Dialog::ValidatorInput()
     QRegularExpression rx("\\b[A-Z0-9.-]*",
                           QRegularExpression::CaseInsensitiveOption);
     auto validatorAlphanumeric = new QRegularExpressionValidator(rx,
-            this);
+                                                                 this);
     QDoubleValidator *validatorDoubleNumber = new QDoubleValidator(this);
     // set natural numbers as input for SN input line
     for (auto iter = begin(vectorSerialNumber);
-            iter != end(vectorSerialNumber);
-            ++iter)
+         iter != end(vectorSerialNumber);
+         ++iter)
     {
         (*iter)->setValidator(validatorAlphanumeric);
     }
     // set natural numbers as input for minimal flow input line
     for (auto iter = begin(vectorFirstIndexStart);
-            iter != end(vectorFirstIndexStart); ++iter)
+         iter != end(vectorFirstIndexStart); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
     for (auto iter = begin(vectorFirstIndexStop);
-            iter != end(vectorFirstIndexStop); ++iter)
+         iter != end(vectorFirstIndexStop); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
@@ -436,12 +436,12 @@ void Dialog::ValidatorInput()
     ui->leTemperature1->setValidator(validatorDoubleNumber);
     // set natural numbers as input for transient flow input line
     for (auto iter = begin(vectorSecondIndexStart);
-            iter != end(vectorSecondIndexStart); ++iter)
+         iter != end(vectorSecondIndexStart); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
     for (auto iter = begin(vectorSecondIndexStop);
-            iter != end(vectorSecondIndexStop); ++iter)
+         iter != end(vectorSecondIndexStop); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
@@ -449,32 +449,32 @@ void Dialog::ValidatorInput()
     ui->leTemperature2->setValidator(validatorDoubleNumber);
     // set natural numbers as input for nominal flow input line
     for (auto iter = begin(vectorThirdIndexStart);
-            iter != end(vectorThirdIndexStart); ++iter)
+         iter != end(vectorThirdIndexStart); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
     for (auto iter = begin(vectorThirdIndexStop);
-            iter != end(vectorThirdIndexStop); ++iter)
+         iter != end(vectorThirdIndexStop); ++iter)
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
     ui->leMass3->setValidator(validatorDoubleNumber);
     ui->leTemperature3->setValidator(validatorDoubleNumber);
     for (auto iter = begin(vectorFirstError);
-            iter != end(vectorFirstError);
-            ++iter)
+         iter != end(vectorFirstError);
+         ++iter)
     {
         (*iter)->setReadOnly(true);
     }
     for (auto iter = begin(vectorSecondError);
-            iter != end(vectorSecondError);
-            ++iter)
+         iter != end(vectorSecondError);
+         ++iter)
     {
         (*iter)->setReadOnly(true);
     }
     for (auto iter = begin(vectorThirdError);
-            iter != end(vectorThirdError);
-            ++iter)
+         iter != end(vectorThirdError);
+         ++iter)
     {
         (*iter)->setReadOnly(true);
     }
@@ -497,8 +497,8 @@ void Dialog::ValidatorInput()
     ui->leVolume3->setStyleSheet(
         "QLineEdit {background-color: rgb(235, 235, 235)}");
     for (auto iter = begin(vectorCheckNumber);
-            iter != end(vectorCheckNumber);
-            ++iter)
+         iter != end(vectorCheckNumber);
+         ++iter)
     {
         (*iter)->setCheckState(Qt::Checked);
     }
@@ -552,23 +552,32 @@ void Dialog::Translate()
     ui->lbMass3->setText(tr("Mass [kg]", nullptr));
     ui->lbTemperature3->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume3->setText(tr("Volume [L]", nullptr));
+    // Buttons
+    ui->pbCalculate->setText(tr("&Data evaluate"));
     ui->pbPrint->setText(tr("&Print PDF"));
     ui->pbOpen->setText(tr("&Open"));
     ui->pbSaveResults->setText(tr("&Save"));
-    ui->pbCalculate->setText(tr("&Data evaluate"));
-    ui->pbClean->setText(tr("Clean &Input"));
     ui->pbClose->setText(tr("&Close"));
+    ui->pbClean->setText(tr("Clean &Input"));
+
+    ui->pbCalculate->setContentsMargins(100, 0, 100, 0);
+    ui->pbPrint->setContentsMargins(10, 0, 10, 0);
+    ui->pbOpen->setContentsMargins(10, 0, 10, 0);
+    ui->pbSaveResults->setContentsMargins(10, 0, 10, 0);
+    ui->pbClose->setContentsMargins(10, 0, 10, 0);
+    ui->pbClean->setContentsMargins(10, 0, 10, 0);
+
     ui->lbIndex1->setText(
         QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %")
-        .arg(QString::number(minimumFlowMain),
-             QString::number(maximumError)));
+            .arg(QString::number(minimumFlowMain),
+                 QString::number(maximumError)));
     ui->lbIndex2->setText(
         QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %")
-        .arg(QString::number(transitoriuFlowMain),
-             QString::number(nominalError)));
+            .arg(QString::number(transitoriuFlowMain),
+                 QString::number(nominalError)));
     ui->lbIndex3->setText(QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %")
-                          .arg(QString::number(nominalFlowMain),
-                               QString::number(nominalError)));
+                              .arg(QString::number(nominalFlowMain),
+                                   QString::number(nominalError)));
 }
 
 Dialog::Dialog(QWidget *_parent):
@@ -607,6 +616,10 @@ Dialog::Dialog(QWidget *_parent):
         connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this,
                 SLOT(onCbClicked(bool)));
     }
+    ui->pbCopy12->setFixedHeight(15);
+    QFontMetrics fontMetrics(ui->pbCopy12->font());
+    int textHeight = fontMetrics.height();
+    ui->pbCopy12->setFixedHeight(textHeight + 6);
 }
 
 Dialog::~Dialog()
@@ -650,12 +663,21 @@ void Dialog::onCalculateClicked()
     paletteOddRowErr.setColor(QPalette::Base, QColor(220, 235, 220, 255));
     QPalette paletteEvenRowErr;
     paletteEvenRowErr.setColor(QPalette::Base, QColor(235, 235, 235,
-                               255));
+                                                      255));
     QPalette paletteNormal;
     paletteNormal.setColor(QPalette::Base, QColor(250, 250, 250, 255));
     QPalette paletteErr;
     paletteErr.setColor(QPalette::Base, QColor(245, 220, 220, 255));
+
     bool result{true};
+
+    for (unsigned iter = 0; iter < entries; ++iter)
+    {
+        vectorFirstError[iter]->setText("");
+        vectorSecondError[iter]->setText("");
+        vectorThirdError[iter]->setText("");
+    }
+
     if (mainwindow->selectedInfo.rbGravitmetric == true)
     {
         bool result_t1{true}, result_t2{true}, result_t3{true};
@@ -682,6 +704,7 @@ void Dialog::onCalculateClicked()
             ui->leTemperature1->setPalette(paletteErr);
             temperatureFirst = 20;
             result_t1 = false;
+            result = false;
         }
         // Temperature for transitoriu flow
         tmp = ui->leTemperature2->text().toDouble(&bConvert);
@@ -700,6 +723,7 @@ void Dialog::onCalculateClicked()
             ui->leTemperature2->setPalette(paletteErr);
             temperatureSecond = 20;
             result_t2 = false;
+            result = false;
         }
         // Temperature for nominal flow
         tmp = ui->leTemperature3->text().toDouble(&bConvert);
@@ -718,6 +742,7 @@ void Dialog::onCalculateClicked()
             ui->leTemperature3->setPalette(paletteErr);
             temperatureThird = 20;
             result_t3 = false;
+            result = false;
         }
         double massFirst{0};
         double massSecond{0};
@@ -740,6 +765,7 @@ void Dialog::onCalculateClicked()
             ui->leMass1->setPalette(paletteErr);
             massFirst = 100;
             result_m1 = false;
+            result = false;
         }
         // Mass for transitoriu flow
         tmp = ui->leMass2->text().toDouble(&bConvert);
@@ -759,6 +785,7 @@ void Dialog::onCalculateClicked()
             ui->leMass2->setPalette(paletteErr);
             massSecond = 100;
             result_m2 = false;
+            result = false;
         }
         // Mass for nominal flow
         tmp = ui->leMass3->text().toDouble(&bConvert);
@@ -778,6 +805,7 @@ void Dialog::onCalculateClicked()
             ui->leMass3->setPalette(paletteErr);
             massThird = 100;
             result_m3 = false;
+            result = false;
         }
         double densityFirst{0};
         double densitySecond{0};
@@ -799,26 +827,297 @@ void Dialog::onCalculateClicked()
             streamObj << std::fixed << std::setprecision(4) << VolumeFirst;
             ui->leVolume1->setText(streamObj.str().c_str());
         }
+        else {
+
+        }
         if (VolumeSecond > 0 && result_t2 && result_m2)
         {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeSecond;
             ui->leVolume2->setText(streamObj.str().c_str());
+        } else {
         }
         if (VolumeThird > 0 && result_t3 && result_m3)
         {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeThird;
             ui->leVolume3->setText(streamObj.str().c_str());
+        } else {
+
         }
+
         /// Q minim
         if (VolumeFirst > 0 && result_t1 && result_m1)
             for (unsigned iter = 0; iter < entries; ++iter)
             {
+                if(vectorCheckNumber[iter]->isChecked()){
+                    double start{0};
+                    bool bStart{false};
+                    double stop{0};
+                    bool bStop{false};
+                    tmp = vectorFirstIndexStart[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStart = true;
+                        start = tmp;
+                    }
+                    else
+                    {
+                        start = 0;
+                        result = false;
+                    }
+                    tmp = vectorFirstIndexStop[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStop = true;
+                        stop = tmp;
+                    }
+                    else
+                    {
+                        stop = 0;
+                        result = false;
+                    }
+                    if (bStart && bStop && (start >= 0) && (stop >= 0) &&
+                        (stop >= start))
+                    {
+                        double error =
+                            (stop - start - VolumeFirst) / VolumeFirst * 100;
+                        streamObj.str("");
+                        streamObj << std::fixed << std::setprecision(2) << error;
+                        if(vectorCheckNumber[iter]->isChecked()) {
+                            vectorFirstError[iter]->setText(streamObj.str().c_str());
+                            if (abs(error) > maximumError)
+                            {
+                                vectorFirstError[iter]->setStyleSheet(
+                                    "QLineEdit { color: red }");
+                            }
+                            else
+                            {
+                                vectorFirstError[iter]->setStyleSheet(
+                                    "QLineEdit { color: black }");
+                            }
+                        }
+                        else {
+                            vectorFirstError[iter]->setText("");
+                        }
+                        if (iter % 4 == 0 || iter % 4 == 1)
+                        {
+                            vectorFirstError[iter]->setPalette(paletteOddRowErr);
+                        }
+                        else
+                        {
+                            vectorFirstError[iter]->setPalette(paletteEvenRowErr);
+                        }
+                    }
+                }
+            }
+
+        /// Q transitor
+        if (VolumeSecond > 0 && result_t2 && result_m2)
+            for (unsigned iter = 0; iter < entries; ++iter)
+            {
+                if(vectorCheckNumber[iter]->isChecked()){
+                    double start{0};
+                    bool bStart{false};
+                    double stop{0};
+                    bool bStop{false};
+                    tmp = vectorSecondIndexStart[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStart = true;
+                        start = tmp;
+                    }
+                    else
+                    {
+                        start = 0;
+                        result = false;
+                    }
+                    tmp = vectorSecondIndexStop[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStop = true;
+                        stop = tmp;
+                    }
+                    else
+                    {
+                        stop = 0;
+                        result = false;
+                    }
+                    if (bStart && bStop && (start >= 0) && (stop >= 0) &&
+                        (stop >= start))
+                    {
+                        double error =
+                            (stop - start - VolumeSecond) / VolumeSecond * 100;
+                        streamObj.str("");
+                        streamObj << std::fixed << std::setprecision(2) << error;
+                        if(vectorCheckNumber[iter]->isChecked()) {
+                            vectorSecondError[iter]->setText(streamObj.str().c_str());
+                            if (abs(error) > nominalError)
+                            {
+                                vectorSecondError[iter]->setStyleSheet(
+                                    "QLineEdit { color: red }");
+                            }
+                            else
+                            {
+                                vectorSecondError[iter]->setStyleSheet(
+                                    "QLineEdit { color: black }");
+                            }
+                        }
+                        else {
+                            vectorSecondError[iter]->setText("");
+                        }
+                        if (iter % 4 == 0 || iter % 4 == 1)
+                        {
+                            vectorSecondError[iter]->setPalette(paletteOddRowErr);
+                        }
+                        else
+                        {
+                            vectorSecondError[iter]->setPalette(paletteEvenRowErr);
+                        }
+                    }
+                }
+            }
+
+        /// Q nominal
+        if (VolumeThird > 0 && result_t3 && result_m3)
+            for (unsigned iter = 0; iter < entries; ++iter)
+            {
+                if(vectorCheckNumber[iter]->isChecked()){
+                    double start{0};
+                    bool bStart{false};
+                    double stop{0};
+                    bool bStop{false};
+                    tmp = vectorThirdIndexStart[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStart = true;
+                        start = tmp;
+                    }
+                    else
+                    {
+                        start = 0;
+                        result = false;
+                    }
+                    tmp = vectorThirdIndexStop[iter]->text().toDouble(&bConvert);
+                    if (bConvert)
+                    {
+                        bStop = true;
+                        stop = tmp;
+                    }
+                    else
+                    {
+                        stop = 0;
+                        result = false;
+                    }
+                    if (bStart && bStop && (start >= 0) && (stop >= 0) &&
+                        (stop >= start))
+                    {
+                        double error =
+                            (stop - start - VolumeThird) / VolumeThird * 100;
+                        streamObj.str("");
+                        streamObj << std::fixed << std::setprecision(2) << error;
+                        if(vectorCheckNumber[iter]->isChecked()) {
+                            vectorThirdError[iter]->setText(streamObj.str().c_str());
+                            if (abs(error) > nominalError)
+                            {
+                                vectorThirdError[iter]->setStyleSheet(
+                                    "QLineEdit { color: red }");
+
+                            }
+                            else
+                            {
+                                vectorThirdError[iter]->setStyleSheet(
+                                    "QLineEdit { color: black }");
+                            }
+                        }else {
+                            vectorFirstError[iter]->setText("");
+                        }
+
+                        if (iter % 4 == 0 || iter % 4 == 1)
+                        {
+                            vectorThirdError[iter]->setPalette(paletteOddRowErr);
+                        }
+                        else
+                        {
+                            vectorThirdError[iter]->setPalette(paletteEvenRowErr);
+                        }
+                    }
+                }
+            }
+
+        result = result_t1 && result_m1 && result_t2 && result_m2 &&
+                 result_t3 && result_m3 && result;
+    }
+    else
+    {
+        double tmp{0};
+        double volumeFirst{0};
+        double volumeSecond{0};
+        double volumeThird{0};
+        bool bConvert(false);
+        // Volume for minimal flow
+        tmp = ui->leVolume1->text().toDouble(&bConvert);
+        if (bConvert)
+        {
+            volumeFirst = tmp;
+            if (volumeFirst < 0)
+            {
+                ui->leVolume1->setPalette(paletteErr);
+                volumeFirst = 100;
+            }
+        }
+        else
+        {
+            ui->leVolume1->setPalette(paletteErr);
+            volumeFirst = 100;
+            result = false;
+        }
+        // Volume for transitoriu flow
+        tmp = ui->leVolume2->text().toDouble(&bConvert);
+        if (bConvert)
+        {
+            volumeSecond = tmp;
+            if (volumeSecond < 0)
+            {
+                ui->leVolume2->setPalette(paletteErr);
+                volumeSecond = 100;
+            }
+        }
+        else
+        {
+            ui->leVolume2->setPalette(paletteErr);
+            volumeSecond = 100;
+            result = false;
+        }
+        // Volume for nominal flow
+        tmp = ui->leVolume3->text().toDouble(&bConvert);
+        if (bConvert)
+        {
+            volumeThird = tmp;
+            if (volumeThird < 0)
+            {
+                ui->leVolume3->setPalette(paletteErr);
+                volumeThird = 100;
+            }
+        }
+        else
+        {
+            ui->leVolume3->setPalette(paletteErr);
+            volumeThird = 100;
+            result = false;
+        }
+
+        std::ostringstream streamObj;
+
+        /// Q minim
+        for (unsigned iter = 0; iter < entries; ++iter)
+        {
+            if(vectorCheckNumber[iter]->isChecked()){
                 double start{0};
                 bool bStart{false};
                 double stop{0};
                 bool bStop{false};
+
                 tmp = vectorFirstIndexStart[iter]->text().toDouble(&bConvert);
                 if (bConvert)
                 {
@@ -828,6 +1127,7 @@ void Dialog::onCalculateClicked()
                 else
                 {
                     start = 0;
+                    result = false;
                 }
                 tmp = vectorFirstIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
@@ -839,11 +1139,11 @@ void Dialog::onCalculateClicked()
                 {
                     stop = 0;
                 }
+
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                        (stop >= start))
+                    (stop >= start))
                 {
-                    double error =
-                        (stop - start - VolumeFirst) / VolumeFirst * 100;
+                    double error = (stop - start - volumeFirst) / volumeFirst * 100;
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorFirstError[iter]->setText(streamObj.str().c_str());
@@ -851,6 +1151,7 @@ void Dialog::onCalculateClicked()
                     {
                         vectorFirstError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
+                        result = false;
                     }
                     else
                     {
@@ -867,10 +1168,12 @@ void Dialog::onCalculateClicked()
                     }
                 }
             }
-        /// Q transitor
-        if (VolumeSecond > 0 && result_t2 && result_m2)
-            for (unsigned iter = 0; iter < entries; ++iter)
-            {
+        }
+
+        /// Q transition
+        for (unsigned iter = 0; iter < entries; ++iter)
+        {
+            if(vectorCheckNumber[iter]->isChecked()){
                 double start{0};
                 bool bStart{false};
                 double stop{0};
@@ -884,6 +1187,7 @@ void Dialog::onCalculateClicked()
                 else
                 {
                     start = 0;
+                    result = false;
                 }
                 tmp = vectorSecondIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
@@ -894,16 +1198,17 @@ void Dialog::onCalculateClicked()
                 else
                 {
                     stop = 0;
+                    result = false;
                 }
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                        (stop >= start))
+                    (stop >= start))
                 {
                     double error =
-                        (stop - start - VolumeSecond) / VolumeSecond * 100;
+                        (stop - start - volumeSecond) / volumeSecond * 100;
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorSecondError[iter]->setText(streamObj.str().c_str());
-                    if (abs(error) > nominalError)
+                    if (abs(error) > maximumError)
                     {
                         vectorSecondError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
@@ -923,10 +1228,12 @@ void Dialog::onCalculateClicked()
                     }
                 }
             }
+        }
+
         /// Q nominal
-        if (VolumeThird > 0 && result_t3 && result_m3)
-            for (unsigned iter = 0; iter < entries; ++iter)
-            {
+        for (unsigned iter = 0; iter < entries; ++iter)
+        {
+            if(vectorCheckNumber[iter]->isChecked()){
                 double start{0};
                 bool bStart{false};
                 double stop{0};
@@ -940,6 +1247,7 @@ void Dialog::onCalculateClicked()
                 else
                 {
                     start = 0;
+                    result = false;
                 }
                 tmp = vectorThirdIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
@@ -950,16 +1258,16 @@ void Dialog::onCalculateClicked()
                 else
                 {
                     stop = 0;
+                    result = false;
                 }
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                        (stop >= start))
+                    (stop >= start))
                 {
-                    double error =
-                        (stop - start - VolumeThird) / VolumeThird * 100;
+                    double error = (stop - start - volumeThird) / volumeThird * 100;
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorThirdError[iter]->setText(streamObj.str().c_str());
-                    if (abs(error) > nominalError)
+                    if (abs(error) > maximumError)
                     {
                         vectorThirdError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
@@ -979,235 +1287,9 @@ void Dialog::onCalculateClicked()
                     }
                 }
             }
-        result = result_t1 && result_m1 && result_t2 && result_m2 &&
-                 result_t3 && result_m3;
-    }
-    else
-    {
-        double tmp{0};
-        double volumeFirst{0};
-        double volumeSecond{0};
-        double volumeThird{0};
-        bool bConvert(false);
-        // Volume for minimal flow
-        tmp = ui->leVolume1->text().toDouble(&bConvert);
-        if (bConvert)
-        {
-            volumeFirst = tmp;
-            if (volumeFirst < 0)
-            {
-                ui->leVolume1->setPalette(paletteErr);
-                volumeFirst = 100;
-                result = false;
-            }
-        }
-        else
-        {
-            ui->leVolume1->setPalette(paletteErr);
-            volumeFirst = 100;
-            result = false;
-        }
-        // Volume for transitoriu flow
-        tmp = ui->leVolume2->text().toDouble(&bConvert);
-        if (bConvert)
-        {
-            volumeSecond = tmp;
-            if (volumeSecond < 0)
-            {
-                ui->leVolume2->setPalette(paletteErr);
-                volumeSecond = 100;
-                result = false;
-            }
-        }
-        else
-        {
-            ui->leVolume2->setPalette(paletteErr);
-            volumeSecond = 100;
-            result = false;
-        }
-        // Volume for nominal flow
-        tmp = ui->leVolume3->text().toDouble(&bConvert);
-        if (bConvert)
-        {
-            volumeThird = tmp;
-            if (volumeThird < 0)
-            {
-                ui->leVolume3->setPalette(paletteErr);
-                volumeThird = 100;
-                result = false;
-            }
-        }
-        else
-        {
-            ui->leVolume3->setPalette(paletteErr);
-            volumeThird = 100;
-            result = false;
-        }
-        std::ostringstream streamObj;
-        /// Q minim
-        for (unsigned iter = 0; iter < entries; ++iter)
-        {
-            double start{0};
-            bool bStart{false};
-            double stop{0};
-            bool bStop{false};
-            tmp = vectorFirstIndexStart[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStart = true;
-                start = tmp;
-            }
-            else
-            {
-                start = 0;
-            }
-            tmp = vectorFirstIndexStop[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStop = true;
-                stop = tmp;
-            }
-            else
-            {
-                stop = 0;
-            }
-            if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                    (stop >= start))
-            {
-                double error = (stop - start - volumeFirst) / volumeFirst * 100;
-                streamObj.str("");
-                streamObj << std::fixed << std::setprecision(2) << error;
-                vectorFirstError[iter]->setText(streamObj.str().c_str());
-                if (abs(error) > maximumError)
-                {
-                    vectorFirstError[iter]->setStyleSheet(
-                        "QLineEdit { color: red }");
-                }
-                else
-                {
-                    vectorFirstError[iter]->setStyleSheet(
-                        "QLineEdit { color: black }");
-                }
-                if (iter % 4 == 0 || iter % 4 == 1)
-                {
-                    vectorFirstError[iter]->setPalette(paletteOddRowErr);
-                }
-                else
-                {
-                    vectorFirstError[iter]->setPalette(paletteEvenRowErr);
-                }
-            }
-        }
-        /// Q transition
-        for (unsigned iter = 0; iter < entries; ++iter)
-        {
-            double start{0};
-            bool bStart{false};
-            double stop{0};
-            bool bStop{false};
-            tmp = vectorSecondIndexStart[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStart = true;
-                start = tmp;
-            }
-            else
-            {
-                start = 0;
-            }
-            tmp = vectorSecondIndexStop[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStop = true;
-                stop = tmp;
-            }
-            else
-            {
-                stop = 0;
-            }
-            if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                    (stop >= start))
-            {
-                double error =
-                    (stop - start - volumeSecond) / volumeSecond * 100;
-                streamObj.str("");
-                streamObj << std::fixed << std::setprecision(2) << error;
-                vectorSecondError[iter]->setText(streamObj.str().c_str());
-                if (abs(error) > maximumError)
-                {
-                    vectorSecondError[iter]->setStyleSheet(
-                        "QLineEdit { color: red }");
-                }
-                else
-                {
-                    vectorSecondError[iter]->setStyleSheet(
-                        "QLineEdit { color: black }");
-                }
-                if (iter % 4 == 0 || iter % 4 == 1)
-                {
-                    vectorSecondError[iter]->setPalette(paletteOddRowErr);
-                }
-                else
-                {
-                    vectorSecondError[iter]->setPalette(paletteEvenRowErr);
-                }
-            }
-        }
-        /// Q nominal
-        for (unsigned iter = 0; iter < entries; ++iter)
-        {
-            double start{0};
-            bool bStart{false};
-            double stop{0};
-            bool bStop{false};
-            tmp = vectorThirdIndexStart[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStart = true;
-                start = tmp;
-            }
-            else
-            {
-                start = 0;
-            }
-            tmp = vectorThirdIndexStop[iter]->text().toDouble(&bConvert);
-            if (bConvert)
-            {
-                bStop = true;
-                stop = tmp;
-            }
-            else
-            {
-                stop = 0;
-            }
-            if (bStart && bStop && (start >= 0) && (stop >= 0) &&
-                    (stop >= start))
-            {
-                double error = (stop - start - volumeThird) / volumeThird * 100;
-                streamObj.str("");
-                streamObj << std::fixed << std::setprecision(2) << error;
-                vectorThirdError[iter]->setText(streamObj.str().c_str());
-                if (abs(error) > maximumError)
-                {
-                    vectorThirdError[iter]->setStyleSheet(
-                        "QLineEdit { color: red }");
-                }
-                else
-                {
-                    vectorThirdError[iter]->setStyleSheet(
-                        "QLineEdit { color: black }");
-                }
-                if (iter % 4 == 0 || iter % 4 == 1)
-                {
-                    vectorThirdError[iter]->setPalette(paletteOddRowErr);
-                }
-                else
-                {
-                    vectorThirdError[iter]->setPalette(paletteEvenRowErr);
-                }
-            }
         }
     }
+
     if (!result)
     {
         QMessageBox messageInputData;
@@ -1280,7 +1362,7 @@ void Dialog::onSelectAllChanged()
     if (ui->cbSet->checkState() == Qt::Checked)
     {
         for (auto iter = begin(vectorCheckNumber);
-                iter != end(vectorCheckNumber); ++iter)
+             iter != end(vectorCheckNumber); ++iter)
         {
             (*iter)->setCheckState(Qt::Checked);
         }
@@ -1288,7 +1370,7 @@ void Dialog::onSelectAllChanged()
     else
     {
         for (auto iter = begin(vectorCheckNumber);
-                iter != end(vectorCheckNumber); ++iter)
+             iter != end(vectorCheckNumber); ++iter)
         {
             (*iter)->setCheckState(Qt::Unchecked);
         }
@@ -1301,7 +1383,7 @@ bool Dialog::eventFilter(QObject *target, QEvent *event)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Enter ||
-                keyEvent->key() == Qt::Key_Return)
+            keyEvent->key() == Qt::Key_Return)
         {
             focusNextChild();
             return true;
@@ -1387,7 +1469,7 @@ void Dialog::onPrintPdfDocClicked()
         mainwindow->selectedInfo.athmosphericPressure;
     double humidity = mainwindow->selectedInfo.relativeAirHumidity;
     QString certificate = mainwindow->selectedInfo.certificate.c_str();
-    QString nameWaterMeter =
+    QString nameSelectedWaterMeter =
         mainwindow->selectedInfo.nameWaterMeter.c_str();
     unsigned nominalDiameter = mainwindow->selectedInfo.nominalDiameter;
     QString methodMeasurement{"Volumetric"};
@@ -1427,8 +1509,8 @@ void Dialog::onPrintPdfDocClicked()
     {
         maximumFlowString = QString("&nbsp;") + maximumFlowString;
     }
-    double nominalError = mainwindow->selectedInfo.nominalError;
-    double maximumError = mainwindow->selectedInfo.maximumError;
+    double nominalWaterMeterError = mainwindow->selectedInfo.nominalError;
+    double maximumWaterMeterError = mainwindow->selectedInfo.maximumError;
     if (mainwindow->selectedInfo.selectedLanguage == ROMANIAN)
     {
         report =
@@ -1441,47 +1523,54 @@ void Dialog::onPrintPdfDocClicked()
             "</head>" +
             "<body style=\"font-family:'Courier New'\" \"font-weight: 700\" "
             "style=\"font-size: 4\" style=\"text-align: left\" >" +
-            "<h4>" + companyName + "</h>" +
-            "<h2 style=\"text-align: center\" style=\"font-color: dark "
-            "blue\">[ Stand verificare contoare de apa ]</h2>" +
-            "<h3 style=\"text-align: center\"><u>Fisa masuratori</u></h3><br>" +
-            "<h3>" + formattedTime +
-            "<br>"
-            "Numar certificat::&nbsp;" +
+            "<h4>" + companyName + "<br>" +
+            ">>>> Instalatie de verificare debitmetre si contoare de apa >>>></h4>"
+            +
+            "<h4 style=\"text-align: center\"><u>Fisa de masuratori</u></h4>" +
+            "<h4>" + formattedTime + "<br>" +
+            "Numar certificat:&nbsp;" +
             certificate + "&nbsp;<br>" + "Temperatura:&nbsp;" +
             to_string_with_precision(ambientTemperature, 2).c_str() +
             "&nbsp;[°C]<br>" + "Presiune atmosferica:&nbsp;" +
-            to_string_with_precision(athmosphericPressure, 2).c_str() +
+                               to_string_with_precision(athmosphericPressure, 2).c_str() +
             "&nbsp;[Pa]<br>" + "Umiditate:&nbsp;" +
             to_string_with_precision(humidity, 2).c_str() +
-            "&nbsp;[%]<br><br>" + "Tip contor apa:&nbsp;" + nameWaterMeter +
+            "&nbsp;[%]<br><br>" + "Tip contor apa:&nbsp;" + nameSelectedWaterMeter
+            +
             "<br>" + "Medoda de verificare:&nbsp;" + methodMeasurement +
             "<br>" + "Diametru nominal:&nbsp;" +
             to_string_with_precision(nominalDiameter, 2).c_str() +
-            "&nbsp;[mm]<br>" + "Debit maxim:&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "&nbsp;[mm]<br>" +
+            "Debit maxim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
             maximumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Max error:&nbsp;" +
-            to_string_with_precision(nominalError, 2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit nominal:&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "Eroare max:&nbsp;" +
+            to_string_with_precision(nominalWaterMeterError,
+                                     2).c_str() + "&nbsp;[%]" +
+            "<br>" + "Debit nominal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
             nominalFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Max error:&nbsp;" +
-            to_string_with_precision(nominalError, 2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit tranzitoriu:&nbsp;" + transitionFlowString +
-            "&nbsp;[L/h]" + "&nbsp;/&nbsp;" + "Max error:&nbsp;" +
-            to_string_with_precision(nominalError, 2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit minim:&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "Eroare max:&nbsp;" +
+            to_string_with_precision(nominalWaterMeterError,
+                                     2).c_str() + "&nbsp;[%]" +
+            "<br>" + "Debit tranzitoriu:&nbsp;&nbsp;" + transitionFlowString +
+            "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
+            "Eroare max:&nbsp;" +
+            to_string_with_precision(nominalWaterMeterError,
+                                     2).c_str() + "&nbsp;[%]" +
+            "<br>" + "Debit minim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            +
             minimumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Max error:&nbsp;" +
-            to_string_with_precision(maximumError, 2).c_str() + "&nbsp;[%]" +
-            "<br>" + "</h3>";
+            "Eroare max:&nbsp;" +
+            to_string_with_precision(maximumWaterMeterError,
+                                     2).c_str() + "&nbsp;[%]" +
+            "<br>" + "</h4>";
         report +=
             QString("<table width=\"100%\" border=\"1\">") +
             "    <caption>        Resultate: "
             "</caption>" +
             "    <thead>" + "    <tr>" +
-            "        <th style=\"text-align: center\" width=\"13%\"> S/N "
+            "        <th style=\"text-align: center\" width=\"16%\"> S/N "
             "</th>" +
-            "        <th style=\"text-align: center\" width=\"12%\"> "
+            "        <th style=\"text-align: center\" width=\"9%\"> "
             "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
             "        <th style=\"text-align: center\" width=\"14%\"> Start "
             "Index [L] </th>" +
@@ -1491,46 +1580,51 @@ void Dialog::onPrintPdfDocClicked()
             "Contor apa [L] </th>" +
             "        <th style=\"text-align: center\" width=\"14%\"> Volum "
             "standard [L] </th>" +
-            "        <th style=\"text-align: center\" width=\"8%\"> Err </th>" +
+            "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
+            +
             "        <th style=\"text-align: center\"  width=\"15%\"> "
             "Resultate</th>" +
             "    </tr>" + "    </thead>" + "    <tbody>";
-        for (unsigned iter = 0; iter < mainwindow->selectedInfo.entriesNumber;
-                ++iter)
+        unsigned iter {0};
+        size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
+        for (; iter < 10 && iter < entriesTable; ++iter)
         {
             if (!vectorCheckNumber[iter]->checkState())
             {
                 continue;
             }
             QString SN = vectorSerialNumber[iter]->text();
-            QString startFirst = vectorFirstIndexStart[iter]->text();
-            QString stopFirst = vectorFirstIndexStop[iter]->text();
+            QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
+            QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleFirst =
                 (vectorFirstIndexStop[iter]->text().toDouble() -
                  vectorFirstIndexStart[iter]->text().toDouble());
-            QString errorFirst = vectorFirstError[iter]->text();
+            QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
             QString realVolumeFirst =
-                precision_2(ui->leVolume1->text().toDouble()).c_str();
-            QString startSecond = vectorSecondIndexStart[iter]->text();
-            QString stopSecond = vectorSecondIndexStop[iter]->text();
+                QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                "&nbsp;";
+            QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
+            QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleSecond =
                 (vectorSecondIndexStop[iter]->text().toDouble() -
                  vectorSecondIndexStart[iter]->text().toDouble());
-            QString errorSecond = vectorSecondError[iter]->text();
+            QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
             QString realVolumeSecond =
-                precision_2(ui->leVolume2->text().toDouble()).c_str();
-            QString startThird = vectorThirdIndexStart[iter]->text();
-            QString stopThird = vectorThirdIndexStop[iter]->text();
+                QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                "&nbsp;";;
+            QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
+            QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleThird =
                 (vectorThirdIndexStop[iter]->text().toDouble() -
                  vectorThirdIndexStart[iter]->text().toDouble());
-            QString errorThird = vectorThirdError[iter]->text();
+            QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
             QString realVolumeThird =
-                precision_2(ui->leVolume3->text().toDouble()).c_str();
+                QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                "&nbsp;";
             if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
-                    XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
-                    XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
-                    SN.isEmpty())
+                XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
+                XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
+                SN.isEmpty())
             {
                 continue;
             }
@@ -1539,13 +1633,13 @@ void Dialog::onPrintPdfDocClicked()
             {
                 bool bFirst =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    maximumError;
+                    maximumWaterMeterError;
                 bool bSecond =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    nominalError;
+                    nominalWaterMeterError;
                 bool bThird =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    nominalError;
+                    nominalWaterMeterError;
                 resultTests =
                     (bFirst && bSecond && bThird ? "ACCEPTAT" : "RESPINS");
             }
@@ -1555,11 +1649,12 @@ void Dialog::onPrintPdfDocClicked()
             }
             report +=
                 QString("    <tr>") +
-                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" +
+                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
+                +
                 SN + "</th>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(minimumFlowMain) + "</td>" +
+                "2px\">" +
+                QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startFirst + "</td>" +
@@ -1568,7 +1663,7 @@ void Dialog::onPrintPdfDocClicked()
                 stopFirst + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(registerVolumeDoubleFirst) + "</td>" +
+                QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeFirst + "</td>" +
@@ -1579,7 +1674,7 @@ void Dialog::onPrintPdfDocClicked()
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(transitoriuFlowMain) + "</td>" +
+                QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startSecond + "</td>" +
@@ -1587,8 +1682,8 @@ void Dialog::onPrintPdfDocClicked()
                 "5px\">" +
                 stopSecond + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(registerVolumeDoubleSecond) + "</td>" +
+                "5px\">" + "&nbsp;" +
+                QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeSecond + "</td>" +
@@ -1597,7 +1692,7 @@ void Dialog::onPrintPdfDocClicked()
                 errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(nominalFlowMain) + "</td>" +
+                QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startThird + "</td>" +
@@ -1606,7 +1701,7 @@ void Dialog::onPrintPdfDocClicked()
                 stopThird + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(registerVolumeDoubleThird) + "</td>" +
+                QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeThird + "</td>" +
@@ -1615,15 +1710,166 @@ void Dialog::onPrintPdfDocClicked()
                 errorThird + "</td>" + "     </tr>";
         };
         report += QString("</tbody>") + "</table>";
-        report += QString("<br><br><br><br><pre><h3>") +
+        /////// Page two
+        if (iter < entriesTable)
+        {
+            report += "<br><br><br><br><br><br><br><br><br><br>";
+            report +=
+                QString("<table width=\"100%\" border=\"1\">") +
+                "    <caption>        Resultate: "
+                "</caption>" +
+                "    <thead>" + "    <tr>" +
+                "        <th style=\"text-align: center\" width=\"16%\"> S/N "
+                "</th>" +
+                "        <th style=\"text-align: center\" width=\"9%\"> "
+                "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Start "
+                "Index [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\">Stop "
+                "&nbsp;Index [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                "Contor apa [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                "standard [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
+                +
+                "        <th style=\"text-align: center\"  width=\"15%\"> "
+                "Resultate</th>" +
+                "    </tr>" + "    </thead>" + "    <tbody>";
+            for (unsigned iter = 10; iter < entriesTable; ++iter)
+            {
+                if (!vectorCheckNumber[iter]->checkState())
+                {
+                    continue;
+                }
+                QString SN = vectorSerialNumber[iter]->text();
+                QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
+                QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
+                double registerVolumeDoubleFirst =
+                    (vectorFirstIndexStop[iter]->text().toDouble() -
+                     vectorFirstIndexStart[iter]->text().toDouble());
+                QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
+                QString realVolumeFirst =
+                    QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                    "&nbsp;";
+                QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
+                QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
+                double registerVolumeDoubleSecond =
+                    (vectorSecondIndexStop[iter]->text().toDouble() -
+                     vectorSecondIndexStart[iter]->text().toDouble());
+                QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
+                QString realVolumeSecond =
+                    QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                    "&nbsp;";;
+                QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
+                QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
+                double registerVolumeDoubleThird =
+                    (vectorThirdIndexStop[iter]->text().toDouble() -
+                     vectorThirdIndexStart[iter]->text().toDouble());
+                QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
+                QString realVolumeThird =
+                    QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                    "&nbsp;";
+                if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
+                    XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
+                    XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
+                    SN.isEmpty())
+                {
+                    continue;
+                }
+                QString resultTests{"ACCEPTAT"};
+                try
+                {
+                    bool bFirst =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        maximumWaterMeterError;
+                    bool bSecond =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        nominalWaterMeterError;
+                    bool bThird =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        nominalWaterMeterError;
+                    resultTests =
+                        (bFirst && bSecond && bThird ? "ACCEPTAT" : "RESPINS");
+                }
+                catch (...)
+                {
+                    resultTests = "RESPINS";
+                }
+                report +=
+                    QString("    <tr>") +
+                    "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
+                    +
+                    SN + "</th>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorFirst + "</td>" +
+                    "        <th style=\"text-align: center\" rowspan=\"3\">" +
+                    resultTests + "</th>" + "    </tr>" + "    <tr>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" + "&nbsp;" +
+                    QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorSecond + "</td>" + "    </tr>" + "    <tr>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorThird + "</td>" + "     </tr>";
+            };
+            report += QString("</tbody>") + "</table>";
+        }
+        ////////////////
+        report += QString("<br><pre><h3>") +
                   "  Verificator                                  Sef "
                   "laborator<br><br>" +
                   "  Nume ________________________                "
-                  "Nume________________________<br><br>" +
-                  "<br><br>" +
+                  "Nume________________________<br>" +
+                  "<br>" +
                   "  Semnatura____________________                "
-                  "Semnatura___________________<br><br><br>" +
-                  "<br></h3></pre>";
+                  "Semnatura___________________<br>" +
+                  "</h3></pre>";
         std::thread pdfThread(printPdfThread, report);
         pdfThread.detach();
     }
@@ -1641,45 +1887,46 @@ void Dialog::onPrintPdfDocClicked()
                  "<body style=\"font-family:'Courier New'\" \"font-weight: "
                  "700\" style=\"font-size: 4\" style=\"text-align: left\" >" +
                  "<h4>" + companyName + "</h>" +
-                 "<h2 style=\"text-align: center\" style=\"font-color: dark "
-                 "blue\">[Water meters test bench]</h2>" +
-                 "<h3 style=\"text-align: center\"><u>Measurement "
+                 "<h4 style=\"font-color: dark "
+                 "blue\">Water meters test bench</h4>" +
+                 "<h4 style=\"text-align: center\"><u>Measurement sheet "
                  "sheet</u></h3><br>" +
-                 "<h3>" + formattedTime + "<br>" + "Certificat number:&nbsp;" +
+                 "<h4 style=\"text-align: left\">" + formattedTime + "<br>" +
+                 "Certificat number:&nbsp;" +
                  certificate + "&nbsp;<br>" + "Temperature:&nbsp;" +
                  to_string_with_precision(ambientTemperature, 2).c_str() +
                  "&nbsp;[°C]<br>" + "Athmopheric pressure:&nbsp;" +
-                 to_string_with_precision(athmosphericPressure, 2).c_str() +
+                                    to_string_with_precision(athmosphericPressure, 2).c_str() +
                  "&nbsp;[Pa]<br>" + "Humidity:&nbsp;" +
                  to_string_with_precision(humidity, 2).c_str() +
                  "&nbsp;[%]<br><br>" + "Water meter type:&nbsp;" +
-                 nameWaterMeter + "<br>" + "Used measurement method:&nbsp;" +
+                 nameSelectedWaterMeter + "<br>" + "Used measurement method:&nbsp;" +
                  methodMeasurement + "<br>" + "Nominal diameter&nbsp;:" +
                  to_string_with_precision(nominalDiameter, 2).c_str() +
                  "&nbsp;[mm]<br>" + "Maximum flow:&nbsp;&nbsp;&nbsp;&nbsp;" +
                  maximumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
                  "Max error:&nbsp;" +
-                 to_string_with_precision(nominalError, 2).c_str() +
+                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
                  "&nbsp;[%]" + "<br>" +
                  "Nominal flow:&nbsp;&nbsp;&nbsp;&nbsp;" + nominalFlowString +
                  "&nbsp;[L/h]" + "&nbsp;/&nbsp;" + "Max error:&nbsp;" +
-                 to_string_with_precision(nominalError, 2).c_str() +
+                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
                  "&nbsp;[%]" + "<br>" + "Transition flow:&nbsp;" +
                  transitionFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
                  "Max error:&nbsp;" +
-                 to_string_with_precision(nominalError, 2).c_str() +
+                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
                  "&nbsp;[%]" + "<br>" +
                  "Minimum flow:&nbsp;&nbsp;&nbsp;&nbsp;" + minimumFlowString +
                  "&nbsp;[L/h]" + "&nbsp;/&nbsp;" + "Max error:&nbsp;" +
-                 to_string_with_precision(maximumError, 2).c_str() +
-                 "&nbsp;[%]" + "<br>" + "</h3>";
+                 to_string_with_precision(maximumWaterMeterError, 2).c_str() +
+                 "&nbsp;[%]" + "<br>" + "</h4>";
         report += QString("<table width=\"100%\" border=\"1\">") +
-                  "    <caption>        Results: "
+                  "    <caption style=\"text-align: left\">        Results: "
                   "</caption>" +
                   "    <thead>" + "    <tr>" +
-                  "        <th style=\"text-align: center\" width=\"14%\"> S/N "
+                  "        <th style=\"text-align: center\" width=\"16%\"> S/N "
                   "</th>" +
-                  "        <th style=\"text-align: center\" width=\"12%\"> "
+                  "        <th style=\"text-align: center\" width=\"9%\"> "
                   "&nbsp;Flow&nbsp;&nbsp; [L/h] </th>" +
                   "        <th style=\"text-align: center\" width=\"14%\"> "
                   "Start Index [L] </th>" +
@@ -1689,47 +1936,51 @@ void Dialog::onPrintPdfDocClicked()
                   "Flow Meter Volume [L] </th>" +
                   "        <th style=\"text-align: center\" width=\"14%\"> "
                   "Standard Volume [L] </th>" +
-                  "        <th style=\"text-align: center\" width=\"8%\"> "
+                  "        <th style=\"text-align: center\" width=\"9%\"> "
                   "Error [%]</th>" +
                   "        <th style=\"text-align: center\"  width=\"10%\"> "
                   "Result</th>" +
                   "    </tr>" + "    </thead>" + "    <tbody>";
-        for (unsigned iter = 0; iter < mainwindow->selectedInfo.entriesNumber;
-                ++iter)
+        unsigned iter {0};
+        size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
+        for (; iter < 10 && iter < entriesTable; ++iter)
         {
             if (!vectorCheckNumber[iter]->checkState())
             {
                 continue;
             }
             QString SN = vectorSerialNumber[iter]->text();
-            QString startFirst = vectorFirstIndexStart[iter]->text();
-            QString stopFirst = vectorFirstIndexStop[iter]->text();
+            QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
+            QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleFirst =
                 (vectorFirstIndexStop[iter]->text().toDouble() -
                  vectorFirstIndexStart[iter]->text().toDouble());
-            QString errorFirst = vectorFirstError[iter]->text();
+            QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
             QString realVolumeFirst =
-                precision_2(ui->leVolume1->text().toDouble()).c_str();
-            QString startSecond = vectorSecondIndexStart[iter]->text();
-            QString stopSecond = vectorSecondIndexStop[iter]->text();
+                QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                "&nbsp;";
+            QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
+            QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleSecond =
                 (vectorSecondIndexStop[iter]->text().toDouble() -
                  vectorSecondIndexStart[iter]->text().toDouble());
-            QString errorSecond = vectorSecondError[iter]->text();
+            QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
             QString realVolumeSecond =
-                precision_2(ui->leVolume2->text().toDouble()).c_str();
-            QString startThird = vectorThirdIndexStart[iter]->text();
-            QString stopThird = vectorThirdIndexStop[iter]->text();
+                QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                "&nbsp;";;
+            QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
+            QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
             double registerVolumeDoubleThird =
                 (vectorThirdIndexStop[iter]->text().toDouble() -
                  vectorThirdIndexStart[iter]->text().toDouble());
-            QString errorThird = vectorThirdError[iter]->text();
+            QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
             QString realVolumeThird =
-                precision_2(ui->leVolume3->text().toDouble()).c_str();
+                QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                "&nbsp;";
             if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
-                    XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
-                    XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
-                    SN.isEmpty())
+                XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
+                XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
+                SN.isEmpty())
             {
                 continue;
             }
@@ -1738,13 +1989,13 @@ void Dialog::onPrintPdfDocClicked()
             {
                 bool bFirst =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    maximumError;
+                    maximumWaterMeterError;
                 bool bSecond =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    nominalError;
+                    nominalWaterMeterError;
                 bool bThird =
                     std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                    nominalError;
+                    nominalWaterMeterError;
                 resultTests =
                     (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
             }
@@ -1754,11 +2005,12 @@ void Dialog::onPrintPdfDocClicked()
             }
             report +=
                 QString("    <tr>") +
-                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" +
+                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
+                +
                 SN + "</th>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(minimumFlowMain) + "</td>" +
+                QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startFirst + "</td>" +
@@ -1767,7 +2019,7 @@ void Dialog::onPrintPdfDocClicked()
                 stopFirst + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(registerVolumeDoubleFirst) + "</td>" +
+                QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeFirst + "</td>" +
@@ -1778,7 +2030,7 @@ void Dialog::onPrintPdfDocClicked()
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(transitoriuFlowMain) + "</td>" +
+                QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startSecond + "</td>" +
@@ -1786,8 +2038,8 @@ void Dialog::onPrintPdfDocClicked()
                 "5px\">" +
                 stopSecond + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(registerVolumeDoubleSecond) + "</td>" +
+                "5px\">" + "&nbsp;" +
+                QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeSecond + "</td>" +
@@ -1796,7 +2048,7 @@ void Dialog::onPrintPdfDocClicked()
                 errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(nominalFlowMain) + "</td>" +
+                QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startThird + "</td>" +
@@ -1805,7 +2057,7 @@ void Dialog::onPrintPdfDocClicked()
                 stopThird + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(registerVolumeDoubleThird) + "</td>" +
+                QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 realVolumeThird + "</td>" +
@@ -1814,15 +2066,166 @@ void Dialog::onPrintPdfDocClicked()
                 errorThird + "</td>" + "     </tr>";
         };
         report += QString("</tbody>") + "</table>";
-        report += QString("<br><br><br><br><pre><h3>") +
-                  "  Verification certified person                Laboratory "
-                  "manager<br>" +
-                  "  Name ________________________                "
-                  "Name________________________<br><br>" +
-                  "<br><br>" +
-                  "  Signature____________________                "
-                  "Signature___________________<br><br>" +
-                  "<br></h3></pre>";
+        // Part two
+        if (iter < entriesTable)
+        {
+            report += "<br><br><br><br><br><br><br><br><br><br>";
+            report +=
+                QString("<table width=\"100%\" border=\"1\">") +
+                "    <caption>        Resultate: "
+                "</caption>" +
+                "    <thead>" + "    <tr>" +
+                "        <th style=\"text-align: center\" width=\"16%\"> S/N "
+                "</th>" +
+                "        <th style=\"text-align: center\" width=\"9%\"> "
+                "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Start "
+                "Index [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\">Stop "
+                "&nbsp;Index [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                "Contor apa [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                "standard [L] </th>" +
+                "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
+                +
+                "        <th style=\"text-align: center\"  width=\"15%\"> "
+                "Resultate</th>" +
+                "    </tr>" + "    </thead>" + "    <tbody>";
+            for (unsigned iter = 10; iter < entriesTable; ++iter)
+            {
+                for (; iter < entriesTable; ++iter)
+                {
+                    if (!vectorCheckNumber[iter]->checkState())
+                    {
+                        continue;
+                    }
+                    QString SN = vectorSerialNumber[iter]->text();
+                    QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
+                    QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
+                    double registerVolumeDoubleFirst =
+                        (vectorFirstIndexStop[iter]->text().toDouble() -
+                         vectorFirstIndexStart[iter]->text().toDouble());
+                    QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
+                    QString realVolumeFirst =
+                        QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                        "&nbsp;";
+                    QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
+                    QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
+                    double registerVolumeDoubleSecond =
+                        (vectorSecondIndexStop[iter]->text().toDouble() -
+                         vectorSecondIndexStart[iter]->text().toDouble());
+                    QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
+                    QString realVolumeSecond =
+                        QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                        "&nbsp;";;
+                    QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
+                    QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
+                    double registerVolumeDoubleThird =
+                        (vectorThirdIndexStop[iter]->text().toDouble() -
+                         vectorThirdIndexStart[iter]->text().toDouble());
+                    QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
+                    QString realVolumeThird =
+                        QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                        "&nbsp;";
+                    if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
+                        XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
+                        XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
+                        SN.isEmpty())
+                    {
+                        continue;
+                    }
+                    QString resultTests{"PASSED"};
+                    try
+                    {
+                        bool bFirst =
+                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                            maximumWaterMeterError;
+                        bool bSecond =
+                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                            nominalWaterMeterError;
+                        bool bThird =
+                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                            nominalWaterMeterError;
+                        resultTests =
+                            (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
+                    }
+                    catch (...)
+                    {
+                        resultTests = "FAILED";
+                    }
+                    report +=
+                        QString("    <tr>") +
+                        "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
+                        +
+                        SN + "</th>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        startFirst + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        stopFirst + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        realVolumeFirst + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        errorFirst + "</td>" +
+                        "        <th style=\"text-align: center\" rowspan=\"3\">" +
+                        resultTests + "</th>" + "    </tr>" + "    <tr>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        startSecond + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        stopSecond + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" + "&nbsp;" +
+                        QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        realVolumeSecond + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        errorSecond + "</td>" + "    </tr>" + "    <tr>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        startThird + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        stopThird + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        realVolumeThird + "</td>" +
+                        "        <td style=\"text-align: right\" \"padding-right: "
+                        "5px\">" +
+                        errorThird + "</td>" + "     </tr>";
+                };
+                report += QString("</tbody>") + "</table>";
+            }
+        }
+        report += QString("<br><pre><h3>") +
+                  "Verification certified person             Laboratory manager<br>" +
+                  "Name ________________________             Name________________________<br>"
+                  +
+                  "Signature____________________             Signature___________________<br>"
+                  +
+                  "</h3></pre>";
         std::thread pdfThread(printPdfThread, report);
         pdfThread.detach();
     }
@@ -1852,7 +2255,7 @@ void Dialog::PopulateTable()
     paletteOddRowErr.setColor(QPalette::Base, QColor(220, 235, 220, 255));
     QPalette paletteEvenRowErr;
     paletteEvenRowErr.setColor(QPalette::Base, QColor(235, 235, 235,
-                               255));
+                                                      255));
     for (unsigned iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         if (iter < entries)
@@ -1920,15 +2323,15 @@ void Dialog::PopulateTable()
     }
     ui->lbIndex1->setText(
         QString("Index [L] -  Qmin: %1  [L/h]  Err: %2 %")
-        .arg(QString::number(minimumFlowMain),
-             QString::number(maximumError)));
+            .arg(QString::number(minimumFlowMain),
+                 QString::number(maximumError)));
     ui->lbIndex2->setText(
         QString("Index [L] -  Qt:  %1  [L/h]  Err: %2 %")
-        .arg(QString::number(transitoriuFlowMain),
-             QString::number(nominalError)));
+            .arg(QString::number(transitoriuFlowMain),
+                 QString::number(nominalError)));
     ui->lbIndex3->setText(QString("Index [L] -  Qn: %1  [L/h]  Err: %2 %")
-                          .arg(QString::number(nominalFlowMain),
-                               QString::number(nominalError)));
+                              .arg(QString::number(nominalFlowMain),
+                                   QString::number(nominalError)));
 }
 
 void Dialog::focusInEvent(QFocusEvent *event)
@@ -1968,7 +2371,6 @@ void Dialog::onCopy12Clicked()
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
     ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-
     ui->leStop2_1->setFocus();
 }
 
@@ -1999,7 +2401,5 @@ void Dialog::onCopy23Clicked_new()
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
     ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-
     ui->leStop3_1->setFocus();
 }
-

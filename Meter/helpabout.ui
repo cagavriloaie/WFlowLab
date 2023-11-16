@@ -29,6 +29,11 @@
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:hover {
+       background-color: #d7d9d7;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -165,6 +170,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="pbClose">
+         <property name="styleSheet">
+          <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+         </property>
          <property name="text">
           <string/>
          </property>
