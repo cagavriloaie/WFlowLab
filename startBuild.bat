@@ -67,8 +67,6 @@ cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
 lrelease meter_en_EN.ts
 lrelease meter_ro_RO.ts
 
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab
-
 cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
 copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
 copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations

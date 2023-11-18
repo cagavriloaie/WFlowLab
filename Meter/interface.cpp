@@ -149,7 +149,7 @@ void Interface::Translate()
     ui->lbSelectParity->setText(tr("Parity:"));
     ui->lbSelectStopBits->setText(tr("Stop Bits:"));
     ui->lbTimeout->setText("Timeout [ms]:");
-    ui->lbNumberOfRetries->setText("Number of Retries:");
+    ui->lbNumberOfRetries->setText("Numar reincercari:");
     ui->checkLargeScale->setText(tr("Large Scale"));
     ui->checkSmallScale->setText(tr("Small Scale"));
     ui->checkTemperature->setText(tr("Temperature"));
@@ -219,6 +219,10 @@ bool Interface::checkModbusAddress(qint16 address)
 
 void Interface::onTestConfigurationClicked()
 {
+    if(!mainwindow->selectedInfo.modbusDevice) {
+        return;
+    }
+
     DisconnectSerialPort();
     for (auto iter = 0; iter < 10; ++iter)
     {

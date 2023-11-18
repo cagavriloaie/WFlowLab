@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1400</width>
-    <height>730</height>
+    <width>1450</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1400</width>
-    <height>730</height>
+    <width>1450</width>
+    <height>733</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -1688,7 +1688,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN1">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1712,7 +1712,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN2">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1733,7 +1733,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN3">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1754,7 +1754,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN4">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1775,7 +1775,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN5">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1796,7 +1796,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN6">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1817,7 +1817,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN7">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1838,7 +1838,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN8">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1859,7 +1859,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN9">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1880,7 +1880,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN10">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1901,7 +1901,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN11">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1922,7 +1922,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN12">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1943,7 +1943,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN13">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1964,7 +1964,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN14">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -1985,7 +1985,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN15">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2006,7 +2006,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN16">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2027,7 +2027,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN17">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2048,7 +2048,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN18">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2069,7 +2069,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN19">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2090,7 +2090,7 @@ QMessageBox  {
                  <widget class="QLineEdit" name="leSN20">
                   <property name="minimumSize">
                    <size>
-                    <width>100</width>
+                    <width>150</width>
                     <height>20</height>
                    </size>
                   </property>

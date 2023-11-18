@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>700</height>
+    <width>575</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>500</width>
-    <height>650</height>
+    <width>575</width>
+    <height>670</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>500</width>
-    <height>784</height>
+    <width>575</width>
+    <height>670</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -538,6 +538,9 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbRefreshSerialPort">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true"> padding-left: 10px; 
  padding-top: 1px; 
@@ -551,6 +554,9 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbTestConnection">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true"> padding-left: 10px; 
  padding-top: 1px; 
@@ -564,6 +570,9 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbSaveConfiguration">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true"> padding-left: 10px; 
  padding-top: 1px; 
@@ -577,6 +586,9 @@ QRadioButton::indicator:unchecked {
      </item>
      <item>
       <widget class="QPushButton" name="pbClose">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true"> padding-left: 10px; 
  padding-top: 1px; 
