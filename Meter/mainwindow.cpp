@@ -103,11 +103,9 @@ void MainWindow::SelectMeterComboBox()
     selectedInfo.certificate = optionsConfiguration["certificate"];
     selectedInfo.entriesNumber =
         ui->cbNumberOfWaterMeters->currentText().toInt();
-
     selectedInfo.ambientTemperature = ui->leTemperature->text().toInt();
     selectedInfo.athmosphericPressure = ui->lePressure->text().toInt();
     selectedInfo.relativeAirHumidity = ui->leHumidity->text().toInt();
-
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
     selectedInfo.nameWaterMeter =
         MeterFlowDB[selectedWaterMeter].nameWaterMeter;

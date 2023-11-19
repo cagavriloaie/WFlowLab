@@ -4,124 +4,124 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../tableBoard.cpp" line="108"/>
+        <location filename="../tableBoard.cpp" line="112"/>
         <source>Save input data</source>
         <translation>Salvare date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="122"/>
+        <location filename="../tableBoard.cpp" line="126"/>
         <source>Open Input Data</source>
         <translation>Deschide date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="124"/>
+        <location filename="../tableBoard.cpp" line="128"/>
         <source>Input data (*.in);;All file (*.*)</source>
         <translation>Date intrare (*.in);;Toate fisierele (*.*)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="523"/>
+        <location filename="../tableBoard.cpp" line="534"/>
         <source>WStreamLab - Input Table</source>
         <translation>WStreamLab - Date intrare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="545"/>
-        <location filename="../tableBoard.cpp" line="549"/>
-        <location filename="../tableBoard.cpp" line="553"/>
+        <location filename="../tableBoard.cpp" line="556"/>
+        <location filename="../tableBoard.cpp" line="560"/>
+        <location filename="../tableBoard.cpp" line="564"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="557"/>
-        <location filename="../tableBoard.cpp" line="560"/>
-        <location filename="../tableBoard.cpp" line="563"/>
+        <location filename="../tableBoard.cpp" line="568"/>
+        <location filename="../tableBoard.cpp" line="571"/>
+        <location filename="../tableBoard.cpp" line="574"/>
         <source>Mass [kg]</source>
         <translation>Masa [kg]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="558"/>
-        <location filename="../tableBoard.cpp" line="561"/>
-        <location filename="../tableBoard.cpp" line="564"/>
+        <location filename="../tableBoard.cpp" line="569"/>
+        <location filename="../tableBoard.cpp" line="572"/>
+        <location filename="../tableBoard.cpp" line="575"/>
         <source>Temperature [°C]</source>
         <translation>Temperatura [°C]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="559"/>
-        <location filename="../tableBoard.cpp" line="562"/>
-        <location filename="../tableBoard.cpp" line="565"/>
+        <location filename="../tableBoard.cpp" line="570"/>
+        <location filename="../tableBoard.cpp" line="573"/>
+        <location filename="../tableBoard.cpp" line="576"/>
         <source>Volume [L]</source>
         <translation>Volum [L]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="569"/>
+        <location filename="../tableBoard.cpp" line="580"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Creare fisa</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="570"/>
+        <location filename="../tableBoard.cpp" line="581"/>
         <source>&amp;Open</source>
         <translation>&amp;Deschide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="571"/>
+        <location filename="../tableBoard.cpp" line="582"/>
         <source>&amp;Save</source>
         <translation>&amp;Salveaza</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2381"/>
+        <location filename="../tableBoard.cpp" line="2392"/>
         <source>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2385"/>
+        <location filename="../tableBoard.cpp" line="2396"/>
         <source>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2389"/>
+        <location filename="../tableBoard.cpp" line="2400"/>
         <source>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="568"/>
+        <location filename="../tableBoard.cpp" line="579"/>
         <source>&amp;Data evaluate</source>
         <translation>&amp;Verifica</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="573"/>
+        <location filename="../tableBoard.cpp" line="584"/>
         <source>Clean &amp;Input</source>
         <translation>Ster&amp;ge date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="572"/>
+        <location filename="../tableBoard.cpp" line="583"/>
         <source>&amp;Close</source>
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="546"/>
-        <location filename="../tableBoard.cpp" line="550"/>
-        <location filename="../tableBoard.cpp" line="554"/>
+        <location filename="../tableBoard.cpp" line="557"/>
+        <location filename="../tableBoard.cpp" line="561"/>
+        <location filename="../tableBoard.cpp" line="565"/>
         <source>Start index</source>
         <translation>Index start</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="547"/>
-        <location filename="../tableBoard.cpp" line="551"/>
-        <location filename="../tableBoard.cpp" line="555"/>
+        <location filename="../tableBoard.cpp" line="558"/>
+        <location filename="../tableBoard.cpp" line="562"/>
+        <location filename="../tableBoard.cpp" line="566"/>
         <source>Stop index</source>
         <translation>Index stop</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="548"/>
+        <location filename="../tableBoard.cpp" line="559"/>
         <source>Err. Qmin</source>
         <translation>Eroare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="552"/>
+        <location filename="../tableBoard.cpp" line="563"/>
         <source>Err. Qt</source>
         <translation>Eroare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="556"/>
+        <location filename="../tableBoard.cpp" line="567"/>
         <source>Err. Qn</source>
         <translation>Eroare</translation>
     </message>
@@ -138,12 +138,12 @@
         <translation type="vanished">Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1308"/>
+        <location filename="../tableBoard.cpp" line="1319"/>
         <source>Collected data from flow meters.</source>
         <translation>Date colectate de la contoare apa</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1310"/>
+        <location filename="../tableBoard.cpp" line="1321"/>
         <source>Some user input data are not available or are outside the normal rage!</source>
         <translation>Sunt date introduse de utilizator care nu sunt disponibile sau care sunt in afara domeniului de utilizare!</translation>
     </message>
@@ -235,7 +235,7 @@
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="602"/>
+        <location filename="../interface.cpp" line="606"/>
         <source>Not connected to RS485 network</source>
         <translation>Fara conexiune la reteaua 485</translation>
     </message>
@@ -344,12 +344,12 @@
         <translation>Reactualizare porturi</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="360"/>
+        <location filename="../interface.cpp" line="364"/>
         <source>Serial RTU MODBUS Interface Settings</source>
         <translation>Setare Interfata MODBUS RTU</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="394"/>
+        <location filename="../interface.cpp" line="398"/>
         <source>Serial Interface Settings</source>
         <translation>Setare Interfata Seriala</translation>
     </message>

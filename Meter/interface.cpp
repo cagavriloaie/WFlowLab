@@ -219,10 +219,10 @@ bool Interface::checkModbusAddress(qint16 address)
 
 void Interface::onTestConfigurationClicked()
 {
-    if(!mainwindow->selectedInfo.modbusDevice) {
+    if (!mainwindow->selectedInfo.modbusDevice)
+    {
         return;
     }
-
     DisconnectSerialPort();
     for (auto iter = 0; iter < 10; ++iter)
     {

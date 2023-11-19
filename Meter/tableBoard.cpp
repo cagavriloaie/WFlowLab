@@ -69,17 +69,17 @@ void Dialog::onSaveCurrentInputDataClicked()
                        now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss"));
     fileName.append(".in");
     std::ofstream outputDataFile(fileName.toStdString());
-
     outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
-
-    double ambientTemperature = mainwindow->selectedInfo.ambientTemperature;
-    double relativeAirHumidity = mainwindow->selectedInfo.relativeAirHumidity;
-    double athmosphericPressure = mainwindow->selectedInfo.athmosphericPressure;
+    double ambientTemperature =
+        mainwindow->selectedInfo.ambientTemperature;
+    double relativeAirHumidity =
+        mainwindow->selectedInfo.relativeAirHumidity;
+    double athmosphericPressure =
+        mainwindow->selectedInfo.athmosphericPressure;
     outputDataFile << ambientTemperature << "\n";
     outputDataFile << relativeAirHumidity << "\n";
-    outputDataFile << athmosphericPressure <<"\n";
-
+    outputDataFile << athmosphericPressure << "\n";
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
@@ -150,7 +150,6 @@ void Dialog::onOpenInputDataClicked()
     inputDataFile >> rbManual;
     inputDataFile >> rbInterface;
     inputDataFile >> rbTerminal;
-
     int index = mainwindow->ui->cbNumberOfWaterMeters->findText(
                     std::to_string(entriesNumber).c_str());
     if (index != -1)
@@ -163,42 +162,34 @@ void Dialog::onOpenInputDataClicked()
     {
         mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
     }
-
     std::ostringstream ossAmbientTemperature;
     ossAmbientTemperature << std::setprecision(2) << std::fixed <<
                           ambientTemperature;
     mainwindow->ui->leTemperature->setText(
         ossAmbientTemperature.str().c_str());
-
     std::ostringstream ossRelativeAirHumidity;
     ossRelativeAirHumidity << std::setprecision(2) << std::fixed <<
                            relativeAirHumidity;
     mainwindow->ui->leHumidity->setText(
         ossRelativeAirHumidity.str().c_str());
-
     std::ostringstream ossAthmosphericPressure;
     ossAthmosphericPressure << std::setprecision(2) << std::fixed <<
                             athmosphericPressure;
     mainwindow->ui->lePressure->setText(
         ossAthmosphericPressure.str().c_str());
-
     if (rbVolumetric)
     {
         mainwindow->ui->rbVolumetric->setChecked(true);
         mainwindow->selectedInfo.rbVolumetric = true;
-
         mainwindow->ui->rbGravitmetric->setChecked(false);
         mainwindow->selectedInfo.rbGravitmetric = false;
-
     }
     if (rbGravitmetric)
     {
         mainwindow->ui->rbGravitmetric->setChecked(true);
         mainwindow->selectedInfo.rbGravitmetric = true;
-
         mainwindow->ui->rbVolumetric->setChecked(false);
         mainwindow->selectedInfo.rbVolumetric = false;
-
     }
     if (rbManual)
     {
@@ -241,7 +232,6 @@ void Dialog::onOpenInputDataClicked()
     ui->leMass3->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature3->setText(tmpInput.c_str());
-
     onMeasurementTypeChanged();
 }
 
@@ -618,7 +608,7 @@ Dialog::Dialog(QWidget *_parent):
     ui(new Ui::Dialog)
 
 {
-    mainwindow = dynamic_cast<MainWindow *> ( parent );
+    mainwindow = dynamic_cast<MainWindow *>(parent);
     //mainwindow = pw;
     ui->setupUi(this);
     setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint |
