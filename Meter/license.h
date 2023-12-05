@@ -7,6 +7,7 @@
 #define LICENSE_H
 
 #include <QDialog>
+#include "definitions.h"
 
 namespace Ui
 {

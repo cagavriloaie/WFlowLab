@@ -401,11 +401,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->action_Romana->setChecked(true);
     setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint |
                    Qt::Dialog | Qt::WindowTitleHint);
+
     Translate();
     ReadConfiguration();
-    MAX_NR_WATER_METERS = std::stoi(optionsConfiguration["maximum"]);
-    NUMBER_ENTRIES_METER_FLOW_DB = sizeof(MeterFlowDB) / sizeof(
-                                       MeterFlowType);
+
+    std::string filename = CSV_FLOW_METER_TYPES;
+    std::vector < MeterFlowType > meterFlowTypesVector = readFlowMeterTypesCSV(filename);
+    NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
+    for (size_t iter = 0; iter < meterFlowTypesVector.size(); ++iter) {
+        MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
+    }
+
     for (unsigned iter = 1; iter <= MAX_NR_WATER_METERS; ++iter)
     {
         std::string value = std::to_string(iter);

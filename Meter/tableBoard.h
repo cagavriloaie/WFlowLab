@@ -12,6 +12,7 @@
 #include <QCheckBox>
 #include <QKeyEvent>
 #include <sstream>
+#include "definitions.h"
 
 namespace Ui
 {

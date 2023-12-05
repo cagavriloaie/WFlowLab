@@ -18,6 +18,7 @@
 #include "helpabout.h"
 #include "interface.h"
 #include "ledindicator.h"
+#include "definitions.h"
 
 enum SELECTED_LANGUAGE
 {
@@ -35,7 +36,6 @@ QT_END_NAMESPACE
 
 struct SelectedInfo
 {
-
     SelectedInfo():
         density_20{0},
         entriesNumber{0},

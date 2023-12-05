@@ -12,6 +12,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialBus/QModbusRtuSerialServer>
 #include "ledindicator.h"
+#include "definitions.h"
 
 namespace Ui
 {

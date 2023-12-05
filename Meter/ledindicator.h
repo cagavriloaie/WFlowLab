@@ -7,6 +7,7 @@
 #define LEDINDICATOR_H
 
 #include <QWidget>
+#include "definitions.h"
 
 class LedIndicator: public QWidget
 {

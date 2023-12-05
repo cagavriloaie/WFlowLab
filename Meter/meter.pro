@@ -24,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     air-density.h \
+    definitions.h \
     flow-meter-type.h \
     helpabout.h \
     interface.h \

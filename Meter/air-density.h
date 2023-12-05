@@ -3,6 +3,8 @@
  *  File:   air-density.cpp
  */
 
+#include "definitions.h"
+
 #ifndef DENSITY_H
 #define DENSITY_H
 
