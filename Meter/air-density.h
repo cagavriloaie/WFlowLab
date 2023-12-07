@@ -1,16 +1,16 @@
 /*
  *  Author: Constantin
- *  File:   air-density.cpp
+ *  File:   air-density.h
  */
-
-#include "definitions.h"
 
 #ifndef DENSITY_H
 #define DENSITY_H
 
-double liniarInterpolationTemperature(double temperature,
+// Linear interpolation for temperature correction
+double linearInterpolationTemperature(double temperature,
                                       double correction);
 
+// Quadratic interpolation for temperature correction
 double quadraticInterpolationTemperature(double temperature,
         double correction);
 

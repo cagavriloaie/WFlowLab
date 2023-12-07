@@ -5,14 +5,21 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-// VERSION_BUILD "1.2 Windows x86_32"  commit 2341b517edd3ca21b06d981ae5f83ea8fb5ff59a
+#include <cstddef>
+
+// Version information
 #define VERSION_BUILD "1.2 Windows x86_32"
 
-#define DELIMITER ';'
-#define MAX_NUMBER_FLOW_METER_TYPES 1000
+// CSV delimiter
+constexpr char DELIMITER{';'};
+
+// Maximum number of flow meter types
+constexpr size_t MAX_NUMBER_FLOW_METER_TYPES{1000};
+
+// File name for flow meter types CSV
 #define CSV_FLOW_METER_TYPES  "watermeters.csv"
 
-// Constants for MD5Transform routine.
+// Constants for MD5Transform routine
 #define S11 7
 #define S12 12
 #define S13 17

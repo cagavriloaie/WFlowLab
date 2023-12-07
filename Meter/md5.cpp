@@ -39,6 +39,7 @@ documentation and/or software.
 #include <stdio.h>
 
 #include <cstdio>
+#include "definitions.h"
 
 
 ///////////////////////////////////////////////

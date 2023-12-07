@@ -142,6 +142,7 @@ Interface::~Interface()
 
 void Interface::Translate()
 {
+    // Set translated text for various widgets in the UI
     ui->groupBox->setTitle(tr("RS485 MODBUS"));
     ui->lbSelectSerial->setText(tr("Serial Port:"));
     ui->lbBaudRate->setText(tr("Baud Rate:"));
@@ -149,7 +150,7 @@ void Interface::Translate()
     ui->lbSelectParity->setText(tr("Parity:"));
     ui->lbSelectStopBits->setText(tr("Stop Bits:"));
     ui->lbTimeout->setText("Timeout [ms]:");
-    ui->lbNumberOfRetries->setText("Numar reincercari:");
+    ui->lbNumberOfRetries->setText("Numar reincercari:"); // "Retry Count:" in English
     ui->checkLargeScale->setText(tr("Large Scale"));
     ui->checkSmallScale->setText(tr("Small Scale"));
     ui->checkTemperature->setText(tr("Temperature"));
@@ -174,29 +175,36 @@ void Interface::onCloseClicked()
 
 void Interface::onReadModbusReady()
 {
+    // Attempt to cast the sender() to a QModbusReply
     auto reply = qobject_cast<QModbusReply *>(sender());
+    // Set the state of the LED to false (assuming ledStateTable is a vector of LEDState objects)
     ledStateTable[positionTable]->setState(false);
+    // Check if the cast was successful
     if (!reply)
     {
-        return;
+        return; // If the cast fails, exit the function
     }
+    // Check if there was no error in the Modbus reply
     if (reply->error() == QModbusDevice::NoError)
     {
+        // If there is no error, set the state of the LED to true
         ledStateTable[positionTable]->setState(true);
     }
+    // Increment the positionTable
     ++positionTable;
+    // Schedule the reply object for deletion
     reply->deleteLater();
 }
+
 
 bool Interface::checkModbusAddress(qint16 address)
 {
     std::lock_guard<std::mutex> lock(modbusLock);
     usleep(50000);
     QModbusRtuSerialClient *portModbus =
-        static_cast<QModbusRtuSerialClient *>(
-            mainwindow->selectedInfo.modbusDevice);
+        static_cast<QModbusRtuSerialClient *>
+        (mainwindow->selectedInfo.modbusDevice);
     ledStateTable[positionTable]->setState(false);
-    ;
     if (QModbusReply *reply = portModbus->sendReadRequest(
                                   QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address))
     {
@@ -207,13 +215,13 @@ bool Interface::checkModbusAddress(qint16 address)
         }
         else
         {
-            delete reply;  // broadcast replies return immediately
+            delete reply;  // Broadcast replies return immediately
         }
     }
     else
     {
         return false;
-    };
+    }
     return true;
 }
 
@@ -414,32 +422,44 @@ void Interface::onTestConfigurationClicked()
 
 void Interface::onRefreshSerialPortClicked()
 {
+    // Disable the "Refresh Ports" button to prevent multiple clicks
     ui->pbRefreshSerialPort->setDisabled(true);
+    // Clear the entries container
     entries.clear();
+    // Get the list of serial ports from the main window
     const wchar_t *ports = mainwindow->serialPorts();
     wchar_t *pwc;
     pwc = std::wcstok(const_cast<wchar_t *>(ports), L"|");
+    // Variables for processing serial port entries
     int even{0};
     QString portEntry;
+    // Clear the items in the serial port combo box
     ui->cbSelectSerial->clear();
+    // Process each serial port entry
     while (pwc != NULL)
     {
         even = (even + 1) % 2;
         if (even)
         {
+            // Odd index, add to entries container
             portEntry = QString::fromWCharArray(pwc);
             entries.push_back(portEntry);
         }
         else
         {
+            // Even index, combine with the previous entry and add to the combo box
             portEntry += "  " + QString::fromWCharArray(pwc);
             ui->cbSelectSerial->addItem(portEntry);
             portEntry.clear();
         }
+        // Print the serial port entry (for debugging)
         wprintf(L"%ls\n", pwc);
+        // Get the next serial port entry
         pwc = wcstok(NULL, L"|");
     }
+    // Disconnect from the current serial port (assuming there is a function named DisconnectSerialPort)
     DisconnectSerialPort();
+    // Re-enable the "Refresh Ports" button
     ui->pbRefreshSerialPort->setDisabled(false);
 }
 
@@ -602,17 +622,24 @@ void Interface::showEvent(QShowEvent *event)
 
 void Interface::DisconnectSerialPort()
 {
+    // Update UI to indicate that the interface is not connected to the RS485 network
     mainwindow->ui->lbConnected->setText(
         tr("Not connected to RS485 network"));
+    // Turn off the LED indicator for the serial connection
     mainwindow->ui->SerialLedIndicator->setState(false);
+    // Get a reference to the ModbusClient pointer from the main window
     QModbusClient *&portModbus = mainwindow->selectedInfo.modbusDevice;
+    // Check if the ModbusClient pointer is not null
     if (portModbus)
     {
+        // Delete the ModbusClient object and set the pointer to null
         delete portModbus;
         portModbus = nullptr;
     }
+    // Update the flag indicating whether the Modbus port is open
     isOpenModbusPort = false;
 }
+
 
 void Interface::onSelectSerialChanged()
 {

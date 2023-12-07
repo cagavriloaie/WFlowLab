@@ -42,7 +42,7 @@ const double densityPoints[] =
     959.7741, 959.0618, 958.3449, 957.6451
 };
 
-double liniarInterpolationTemperature(double temperature,
+double linearInterpolationTemperature(double temperature,
                                       double correction)
 {
     if (temperature <= 0.0)

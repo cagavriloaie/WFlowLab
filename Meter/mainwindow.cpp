@@ -23,6 +23,7 @@
 #include "mainwindow.h"
 #include "md5.h"
 #include "ui_mainwindow.h"
+#include "definitions.h"
 
 extern QTranslator *appTranslator;
 MainWindow *pw;
@@ -401,17 +402,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->action_Romana->setChecked(true);
     setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint |
                    Qt::Dialog | Qt::WindowTitleHint);
-
     Translate();
     ReadConfiguration();
-
     std::string filename = CSV_FLOW_METER_TYPES;
-    std::vector < MeterFlowType > meterFlowTypesVector = readFlowMeterTypesCSV(filename);
+    std::vector < MeterFlowType > meterFlowTypesVector =
+        readFlowMeterTypesCSV(filename);
     NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
-    for (size_t iter = 0; iter < meterFlowTypesVector.size(); ++iter) {
+    for (size_t iter = 0; iter < meterFlowTypesVector.size(); ++iter)
+    {
         MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
     }
-
     for (unsigned iter = 1; iter <= MAX_NR_WATER_METERS; ++iter)
     {
         std::string value = std::to_string(iter);
@@ -511,6 +511,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lePressure->setStyleSheet(
         "QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
     SelectMeterComboBox();
+    // 485 Indicator State
+    ui->SerialLedIndicator->hide();
+    ui->lbConnected->hide();
 }
 
 MainWindow::~MainWindow()

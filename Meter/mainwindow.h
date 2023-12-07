@@ -17,8 +17,7 @@
 #include "license.h"
 #include "helpabout.h"
 #include "interface.h"
-#include "ledindicator.h"
-#include "definitions.h"
+
 
 enum SELECTED_LANGUAGE
 {

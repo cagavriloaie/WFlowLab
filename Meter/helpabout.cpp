@@ -5,6 +5,7 @@
 
 #include "helpabout.h"
 #include "ui_helpabout.h"
+#include "definitions.h"
 
 void HelpAbout::Translate()
 {

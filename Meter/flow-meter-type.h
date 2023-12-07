@@ -16,8 +16,9 @@
 #include "definitions.h"
 
 /* Water Flow Meters type structure */
-struct MeterFlowType {
-    MeterFlowType(const std::string & _nameWaterMeter,
+struct MeterFlowType
+{
+    MeterFlowType(const std::string &_nameWaterMeter,
                   unsigned _nominalDiameter,
                   double _nominalFlow,
                   double _maximumFlow,
@@ -50,10 +51,13 @@ struct MeterFlowType {
     double maximumError;
 };
 
-std::vector < MeterFlowType > readFlowMeterTypesCSV(const std::string & filename) {
+std::vector < MeterFlowType > readFlowMeterTypesCSV(
+    const std::string  &filename)
+{
     std::vector < MeterFlowType > meterFlowTypes;
     std::ifstream file(filename);
-    if(!file.is_open()) {
+    if (!file.is_open())
+    {
         QMessageBox warningMessage;
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
@@ -65,7 +69,8 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(const std::string & filename
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
         /* Default Water Flow Meters DB */
-        meterFlowTypes = {
+        meterFlowTypes =
+        {
             // -------------------------------------------------------------------------------------------------------
             //                  Type                           DN       QN      Qmax     Qt     Qmin   ErrNom  ErrMax
             //                                                 mm       l/h      l/h     l/h     l/h     %      %
@@ -125,25 +130,33 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(const std::string & filename
         };
         return meterFlowTypes;
     }
-    try {
+    bool dbCorrupted = false;
+    try
+    {
         std::string line;
         size_t expectedFieldCount = 0;
-        if(std::getline(file, line)) {
+        if (std::getline(file, line))
+        {
             std::istringstream iss(line);
             std::string field;
-            while(std::getline(iss, field, DELIMITER)) {
+            while (std::getline(iss, field, DELIMITER))
+            {
                 expectedFieldCount++;
             }
         }
-        while(std::getline(file, line)) {
+        while (std::getline(file, line))
+        {
             std::string lineCopy = line;
             size_t actualFieldCount = 0;
             std::istringstream issCopy(lineCopy);
             std::string field;
-            while(std::getline(issCopy, field, DELIMITER)) {
+            while (std::getline(issCopy, field, DELIMITER))
+            {
                 actualFieldCount++;
             }
-            if(actualFieldCount != expectedFieldCount) {
+            if (actualFieldCount != expectedFieldCount)
+            {
+                dbCorrupted = true;
                 continue;
             }
             MeterFlowType meterFlow;
@@ -166,7 +179,14 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(const std::string & filename
             meterFlow.maximumError = std::stod(token);
             meterFlowTypes.push_back(meterFlow);
         }
-    } catch (const std::exception & e) {
+    }
+    catch (const std::exception &e)
+    {
+        dbCorrupted = true;
+    }
+    file.close();
+    if (dbCorrupted)
+    {
         QMessageBox warningMessage;
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
@@ -178,8 +198,6 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(const std::string & filename
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
     }
-
-    file.close();
     return meterFlowTypes;
 }
 

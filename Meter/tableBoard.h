@@ -12,7 +12,6 @@
 #include <QCheckBox>
 #include <QKeyEvent>
 #include <sstream>
-#include "definitions.h"
 
 namespace Ui
 {
@@ -70,7 +69,6 @@ class Dialog : public QDialog
     bool eventFilter(QObject *, QEvent *);
 
   private slots:
-
     void onTypeMeterChanged();
     void onNumberOfWaterMetersChanged();
     void onMeasurementTypeChanged();
@@ -86,12 +84,10 @@ class Dialog : public QDialog
     void focusOutEvent(QFocusEvent *event);
 
     void onCopy12Clicked();
-
     void onCopy23Clicked_new();
 
   protected:
     void showEvent(QShowEvent *event);
-
 };
 
 #endif // TABLEBOARD_H
