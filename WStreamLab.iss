@@ -52,7 +52,7 @@ Source: ".\build\Qt6SerialPort.dll"; DestDir: "{app}"
 Source: ".\build\Qt6Svg.dll"; DestDir: "{app}"
 Source: ".\build\Qt6Widgets.dll"; DestDir: "{app}"
 Source: ".\build\SerialPorts.dll"; DestDir: "{app}"
-Source: ".\build\watermeters.conf"; DestDir: "{app}"
+Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: uninsneveruninstall  onlyifdoesntexist
 Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: uninsneveruninstall  onlyifdoesntexist
 Source: ".\build\iconengines\qsvgicon.dll";DestDir: "{app}\iconengines"
 Source: ".\build\imageformats\qgif.dll";DestDir: "{app}\imageformats"
@@ -77,6 +77,7 @@ Filename: "{app}\README.txt"; Description: "View the README.txt file"; Flags: po
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C taskkill /F /IM WStreamLab.exe"; Flags: runhidden waituntilterminated
+Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.conf"" ""{userdesktop}\watermeters.conf"""; Flags: runhidden
 Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.csv"" ""{userdesktop}\watermeters.csv"""; Flags: runhidden
 
 [UninstallDelete]
@@ -95,7 +96,6 @@ Type: files; Name: "{app}\Qt6SerialPort.dll"
 Type: files; Name: "{app}\Qt6Svg.dll"
 Type: files; Name: "{app}\Qt6Widgets.dll"
 Type: files; Name: "{app}\SerialPorts.dll"
-Type: files; Name: "{app}\watermeters.conf"
 Type: filesandordirs; Name: "{app}\styles"
 Type: filesandordirs; Name: "{app}\iconengines"
 Type: filesandordirs; Name: "{app}\imageformats"

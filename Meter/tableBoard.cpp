@@ -589,17 +589,17 @@ void Dialog::Translate()
     ui->pbClose->setContentsMargins(10, 0, 10, 0);
     ui->pbClean->setContentsMargins(10, 0, 10, 0);
     ui->lbIndex1->setText(
-        QString("Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %")
+        QString("Index [L] -  Qmin: %1 L/h  Eroare: %2%")
         .arg(QString::number(minimumFlowMain),
              QString::number(maximumError)));
     ui->lbIndex2->setText(
-        QString("Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %")
+        QString("Index [L] -  Qt:  %1 L/h  Eroare: %2%")
         .arg(QString::number(transitoriuFlowMain),
              QString::number(nominalError)));
-    ui->lbIndex3->setText(QString(
-                              "Index [L] -  Qn: %1  [L/h]  Eroare: %2 %")
-                          .arg(QString::number(nominalFlowMain),
-                               QString::number(nominalError)));
+    ui->lbIndex3->setText(
+        QString("Index [L] -  Qn: %1 L/h  Eroare: %2%")
+        .arg(QString::number(nominalFlowMain),
+             QString::number(nominalError)));
 }
 
 Dialog::Dialog(QWidget *_parent):
@@ -2414,60 +2414,32 @@ void Dialog::focusOutEvent(QFocusEvent *event)
 
 void Dialog::onCopy12Clicked()
 {
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-    ui -> leStart2_2 -> setText(ui -> leStop1_2 -> text());
-    ui -> leStart2_3 -> setText(ui -> leStop1_3 -> text());
-    ui -> leStart2_4 -> setText(ui -> leStop1_4 -> text());
-    ui -> leStart2_5 -> setText(ui -> leStop1_5 -> text());
-    ui -> leStart2_6 -> setText(ui -> leStop1_6 -> text());
-    ui -> leStart2_7 -> setText(ui -> leStop1_7 -> text());
-    ui -> leStart2_8 -> setText(ui -> leStop1_8 -> text());
-    ui -> leStart2_9 -> setText(ui -> leStop1_9 -> text());
-    ui -> leStart2_10 -> setText(ui -> leStop1_10 -> text());
-    ui -> leStart2_11 -> setText(ui -> leStop1_11 -> text());
-    ui -> leStart2_12 -> setText(ui -> leStop1_12 -> text());
-    ui -> leStart2_13 -> setText(ui -> leStop1_13 -> text());
-    ui -> leStart2_14 -> setText(ui -> leStop1_14 -> text());
-    ui -> leStart2_15 -> setText(ui -> leStop1_15 -> text());
-    ui -> leStart2_16 -> setText(ui -> leStop1_16 -> text());
-    ui -> leStart2_17 -> setText(ui -> leStop1_17 -> text());
-    ui -> leStart2_18 -> setText(ui -> leStop1_18 -> text());
-    ui -> leStart2_19 -> setText(ui -> leStop1_19 -> text());
-    ui -> leStart2_20 -> setText(ui -> leStop1_20 -> text());
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
-    ui -> leStart2_1 -> setText(ui -> leStop1_1 -> text());
+    for (int i = 1; i <= 20; ++i)
+    {
+        QString startLineEditName = QString("leStart2_%1").arg(i);
+        QString stopLineEditName = QString("leStop1_%1").arg(i);
+        QLineEdit *startLineEdit = findChild<QLineEdit *>(startLineEditName);
+        QLineEdit *stopLineEdit = findChild<QLineEdit *>(stopLineEditName);
+        if (startLineEdit && stopLineEdit)
+        {
+            startLineEdit->setText(stopLineEdit->text());
+        }
+    }
     ui->leStop2_1->setFocus();
 }
 
 void Dialog::onCopy23Clicked_new()
 {
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-    ui -> leStart3_2 -> setText(ui -> leStop2_2 -> text());
-    ui -> leStart3_3 -> setText(ui -> leStop2_3 -> text());
-    ui -> leStart3_4 -> setText(ui -> leStop2_4 -> text());
-    ui -> leStart3_5 -> setText(ui -> leStop2_5 -> text());
-    ui -> leStart3_6 -> setText(ui -> leStop2_6 -> text());
-    ui -> leStart3_7 -> setText(ui -> leStop2_7 -> text());
-    ui -> leStart3_8 -> setText(ui -> leStop2_8 -> text());
-    ui -> leStart3_9 -> setText(ui -> leStop2_9 -> text());
-    ui -> leStart3_10 -> setText(ui -> leStop2_10 -> text());
-    ui -> leStart3_11 -> setText(ui -> leStop2_11 -> text());
-    ui -> leStart3_12 -> setText(ui -> leStop2_12 -> text());
-    ui -> leStart3_13 -> setText(ui -> leStop2_13 -> text());
-    ui -> leStart3_14 -> setText(ui -> leStop2_14 -> text());
-    ui -> leStart3_15 -> setText(ui -> leStop2_15 -> text());
-    ui -> leStart3_16 -> setText(ui -> leStop2_16 -> text());
-    ui -> leStart3_17 -> setText(ui -> leStop2_17 -> text());
-    ui -> leStart3_18 -> setText(ui -> leStop2_18 -> text());
-    ui -> leStart3_19 -> setText(ui -> leStop2_19 -> text());
-    ui -> leStart3_20 -> setText(ui -> leStop2_20 -> text());
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
-    ui -> leStart3_1 -> setText(ui -> leStop2_1 -> text());
+    QList<QLineEdit *> leStartWidgets = findChildren<QLineEdit *>
+                                        (QRegularExpression("leStart3_\\d+"));
+    QList<QLineEdit *> leStopWidgets = findChildren<QLineEdit *>
+                                       (QRegularExpression("leStop2_\\d+"));
+    for (int i = 0; i < qMin(leStartWidgets.size(), leStopWidgets.size());
+            ++i)
+    {
+        leStartWidgets[i]->setText(leStopWidgets[i]->text());
+    }
     ui->leStop3_1->setFocus();
 }
+
+

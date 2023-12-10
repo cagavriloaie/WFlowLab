@@ -11,7 +11,7 @@
 #define VERSION_BUILD "1.2 Windows x86_32"
 
 // CSV delimiter
-constexpr char DELIMITER{';'};
+constexpr char DELIMITER{','};
 
 // Maximum number of flow meter types
 constexpr size_t MAX_NUMBER_FLOW_METER_TYPES{1000};

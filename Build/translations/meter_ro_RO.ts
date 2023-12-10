@@ -69,17 +69,17 @@
     <message>
         <location filename="../tableBoard.cpp" line="2392"/>
         <source>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Qmin: %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="2396"/>
         <source>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Qt:  %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="2400"/>
         <source>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Qn: %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="579"/>
@@ -615,8 +615,9 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../flow-meter-type.h" line="63"/>
-        <location filename="../flow-meter-type.h" line="192"/>
+        <location filename="../flow-meter-type.h" line="127"/>
+        <location filename="../flow-meter-type.h" line="193"/>
+        <location filename="../flow-meter-type.h" line="208"/>
         <location filename="../main.cpp" line="38"/>
         <location filename="../mainwindow.cpp" line="373"/>
         <location filename="../mainwindow.cpp" line="798"/>
@@ -624,18 +625,20 @@
         <translation>Atentie</translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="64"/>
-        <location filename="../flow-meter-type.h" line="193"/>
+        <location filename="../flow-meter-type.h" line="128"/>
+        <location filename="../flow-meter-type.h" line="194"/>
+        <location filename="../flow-meter-type.h" line="209"/>
         <source>Flow Meters DB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="66"/>
+        <location filename="../flow-meter-type.h" line="130"/>
         <source>The watermeters.csv with Flow Meters DB cannot be found.</source>
         <translation>Baza de date cu contoare de debit watermeters.csv nu poate fi gasita.</translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="195"/>
+        <location filename="../flow-meter-type.h" line="196"/>
+        <location filename="../flow-meter-type.h" line="211"/>
         <source>The watermeters.csv with Flow Meters DB is corrupted.</source>
         <translation>Baza de date cu contoare de debit watermeters.csv.</translation>
     </message>
