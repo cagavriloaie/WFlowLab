@@ -23,7 +23,6 @@
 #include "mainwindow.h"
 #include "md5.h"
 #include "ui_mainwindow.h"
-#include "definitions.h"
 
 extern QTranslator *appTranslator;
 MainWindow *pw;

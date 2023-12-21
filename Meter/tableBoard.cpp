@@ -671,7 +671,9 @@ Dialog::Dialog(QWidget *_parent):
 Dialog::~Dialog()
 {
     MainWindow *mainWindow  = dynamic_cast< MainWindow *>(this->parent);
-    mainWindow->inputData = nullptr;
+    if(mainWindow) {
+        mainWindow->inputData = nullptr;
+    }
     delete ui;
 }
 

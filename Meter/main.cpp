@@ -11,9 +11,74 @@
 #include <QMessageBox>
 #include <QSharedMemory>
 #include <QString>
-#include <QSplashScreen>
+#include <QTimer>
+#include <QPainter>
+#include <QEventLoop>
+#include <QThread>
 
 #include "mainwindow.h"
+
+class PixelImageWidget : public QMainWindow {
+
+public:
+    explicit PixelImageWidget(QWidget* parent = nullptr) : QMainWindow(parent) {
+        setAttribute(Qt::WA_TranslucentBackground); // Enable transparency
+        setWindowFlags(Qt::FramelessWindowHint);    // Remove window frame
+        setFixedSize(320, 300);                     // Set the size of the widget
+
+        // Set up a timer to hide the pixel image after five seconds
+        QTimer::singleShot(5000, this, &PixelImageWidget::hidePixelImage);
+    }
+
+    MainWindow* mainWindow = nullptr;
+
+protected:
+     QRect centeredRect(const QSize &outer, const QSize &inner) {
+        return QRect((outer.width() - inner.width()) / 2, (outer.height() - inner.height()) / 2, inner.width(), inner.height());
+     }
+
+    void paintEvent(QPaintEvent*) override {
+        QPainter painter(this);
+
+        // Fill the QPixmap with pixel data (example: gradient from red to blue)
+        for (int x = 0; x < width(); ++x) {
+            for (int y = 0; y < height(); ++y) {
+
+                int red = static_cast<int>(255 * static_cast<double>(x) / width());
+                int green = static_cast<int>(255 * static_cast<double>(y) / height());
+                int blue = static_cast<int>(255 * (1 - static_cast<double>(x) / width()));
+
+                painter.setPen(QColor(red, green, blue));
+                painter.drawPoint(x, y);
+            }
+        }
+
+        QFont font;
+        font.setPointSize(12);
+
+        painter.setFont(font);
+
+        const QString& message(
+            "   >WStreamLab\n"
+            "   >Elcost Romania\n"
+            "   >Version [1.3 12.23]"
+            );
+
+        QRect textRect = QRect(0, 0, width(), height());
+        painter.setPen(Qt::white);
+        painter.drawText(textRect, Qt::AlignTop, message);
+    }
+
+private slots:
+    void hidePixelImage() {
+        hide();
+        showMainWindow();
+    }
+
+    void showMainWindow() {
+        mainWindow->show();
+    }
+};
 
 QTranslator *appTranslator;
 
@@ -47,16 +112,11 @@ int main(int argc, char *argv[])
         warningMessage.exec();
         exit(0);
     }
-    // Create a splash screen
-    QSplashScreen splash(
-        QPixmap("water-meters.jpg")); // Replace with your image path
-    // Customize the splash screen with text
-    QLabel messageLabel(&splash);
-    messageLabel.setText("Loading...");
-    messageLabel.setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
-    messageLabel.setStyleSheet("QLabel { color: white; }"); // Customize text color
-    splash.show();
-    MainWindow w;
-    w.show();
+
+    MainWindow mainWindow;
+    PixelImageWidget widget;
+    widget.mainWindow = &mainWindow;
+    widget.show();
+
     return a.exec();
 }
