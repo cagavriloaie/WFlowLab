@@ -56,3 +56,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 TARGET = WStreamLab
+
+DISTFILES += \
+    water-meter-counter-equipment.png
+
+RESOURCES += \
+    images.qrc

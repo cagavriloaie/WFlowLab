@@ -43,8 +43,14 @@ void Dialog::printPdfThread(QString report)
     QString fileName = QString(
                            mainwindow->selectedInfo.pathResults.c_str()) +
                        "/" + QString("WStreamLab_") +
-                       now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss"));
+                       now.toString(QLatin1String("yyyyMMdd_hhmmss"));
     fileName.append(".pdf");
+    // Check if the directory exists, and create it if not
+    QDir resultDir(mainwindow->selectedInfo.pathResults.c_str());
+    if (!resultDir.exists())
+    {
+        resultDir.mkpath(".");
+    }
     QPrinter printer(QPrinter::PrinterResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(fileName);
@@ -54,6 +60,12 @@ void Dialog::printPdfThread(QString report)
     printer.setColorMode(QPrinter::ColorMode::Color);
     QTextDocument outputReport;
     outputReport.setHtml(report);
+    // Check if the PDF generation is successful
+    if (outputReport.isEmpty())
+    {
+        qDebug() << "Error: Empty document, PDF not generated.";
+        return;
+    }
     outputReport.print(&printer);
     fileName = QString("file:///") + fileName;
     QDesktopServices::openUrl(QUrl(fileName, QUrl::TolerantMode));
@@ -102,10 +114,14 @@ void Dialog::onSaveCurrentInputDataClicked()
         outputDataFile << vectorThirdIndexStop[iter]->text().toStdString()
                        << "\n";
     }
+    outputDataFile << ui->leFlowRateMinumum->text().toStdString() << "\n";
     outputDataFile << ui->leMass1->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature1->text().toStdString() << "\n";
+    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() <<
+                   "\n";
     outputDataFile << ui->leMass2->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature2->text().toStdString() << "\n";
+    outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
     outputDataFile << ui->leMass3->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
     QMessageBox messageBox;
@@ -221,13 +237,19 @@ void Dialog::onOpenInputDataClicked()
         vectorThirdIndexStop[iter]->setText(tmpInput.c_str());
     }
     std::getline(inputDataFile, tmpInput);
+    ui->leFlowRateMinumum->setText(tmpInput.c_str());
+    std::getline(inputDataFile, tmpInput);
     ui->leMass1->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature1->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
+    ui->leFlowRateTransitoriu->setText(tmpInput.c_str());
+    std::getline(inputDataFile, tmpInput);
     ui->leMass2->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature2->setText(tmpInput.c_str());
+    std::getline(inputDataFile, tmpInput);
+    ui->leFlowRateNominal->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass3->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
@@ -455,6 +477,7 @@ void Dialog::ValidatorInput()
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
+    ui->leFlowRateMinumum->setValidator(validatorDoubleNumber);
     ui->leMass1->setValidator(validatorDoubleNumber);
     ui->leTemperature1->setValidator(validatorDoubleNumber);
     // set natural numbers as input for transient flow input line
@@ -468,6 +491,7 @@ void Dialog::ValidatorInput()
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
+    ui->leFlowRateTransitoriu->setValidator(validatorDoubleNumber);
     ui->leMass2->setValidator(validatorDoubleNumber);
     ui->leTemperature2->setValidator(validatorDoubleNumber);
     // set natural numbers as input for nominal flow input line
@@ -481,6 +505,7 @@ void Dialog::ValidatorInput()
     {
         (*iter)->setValidator(validatorDoubleNumber);
     }
+    ui->leFlowRateNominal->setValidator(validatorDoubleNumber);
     ui->leMass3->setValidator(validatorDoubleNumber);
     ui->leTemperature3->setValidator(validatorDoubleNumber);
     for (auto iter = begin(vectorFirstError);
@@ -565,12 +590,15 @@ void Dialog::Translate()
     ui->lbStart3->setText(tr("Start index"));
     ui->lbStop3->setText(tr("Stop index"));
     ui->lbError3->setText(tr("Err. Qn"));
+    ui->lbFlowRateMin->setText(tr("Flow rate [L/h]"));
     ui->lbMass1->setText(tr("Mass [kg]"));
     ui->lbTemperature1->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume1->setText(tr("Volume [L]"));
+    ui->lbFlowRateTransition->setText(tr("Flow rate [L/h]"));
     ui->lbMass2->setText(tr("Mass [kg]"));
     ui->lbTemperature2->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume2->setText(tr("Volume [L]"));
+    ui->lbFlowRateNominal->setText(tr("Flow rate [L/h]"));
     ui->lbMass3->setText(tr("Mass [kg]", nullptr));
     ui->lbTemperature3->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume3->setText(tr("Volume [L]", nullptr));
@@ -638,10 +666,6 @@ Dialog::Dialog(QWidget *_parent):
         connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this,
                 SLOT(onCbClicked(bool)));
     }
-    ui->pbCopy12->setFixedHeight(15);
-    QFontMetrics fontMetrics(ui->pbCopy12->font());
-    int textHeight = fontMetrics.height();
-    ui->pbCopy12->setFixedHeight(textHeight + 6);
 }
 
 Dialog::~Dialog()
@@ -1684,6 +1708,10 @@ void Dialog::onPrintPdfDocClicked()
             {
                 resultTests = "RESPINS";
             }
+            double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
+            double trasitionFlowRate =
+                ui->leFlowRateTransitoriu->text().toDouble();
+            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
             report +=
                 QString("    <tr>") +
                 "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
@@ -1691,7 +1719,7 @@ void Dialog::onPrintPdfDocClicked()
                 SN + "</th>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "2px\">" +
-                QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startFirst + "</td>" +
@@ -1711,7 +1739,7 @@ void Dialog::onPrintPdfDocClicked()
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startSecond + "</td>" +
@@ -1729,7 +1757,7 @@ void Dialog::onPrintPdfDocClicked()
                 errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startThird + "</td>" +
@@ -1848,6 +1876,10 @@ void Dialog::onPrintPdfDocClicked()
                 {
                     resultTests = "RESPINS";
                 }
+                double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
+                double trasitionFlowRate =
+                    ui->leFlowRateTransitoriu->text().toDouble();
+                double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
                 report +=
                     QString("    <tr>") +
                     "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
@@ -1855,7 +1887,7 @@ void Dialog::onPrintPdfDocClicked()
                     SN + "</th>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
-                    QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                    QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
                     startFirst + "</td>" +
@@ -1875,7 +1907,7 @@ void Dialog::onPrintPdfDocClicked()
                     resultTests + "</th>" + "    </tr>" + "    <tr>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
-                    QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                    QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
                     startSecond + "</td>" +
@@ -1893,7 +1925,7 @@ void Dialog::onPrintPdfDocClicked()
                     errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
-                    QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                    QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
                     "        <td style=\"text-align: right\" \"padding-right: "
                     "5px\">" +
                     startThird + "</td>" +
@@ -2070,6 +2102,10 @@ void Dialog::onPrintPdfDocClicked()
             {
                 resultTests = "FAILED";
             }
+            double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
+            double trasitionFlowRate =
+                ui->leFlowRateTransitoriu->text().toDouble();
+            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
             report +=
                 QString("    <tr>") +
                 "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
@@ -2077,7 +2113,7 @@ void Dialog::onPrintPdfDocClicked()
                 SN + "</th>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startFirst + "</td>" +
@@ -2097,7 +2133,7 @@ void Dialog::onPrintPdfDocClicked()
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startSecond + "</td>" +
@@ -2115,7 +2151,7 @@ void Dialog::onPrintPdfDocClicked()
                 errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
-                QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
                 "        <td style=\"text-align: right\" \"padding-right: "
                 "5px\">" +
                 startThird + "</td>" +
@@ -2221,6 +2257,10 @@ void Dialog::onPrintPdfDocClicked()
                     {
                         resultTests = "FAILED";
                     }
+                    double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
+                    double trasitionFlowRate =
+                        ui->leFlowRateTransitoriu->text().toDouble();
+                    double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
                     report +=
                         QString("    <tr>") +
                         "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
@@ -2228,7 +2268,7 @@ void Dialog::onPrintPdfDocClicked()
                         SN + "</th>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
-                        QString::number(minimumFlowMain) +  "&nbsp;" + "</td>" +
+                        QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
                         startFirst + "</td>" +
@@ -2248,7 +2288,7 @@ void Dialog::onPrintPdfDocClicked()
                         resultTests + "</th>" + "    </tr>" + "    <tr>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
-                        QString::number(transitoriuFlowMain) + "&nbsp;" + "</td>" +
+                        QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
                         startSecond + "</td>" +
@@ -2266,7 +2306,7 @@ void Dialog::onPrintPdfDocClicked()
                         errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
-                        QString::number(nominalFlowMain) + "&nbsp;" + "</td>" +
+                        QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
                         "        <td style=\"text-align: right\" \"padding-right: "
                         "5px\">" +
                         startThird + "</td>" +
@@ -2400,6 +2440,10 @@ void Dialog::PopulateTable()
         QString(tr("Index [L] -  Qn: %1  [L/h]  Eroare: %2 %"))
         .arg(QString::number(nominalFlowMain),
              QString::number(nominalError)));
+    ui->leFlowRateMinumum->setText(QString::number(minimumFlowMain));
+    ui->leFlowRateTransitoriu->setText(QString::number(
+                                           transitoriuFlowMain));
+    ui->leFlowRateNominal->setText(QString::number(nominalFlowMain));
 }
 
 void Dialog::focusInEvent(QFocusEvent *event)

@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1450</width>
-    <height>733</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1400</width>
-    <height>730</height>
+    <height>800</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1450</width>
-    <height>733</height>
+    <height>800</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -175,6 +175,179 @@ QMessageBox  {
         <property name="spacing">
          <number>0</number>
         </property>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbCalculate">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 10px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbPrint">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>60</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbOpen">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbSaveResults">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>60</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbClose">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbClean">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0">
+         <widget class="Line" name="line_43">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="Line" name="line_20">
           <property name="orientation">
@@ -270,20 +443,26 @@ QMessageBox  {
                  <number>4</number>
                 </property>
                 <property name="sizeConstraint">
-                 <enum>QLayout::SetDefaultConstraint</enum>
+                 <enum>QLayout::SetMinimumSize</enum>
                 </property>
                 <item>
-                 <widget class="QLabel" name="lbTab51">
+                 <widget class="QLabel" name="lbTabCurrentNb">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>20</height>
+                    <height>19</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>20</height>
+                    <height>19</height>
                    </size>
                   </property>
                   <property name="text">
@@ -296,6 +475,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -324,6 +509,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -352,6 +543,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -380,6 +577,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -408,6 +611,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN5">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -436,6 +645,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN6">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -464,6 +679,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN7">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -492,6 +713,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN8">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -520,6 +747,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN9">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -548,6 +781,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN10">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -576,6 +815,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN11">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -604,6 +849,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN12">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -632,6 +883,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN13">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -660,6 +917,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN14">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -688,6 +951,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN15">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -716,6 +985,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN16">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -744,6 +1019,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN17">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -772,6 +1053,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN18">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -800,6 +1087,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN19">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -828,6 +1121,12 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbN20">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -855,74 +1154,42 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab8">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>25</width>
-                    <height>10</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="label_2">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>25</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab4">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>25</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="label_6">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_9">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string/>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string/>
                   </property>
-                 </spacer>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_14"/>
                 </item>
                </layout>
               </item>
@@ -1570,6 +1837,71 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="lbCheck1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>1000</width>
+                    <height>5</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbCheck2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbCheck3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbCheck4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbCheck5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="lbTab33">
                   <property name="minimumSize">
                    <size>
@@ -1589,45 +1921,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab34">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="lbTab35">
-                  <property name="minimumSize">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_13">
+                 <spacer name="verticalSpacer_19">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -2108,64 +2402,42 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab5">
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>1000</width>
-                    <height>10</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpaceSN_1">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab6">
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>1000</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpaceSN2">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab7">
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>1000</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpaceSN3">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_12">
+                 <widget class="QLabel" name="lbSpaceSN4">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpaceSN5">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_18">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -2734,6 +3006,19 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="lbFlowRateMin">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="lbMass1">
                   <property name="minimumSize">
                    <size>
@@ -2773,13 +3058,19 @@ QMessageBox  {
                 </item>
                 <item>
                  <widget class="QLabel" name="lbVolume1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_2">
+                 <spacer name="verticalSpacer_9">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -2799,7 +3090,7 @@ QMessageBox  {
                  <number>4</number>
                 </property>
                 <property name="sizeConstraint">
-                 <enum>QLayout::SetDefaultConstraint</enum>
+                 <enum>QLayout::SetMinimumSize</enum>
                 </property>
                 <property name="leftMargin">
                  <number>0</number>
@@ -3252,8 +3543,8 @@ QMessageBox  {
                 <item>
                  <widget class="QPushButton" name="pbCopy12">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>40</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
@@ -3274,6 +3565,27 @@ QMessageBox  {
                   </property>
                   <property name="text">
                    <string>&gt;&gt;&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="leFlowRateMinumum">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                  </widget>
                 </item>
@@ -3344,7 +3656,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_3">
+                 <spacer name="verticalSpacer_10">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -3364,19 +3676,19 @@ QMessageBox  {
                  <number>4</number>
                 </property>
                 <property name="rightMargin">
-                 <number>15</number>
+                 <number>12</number>
                 </property>
                 <item>
                  <widget class="QLabel" name="lbError1">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>70</width>
                     <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>60</width>
+                    <width>70</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -3869,35 +4181,16 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab20">
+                 <widget class="QLabel" name="lbSpace_1_1">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
-                    <height>10</height>
+                    <width>0</width>
+                    <height>22</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="lbTab53">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
+                    <width>16777215</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -3907,16 +4200,10 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab23">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpace_1_2">
                   <property name="maximumSize">
                    <size>
-                    <width>50</width>
+                    <width>16777215</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -3926,7 +4213,58 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_10">
+                 <widget class="QLabel" name="lbSpace_1_3">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpace_1_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpace_1_5">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_7">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -4480,6 +4818,13 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="lbFlowRateTransition">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="lbMass2">
                   <property name="minimumSize">
                    <size>
@@ -4525,7 +4870,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_4">
+                 <spacer name="verticalSpacer_11">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -4997,13 +5342,13 @@ QMessageBox  {
                   <property name="minimumSize">
                    <size>
                     <width>40</width>
-                    <height>28</height>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
                     <width>40</width>
-                    <height>28</height>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="focusPolicy">
@@ -5011,6 +5356,27 @@ QMessageBox  {
                   </property>
                   <property name="text">
                    <string>&gt;&gt;&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="leFlowRateTransitoriu">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                  </widget>
                 </item>
@@ -5081,7 +5447,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer">
+                 <spacer name="verticalSpacer_12">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -5606,17 +5972,11 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab25">
+                 <widget class="QLabel" name="lbSpace_2_1">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>10</height>
+                    <width>0</width>
+                    <height>22</height>
                    </size>
                   </property>
                   <property name="text">
@@ -5625,45 +5985,35 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpace_2_2">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab27">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>50</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpace_2_3">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_18">
+                 <widget class="QLabel" name="lbSpace_2_4">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpace_2_5">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_13">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -5674,6 +6024,9 @@ QMessageBox  {
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_2"/>
                 </item>
                </layout>
               </item>
@@ -6217,6 +6570,13 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="lbFlowRateNominal">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="lbMass3">
                   <property name="minimumSize">
                    <size>
@@ -6262,7 +6622,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_6">
+                 <spacer name="verticalSpacer_14">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -6743,6 +7103,27 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLineEdit" name="leFlowRateNominal">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLineEdit" name="leMass3">
                   <property name="minimumSize">
                    <size>
@@ -6809,7 +7190,7 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_5">
+                 <spacer name="verticalSpacer_16">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -7337,57 +7718,35 @@ QMessageBox  {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab28">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>10</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpace_3_1">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab29">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="lbSpace_3_2">
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab32">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
+                 <widget class="QLabel" name="lbSpace_3_3">
+                  <property name="text">
+                   <string/>
                   </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>50</width>
-                    <height>20</height>
-                   </size>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpace_3_4">
+                  <property name="text">
+                   <string/>
                   </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="lbSpace_3_5">
                   <property name="text">
                    <string/>
                   </property>
@@ -7411,179 +7770,6 @@ QMessageBox  {
              </layout>
             </item>
            </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="0">
-         <widget class="Line" name="line_43">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="spacing">
-           <number>4</number>
-          </property>
-          <property name="topMargin">
-           <number>8</number>
-          </property>
-          <property name="rightMargin">
-           <number>8</number>
-          </property>
-          <property name="bottomMargin">
-           <number>8</number>
-          </property>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Expanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>50</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbCalculate">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 10px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbPrint">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>60</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbOpen">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbSaveResults">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>60</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbClose">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbClean">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
           </item>
          </layout>
         </item>
@@ -7655,6 +7841,7 @@ QMessageBox  {
   <tabstop>leStop1_18</tabstop>
   <tabstop>leStop1_19</tabstop>
   <tabstop>leStop1_20</tabstop>
+  <tabstop>leFlowRateMinumum</tabstop>
   <tabstop>leMass1</tabstop>
   <tabstop>leTemperature1</tabstop>
   <tabstop>leVolume1</tabstop>
@@ -7698,6 +7885,7 @@ QMessageBox  {
   <tabstop>leStop2_18</tabstop>
   <tabstop>leStop2_19</tabstop>
   <tabstop>leStop2_20</tabstop>
+  <tabstop>leFlowRateTransitoriu</tabstop>
   <tabstop>leMass2</tabstop>
   <tabstop>leTemperature2</tabstop>
   <tabstop>leVolume2</tabstop>
@@ -7741,6 +7929,7 @@ QMessageBox  {
   <tabstop>leStop3_18</tabstop>
   <tabstop>leStop3_19</tabstop>
   <tabstop>leStop3_20</tabstop>
+  <tabstop>leFlowRateNominal</tabstop>
   <tabstop>leMass3</tabstop>
   <tabstop>leTemperature3</tabstop>
   <tabstop>leVolume3</tabstop>

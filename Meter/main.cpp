@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QSharedMemory>
 #include <QString>
+#include <QSplashScreen>
 
 #include "mainwindow.h"
 
@@ -46,6 +47,15 @@ int main(int argc, char *argv[])
         warningMessage.exec();
         exit(0);
     }
+    // Create a splash screen
+    QSplashScreen splash(
+        QPixmap("water-meters.jpg")); // Replace with your image path
+    // Customize the splash screen with text
+    QLabel messageLabel(&splash);
+    messageLabel.setText("Loading...");
+    messageLabel.setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+    messageLabel.setStyleSheet("QLabel { color: white; }"); // Customize text color
+    splash.show();
     MainWindow w;
     w.show();
     return a.exec();

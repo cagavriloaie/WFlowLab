@@ -1,6 +1,7 @@
 /*
  *  Author: Constantin
  *  File:   definitions.h
+ *  Description: Header file containing constants and definitions for the project.
  */
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
@@ -8,7 +9,7 @@
 #include <cstddef>
 
 // Version information
-#define VERSION_BUILD "1.2 Windows x86_32"
+#define VERSION_BUILD "1.3 Windows x86_32"
 
 // CSV delimiter
 constexpr char DELIMITER{','};
@@ -20,21 +21,21 @@ constexpr size_t MAX_NUMBER_FLOW_METER_TYPES{1000};
 #define CSV_FLOW_METER_TYPES  "watermeters.csv"
 
 // Constants for MD5Transform routine
-#define S11 7
-#define S12 12
-#define S13 17
-#define S14 22
-#define S21 5
-#define S22 9
-#define S23 14
-#define S24 20
-#define S31 4
-#define S32 11
-#define S33 16
-#define S34 23
-#define S41 6
-#define S42 10
-#define S43 15
-#define S44 21
+constexpr int S11 = 7;
+constexpr int S12 = 12;
+constexpr int S13 = 17;
+constexpr int S14 = 22;
+constexpr int S21 = 5;
+constexpr int S22 = 9;
+constexpr int S23 = 14;
+constexpr int S24 = 20;
+constexpr int S31 = 4;
+constexpr int S32 = 11;
+constexpr int S33 = 16;
+constexpr int S34 = 23;
+constexpr int S41 = 6;
+constexpr int S42 = 10;
+constexpr int S43 = 15;
+constexpr int S44 = 21;
 
 #endif // DEFINITIONS_H
