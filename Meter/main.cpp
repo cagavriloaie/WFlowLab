@@ -15,8 +15,13 @@
 #include <QPainter>
 #include <QEventLoop>
 #include <QThread>
+#include <windows.h>
+#include <winnt.h>
+#include <fstream>
 
 #include "mainwindow.h"
+
+#define MAX_PATH 260
 
 class PixelImageWidget : public QMainWindow {
 
@@ -24,7 +29,7 @@ public:
     explicit PixelImageWidget(QWidget* parent = nullptr) : QMainWindow(parent) {
         setAttribute(Qt::WA_TranslucentBackground); // Enable transparency
         setWindowFlags(Qt::FramelessWindowHint);    // Remove window frame
-        setFixedSize(320, 300);                     // Set the size of the widget
+        setFixedSize(400, 300);                     // Set the size of the widget
 
         // Set up a timer to hide the pixel image after five seconds
         QTimer::singleShot(5000, this, &PixelImageWidget::hidePixelImage);
@@ -35,6 +40,15 @@ public:
 protected:
      QRect centeredRect(const QSize &outer, const QSize &inner) {
         return QRect((outer.width() - inner.width()) / 2, (outer.height() - inner.height()) / 2, inner.width(), inner.height());
+     }
+
+     std::wstring ExePath()
+     {
+        TCHAR buffer[MAX_PATH] = { 0 };
+        GetModuleFileName(NULL, buffer, MAX_PATH);
+        std::wstring::size_type pos = std::wstring(buffer).find_last_of(
+            L"\\/");
+        return std::wstring(buffer).substr(0, pos);
      }
 
     void paintEvent(QPaintEvent*) override {
@@ -54,15 +68,37 @@ protected:
         }
 
         QFont font;
+        font.setFamily("Arial");
         font.setPointSize(12);
 
         painter.setFont(font);
 
-        const QString& message(
-            "   >WStreamLab\n"
-            "   >Elcost Romania\n"
-            "   >Version [1.3 12.23]"
+        QString message(
+            "\n"
+            "   > WStreamLab\n"
+            "   > Elcost Romania\n"
+            "   > Ver [1.3 12.23]\n"
             );
+
+
+        std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
+        std::ifstream inConfigurationFile(pathToConfig.c_str());
+        std::map<std::string, std::string> optionsConfiguration;
+        if (inConfigurationFile.is_open())
+        {
+            std::string key;
+            while (std::getline(inConfigurationFile, key, '='))
+            {
+                std::string value;
+                if (std::getline(inConfigurationFile, value, '>'))
+                {
+                    optionsConfiguration[key] = value;
+                    std::getline(inConfigurationFile, value);
+                }
+            }
+        }
+
+        message += "   > " + optionsConfiguration["company"] + "\n";
 
         QRect textRect = QRect(0, 0, width(), height());
         painter.setPen(Qt::white);
