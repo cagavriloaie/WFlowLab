@@ -20,6 +20,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     md5.cpp \
+    report.cpp \
     tableBoard.cpp
 
 HEADERS += \
@@ -32,11 +33,13 @@ HEADERS += \
     license.h \
     mainwindow.h \
     md5.h \
+    report.h \
     tableBoard.h
 
 FORMS += \
     helpabout.ui \
     interface.ui \
+    report.ui \
     tableBoard.ui \
     license.ui \
     mainwindow.ui

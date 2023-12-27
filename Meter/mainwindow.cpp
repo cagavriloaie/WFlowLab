@@ -11,18 +11,21 @@
 #include <QScrollArea>
 #include <QSettings>
 #include <QValidator>
+
+#include <windows.h>
+
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <map>
 #include <sstream>
 
-#include <windows.h>
 #include "air-density.h"
 #include "flow-meter-type.h"
 #include "mainwindow.h"
 #include "md5.h"
 #include "ui_mainwindow.h"
+
 
 extern QTranslator *appTranslator;
 MainWindow *pw;

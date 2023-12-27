@@ -12,6 +12,7 @@
 #include <QCheckBox>
 #include <QKeyEvent>
 #include <sstream>
+#include "report.h"
 
 namespace Ui
 {
@@ -44,6 +45,7 @@ class Dialog : public QDialog
     QWidget *parent;
     Ui::Dialog *ui;
     size_t entries {0};
+    ReportMeasurements *reportMeasurementsDialog {nullptr};
     std::string nameWaterMeter;
     double minimumFlowMain {0};
     double transitoriuFlowMain {0};
@@ -85,6 +87,8 @@ class Dialog : public QDialog
 
     void onCopy12Clicked();
     void onCopy23Clicked_new();
+
+    void onReportClicked();
 
   protected:
     void showEvent(QShowEvent *event);

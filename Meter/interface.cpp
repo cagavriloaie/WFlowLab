@@ -18,6 +18,7 @@
 #include "ui_interface.h"
 #include "ui_mainwindow.h"
 
+
 namespace
 {
     MainWindow *mainwindow;

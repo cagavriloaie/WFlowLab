@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>report</class>
+ <widget class="QDialog" name="report">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>658</width>
+    <height>384</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WFlowLab - Buletin de Verificare Metrologica</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:hover {
+       background-color: #d7d9d7;
+}
+
+QLabel 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QComboBox 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QGroupBox  {
+    border: 2px solid gray;
+    border-color: #FF17365D;
+    background-color: #E6E6FF;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    margin-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: -5px 5px 0px 5px;
+}
+
+QMenu {
+    background-color: white;
+    margin: 2px; /* some spacing around the menu */
+}
+
+QMenu::item {
+    padding: 2px 25px 2px 20px;
+    border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected {
+    border-color: darkblue;
+    background: rgba(100, 100, 100, 150);
+}
+
+QRadioButton {
+   padding-left: 20px; 
+   padding-right: 20px;
+}
+
+QRadioButton::indicator {
+    width:                  10px; 
+    height:                 10px;
+    border-radius:       7px;
+}
+
+QRadioButton::indicator:checked {
+    background-color:       black;
+    border:                         4px;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color:       white;
+    border:                         4px;
+}
+
+QEdit 
+{
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+}
+
+QFrame[frameShape=&quot;4&quot;] /* QFrame::HLine == 0x0004 */
+{
+    color: red;
+}
+
+QFrame[frameShape=&quot;5&quot;] /* QFrame::VLine == 0x0005 */
+{
+    color: green;
+}
+
+QMessageBox  {
+ 	font-family: &quot;Segoe UI&quot;;
+	font-size: 12pt;
+    border-width: 2px;
+    border-radius: 10px;
+    color: green;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="grBoxBuletin">
+     <property name="title">
+      <string>Date buletin verificare</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbBuletinNumber">
+            <property name="text">
+             <string>Numar buletin:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lb3">
+            <property name="text">
+             <string>NML, NTM, alte normative:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="lb6">
+            <property name="text">
+             <string>Cost (RON):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="lbChecker">
+            <property name="text">
+             <string>Verificator metrolog:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="cbValability">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QLineEdit" name="leCostRon">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="lb4">
+            <property name="text">
+             <string>Etaloane utilizate, denumire, serie, nr. CE: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lb1">
+            <property name="text">
+             <string>Mijloc de masurare apartinand:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="leLtCode">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="lb5">
+            <property name="text">
+             <string>Valabilitatea verificarii:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="leMeansOfMeasurement">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lb2">
+            <property name="text">
+             <string>Codul din LT:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="leUsedSerie">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="leNmlNtmNorms">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="leBuletinNumber">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="lbTehnicalSuperviser">
+            <property name="text">
+             <string>Responsabil tehnic:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="leChecker">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLineEdit" name="leTehnicalSuperviser">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbPrint">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="text">
+             <string>&amp;Tipareste PDF</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbClose">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="text">
+             <string>&amp;Inchide</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>leBuletinNumber</tabstop>
+  <tabstop>leMeansOfMeasurement</tabstop>
+  <tabstop>leLtCode</tabstop>
+  <tabstop>leNmlNtmNorms</tabstop>
+  <tabstop>leUsedSerie</tabstop>
+  <tabstop>cbValability</tabstop>
+  <tabstop>leChecker</tabstop>
+  <tabstop>leTehnicalSuperviser</tabstop>
+  <tabstop>leCostRon</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

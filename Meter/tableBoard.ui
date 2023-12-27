@@ -208,7 +208,7 @@ QMessageBox  {
           <item>
            <widget class="QPushButton" name="pbCalculate">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -237,6 +237,22 @@ QMessageBox  {
  padding-top: 1px; 
  padding-right: 10px;
  padding-down: 5px; </string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbReport">
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> padding-left: 10px; 
+ padding-top: 1px; 
+ padding-right: 10px;
+ padding-down: 5px;</string>
             </property>
             <property name="text">
              <string/>

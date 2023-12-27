@@ -12,7 +12,6 @@
 #include <QString>
 #include <QValidator>
 #include <QtPrintSupport/QPrinter>
-#include <string.h>
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
@@ -25,6 +24,7 @@
 #include "tableBoard.h"
 #include "ui_mainwindow.h"
 #include "ui_tableBoard.h"
+
 
 constexpr size_t MAX_ENTRIES{20};
 
@@ -42,7 +42,7 @@ void Dialog::printPdfThread(QString report)
     QDateTime now = QDateTime::currentDateTime();
     QString fileName = QString(
                            mainwindow->selectedInfo.pathResults.c_str()) +
-                       "/" + QString("WStreamLab_") +
+                       "/" + QString("FM_") +
                        now.toString(QLatin1String("yyyyMMdd_hhmmss"));
     fileName.append(".pdf");
     // Check if the directory exists, and create it if not
@@ -606,6 +606,7 @@ void Dialog::Translate()
     // Buttons
     ui->pbCalculate->setText(tr("&Data evaluate"));
     ui->pbPrint->setText(tr("&Print PDF"));
+    ui->pbReport->setText(tr("Report PDF"));
     ui->pbOpen->setText(tr("&Open"));
     ui->pbSaveResults->setText(tr("&Save"));
     ui->pbClose->setText(tr("&Close"));
@@ -655,6 +656,8 @@ Dialog::Dialog(QWidget *_parent):
             &Dialog::onOpenInputDataClicked);
     connect(ui->pbPrint, &QPushButton::clicked, this,
             &Dialog::onPrintPdfDocClicked);
+    connect(ui->pbReport, &QPushButton::clicked, this,
+            &Dialog::onReportClicked);
     connect(ui->cbSet, &QCheckBox::stateChanged, this,
             &Dialog::onSelectAllChanged);
     connect(ui->pbCopy12, &QPushButton::clicked, this,
@@ -671,7 +674,8 @@ Dialog::Dialog(QWidget *_parent):
 Dialog::~Dialog()
 {
     MainWindow *mainWindow  = dynamic_cast< MainWindow *>(this->parent);
-    if(mainWindow) {
+    if (mainWindow)
+    {
         mainWindow->inputData = nullptr;
     }
     delete ui;
@@ -702,6 +706,9 @@ void Dialog::onCleanClicked()
     ui->leVolume2->clear();
     ui->leVolume3->clear();
 }
+
+
+QString resultAllTests[20];
 
 void Dialog::onCalculateClicked()
 {
@@ -897,6 +904,7 @@ void Dialog::onCalculateClicked()
         if (VolumeFirst > 0 && result_t1 && result_m1)
             for (unsigned iter = 0; iter < entries; ++iter)
             {
+                resultAllTests[iter] = "ADMIS";
                 if (vectorCheckNumber[iter]->isChecked())
                 {
                     double start{0};
@@ -939,6 +947,7 @@ void Dialog::onCalculateClicked()
                             {
                                 vectorFirstError[iter]->setStyleSheet(
                                     "QLineEdit { color: red }");
+                                resultAllTests[iter] = "RESPINS";
                             }
                             else
                             {
@@ -1007,6 +1016,7 @@ void Dialog::onCalculateClicked()
                             {
                                 vectorSecondError[iter]->setStyleSheet(
                                     "QLineEdit { color: red }");
+                                resultAllTests[iter] = "RESPINS";
                             }
                             else
                             {
@@ -1075,6 +1085,7 @@ void Dialog::onCalculateClicked()
                             {
                                 vectorThirdError[iter]->setStyleSheet(
                                     "QLineEdit { color: red }");
+                                resultAllTests[iter] = "RESPINS";
                             }
                             else
                             {
@@ -1496,9 +1507,16 @@ void Dialog::onMeasurementTypeChanged()
     }
 }
 
+
 void Dialog::onPrintPdfDocClicked()
 {
     onCalculateClicked();
+    size_t count {0};
+    for (size_t iter = 0; iter != mainwindow->selectedInfo.entriesNumber;
+            ++iter)
+    {
+        resultAllTests[iter] = "RESPINS";
+    }
     QString companyName =
         mainwindow->optionsConfiguration["company"].c_str();
     QDateTime date = QDateTime::currentDateTime();
@@ -1710,6 +1728,7 @@ void Dialog::onPrintPdfDocClicked()
             {
                 resultTests = "RESPINS";
             }
+            resultAllTests[count++] = resultTests;
             double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
             double trasitionFlowRate =
                 ui->leFlowRateTransitoriu->text().toDouble();
@@ -1878,6 +1897,7 @@ void Dialog::onPrintPdfDocClicked()
                 {
                     resultTests = "RESPINS";
                 }
+                resultAllTests[count++] = resultTests;
                 double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
                 double trasitionFlowRate =
                     ui->leFlowRateTransitoriu->text().toDouble();
@@ -2104,6 +2124,7 @@ void Dialog::onPrintPdfDocClicked()
             {
                 resultTests = "FAILED";
             }
+            resultAllTests[count++] = resultTests;
             double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
             double trasitionFlowRate =
                 ui->leFlowRateTransitoriu->text().toDouble();
@@ -2259,6 +2280,7 @@ void Dialog::onPrintPdfDocClicked()
                     {
                         resultTests = "FAILED";
                     }
+                    resultAllTests[count++] = resultTests;
                     double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
                     double trasitionFlowRate =
                         ui->leFlowRateTransitoriu->text().toDouble();
@@ -2488,4 +2510,14 @@ void Dialog::onCopy23Clicked_new()
     ui->leStop3_1->setFocus();
 }
 
+void Dialog::onReportClicked()
+{
+    onCalculateClicked();
+    if (reportMeasurementsDialog == nullptr)
+    {
+        reportMeasurementsDialog = new ReportMeasurements(this,
+                vectorCheckNumber, vectorSerialNumber, resultAllTests);
+    }
+    reportMeasurementsDialog->show();
+}
 
