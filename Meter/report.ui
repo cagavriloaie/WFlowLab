@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>WFlowLab - Buletin de Verificare Metrologica</string>
+   <string/>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -113,7 +113,7 @@ QMessageBox  {
    <item row="0" column="0">
     <widget class="QGroupBox" name="grBoxBuletin">
      <property name="title">
-      <string>Date buletin verificare</string>
+      <string/>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
@@ -123,28 +123,28 @@ QMessageBox  {
           <item row="0" column="0">
            <widget class="QLabel" name="lbBuletinNumber">
             <property name="text">
-             <string>Numar buletin:</string>
+             <string/>
             </property>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="lb3">
+           <widget class="QLabel" name="lbNmlNtm">
             <property name="text">
-             <string>NML, NTM, alte normative:</string>
+             <string/>
             </property>
            </widget>
           </item>
           <item row="8" column="0">
-           <widget class="QLabel" name="lb6">
+           <widget class="QLabel" name="lbCost">
             <property name="text">
-             <string>Cost (RON):</string>
+             <string/>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="lbChecker">
             <property name="text">
-             <string>Verificator metrolog:</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -168,16 +168,16 @@ QMessageBox  {
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="lb4">
+           <widget class="QLabel" name="lbEtaloane">
             <property name="text">
-             <string>Etaloane utilizate, denumire, serie, nr. CE: </string>
+             <string/>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="lb1">
+           <widget class="QLabel" name="lbMijlocMasurare">
             <property name="text">
-             <string>Mijloc de masurare apartinand:</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -191,9 +191,9 @@ QMessageBox  {
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QLabel" name="lb5">
+           <widget class="QLabel" name="lbValabilitate">
             <property name="text">
-             <string>Valabilitatea verificarii:</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -207,9 +207,9 @@ QMessageBox  {
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="lb2">
+           <widget class="QLabel" name="lbCodulLt">
             <property name="text">
-             <string>Codul din LT:</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -243,7 +243,7 @@ QMessageBox  {
           <item row="7" column="0">
            <widget class="QLabel" name="lbTehnicalSuperviser">
             <property name="text">
-             <string>Responsabil tehnic:</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -306,7 +306,7 @@ QMessageBox  {
              <enum>Qt::NoFocus</enum>
             </property>
             <property name="text">
-             <string>&amp;Tipareste PDF</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -316,7 +316,7 @@ QMessageBox  {
              <enum>Qt::NoFocus</enum>
             </property>
             <property name="text">
-             <string>&amp;Inchide</string>
+             <string/>
             </property>
            </widget>
           </item>

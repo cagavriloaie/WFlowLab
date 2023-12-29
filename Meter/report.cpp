@@ -44,7 +44,7 @@ std::string convertNumberToWords(int num, bool addSuffix)
 {
     static const std::string units[] = {"", "un", "doua", "trei", "patru", "cinci", "sase", "sapte", "opt", "noua"};
     static const std::string teens[] = {"", "unsprezece", "doisprezece", "treisprezece", "paisprezece", "cincisprezece", "saisprezece", "saptesprezece", "optisprezece", "nouasprezece"};
-    static const std::string tens[] = {"", "", "douazeci", "treizeci", "patruzeci", "cincizeci", "saizeci", "saptezeci", "optzeci", "nouazeci"};
+    static const std::string tens[]  = {"", "", "douazeci", "treizeci", "patruzeci", "cincizeci", "saizeci", "saptezeci", "optzeci", "nouazeci"};
     std::string result;
     if (num == 0)
     {
@@ -108,6 +108,27 @@ std::string convertNumberToWords(int num, bool addSuffix)
     return result;
 }
 
+void ReportMeasurements::Translate() {
+    this->setWindowTitle(tr("WFlowLab - Checking report"));
+    ui->grBoxBuletin->setTitle(tr("Date from verification report"));
+    ui->lbBuletinNumber->setText(tr("Verification report:"));
+    ui->lbMijlocMasurare->setText(tr("Measuring instrument:"));
+    ui->lbCodulLt->setText(tr("LT code:"));
+    ui->lbNmlNtm->setText(tr("Ntm, lNtm, other Norm:"));
+    ui->lbEtaloane->setText(tr("Used Standards, name, series, no. CE:"));
+    ui->lbValabilitate->setText(tr("Valability:"));
+    ui->lbChecker->setText(tr("Checker:"));
+    ui->lbTehnicalSuperviser->setText(tr("Tehnical superviser:"));
+    ui->lbCost->setText(tr("Cost:"));
+    ui->cbValability->addItem(tr("6 months"));
+    ui->cbValability->addItem(tr("1 year"));
+    ui->cbValability->addItem(tr("2 years"));
+    ui->cbValability->addItem(tr("3 years"));
+    ui->cbValability->addItem(tr("5 years"));
+    ui->pbPrint->setText(tr("&PrintPDF"));
+    ui->pbClose->setText(tr("&Close"));
+}
+
 ReportMeasurements::ReportMeasurements(QWidget *parent,
                                        const std::vector<QCheckBox *> &vectorCheckNumber,
                                        const std::vector<QLineEdit *> &vectorSerialNumber,
@@ -127,11 +148,24 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     {
         resultAllTestsCopy[iter] = resultAllTests[iter];
     }
-    ui->cbValability->addItem("6 luni");
-    ui->cbValability->addItem("1 an");
-    ui->cbValability->addItem("2 ani");
-    ui->cbValability->addItem("3 ani");
-    ui->cbValability->addItem("5 ani");
+    this->setWindowTitle(tr("WFlowLab - Checking report"));
+    ui->grBoxBuletin->setTitle(tr("Date from verification report"));
+    ui->lbBuletinNumber->setText(tr("Verification report:"));
+    ui->lbMijlocMasurare->setText(tr("Measuring instrument:"));
+    ui->lbCodulLt->setText(tr("LT code:"));
+    ui->lbNmlNtm->setText(tr("Ntm, lNtm, other Norm:"));
+    ui->lbEtaloane->setText(tr("Used Standards, name, series, no. CE:"));
+    ui->lbValabilitate->setText(tr("Valability:"));
+    ui->lbChecker->setText(tr("Checker:"));
+    ui->lbTehnicalSuperviser->setText(tr("Tehnical superviser:"));
+    ui->lbCost->setText(tr("Cost:"));
+    ui->cbValability->addItem(tr("6 months"));
+    ui->cbValability->addItem(tr("1 year"));
+    ui->cbValability->addItem(tr("2 years"));
+    ui->cbValability->addItem(tr("3 years"));
+    ui->cbValability->addItem(tr("5 years"));
+    ui->pbPrint->setText(tr("&PrintPDF"));
+    ui->pbClose->setText(tr("&Close"));
     ui->cbValability->setCurrentIndex(1);
     QDoubleValidator *validatorDoubleNumber = new QDoubleValidator(this);
     ui->leCostRon->setValidator(validatorDoubleNumber);
@@ -140,23 +174,23 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     settings.sync();
     settings.beginGroup("Report");
     ui->leBuletinNumber->setText(settings.value("buletinNumber",
-                                 1).toString());
+                                                1).toString());
     ui->leMeansOfMeasurement->setText(settings.value("meansOfMeasurement",
-                                      "Dn20").toString());
+                                                     "Dn20").toString());
     ui->leLtCode->setText(settings.value("ltCode",
                                          "1.06.28.1.1").toString());
     ui->leNmlNtmNorms->setText(settings.value("nmNtmNorms",
-                               1234).toString());
+                                              1234).toString());
     ui->leUsedSerie->setText(settings.value("usedSerie",
                                             0001).toString());
     ui->cbValability->setCurrentIndex(settings.value("valability",
-                                      0).toInt());
+                                                     0).toInt());
     ui->leUsedSerie->setText(settings.value("usedSerie",
                                             0001).toString());
     ui->leChecker->setText(settings.value("checker",
                                           "Adrian Pintilie").toString());
     ui->leTehnicalSuperviser->setText(settings.value("superviser",
-                                      "Victor Trambu").toString());
+                                                     "Victor Trambu").toString());
     ui->leCostRon->setText(settings.value("costRon", 100).toString());
     ui->leBuletinNumber->setStyleSheet(
         "QLineEdit { background: rgb(240, 255, 240); "
@@ -206,17 +240,17 @@ void ReportMeasurements::onPrintClicked()
         ui->leChecker->text().isEmpty() ||
         ui->leTehnicalSuperviser->text().isEmpty() ||
         ui->leCostRon->text().isEmpty()
-    )
+        )
     {
-        QMessageBox messageBox;
-        messageBox.setWindowTitle(tr("Buletin de verificare metrologica"));
-        messageBox.setText("Exista campuri necompletate!");
-        messageBox.setStandardButtons(QMessageBox::Ok);
-        messageBox.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                  Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
-        if (messageBox.exec() == QMessageBox::Ok)
+        QMessageBox messageBoxWindowsTitle;
+        messageBoxWindowsTitle.setWindowTitle(tr("Verification report"));
+        messageBoxWindowsTitle.setText(tr("There are unfilled fields!"));
+        messageBoxWindowsTitle.setStandardButtons(QMessageBox::Ok);
+        messageBoxWindowsTitle.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
+                                              Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+        if (messageBoxWindowsTitle.exec() == QMessageBox::Ok)
         {
-            messageBox.close();
+            messageBoxWindowsTitle.close();
         }
         return;
     }
@@ -227,7 +261,6 @@ void ReportMeasurements::onPrintClicked()
     // Convert the time_t to a tm structure
     std::tm *localTime = std::localtime(&currentTime);
     size_t entriesTable = pw->selectedInfo.entriesNumber;
-    QString meansOfMeasurement = ui->leNmlNtmNorms->text();
     QString ltCode = ui->leLtCode->text();
     QString nmlNtmNorms = ui->leNmlNtmNorms->text();
     QString SerieUsed = ui->leUsedSerie->text();
@@ -241,7 +274,7 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "  <title>Buletin de verificare metrologica</title>\n";
     htmlTable << "  <style>\n";
     htmlTable <<
-              "    p { font-size: 18px; }\n"; // Larger font size for paragraphs
+        "    p { font-size: 18px; }\n"; // Larger font size for paragraphs
     htmlTable << "<style>";
     htmlTable << "table {";
     htmlTable << "    border-collapse: collapse;";
@@ -249,8 +282,8 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "}";
     htmlTable << "th, td {";
     htmlTable << "border: 1px solid #dddddd;",
-              htmlTable << "    text-align: left;",
-              htmlTable << "padding: 8px;";
+        htmlTable << "    text-align: left;",
+        htmlTable << "padding: 8px;";
     htmlTable << "}";
     htmlTable << "th {";
     htmlTable << "    background-color: #f2f2f2;";
@@ -259,14 +292,26 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "</head>\n";
     htmlTable << "<body>\n";
     htmlTable <<
-              "  <p style=\"font-size: 20px;\">Biroul Roman de Metrologie Legala</p>\n";
-    htmlTable << "  <p style=\"font-size: 15px;\">Laboratorul " <<
-              companyLaboratory << "</p>\n";
+        "  <p style=\"font-size: 15px;\"><strong>Biroul Roman de Metrologie Legala</strong></p>\n";
+    htmlTable << "  <p style=\"font-size: 12px;\">Laboratorul " <<
+        companyLaboratory << "</p>\n";
     htmlTable << "<center>";
+
     htmlTable <<
-              "  <p style=\"font-size: 15px;\">Buletin de verificare metrologica<br>Nr. "
-              << ui->leBuletinNumber->text().toStdString() << "    ["
-              <<  std::put_time(localTime, "%d-%m-%Y %H:%M:%S") << "]</p>\n";
+        "  <p style=\"font-size: 15px;\">Buletin de verificare metrologica</p>";
+    htmlTable <<
+        "  <p style=\"font-size: 14x;\">Nr. "<< ui->leBuletinNumber->text().toStdString() << "    ["
+              <<  std::put_time(localTime, "%d-%m-%Y %H:%M:%S") << "]</p><br><";
+
+    htmlTable <<
+        "  <p style=\"font-size: 14px;\"  style=\"text-align:left;\">Mijloace de masurare apartinand: _____________________________________________________</p>\n";
+    htmlTable <<
+        "  <p style=\"font-size: 10px;\"  style=\"text-align: left;\">"
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" <<
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" <<
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Agent economic / persoana fizica, adresa, telefon)</p>\n";
+    htmlTable <<
+        " <p style=\"font-size: 14px;\"  style=\"text-align: left;\">prezentate la verificare metrologica au obtinut urmatoarele rezultate:</p>\n";
     htmlTable << "</center>";
     // Continue building the HTML string with the table
     htmlTable << "<center>";
@@ -277,7 +322,7 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "        <th>Codul LT</th>\n";
     htmlTable << "        <th>NML, NTM,<br>alte normative</th>\n";
     htmlTable <<
-              "        <th>Etaloane utilizate,<br>denumire, serie, nr. CE</th>\n";
+        "        <th>Etaloane utilizate,<br>denumire, serie, nr. CE</th>\n";
     htmlTable << "        <th>Rezultatul<br>verificarii</th>\n";
     htmlTable << "        <th>Valabilitatea<br>verificarii</th>\n";
     htmlTable << "        <th>Cost (lei)</th>\n";
@@ -289,14 +334,14 @@ void ReportMeasurements::onPrintClicked()
     {
         htmlTable << "      <tr style=\"height: 30px;\">\n";
         htmlTable << "        <td>" <<
-                  vectorSerialNumberCopy[row]->text().toStdString() << "</td>\n";
+            vectorSerialNumberCopy[row]->text().toStdString() << "</td>\n";
         htmlTable << "        <td>" << ltCode.toStdString() << "</td>\n";
         htmlTable << "        <td>" << nmlNtmNorms.toStdString() << "</td>\n";
         htmlTable << "        <td>" << SerieUsed.toStdString() << "</td>\n";
         htmlTable << "        <td>" << resultAllTestsCopy[row].toStdString()
                   << "</td>\n";
         htmlTable << "        <td>" << checkValability.toStdString() <<
-                  "</td>\n";
+            "</td>\n";
         htmlTable << "        <td>" << costRon.toStdString() << "</td>\n";
         htmlTable << "      </tr>\n";
     }
@@ -314,55 +359,44 @@ void ReportMeasurements::onPrintClicked()
     streamObjCostTVA << costRon.toDouble() * entriesTable * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
     std::string  totalCostTVALetters = convertNumberToWords(std::stoi(
-                                           totalCostTVA), true);
+                                                               totalCostTVA), true);
     // Additional rows at the end of the HTML document
     htmlTable << "  <p style=\"font-size: 10px;\">";
     htmlTable <<
-              "  <p style=\"font-size: 10px;\">Locul efectuarii verificarii metrologice: "
-              << companyLaboratory << "</p>\n";
+        "  <p style=\"font-size: 10px;\">Locul efectuarii verificarii metrologice: "
+              << companyLaboratory << ".</p>\n";
+    htmlTable << "  <p style=\"font-size: 10px;\">Costul total al verificarii metrologice fara TVA este " << totalCost << " lei.</p>";
     htmlTable <<
-              "  <p style=\"font-size: 10px;\">Costul total al verificarii metrologice cu TVA "
+        "  <p style=\"font-size: 10px;\">Costul total al verificarii metrologice cu TVA "
               << totalCostTVA << " ("
               << totalCostTVALetters <<
-              ") lei a fost achitat cu numerar / ordin de plata nr._______________in contul_______________ la trezoreria _______________"
+        ") lei a fost achitat cu numerar / ordin de plata nr.______________________in contul______________________la trezoreria ______________________"
               << "</p>\n";
-    htmlTable << "  <p style=\"font-size: 10px;\">";
     htmlTable << "<table width=\"100%\">";
+    htmlTable << "<br>";
     htmlTable << "    <tr style=\"height: 20px;\">";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Verificator metrolog]</td>";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Conducator laborator]</td>";
+    htmlTable << "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Verificator metrolog]</td>";
+    htmlTable << "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Conducator laborator]</td>";
     htmlTable << "    </tr>";
-    htmlTable << "    <tr style=\"height: 20px;\">";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Nume, prenume]</td>";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Nume, prenume]</td>";
-    htmlTable << "    </tr>";
+
     htmlTable << "    <tr style=\"height: 20px;\">";
     QString checker = ui->leChecker->text();
     QString tehnicalSuperviser = ui->leTehnicalSuperviser->text();
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">"
-              << checker.toStdString() << "</td>";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">"
-              << tehnicalSuperviser.toStdString() << "</td>";
+    htmlTable << "        <td style=\"font-size: 10px; border: none; padding: 8px;\">Nume, prenume: " << checker.toStdString() << "</td>";
+    htmlTable << "        <td style=\"font-size: 10px; border: none; padding: 8px;\">Nume, prenume: " << tehnicalSuperviser.toStdString() << "</td>";
     htmlTable << "    </tr>";
+
     htmlTable << "    <tr style=\"height: 20px;\">";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Semnatura]</td>";
-    htmlTable <<
-              "        <td style=\"font-size: 10px; border: none; padding: 8px;\">[Semnatura]</td>";
+    htmlTable <<"        <td style=\"font-size: 10px; border: none; padding: 8px;\">Semnatura: ___________________________</td>";
+    htmlTable <<"        <td style=\"font-size: 10px; border: none; padding: 8px;\">Semnatura: ___________________________</td>";
     htmlTable << "    </tr>";
-    htmlTable << "    <tr style=\"height: 20px;\">";
-    htmlTable <<
-              "        <td style=\"font-size: 12px; border: none; padding: 8px;\">-------------------------------</td>";
-    htmlTable <<
-              "        <td style=\"font-size: 12px; border: none; padding: 8px;\">-------------------------------</td>";
-    htmlTable << "    </tr>";
+
     htmlTable << "</table>";
+
+    htmlTable << "<br>";
+    htmlTable << "<p style=\"font-size: 13x;\">Prezentul buletin de verificare, impreuna cu mijlocul / mijloacele de masurare verificat/e a fost"
+                  " predat reprezentantului beneficiarului (nume, prenume, BI/CI, nr. imputernicire __________________"
+                 "_______________________________________ data __________________ semnatura _______________________</p>";
     htmlTable << "</body>\n";
     htmlTable << "</html>\n";
     QDateTime nowPdf = QDateTime::currentDateTime();
@@ -406,15 +440,15 @@ void ReportMeasurements::onPrintClicked()
     settings.setValue("costRon", ui->leCostRon->text());
     settings.endGroup();
     settings.sync();
-    QMessageBox messageBox;
-    messageBox.setWindowTitle(tr("Buletin de verificare metrologica"));
-    messageBox.setText("Fisierul " + fileName + " a fost creat!");
-    messageBox.setStandardButtons(QMessageBox::Ok);
-    messageBox.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                              Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
-    if (messageBox.exec() == QMessageBox::Ok)
+    QMessageBox messageBoxVerificationReport;
+    messageBoxVerificationReport.setWindowTitle(tr("Verification report"));
+    messageBoxVerificationReport.setText(tr("The file ") + fileName + tr(" was created!"));
+    messageBoxVerificationReport.setStandardButtons(QMessageBox::Ok);
+    messageBoxVerificationReport.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
+                                                Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    if (messageBoxVerificationReport.exec() == QMessageBox::Ok)
     {
-        messageBox.close();
+        messageBoxVerificationReport.close();
     }
 }
 

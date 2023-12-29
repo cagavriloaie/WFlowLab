@@ -66,7 +66,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="609"/>
         <source>Report PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Report PDF</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="610"/>
@@ -641,7 +641,7 @@
         <location filename="../flow-meter-type.h" line="194"/>
         <location filename="../flow-meter-type.h" line="209"/>
         <source>Flow Meters DB</source>
-        <translation type="unfinished"></translation>
+        <translation>Flow Meters DB</translation>
     </message>
     <message>
         <location filename="../flow-meter-type.h" line="130"/>
@@ -688,78 +688,90 @@
 <context>
     <name>ReportMeasurements</name>
     <message>
-        <location filename="../report.cpp" line="207"/>
-        <location filename="../report.cpp" line="405"/>
-        <source>Buletin de verificare metrologica</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>report</name>
-    <message>
-        <location filename="../report.ui" line="14"/>
-        <source>WFlowLab - Buletin de Verificare Metrologica</source>
+        <location filename="../report.cpp" line="130"/>
+        <source>WFlowLab - Checking report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../report.ui" line="116"/>
-        <source>Date buletin verificare</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="131"/>
+        <source>Date from verification report</source>
+        <translation>Date from verification report</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="126"/>
-        <source>Numar buletin:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="132"/>
+        <source>Verification report:</source>
+        <translation>Verification report:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="133"/>
-        <source>NML, NTM, alte normative:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="133"/>
+        <source>Measuring instrument:</source>
+        <translation>Measuring instrument:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="140"/>
-        <source>Cost (RON):</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="134"/>
+        <source>LT code:</source>
+        <translation>LT code:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="147"/>
-        <source>Verificator metrolog:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="135"/>
+        <source>Ntm, lNtm, other Norm:</source>
+        <translation>Ntm, lNtm, other Norm:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="173"/>
-        <source>Etaloane utilizate, denumire, serie, nr. CE: </source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="136"/>
+        <source>Used Standards, name, series, no. CE:</source>
+        <translation>Used Standards, name, series, no. CE:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="180"/>
-        <source>Mijloc de masurare apartinand:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="137"/>
+        <source>Valability:</source>
+        <translation>Valability:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="196"/>
-        <source>Valabilitatea verificarii:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="138"/>
+        <source>Checker:</source>
+        <translation>Checker:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="212"/>
-        <source>Codul din LT:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="139"/>
+        <source>Tehnical superviser:</source>
+        <translation>Tehnical superviser:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="246"/>
-        <source>Responsabil tehnic:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="140"/>
+        <source>Cost:</source>
+        <translation>Cost:</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="309"/>
-        <source>&amp;Tipareste PDF</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="146"/>
+        <source>&amp;PrintPDF</source>
+        <translation>&amp;Print PDF</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="319"/>
-        <source>&amp;Inchide</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="147"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Close</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="225"/>
+        <location filename="../report.cpp" line="423"/>
+        <source>Verification report</source>
+        <translation>Verification report</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="226"/>
+        <source>There are unfilled fields!</source>
+        <translation>There are unfilled fields!</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="424"/>
+        <source>The file </source>
+        <translation>The file </translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="424"/>
+        <source> was created!</source>
+        <translation> was created!</translation>
     </message>
 </context>
 </TS>
