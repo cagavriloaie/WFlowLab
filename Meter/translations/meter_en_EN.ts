@@ -61,12 +61,12 @@
     <message>
         <location filename="../tableBoard.cpp" line="608"/>
         <source>&amp;Print PDF</source>
-        <translation>&amp;Print PDF</translation>
+        <translation>&amp;Generate FM</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="609"/>
         <source>Report PDF</source>
-        <translation>Report PDF</translation>
+        <translation>Generate FM</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="610"/>
@@ -79,17 +79,17 @@
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2456"/>
+        <location filename="../tableBoard.cpp" line="2460"/>
         <source>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qmin: %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2460"/>
+        <location filename="../tableBoard.cpp" line="2464"/>
         <source>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qt:  %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2464"/>
+        <location filename="../tableBoard.cpp" line="2468"/>
         <source>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qn: %1 L/h  Eroare: %2%</translation>
     </message>
@@ -138,12 +138,12 @@
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1356"/>
+        <location filename="../tableBoard.cpp" line="1360"/>
         <source>Collected data from flow meters.</source>
         <translation>Collected data from flow meters.</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1358"/>
+        <location filename="../tableBoard.cpp" line="1362"/>
         <source>Some user input data are not available or are outside the normal rage!</source>
         <translation>Some user input data are not available or are outside the normal rage!</translation>
     </message>
@@ -688,88 +688,129 @@
 <context>
     <name>ReportMeasurements</name>
     <message>
-        <location filename="../report.cpp" line="130"/>
-        <source>WFlowLab - Checking report</source>
-        <translation type="unfinished"></translation>
+        <location filename="../report.cpp" line="154"/>
+        <source>WFlowLab - Buletin verificare metrologica</source>
+        <translation>WFlowLab - Metrological report</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="131"/>
-        <source>Date from verification report</source>
-        <translation>Date from verification report</translation>
+        <location filename="../report.cpp" line="156"/>
+        <location filename="../report.cpp" line="193"/>
+        <source>Date verificare metrologica</source>
+        <translation>Metrological report data</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="132"/>
-        <source>Verification report:</source>
-        <translation>Verification report:</translation>
+        <location filename="../report.cpp" line="157"/>
+        <location filename="../report.cpp" line="194"/>
+        <source>Numar de inregistrare: </source>
+        <translation>Register number: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="133"/>
-        <source>Measuring instrument:</source>
-        <translation>Measuring instrument:</translation>
+        <location filename="../report.cpp" line="158"/>
+        <location filename="../report.cpp" line="195"/>
+        <source>Detinator: </source>
+        <translation>Beneficiary: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="134"/>
-        <source>LT code:</source>
+        <location filename="../report.cpp" line="159"/>
+        <location filename="../report.cpp" line="196"/>
+        <source>Codul LT: </source>
         <translation>LT code:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="135"/>
-        <source>Ntm, lNtm, other Norm:</source>
-        <translation>Ntm, lNtm, other Norm:</translation>
+        <location filename="../report.cpp" line="160"/>
+        <location filename="../report.cpp" line="197"/>
+        <source>Normative: </source>
+        <translation>Norms: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="136"/>
-        <source>Used Standards, name, series, no. CE:</source>
-        <translation>Used Standards, name, series, no. CE:</translation>
-    </message>
-    <message>
-        <location filename="../report.cpp" line="137"/>
-        <source>Valability:</source>
+        <location filename="../report.cpp" line="161"/>
+        <location filename="../report.cpp" line="198"/>
+        <source>Valabilitate: </source>
         <translation>Valability:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="138"/>
-        <source>Checker:</source>
-        <translation>Checker:</translation>
+        <location filename="../report.cpp" line="162"/>
+        <location filename="../report.cpp" line="199"/>
+        <source>Cost: </source>
+        <translation>Cost: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="139"/>
-        <source>Tehnical superviser:</source>
-        <translation>Tehnical superviser:</translation>
+        <location filename="../report.cpp" line="163"/>
+        <location filename="../report.cpp" line="200"/>
+        <source>Verificator metrolog: </source>
+        <translation>Metrological checker: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="140"/>
-        <source>Cost:</source>
-        <translation>Cost:</translation>
+        <location filename="../report.cpp" line="164"/>
+        <location filename="../report.cpp" line="201"/>
+        <source>Conducator laborator: </source>
+        <translation>Laboratory manager: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="146"/>
-        <source>&amp;PrintPDF</source>
-        <translation>&amp;Print PDF</translation>
+        <location filename="../report.cpp" line="165"/>
+        <location filename="../report.cpp" line="202"/>
+        <source>6 luni</source>
+        <translation>6 months</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="147"/>
-        <source>&amp;Close</source>
+        <location filename="../report.cpp" line="166"/>
+        <location filename="../report.cpp" line="203"/>
+        <source>1 an</source>
+        <translation>1 year</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="167"/>
+        <location filename="../report.cpp" line="204"/>
+        <source>2 ani</source>
+        <translation>2 years</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="168"/>
+        <location filename="../report.cpp" line="205"/>
+        <source>3</source>
+        <translation>3 years</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="169"/>
+        <location filename="../report.cpp" line="206"/>
+        <source>5 ani</source>
+        <translation>5 years</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="170"/>
+        <location filename="../report.cpp" line="207"/>
+        <source>&amp;Generare BV</source>
+        <translation>&amp;Generate BV</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="171"/>
+        <location filename="../report.cpp" line="208"/>
+        <source>&amp;Inchide</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="225"/>
-        <location filename="../report.cpp" line="423"/>
+        <location filename="../report.cpp" line="191"/>
+        <source>WFlowLab - Buletin Verificare metrologica</source>
+        <translation>WFlowLab - Metrological report</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="275"/>
+        <location filename="../report.cpp" line="553"/>
         <source>Verification report</source>
         <translation>Verification report</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="226"/>
+        <location filename="../report.cpp" line="276"/>
         <source>There are unfilled fields!</source>
         <translation>There are unfilled fields!</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="424"/>
+        <location filename="../report.cpp" line="554"/>
         <source>The file </source>
         <translation>The file </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="424"/>
+        <location filename="../report.cpp" line="554"/>
         <source> was created!</source>
         <translation> was created!</translation>
     </message>

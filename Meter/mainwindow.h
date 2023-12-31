@@ -122,6 +122,9 @@ class MainWindow : public QMainWindow
     typedef const wchar_t *(*EnumerateSerialPorts)();
     EnumerateSerialPorts serialPorts{nullptr};
 
+  protected:
+    void mousePressEvent(QMouseEvent *event) override;
+
   private slots:
     void onMeterTypeChanged(int index);
     void onNumberOfWaterMetersChanged(int index);
@@ -141,8 +144,7 @@ class MainWindow : public QMainWindow
     void onWaterDensityPage();
     void onHelpAbout();
     void onPortSettings();
-    void mousePressEvent(QMouseEvent *event);
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
   signals:
     void numberOfWaterMetersChangedSignal();

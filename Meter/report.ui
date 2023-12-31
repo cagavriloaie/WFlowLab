@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
+    <width>511</width>
     <height>384</height>
    </rect>
   </property>
@@ -120,85 +120,72 @@ QMessageBox  {
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="lbBuletinNumber">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="lbNmlNtm">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="lbCost">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="0">
-           <widget class="QLabel" name="lbChecker">
+           <widget class="QLabel" name="lbVerificatorMetrolog">
             <property name="text">
              <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="cbValability">
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
-           <widget class="QLineEdit" name="leCostRon">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="lbEtaloane">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="lbMijlocMasurare">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="leLtCode">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
            <widget class="QLabel" name="lbValabilitate">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="leMeansOfMeasurement">
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="leCodulLt">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="leVerificatorMetrolog">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lbNormative">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbNumarInregistrare">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLineEdit" name="leConducatorLaborator">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="leNumarInregistrare">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="leCost">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -214,25 +201,17 @@ QMessageBox  {
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLineEdit" name="leUsedSerie">
+           <widget class="QComboBox" name="cbValabilitate">
             <property name="font">
              <font>
+              <family>Segoe UI</family>
               <pointsize>12</pointsize>
              </font>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="leNmlNtmNorms">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="leBuletinNumber">
+           <widget class="QLineEdit" name="leNormative">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -241,23 +220,28 @@ QMessageBox  {
            </widget>
           </item>
           <item row="7" column="0">
-           <widget class="QLabel" name="lbTehnicalSuperviser">
+           <widget class="QLabel" name="lbConducatorLaborator">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
-           <widget class="QLineEdit" name="leChecker">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
+          <item row="5" column="0">
+           <widget class="QLabel" name="lbCost">
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
-           <widget class="QLineEdit" name="leTehnicalSuperviser">
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbDetinator">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="leDetinator">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -296,7 +280,7 @@ QMessageBox  {
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pbPrint">
+           <widget class="QPushButton" name="pbGenerareBV">
             <property name="font">
              <font>
               <pointsize>9</pointsize>
@@ -311,7 +295,7 @@ QMessageBox  {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pbClose">
+           <widget class="QPushButton" name="pbInchide">
             <property name="focusPolicy">
              <enum>Qt::NoFocus</enum>
             </property>
@@ -330,15 +314,14 @@ QMessageBox  {
   </layout>
  </widget>
  <tabstops>
-  <tabstop>leBuletinNumber</tabstop>
-  <tabstop>leMeansOfMeasurement</tabstop>
-  <tabstop>leLtCode</tabstop>
-  <tabstop>leNmlNtmNorms</tabstop>
-  <tabstop>leUsedSerie</tabstop>
-  <tabstop>cbValability</tabstop>
-  <tabstop>leChecker</tabstop>
-  <tabstop>leTehnicalSuperviser</tabstop>
-  <tabstop>leCostRon</tabstop>
+  <tabstop>leNumarInregistrare</tabstop>
+  <tabstop>leDetinator</tabstop>
+  <tabstop>leCodulLt</tabstop>
+  <tabstop>leNormative</tabstop>
+  <tabstop>cbValabilitate</tabstop>
+  <tabstop>leCost</tabstop>
+  <tabstop>leVerificatorMetrolog</tabstop>
+  <tabstop>leConducatorLaborator</tabstop>
  </tabstops>
  <resources/>
  <connections/>

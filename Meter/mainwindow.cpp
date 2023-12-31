@@ -385,8 +385,12 @@ MainWindow::MainWindow(QWidget *parent)
         this->close();
     }
     ui->rbInterface->setDisabled(true);
+
     inputData = new Dialog(this);
+    inputData->setWindowModality(Qt::NonModal);
+    inputData->setWindowFlags(Qt::Window);
     inputData->setAttribute(Qt::WA_DeleteOnClose);
+
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
@@ -855,18 +859,22 @@ void MainWindow::onSetEnglish()
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    Q_UNUSED(event);
-    this->raise();
+    QMainWindow::mousePressEvent(event);
+
+    // Check if inputData is visible and hide it
+    if (inputData && inputData->isVisible()) {
+        inputData->stackUnder(this);
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (inputData)
     {
-        // inputData->close();
         delete inputData;
         inputData = nullptr;
     }
+
     event->accept();
 }
 

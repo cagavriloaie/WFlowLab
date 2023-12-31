@@ -33,35 +33,33 @@ public:
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QLabel *lbBuletinNumber;
-    QLabel *lbNmlNtm;
-    QLabel *lbCost;
-    QLabel *lbChecker;
-    QComboBox *cbValability;
-    QLineEdit *leCostRon;
-    QLabel *lbEtaloane;
-    QLabel *lbMijlocMasurare;
-    QLineEdit *leLtCode;
+    QLabel *lbVerificatorMetrolog;
     QLabel *lbValabilitate;
-    QLineEdit *leMeansOfMeasurement;
+    QLineEdit *leCodulLt;
+    QLineEdit *leVerificatorMetrolog;
+    QLabel *lbNormative;
+    QLabel *lbNumarInregistrare;
+    QLineEdit *leConducatorLaborator;
+    QLineEdit *leNumarInregistrare;
+    QLineEdit *leCost;
     QLabel *lbCodulLt;
-    QLineEdit *leUsedSerie;
-    QLineEdit *leNmlNtmNorms;
-    QLineEdit *leBuletinNumber;
-    QLabel *lbTehnicalSuperviser;
-    QLineEdit *leChecker;
-    QLineEdit *leTehnicalSuperviser;
+    QComboBox *cbValabilitate;
+    QLineEdit *leNormative;
+    QLabel *lbConducatorLaborator;
+    QLabel *lbCost;
+    QLabel *lbDetinator;
+    QLineEdit *leDetinator;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pbPrint;
-    QPushButton *pbClose;
+    QPushButton *pbGenerareBV;
+    QPushButton *pbInchide;
 
     void setupUi(QDialog *report)
     {
         if (report->objectName().isEmpty())
             report->setObjectName("report");
-        report->resize(658, 384);
+        report->resize(511, 384);
         QIcon icon;
         icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
         report->setWindowIcon(icon);
@@ -166,109 +164,98 @@ public:
         verticalLayout->setObjectName("verticalLayout");
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        lbBuletinNumber = new QLabel(grBoxBuletin);
-        lbBuletinNumber->setObjectName("lbBuletinNumber");
+        lbVerificatorMetrolog = new QLabel(grBoxBuletin);
+        lbVerificatorMetrolog->setObjectName("lbVerificatorMetrolog");
 
-        gridLayout->addWidget(lbBuletinNumber, 0, 0, 1, 1);
-
-        lbNmlNtm = new QLabel(grBoxBuletin);
-        lbNmlNtm->setObjectName("lbNmlNtm");
-
-        gridLayout->addWidget(lbNmlNtm, 3, 0, 1, 1);
-
-        lbCost = new QLabel(grBoxBuletin);
-        lbCost->setObjectName("lbCost");
-
-        gridLayout->addWidget(lbCost, 8, 0, 1, 1);
-
-        lbChecker = new QLabel(grBoxBuletin);
-        lbChecker->setObjectName("lbChecker");
-
-        gridLayout->addWidget(lbChecker, 6, 0, 1, 1);
-
-        cbValability = new QComboBox(grBoxBuletin);
-        cbValability->setObjectName("cbValability");
-        QFont font;
-        font.setFamilies({QString::fromUtf8("Segoe UI")});
-        font.setPointSize(12);
-        cbValability->setFont(font);
-
-        gridLayout->addWidget(cbValability, 5, 1, 1, 1);
-
-        leCostRon = new QLineEdit(grBoxBuletin);
-        leCostRon->setObjectName("leCostRon");
-        QFont font1;
-        font1.setPointSize(12);
-        leCostRon->setFont(font1);
-
-        gridLayout->addWidget(leCostRon, 8, 1, 1, 1);
-
-        lbEtaloane = new QLabel(grBoxBuletin);
-        lbEtaloane->setObjectName("lbEtaloane");
-
-        gridLayout->addWidget(lbEtaloane, 4, 0, 1, 1);
-
-        lbMijlocMasurare = new QLabel(grBoxBuletin);
-        lbMijlocMasurare->setObjectName("lbMijlocMasurare");
-
-        gridLayout->addWidget(lbMijlocMasurare, 1, 0, 1, 1);
-
-        leLtCode = new QLineEdit(grBoxBuletin);
-        leLtCode->setObjectName("leLtCode");
-        leLtCode->setFont(font1);
-
-        gridLayout->addWidget(leLtCode, 2, 1, 1, 1);
+        gridLayout->addWidget(lbVerificatorMetrolog, 6, 0, 1, 1);
 
         lbValabilitate = new QLabel(grBoxBuletin);
         lbValabilitate->setObjectName("lbValabilitate");
 
-        gridLayout->addWidget(lbValabilitate, 5, 0, 1, 1);
+        gridLayout->addWidget(lbValabilitate, 4, 0, 1, 1);
 
-        leMeansOfMeasurement = new QLineEdit(grBoxBuletin);
-        leMeansOfMeasurement->setObjectName("leMeansOfMeasurement");
-        leMeansOfMeasurement->setFont(font1);
+        leCodulLt = new QLineEdit(grBoxBuletin);
+        leCodulLt->setObjectName("leCodulLt");
+        QFont font;
+        font.setPointSize(12);
+        leCodulLt->setFont(font);
 
-        gridLayout->addWidget(leMeansOfMeasurement, 1, 1, 1, 1);
+        gridLayout->addWidget(leCodulLt, 2, 1, 1, 1);
+
+        leVerificatorMetrolog = new QLineEdit(grBoxBuletin);
+        leVerificatorMetrolog->setObjectName("leVerificatorMetrolog");
+        leVerificatorMetrolog->setFont(font);
+
+        gridLayout->addWidget(leVerificatorMetrolog, 6, 1, 1, 1);
+
+        lbNormative = new QLabel(grBoxBuletin);
+        lbNormative->setObjectName("lbNormative");
+
+        gridLayout->addWidget(lbNormative, 3, 0, 1, 1);
+
+        lbNumarInregistrare = new QLabel(grBoxBuletin);
+        lbNumarInregistrare->setObjectName("lbNumarInregistrare");
+
+        gridLayout->addWidget(lbNumarInregistrare, 0, 0, 1, 1);
+
+        leConducatorLaborator = new QLineEdit(grBoxBuletin);
+        leConducatorLaborator->setObjectName("leConducatorLaborator");
+        leConducatorLaborator->setFont(font);
+
+        gridLayout->addWidget(leConducatorLaborator, 7, 1, 1, 1);
+
+        leNumarInregistrare = new QLineEdit(grBoxBuletin);
+        leNumarInregistrare->setObjectName("leNumarInregistrare");
+        leNumarInregistrare->setFont(font);
+
+        gridLayout->addWidget(leNumarInregistrare, 0, 1, 1, 1);
+
+        leCost = new QLineEdit(grBoxBuletin);
+        leCost->setObjectName("leCost");
+        leCost->setFont(font);
+
+        gridLayout->addWidget(leCost, 5, 1, 1, 1);
 
         lbCodulLt = new QLabel(grBoxBuletin);
         lbCodulLt->setObjectName("lbCodulLt");
 
         gridLayout->addWidget(lbCodulLt, 2, 0, 1, 1);
 
-        leUsedSerie = new QLineEdit(grBoxBuletin);
-        leUsedSerie->setObjectName("leUsedSerie");
-        leUsedSerie->setFont(font1);
+        cbValabilitate = new QComboBox(grBoxBuletin);
+        cbValabilitate->setObjectName("cbValabilitate");
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("Segoe UI")});
+        font1.setPointSize(12);
+        cbValabilitate->setFont(font1);
 
-        gridLayout->addWidget(leUsedSerie, 4, 1, 1, 1);
+        gridLayout->addWidget(cbValabilitate, 4, 1, 1, 1);
 
-        leNmlNtmNorms = new QLineEdit(grBoxBuletin);
-        leNmlNtmNorms->setObjectName("leNmlNtmNorms");
-        leNmlNtmNorms->setFont(font1);
+        leNormative = new QLineEdit(grBoxBuletin);
+        leNormative->setObjectName("leNormative");
+        leNormative->setFont(font);
 
-        gridLayout->addWidget(leNmlNtmNorms, 3, 1, 1, 1);
+        gridLayout->addWidget(leNormative, 3, 1, 1, 1);
 
-        leBuletinNumber = new QLineEdit(grBoxBuletin);
-        leBuletinNumber->setObjectName("leBuletinNumber");
-        leBuletinNumber->setFont(font1);
+        lbConducatorLaborator = new QLabel(grBoxBuletin);
+        lbConducatorLaborator->setObjectName("lbConducatorLaborator");
 
-        gridLayout->addWidget(leBuletinNumber, 0, 1, 1, 1);
+        gridLayout->addWidget(lbConducatorLaborator, 7, 0, 1, 1);
 
-        lbTehnicalSuperviser = new QLabel(grBoxBuletin);
-        lbTehnicalSuperviser->setObjectName("lbTehnicalSuperviser");
+        lbCost = new QLabel(grBoxBuletin);
+        lbCost->setObjectName("lbCost");
 
-        gridLayout->addWidget(lbTehnicalSuperviser, 7, 0, 1, 1);
+        gridLayout->addWidget(lbCost, 5, 0, 1, 1);
 
-        leChecker = new QLineEdit(grBoxBuletin);
-        leChecker->setObjectName("leChecker");
-        leChecker->setFont(font1);
+        lbDetinator = new QLabel(grBoxBuletin);
+        lbDetinator->setObjectName("lbDetinator");
 
-        gridLayout->addWidget(leChecker, 6, 1, 1, 1);
+        gridLayout->addWidget(lbDetinator, 1, 0, 1, 1);
 
-        leTehnicalSuperviser = new QLineEdit(grBoxBuletin);
-        leTehnicalSuperviser->setObjectName("leTehnicalSuperviser");
-        leTehnicalSuperviser->setFont(font1);
+        leDetinator = new QLineEdit(grBoxBuletin);
+        leDetinator->setObjectName("leDetinator");
+        leDetinator->setFont(font);
 
-        gridLayout->addWidget(leTehnicalSuperviser, 7, 1, 1, 1);
+        gridLayout->addWidget(leDetinator, 1, 1, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -283,20 +270,20 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pbPrint = new QPushButton(grBoxBuletin);
-        pbPrint->setObjectName("pbPrint");
+        pbGenerareBV = new QPushButton(grBoxBuletin);
+        pbGenerareBV->setObjectName("pbGenerareBV");
         QFont font2;
         font2.setPointSize(9);
-        pbPrint->setFont(font2);
-        pbPrint->setFocusPolicy(Qt::NoFocus);
+        pbGenerareBV->setFont(font2);
+        pbGenerareBV->setFocusPolicy(Qt::NoFocus);
 
-        horizontalLayout->addWidget(pbPrint);
+        horizontalLayout->addWidget(pbGenerareBV);
 
-        pbClose = new QPushButton(grBoxBuletin);
-        pbClose->setObjectName("pbClose");
-        pbClose->setFocusPolicy(Qt::NoFocus);
+        pbInchide = new QPushButton(grBoxBuletin);
+        pbInchide->setObjectName("pbInchide");
+        pbInchide->setFocusPolicy(Qt::NoFocus);
 
-        horizontalLayout->addWidget(pbClose);
+        horizontalLayout->addWidget(pbInchide);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -307,14 +294,13 @@ public:
 
         gridLayout_3->addWidget(grBoxBuletin, 0, 0, 1, 1);
 
-        QWidget::setTabOrder(leBuletinNumber, leMeansOfMeasurement);
-        QWidget::setTabOrder(leMeansOfMeasurement, leLtCode);
-        QWidget::setTabOrder(leLtCode, leNmlNtmNorms);
-        QWidget::setTabOrder(leNmlNtmNorms, leUsedSerie);
-        QWidget::setTabOrder(leUsedSerie, cbValability);
-        QWidget::setTabOrder(cbValability, leChecker);
-        QWidget::setTabOrder(leChecker, leTehnicalSuperviser);
-        QWidget::setTabOrder(leTehnicalSuperviser, leCostRon);
+        QWidget::setTabOrder(leNumarInregistrare, leDetinator);
+        QWidget::setTabOrder(leDetinator, leCodulLt);
+        QWidget::setTabOrder(leCodulLt, leNormative);
+        QWidget::setTabOrder(leNormative, cbValabilitate);
+        QWidget::setTabOrder(cbValabilitate, leCost);
+        QWidget::setTabOrder(leCost, leVerificatorMetrolog);
+        QWidget::setTabOrder(leVerificatorMetrolog, leConducatorLaborator);
 
         retranslateUi(report);
 
@@ -325,17 +311,16 @@ public:
     {
         report->setWindowTitle(QString());
         grBoxBuletin->setTitle(QString());
-        lbBuletinNumber->setText(QString());
-        lbNmlNtm->setText(QString());
-        lbCost->setText(QString());
-        lbChecker->setText(QString());
-        lbEtaloane->setText(QString());
-        lbMijlocMasurare->setText(QString());
+        lbVerificatorMetrolog->setText(QString());
         lbValabilitate->setText(QString());
+        lbNormative->setText(QString());
+        lbNumarInregistrare->setText(QString());
         lbCodulLt->setText(QString());
-        lbTehnicalSuperviser->setText(QString());
-        pbPrint->setText(QString());
-        pbClose->setText(QString());
+        lbConducatorLaborator->setText(QString());
+        lbCost->setText(QString());
+        lbDetinator->setText(QString());
+        pbGenerareBV->setText(QString());
+        pbInchide->setText(QString());
     } // retranslateUi
 
 };
