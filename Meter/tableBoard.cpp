@@ -35,9 +35,9 @@ namespace
     MainWindow *mainwindow;
 }
 
-QString Dialog::report;
+    QString TableBoard::report;
 
-void Dialog::printPdfThread(QString report)
+void TableBoard::printPdfThread(QString report)
 {
     QDateTime now = QDateTime::currentDateTime();
     QString fileName = QString(
@@ -71,7 +71,7 @@ void Dialog::printPdfThread(QString report)
     QDesktopServices::openUrl(QUrl(fileName, QUrl::TolerantMode));
 }
 
-void Dialog::onSaveCurrentInputDataClicked()
+void TableBoard::onSaveCurrentInputDataClicked()
 {
     size_t entriesNumber = mainwindow->selectedInfo.entriesNumber;
     QDateTime now = QDateTime::currentDateTime();
@@ -136,7 +136,7 @@ void Dialog::onSaveCurrentInputDataClicked()
     }
 }
 
-void Dialog::onOpenInputDataClicked()
+void TableBoard::onOpenInputDataClicked()
 {
     QString fileName = QFileDialog::getOpenFileName(
                            this, tr("Open Input Data"),
@@ -277,7 +277,7 @@ bool XOR(bool a, bool b)
     return (a + b) % 2;
 }
 
-void Dialog::ValidatorInput()
+void TableBoard::ValidatorInput()
 {
     QLabel *pNumber[] = {ui->lbN1,  ui->lbN2,  ui->lbN3,  ui->lbN4,  ui->lbN5,
                          ui->lbN6,  ui->lbN7,  ui->lbN8,  ui->lbN9,  ui->lbN10,
@@ -553,7 +553,7 @@ void Dialog::ValidatorInput()
     ui->cbSet->setCheckState(Qt::Checked);
 }
 
-void Dialog::Translate()
+void TableBoard::Translate()
 {
     nameWaterMeter = mainwindow->selectedInfo.nameWaterMeter;
     this->setWindowTitle(tr("WStreamLab - Input Table") + " [ " +
@@ -635,10 +635,10 @@ void Dialog::Translate()
     }
 }
 
-Dialog::Dialog(QWidget *_parent):
+TableBoard::TableBoard(QWidget *_parent):
     QDialog(_parent),
     parent(_parent),
-    ui(new Ui::Dialog)
+    ui(new Ui::TableBoard)
 
 {
     mainwindow = dynamic_cast<MainWindow *>(parent);
@@ -649,25 +649,25 @@ Dialog::Dialog(QWidget *_parent):
     Translate();
     ValidatorInput();
     connect(ui->pbCalculate, &QPushButton::clicked, this,
-            &Dialog::onCalculateClicked);
+            &TableBoard::onCalculateClicked);
     connect(ui->pbClean, &QPushButton::clicked, this,
-            &Dialog::onCleanClicked);
+            &TableBoard::onCleanClicked);
     connect(ui->pbClose, &QPushButton::clicked, this,
-            &Dialog::onCloseClicked);
+            &TableBoard::onCloseClicked);
     connect(ui->pbSaveResults, &QPushButton::clicked, this,
-            &Dialog::onSaveCurrentInputDataClicked);
+            &TableBoard::onSaveCurrentInputDataClicked);
     connect(ui->pbOpen, &QPushButton::clicked, this,
-            &Dialog::onOpenInputDataClicked);
+            &TableBoard::onOpenInputDataClicked);
     connect(ui->pbPrint, &QPushButton::clicked, this,
-            &Dialog::onPrintPdfDocClicked);
+            &TableBoard::onPrintPdfDocClicked);
     connect(ui->pbReport, &QPushButton::clicked, this,
-            &Dialog::onReportClicked);
+            &TableBoard::onReportClicked);
     connect(ui->cbSet, &QCheckBox::stateChanged, this,
-            &Dialog::onSelectAllChanged);
+            &TableBoard::onSelectAllChanged);
     connect(ui->pbCopy12, &QPushButton::clicked, this,
-            &Dialog::onCopy12Clicked);
+            &TableBoard::onCopy12Clicked);
     connect(ui->pbCopy23, &QPushButton::clicked, this,
-            &Dialog::onCopy23Clicked_new);
+            &TableBoard::onCopy23Clicked_new);
     for (unsigned iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this,
@@ -676,7 +676,7 @@ Dialog::Dialog(QWidget *_parent):
     setWindowFlags(Qt::Window);
 }
 
-Dialog::~Dialog()
+TableBoard::~TableBoard()
 {
     MainWindow *mainWindow  = dynamic_cast< MainWindow *>(this->parent);
     if (mainWindow)
@@ -686,7 +686,7 @@ Dialog::~Dialog()
     delete ui;
 }
 
-void Dialog::onCleanClicked()
+void TableBoard::onCleanClicked()
 {
     for (unsigned iter = 0; iter < entries; ++iter)
     {
@@ -715,7 +715,7 @@ void Dialog::onCleanClicked()
 
 QString resultAllTests[20];
 
-void Dialog::onCalculateClicked()
+void TableBoard::onCalculateClicked()
 {
     // double nominalError = mainwindow->selectedInfo.nominalError;
     // double maximumError = mainwindow->selectedInfo.maximumError;
@@ -1373,22 +1373,22 @@ void Dialog::onCalculateClicked()
     }
 }
 
-void Dialog::onCloseClicked()
+void TableBoard::onCloseClicked()
 {
     this->hide();
 }
 
-void Dialog::onTypeMeterChanged()
+void TableBoard::onTypeMeterChanged()
 {
     PopulateTable();
 }
 
-void Dialog::onNumberOfWaterMetersChanged()
+void TableBoard::onNumberOfWaterMetersChanged()
 {
     PopulateTable();
 }
 
-void Dialog::onCbClicked(bool checked)
+void TableBoard::onCbClicked(bool checked)
 {
     QObject *obj = sender();
     QCheckBox *checkBox = dynamic_cast<QCheckBox *>(obj);
@@ -1421,7 +1421,7 @@ void Dialog::onCbClicked(bool checked)
     }
 }
 
-void Dialog::onSelectAllChanged()
+void TableBoard::onSelectAllChanged()
 {
     if (ui->cbSet->checkState() == Qt::Checked)
     {
@@ -1441,7 +1441,7 @@ void Dialog::onSelectAllChanged()
     }
 }
 
-bool Dialog::eventFilter(QObject *target, QEvent *event)
+bool TableBoard::eventFilter(QObject *target, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress)
     {
@@ -1456,7 +1456,7 @@ bool Dialog::eventFilter(QObject *target, QEvent *event)
     return QDialog::eventFilter(target, event);
 }
 
-void Dialog::onMeasurementTypeChanged()
+void TableBoard::onMeasurementTypeChanged()
 {
     if (mainwindow->selectedInfo.rbGravitmetric == true)
     {
@@ -1513,7 +1513,7 @@ void Dialog::onMeasurementTypeChanged()
 }
 
 
-void Dialog::onPrintPdfDocClicked()
+void TableBoard::onPrintPdfDocClicked()
 {
     onCalculateClicked();
     size_t count {0};
@@ -2367,13 +2367,13 @@ void Dialog::onPrintPdfDocClicked()
     }
 }
 
-void Dialog::showEvent(QShowEvent *event)
+void TableBoard::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
     PopulateTable();
 }
 
-void Dialog::PopulateTable()
+void TableBoard::PopulateTable()
 {
     Translate();
     entries = mainwindow->selectedInfo.entriesNumber;
@@ -2475,17 +2475,17 @@ void Dialog::PopulateTable()
     ui->leFlowRateNominal->setText(QString::number(nominalFlowMain));
 }
 
-void Dialog::focusInEvent(QFocusEvent *event)
+void TableBoard::focusInEvent(QFocusEvent *event)
 {
     QDialog::focusInEvent(event);
 }
 
-void Dialog::focusOutEvent(QFocusEvent *event)
+void TableBoard::focusOutEvent(QFocusEvent *event)
 {
     QDialog::focusOutEvent(event);
 }
 
-void Dialog::onCopy12Clicked()
+void TableBoard::onCopy12Clicked()
 {
     for (int i = 1; i <= 20; ++i)
     {
@@ -2501,7 +2501,7 @@ void Dialog::onCopy12Clicked()
     ui->leStop2_1->setFocus();
 }
 
-void Dialog::onCopy23Clicked_new()
+void TableBoard::onCopy23Clicked_new()
 {
     QList<QLineEdit *> leStartWidgets = findChildren<QLineEdit *>
                                         (QRegularExpression("leStart3_\\d+"));
@@ -2515,7 +2515,7 @@ void Dialog::onCopy23Clicked_new()
     ui->leStop3_1->setFocus();
 }
 
-void Dialog::onReportClicked()
+void TableBoard::onReportClicked()
 {
     onCalculateClicked();
     if (reportMeasurementsDialog == nullptr)

@@ -16,7 +16,7 @@
 
 namespace Ui
 {
-    class Dialog;
+class TableBoard;
 }
 
 template <typename T>
@@ -28,13 +28,13 @@ std::string to_string_with_precision(const T a_value, const int n = 6)
     return out.str();
 }
 
-class Dialog : public QDialog
+class TableBoard : public QDialog
 {
     Q_OBJECT
 
   public:
-    explicit Dialog(QWidget *_parent = nullptr);
-    ~Dialog();
+    explicit TableBoard(QWidget *_parent = nullptr);
+      ~TableBoard();
 
     void ValidatorInput();
     void PopulateTable();
@@ -43,7 +43,7 @@ class Dialog : public QDialog
 
   private:
     QWidget *parent;
-    Ui::Dialog *ui;
+      Ui::TableBoard *ui;
     size_t entries {0};
     ReportMeasurements *reportMeasurementsDialog {nullptr};
     std::string nameWaterMeter;

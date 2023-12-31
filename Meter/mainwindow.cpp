@@ -386,7 +386,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->rbInterface->setDisabled(true);
 
-    inputData = new Dialog(this);
+    inputData = new TableBoard(this);
     inputData->setWindowModality(Qt::NonModal);
     inputData->setWindowFlags(Qt::Window);
     inputData->setAttribute(Qt::WA_DeleteOnClose);
@@ -546,7 +546,7 @@ void MainWindow::onNewSessionClicked()
 {
     if (! this->inputData)
     {
-        inputData = new Dialog(this);
+        inputData = new TableBoard(this);
         connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
                 SLOT(onTypeMeterChanged()));
         connect(this, SIGNAL(numberOfWaterMetersChangedSignal()), inputData,

@@ -103,7 +103,7 @@ class MainWindow : public QMainWindow
     SelectedInfo selectedInfo;
 
     Ui::MainWindow *ui {nullptr};
-    Dialog *inputData{nullptr};
+    TableBoard *inputData{nullptr};
     License *licenseDialog{nullptr};
     HelpAbout *helpAbout;
     Interface *interfaceDialog{nullptr};
