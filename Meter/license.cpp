@@ -38,24 +38,18 @@ License::License(QWidget *parent) : QDialog(parent),
 void License::showEvent(QShowEvent *event)
 {
     QWidget::showEvent(event);
-    mainwindow->optionsConfiguration["company"];
-    mainwindow->optionsConfiguration["certificate"];
-    mainwindow->optionsConfiguration["archive"];
-    mainwindow->optionsConfiguration["maximum"];
-    mainwindow->optionsConfiguration["density_20"];
-    mainwindow->optionsConfiguration["control"];
-    ui->lbCompanyValue->setText(
-        mainwindow->optionsConfiguration["company"].c_str());
-    ui->lbCertificateValue->setText(
-        mainwindow->optionsConfiguration["certificate"].c_str());
-    ui->lbArchiveValue->setText(
-        mainwindow->optionsConfiguration["archive"].c_str());
-    ui->lbMaximumValue->setText(
-        mainwindow->optionsConfiguration["maximum"].c_str());
-    ui->lbDensityValue->setText(
-        mainwindow->optionsConfiguration["density_20"].c_str());
-    ui->lbChecksumValue->setText(
-        mainwindow->optionsConfiguration["control"].c_str());
+    ui->lbCompanyValue->setText(QString::fromStdString(
+                                    mainwindow->optionsConfiguration["company"]));
+    ui->lbCertificateValue->setText(QString::fromStdString(
+                                        mainwindow->optionsConfiguration["certificate"]));
+    ui->lbArchiveValue->setText(QString::fromStdString(
+                                    mainwindow->optionsConfiguration["archive"]));
+    ui->lbMaximumValue->setText(QString::fromStdString(
+                                    mainwindow->optionsConfiguration["maximum"]));
+    ui->lbDensityValue->setText(QString::fromStdString(
+                                    mainwindow->optionsConfiguration["density_20"]));
+    ui->lbChecksumValue->setText(QString::fromStdString(
+                                     mainwindow->optionsConfiguration["control"]));
 }
 
 void License::onCloseClicked()

@@ -9,6 +9,7 @@ History:
 V 0.9  07.02.2023  Not official release, under development;
 V 1.0  20.05.2023  First official release, automatically interface RS 485 detection
 V 1.1  04.11.2023  Fixing translations and add restriction for data input
+V 1.2  28.12.2023  Added metrological report pdf document
 
 Application can be installed and run under Windows OS with versions:
 
@@ -21,6 +22,10 @@ Architecture:
    
 It is good to have an application for reading PDF files installed on your computer (such as Adobe Acrobat Reader) 
 to be able to view and read the measurement sheets.
+
+Just an instance of the application can be launch at a moment in time.
+
+Application is based on some configurations that are automatically saved in Windows Registry.
 
 The license must be set generated depending on the configuration of the work point.
 
@@ -47,6 +52,9 @@ This can done only by Elcost by generating another digital signature.
 
 The use of the automatic index reading option can only be done when there is a RS485 MODBUS connection
 to the data collection points.
+
+More information related to installation, uninstallation, configuration and use of the application 
+can be obtained from the manual that is part of this kit.
 
 For any issues regarding the license, please contact:
     Constantin Agavriloaie

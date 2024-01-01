@@ -16,7 +16,7 @@
 
 namespace Ui
 {
-class TableBoard;
+    class TableBoard;
 }
 
 template <typename T>
@@ -34,7 +34,7 @@ class TableBoard : public QDialog
 
   public:
     explicit TableBoard(QWidget *_parent = nullptr);
-      ~TableBoard();
+    ~TableBoard();
 
     void ValidatorInput();
     void PopulateTable();
@@ -43,7 +43,7 @@ class TableBoard : public QDialog
 
   private:
     QWidget *parent;
-      Ui::TableBoard *ui;
+    Ui::TableBoard *ui;
     size_t entries {0};
     ReportMeasurements *reportMeasurementsDialog {nullptr};
     std::string nameWaterMeter;

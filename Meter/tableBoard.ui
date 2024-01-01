@@ -124,8 +124,8 @@ QMessageBox  {
     color: green;
 }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <property name="spacing">
       <number>2</number>

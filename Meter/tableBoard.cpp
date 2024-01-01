@@ -25,7 +25,6 @@
 #include "ui_mainwindow.h"
 #include "ui_tableBoard.h"
 
-
 constexpr size_t MAX_ENTRIES{20};
 
 extern MainWindow *pw;
@@ -35,7 +34,7 @@ namespace
     MainWindow *mainwindow;
 }
 
-    QString TableBoard::report;
+QString TableBoard::report;
 
 void TableBoard::printPdfThread(QString report)
 {
@@ -1973,8 +1972,8 @@ void TableBoard::onPrintPdfDocClicked()
         }
         ////////////////
         report += QString("<br><pre><h3>") +
-                  "  Verificator                                  Sef "
-                  "laborator<br><br>" +
+                  "  Verificator metrolog                                  Conducator"
+                  " laborator<br><br>" +
                   "  Nume ________________________                "
                   "Nume________________________<br>" +
                   "<br>" +
@@ -2223,39 +2222,49 @@ void TableBoard::onPrintPdfDocClicked()
                 "        <th style=\"text-align: center\"  width=\"15%\"> "
                 "Results</th>" +
                 "    </tr>" + "    </thead>" + "    <tbody>";
-            for (unsigned iter = 10; iter < entriesTable; ++iter)
+            for (unsigned iter_part_two = 10; iter_part_two < entriesTable;
+                    ++iter_part_two)
             {
-                for (; iter < entriesTable; ++iter)
+                for (; iter_part_two < entriesTable; ++iter_part_two)
                 {
-                    if (!vectorCheckNumber[iter]->checkState())
+                    if (!vectorCheckNumber[iter_part_two]->checkState())
                     {
                         continue;
                     }
-                    QString SN = vectorSerialNumber[iter]->text();
-                    QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
-                    QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
+                    QString SN = vectorSerialNumber[iter_part_two]->text();
+                    QString startFirst = vectorFirstIndexStart[iter_part_two]->text() +
+                                         "&nbsp;";
+                    QString stopFirst = vectorFirstIndexStop[iter_part_two]->text() +
+                                        "&nbsp;";
                     double registerVolumeDoubleFirst =
-                        (vectorFirstIndexStop[iter]->text().toDouble() -
-                         vectorFirstIndexStart[iter]->text().toDouble());
-                    QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
+                        (vectorFirstIndexStop[iter_part_two]->text().toDouble() -
+                         vectorFirstIndexStart[iter_part_two]->text().toDouble());
+                    QString errorFirst = vectorFirstError[iter_part_two]->text() +
+                                         "&nbsp;";
                     QString realVolumeFirst =
                         QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
                         "&nbsp;";
-                    QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
-                    QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
+                    QString startSecond = vectorSecondIndexStart[iter_part_two]->text() +
+                                          "&nbsp;";
+                    QString stopSecond = vectorSecondIndexStop[iter_part_two]->text() +
+                                         "&nbsp;";
                     double registerVolumeDoubleSecond =
-                        (vectorSecondIndexStop[iter]->text().toDouble() -
-                         vectorSecondIndexStart[iter]->text().toDouble());
-                    QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
+                        (vectorSecondIndexStop[iter_part_two]->text().toDouble() -
+                         vectorSecondIndexStart[iter_part_two]->text().toDouble());
+                    QString errorSecond = vectorSecondError[iter_part_two]->text() +
+                                          "&nbsp;";
                     QString realVolumeSecond =
                         QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
                         "&nbsp;";;
-                    QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
-                    QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
+                    QString startThird = vectorThirdIndexStart[iter_part_two]->text() +
+                                         "&nbsp;";
+                    QString stopThird = vectorThirdIndexStop[iter_part_two]->text() +
+                                        "&nbsp;";
                     double registerVolumeDoubleThird =
-                        (vectorThirdIndexStop[iter]->text().toDouble() -
-                         vectorThirdIndexStart[iter]->text().toDouble());
-                    QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
+                        (vectorThirdIndexStop[iter_part_two]->text().toDouble() -
+                         vectorThirdIndexStart[iter_part_two]->text().toDouble());
+                    QString errorThird = vectorThirdError[iter_part_two]->text() +
+                                         "&nbsp;";
                     QString realVolumeThird =
                         QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
                         "&nbsp;";

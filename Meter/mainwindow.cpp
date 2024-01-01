@@ -385,12 +385,10 @@ MainWindow::MainWindow(QWidget *parent)
         this->close();
     }
     ui->rbInterface->setDisabled(true);
-
     inputData = new TableBoard(this);
     inputData->setWindowModality(Qt::NonModal);
     inputData->setWindowFlags(Qt::Window);
     inputData->setAttribute(Qt::WA_DeleteOnClose);
-
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
@@ -544,7 +542,7 @@ void MainWindow::onNumberOfWaterMetersChanged(int index)
 
 void MainWindow::onNewSessionClicked()
 {
-    if (! this->inputData)
+    if (!this->inputData)
     {
         inputData = new TableBoard(this);
         connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
@@ -554,9 +552,19 @@ void MainWindow::onNewSessionClicked()
         connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
                 SLOT(onMeasurementTypeChanged()));
     }
+    // Set the fixed size of the window
+    int fixedWidth = 1450;  // Set your fixed width
+    int fixedHeight = 800; // Set your fixed height
+    this->inputData->setFixedSize(fixedWidth, fixedHeight);
+    // Calculate the center position using the primary screen
+    QScreen *primaryScreen = QApplication::primaryScreen();
+    QRect availableGeometry = primaryScreen->availableGeometry();
+    int x = (availableGeometry.width() - fixedWidth) / 2;
+    int y = (availableGeometry.height() - fixedHeight) / 2;
+    // Set the position and display the window
+    this->inputData->move(x, y);
     this->inputData->setModal(false);
     this->inputData->show();
-    this->inputData->showMaximized();
 }
 
 void MainWindow::onExitApplication()
@@ -860,9 +868,9 @@ void MainWindow::onSetEnglish()
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     QMainWindow::mousePressEvent(event);
-
     // Check if inputData is visible and hide it
-    if (inputData && inputData->isVisible()) {
+    if (inputData && inputData->isVisible())
+    {
         inputData->stackUnder(this);
     }
 }
@@ -874,7 +882,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
         delete inputData;
         inputData = nullptr;
     }
-
     event->accept();
 }
 

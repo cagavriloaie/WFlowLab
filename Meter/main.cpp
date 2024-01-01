@@ -26,7 +26,6 @@
 
 class PixelImageWidget : public QMainWindow
 {
-
   public:
     explicit PixelImageWidget(QWidget *parent = nullptr) : QMainWindow(
             parent)
@@ -36,7 +35,7 @@ class PixelImageWidget : public QMainWindow
         setFixedSize(400,
                      300);                     // Set the size of the widget
         // Set up a timer to hide the pixel image after five seconds
-        QTimer::singleShot(5000, this, &PixelImageWidget::hidePixelImage);
+        QTimer::singleShot(3000, this, &PixelImageWidget::hidePixelImage);
     }
 
     MainWindow *mainWindow = nullptr;
