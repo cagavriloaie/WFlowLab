@@ -80,7 +80,7 @@ class PixelImageWidget : public QMainWindow
             "\n"
             "   > WStreamLab\n"
             "   > Elcost Romania\n"
-            "   > Ver [1.3 12.23]\n"
+            "   > Ver [1.2 12.23]\n"
         );
         std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
         std::ifstream inConfigurationFile(pathToConfig.c_str());
@@ -150,8 +150,10 @@ int main(int argc, char *argv[])
         exit(0);
     }
     MainWindow mainWindow;
-    PixelImageWidget widget;
-    widget.mainWindow = &mainWindow;
-    widget.show();
+    //This has to be revisited
+    //PixelImageWidget widget;
+    //widget.mainWindow = &mainWindow;
+    //widget.show();
+    mainWindow.show();
     return a.exec();
 }

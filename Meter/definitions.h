@@ -8,8 +8,10 @@
 
 #include <cstddef>
 
+#define MAX_ARRAY_SIZE 20
+
 // Version information
-#define VERSION_BUILD "1.3 Windows x86_32"
+#define VERSION_BUILD "1.2 Windows x86_32"
 
 // CSV delimiter
 constexpr char DELIMITER{','};

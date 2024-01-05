@@ -5,7 +5,7 @@
 #define AppWSLVersion "1.2"
 #define AppWSLPublisher "ELCOST"
 #define AppWSLExeName "WStreamLab.exe"
-#define AppWSLIcoName "WStreamLab.ico"
+#define AppWSLIconName "WStreamLab.ico"
 #define AppWSLReadme "README.txt"
 #define AppWSLWebsite  "http://www.elcost.com/"
 
@@ -74,7 +74,7 @@ Name: "{group}\{#AppWSLName}"; Filename: "{app}\{#AppWSLExeName}"; IconFilename:
 Name: "{group}\Uninstall {#AppWSLName}"; Filename: "{uninstallexe}"; IconFilename: "{app}\.\build\water-meter.bmp";
 
 [Run]
-Filename: "{app}\{#AppWSLExeName}"; Description: "{cm:LaunchProgram,{#StringChange(AppWSLName, '&', '&&')}}"; Flags: postinstall skipifsilent
+;Filename: "{app}\{#AppWSLExeName}"; Description: "{cm:LaunchProgram,{#StringChange(AppWSLName, '&', '&&')}}"; Flags: postinstall skipifsilent
 Filename: "{app}\README.txt"; Description: "View the README.txt file"; Flags: postinstall shellexec skipifsilent
 
 [UninstallRun]

@@ -181,7 +181,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     vectorSerialNumberCopy(vectorSerialNumber)
 {
     ui -> setupUi(this);
-    for (auto iter = 0; iter < 20; ++iter)
+    for (auto iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
     {
         resultAllTestsCopy[iter] = resultAllTests[iter];
     }
@@ -359,7 +359,7 @@ void ReportMeasurements::onPrintClicked()
     htmlTable <<
               "  <p style=\"font-size: 10px;\"  style=\"text-align:left;\">Mijloacele de masurare apartinand  "
               << detinator.toStdString() << " "
-              "prezentate la verificare metrologica au obtinut urmatoarele rezultate:</p>\n";
+              ", prezentate la verificare metrologica, au obtinut urmatoarele rezultate:</p>\n";
     // Continue building the HTML string with the table
     htmlTable << "<center>\n";
     htmlTable << "  <table class=\"first\">\n";
