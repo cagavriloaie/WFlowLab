@@ -91,3 +91,4 @@
     Name: "{app}\imageformats"; Flags: uninsneveruninstall
     Name: "{app}\platforms"; Flags: uninsneveruninstall
     Name: "{app}\translations"; Flags: uninsneveruninstall
+

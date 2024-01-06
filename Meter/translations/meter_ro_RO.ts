@@ -466,7 +466,7 @@
         <translation>&amp;Sesiune noua</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="234"/>
+        <location filename="../mainwindow.cpp" line="236"/>
         <source>RS485 protocol MODBUS ITF off.</source>
         <translation>RS485 MODBUS ITF nu functioneaza.</translation>
     </message>
@@ -478,8 +478,8 @@
         <location filename="../flow-meter-type.h" line="193"/>
         <location filename="../flow-meter-type.h" line="208"/>
         <location filename="../main.cpp" line="141"/>
-        <location filename="../mainwindow.cpp" line="375"/>
-        <location filename="../mainwindow.cpp" line="812"/>
+        <location filename="../mainwindow.cpp" line="377"/>
+        <location filename="../mainwindow.cpp" line="810"/>
         <source>Warning</source>
         <translation>Atentie</translation>
     </message>
@@ -512,22 +512,22 @@
         <translation>Doar o singură instanță a aplicatiei WStreamLab este permisa.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="377"/>
+        <location filename="../mainwindow.cpp" line="379"/>
         <source>Serial interfaces is not available.</source>
         <translation>Interfata</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="379"/>
+        <location filename="../mainwindow.cpp" line="381"/>
         <source>The application cannot use serial driver because the dll package is not available.</source>
         <translation>Aplicatia nu poate utiliza driverul serial deoarece libraria DLL nu este disponibila.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="813"/>
+        <location filename="../mainwindow.cpp" line="811"/>
         <source>Serial interfaces.</source>
         <translation>Interfata serială</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="815"/>
+        <location filename="../mainwindow.cpp" line="813"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>Aplicatia nu a detectat nici o interfata seriala la acest calculator.</translation>
     </message>
@@ -671,146 +671,146 @@
         <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="127"/>
+        <location filename="../tableBoard.cpp" line="124"/>
         <source>Save input data</source>
         <translation>Salvare date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="141"/>
+        <location filename="../tableBoard.cpp" line="148"/>
         <source>Open Input Data</source>
         <translation>Deschide date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="143"/>
+        <location filename="../tableBoard.cpp" line="150"/>
         <source>Input data (*.in);;All file (*.*)</source>
         <translation>Date intrare (*.in);;Toate fisierele (*.*)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="558"/>
+        <location filename="../tableBoard.cpp" line="556"/>
         <source>WStreamLab - Input Table</source>
         <translation>WStreamLab - Date intrare</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="578"/>
+        <location filename="../tableBoard.cpp" line="582"/>
+        <location filename="../tableBoard.cpp" line="586"/>
+        <source>Index</source>
+        <translation>Index</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="579"/>
+        <location filename="../tableBoard.cpp" line="583"/>
+        <location filename="../tableBoard.cpp" line="587"/>
+        <source>Start index</source>
+        <translation>Index start</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="580"/>
         <location filename="../tableBoard.cpp" line="584"/>
         <location filename="../tableBoard.cpp" line="588"/>
-        <source>Index</source>
-        <translation>Index</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="581"/>
-        <location filename="../tableBoard.cpp" line="585"/>
-        <location filename="../tableBoard.cpp" line="589"/>
-        <source>Start index</source>
-        <translation>Index start</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="582"/>
-        <location filename="../tableBoard.cpp" line="586"/>
-        <location filename="../tableBoard.cpp" line="590"/>
         <source>Stop index</source>
         <translation>Index stop</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="583"/>
+        <location filename="../tableBoard.cpp" line="581"/>
         <source>Err. Qmin</source>
         <translation>Eroare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="587"/>
+        <location filename="../tableBoard.cpp" line="585"/>
         <source>Err. Qt</source>
         <translation>Eroare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="591"/>
+        <location filename="../tableBoard.cpp" line="589"/>
         <source>Err. Qn</source>
         <translation>Eroare</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="590"/>
+        <location filename="../tableBoard.cpp" line="594"/>
+        <location filename="../tableBoard.cpp" line="598"/>
+        <source>Flow rate [L/h]</source>
+        <translation>Debit [L/h]</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="591"/>
+        <location filename="../tableBoard.cpp" line="595"/>
+        <location filename="../tableBoard.cpp" line="599"/>
+        <source>Mass [kg]</source>
+        <translation>Masa [kg]</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="592"/>
         <location filename="../tableBoard.cpp" line="596"/>
         <location filename="../tableBoard.cpp" line="600"/>
-        <source>Flow rate [L/h]</source>
-        <translation>Debit [L/h]</translation>
+        <source>Temperature [°C]</source>
+        <translation>Temperatura [°C]</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="593"/>
         <location filename="../tableBoard.cpp" line="597"/>
         <location filename="../tableBoard.cpp" line="601"/>
-        <source>Mass [kg]</source>
-        <translation>Masa [kg]</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="594"/>
-        <location filename="../tableBoard.cpp" line="598"/>
-        <location filename="../tableBoard.cpp" line="602"/>
-        <source>Temperature [°C]</source>
-        <translation>Temperatura [°C]</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="595"/>
-        <location filename="../tableBoard.cpp" line="599"/>
-        <location filename="../tableBoard.cpp" line="603"/>
         <source>Volume [L]</source>
         <translation>Volum [L]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="606"/>
+        <location filename="../tableBoard.cpp" line="604"/>
         <source>&amp;Data evaluate</source>
         <translation>&amp;Verifica</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="607"/>
+        <location filename="../tableBoard.cpp" line="605"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Generare FM</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="608"/>
+        <location filename="../tableBoard.cpp" line="606"/>
         <source>Report PDF</source>
         <translation>Generare &amp;BV</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="609"/>
+        <location filename="../tableBoard.cpp" line="607"/>
         <source>&amp;Open</source>
         <translation>&amp;Deschide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="610"/>
+        <location filename="../tableBoard.cpp" line="608"/>
         <source>&amp;Save</source>
         <translation>&amp;Salveaza</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="611"/>
+        <location filename="../tableBoard.cpp" line="609"/>
         <source>&amp;Close</source>
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="612"/>
+        <location filename="../tableBoard.cpp" line="610"/>
         <source>Clean &amp;Input</source>
         <translation>Ster&amp;ge date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1360"/>
+        <location filename="../tableBoard.cpp" line="1358"/>
         <source>Collected data from flow meters.</source>
         <translation>Date colectate de la contoare apa</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1362"/>
+        <location filename="../tableBoard.cpp" line="1360"/>
         <source>Some user input data are not available or are outside the normal rage!</source>
         <translation>Sunt date introduse de utilizator care nu sunt disponibile sau care sunt in afara domeniului de utilizare!</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2470"/>
+        <location filename="../tableBoard.cpp" line="2468"/>
         <source>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qmin: %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2474"/>
+        <location filename="../tableBoard.cpp" line="2472"/>
         <source>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qt:  %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2478"/>
+        <location filename="../tableBoard.cpp" line="2476"/>
         <source>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qn: %1 L/h  Eroare: %2%</translation>
     </message>

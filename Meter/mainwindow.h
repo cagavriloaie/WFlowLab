@@ -29,7 +29,7 @@ enum SELECTED_LANGUAGE
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
-    class MainWindow;
+class MainWindow;
 }
 QT_END_NAMESPACE
 
@@ -56,8 +56,8 @@ struct SelectedInfo
         serialPort{false},
         selectedLanguage{ROMANIAN},
         modbusDevice{nullptr}
-    {
-    };
+        {
+        };
 
     float density_20;
     std::string pathResults;
@@ -96,7 +96,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-  public:
+public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -122,10 +122,24 @@ class MainWindow : public QMainWindow
     typedef const wchar_t *(*EnumerateSerialPorts)();
     EnumerateSerialPorts serialPorts{nullptr};
 
-  protected:
+protected:
     void mousePressEvent(QMouseEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override
+    {
+        if (event->type() == QEvent::MouseButtonPress)
+        {
+            // Check if the event occurred on this window
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+            if (rect().contains(mouseEvent->pos()))
+            {
+                activateWindow();
+            }
+        }
 
-  private slots:
+        return QMainWindow::eventFilter(obj, event);
+    }
+
+private slots:
     void onMeterTypeChanged(int index);
     void onNumberOfWaterMetersChanged(int index);
     void onNewSessionClicked();
@@ -146,7 +160,7 @@ class MainWindow : public QMainWindow
     void onPortSettings();
     void closeEvent(QCloseEvent *event) override;
 
-  signals:
+signals:
     void numberOfWaterMetersChangedSignal();
     void meterTypeChangedSignal();
     void measurementTypeChangedSignal();

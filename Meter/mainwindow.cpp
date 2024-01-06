@@ -214,7 +214,7 @@ void MainWindow::Translate()
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-    inputData(nullptr)
+      inputData(nullptr)
 {
     ui->setupUi(this);
     pw = this;
@@ -386,16 +386,20 @@ MainWindow::MainWindow(QWidget *parent)
         warningMessage.exec();
         this->close();
     }
+
     ui->rbInterface->setDisabled(true);
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
+
     helpAbout = new HelpAbout(this);
     helpAbout->setModal(true);
     CenterToScreen(helpAbout);
+
     interfaceDialog = new Interface(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
+
     alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -510,6 +514,8 @@ MainWindow::MainWindow(QWidget *parent)
     // 485 Indicator State
     ui->SerialLedIndicator->hide();
     ui->lbConnected->hide();
+
+    installEventFilter(this);
 }
 
 MainWindow::~MainWindow()
@@ -544,18 +550,15 @@ void MainWindow::onNewSessionClicked()
         connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
                 SLOT(onMeasurementTypeChanged()));
     }
-
     // Set the fixed size of the window
     int fixedWidth = 1450;  // Set your fixed width
     int fixedHeight = 800; // Set your fixed height
     this->inputData->setFixedSize(fixedWidth, fixedHeight);
-
     // Calculate the center position using the primary screen
     QScreen *primaryScreen = QApplication::primaryScreen();
     QRect availableGeometry = primaryScreen->availableGeometry();
     int x = (availableGeometry.width() - fixedWidth) / 2;
     int y = (availableGeometry.height() - fixedHeight) / 2;
-
     // Set the position and display the window
     this->inputData->move(x, y);
     this->inputData->setModal(false);
@@ -597,19 +600,22 @@ void MainWindow::onRbInterfaceClicked() {}
 void MainWindow::onAmbientTemperatureTextChanged()
 {
     QString temperature = ui->leTemperature->text();
-    selectedInfo.ambientTemperature = static_cast<int>( temperature.toDouble());
+    selectedInfo.ambientTemperature = static_cast<int>
+                                      (temperature.toDouble());
 }
 
 void MainWindow::onRelativeAirHumidityTextChanged()
 {
     QString humidity = ui->leHumidity->text();
-    selectedInfo.relativeAirHumidity = static_cast<int>(humidity.toDouble());
+    selectedInfo.relativeAirHumidity = static_cast<int>
+                                       (humidity.toDouble());
 }
 
 void MainWindow::onAthmosphericPressureTextChanged()
 {
     QString pressure = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = static_cast<int>(pressure.toDouble());
+    selectedInfo.athmosphericPressure = static_cast<int>
+                                        (pressure.toDouble());
 }
 
 void MainWindow::onGeneralDescription()
@@ -865,12 +871,8 @@ void MainWindow::onSetEnglish()
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
+    activateWindow();
     QMainWindow::mousePressEvent(event);
-    // Check if inputData is visible and hide it
-    if (inputData && inputData->isVisible())
-    {
-        inputData->stackUnder(this);
-    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

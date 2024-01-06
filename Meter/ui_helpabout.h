@@ -25,7 +25,7 @@ QT_BEGIN_NAMESPACE
 
 class Ui_HelpAbout
 {
-public:
+  public:
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout_2;
     QGroupBox *grAbout;
@@ -55,16 +55,19 @@ public:
     void setupUi(QDialog *HelpAbout)
     {
         if (HelpAbout->objectName().isEmpty())
+        {
             HelpAbout->setObjectName("HelpAbout");
+        }
         HelpAbout->resize(400, 235);
         HelpAbout->setMinimumSize(QSize(400, 235));
         HelpAbout->setMaximumSize(QSize(400, 235));
         QIcon icon;
-        icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(),
+                     QIcon::Normal, QIcon::Off);
         HelpAbout->setWindowIcon(icon);
         HelpAbout->setStyleSheet(QString::fromUtf8("QPushButton:hover {\n"
-"       background-color: #d7d9d7;\n"
-"}"));
+                                 "       background-color: #d7d9d7;\n"
+                                 "}"));
         gridLayout = new QGridLayout(HelpAbout);
         gridLayout->setObjectName("gridLayout");
         verticalLayout_2 = new QVBoxLayout();
@@ -79,121 +82,77 @@ public:
         horizontalLayout_2->setObjectName("horizontalLayout_2");
         lbName = new QLabel(grAbout);
         lbName->setObjectName("lbName");
-
         horizontalLayout_2->addWidget(lbName);
-
         lbNameValue = new QLabel(grAbout);
         lbNameValue->setObjectName("lbNameValue");
-
         horizontalLayout_2->addWidget(lbNameValue);
-
-
         verticalLayout->addLayout(horizontalLayout_2);
-
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         lbCopyright = new QLabel(grAbout);
         lbCopyright->setObjectName("lbCopyright");
-
         horizontalLayout_3->addWidget(lbCopyright);
-
         lbCopyrightValue = new QLabel(grAbout);
         lbCopyrightValue->setObjectName("lbCopyrightValue");
-
         horizontalLayout_3->addWidget(lbCopyrightValue);
-
-
         verticalLayout->addLayout(horizontalLayout_3);
-
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
         lbEmail = new QLabel(grAbout);
         lbEmail->setObjectName("lbEmail");
-
         horizontalLayout_4->addWidget(lbEmail);
-
         lbEmailValue = new QLabel(grAbout);
         lbEmailValue->setObjectName("lbEmailValue");
-
         horizontalLayout_4->addWidget(lbEmailValue);
-
-
         verticalLayout->addLayout(horizontalLayout_4);
-
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName("horizontalLayout_5");
         lbAddress = new QLabel(grAbout);
         lbAddress->setObjectName("lbAddress");
-
         horizontalLayout_5->addWidget(lbAddress);
-
         lbAddressValue = new QLabel(grAbout);
         lbAddressValue->setObjectName("lbAddressValue");
-
         horizontalLayout_5->addWidget(lbAddressValue);
-
-
         verticalLayout->addLayout(horizontalLayout_5);
-
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName("horizontalLayout_6");
         lbAuthor = new QLabel(grAbout);
         lbAuthor->setObjectName("lbAuthor");
-
         horizontalLayout_6->addWidget(lbAuthor);
-
         lbAuthorValue = new QLabel(grAbout);
         lbAuthorValue->setObjectName("lbAuthorValue");
-
         horizontalLayout_6->addWidget(lbAuthorValue);
-
-
         verticalLayout->addLayout(horizontalLayout_6);
-
-
         gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
-
-
         verticalLayout_2->addWidget(grAbout);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum,
+                                         QSizePolicy::Expanding);
         verticalLayout_2->addItem(verticalSpacer);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
+                                           QSizePolicy::Minimum);
         horizontalLayout->addItem(horizontalSpacer);
-
         pbClose = new QPushButton(HelpAbout);
         pbClose->setObjectName("pbClose");
         pbClose->setStyleSheet(QString::fromUtf8(" padding-left: 10px; \n"
-" padding-top: 1px; \n"
-" padding-right: 10px;\n"
-" padding-down: 10px; "));
-
+                               " padding-top: 1px; \n"
+                               " padding-right: 10px;\n"
+                               " padding-down: 10px; "));
         horizontalLayout->addWidget(pbClose);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding,
+                                             QSizePolicy::Minimum);
         horizontalLayout->addItem(horizontalSpacer_2);
-
-
         verticalLayout_2->addLayout(horizontalLayout);
-
-
         gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
-
-
         retranslateUi(HelpAbout);
-
         QMetaObject::connectSlotsByName(HelpAbout);
     } // setupUi
 
     void retranslateUi(QDialog *HelpAbout)
     {
-        HelpAbout->setWindowTitle(QCoreApplication::translate("HelpAbout", "WMeter - About", nullptr));
+        HelpAbout->setWindowTitle(QCoreApplication::translate("HelpAbout",
+                                  "WMeter - About", nullptr));
         grAbout->setTitle(QString());
         lbName->setText(QString());
         lbNameValue->setText(QString());
@@ -210,7 +169,8 @@ public:
 
 };
 
-namespace Ui {
+namespace Ui
+{
     class HelpAbout: public Ui_HelpAbout {};
 } // namespace Ui
 
