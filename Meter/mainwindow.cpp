@@ -212,7 +212,9 @@ void MainWindow::Translate()
 }
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+    inputData(nullptr)
 {
     ui->setupUi(this);
     pw = this;
@@ -385,10 +387,6 @@ MainWindow::MainWindow(QWidget *parent)
         this->close();
     }
     ui->rbInterface->setDisabled(true);
-    inputData = new TableBoard(this);
-    inputData->setWindowModality(Qt::NonModal);
-    inputData->setWindowFlags(Qt::Window);
-    inputData->setAttribute(Qt::WA_DeleteOnClose);
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
@@ -449,12 +447,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::onNewSessionClicked);
     connect(ui->pbExitApplication, &QPushButton::clicked, this,
             &MainWindow::onExitApplication);
-    connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
-            SLOT(onTypeMeterChanged()));
-    connect(this, SIGNAL(numberOfWaterMetersChangedSignal()), inputData,
-            SLOT(onNumberOfWaterMetersChanged()));
-    connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
-            SLOT(onMeasurementTypeChanged()));
     connect(ui->action_License, SIGNAL(triggered()), this,
             SLOT(onShowLicense()));
     connect(ui->action_ExitApp, SIGNAL(triggered()), this,
@@ -552,15 +544,18 @@ void MainWindow::onNewSessionClicked()
         connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
                 SLOT(onMeasurementTypeChanged()));
     }
+
     // Set the fixed size of the window
     int fixedWidth = 1450;  // Set your fixed width
     int fixedHeight = 800; // Set your fixed height
     this->inputData->setFixedSize(fixedWidth, fixedHeight);
+
     // Calculate the center position using the primary screen
     QScreen *primaryScreen = QApplication::primaryScreen();
     QRect availableGeometry = primaryScreen->availableGeometry();
     int x = (availableGeometry.width() - fixedWidth) / 2;
     int y = (availableGeometry.height() - fixedHeight) / 2;
+
     // Set the position and display the window
     this->inputData->move(x, y);
     this->inputData->setModal(false);
@@ -601,17 +596,20 @@ void MainWindow::onRbInterfaceClicked() {}
 
 void MainWindow::onAmbientTemperatureTextChanged()
 {
-    selectedInfo.ambientTemperature = ui->leTemperature->text().toInt();
+    QString temperature = ui->leTemperature->text();
+    selectedInfo.ambientTemperature = static_cast<int>( temperature.toDouble());
 }
 
 void MainWindow::onRelativeAirHumidityTextChanged()
 {
-    selectedInfo.relativeAirHumidity = ui->leHumidity->text().toInt();
+    QString humidity = ui->leHumidity->text();
+    selectedInfo.relativeAirHumidity = static_cast<int>(humidity.toDouble());
 }
 
 void MainWindow::onAthmosphericPressureTextChanged()
 {
-    selectedInfo.athmosphericPressure = ui->lePressure->text().toInt();
+    QString pressure = ui->lePressure->text();
+    selectedInfo.athmosphericPressure = static_cast<int>(pressure.toDouble());
 }
 
 void MainWindow::onGeneralDescription()

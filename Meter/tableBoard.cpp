@@ -12,6 +12,7 @@
 #include <QString>
 #include <QValidator>
 #include <QtPrintSupport/QPrinter>
+#include <QTimer>
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
@@ -80,22 +81,18 @@ void TableBoard::onSaveCurrentInputDataClicked()
                        now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss"));
     fileName.append(".in");
     std::ofstream outputDataFile(fileName.toStdString());
+
     outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
-    double ambientTemperature =
-        mainwindow->selectedInfo.ambientTemperature;
-    double relativeAirHumidity =
-        mainwindow->selectedInfo.relativeAirHumidity;
-    double athmosphericPressure =
-        mainwindow->selectedInfo.athmosphericPressure;
-    outputDataFile << ambientTemperature << "\n";
-    outputDataFile << relativeAirHumidity << "\n";
-    outputDataFile << athmosphericPressure << "\n";
+    outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
+    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
+    outputDataFile << mainwindow->selectedInfo.athmosphericPressure << "\n";
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
     outputDataFile << mainwindow->selectedInfo.rbInterface << "\n";
     outputDataFile << mainwindow->selectedInfo.rbTerminal << "\n";
+
     for (size_t iter = 0; iter < entriesNumber; ++iter)
     {
         outputDataFile << vectorSerialNumber[iter]->text().toStdString()
@@ -116,23 +113,33 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << ui->leFlowRateMinumum->text().toStdString() << "\n";
     outputDataFile << ui->leMass1->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature1->text().toStdString() << "\n";
-    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() <<
-        "\n";
+    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() << "\n";
     outputDataFile << ui->leMass2->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature2->text().toStdString() << "\n";
     outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
     outputDataFile << ui->leMass3->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
-    QMessageBox messageBox;
-    messageBox.setWindowTitle(tr("Save input data"));
-    messageBox.setText("The file " + fileName + " was created!");
-    messageBox.setStandardButtons(QMessageBox::Ok);
-    messageBox.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
+
+    QMessageBox messageBoxSaveInputFile;
+
+    messageBoxSaveInputFile.setWindowTitle(tr("Save input data"));
+    messageBoxSaveInputFile.setText("The file " + fileName + " was created!");
+    messageBoxSaveInputFile.setStandardButtons(QMessageBox::Ok);
+    messageBoxSaveInputFile.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
                               Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
-    if (messageBox.exec() == QMessageBox::Ok)
-    {
-        messageBox.close();
-    }
+
+    // Create a QTimer
+    QTimer *timer = new QTimer(& messageBoxSaveInputFile);
+    timer -> setSingleShot(true); // Make the timer a single-shot timer
+    timer -> setInterval(
+        3000); // Set the interval to 3000 milliseconds (5 seconds)
+    // Connect the timeout signal to close the message box
+    QObject::connect(timer, & QTimer::timeout, &
+                                              messageBoxSaveInputFile, & QMessageBox::accept);
+    // Start the timer
+    timer -> start();
+    // Show the message box
+    messageBoxSaveInputFile.exec();
 }
 
 void TableBoard::onOpenInputDataClicked()
@@ -165,6 +172,7 @@ void TableBoard::onOpenInputDataClicked()
     inputDataFile >> rbManual;
     inputDataFile >> rbInterface;
     inputDataFile >> rbTerminal;
+
     int index = mainwindow->ui->cbNumberOfWaterMeters->findText(
         std::to_string(entriesNumber).c_str());
     if (index != -1)
@@ -177,21 +185,15 @@ void TableBoard::onOpenInputDataClicked()
     {
         mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
     }
-    std::ostringstream ossAmbientTemperature;
-    ossAmbientTemperature << std::setprecision(2) << std::fixed <<
-        ambientTemperature;
-    mainwindow->ui->leTemperature->setText(
-        ossAmbientTemperature.str().c_str());
-    std::ostringstream ossRelativeAirHumidity;
-    ossRelativeAirHumidity << std::setprecision(2) << std::fixed <<
-        relativeAirHumidity;
-    mainwindow->ui->leHumidity->setText(
-        ossRelativeAirHumidity.str().c_str());
-    std::ostringstream ossAthmosphericPressure;
-    ossAthmosphericPressure << std::setprecision(2) << std::fixed <<
-        athmosphericPressure;
-    mainwindow->ui->lePressure->setText(
-        ossAthmosphericPressure.str().c_str());
+
+    QString qAmbientTemperature = QString::number(ambientTemperature, 'f', 2);
+    QString qRelativeAirHumidity = QString::number(relativeAirHumidity, 'f', 2);
+    QString qAthmosphericPressure = QString::number(athmosphericPressure, 'f', 2);
+
+    mainwindow->ui->leTemperature->setText(qAmbientTemperature);
+    mainwindow->ui->leHumidity->setText(qRelativeAirHumidity);
+    mainwindow->ui->lePressure->setText(qAthmosphericPressure);
+
     if (rbVolumetric)
     {
         mainwindow->ui->rbVolumetric->setChecked(true);
@@ -214,45 +216,50 @@ void TableBoard::onOpenInputDataClicked()
     {
         mainwindow->ui->rbInterface->setChecked(true);
     }
+
     std::getline(inputDataFile, tmpInput);
     for (size_t iter = 0; iter < entries; ++iter)
     {
         std::getline(inputDataFile, tmpInput);
         vectorSerialNumber[iter]->setText(tmpInput.c_str());
+
         std::getline(inputDataFile, tmpInput);
         vectorFirstIndexStart[iter]->setText(tmpInput.c_str());
         std::getline(inputDataFile, tmpInput);
         vectorFirstIndexStop[iter]->setText(tmpInput.c_str());
+
         std::getline(inputDataFile, tmpInput);
-        vectorFirstError[iter]->setText("");
         vectorSecondIndexStart[iter]->setText(tmpInput.c_str());
         std::getline(inputDataFile, tmpInput);
         vectorSecondIndexStop[iter]->setText(tmpInput.c_str());
-        vectorSecondError[iter]->setText("");
+
         std::getline(inputDataFile, tmpInput);
         vectorThirdIndexStart[iter]->setText(tmpInput.c_str());
-        vectorThirdError[iter]->setText("");
         std::getline(inputDataFile, tmpInput);
         vectorThirdIndexStop[iter]->setText(tmpInput.c_str());
     }
+
     std::getline(inputDataFile, tmpInput);
     ui->leFlowRateMinumum->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass1->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature1->setText(tmpInput.c_str());
+
     std::getline(inputDataFile, tmpInput);
     ui->leFlowRateTransitoriu->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass2->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature2->setText(tmpInput.c_str());
+
     std::getline(inputDataFile, tmpInput);
     ui->leFlowRateNominal->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass3->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature3->setText(tmpInput.c_str());
+
     onMeasurementTypeChanged();
 }
 
@@ -1581,8 +1588,10 @@ void TableBoard::onPrintPdfDocClicked()
     }
     double nominalWaterMeterError = mainwindow->selectedInfo.nominalError;
     double maximumWaterMeterError = mainwindow->selectedInfo.maximumError;
+
     if (mainwindow->selectedInfo.selectedLanguage == ROMANIAN)
     {
+        size_t totalEntries {0};
         report =
             QString("<!DOCTYPE html>") + "<html>" + "<head>" + "<style>" +
             "   table, th, td {" + "       border: 1px solid black;" +
@@ -1713,6 +1722,7 @@ void TableBoard::onPrintPdfDocClicked()
             {
                 continue;
             }
+            ++totalEntries;
             QString resultTests{"ADMIS"};
             try
             {
@@ -1801,33 +1811,37 @@ void TableBoard::onPrintPdfDocClicked()
         };
         report += QString("</tbody>") + "</table>";
         /////// Page two
+        bool header{true};
         if (iter < entriesTable)
         {
-            report += "<br><br><br><br><br><br><br><br><br><br>";
-            report +=
-                QString("<table width=\"100%\" border=\"1\">") +
-                "    <caption>        Rezultate test: "
-                "</caption>" +
-                "    <thead>" + "    <tr>" +
-                "        <th style=\"text-align: center\" width=\"16%\"> Serie (Tip) "
-                "</th>" +
-                "        <th style=\"text-align: center\" width=\"9%\"> "
-                "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Index start "
-                " [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\">Index stop "
-                "&nbsp; [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-                "contor [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-                "etalon [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
-                +
-                "        <th style=\"text-align: center\"  width=\"15%\"> "
-                "Rezultate</th>" +
-                "    </tr>" + "    </thead>" + "    <tbody>";
             for (unsigned iter = 10; iter < entriesTable; ++iter)
             {
+                if(totalEntries == 10 && header) {
+                    report += "<br><br><br><br><br><br><br><br><br><br>";
+                    report +=
+                        QString("<table width=\"100%\" border=\"1\">") +
+                        "    <caption>        Rezultate test: "
+                        "</caption>" +
+                        "    <thead>" + "    <tr>" +
+                        "        <th style=\"text-align: center\" width=\"16%\"> Serie (Tip) "
+                        "</th>" +
+                        "        <th style=\"text-align: center\" width=\"9%\"> "
+                        "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
+                        "        <th style=\"text-align: center\" width=\"14%\"> Index start "
+                        " [L] </th>" +
+                        "        <th style=\"text-align: center\" width=\"14%\">Index stop "
+                        "&nbsp; [L] </th>" +
+                        "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                        "contor [L] </th>" +
+                        "        <th style=\"text-align: center\" width=\"14%\"> Volum "
+                        "etalon [L] </th>" +
+                        "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
+                        +
+                        "        <th style=\"text-align: center\"  width=\"15%\"> "
+                        "Rezultate</th>" +
+                        "    </tr>" + "    </thead>" + "    <tbody>";
+                    header = false;
+                }
                 if (!vectorCheckNumber[iter]->checkState())
                 {
                     continue;
@@ -1882,6 +1896,7 @@ void TableBoard::onPrintPdfDocClicked()
                 {
                     continue;
                 }
+                ++totalEntries;
                 QString resultTests{"ADMIS"};
                 try
                 {
@@ -1986,6 +2001,8 @@ void TableBoard::onPrintPdfDocClicked()
     // English translation
     else
     {
+        size_t totalEntries {0};
+
         report = QString("<!DOCTYPE html>") + "<html>" + "<head>" + "<style>"
                  +
                  "   table, th, td {" + "       border: 1px solid black;" +
@@ -2055,6 +2072,7 @@ void TableBoard::onPrintPdfDocClicked()
         size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
         for (; iter < 10 && iter < entriesTable; ++iter)
         {
+
             if (!vectorCheckNumber[iter]->checkState())
             {
                 continue;
@@ -2109,6 +2127,9 @@ void TableBoard::onPrintPdfDocClicked()
             {
                 continue;
             }
+
+            ++totalEntries;
+
             QString resultTests{"PASSED"};
             try
             {
@@ -2196,173 +2217,174 @@ void TableBoard::onPrintPdfDocClicked()
                 errorThird + "</td>" + "     </tr>";
         };
         report += QString("</tbody>") + "</table>";
+
         // Part two
         if (iter < entriesTable)
         {
-            report += "<br><br><br><br><br><br><br><br><br><br>";
-            report +=
-                QString("<table width=\"100%\" border=\"1\">") +
-                "    <caption>        Test results: "
-                "</caption>" +
-                "    <thead>" + "    <tr>" +
-                "        <th style=\"text-align: center\" width=\"16%\"> S/N (Type)"
-                "</th>" +
-                "        <th style=\"text-align: center\" width=\"9%\"> "
-                "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Start "
-                "index [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\">Stop "
-                "&nbsp;index [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Flow meter volume "
-                " [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"14%\"> Standard "
-                "volume [L] </th>" +
-                "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
-                +
-                "        <th style=\"text-align: center\"  width=\"15%\"> "
-                "Results</th>" +
-                "    </tr>" + "    </thead>" + "    <tbody>";
-            for (unsigned iter_part_two = 10; iter_part_two < entriesTable;
-                 ++iter_part_two)
+            bool header{true};
+            for (unsigned iter = 10; iter < entriesTable; ++iter)
             {
-                for (; iter_part_two < entriesTable; ++iter_part_two)
+                if(totalEntries == 10 && header) {
+                    report += "<br><br><br><br><br><br><br><br><br><br>";
+                    report += QString("<table width=\"100%\" border=\"1\">") +
+                              "    <caption style=\"text-align: left\">        Results: "
+                              "</caption>" +
+                              "    <thead>" + "    <tr>" +
+                              "        <th style=\"text-align: center\" width=\"16%\"> S/N (Type) "
+                              "</th>" +
+                              "        <th style=\"text-align: center\" width=\"9%\"> "
+                              "&nbsp;Flow&nbsp;&nbsp; [L/h] </th>" +
+                              "        <th style=\"text-align: center\" width=\"14%\"> "
+                              "Start Index [L] </th>" +
+                              "        <th style=\"text-align: center\" width=\"14%\">Stop "
+                              "&nbsp;Index [L] </th>" +
+                              "        <th style=\"text-align: center\" width=\"14%\"> "
+                              "Flow Meter Volume [L] </th>" +
+                              "        <th style=\"text-align: center\" width=\"14%\"> "
+                              "Standard Volume [L] </th>" +
+                              "        <th style=\"text-align: center\" width=\"9%\"> "
+                              "Error [%]</th>" +
+                              "        <th style=\"text-align: center\"  width=\"10%\"> "
+                              "Results</th>" +
+                              "    </tr>" + "    </thead>" + "    <tbody>";
+                    header = false;
+                }
+                if (!vectorCheckNumber[iter]->checkState())
                 {
-                    if (!vectorCheckNumber[iter_part_two]->checkState())
-                    {
-                        continue;
-                    }
-                    QString SN = vectorSerialNumber[iter_part_two]->text();
-                    QString startFirst = vectorFirstIndexStart[iter_part_two]->text() +
-                                         "&nbsp;";
-                    QString stopFirst = vectorFirstIndexStop[iter_part_two]->text() +
-                                        "&nbsp;";
-                    double registerVolumeDoubleFirst =
-                        (vectorFirstIndexStop[iter_part_two]->text().toDouble() -
-                         vectorFirstIndexStart[iter_part_two]->text().toDouble());
-                    QString errorFirst = vectorFirstError[iter_part_two]->text() +
-                                         "&nbsp;";
-                    QString realVolumeFirst =
-                        QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
-                        "&nbsp;";
-                    QString startSecond = vectorSecondIndexStart[iter_part_two]->text() +
-                                          "&nbsp;";
-                    QString stopSecond = vectorSecondIndexStop[iter_part_two]->text() +
-                                         "&nbsp;";
-                    double registerVolumeDoubleSecond =
-                        (vectorSecondIndexStop[iter_part_two]->text().toDouble() -
-                         vectorSecondIndexStart[iter_part_two]->text().toDouble());
-                    QString errorSecond = vectorSecondError[iter_part_two]->text() +
-                                          "&nbsp;";
-                    QString realVolumeSecond =
-                        QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
-                        "&nbsp;";;
-                    QString startThird = vectorThirdIndexStart[iter_part_two]->text() +
-                                         "&nbsp;";
-                    QString stopThird = vectorThirdIndexStop[iter_part_two]->text() +
-                                        "&nbsp;";
-                    double registerVolumeDoubleThird =
-                        (vectorThirdIndexStop[iter_part_two]->text().toDouble() -
-                         vectorThirdIndexStart[iter_part_two]->text().toDouble());
-                    QString errorThird = vectorThirdError[iter_part_two]->text() +
-                                         "&nbsp;";
-                    QString realVolumeThird =
-                        QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
-                        "&nbsp;";
-                    if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
-                        XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
-                        XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
-                        SN.isEmpty())
-                    {
-                        continue;
-                    }
-                    QString resultTests{"PASSED"};
-                    try
-                    {
-                        bool bFirst =
-                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                            maximumWaterMeterError;
-                        bool bSecond =
-                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                            nominalWaterMeterError;
-                        bool bThird =
-                            std::abs(std::stod(errorFirst.toStdString().c_str())) <
-                            nominalWaterMeterError;
-                        resultTests =
-                            (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
-                    }
-                    catch (...)
-                    {
-                        resultTests = "FAILED";
-                    }
-                    resultAllTests[count++] = resultTests;
-                    double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
-                    double trasitionFlowRate =
-                        ui->leFlowRateTransitoriu->text().toDouble();
-                    double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
-                    report +=
-                        QString("    <tr>") +
-                        "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
-                        +
-                        SN + "</th>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        startFirst + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        stopFirst + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        realVolumeFirst + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        errorFirst + "</td>" +
-                        "        <th style=\"text-align: center\" rowspan=\"3\">" +
-                        resultTests + "</th>" + "    </tr>" + "    <tr>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        startSecond + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        stopSecond + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" + "&nbsp;" +
-                        QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        realVolumeSecond + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        errorSecond + "</td>" + "    </tr>" + "    <tr>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        startThird + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        stopThird + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        realVolumeThird + "</td>" +
-                        "        <td style=\"text-align: right\" \"padding-right: "
-                        "5px\">" +
-                        errorThird + "</td>" + "     </tr>";
-                };
-                report += QString("</tbody>") + "</table>";
-            }
+                    continue;
+                }
+                QString SN = vectorSerialNumber[iter]->text();
+                QString startFirst = vectorFirstIndexStart[iter]->text() +
+                                     "&nbsp;";
+                QString stopFirst = vectorFirstIndexStop[iter]->text() +
+                                    "&nbsp;";
+                double registerVolumeDoubleFirst =
+                    (vectorFirstIndexStop[iter]->text().toDouble() -
+                     vectorFirstIndexStart[iter]->text().toDouble());
+                QString errorFirst = vectorFirstError[iter]->text() +
+                                     "&nbsp;";
+                QString realVolumeFirst =
+                    QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                    "&nbsp;";
+                QString startSecond = vectorSecondIndexStart[iter]->text() +
+                                      "&nbsp;";
+                QString stopSecond = vectorSecondIndexStop[iter]->text() +
+                                     "&nbsp;";
+                double registerVolumeDoubleSecond =
+                    (vectorSecondIndexStop[iter]->text().toDouble() -
+                     vectorSecondIndexStart[iter]->text().toDouble());
+                QString errorSecond = vectorSecondError[iter]->text() +
+                                      "&nbsp;";
+                QString realVolumeSecond =
+                    QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                    "&nbsp;";;
+                QString startThird = vectorThirdIndexStart[iter]->text() +
+                                     "&nbsp;";
+                QString stopThird = vectorThirdIndexStop[iter]->text() +
+                                    "&nbsp;";
+                double registerVolumeDoubleThird =
+                    (vectorThirdIndexStop[iter]->text().toDouble() -
+                     vectorThirdIndexStart[iter]->text().toDouble());
+                QString errorThird = vectorThirdError[iter]->text() +
+                                     "&nbsp;";
+                QString realVolumeThird =
+                    QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                    "&nbsp;";
+                if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
+                    XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
+                    XOR(startThird.isEmpty(), stopThird.isEmpty()) ||
+                    SN.isEmpty())
+                {
+                    continue;
+                }
+                ++totalEntries;
+                QString resultTests{"PASSED"};
+                try
+                {
+                    bool bFirst =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        maximumWaterMeterError;
+                    bool bSecond =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        nominalWaterMeterError;
+                    bool bThird =
+                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        nominalWaterMeterError;
+                    resultTests =
+                        (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
+                }
+                catch (...)
+                {
+                    resultTests = "FAILED";
+                }
+                resultAllTests[count++] = resultTests;
+                double minimumFlowRate =  ui->leFlowRateMinumum->text().toDouble();
+                double trasitionFlowRate =
+                    ui->leFlowRateTransitoriu->text().toDouble();
+                double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+                report +=
+                    QString("    <tr>") +
+                    "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
+                    +
+                    SN + "</th>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeFirst + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorFirst + "</td>" +
+                    "        <th style=\"text-align: center\" rowspan=\"3\">" +
+                    resultTests + "</th>" + "    </tr>" + "    <tr>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" + "&nbsp;" +
+                    QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeSecond + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorSecond + "</td>" + "    </tr>" + "    <tr>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    startThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    stopThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    realVolumeThird + "</td>" +
+                    "        <td style=\"text-align: right\" \"padding-right: "
+                    "5px\">" +
+                    errorThird + "</td>" + "     </tr>";
+            };
+            report += QString("</tbody>") + "</table>";
         }
         report += QString("<br><pre><h3>") +
                   "Verification certified person             Laboratory manager<br>" +
