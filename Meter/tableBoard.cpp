@@ -639,7 +639,6 @@ TableBoard::TableBoard(QWidget *_parent):
 
 {
     setModal(false);
-
     mainwindow = dynamic_cast<MainWindow *>(parent);
     //mainwindow = pw;
     ui->setupUi(this);
@@ -1524,7 +1523,7 @@ void TableBoard::onPrintPdfDocClicked()
     QString companyName =
         mainwindow->optionsConfiguration["company"].c_str();
     QDateTime date = QDateTime::currentDateTime();
-    QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
+    QString formattedTime = date.toString(" dd.MM.yyyy / hh:mm:ss");
     if (mainwindow->selectedInfo.selectedLanguage == ROMANIAN)
     {
         formattedTime = QString("Data / Ora:") + formattedTime;

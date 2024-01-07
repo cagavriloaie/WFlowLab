@@ -10,6 +10,9 @@
 
 #define MAX_ARRAY_SIZE 20
 
+#define MAIN_WINDOW_WIDTH   1450
+#define MAIN_WINDOW_HEIGHT   800
+
 // Version information
 #define VERSION_BUILD "1.2 Windows x86_32"
 

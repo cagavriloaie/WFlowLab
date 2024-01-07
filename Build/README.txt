@@ -6,10 +6,10 @@
 ****************************************************
 
 History:
-V 0.9  07.02.2023  Not official release, under development;
-V 1.0  20.05.2023  First official release, automatically interface RS 485 detection
-V 1.1  04.11.2023  Fixing translations and add restriction for data input
-V 1.2  28.12.2023  Added metrological report pdf document
+V 0.9  02.2023  Not official release, under development;
+V 1.0  05.2023  First official release, automatically interface RS 485 detection
+V 1.1  11.2023  Fixing translations and add restriction for data input
+V 1.2  01.2023  Added metrological report pdf document
 
 Application can be installed and run under Windows OS with versions:
 
@@ -59,9 +59,9 @@ can be obtained from the manual that is part of this kit.
 For any issues regarding the license, please contact:
     Constantin Agavriloaie
     office@elcost.ro
-    +40-720.2205.88
-    +40-729.9766.18
-    ROMANIA/CJ
+    +40-720.220.588
+    +40-729.976.618
+    ROMANIA / CJ
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

@@ -20,6 +20,7 @@
 #include <map>
 #include <sstream>
 
+#include "definitions.h"
 #include "air-density.h"
 #include "flow-meter-type.h"
 #include "mainwindow.h"
@@ -386,20 +387,16 @@ MainWindow::MainWindow(QWidget *parent)
         warningMessage.exec();
         this->close();
     }
-
     ui->rbInterface->setDisabled(true);
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
-
     helpAbout = new HelpAbout(this);
     helpAbout->setModal(true);
     CenterToScreen(helpAbout);
-
     interfaceDialog = new Interface(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
-
     alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -514,7 +511,6 @@ MainWindow::MainWindow(QWidget *parent)
     // 485 Indicator State
     ui->SerialLedIndicator->hide();
     ui->lbConnected->hide();
-
     installEventFilter(this);
 }
 
@@ -551,8 +547,8 @@ void MainWindow::onNewSessionClicked()
                 SLOT(onMeasurementTypeChanged()));
     }
     // Set the fixed size of the window
-    int fixedWidth = 1450;  // Set your fixed width
-    int fixedHeight = 800; // Set your fixed height
+    int fixedWidth = MAIN_WINDOW_WIDTH;   // Set your fixed width
+    int fixedHeight = MAIN_WINDOW_HEIGHT; // Set your fixed height
     this->inputData->setFixedSize(fixedWidth, fixedHeight);
     // Calculate the center position using the primary screen
     QScreen *primaryScreen = QApplication::primaryScreen();

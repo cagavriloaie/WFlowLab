@@ -379,12 +379,14 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "    <tbody>\n";
     // Add specified number of rows with sample data
     QString meterType = pw -> ui -> cbWaterMeterType -> currentText();
+    size_t entriesTableUsed{0};
     for (size_t row = 0; row < entriesTable; ++row)
     {
         if (!vectorCheckNumberCopy[row]->checkState())
         {
             continue;
         }
+        ++entriesTableUsed;
         htmlTable << "      <tr style=\"height: 20px;\">\n";
         htmlTable << "        <td class=\"reduced-height\">1</td>\n";
         htmlTable << "        <td class=\"reduced-height\">" <<
@@ -411,17 +413,17 @@ void ReportMeasurements::onPrintClicked()
     std::ostringstream streamObjCost;
     streamObjCost << std::fixed;
     streamObjCost << std::setprecision(2);
-    streamObjCost << costRon.toDouble() * entriesTable;
+    streamObjCost << costRon.toDouble() * entriesTableUsed;
     std::string totalCost = streamObjCost.str();
     std::ostringstream streamObjTVA;
     streamObjTVA << std::fixed;
     streamObjTVA << std::setprecision(2);
-    streamObjTVA << costRon.toDouble() * entriesTable * 0.19;
+    streamObjTVA << costRon.toDouble() * entriesTableUsed * 0.19;
     std::string totaTVA = streamObjTVA.str();
     std::ostringstream streamObjCostTVA;
     streamObjCostTVA << std::fixed;
     streamObjCostTVA << std::setprecision(2);
-    streamObjCostTVA << costRon.toDouble() * entriesTable * 1.19;
+    streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
     for (size_t row = 0; row < 3; ++row)
     {
@@ -542,6 +544,7 @@ void ReportMeasurements::onPrintClicked()
                       ui -> leConducatorLaborator ->text());
     settings.endGroup();
     settings.sync();
+    /*
     QMessageBox messageBoxVerificationReport;
     messageBoxVerificationReport.setWindowTitle(
         tr("Verification report"));
@@ -563,6 +566,7 @@ void ReportMeasurements::onPrintClicked()
     timer -> start();
     // Show the message box
     messageBoxVerificationReport.exec();
+*/
 }
 
 void ReportMeasurements::onCloseClicked()
