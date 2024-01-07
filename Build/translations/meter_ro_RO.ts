@@ -642,7 +642,6 @@
     </message>
     <message>
         <location filename="../report.cpp" line="275"/>
-        <location filename="../report.cpp" line="549"/>
         <source>Verification report</source>
         <translation>Buletin de verificare metrologica</translation>
     </message>
@@ -652,14 +651,12 @@
         <translation>Sunt campuri care nu au fost completate</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="550"/>
         <source>The file </source>
-        <translation>Fisierul </translation>
+        <translation type="vanished">Fisierul </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="550"/>
         <source> was created!</source>
-        <translation>a fost creat</translation>
+        <translation type="vanished">a fost creat</translation>
     </message>
 </context>
 <context>

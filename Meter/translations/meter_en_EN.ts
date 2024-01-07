@@ -642,7 +642,6 @@
     </message>
     <message>
         <location filename="../report.cpp" line="275"/>
-        <location filename="../report.cpp" line="549"/>
         <source>Verification report</source>
         <translation>Verification report</translation>
     </message>
@@ -652,14 +651,12 @@
         <translation>There are unfilled fields!</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="550"/>
         <source>The file </source>
-        <translation>The file </translation>
+        <translation type="vanished">The file </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="550"/>
         <source> was created!</source>
-        <translation> was created!</translation>
+        <translation type="vanished"> was created!</translation>
     </message>
 </context>
 <context>

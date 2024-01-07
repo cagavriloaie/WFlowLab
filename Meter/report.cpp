@@ -566,7 +566,7 @@ void ReportMeasurements::onPrintClicked()
     timer -> start();
     // Show the message box
     messageBoxVerificationReport.exec();
-*/
+    */
 }
 
 void ReportMeasurements::onCloseClicked()
