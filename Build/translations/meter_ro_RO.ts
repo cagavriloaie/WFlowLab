@@ -466,7 +466,7 @@
         <translation>&amp;Sesiune noua</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="237"/>
+        <location filename="../mainwindow.cpp" line="260"/>
         <source>RS485 protocol MODBUS ITF off.</source>
         <translation>RS485 MODBUS ITF nu functioneaza.</translation>
     </message>
@@ -478,8 +478,8 @@
         <location filename="../flow-meter-type.h" line="193"/>
         <location filename="../flow-meter-type.h" line="208"/>
         <location filename="../main.cpp" line="141"/>
-        <location filename="../mainwindow.cpp" line="378"/>
-        <location filename="../mainwindow.cpp" line="812"/>
+        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="825"/>
         <source>Warning</source>
         <translation>Atentie</translation>
     </message>
@@ -512,22 +512,22 @@
         <translation>Doar o singură instanță a aplicatiei WStreamLab este permisa.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="380"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>Serial interfaces is not available.</source>
         <translation>Interfata</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="382"/>
+        <location filename="../mainwindow.cpp" line="249"/>
         <source>The application cannot use serial driver because the dll package is not available.</source>
         <translation>Aplicatia nu poate utiliza driverul serial deoarece libraria DLL nu este disponibila.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="813"/>
+        <location filename="../mainwindow.cpp" line="826"/>
         <source>Serial interfaces.</source>
         <translation>Interfata serială</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="815"/>
+        <location filename="../mainwindow.cpp" line="828"/>
         <source>The application did not detect any serial interface on this computer.</source>
         <translation>Aplicatia nu a detectat nici o interfata seriala la acest calculator.</translation>
     </message>
@@ -541,112 +541,122 @@
     </message>
     <message>
         <location filename="../report.cpp" line="156"/>
-        <location filename="../report.cpp" line="190"/>
+        <location filename="../report.cpp" line="191"/>
         <source>Date verificare metrologica</source>
         <translation>Informatii buletin de verificare</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="157"/>
-        <location filename="../report.cpp" line="191"/>
+        <location filename="../report.cpp" line="192"/>
+        <source>Autorizatia numarul:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="158"/>
+        <location filename="../report.cpp" line="193"/>
         <source>Numar de inregistrare: </source>
         <translation>Numar de inregistrare: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="158"/>
-        <location filename="../report.cpp" line="192"/>
+        <location filename="../report.cpp" line="159"/>
+        <location filename="../report.cpp" line="194"/>
         <source>Detinator: </source>
         <translation>Detinator: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="159"/>
-        <location filename="../report.cpp" line="193"/>
+        <location filename="../report.cpp" line="160"/>
+        <location filename="../report.cpp" line="195"/>
         <source>Codul LT: </source>
         <translation>Codul LT: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="160"/>
-        <location filename="../report.cpp" line="194"/>
+        <location filename="../report.cpp" line="161"/>
+        <location filename="../report.cpp" line="196"/>
         <source>Normative: </source>
         <translation>Normative: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="161"/>
-        <location filename="../report.cpp" line="195"/>
+        <location filename="../report.cpp" line="162"/>
+        <location filename="../report.cpp" line="197"/>
         <source>Valabilitate: </source>
         <translation>Valabilitate: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="162"/>
-        <location filename="../report.cpp" line="196"/>
+        <location filename="../report.cpp" line="163"/>
+        <location filename="../report.cpp" line="198"/>
         <source>Cost: </source>
         <translation>Cost: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="163"/>
-        <location filename="../report.cpp" line="197"/>
+        <location filename="../report.cpp" line="164"/>
+        <location filename="../report.cpp" line="199"/>
         <source>Verificator metrolog: </source>
         <translation>Verificator metrolog: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="164"/>
-        <location filename="../report.cpp" line="198"/>
-        <source>Conducator laborator: </source>
-        <translation>Conducator laborator: </translation>
+        <location filename="../report.cpp" line="165"/>
+        <location filename="../report.cpp" line="200"/>
+        <source>Indicativul marcii:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="165"/>
-        <location filename="../report.cpp" line="199"/>
+        <source>Conducator laborator: </source>
+        <translation type="vanished">Conducator laborator: </translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="166"/>
+        <location filename="../report.cpp" line="201"/>
         <source>6 luni</source>
         <translation>6 luni</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="166"/>
-        <location filename="../report.cpp" line="200"/>
+        <location filename="../report.cpp" line="167"/>
+        <location filename="../report.cpp" line="202"/>
         <source>1 an</source>
         <translation>1 an</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="167"/>
-        <location filename="../report.cpp" line="201"/>
+        <location filename="../report.cpp" line="168"/>
+        <location filename="../report.cpp" line="203"/>
         <source>2 ani</source>
         <translation>2 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="168"/>
-        <location filename="../report.cpp" line="202"/>
+        <location filename="../report.cpp" line="169"/>
+        <location filename="../report.cpp" line="204"/>
         <source>3</source>
         <translation>3 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="169"/>
-        <location filename="../report.cpp" line="203"/>
+        <location filename="../report.cpp" line="170"/>
+        <location filename="../report.cpp" line="205"/>
         <source>5 ani</source>
         <translation>5 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="170"/>
-        <location filename="../report.cpp" line="204"/>
+        <location filename="../report.cpp" line="171"/>
+        <location filename="../report.cpp" line="206"/>
         <source>&amp;Generare BV</source>
         <translation>&amp;Generare BV</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="171"/>
-        <location filename="../report.cpp" line="205"/>
+        <location filename="../report.cpp" line="172"/>
+        <location filename="../report.cpp" line="207"/>
         <source>&amp;Inchide</source>
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="188"/>
+        <location filename="../report.cpp" line="189"/>
         <source>WFlowLab - Informatii buletin de verificare metrologica</source>
         <translation>WFlowLab - Informatii buletin de verificare metrologica</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="275"/>
+        <location filename="../report.cpp" line="298"/>
         <source>Verification report</source>
         <translation>Buletin de verificare metrologica</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="276"/>
+        <location filename="../report.cpp" line="299"/>
         <source>There are unfilled fields!</source>
         <translation>Sunt campuri care nu au fost completate</translation>
     </message>

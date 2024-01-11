@@ -1,12 +1,23 @@
-rem Turns the echo on so that each command will be shown as executed
+@echo off
+setlocal enabledelayedexpansion
 
-cls
-echo off 
+set "fileList="
 
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
+rem Populate the array with file paths
+for %%F in ("Meter\*.cpp" "Meter\*.h") do (
+    set "fileName=%%~nxF"
+    if /I not "!fileName:~0,3!" == "ui_" (
+        set "fileList=!fileList!%%F;"
+    )
+)
 
-  echo ===== Start refactoring sources =====
-.\AStyle\bin\AStyle.exe .\Meter\*.cpp ^
+rem Check if fileList is not empty
+if not "!fileList!" == "" (
+    set "fileList=!fileList:~0,-1!"
+    
+    for %%A in (!fileList!) do (
+        echo Processing: %%A
+       .\AStyle\bin\AStyle.exe %%A ^
 --recursive ^
 --add-brackets ^
 --add-braces ^
@@ -31,32 +42,10 @@ cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
 --suffix=none ^
 --lineend=linux ^
 --verbose 
-
-.\AStyle\bin\AStyle.exe .\Meter\*.h ^
---recursive ^
---add-brackets ^
---add-braces ^
---style=allman ^
---indent=spaces=4 ^
---indent-modifiers ^
---indent-switches ^
---indent-cases ^
---indent-namespaces ^
---indent-preproc-block ^
---min-conditional-indent=2 ^
---pad-oper ^
---pad-header ^
---unpad-paren ^
---delete-empty-lines ^
---align-pointer=name ^
---align-reference=name ^
---keep-one-line-statements ^
---convert-tabs ^
---close-templates ^
---max-code-length=70 ^
---suffix=none ^
---lineend=linux ^
---verbose 
+    )
+) else (
+    echo No files found for processing.
+)
 
 echo ===== Translations update ===== 
 

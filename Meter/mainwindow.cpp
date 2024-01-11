@@ -220,16 +220,39 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     pw = this;
     bool serialDll{false};
-    if (QLibrary::isLibrary("SerialPorts.dll"))
+    try
     {
-        QLibrary library("SerialPorts.dll");
-        library.load();
-        if (library.isLoaded())
+        if (QLibrary::isLibrary("SerialPorts.dll"))
         {
-            serialPorts =
-                (EnumerateSerialPorts)library.resolve("enumerateSerialPorts");
-            serialDll = true;
+            QLibrary library("SerialPorts.dll");
+            library.load();
+            if (library.isLoaded())
+            {
+                serialPorts =
+                    (EnumerateSerialPorts)library.resolve("enumerateSerialPorts");
+                serialDll = true;
+            }
         }
+    }
+    catch (...)
+    {
+    }
+    if (!serialDll)
+    {
+        QMessageBox warningMessage;
+        QApplication::beep();
+        warningMessage.addButton(QMessageBox::Ok);
+        warningMessage.setWindowTitle(QObject::tr("Warning"));
+        warningMessage.setText(
+            QObject::tr("Serial interfaces is not available."));
+        warningMessage.setInformativeText(
+            QObject::tr("The application cannot use serial driver because the "
+                        "dll package is not available."));
+        warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
+                                      Qt::WindowTitleHint |
+                                      Qt::WindowCloseButtonHint);
+        warningMessage.exec();
+        this->close();
     }
     CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
@@ -370,23 +393,13 @@ MainWindow::MainWindow(QWidget *parent)
     {
         settings.setValue("waterMeters16_20Value", 104);
     }
-    if (!serialDll)
-    {
-        QMessageBox warningMessage;
-        QApplication::beep();
-        warningMessage.addButton(QMessageBox::Ok);
-        warningMessage.setWindowTitle(QObject::tr("Warning"));
-        warningMessage.setText(
-            QObject::tr("Serial interfaces is not available."));
-        warningMessage.setInformativeText(
-            QObject::tr("The application cannot use serial driver because the "
-                        "dll package is not available."));
-        warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                      Qt::WindowTitleHint |
-                                      Qt::WindowCloseButtonHint);
-        warningMessage.exec();
-        this->close();
-    }
+    inputData = new TableBoard(this);
+    connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
+            SLOT(onTypeMeterChanged()));
+    connect(this, SIGNAL(numberOfWaterMetersChangedSignal()), inputData,
+            SLOT(onNumberOfWaterMetersChanged()));
+    connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
+            SLOT(onMeasurementTypeChanged()));
     ui->rbInterface->setDisabled(true);
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
