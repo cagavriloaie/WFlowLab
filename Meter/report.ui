@@ -133,7 +133,7 @@ QMessageBox  {
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="3" column="0">
-           <widget class="QLabel" name="lbCodulLt">
+           <widget class="QLabel" name="lbCodulDinLt">
             <property name="text">
              <string/>
             </property>
@@ -156,7 +156,7 @@ QMessageBox  {
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="leDetinator">
+           <widget class="QLineEdit" name="leBeneficiar">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -165,7 +165,7 @@ QMessageBox  {
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="lbDetinator">
+           <widget class="QLabel" name="lbBeneficiar">
             <property name="text">
              <string/>
             </property>
@@ -179,14 +179,14 @@ QMessageBox  {
            </widget>
           </item>
           <item row="8" column="0">
-           <widget class="QLabel" name="lbIndicativulMarcii">
+           <widget class="QLabel" name="lbLoculEfectuariiVerificarii">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="leCodulLt">
+           <widget class="QLineEdit" name="leCoduldinLt">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -230,7 +230,7 @@ QMessageBox  {
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLineEdit" name="leNormative">
+           <widget class="QLineEdit" name="leNormativ">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -262,14 +262,14 @@ QMessageBox  {
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="lbNormative">
+           <widget class="QLabel" name="lbNormativ">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
           <item row="8" column="1">
-           <widget class="QLineEdit" name="leIndicativulMarcii">
+           <widget class="QLineEdit" name="leLoculEfectuariiVerificarii">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -343,9 +343,9 @@ QMessageBox  {
  </widget>
  <tabstops>
   <tabstop>leNumarInregistrare</tabstop>
-  <tabstop>leDetinator</tabstop>
-  <tabstop>leCodulLt</tabstop>
-  <tabstop>leNormative</tabstop>
+  <tabstop>leBeneficiar</tabstop>
+  <tabstop>leCoduldinLt</tabstop>
+  <tabstop>leNormativ</tabstop>
   <tabstop>cbValabilitate</tabstop>
   <tabstop>leCost</tabstop>
   <tabstop>leVerificatorMetrolog</tabstop>

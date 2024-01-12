@@ -33,24 +33,24 @@ public:
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QLabel *lbCodulLt;
+    QLabel *lbCodulDinLt;
     QLabel *lbCost;
     QLineEdit *leAutorizatiaNumarul;
-    QLineEdit *leDetinator;
-    QLabel *lbDetinator;
+    QLineEdit *leBeneficiar;
+    QLabel *lbBeneficiar;
     QLabel *lbAutorizatiaNumarul;
-    QLabel *lbIndicativulMarcii;
-    QLineEdit *leCodulLt;
+    QLabel *lbLoculEfectuariiVerificarii;
+    QLineEdit *leCoduldinLt;
     QComboBox *cbValabilitate;
     QLineEdit *leNumarInregistrare;
     QLineEdit *leCost;
     QLabel *lbNumarInregistrare;
-    QLineEdit *leNormative;
+    QLineEdit *leNormativ;
     QLabel *lbVerificatorMetrolog;
     QLabel *lbValabilitate;
     QLineEdit *leVerificatorMetrolog;
-    QLabel *lbNormative;
-    QLineEdit *leIndicativulMarcii;
+    QLabel *lbNormativ;
+    QLineEdit *leLoculEfectuariiVerificarii;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
@@ -168,10 +168,10 @@ public:
         verticalLayout->setObjectName("verticalLayout");
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        lbCodulLt = new QLabel(grBoxBuletin);
-        lbCodulLt->setObjectName("lbCodulLt");
+        lbCodulDinLt = new QLabel(grBoxBuletin);
+        lbCodulDinLt->setObjectName("lbCodulDinLt");
 
-        gridLayout->addWidget(lbCodulLt, 3, 0, 1, 1);
+        gridLayout->addWidget(lbCodulDinLt, 3, 0, 1, 1);
 
         lbCost = new QLabel(grBoxBuletin);
         lbCost->setObjectName("lbCost");
@@ -186,32 +186,32 @@ public:
 
         gridLayout->addWidget(leAutorizatiaNumarul, 0, 1, 1, 1);
 
-        leDetinator = new QLineEdit(grBoxBuletin);
-        leDetinator->setObjectName("leDetinator");
-        leDetinator->setFont(font);
+        leBeneficiar = new QLineEdit(grBoxBuletin);
+        leBeneficiar->setObjectName("leBeneficiar");
+        leBeneficiar->setFont(font);
 
-        gridLayout->addWidget(leDetinator, 2, 1, 1, 1);
+        gridLayout->addWidget(leBeneficiar, 2, 1, 1, 1);
 
-        lbDetinator = new QLabel(grBoxBuletin);
-        lbDetinator->setObjectName("lbDetinator");
+        lbBeneficiar = new QLabel(grBoxBuletin);
+        lbBeneficiar->setObjectName("lbBeneficiar");
 
-        gridLayout->addWidget(lbDetinator, 2, 0, 1, 1);
+        gridLayout->addWidget(lbBeneficiar, 2, 0, 1, 1);
 
         lbAutorizatiaNumarul = new QLabel(grBoxBuletin);
         lbAutorizatiaNumarul->setObjectName("lbAutorizatiaNumarul");
 
         gridLayout->addWidget(lbAutorizatiaNumarul, 0, 0, 1, 1);
 
-        lbIndicativulMarcii = new QLabel(grBoxBuletin);
-        lbIndicativulMarcii->setObjectName("lbIndicativulMarcii");
+        lbLoculEfectuariiVerificarii = new QLabel(grBoxBuletin);
+        lbLoculEfectuariiVerificarii->setObjectName("lbLoculEfectuariiVerificarii");
 
-        gridLayout->addWidget(lbIndicativulMarcii, 8, 0, 1, 1);
+        gridLayout->addWidget(lbLoculEfectuariiVerificarii, 8, 0, 1, 1);
 
-        leCodulLt = new QLineEdit(grBoxBuletin);
-        leCodulLt->setObjectName("leCodulLt");
-        leCodulLt->setFont(font);
+        leCoduldinLt = new QLineEdit(grBoxBuletin);
+        leCoduldinLt->setObjectName("leCoduldinLt");
+        leCoduldinLt->setFont(font);
 
-        gridLayout->addWidget(leCodulLt, 3, 1, 1, 1);
+        gridLayout->addWidget(leCoduldinLt, 3, 1, 1, 1);
 
         cbValabilitate = new QComboBox(grBoxBuletin);
         cbValabilitate->setObjectName("cbValabilitate");
@@ -239,11 +239,11 @@ public:
 
         gridLayout->addWidget(lbNumarInregistrare, 1, 0, 1, 1);
 
-        leNormative = new QLineEdit(grBoxBuletin);
-        leNormative->setObjectName("leNormative");
-        leNormative->setFont(font);
+        leNormativ = new QLineEdit(grBoxBuletin);
+        leNormativ->setObjectName("leNormativ");
+        leNormativ->setFont(font);
 
-        gridLayout->addWidget(leNormative, 4, 1, 1, 1);
+        gridLayout->addWidget(leNormativ, 4, 1, 1, 1);
 
         lbVerificatorMetrolog = new QLabel(grBoxBuletin);
         lbVerificatorMetrolog->setObjectName("lbVerificatorMetrolog");
@@ -261,16 +261,16 @@ public:
 
         gridLayout->addWidget(leVerificatorMetrolog, 7, 1, 1, 1);
 
-        lbNormative = new QLabel(grBoxBuletin);
-        lbNormative->setObjectName("lbNormative");
+        lbNormativ = new QLabel(grBoxBuletin);
+        lbNormativ->setObjectName("lbNormativ");
 
-        gridLayout->addWidget(lbNormative, 4, 0, 1, 1);
+        gridLayout->addWidget(lbNormativ, 4, 0, 1, 1);
 
-        leIndicativulMarcii = new QLineEdit(grBoxBuletin);
-        leIndicativulMarcii->setObjectName("leIndicativulMarcii");
-        leIndicativulMarcii->setFont(font);
+        leLoculEfectuariiVerificarii = new QLineEdit(grBoxBuletin);
+        leLoculEfectuariiVerificarii->setObjectName("leLoculEfectuariiVerificarii");
+        leLoculEfectuariiVerificarii->setFont(font);
 
-        gridLayout->addWidget(leIndicativulMarcii, 8, 1, 1, 1);
+        gridLayout->addWidget(leLoculEfectuariiVerificarii, 8, 1, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -309,10 +309,10 @@ public:
 
         gridLayout_3->addWidget(grBoxBuletin, 0, 0, 1, 1);
 
-        QWidget::setTabOrder(leNumarInregistrare, leDetinator);
-        QWidget::setTabOrder(leDetinator, leCodulLt);
-        QWidget::setTabOrder(leCodulLt, leNormative);
-        QWidget::setTabOrder(leNormative, cbValabilitate);
+        QWidget::setTabOrder(leNumarInregistrare, leBeneficiar);
+        QWidget::setTabOrder(leBeneficiar, leCoduldinLt);
+        QWidget::setTabOrder(leCoduldinLt, leNormativ);
+        QWidget::setTabOrder(leNormativ, cbValabilitate);
         QWidget::setTabOrder(cbValabilitate, leCost);
         QWidget::setTabOrder(leCost, leVerificatorMetrolog);
 
@@ -325,15 +325,15 @@ public:
     {
         report->setWindowTitle(QString());
         grBoxBuletin->setTitle(QString());
-        lbCodulLt->setText(QString());
+        lbCodulDinLt->setText(QString());
         lbCost->setText(QString());
-        lbDetinator->setText(QString());
+        lbBeneficiar->setText(QString());
         lbAutorizatiaNumarul->setText(QString());
-        lbIndicativulMarcii->setText(QString());
+        lbLoculEfectuariiVerificarii->setText(QString());
         lbNumarInregistrare->setText(QString());
         lbVerificatorMetrolog->setText(QString());
         lbValabilitate->setText(QString());
-        lbNormative->setText(QString());
+        lbNormativ->setText(QString());
         pbGenerareBV->setText(QString());
         pbInchide->setText(QString());
     } // retranslateUi
