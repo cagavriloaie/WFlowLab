@@ -85,6 +85,7 @@ class TableBoard : public QDialog
     void focusInEvent(QFocusEvent *event);
     void focusOutEvent(QFocusEvent *event);
 
+    void copyTextBetweenWidgets(const QString& startRegex, const QString& stopRegex);
     void onCopy12Clicked();
     void onCopy23Clicked_new();
 

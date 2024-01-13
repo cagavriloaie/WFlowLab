@@ -40,17 +40,14 @@ QString TableBoard::report;
 void TableBoard::printPdfThread(QString report)
 {
     QDateTime now = QDateTime::currentDateTime();
-    QString fileName = QString(
-                           mainwindow->selectedInfo.pathResults.c_str()) +
+    QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults) +
                        "/" + QString("FM_") +
                        now.toString(QLatin1String("yyyyMMdd_hhmmss"));
     fileName.append(".pdf");
+
     // Check if the directory exists, and create it if not
-    QDir resultDir(mainwindow->selectedInfo.pathResults.c_str());
-    if (!resultDir.exists())
-    {
-        resultDir.mkpath(".");
-    }
+    QDir(mainwindow->selectedInfo.pathResults.c_str()).mkpath(".");
+
     QPrinter printer(QPrinter::PrinterResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(fileName);
@@ -58,15 +55,19 @@ void TableBoard::printPdfThread(QString report)
     printer.setFullPage(true);
     printer.setPageMargins(QMarginsF(5, 4, 4, 4));
     printer.setColorMode(QPrinter::ColorMode::Color);
+
     QTextDocument outputReport;
     outputReport.setHtml(report);
+
     // Check if the PDF generation is successful
-    if (outputReport.isEmpty())
+    if (outputReport.isEmpty() || !printer.isValid())
     {
-        qDebug() << "Error: Empty document, PDF not generated.";
+        qDebug() << "Error: Empty document or invalid printer, PDF not generated.";
         return;
     }
+
     outputReport.print(&printer);
+
     fileName = QString("file:///") + fileName;
     QDesktopServices::openUrl(QUrl(fileName, QUrl::TolerantMode));
 }
@@ -75,8 +76,7 @@ void TableBoard::onSaveCurrentInputDataClicked()
 {
     size_t entriesNumber = mainwindow->selectedInfo.entriesNumber;
     QDateTime now = QDateTime::currentDateTime();
-    QString fileName = QString(
-                           mainwindow->selectedInfo.pathResults.c_str()) +
+    QString fileName = QString(mainwindow->selectedInfo.pathResults.c_str()) +
                        "/inputData/" + QString("WStreamLab_") +
                        now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss"));
     fileName.append(".in");
@@ -84,10 +84,8 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
     outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
-    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity <<
-                   "\n";
-    outputDataFile << mainwindow->selectedInfo.athmosphericPressure <<
-                   "\n";
+    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
+    outputDataFile << mainwindow->selectedInfo.athmosphericPressure << "\n";
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
@@ -95,26 +93,18 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << mainwindow->selectedInfo.rbTerminal << "\n";
     for (size_t iter = 0; iter < entriesNumber; ++iter)
     {
-        outputDataFile << vectorSerialNumber[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorFirstIndexStart[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorFirstIndexStop[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorSecondIndexStart[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorSecondIndexStop[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorThirdIndexStart[iter]->text().toStdString()
-                       << "\n";
-        outputDataFile << vectorThirdIndexStop[iter]->text().toStdString()
-                       << "\n";
+        outputDataFile << vectorSerialNumber[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorFirstIndexStart[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorFirstIndexStop[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorSecondIndexStart[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorSecondIndexStop[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorThirdIndexStart[iter]->text().toStdString() << "\n";
+        outputDataFile << vectorThirdIndexStop[iter]->text().toStdString() << "\n";
     }
     outputDataFile << ui->leFlowRateMinumum->text().toStdString() << "\n";
     outputDataFile << ui->leMass1->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature1->text().toStdString() << "\n";
-    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() <<
-                   "\n";
+    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() << "\n";
     outputDataFile << ui->leMass2->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature2->text().toStdString() << "\n";
     outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
@@ -122,22 +112,19 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
     QMessageBox messageBoxSaveInputFile;
     messageBoxSaveInputFile.setWindowTitle(tr("Save input data"));
-    messageBoxSaveInputFile.setText("The file " + fileName +
-                                    " was created!");
+    messageBoxSaveInputFile.setText("The file " + fileName + " was created!");
     messageBoxSaveInputFile.setStandardButtons(QMessageBox::Ok);
     messageBoxSaveInputFile.setWindowFlags(Qt::Dialog |
                                            Qt::CustomizeWindowHint |
                                            Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     // Create a QTimer
-    QTimer *timer = new QTimer(& messageBoxSaveInputFile);
-    timer -> setSingleShot(true); // Make the timer a single-shot timer
-    timer -> setInterval(
-        3000); // Set the interval to 3000 milliseconds (5 seconds)
+    QTimer *timer = new QTimer(&messageBoxSaveInputFile);
+    timer->setSingleShot(true); // Make the timer a single-shot timer
+    timer->setInterval(3000); // Set the interval to 3000 milliseconds (5 seconds)
     // Connect the timeout signal to close the message box
-    QObject::connect(timer, & QTimer::timeout, &
-                     messageBoxSaveInputFile, & QMessageBox::accept);
+    QObject::connect(timer, &QTimer::timeout, &messageBoxSaveInputFile, &QMessageBox::accept);
     // Start the timer
-    timer -> start();
+    timer->start();
     // Show the message box
     messageBoxSaveInputFile.exec();
 }
@@ -145,13 +132,15 @@ void TableBoard::onSaveCurrentInputDataClicked()
 void TableBoard::onOpenInputDataClicked()
 {
     QString fileName = QFileDialog::getOpenFileName(
-                           this, tr("Open Input Data"),
-                           QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/",
-                           tr("Input data (*.in);;All file (*.*)"));
+        this, tr("Open Input Data"),
+        QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/",
+        tr("Input data (*.in);;All file (*.*)"));
+
     std::ifstream inputDataFile(fileName.toStdString());
     Translate();
+
     size_t entriesNumber;
-    std::string nameWaterMeter;
+    std::string nameSelectedWaterMeter;
     double ambientTemperature;
     double relativeAirHumidity;
     double athmosphericPressure;
@@ -161,9 +150,10 @@ void TableBoard::onOpenInputDataClicked()
     bool rbInterface;
     bool rbTerminal;
     std::string tmpInput;
+
     inputDataFile >> entriesNumber;
     std::getline(inputDataFile, tmpInput);
-    std::getline(inputDataFile, nameWaterMeter);
+    std::getline(inputDataFile, nameSelectedWaterMeter);
     inputDataFile >> ambientTemperature;
     inputDataFile >> relativeAirHumidity;
     inputDataFile >> athmosphericPressure;
@@ -172,27 +162,27 @@ void TableBoard::onOpenInputDataClicked()
     inputDataFile >> rbManual;
     inputDataFile >> rbInterface;
     inputDataFile >> rbTerminal;
-    int index = mainwindow->ui->cbNumberOfWaterMeters->findText(
-                    std::to_string(entriesNumber).c_str());
+
+    int index = mainwindow->ui->cbNumberOfWaterMeters->findText(std::to_string(entriesNumber).c_str());
     if (index != -1)
     {
         mainwindow->ui->cbNumberOfWaterMeters->setCurrentIndex(index);
     }
-    index = mainwindow->ui->cbWaterMeterType->findText(
-                nameWaterMeter.c_str());
+
+    index = mainwindow->ui->cbWaterMeterType->findText(nameSelectedWaterMeter.c_str());
     if (index != -1)
     {
         mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
     }
-    QString qAmbientTemperature = QString::number(ambientTemperature, 'f',
-                                  2);
-    QString qRelativeAirHumidity = QString::number(relativeAirHumidity,
-                                   'f', 2);
-    QString qAthmosphericPressure = QString::number(athmosphericPressure,
-                                    'f', 2);
+
+    QString qAmbientTemperature = QString::number(ambientTemperature, 'f', 2);
+    QString qRelativeAirHumidity = QString::number(relativeAirHumidity, 'f', 2);
+    QString qAthmosphericPressure = QString::number(athmosphericPressure, 'f', 2);
+
     mainwindow->ui->leTemperature->setText(qAmbientTemperature);
     mainwindow->ui->leHumidity->setText(qRelativeAirHumidity);
     mainwindow->ui->lePressure->setText(qAthmosphericPressure);
+
     if (rbVolumetric)
     {
         mainwindow->ui->rbVolumetric->setChecked(true);
@@ -200,6 +190,7 @@ void TableBoard::onOpenInputDataClicked()
         mainwindow->ui->rbGravitmetric->setChecked(false);
         mainwindow->selectedInfo.rbGravitmetric = false;
     }
+
     if (rbGravitmetric)
     {
         mainwindow->ui->rbGravitmetric->setChecked(true);
@@ -207,15 +198,19 @@ void TableBoard::onOpenInputDataClicked()
         mainwindow->ui->rbVolumetric->setChecked(false);
         mainwindow->selectedInfo.rbVolumetric = false;
     }
+
     if (rbManual)
     {
         mainwindow->ui->rbManual->setChecked(true);
     }
+
     if (rbInterface)
     {
         mainwindow->ui->rbInterface->setChecked(true);
     }
+
     std::getline(inputDataFile, tmpInput);
+
     for (size_t iter = 0; iter < entries; ++iter)
     {
         std::getline(inputDataFile, tmpInput);
@@ -233,6 +228,7 @@ void TableBoard::onOpenInputDataClicked()
         std::getline(inputDataFile, tmpInput);
         vectorThirdIndexStop[iter]->setText(tmpInput.c_str());
     }
+
     std::getline(inputDataFile, tmpInput);
     ui->leFlowRateMinumum->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
@@ -251,21 +247,22 @@ void TableBoard::onOpenInputDataClicked()
     ui->leMass3->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature3->setText(tmpInput.c_str());
+
     onMeasurementTypeChanged();
 }
 
 std::string precision_2(double number)
 {
-    int decimal_part = (number * 100) - ((int)number * 100);
-    if (decimal_part > 10)
+    int integer_part = static_cast<int>(number);
+    int decimal_part = static_cast<int>((number - integer_part) * 100);
+
+    if (decimal_part >= 10)
     {
-        return std::to_string((int)number) + "." + std::to_string(
-                   decimal_part);
+        return std::to_string(integer_part) + "." + std::to_string(decimal_part);
     }
     else
     {
-        return std::to_string((int)number) + ".0" +
-               std::to_string(decimal_part);
+        return std::to_string(integer_part) + ".0" + std::to_string(decimal_part);
     }
 }
 
@@ -639,38 +636,31 @@ TableBoard::TableBoard(QWidget *_parent):
 
 {
     setModal(false);
-    mainwindow = dynamic_cast<MainWindow *>(parent);
-    //mainwindow = pw;
     ui->setupUi(this);
-    setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint |
-                   Qt::Dialog | Qt::WindowTitleHint);
+
+    mainwindow = dynamic_cast<MainWindow *>(parent);
+
     Translate();
     ValidatorInput();
-    connect(ui->pbCalculate, &QPushButton::clicked, this,
-            &TableBoard::onCalculateClicked);
-    connect(ui->pbClean, &QPushButton::clicked, this,
-            &TableBoard::onCleanClicked);
-    connect(ui->pbClose, &QPushButton::clicked, this,
-            &TableBoard::onCloseClicked);
-    connect(ui->pbSaveResults, &QPushButton::clicked, this,
-            &TableBoard::onSaveCurrentInputDataClicked);
-    connect(ui->pbOpen, &QPushButton::clicked, this,
-            &TableBoard::onOpenInputDataClicked);
-    connect(ui->pbPrint, &QPushButton::clicked, this,
-            &TableBoard::onPrintPdfDocClicked);
-    connect(ui->pbReport, &QPushButton::clicked, this,
-            &TableBoard::onReportClicked);
-    connect(ui->cbSet, &QCheckBox::stateChanged, this,
-            &TableBoard::onSelectAllChanged);
-    connect(ui->pbCopy12, &QPushButton::clicked, this,
-            &TableBoard::onCopy12Clicked);
-    connect(ui->pbCopy23, &QPushButton::clicked, this,
-            &TableBoard::onCopy23Clicked_new);
+
+    // Connect signals to slots
+    connect(ui->pbCalculate, SIGNAL(clicked()), this, SLOT(onCalculateClicked()));
+    connect(ui->pbClean, SIGNAL(clicked()), this, SLOT(onCleanClicked()));
+    connect(ui->pbClose, SIGNAL(clicked()), this, SLOT(onCloseClicked()));
+    connect(ui->pbSaveResults, SIGNAL(clicked()), this, SLOT(onSaveCurrentInputDataClicked()));
+    connect(ui->pbOpen, SIGNAL(clicked()), this, SLOT(onOpenInputDataClicked()));
+    connect(ui->pbPrint, SIGNAL(clicked()), this, SLOT(onPrintPdfDocClicked()));
+    connect(ui->pbReport, SIGNAL(clicked()), this, SLOT(onReportClicked()));
+    connect(ui->cbSet, SIGNAL(stateChanged(int)), this, SLOT(onSelectAllChanged()));
+    connect(ui->pbCopy12, SIGNAL(clicked()), this, SLOT(onCopy12Clicked()));
+    connect(ui->pbCopy23, SIGNAL(clicked()), this, SLOT(onCopy23Clicked_new));
+
+    // Connect vectorCheckNumber signals to onCbClicked slot using dynamic_cast
     for (unsigned iter = 0; iter < MAX_ENTRIES; ++iter)
     {
-        connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this,
-                SLOT(onCbClicked(bool)));
+        connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this, SLOT(onCbClicked(bool)));
     }
+
     setWindowFlags(Qt::Window);
 }
 
@@ -699,6 +689,8 @@ void TableBoard::onCleanClicked()
         vectorThirdIndexStop[iter]->clear();
         vectorThirdError[iter]->clear();
     }
+
+    // Clear temperature, mass, and volume widgets
     ui->leTemperature1->clear();
     ui->leTemperature2->clear();
     ui->leTemperature3->clear();
@@ -710,13 +702,10 @@ void TableBoard::onCleanClicked()
     ui->leVolume3->clear();
 }
 
-
 QString resultAllTests[20];
 
 void TableBoard::onCalculateClicked()
 {
-    // double nominalError = mainwindow->selectedInfo.nominalError;
-    // double maximumError = mainwindow->selectedInfo.maximumError;
     QPalette paletteOddRowErr;
     paletteOddRowErr.setColor(QPalette::Base, QColor(220, 235, 220, 255));
     QPalette paletteEvenRowErr;
@@ -1390,52 +1379,29 @@ void TableBoard::onCbClicked(bool checked)
 {
     QObject *obj = sender();
     QCheckBox *checkBox = dynamic_cast<QCheckBox *>(obj);
-    auto iter =
-        std::find(vectorCheckNumber.begin(), vectorCheckNumber.end(),
-                  checkBox);
+
+    auto iter = std::find(vectorCheckNumber.begin(), vectorCheckNumber.end(), checkBox);
     if (iter != vectorCheckNumber.end())
     {
         auto index = std::distance(vectorCheckNumber.begin(), iter);
-        if (checked)
-        {
-            vectorSerialNumber[index]->setDisabled(false);
-            vectorFirstIndexStart[index]->setDisabled(false);
-            vectorFirstIndexStop[index]->setDisabled(false);
-            vectorSecondIndexStart[index]->setDisabled(false);
-            vectorSecondIndexStop[index]->setDisabled(false);
-            vectorThirdIndexStart[index]->setDisabled(false);
-            vectorThirdIndexStop[index]->setDisabled(false);
-        }
-        else
-        {
-            vectorSerialNumber[index]->setDisabled(true);
-            vectorFirstIndexStart[index]->setDisabled(true);
-            vectorFirstIndexStop[index]->setDisabled(true);
-            vectorSecondIndexStart[index]->setDisabled(true);
-            vectorSecondIndexStop[index]->setDisabled(true);
-            vectorThirdIndexStart[index]->setDisabled(true);
-            vectorThirdIndexStop[index]->setDisabled(true);
-        }
+
+        vectorSerialNumber[index]->setDisabled(!checked);
+        vectorFirstIndexStart[index]->setDisabled(!checked);
+        vectorFirstIndexStop[index]->setDisabled(!checked);
+        vectorSecondIndexStart[index]->setDisabled(!checked);
+        vectorSecondIndexStop[index]->setDisabled(!checked);
+        vectorThirdIndexStart[index]->setDisabled(!checked);
+        vectorThirdIndexStop[index]->setDisabled(!checked);
     }
 }
 
 void TableBoard::onSelectAllChanged()
 {
-    if (ui->cbSet->checkState() == Qt::Checked)
+    Qt::CheckState checkState = ui->cbSet->checkState();
+
+    for (auto* checkbox : vectorCheckNumber)
     {
-        for (auto iter = begin(vectorCheckNumber);
-                iter != end(vectorCheckNumber); ++iter)
-        {
-            (*iter)->setCheckState(Qt::Checked);
-        }
-    }
-    else
-    {
-        for (auto iter = begin(vectorCheckNumber);
-                iter != end(vectorCheckNumber); ++iter)
-        {
-            (*iter)->setCheckState(Qt::Unchecked);
-        }
+        checkbox->setCheckState(checkState);
     }
 }
 
@@ -1456,58 +1422,44 @@ bool TableBoard::eventFilter(QObject *target, QEvent *event)
 
 void TableBoard::onMeasurementTypeChanged()
 {
-    if (mainwindow->selectedInfo.rbGravitmetric == true)
-    {
-        ui->leMass1->show();
-        ui->leMass2->show();
-        ui->leMass3->show();
-        ui->lbMass1->show();
-        ui->lbMass2->show();
-        ui->lbMass3->show();
-        ui->lbTemperature1->show();
-        ui->lbTemperature2->show();
-        ui->lbTemperature3->show();
-        ui->leTemperature1->show();
-        ui->leTemperature2->show();
-        ui->leTemperature3->show();
-        ui->leVolume1->setReadOnly(true);
-        ui->leVolume2->setReadOnly(true);
-        ui->leVolume3->setReadOnly(true);
-        QPalette paletteDiactivatedLineEdit;
-        paletteDiactivatedLineEdit.setColor(QPalette::Base,
-                                            QColor(220, 235, 220, 255));
-        ui->leVolume1->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-        ui->leVolume2->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-        ui->leVolume3->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-    }
-    else
-    {
-        ui->leMass1->hide();
-        ui->leMass2->hide();
-        ui->leMass3->hide();
-        ui->lbMass1->hide();
-        ui->lbMass2->hide();
-        ui->lbMass3->hide();
-        ui->lbTemperature1->hide();
-        ui->lbTemperature2->hide();
-        ui->lbTemperature3->hide();
-        ui->leTemperature1->hide();
-        ui->leTemperature2->hide();
-        ui->leTemperature3->hide();
-        setAttribute(Qt::WA_InputMethodEnabled);
-        ui->leVolume1->setReadOnly(false);
-        ui->leVolume2->setReadOnly(false);
-        ui->leVolume3->setReadOnly(false);
-        ui->leVolume1->setStyleSheet(
-            "QLineEdit {background-color: rgb(255, 255, 255)}");
-        ui->leVolume2->setStyleSheet(
-            "QLineEdit {background-color: rgb(255, 255, 255)}");
-        ui->leVolume3->setStyleSheet(
-            "QLineEdit {background-color: rgb(255, 255, 255)}");
-    }
+    const bool isGravitmetric = mainwindow->selectedInfo.rbGravitmetric;
+
+    auto showOrHideElements = [this](bool show) {
+        auto setVisibility = [show](QWidget* widget) {
+            widget->setVisible(show);
+        };
+
+        setVisibility(ui->leMass1);
+        setVisibility(ui->leMass2);
+        setVisibility(ui->leMass3);
+        setVisibility(ui->lbMass1);
+        setVisibility(ui->lbMass2);
+        setVisibility(ui->lbMass3);
+        setVisibility(ui->lbTemperature1);
+        setVisibility(ui->lbTemperature2);
+        setVisibility(ui->lbTemperature3);
+        setVisibility(ui->leTemperature1);
+        setVisibility(ui->leTemperature2);
+        setVisibility(ui->leTemperature3);
+    };
+
+    auto setReadOnlyAndBackgroundColor = [](QLineEdit* lineEdit, bool readOnly) {
+        lineEdit->setReadOnly(readOnly);
+
+        QPalette palette;
+        if (readOnly)
+            palette.setColor(QPalette::Base, QColor(220, 235, 220, 255));
+        else
+            palette.setColor(QPalette::Base, QColor(255, 255, 255, 255));
+
+        lineEdit->setPalette(palette);
+    };
+
+    showOrHideElements(isGravitmetric);
+
+    setReadOnlyAndBackgroundColor(ui->leVolume1, isGravitmetric);
+    setReadOnlyAndBackgroundColor(ui->leVolume2, isGravitmetric);
+    setReadOnlyAndBackgroundColor(ui->leVolume3, isGravitmetric);
 }
 
 
@@ -2395,6 +2347,7 @@ void TableBoard::showEvent(QShowEvent *event)
 void TableBoard::PopulateTable()
 {
     Translate();
+
     entries = mainwindow->selectedInfo.entriesNumber;
     nameWaterMeter = mainwindow->selectedInfo.nameWaterMeter;
     minimumFlowMain = mainwindow->selectedInfo.minimumFlow;
@@ -2402,20 +2355,22 @@ void TableBoard::PopulateTable()
     nominalFlowMain = mainwindow->selectedInfo.nominalFlow;
     nominalError = mainwindow->selectedInfo.nominalError;
     maximumError = mainwindow->selectedInfo.maximumError;
-    QPalette paletteOddRow;
-    paletteOddRow.setColor(QPalette::Base, QColor(240, 255, 240, 255));
-    QPalette paletteEvenRow;
-    paletteEvenRow.setColor(QPalette::Base, QColor(255, 255, 255, 255));
-    QPalette paletteOddRowErr;
-    paletteOddRowErr.setColor(QPalette::Base, QColor(220, 235, 220, 255));
-    QPalette paletteEvenRowErr;
-    paletteEvenRowErr.setColor(QPalette::Base, QColor(235, 235, 235,
-                               255));
+
+    QPalette paletteOddRow, paletteEvenRow, paletteOddRowErr, paletteEvenRowErr;
+
+    auto initializePalette = [](QPalette& palette, int r, int g, int b, int a = 255) {
+        palette.setColor(QPalette::Base, QColor(r, g, b, a));
+    };
+
+    initializePalette(paletteOddRow, 240, 255, 240);
+    initializePalette(paletteEvenRow, 255, 255, 255);
+    initializePalette(paletteOddRowErr, 220, 235, 220);
+    initializePalette(paletteEvenRowErr, 235, 235, 235);
+
     for (unsigned iter = 0; iter < MAX_ENTRIES; ++iter)
     {
         if (iter < entries)
         {
-            // Show relevant elements
             vectorNumber[iter]->show();
             vectorCheckNumber[iter]->show();
             vectorCheckNumber[iter]->setCheckState(Qt::Checked);
@@ -2429,11 +2384,10 @@ void TableBoard::PopulateTable()
             vectorThirdIndexStart[iter]->show();
             vectorThirdIndexStop[iter]->show();
             vectorThirdError[iter]->show();
-            // Set palettes based on row type
-            auto rowPalette = (iter % 4 == 0
-                               || iter % 4 == 1) ? paletteOddRow : paletteEvenRow;
-            auto rowErrPalette = (iter % 4 == 0
-                                  || iter % 4 == 1) ? paletteOddRowErr : paletteEvenRowErr;
+
+            auto rowPalette = (iter % 4 == 0 || iter % 4 == 1) ? paletteOddRow : paletteEvenRow;
+            auto rowErrPalette = (iter % 4 == 0 || iter % 4 == 1) ? paletteOddRowErr : paletteEvenRowErr;
+
             vectorNumber[iter]->setPalette(rowPalette);
             vectorCheckNumber[iter]->setPalette(rowPalette);
             vectorSerialNumber[iter]->setPalette(rowPalette);
@@ -2449,7 +2403,6 @@ void TableBoard::PopulateTable()
         }
         else
         {
-            // Hide elements for entries beyond the current count
             vectorNumber[iter]->hide();
             vectorCheckNumber[iter]->hide();
             vectorCheckNumber[iter]->setCheckState(Qt::Unchecked);
@@ -2465,23 +2418,16 @@ void TableBoard::PopulateTable()
             vectorThirdError[iter]->hide();
         }
     }
-    ui->lbIndex1->setText(
-        QString(tr("Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %"))
-        .arg(QString::number(minimumFlowMain),
-             QString::number(maximumError)));
-    ui->lbIndex2->setText(
-        QString(tr("Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %"))
-        .arg(QString::number(transitoriuFlowMain),
-             QString::number(nominalError)));
-    ui->lbIndex3->setText(
-        QString(tr("Index [L] -  Qn: %1  [L/h]  Eroare: %2 %"))
-        .arg(QString::number(nominalFlowMain),
-             QString::number(nominalError)));
+
+    ui->lbIndex1->setText(QString(tr("Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %")).arg(QString::number(minimumFlowMain), QString::number(maximumError)));
+    ui->lbIndex2->setText(QString(tr("Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %")).arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
+    ui->lbIndex3->setText(QString(tr("Index [L] -  Qn: %1  [L/h]  Eroare: %2 %")).arg(QString::number(nominalFlowMain), QString::number(nominalError)));
     ui->leFlowRateMinumum->setText(QString::number(minimumFlowMain));
-    ui->leFlowRateTransitoriu->setText(QString::number(
-                                           transitoriuFlowMain));
+    ui->leFlowRateTransitoriu->setText(QString::number(transitoriuFlowMain));
     ui->leFlowRateNominal->setText(QString::number(nominalFlowMain));
 }
+
+
 
 void TableBoard::focusInEvent(QFocusEvent *event)
 {
@@ -2495,44 +2441,43 @@ void TableBoard::focusOutEvent(QFocusEvent *event)
     QDialog::focusOutEvent(event);
 }
 
+void TableBoard::copyTextBetweenWidgets(const QString& startRegex, const QString& stopRegex)
+{
+    QList<QLineEdit *> startWidgets = findChildren<QLineEdit *>(QRegularExpression(startRegex));
+    QList<QLineEdit *> stopWidgets = findChildren<QLineEdit *>(QRegularExpression(stopRegex));
+
+    for (int i = 0; i < qMin(startWidgets.size(), stopWidgets.size()); ++i)
+    {
+        startWidgets[i]->setText(stopWidgets[i]->text());
+    }
+}
+
 void TableBoard::onCopy12Clicked()
 {
-    for (int i = 1; i <= MAX_ARRAY_SIZE; ++i)
-    {
-        QString startLineEditName = QString("leStart2_%1").arg(i);
-        QString stopLineEditName = QString("leStop1_%1").arg(i);
-        QLineEdit *startLineEdit = findChild<QLineEdit *>(startLineEditName);
-        QLineEdit *stopLineEdit = findChild<QLineEdit *>(stopLineEditName);
-        if (startLineEdit && stopLineEdit)
-        {
-            startLineEdit->setText(stopLineEdit->text());
-        }
-    }
+    copyTextBetweenWidgets("leStart2_\\d+", "leStop1_\\d+");
     ui->leStop2_1->setFocus();
 }
 
 void TableBoard::onCopy23Clicked_new()
 {
-    QList<QLineEdit *> leStartWidgets = findChildren<QLineEdit *>
-                                        (QRegularExpression("leStart3_\\d+"));
-    QList<QLineEdit *> leStopWidgets = findChildren<QLineEdit *>
-                                       (QRegularExpression("leStop2_\\d+"));
-    for (int i = 0; i < qMin(leStartWidgets.size(), leStopWidgets.size());
-            ++i)
-    {
-        leStartWidgets[i]->setText(leStopWidgets[i]->text());
-    }
+    copyTextBetweenWidgets("leStart3_\\d+", "leStop2_\\d+");
     ui->leStop3_1->setFocus();
 }
 
 void TableBoard::onReportClicked()
 {
     onCalculateClicked();
-    if (reportMeasurementsDialog == nullptr)
+
+    if (!reportMeasurementsDialog)
     {
-        reportMeasurementsDialog = new ReportMeasurements(this,
-                vectorCheckNumber, vectorSerialNumber, resultAllTests);
+        reportMeasurementsDialog = new ReportMeasurements(
+            this,vectorCheckNumber, vectorSerialNumber, resultAllTests);
     }
-    reportMeasurementsDialog->show();
+
+    if (reportMeasurementsDialog)
+    {
+        reportMeasurementsDialog->show();
+    }
 }
+
 

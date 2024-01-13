@@ -181,6 +181,9 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     vectorSerialNumberCopy(vectorSerialNumber)
 {
     ui -> setupUi(this);
+
+    setWindowFlags(Qt::Window);
+
     for (auto iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
     {
         resultAllTestsCopy[iter] = resultAllTests[iter];
@@ -213,14 +216,14 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     settings.beginGroup("Report");
 
     ui -> leAutorizatiaNumarul -> setText(settings.value(
-                                                  "autorizatiaNumarul", 1).toString());
+                                                  "autorizatiaNumarul", "1050/2023").toString());
     ui -> leNumarInregistrare -> setText(settings.value(
                                                  "numarInregistrare", 1).toString());
-    ui -> leBeneficiar -> setText(settings.value("beneficiar", "Centrala")
+    ui -> leBeneficiar -> setText(settings.value("beneficiar", "Termo Util")
                                   .toString());
     ui -> leCoduldinLt -> setText(settings.value("codulDinLt", "1.06.28.1.1")
                                   .toString());
-    ui -> leNormativ -> setText(settings.value("normativ", "BRML")
+    ui -> leNormativ -> setText(settings.value("normativ", "NML")
                                 .toString());
     ui -> cbValabilitate -> setCurrentIndex(settings.value("valabilitate",
                                                        4).toInt());
@@ -228,7 +231,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui -> leVerificatorMetrolog -> setText(settings.value(
                                                    "verificatorMetrolog", "Adrian Pintilie").toString());
     ui -> leLoculEfectuariiVerificarii -> setText(settings.value(
-                                                          "loculEfectuariiVerificarii", "1234").toString());
+                                                          "loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
 
     settings.endGroup();
     settings.sync();
@@ -458,9 +461,9 @@ void ReportMeasurements::onPrintClicked()
         switch (row)
         {
         case 0:
-            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br>"
-                      << "Data si ora finalizarii masurarilor " << std::put_time(localTime, "%d-%m-%Y / %H:%M") << "</td>\n"
-                      << "        <td><strong>Total</strong></td>\n"
+            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br>"
+                      << "Data si ora finalizarii masurarilor:____________________________________________________</td>\n"
+                      << "        <td>Total</td>\n"
                       << "        <td>" << totalCost << "</td>\n";
             break;
 
@@ -494,11 +497,11 @@ void ReportMeasurements::onPrintClicked()
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Semnatura _________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Data, ora: __________________________________  Semnatura _______________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">_________________________________________________________________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "             <td style=\"width: 40%; text-align: left;\">Indicativul marcii: __________________" << "</td>\n"
-              << "             <td style=\"width: 60%; text-align: left;\"></td>\n"
+              << "             <td style=\"width: 60%; text-align: left;\">Data, ora: __________________________________  Semnatura _______________________</td>\n"
               << "        </tr>\n"
               << "    </tbody>\n"
               << "</table>\n"
@@ -515,10 +518,10 @@ void ReportMeasurements::onPrintClicked()
               << "</html>\n";
 
     ///////////////////////
-     std::string fileNameHtlm = "generated_html_file.html";
-     std::ofstream outputFile(fileNameHtlm);
-     outputFile << htmlTable.str();
-     outputFile.close();
+//    std::string fileNameHtlm = "generated_html_file.html";
+//    std::ofstream outputFile(fileNameHtlm);
+//    outputFile << htmlTable.str();
+//    outputFile.close();
     ///////////////////////
 
     QDateTime nowPdf = QDateTime::currentDateTime();

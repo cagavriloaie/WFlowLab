@@ -842,40 +842,73 @@ void MainWindow::onPortSettings()
 void MainWindow::onSetRomanian()
 {
     QString qmPath = qApp->applicationDirPath() + "/translations";
+    QString translationFile = "meter_ro_RO.qm";
+
+    // Remove existing translator
     if (appTranslator)
     {
         qApp->removeTranslator(appTranslator);
+        delete appTranslator;
+        appTranslator = nullptr;
     }
+
+    // Create and install new translator
     appTranslator = new QTranslator(nullptr);
-    if (appTranslator->load(qmPath + "/meter_ro_RO.qm"))
+    if (appTranslator->load(qmPath + "/" + translationFile))
     {
         qApp->installTranslator(appTranslator);
+
+        // Translate UI elements in various components
         Translate();
-        inputData->Translate();
-        licenseDialog->Translate();
-        helpAbout->Translate();
-        interfaceDialog->Translate();
+        if (inputData) inputData->Translate();
+        if (licenseDialog) licenseDialog->Translate();
+        if (helpAbout) helpAbout->Translate();
+        if (interfaceDialog) interfaceDialog->Translate();
+
+        // Set the selected language
+        selectedInfo.selectedLanguage =  ROMANIAN;
     }
-    selectedInfo.selectedLanguage = ROMANIAN;
+    else
+    {
+        delete appTranslator;
+        appTranslator = nullptr;
+    }
 }
 
 void MainWindow::onSetEnglish()
 {
     QString qmPath = qApp->applicationDirPath() + "/translations";
+    QString translationFile = "meter_en_EN.qm";
+
+    // Remove existing translator
     if (appTranslator)
     {
         qApp->removeTranslator(appTranslator);
+        delete appTranslator;
+        appTranslator = nullptr;
     }
+
+    // Create and install new translator
     appTranslator = new QTranslator(nullptr);
-    if (appTranslator->load(qmPath + "/meter_en_EN.qm"))
+    if (appTranslator->load(qmPath + "/" + translationFile))
     {
         qApp->installTranslator(appTranslator);
+
+        // Translate UI elements in various components
         Translate();
-        inputData->Translate();
-        licenseDialog->Translate();
-        helpAbout->Translate();
+        if (inputData) inputData->Translate();
+        if (licenseDialog) licenseDialog->Translate();
+        if (helpAbout) helpAbout->Translate();
+        if (interfaceDialog) interfaceDialog->Translate();
+
+        // Set the selected language
+        selectedInfo.selectedLanguage =  ENGLISH;
     }
-    selectedInfo.selectedLanguage = ENGLISH;
+    else
+    {
+        delete appTranslator;
+        appTranslator = nullptr;
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

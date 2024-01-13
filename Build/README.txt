@@ -9,7 +9,7 @@ History:
 V 0.9  02.2023  Not official release, under development;
 V 1.0  05.2023  First official release, automatically interface RS 485 detection
 V 1.1  11.2023  Fixing translations and add restriction for data input
-V 1.2  01.2023  Added metrological report pdf document
+V 1.2  01.2024  Added metrological report pdf document
 
 Application can be installed and run under Windows OS with versions:
 
@@ -52,6 +52,9 @@ This can done only by Elcost by generating another digital signature.
 
 The use of the automatic index reading option can only be done when there is a RS485 MODBUS connection
 to the data collection points.
+
+To be able to work under appropriate conditions, you should have a PDF file reader 
+and a CSV file editor installed on your computer.
 
 More information related to installation, uninstallation, configuration and use of the application 
 can be obtained from the manual that is part of this kit.

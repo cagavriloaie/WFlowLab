@@ -535,138 +535,138 @@
 <context>
     <name>ReportMeasurements</name>
     <message>
-        <location filename="../report.cpp" line="154"/>
+        <location filename="../report.cpp" line="153"/>
         <source>WFlowLab - Informatii buletin verificare metrologica</source>
         <translation>WFlowLab - BV Generation</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="156"/>
-        <location filename="../report.cpp" line="191"/>
+        <location filename="../report.cpp" line="155"/>
+        <location filename="../report.cpp" line="193"/>
         <source>Date verificare metrologica</source>
         <translation>Metrological report data</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="157"/>
-        <location filename="../report.cpp" line="192"/>
+        <location filename="../report.cpp" line="156"/>
+        <location filename="../report.cpp" line="194"/>
         <source>Autorizatia numarul:</source>
-        <translation type="unfinished"></translation>
+        <translation>Authorization Number:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="158"/>
-        <location filename="../report.cpp" line="193"/>
+        <location filename="../report.cpp" line="157"/>
+        <location filename="../report.cpp" line="195"/>
         <source>Numar de inregistrare: </source>
         <translation>Register number: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="159"/>
-        <location filename="../report.cpp" line="194"/>
-        <source>Detinator: </source>
-        <translation>Beneficiary: </translation>
+        <source>Codul LT: </source>
+        <translation type="vanished">LT code:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="160"/>
-        <location filename="../report.cpp" line="195"/>
-        <source>Codul LT: </source>
-        <translation>LT code:</translation>
+        <source>Normative: </source>
+        <translation type="vanished">Norms: </translation>
     </message>
     <message>
         <location filename="../report.cpp" line="161"/>
-        <location filename="../report.cpp" line="196"/>
-        <source>Normative: </source>
-        <translation>Norms: </translation>
-    </message>
-    <message>
-        <location filename="../report.cpp" line="162"/>
-        <location filename="../report.cpp" line="197"/>
+        <location filename="../report.cpp" line="199"/>
         <source>Valabilitate: </source>
         <translation>Valability:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="163"/>
-        <location filename="../report.cpp" line="198"/>
+        <location filename="../report.cpp" line="162"/>
+        <location filename="../report.cpp" line="200"/>
         <source>Cost: </source>
         <translation>Cost: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="164"/>
-        <location filename="../report.cpp" line="199"/>
+        <location filename="../report.cpp" line="163"/>
+        <location filename="../report.cpp" line="201"/>
         <source>Verificator metrolog: </source>
         <translation>Metrological checker: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="165"/>
-        <location filename="../report.cpp" line="200"/>
         <source>Indicativul marcii:</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Identifier:</translation>
     </message>
     <message>
-        <source>Conducator laborator: </source>
-        <translation type="vanished">Laboratory manager: </translation>
+        <location filename="../report.cpp" line="158"/>
+        <location filename="../report.cpp" line="196"/>
+        <source>Beneficiar: </source>
+        <translation>Beneficiary:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="166"/>
-        <location filename="../report.cpp" line="201"/>
+        <location filename="../report.cpp" line="159"/>
+        <location filename="../report.cpp" line="197"/>
+        <source>Codul din LT: </source>
+        <translation>LT code:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="160"/>
+        <location filename="../report.cpp" line="198"/>
+        <source>Normativ: </source>
+        <translation>Normative:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="164"/>
+        <location filename="../report.cpp" line="202"/>
+        <source>Locul efectuarii verificarii:</source>
+        <translation>Checking location: </translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="165"/>
+        <location filename="../report.cpp" line="203"/>
         <source>6 luni</source>
         <translation>6 months</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="167"/>
-        <location filename="../report.cpp" line="202"/>
+        <location filename="../report.cpp" line="166"/>
+        <location filename="../report.cpp" line="204"/>
         <source>1 an</source>
         <translation>1 year</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="168"/>
-        <location filename="../report.cpp" line="203"/>
+        <location filename="../report.cpp" line="167"/>
+        <location filename="../report.cpp" line="205"/>
         <source>2 ani</source>
         <translation>2 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="169"/>
-        <location filename="../report.cpp" line="204"/>
+        <location filename="../report.cpp" line="168"/>
+        <location filename="../report.cpp" line="206"/>
         <source>3</source>
         <translation>3 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="170"/>
-        <location filename="../report.cpp" line="205"/>
+        <location filename="../report.cpp" line="169"/>
+        <location filename="../report.cpp" line="207"/>
         <source>5 ani</source>
         <translation>5 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="171"/>
-        <location filename="../report.cpp" line="206"/>
+        <location filename="../report.cpp" line="170"/>
+        <location filename="../report.cpp" line="208"/>
         <source>&amp;Generare BV</source>
         <translation>&amp;Generate BV</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="172"/>
-        <location filename="../report.cpp" line="207"/>
+        <location filename="../report.cpp" line="171"/>
+        <location filename="../report.cpp" line="209"/>
         <source>&amp;Inchide</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="189"/>
+        <location filename="../report.cpp" line="191"/>
         <source>WFlowLab - Informatii buletin de verificare metrologica</source>
         <translation>WFlowLab - Metrological checking information</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="298"/>
+        <location filename="../report.cpp" line="299"/>
         <source>Verification report</source>
         <translation>Verification report</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="299"/>
+        <location filename="../report.cpp" line="300"/>
         <source>There are unfilled fields!</source>
         <translation>There are unfilled fields!</translation>
-    </message>
-    <message>
-        <source>The file </source>
-        <translation type="vanished">The file </translation>
-    </message>
-    <message>
-        <source> was created!</source>
-        <translation type="vanished"> was created!</translation>
     </message>
 </context>
 <context>
@@ -678,146 +678,146 @@
         <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="124"/>
+        <location filename="../tableBoard.cpp" line="114"/>
         <source>Save input data</source>
         <translation>Save input data</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="148"/>
+        <location filename="../tableBoard.cpp" line="135"/>
         <source>Open Input Data</source>
         <translation>Open Input Data</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="150"/>
+        <location filename="../tableBoard.cpp" line="137"/>
         <source>Input data (*.in);;All file (*.*)</source>
         <translation>Input data (*.in);;All file (*.*)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="556"/>
+        <location filename="../tableBoard.cpp" line="553"/>
         <source>WStreamLab - Input Table</source>
         <translation>WStreamLab - Input Table</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="578"/>
-        <location filename="../tableBoard.cpp" line="582"/>
-        <location filename="../tableBoard.cpp" line="586"/>
+        <location filename="../tableBoard.cpp" line="575"/>
+        <location filename="../tableBoard.cpp" line="579"/>
+        <location filename="../tableBoard.cpp" line="583"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="579"/>
-        <location filename="../tableBoard.cpp" line="583"/>
-        <location filename="../tableBoard.cpp" line="587"/>
+        <location filename="../tableBoard.cpp" line="576"/>
+        <location filename="../tableBoard.cpp" line="580"/>
+        <location filename="../tableBoard.cpp" line="584"/>
         <source>Start index</source>
         <translation>Start index</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="580"/>
-        <location filename="../tableBoard.cpp" line="584"/>
-        <location filename="../tableBoard.cpp" line="588"/>
+        <location filename="../tableBoard.cpp" line="577"/>
+        <location filename="../tableBoard.cpp" line="581"/>
+        <location filename="../tableBoard.cpp" line="585"/>
         <source>Stop index</source>
         <translation>Stop index</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="581"/>
+        <location filename="../tableBoard.cpp" line="578"/>
         <source>Err. Qmin</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="585"/>
+        <location filename="../tableBoard.cpp" line="582"/>
         <source>Err. Qt</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="589"/>
+        <location filename="../tableBoard.cpp" line="586"/>
         <source>Err. Qn</source>
         <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="587"/>
+        <location filename="../tableBoard.cpp" line="591"/>
+        <location filename="../tableBoard.cpp" line="595"/>
+        <source>Flow rate [L/h]</source>
+        <translation>Flow rate [L/h]</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="588"/>
+        <location filename="../tableBoard.cpp" line="592"/>
+        <location filename="../tableBoard.cpp" line="596"/>
+        <source>Mass [kg]</source>
+        <translation>Mass [kg]</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="589"/>
+        <location filename="../tableBoard.cpp" line="593"/>
+        <location filename="../tableBoard.cpp" line="597"/>
+        <source>Temperature [°C]</source>
+        <translation>Temperature [°C]</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="590"/>
         <location filename="../tableBoard.cpp" line="594"/>
         <location filename="../tableBoard.cpp" line="598"/>
-        <source>Flow rate [L/h]</source>
-        <translation>Flow rate [L/h]</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="591"/>
-        <location filename="../tableBoard.cpp" line="595"/>
-        <location filename="../tableBoard.cpp" line="599"/>
-        <source>Mass [kg]</source>
-        <translation>Mass [kg]</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="592"/>
-        <location filename="../tableBoard.cpp" line="596"/>
-        <location filename="../tableBoard.cpp" line="600"/>
-        <source>Temperature [°C]</source>
-        <translation>Temperature [°C]</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="593"/>
-        <location filename="../tableBoard.cpp" line="597"/>
-        <location filename="../tableBoard.cpp" line="601"/>
         <source>Volume [L]</source>
         <translation>Volume [L]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="604"/>
+        <location filename="../tableBoard.cpp" line="601"/>
         <source>&amp;Data evaluate</source>
         <translation>&amp;Data evaluate</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="605"/>
+        <location filename="../tableBoard.cpp" line="602"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Generate FM</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="606"/>
+        <location filename="../tableBoard.cpp" line="603"/>
         <source>Report PDF</source>
-        <translation>Generate FM</translation>
+        <translation>Generate BV</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="607"/>
+        <location filename="../tableBoard.cpp" line="604"/>
         <source>&amp;Open</source>
         <translation>&amp;Open</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="608"/>
+        <location filename="../tableBoard.cpp" line="605"/>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="609"/>
+        <location filename="../tableBoard.cpp" line="606"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="610"/>
+        <location filename="../tableBoard.cpp" line="607"/>
         <source>Clean &amp;Input</source>
         <translation>Clean &amp;Input</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1359"/>
+        <location filename="../tableBoard.cpp" line="1348"/>
         <source>Collected data from flow meters.</source>
         <translation>Collected data from flow meters.</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1361"/>
+        <location filename="../tableBoard.cpp" line="1350"/>
         <source>Some user input data are not available or are outside the normal rage!</source>
         <translation>Some user input data are not available or are outside the normal rage!</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2469"/>
+        <location filename="../tableBoard.cpp" line="2422"/>
         <source>Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qmin: %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2473"/>
+        <location filename="../tableBoard.cpp" line="2423"/>
         <source>Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qt:  %1 L/h  Eroare: %2%</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2477"/>
+        <location filename="../tableBoard.cpp" line="2424"/>
         <source>Index [L] -  Qn: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Qn: %1 L/h  Eroare: %2%</translation>
     </message>
