@@ -32,7 +32,7 @@ class TableBoard : public QDialog
 {
     Q_OBJECT
 
-  public:
+public:
     explicit TableBoard(QWidget *_parent = nullptr);
     ~TableBoard();
 
@@ -41,9 +41,11 @@ class TableBoard : public QDialog
     static void printPdfThread(QString report);
     void Translate();
 
-  private:
+private:
     QWidget *parent;
     Ui::TableBoard *ui;
+
+    // Member variables grouped by functionality
     size_t entries {0};
     ReportMeasurements *reportMeasurementsDialog {nullptr};
     std::string nameWaterMeter;
@@ -70,7 +72,7 @@ class TableBoard : public QDialog
 
     bool eventFilter(QObject *, QEvent *);
 
-  private slots:
+private slots:
     void onTypeMeterChanged();
     void onNumberOfWaterMetersChanged();
     void onMeasurementTypeChanged();
@@ -84,14 +86,12 @@ class TableBoard : public QDialog
     void onPrintPdfDocClicked();
     void focusInEvent(QFocusEvent *event);
     void focusOutEvent(QFocusEvent *event);
-
     void copyTextBetweenWidgets(const QString& startRegex, const QString& stopRegex);
     void onCopy12Clicked();
     void onCopy23Clicked_new();
-
     void onReportClicked();
 
-  protected:
+protected:
     void showEvent(QShowEvent *event);
 };
 

@@ -3,21 +3,21 @@
  *  File:   interface.cpp
  */
 
+#include <mutex>
+#include <thread>
+#include <unistd.h>
+
 #include <QMessageBox>
 #include <QSettings>
 #include <QStringList>
 #include <QtSerialBus/QModbusClient>
 #include <QtSerialBus/QModbusRtuSerialServer>
 #include <QtSerialPort/QSerialPort>
-#include <unistd.h>
-#include <mutex>
-#include <thread>
 
 #include "interface.h"
 #include "mainwindow.h"
 #include "ui_interface.h"
 #include "ui_mainwindow.h"
-
 
 namespace
 {

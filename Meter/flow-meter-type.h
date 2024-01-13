@@ -120,6 +120,7 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
 {
     std::ifstream file(filename);
     std::vector < MeterFlowType > meterFlowTypes;
+
     if (!file.is_open())
     {
         QMessageBox warningMessage;
@@ -135,53 +136,63 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
         /* Default Water Flow Meters DB */
         return meterFlowTypesDefault;
     }
+
     bool dbCorrupted = false;
+
     try
     {
         std::string line;
         size_t expectedFieldCount = 0;
-        if (std::getline(file, line))
-        {
+
+        if (std::getline(file, line)) {
             std::istringstream iss(line);
             std::string field;
-            while (std::getline(iss, field, DELIMITER))
-            {
+
+            // Count the number of fields in the first line to determine the expected count
+            while (std::getline(iss, field, CSV_DELIMITER)) {
                 expectedFieldCount++;
             }
         }
-        while (std::getline(file, line))
-        {
+
+        while (std::getline(file, line)) {
             std::string lineCopy = line;
             size_t actualFieldCount = 0;
+
+            // Count the number of fields in the current line
             std::istringstream issCopy(lineCopy);
             std::string field;
-            while (std::getline(issCopy, field, DELIMITER))
-            {
+            while (std::getline(issCopy, field, CSV_DELIMITER)) {
                 actualFieldCount++;
             }
-            if (actualFieldCount != expectedFieldCount)
-            {
+
+            // Check if the field count matches the expected count
+            if (actualFieldCount != expectedFieldCount) {
                 dbCorrupted = true;
                 continue;
             }
+
+            // Parse the line into MeterFlowType structure
             MeterFlowType meterFlow;
             std::istringstream iss(line);
             std::string token;
-            std::getline(iss, meterFlow.nameWaterMeter, DELIMITER);
-            std::getline(iss, token, DELIMITER);
+
+            std::getline(iss, meterFlow.nameWaterMeter, CSV_DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.nominalDiameter = std::stod(token);
-            std::getline(iss, token, DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.maximumFlow = std::stod(token);
-            std::getline(iss, token, DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.nominalFlow = std::stod(token);
-            std::getline(iss, token, DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.trasitionFlow = std::stod(token);
-            std::getline(iss, token, DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.minimumFlow = std::stod(token);
-            std::getline(iss, token, DELIMITER);
+            std::getline(iss, token, CSV_DELIMITER);
             meterFlow.nominalError = std::stod(token);
             std::getline(iss, token);
             meterFlow.maximumError = std::stod(token);
+
+            // Add the parsed MeterFlowType to the vector
             meterFlowTypes.push_back(meterFlow);
         }
     }
@@ -200,7 +211,9 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
         warningMessage.exec();
         return meterFlowTypesDefault;
     }
+
     file.close();
+
     if (dbCorrupted)
     {
         QMessageBox warningMessage;

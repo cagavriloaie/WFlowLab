@@ -3,35 +3,37 @@
  *  File:   report.cpp
  */
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <iomanip>
+#include <algorithm>
 #include <chrono>
 #include <ctime>
-#include <algorithm>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <sstream>
+#include <string>
 #include <thread>
 
-#include <QMainWindow>
+#include <QCheckBox>
+#include <QCoreApplication>
+#include <QDateTime>
+#include <QDialog>
 #include <QDesktopServices>
 #include <QDoubleValidator>
 #include <QFileDialog>
-#include <QMessageBox>
-#include <QPainter>
-#include <QString>
-#include <QValidator>
-#include <QtPrintSupport/QPrinter>
-#include <QDialog>
-#include <QLineEdit>
-#include <QLabel>
-#include <QCheckBox>
 #include <QKeyEvent>
-#include <QSettings>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMainWindow>
+#include <QMessageBox>
 #include <QPageSize>
+#include <QPainter>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QSettings>
+#include <QString>
 #include <QTimer>
-#include <QCoreApplication>
-#include <QDebug>
+#include <QValidator>
+#include <QtDebug>
 
 #include "mainwindow.h"
 #include "report.h"
@@ -39,6 +41,7 @@
 #include "ui_report.h"
 
 extern MainWindow *pw;
+
 
 std::string convertNumberToWords(int num, bool addSuffix)
 {

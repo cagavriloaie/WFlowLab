@@ -14,15 +14,15 @@
 #include <QTimer>
 #include <QPainter>
 #include <QEventLoop>
+#include <QDir>
 #include <QThread>
+
 #include <windows.h>
 #include <winnt.h>
 #include <fstream>
 
+#include "definitions.h"
 #include "mainwindow.h"
-
-
-#define MAX_PATH 260
 
 class PixelImageWidget : public QMainWindow
 {
@@ -117,24 +117,24 @@ class PixelImageWidget : public QMainWindow
     }
 };
 
-QTranslator *appTranslator;
+QTranslator *appTranslator = nullptr; // Declare the translator globally
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    QString key = QString("Constantin + 365566a75ebf0c4a5cbf");
-    QSharedMemory *shared = new QSharedMemory(key);
-    QString qmPath = qApp->applicationDirPath() + "/translations";
+bool loadTranslations() {
+    QString qmPath = qApp->applicationDirPath() + QDir::separator() + "translations";
     appTranslator = new QTranslator(nullptr);
-    if (appTranslator->load(qmPath + "//meter_ro_RO.qm"))
-    {
+
+    if (appTranslator->load(qmPath + QDir::separator() + "meter_ro_RO.qm")) {
         qApp->installTranslator(appTranslator);
+        return true; // Translation loaded successfully
     }
-    QCoreApplication::setOrganizationName("WStreamLab");
-    QCoreApplication::setOrganizationDomain("WStreamLab.com");
-    QCoreApplication::setApplicationName("WStreamLab");
-    if (!shared->create(512, QSharedMemory::ReadWrite))
-    {
+
+    return false;
+}
+
+bool checkAndHandleMultipleInstances(QSharedMemory *shared) {
+    // Create a shared memory segment
+    if (!shared->create(512, QSharedMemory::ReadWrite)) {
+        // Another instance is already running
         QMessageBox warningMessage;
         QApplication::beep();
         warningMessage.addButton(QMessageBox::Ok);
@@ -147,13 +147,38 @@ int main(int argc, char *argv[])
                                       Qt::WindowTitleHint |
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
-        exit(0);
+
+        return true; // Another instance is running
     }
-    MainWindow mainWindow;
-    //This has to be revisited
-    //PixelImageWidget widget;
-    //widget.mainWindow = &mainWindow;
-    //widget.show();
-    mainWindow.show();
-    return a.exec();
+
+    return false; // This instance is the first one
+}
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+
+    // Unique key for shared memory
+    QString key = QString("Constantin + 365566a75ebf0c4a5cbf");
+    QSharedMemory *shared = new QSharedMemory(key);
+
+    // Load translations
+    if (loadTranslations()) {
+        MainWindow mainWindow;
+
+        // Check if another instance is already running
+        if (!checkAndHandleMultipleInstances(shared)) {
+            //This has to be revisited
+            //PixelImageWidget widget;
+            //widget.mainWindow = &mainWindow;
+            //widget.show();
+
+            mainWindow.show();
+
+            return a.exec();
+        }
+    }
+
+    delete shared;
+
+    return 0;
 }

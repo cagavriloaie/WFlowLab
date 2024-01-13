@@ -8,22 +8,26 @@
 
 #include <cstddef>
 
-#define MAX_ARRAY_SIZE 20
+constexpr std::size_t MAX_PATH_LENGTH = 260;
+constexpr std::size_t MAX_ARRAY_SIZE = 20;
 
-#define MAIN_WINDOW_WIDTH   1450
-#define MAIN_WINDOW_HEIGHT   800
+constexpr int MAIN_WINDOW_WIDTH = 1450;
+constexpr int MAIN_WINDOW_HEIGHT = 800;
+
+constexpr double DEFAULT_DENSITY_BELOW_ZERO = 999.8395;
+constexpr double DEFAULT_DENSITY_ABOVE_100 = 958.3449;
 
 // Version information
-#define VERSION_BUILD "1.2 Windows x86_32"
+const char* const VERSION_BUILD = "1.2 Windows x86_32";
 
 // CSV delimiter
-constexpr char DELIMITER{','};
+constexpr char CSV_DELIMITER = ',';
 
 // Maximum number of flow meter types
-constexpr size_t MAX_NUMBER_FLOW_METER_TYPES{1000};
+constexpr std::size_t MAX_NUMBER_FLOW_METER_TYPES = 1000;
 
 // File name for flow meter types CSV
-#define CSV_FLOW_METER_TYPES  "watermeters.csv"
+constexpr const char* CSV_FLOW_METER_TYPES = "watermeters.csv";
 
 // Constants for MD5Transform routine
 constexpr int S11 = 7;

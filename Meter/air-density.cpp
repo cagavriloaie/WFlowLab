@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <iostream>
 
+#include "definitions.h"
 #include "air-density.h"
 
 const double temperaturePoints[] =
@@ -42,58 +43,81 @@ const double densityPoints[] =
     959.7741, 959.0618, 958.3449, 957.6451
 };
 
-double linearInterpolationTemperature(double temperature,
-                                      double correction)
+
+double linearInterpolationTemperature(double temperature, double correction)
 {
+    // Check if temperature is below 0 or above 100
     if (temperature <= 0.0)
     {
-        return 999.8395;
+        return DEFAULT_DENSITY_BELOW_ZERO;
     }
     if (temperature >= 100.0)
     {
-        return 958.3449;
+        return DEFAULT_DENSITY_ABOVE_100;
     }
-    double startTemperature =
-        temperaturePoints[static_cast<size_t>(std::floor(temperature))];
-    double startDensity =
-        densityPoints[static_cast<size_t>(std::floor(temperature))];
-    double stopDensity =
-        densityPoints[static_cast<size_t>(std::floor(temperature + 1))];
-    double density = startDensity + (stopDensity - startDensity) *
-                     (temperature - startTemperature);
-    // Because same particular condition the water density has to be corrected
+
+    // Find the index for interpolation
+    size_t index = static_cast<size_t>(std::floor(temperature));
+
+    // Validate array index
+    if (index >= sizeof(temperaturePoints) / sizeof(temperaturePoints[0]) - 1)
+    {
+        // Handle or log an error, or return a default value
+        return 0.0;  // Adjust with an appropriate default value
+    }
+
+    // Perform linear interpolation
+    double startTemperature = temperaturePoints[index];
+    double startDensity = densityPoints[index];
+    double stopDensity = densityPoints[index + 1];
+
+    double density = startDensity + (stopDensity - startDensity) * (temperature - startTemperature);
+
+    // Correct the water density based on a specific condition
     density = correction - densityPoints[20] + density;
+
     return density;
 }
 
-double quadraticInterpolationTemperature(double temperature,
-        double correction)
+double quadraticInterpolationTemperature(double temperature, double correction)
 {
     if (temperature <= 0.0)
     {
-        return 999.8395;
+        return DEFAULT_DENSITY_BELOW_ZERO;
     }
     if (temperature >= 100.0)
     {
-        return 958.3449;
+        return DEFAULT_DENSITY_ABOVE_100;
     }
+
     double firstTemperature = std::floor(temperature);
     double secondTemperature = std::floor(temperature + 1);
     double thirdTemperature = std::floor(temperature + 2);
-    double firstDensity = densityPoints[static_cast<size_t>
-                                        (firstTemperature)];
-    double secondDensity =
-        densityPoints[static_cast<size_t>(secondTemperature)];
-    double thirdDensity = densityPoints[static_cast<size_t>
-                                        (thirdTemperature)];
-    double density = 0.5 * firstDensity * (temperature -
-                                           secondTemperature) *
-                     (temperature - thirdTemperature) -
-                     secondDensity * (temperature - firstTemperature) *
-                     (temperature - thirdTemperature) +
-                     0.5 * thirdDensity * (temperature - firstTemperature) *
-                     (temperature - secondTemperature);
-    // Because same particular condition the water density has to be corrected
+
+    // Validate array indices
+    size_t firstIndex = static_cast<size_t>(firstTemperature);
+    size_t secondIndex = static_cast<size_t>(secondTemperature);
+    size_t thirdIndex = static_cast<size_t>(thirdTemperature);
+
+    if (thirdIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
+        secondIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
+        firstIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]))
+    {
+        // Handle or log an error, or return a default value
+        return 0.0;  // Adjust with an appropriate default value
+    }
+
+    double firstDensity = densityPoints[firstIndex];
+    double secondDensity = densityPoints[secondIndex];
+    double thirdDensity = densityPoints[thirdIndex];
+
+    double density = 0.5 * firstDensity * (temperature - secondTemperature) * (temperature - thirdTemperature) -
+                     secondDensity * (temperature - firstTemperature) * (temperature - thirdTemperature) +
+                     0.5 * thirdDensity * (temperature - firstTemperature) * (temperature - secondTemperature);
+
+    // Correct the water density based on a specific condition
     density = correction - densityPoints[20] + density;
+
     return density;
 }
+

@@ -9,27 +9,39 @@
 
 void HelpAbout::Translate()
 {
-    this->setWindowTitle(tr("WStreamLab - About"));
-    ui->lbName->setText(tr("WStreamLab version:"));
-    ui->lbNameValue->setText(QString::fromUtf8(VERSION_BUILD));
-    ui->lbCopyright->setText(tr("Copyright:"));
-    ui->lbCopyrightValue->setText(tr("2023 Elcost Company srl"));
-    ui->lbEmail->setText(tr("Email:"));
-    ui->lbEmailValue->setText(tr("office@elcost.ro"));
-    ui->lbAddress->setText(tr("Address:"));
-    ui->lbAddressValue->setText(tr("Pascani / RO Morilor #8"));
-    ui->lbAuthor->setText(tr("Author:"));
-    ui->lbAuthorValue->setText(tr("constantin"));
+    // Set window title
+    setWindowTitle(tr("WStreamLab - About"));
+
+    // Helper function to set label text
+    auto setLabelText = [](QLabel *label, const QString &text) {
+        label->setText(tr(text.toUtf8()));
+    };
+
+    // Set label texts
+    setLabelText(ui->lbName, "WStreamLab version:");
+    setLabelText(ui->lbNameValue, QString::fromUtf8(VERSION_BUILD));
+    setLabelText(ui->lbCopyright, "Copyright:");
+    setLabelText(ui->lbCopyrightValue, "2023 Elcost Company srl");
+    setLabelText(ui->lbEmail, "Email:");
+    setLabelText(ui->lbEmailValue, "office@elcost.ro");
+    setLabelText(ui->lbAddress, "Address:");
+    setLabelText(ui->lbAddressValue, "Pascani / RO Morilor #8");
+    setLabelText(ui->lbAuthor, "Author:");
+    setLabelText(ui->lbAuthorValue, "constantin");
+
+    // Set close button text
     ui->pbClose->setText(tr("&Close"));
 }
+
 
 HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent),
     ui(new Ui::HelpAbout)
 {
     ui->setupUi(this);
-    Translate();
-    connect(ui->pbClose, &QPushButton::clicked, this,
-            &HelpAbout::onCloseClicked);
+    Translate(); // Call the translation function
+
+    // Connect signals and slots
+    connect(ui->pbClose, &QPushButton::clicked, this, &HelpAbout::onCloseClicked);
 }
 
 HelpAbout::~HelpAbout()
