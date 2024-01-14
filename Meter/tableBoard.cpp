@@ -83,9 +83,11 @@ void TableBoard::onSaveCurrentInputDataClicked()
     std::ofstream outputDataFile(fileName.toStdString());
     outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
+
     outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
-    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
     outputDataFile << mainwindow->selectedInfo.athmosphericPressure << "\n";
+    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
+
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
@@ -141,9 +143,11 @@ void TableBoard::onOpenInputDataClicked()
 
     size_t entriesNumber;
     std::string nameSelectedWaterMeter;
-    double ambientTemperature;
-    double relativeAirHumidity;
-    double athmosphericPressure;
+
+    std::string  ambientTemperature;
+    std::string  athmosphericPressure;
+    std::string  relativeAirHumidity;
+
     bool rbVolumetric;
     bool rbGravitmetric;
     bool rbManual;
@@ -155,8 +159,8 @@ void TableBoard::onOpenInputDataClicked()
     std::getline(inputDataFile, tmpInput);
     std::getline(inputDataFile, nameSelectedWaterMeter);
     inputDataFile >> ambientTemperature;
-    inputDataFile >> relativeAirHumidity;
     inputDataFile >> athmosphericPressure;
+    inputDataFile >> relativeAirHumidity;
     inputDataFile >> rbVolumetric;
     inputDataFile >> rbGravitmetric;
     inputDataFile >> rbManual;
@@ -175,13 +179,13 @@ void TableBoard::onOpenInputDataClicked()
         mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
     }
 
-    QString qAmbientTemperature = QString::number(ambientTemperature, 'f', 2);
-    QString qRelativeAirHumidity = QString::number(relativeAirHumidity, 'f', 2);
-    QString qAthmosphericPressure = QString::number(athmosphericPressure, 'f', 2);
+    QString qAmbientTemperature = ambientTemperature.c_str();
+    QString qAthmosphericPressure = athmosphericPressure.c_str();
+    QString qRelativeAirHumidity = relativeAirHumidity.c_str();
 
     mainwindow->ui->leTemperature->setText(qAmbientTemperature);
-    mainwindow->ui->leHumidity->setText(qRelativeAirHumidity);
     mainwindow->ui->lePressure->setText(qAthmosphericPressure);
+    mainwindow->ui->leHumidity->setText(qRelativeAirHumidity);
 
     if (rbVolumetric)
     {
@@ -652,8 +656,9 @@ TableBoard::TableBoard(QWidget *_parent):
     connect(ui->pbPrint, SIGNAL(clicked()), this, SLOT(onPrintPdfDocClicked()));
     connect(ui->pbReport, SIGNAL(clicked()), this, SLOT(onReportClicked()));
     connect(ui->cbSet, SIGNAL(stateChanged(int)), this, SLOT(onSelectAllChanged()));
+
     connect(ui->pbCopy12, SIGNAL(clicked()), this, SLOT(onCopy12Clicked()));
-    connect(ui->pbCopy23, SIGNAL(clicked()), this, SLOT(onCopy23Clicked_new));
+    connect(ui->pbCopy23, SIGNAL(clicked()), this, SLOT(onCopy23Clicked()));
 
     // Connect vectorCheckNumber signals to onCbClicked slot using dynamic_cast
     for (unsigned iter = 0; iter < MAX_ENTRIES; ++iter)
@@ -1484,11 +1489,12 @@ void TableBoard::onPrintPdfDocClicked()
     {
         formattedTime = QString("Date / Time:") + formattedTime;
     }
-    double ambientTemperature =
+    std::string  ambientTemperature =
         mainwindow->selectedInfo.ambientTemperature;
-    double athmosphericPressure =
+    std::string  athmosphericPressure =
         mainwindow->selectedInfo.athmosphericPressure;
-    double humidity = mainwindow->selectedInfo.relativeAirHumidity;
+    std::string  humidity = mainwindow->selectedInfo.relativeAirHumidity;
+
     QString certificate = mainwindow->selectedInfo.certificate.c_str();
     QString nameSelectedWaterMeter =
         mainwindow->selectedInfo.nameWaterMeter.c_str();
@@ -1552,11 +1558,11 @@ void TableBoard::onPrintPdfDocClicked()
             "<h4>" + formattedTime + "<br>" +
             "Numar certificat:&nbsp;" +
             certificate + "&nbsp;<br>" + "Temperatura:&nbsp;" +
-            to_string_with_precision(ambientTemperature, 2).c_str() +
+            to_string_with_precision(ambientTemperature, 1).c_str() +
             "&nbsp;[°C]<br>" + "Presiune atmosferica:&nbsp;" +
-            to_string_with_precision(athmosphericPressure, 2).c_str() +
-            "&nbsp;[Pa]<br>" + "Umiditate:&nbsp;" +
-            to_string_with_precision(humidity, 2).c_str() +
+            to_string_with_precision(athmosphericPressure, 1).c_str() +
+            "&nbsp;[mbar]<br>" + "Umiditate:&nbsp;" +
+            to_string_with_precision(humidity, 1).c_str() +
             "&nbsp;[%]<br><br>" + "Tip contor apa:&nbsp;" + nameSelectedWaterMeter
             +
             "<br>" + "Medoda de verificare:&nbsp;" + methodMeasurement +
@@ -1967,7 +1973,7 @@ void TableBoard::onPrintPdfDocClicked()
                  to_string_with_precision(ambientTemperature, 2).c_str() +
                  "&nbsp;[°C]<br>" + "Athmopheric pressure:&nbsp;" +
                  to_string_with_precision(athmosphericPressure, 2).c_str() +
-                 "&nbsp;[Pa]<br>" + "Humidity:&nbsp;" +
+                 "&nbsp;[mbar]<br>" + "Humidity:&nbsp;" +
                  to_string_with_precision(humidity, 2).c_str() +
                  "&nbsp;[%]<br><br>" + "Water meter type:&nbsp;" +
                  nameSelectedWaterMeter + "<br>" + "Used measurement method:&nbsp;" +
@@ -2458,7 +2464,7 @@ void TableBoard::onCopy12Clicked()
     ui->leStop2_1->setFocus();
 }
 
-void TableBoard::onCopy23Clicked_new()
+void TableBoard::onCopy23Clicked()
 {
     copyTextBetweenWidgets("leStart3_\\d+", "leStop2_\\d+");
     ui->leStop3_1->setFocus();

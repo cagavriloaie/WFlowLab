@@ -31,7 +31,7 @@
     <message>
         <location filename="../helpabout.cpp" line="16"/>
         <source>2023 Elcost Company srl</source>
-        <translation>2023 Elcost Company srl</translation>
+        <translation>2024 Elcost Company srl</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="18"/>

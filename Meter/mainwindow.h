@@ -45,9 +45,9 @@ struct SelectedInfo
         minimumFlow{0},
         nominalError{0},
         maximumError{0},
-        ambientTemperature{0},
-        relativeAirHumidity{0},
-        athmosphericPressure{0},
+        ambientTemperature{},
+        athmosphericPressure{},
+        relativeAirHumidity{},
         rbVolumetric{true},
         rbGravitmetric{false},
         rbManual{true},
@@ -74,9 +74,9 @@ struct SelectedInfo
     double nominalError;
     double maximumError;
 
-    double ambientTemperature;
-    double relativeAirHumidity;
-    double athmosphericPressure;
+    std::string ambientTemperature;
+    std::string athmosphericPressure;
+    std::string relativeAirHumidity;
 
     bool rbVolumetric;
     bool rbGravitmetric;
@@ -111,6 +111,8 @@ class MainWindow : public QMainWindow
     LedIndicator *LED;
 
     void Translate();
+    void setLabelValue(QLabel* label, double value, int precision);
+    void updateSelectedInfo();
     void SelectMeterComboBox();
     void ReadConfiguration();
     void CenterToScreen(QWidget *widget);

@@ -99,70 +99,87 @@ void MainWindow::ReadConfiguration()
     return;
 }
 
-void MainWindow::SelectMeterComboBox()
+struct RS485SettingInfo {
+    const char* key;
+    const QVariant defaultValue;
+};
+
+void MainWindow::setLabelValue(QLabel* label, double value, int precision)
 {
-    selectedInfo.density_20 = std::stof(
-                                  optionsConfiguration["density_20"]);
+    std::ostringstream streamObj;
+    streamObj << std::fixed << std::setprecision(precision) << value;
+    label->setText(streamObj.str().c_str());
+    streamObj.str("");
+}
+
+void MainWindow::updateSelectedInfo()
+{
+    selectedInfo.density_20 = std::stof(optionsConfiguration["density_20"]);
     selectedInfo.pathResults = optionsConfiguration["archive"];
     selectedInfo.certificate = optionsConfiguration["certificate"];
-    selectedInfo.entriesNumber =
-        ui->cbNumberOfWaterMeters->currentText().toInt();
-    selectedInfo.ambientTemperature = ui->leTemperature->text().toInt();
-    selectedInfo.athmosphericPressure = ui->lePressure->text().toInt();
-    selectedInfo.relativeAirHumidity = ui->leHumidity->text().toInt();
+    selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
+
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
+                       QSettings::NativeFormat);
+
+    // LabConditions
+    settings.beginGroup("LabConditions");
+
+    std::string  temperature;
+    if (settings.childKeys().contains("labTemperature")) {
+        temperature = settings.value("labTemperature").toString().toStdString();
+    } else {
+        temperature = "18";
+    }
+
+    std::string  humidity;
+    if (settings.childKeys().contains("labHumidity")) {
+        humidity = settings.value("labHumidity").toString().toStdString();
+    } else {
+        humidity ="51";
+    }
+
+    std::string  pressure;
+    if (settings.childKeys().contains("labPressure")) {
+        pressure = settings.value("labPressure").toString().toStdString();
+    } else {
+        pressure = "1026";  // Default value if not found
+    }
+
+    settings.endGroup();
+
+    selectedInfo.ambientTemperature = temperature;
+    selectedInfo.athmosphericPressure = pressure;
+    selectedInfo.relativeAirHumidity = humidity;
+
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
-    selectedInfo.nameWaterMeter =
-        MeterFlowDB[selectedWaterMeter].nameWaterMeter;
-    selectedInfo.nominalDiameter =
-        MeterFlowDB[selectedWaterMeter].nominalDiameter;
-    selectedInfo.nominalFlow =
-        MeterFlowDB[selectedWaterMeter].nominalFlow;
-    selectedInfo.maximumFlow =
-        MeterFlowDB[selectedWaterMeter].maximumFlow;
-    selectedInfo.trasitionFlow =
-        MeterFlowDB[selectedWaterMeter].trasitionFlow;
-    selectedInfo.minimumFlow =
-        MeterFlowDB[selectedWaterMeter].minimumFlow;
-    selectedInfo.nominalError =
-        MeterFlowDB[selectedWaterMeter].nominalError;
-    selectedInfo.maximumError =
-        MeterFlowDB[selectedWaterMeter].maximumError;
-    selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
-    selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
-    selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    selectedInfo.rbManual = ui->rbManual->isChecked();
+    const auto& meterFlowInfo = MeterFlowDB[selectedWaterMeter];
+
+    selectedInfo.nameWaterMeter = meterFlowInfo.nameWaterMeter;
+    selectedInfo.nominalDiameter = meterFlowInfo.nominalDiameter;
+    selectedInfo.nominalFlow = meterFlowInfo.nominalFlow;
+    selectedInfo.maximumFlow = meterFlowInfo.maximumFlow;
+    selectedInfo.trasitionFlow = meterFlowInfo.trasitionFlow;
+    selectedInfo.minimumFlow = meterFlowInfo.minimumFlow;
+    selectedInfo.nominalError = meterFlowInfo.nominalError;
+    selectedInfo.maximumError = meterFlowInfo.maximumError;
+}
+
+void MainWindow::SelectMeterComboBox()
+{
+
+    updateSelectedInfo();
+
     std::filesystem::create_directories(selectedInfo.pathResults);
-    std::filesystem::create_directories(selectedInfo.pathResults +
-                                        "/inputData");
-    std::ostringstream streamObj;
-    streamObj << std::fixed << std::setprecision(0)
-              << selectedInfo.nominalDiameter;
-    ui->lbNominalDiameterCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.maximumFlow;
-    ui->lbMaximumFlowCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.nominalFlow;
-    ui->lbNominalFlowCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2)
-              << selectedInfo.trasitionFlow;
-    ui->lbTransitionFlowCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(2) <<
-              selectedInfo.minimumFlow;
-    ui->lbMinimumFlowCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(1)
-              << selectedInfo.maximumError;
-    ui->lbMaximumErrorCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
-    streamObj << std::fixed << std::setprecision(1)
-              << selectedInfo.nominalError;
-    ui->lbNominalErrorCurrent->setText(streamObj.str().c_str());
-    streamObj.str("");
+    std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
+
+    setLabelValue(ui->lbNominalDiameterCurrent, selectedInfo.nominalDiameter, 0);
+    setLabelValue(ui->lbMaximumFlowCurrent, selectedInfo.maximumFlow, 2);
+    setLabelValue(ui->lbNominalFlowCurrent, selectedInfo.nominalFlow, 2);
+    setLabelValue(ui->lbTransitionFlowCurrent, selectedInfo.trasitionFlow, 2);
+    setLabelValue(ui->lbMinimumFlowCurrent, selectedInfo.minimumFlow, 2);
+    setLabelValue(ui->lbMaximumErrorCurrent, selectedInfo.maximumError, 1);
+    setLabelValue(ui->lbNominalErrorCurrent, selectedInfo.nominalError, 1);
 }
 
 void MainWindow::Translate()
@@ -254,145 +271,83 @@ MainWindow::MainWindow(QWidget *parent)
         warningMessage.exec();
         this->close();
     }
+
     CenterToScreen(this);
     ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(
         tr("RS485 protocol MODBUS ITF off."));
     ui->lbConnected->setStyleSheet(
         "QLabel{font-family: \"Segoe UI\"; font-size: 12pt}");
+
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
                        QSettings::NativeFormat);
+
+    // LabConditions
+    settings.beginGroup("LabConditions");
+
+    if (settings.childKeys().contains("labTemperature")) {
+        ui->leTemperature->setText(settings.value("labTemperature").toString());
+    } else {
+        ui->leTemperature->setText("18");
+    }
+
+    if (settings.childKeys().contains("labHumidity")) {
+        ui->leHumidity->setText(settings.value("labHumidity").toString());
+    } else {
+        ui->leHumidity->setText("51");
+    }
+
+    if (settings.childKeys().contains("labPressure")) {
+        ui->lePressure->setText(settings.value("labPressure").toString());
+    } else {
+        ui->lePressure->setText("1026");
+    }
+
+    settings.endGroup();
+
+    // RS485
     settings.beginGroup("RS485");
-    if (!settings.childKeys().contains("selectedSerial",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("selectedSerial", 0);
+
+    const RS485SettingInfo rs485Settings[] =
+        {
+         {"selectedSerial", 0},
+         {"baudRate", 7},
+         {"dataBits", 3},
+         {"parity", 2},
+         {"stopBits", 0},
+         {"timeout", 1000},
+         {"retriesNumber", 0},
+         {"smallScale", 1},
+         {"largeScale", 1},
+         {"temperature", 1},
+         {"emFlowMeter1", 1},
+         {"emFlowMeter2", 1},
+         {"emFlowMeter3", 1},
+         {"waterMeters1_5", 1},
+         {"waterMeters6_10", 1},
+         {"waterMeters11_15", 1},
+         {"waterMeters16_20", 1},
+         {"smallScaleValue", 100},
+         {"largeScaleValue", 101},
+         {"temperatureValue", 102},
+         {"emFlowMeter1Value", 103},
+         {"emFlowMeter2Value", 104},
+         {"emFlowMeter3Value", 105},
+         {"waterMeters1_5Value", 103},
+         {"waterMeters6_10Value", 104},
+         {"waterMeters10_15Value", 103},
+         {"waterMeters16_20Value", 104},
+         };
+
+    for (const RS485SettingInfo& setting : rs485Settings) {
+        if (!settings.childKeys().contains(setting.key, Qt::CaseInsensitive)) {
+            settings.setValue(setting.key, setting.defaultValue);
+        }
     }
-    if (!settings.childKeys().contains("baudRate", Qt::CaseInsensitive))
-    {
-        settings.setValue("baudRate", 7);
-    }
-    if (!settings.childKeys().contains("dataBits", Qt::CaseInsensitive))
-    {
-        settings.setValue("dataBits", 3);
-    }
-    if (!settings.childKeys().contains("parity", Qt::CaseInsensitive))
-    {
-        settings.setValue("parity", 2);
-    }
-    if (!settings.childKeys().contains("stopBits", Qt::CaseInsensitive))
-    {
-        settings.setValue("stopBits", 0);
-    }
-    if (!settings.childKeys().contains("timeout", Qt::CaseInsensitive))
-    {
-        settings.setValue("timeout", 1000);
-    }
-    if (!settings.childKeys().contains("retriesNumber",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("retriesNumber", 0);
-    }
-    if (!settings.childKeys().contains("smallScale",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("smallScale", 1);
-    }
-    if (!settings.childKeys().contains("largeScale",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("largeScale", 1);
-    }
-    if (!settings.childKeys().contains("temperature",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("temperature", 1);
-    }
-    if (!settings.childKeys().contains("emFlowMeter1",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter1", 1);
-    }
-    if (!settings.childKeys().contains("emFlowMeter2",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter2", 1);
-    }
-    if (!settings.childKeys().contains("emFlowMeter3",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter3", 1);
-    }
-    if (!settings.childKeys().contains("waterMeters1_5",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters1_5", 1);
-    }
-    if (!settings.childKeys().contains("waterMeters6_10",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters6_10", 1);
-    }
-    if (!settings.childKeys().contains("waterMeters11_15",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters11_15", 1);
-    }
-    if (!settings.childKeys().contains("waterMeters16_20",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters16_20", 1);
-    }
-    if (!settings.childKeys().contains("smallScaleValue",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("smallScaleValue", 100);
-    }
-    if (!settings.childKeys().contains("largeScaleValue",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("largeScaleValue", 101);
-    }
-    if (!settings.childKeys().contains("temperatureValue",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("temperatureValue", 102);
-    }
-    if (!settings.childKeys().contains("emFlowMeter1Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter1Value", 103);
-    }
-    if (!settings.childKeys().contains("emFlowMeter2Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter2Value", 104);
-    }
-    if (!settings.childKeys().contains("emFlowMeter3Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("emFlowMeter3Value", 105);
-    }
-    if (!settings.childKeys().contains("waterMeters1_5Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters1_5Value", 103);
-    }
-    if (!settings.childKeys().contains("waterMeters6_10Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters6_10Value", 104);
-    }
-    if (!settings.childKeys().contains("waterMeters10_15Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters10_15Value", 103);
-    }
-    if (!settings.childKeys().contains("waterMeters16_20Value",
-                                       Qt::CaseInsensitive))
-    {
-        settings.setValue("waterMeters16_20Value", 104);
-    }
+
+    settings.endGroup();
+    settings.sync();
+
     inputData = new TableBoard(this);
     connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
             SLOT(onTypeMeterChanged()));
@@ -400,16 +355,21 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(onNumberOfWaterMetersChanged()));
     connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
             SLOT(onMeasurementTypeChanged()));
+
     ui->rbInterface->setDisabled(true);
+
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
+
     helpAbout = new HelpAbout(this);
     helpAbout->setModal(true);
     CenterToScreen(helpAbout);
+
     interfaceDialog = new Interface(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
+
     alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -423,73 +383,76 @@ MainWindow::MainWindow(QWidget *parent)
     std::string filename = CSV_FLOW_METER_TYPES;
     std::vector < MeterFlowType > meterFlowTypesVector =
         readFlowMeterTypesCSV(filename);
+
     NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
+
+    // Copy elements from meterFlowTypesVector to MeterFlowDB
     for (size_t iter = 0; iter < meterFlowTypesVector.size(); ++iter)
     {
         MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
     }
+
+    // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
     for (unsigned iter = 1; iter <= MAX_NR_WATER_METERS; ++iter)
     {
         std::string value = std::to_string(iter);
         ui->cbNumberOfWaterMeters->addItem(value.c_str());
     }
+
+    // Populate cbWaterMeterType with names from MeterFlowDB
     for (unsigned iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter)
     {
         std::string nameWaterMeter = MeterFlowDB[iter].nameWaterMeter;
         ui->cbWaterMeterType->addItem(nameWaterMeter.c_str());
     }
-    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged,
-            this,
-            &MainWindow::onNumberOfWaterMetersChanged);
-    connect(ui->cbWaterMeterType, &QComboBox::currentIndexChanged, this,
-            &MainWindow::onMeterTypeChanged);
-    connect(ui->rbVolumetric, &QRadioButton::clicked, this,
-            &MainWindow::onRbVolumeClicked);
-    connect(ui->rbGravitmetric, &QRadioButton::clicked, this,
-            &MainWindow::onRbGavritmetricClicked);
-    connect(ui->rbManual, &QRadioButton::clicked, this,
-            &MainWindow::onRbManualClicked);
-    connect(ui->rbInterface, &QRadioButton::clicked, this,
-            &MainWindow::onRbInterfaceClicked);
-    connect(ui->leTemperature, &QLineEdit::textChanged, this,
-            &MainWindow::onAmbientTemperatureTextChanged);
-    connect(ui->leHumidity, &QLineEdit::textChanged, this,
-            &MainWindow::onRelativeAirHumidityTextChanged);
-    connect(ui->lePressure, &QLineEdit::textChanged, this,
-            &MainWindow::onAthmosphericPressureTextChanged);
-    connect(ui->pbNewSession, &QPushButton::clicked, this,
-            &MainWindow::onNewSessionClicked);
-    connect(ui->pbExitApplication, &QPushButton::clicked, this,
-            &MainWindow::onExitApplication);
-    connect(ui->action_License, SIGNAL(triggered()), this,
-            SLOT(onShowLicense()));
-    connect(ui->action_ExitApp, SIGNAL(triggered()), this,
-            SLOT(onExitApplication()));
-    connect(ui->action_StartSession, SIGNAL(triggered()), this,
-            SLOT(onNewSessionClicked()));
-    connect(ui->action_WaterDensity, SIGNAL(triggered()), this,
-            SLOT(onWaterDensityPage()));
-    connect(ui->action_About, SIGNAL(triggered()), this,
-            SLOT(onHelpAbout()));
-    connect(ui->action_General_Description, SIGNAL(triggered()), this,
-            SLOT(onGeneralDescription()));
+
+    // Connect QComboBox signals to custom slots
+    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this, &MainWindow::onNumberOfWaterMetersChanged);
+    connect(ui->cbWaterMeterType, &QComboBox::currentIndexChanged, this, &MainWindow::onMeterTypeChanged);
+
+    // Connect QRadioButton signals to custom slots
+    connect(ui->rbVolumetric, &QRadioButton::clicked, this, &MainWindow::onRbVolumeClicked);
+    connect(ui->rbGravitmetric, &QRadioButton::clicked, this, &MainWindow::onRbGavritmetricClicked);
+    connect(ui->rbManual, &QRadioButton::clicked, this, &MainWindow::onRbManualClicked);
+    connect(ui->rbInterface, &QRadioButton::clicked, this, &MainWindow::onRbInterfaceClicked);
+
+    // Connect QLineEdit signals to custom slots
+    connect(ui->leTemperature, &QLineEdit::textChanged, this, &MainWindow::onAmbientTemperatureTextChanged);
+    connect(ui->lePressure, &QLineEdit::textChanged, this, &MainWindow::onAthmosphericPressureTextChanged);
+    connect(ui->leHumidity, &QLineEdit::textChanged, this, &MainWindow::onRelativeAirHumidityTextChanged);
+
+    // Connect QPushButton signals to custom slots
+    connect(ui->pbNewSession, &QPushButton::clicked, this, &MainWindow::onNewSessionClicked);
+    connect(ui->pbExitApplication, &QPushButton::clicked, this, &MainWindow::onExitApplication);
+
+    // Connect QAction signals to custom slots
+    connect(ui->action_License, SIGNAL(triggered()), this, SLOT(onShowLicense()));
+    connect(ui->action_ExitApp, SIGNAL(triggered()), this, SLOT(onExitApplication()));
+    connect(ui->action_StartSession, SIGNAL(triggered()), this, SLOT(onNewSessionClicked()));
+    connect(ui->action_WaterDensity, SIGNAL(triggered()), this, SLOT(onWaterDensityPage()));
+    connect(ui->action_About, SIGNAL(triggered()), this, SLOT(onHelpAbout()));
+    connect(ui->action_General_Description, SIGNAL(triggered()), this, SLOT(onGeneralDescription()));
+
     // Added for future improvements
     ui->action_General_Description->setVisible(false);
-    connect(ui->action_Romana, SIGNAL(triggered()), this,
-            SLOT(onSetRomanian()));
-    connect(ui->action_English, SIGNAL(triggered()), this,
-            SLOT(onSetEnglish()));
-    connect(ui->action_Configure_Serial_Port, SIGNAL(triggered()), this,
-            SLOT(onPortSettings()));
+
+    // Connect QAction signals for language and serial port configuration
+    connect(ui->action_Romana, SIGNAL(triggered()), this, SLOT(onSetRomanian()));
+    connect(ui->action_English, SIGNAL(triggered()), this, SLOT(onSetEnglish()));
+    connect(ui->action_Configure_Serial_Port, SIGNAL(triggered()), this, SLOT(onPortSettings()));
+/*
     QDoubleValidator *validatorTemperature = new QDoubleValidator(0.0,
-            100.0, 2, ui->leTemperature);
+            100.0, 5, ui->leTemperature);
     ui->leTemperature->setValidator(validatorTemperature);
+
     QDoubleValidator *validatorHumidity = new QDoubleValidator(0.0, 100.0,
-            2, ui->leHumidity);
+            5, ui->leHumidity);
     ui->leHumidity->setValidator(validatorHumidity);
+
     QDoubleValidator *validatorPressure = new QDoubleValidator(500.0,
-            1500.0, 2, ui->lePressure);
+            1500.0, 5, ui->lePressure);
     ui->lePressure->setValidator(validatorPressure);
+*/
     if (optionsConfiguration.find("maximum") !=
             optionsConfiguration.end())
     {
@@ -502,24 +465,14 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->rbGravitmetric->setChecked(true);
     ui->rbManual->setChecked(true);
-    ui->leTemperature->setText("18");
-    ui->leHumidity->setText("51");
-    ui->lePressure->setText("1026");
-    ui->cbWaterMeterType->setStyleSheet(
-        "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
-        "selection-background-color: rgb(240, 255, 240); selection-color: "
-        "rgb(0, 0, 0);}");
-    ui->cbNumberOfWaterMeters->setStyleSheet(
-        "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
-        "selection-background-color: rgb(240, 255, 240); selection-color: "
-        "rgb(0, 0, 0);}");
-    ui->leTemperature->setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui->leHumidity->setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
-    ui->lePressure->setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
+
+    ui->cbWaterMeterType->setStyleSheet("QComboBox { background: rgb(240, 255, 240); color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0); }");
+    ui->cbNumberOfWaterMeters->setStyleSheet("QComboBox { background: rgb(240, 255, 240); color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0); }");
+
+    ui->leTemperature->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leHumidity->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
+    ui->lePressure->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); color: rgb(0, 0, 0); }");
+
     SelectMeterComboBox();
     // 485 Indicator State
     ui->SerialLedIndicator->hide();
@@ -559,6 +512,9 @@ void MainWindow::onNewSessionClicked()
         connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
                 SLOT(onMeasurementTypeChanged()));
     }
+
+    updateSelectedInfo();
+
     // Set the fixed size of the window
     int fixedWidth = MAIN_WINDOW_WIDTH;   // Set your fixed width
     int fixedHeight = MAIN_WINDOW_HEIGHT; // Set your fixed height
@@ -608,23 +564,77 @@ void MainWindow::onRbInterfaceClicked() {}
 
 void MainWindow::onAmbientTemperatureTextChanged()
 {
-    QString temperature = ui->leTemperature->text();
-    selectedInfo.ambientTemperature = static_cast<int>
-                                      (temperature.toDouble());
+    // Retrieve and update ambient temperature
+    QString temperatureText = ui->leTemperature->text();
+    selectedInfo.ambientTemperature = temperatureText.toStdString();
+
+    // Retrieve and update atmospheric pressure
+    QString pressureText = ui->lePressure->text();
+    selectedInfo.athmosphericPressure = pressureText.toStdString();
+
+    // Retrieve and update relative air humidity
+    QString humidityText = ui->leHumidity->text();
+    selectedInfo.relativeAirHumidity = humidityText.toStdString();
+
+    // Update settings with the new values
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    settings.sync();
+    settings.beginGroup("LabConditions");
+    settings.setValue("labTemperature", temperatureText);
+    settings.setValue("labPressure", pressureText);
+    settings.setValue("labHumidity", humidityText);
+    settings.endGroup();
+    settings.sync();
 }
 
 void MainWindow::onRelativeAirHumidityTextChanged()
 {
-    QString humidity = ui->leHumidity->text();
-    selectedInfo.relativeAirHumidity = static_cast<int>
-                                       (humidity.toDouble());
+    // Retrieve and update ambient temperature
+    QString temperatureText = ui->leTemperature->text();
+    selectedInfo.ambientTemperature = temperatureText.toStdString();
+
+    // Retrieve and update atmospheric pressure
+    QString pressureText = ui->lePressure->text();
+    selectedInfo.athmosphericPressure = pressureText.toStdString();
+
+    // Retrieve and update relative air humidity
+    QString humidityText = ui->leHumidity->text();
+    selectedInfo.relativeAirHumidity = humidityText.toStdString();
+
+    // Update settings with the new values
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    settings.sync();
+    settings.beginGroup("LabConditions");
+    settings.setValue("labTemperature", temperatureText);
+    settings.setValue("labPressure", pressureText);
+    settings.setValue("labHumidity", humidityText);
+    settings.endGroup();
+    settings.sync();
 }
 
 void MainWindow::onAthmosphericPressureTextChanged()
 {
-    QString pressure = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = static_cast<int>
-                                        (pressure.toDouble());
+    // Retrieve and update ambient temperature
+    QString temperatureText = ui->leTemperature->text();
+    selectedInfo.ambientTemperature = temperatureText.toStdString();
+
+    // Retrieve and update atmospheric pressure
+    QString pressureText = ui->lePressure->text();
+    selectedInfo.athmosphericPressure = pressureText.toStdString();
+
+    // Retrieve and update relative air humidity
+    QString humidityText = ui->leHumidity->text();
+    selectedInfo.relativeAirHumidity = humidityText.toStdString();
+
+    // Update settings with the new values
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    settings.sync();
+    settings.beginGroup("LabConditions");
+    settings.setValue("labTemperature", temperatureText);
+    settings.setValue("labPressure", pressureText);
+    settings.setValue("labHumidity", humidityText);
+    settings.endGroup();
+    settings.sync();
 }
 
 void MainWindow::onGeneralDescription()
@@ -930,11 +940,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::CenterToScreen(QWidget *widget)
 {
     if (!widget)
-    {
         return;
-    }
-    QRect size = QGuiApplication::primaryScreen()->geometry();
-    int x = widget->width();
-    int y = widget->height();
-    widget->move(size.center().x() - x / 2, size.center().y() - y / 2);
+
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+    int widgetWidth = widget->width();
+    int widgetHeight = widget->height();
+
+    int xPosition = screenGeometry.center().x() - widgetWidth / 2;
+    int yPosition = screenGeometry.center().y() - widgetHeight / 2;
+
+    widget->move(xPosition, yPosition);
 }

@@ -187,7 +187,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
 
     setWindowFlags(Qt::Window);
 
-    for (auto iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
+    for (size_t iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
     {
         resultAllTestsCopy[iter] = resultAllTests[iter];
     }
@@ -219,7 +219,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     settings.beginGroup("Report");
 
     ui -> leAutorizatiaNumarul -> setText(settings.value(
-                                                  "autorizatiaNumarul", "1050/2023").toString());
+                                                  "autorizatiaNumarul", "1050/2024").toString());
     ui -> leNumarInregistrare -> setText(settings.value(
                                                  "numarInregistrare", 1).toString());
     ui -> leBeneficiar -> setText(settings.value("beneficiar", "Termo Util")
@@ -464,7 +464,7 @@ void ReportMeasurements::onPrintClicked()
         switch (row)
         {
         case 0:
-            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br>"
+            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
                       << "Data si ora finalizarii masurarilor:____________________________________________________</td>\n"
                       << "        <td>Total</td>\n"
                       << "        <td>" << totalCost << "</td>\n";
@@ -495,25 +495,25 @@ void ReportMeasurements::onPrintClicked()
               << "                <td style=\"width: 60%; text-align: left;\">Prezentul document a fost predat beneficiarului</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
-              << "               <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
-              << "               <td style=\"width: 60%; text-align: left;\">Nume, prenume, B.I. / C.I., nr. imputernicire __________________________________</td>\n"
+              << "              <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Nume, prenume, B.I. / C.I., nr. imputernicire _______________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Semnatura _________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">_________________________________________________________________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">_____________________________________________________________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
-              << "             <td style=\"width: 40%; text-align: left;\">Indicativul marcii: __________________" << "</td>\n"
-              << "             <td style=\"width: 60%; text-align: left;\">Data, ora: __________________________________  Semnatura _______________________</td>\n"
+              << "              <td style=\"width: 40%; text-align: left;\">Indicativul marcii: __________________" << "</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Data, ora: __________________________________Semnatura_______________________</td>\n"
               << "        </tr>\n"
               << "    </tbody>\n"
               << "</table>\n"
               << "<div class=\"text-container\" style=\"text-align: left;\">"
               << "<p style=\"font-size: 7px; line-height: 0.6;\">" <<
         "1) Prezentul buletin nu se refera la caractersitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
-        "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeazasi numarul AM sau<br>"
-        "AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
-        "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul certificatului de "
+        "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeazasi numarul AM<br>"
+        "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
+        "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul<br>certificatului de "
         "calibrare<br><br>"
         "F-02-PML 3-01</p>";
 
