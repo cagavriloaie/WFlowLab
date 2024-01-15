@@ -39,15 +39,23 @@ QString TableBoard::report;
 
 void TableBoard::printPdfThread(QString report)
 {
-    QDateTime now = QDateTime::currentDateTime();
+    // Generate a unique timestamp for the file name
+    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+
+    // Construct the file name using QDir
     QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults) +
-                       "/" + QString("FM_") +
-                       now.toString(QLatin1String("yyyyMMdd_hhmmss"));
-    fileName.append(".pdf");
+                       QDir::separator() + QString("FM_") + timestamp + ".pdf";
 
     // Check if the directory exists, and create it if not
-    QDir(mainwindow->selectedInfo.pathResults.c_str()).mkpath(".");
+    QDir resultDir(QString::fromStdString(mainwindow->selectedInfo.pathResults));
 
+    if (!resultDir.exists() && !resultDir.mkpath("."))
+    {
+        qDebug() << "Error: Failed to create result directory, PDF not generated.";
+        return;
+    }
+
+    // Initialize the printer
     QPrinter printer(QPrinter::PrinterResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setOutputFileName(fileName);
@@ -56,6 +64,7 @@ void TableBoard::printPdfThread(QString report)
     printer.setPageMargins(QMarginsF(5, 4, 4, 4));
     printer.setColorMode(QPrinter::ColorMode::Color);
 
+    // Initialize QTextDocument with the provided HTML report
     QTextDocument outputReport;
     outputReport.setHtml(report);
 
@@ -66,10 +75,13 @@ void TableBoard::printPdfThread(QString report)
         return;
     }
 
+    // Print the document to the PDF file
     outputReport.print(&printer);
 
-    fileName = QString("file:///") + fileName;
-    QDesktopServices::openUrl(QUrl(fileName, QUrl::TolerantMode));
+    // Convert the file path to a URL and open it in the default PDF viewer
+    QString fileUrl = QUrl::fromLocalFile(fileName).toString();
+
+    QDesktopServices::openUrl(QUrl(fileUrl));
 }
 
 void TableBoard::onSaveCurrentInputDataClicked()
@@ -720,13 +732,19 @@ void TableBoard::onCalculateClicked()
     paletteNormal.setColor(QPalette::Base, QColor(250, 250, 250, 255));
     QPalette paletteErr;
     paletteErr.setColor(QPalette::Base, QColor(245, 220, 220, 255));
+
+    for(size_t iter = 0; iter < 20; ++iter)
+        resultAllTests[iter] = "RESPINS";
+
     bool result{true};
+
     for (unsigned iter = 0; iter < entries; ++iter)
     {
         vectorFirstError[iter]->setText("");
         vectorSecondError[iter]->setText("");
         vectorThirdError[iter]->setText("");
     }
+
     if (mainwindow->selectedInfo.rbGravitmetric == true)
     {
         bool result_t1{true}, result_t2{true}, result_t3{true};
@@ -866,10 +884,13 @@ void TableBoard::onCalculateClicked()
             quadraticInterpolationTemperature(temperatureSecond, correction);
         densityThird =
             quadraticInterpolationTemperature(temperatureThird, correction);
+
         double VolumeFirst = 1000 * massFirst / densityFirst;
         double VolumeSecond = 1000 * massSecond / densitySecond;
         double VolumeThird = 1000 * massThird / densityThird;
+
         std::ostringstream streamObj;
+
         if (VolumeFirst > 0 && result_t1 && result_m1)
         {
             streamObj.str("");
@@ -879,6 +900,7 @@ void TableBoard::onCalculateClicked()
         else
         {
         }
+
         if (VolumeSecond > 0 && result_t2 && result_m2)
         {
             streamObj.str("");
@@ -888,6 +910,7 @@ void TableBoard::onCalculateClicked()
         else
         {
         }
+
         if (VolumeThird > 0 && result_t3 && result_m3)
         {
             streamObj.str("");
@@ -902,6 +925,7 @@ void TableBoard::onCalculateClicked()
             for (unsigned iter = 0; iter < entries; ++iter)
             {
                 resultAllTests[iter] = "ADMIS";
+
                 if (vectorCheckNumber[iter]->isChecked())
                 {
                     double start{0};
@@ -918,7 +942,9 @@ void TableBoard::onCalculateClicked()
                     {
                         start = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
+
                     tmp = vectorFirstIndexStop[iter]->text().toDouble(&bConvert);
                     if (bConvert)
                     {
@@ -929,7 +955,9 @@ void TableBoard::onCalculateClicked()
                     {
                         stop = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
+
                     if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                             (stop >= start))
                     {
@@ -987,6 +1015,7 @@ void TableBoard::onCalculateClicked()
                     {
                         start = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
                     tmp = vectorSecondIndexStop[iter]->text().toDouble(&bConvert);
                     if (bConvert)
@@ -998,7 +1027,9 @@ void TableBoard::onCalculateClicked()
                     {
                         stop = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
+
                     if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                             (stop >= start))
                     {
@@ -1046,6 +1077,7 @@ void TableBoard::onCalculateClicked()
                     bool bStart{false};
                     double stop{0};
                     bool bStop{false};
+
                     tmp = vectorThirdIndexStart[iter]->text().toDouble(&bConvert);
                     if (bConvert)
                     {
@@ -1056,7 +1088,9 @@ void TableBoard::onCalculateClicked()
                     {
                         start = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
+
                     tmp = vectorThirdIndexStop[iter]->text().toDouble(&bConvert);
                     if (bConvert)
                     {
@@ -1067,7 +1101,9 @@ void TableBoard::onCalculateClicked()
                     {
                         stop = 0;
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
+
                     if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                             (stop >= start))
                     {
@@ -1115,6 +1151,7 @@ void TableBoard::onCalculateClicked()
         double volumeSecond{0};
         double volumeThird{0};
         bool bConvert(false);
+
         // Volume for minimal flow
         tmp = ui->leVolume1->text().toDouble(&bConvert);
         if (bConvert)
@@ -1132,6 +1169,7 @@ void TableBoard::onCalculateClicked()
             volumeFirst = 100;
             result = false;
         }
+
         // Volume for transitoriu flow
         tmp = ui->leVolume2->text().toDouble(&bConvert);
         if (bConvert)
@@ -1149,6 +1187,7 @@ void TableBoard::onCalculateClicked()
             volumeSecond = 100;
             result = false;
         }
+
         // Volume for nominal flow
         tmp = ui->leVolume3->text().toDouble(&bConvert);
         if (bConvert)
@@ -1170,12 +1209,15 @@ void TableBoard::onCalculateClicked()
         /// Q minim
         for (unsigned iter = 0; iter < entries; ++iter)
         {
+            resultAllTests[iter] = "ADMIS";
+
             if (vectorCheckNumber[iter]->isChecked())
             {
                 double start{0};
                 bool bStart{false};
                 double stop{0};
                 bool bStop{false};
+
                 tmp = vectorFirstIndexStart[iter]->text().toDouble(&bConvert);
                 if (bConvert)
                 {
@@ -1186,6 +1228,7 @@ void TableBoard::onCalculateClicked()
                 {
                     start = 0;
                     result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
                 tmp = vectorFirstIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
@@ -1196,6 +1239,8 @@ void TableBoard::onCalculateClicked()
                 else
                 {
                     stop = 0;
+                    result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                         (stop >= start))
@@ -1209,6 +1254,7 @@ void TableBoard::onCalculateClicked()
                         vectorFirstError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
                         result = false;
+                        resultAllTests[iter] = "RESPINS";
                     }
                     else
                     {
@@ -1245,7 +1291,9 @@ void TableBoard::onCalculateClicked()
                 {
                     start = 0;
                     result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
+
                 tmp = vectorSecondIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
                 {
@@ -1256,7 +1304,9 @@ void TableBoard::onCalculateClicked()
                 {
                     stop = 0;
                     result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
+
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                         (stop >= start))
                 {
@@ -1269,6 +1319,7 @@ void TableBoard::onCalculateClicked()
                     {
                         vectorSecondError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
+                        resultAllTests[iter] = "RESPINS";
                     }
                     else
                     {
@@ -1305,7 +1356,9 @@ void TableBoard::onCalculateClicked()
                 {
                     start = 0;
                     result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
+
                 tmp = vectorThirdIndexStop[iter]->text().toDouble(&bConvert);
                 if (bConvert)
                 {
@@ -1316,7 +1369,9 @@ void TableBoard::onCalculateClicked()
                 {
                     stop = 0;
                     result = false;
+                    resultAllTests[iter] = "RESPINS";
                 }
+
                 if (bStart && bStop && (start >= 0) && (stop >= 0) &&
                         (stop >= start))
                 {
@@ -1328,12 +1383,14 @@ void TableBoard::onCalculateClicked()
                     {
                         vectorThirdError[iter]->setStyleSheet(
                             "QLineEdit { color: red }");
+                        resultAllTests[iter] = "RESPINS";
                     }
                     else
                     {
                         vectorThirdError[iter]->setStyleSheet(
                             "QLineEdit { color: black }");
                     }
+
                     if (iter % 4 == 0 || iter % 4 == 1)
                     {
                         vectorThirdError[iter]->setPalette(paletteOddRowErr);

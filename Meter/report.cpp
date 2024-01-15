@@ -42,6 +42,52 @@
 
 extern MainWindow *pw;
 
+void ReportMeasurements::printPdfThread(QString report)
+{
+    // Generate a unique timestamp for the file name
+    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+
+    // Construct the file name using QDir
+    QString fileName = QString(pw->selectedInfo.pathResults.c_str()) +
+                       QDir::separator() + QString("BV_") + timestamp + ".pdf";
+
+    // Check if the directory exists, and create it if not
+    QDir resultDir(pw->selectedInfo.pathResults.c_str());
+    if (!resultDir.exists())
+    {
+        resultDir.mkpath(".");
+    }
+
+    // Initialize the printer
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(fileName);
+    printer.setPageSize(QPageSize::A4);
+    printer.setFullPage(true);
+    qreal margin = 5.0;
+    printer.setPageMargins(QMarginsF(margin, margin, margin, margin), QPageLayout::Millimeter);
+
+    // Initialize QTextDocument with the provided HTML report
+    QTextDocument outputReport;
+    outputReport.setHtml(report);
+    outputReport.setDocumentMargin(0);
+
+    // Check if the PDF generation is successful
+    if (outputReport.isEmpty() || !printer.isValid())
+    {
+        qDebug() << "Error: Empty document or invalid printer, PDF not generated.";
+        return;
+    }
+
+    // Print the document to the PDF file
+    outputReport.print(&printer);
+
+    // Convert the file path to a URL and open it in the default PDF viewer
+    QString fileUrl = QUrl::fromLocalFile(fileName).toString();
+
+    QDesktopServices::openUrl(QUrl(fileUrl));
+}
+
 
 std::string convertNumberToWords(int num, bool addSuffix)
 {
@@ -496,15 +542,15 @@ void ReportMeasurements::onPrintClicked()
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Nume, prenume, B.I. / C.I., nr. imputernicire _______________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire _______________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
-              << "              <td style=\"width: 40%; text-align: left;\">Semnatura _________________</td>\n"
+              << "              <td style=\"width: 40%; text-align: left;\">Semnatura_____________________________</td>\n"
               << "              <td style=\"width: 60%; text-align: left;\">_____________________________________________________________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
-              << "              <td style=\"width: 40%; text-align: left;\">Indicativul marcii: __________________" << "</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Data, ora: __________________________________Semnatura_______________________</td>\n"
+              << "              <td style=\"width: 40%; text-align: left;\">Indicativul&nbsp;marcii_______________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Data,ora:&nbsp;__________________________________Semnatura______________________</td>\n"
               << "        </tr>\n"
               << "    </tbody>\n"
               << "</table>\n"
@@ -520,42 +566,16 @@ void ReportMeasurements::onPrintClicked()
     htmlTable << "</body>\n"
               << "</html>\n";
 
-    ///////////////////////
+///////////////////////
 //    std::string fileNameHtlm = "generated_html_file.html";
 //    std::ofstream outputFile(fileNameHtlm);
 //    outputFile << htmlTable.str();
 //    outputFile.close();
-    ///////////////////////
+///////////////////////
 
-    QDateTime nowPdf = QDateTime::currentDateTime();
-    QString fileName = QString(pw->selectedInfo.pathResults.c_str()) +
-                       "/" + QString("BV_") + nowPdf.toString(QLatin1String("yyyyMMdd_hhmmss"));
-    fileName.append(".pdf");
 
-    // Check if the directory exists, and create it if not
-    QDir resultDir(pw->selectedInfo.pathResults.c_str());
-    if (!resultDir.exists())
-    {
-        resultDir.mkpath(".");
-    }
-
-    QPrinter printer(QPrinter::PrinterResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(fileName);
-    printer.setPageSize(QPageSize::A4);
-    printer.setFullPage(true);
-    qreal margin = 5.0;
-    printer.setPageMargins(QMarginsF(margin, margin, margin, margin), QPageLayout::Millimeter);
-
-    // Print HTML to PDF
-    QTextDocument outputReport;
-    outputReport.setHtml(QString::fromStdString(htmlTable.str()));
-    outputReport.setDocumentMargin(0);
-    outputReport.print(&printer);
-
-    // Open the generated PDF
-    fileName = QString("file:///") + fileName;
-    QDesktopServices::openUrl(QUrl(fileName, QUrl::TolerantMode));
+    std::thread pdfThread(printPdfThread, QString::fromStdString(htmlTable.str()));
+    pdfThread.detach();
 
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
     settings.sync();

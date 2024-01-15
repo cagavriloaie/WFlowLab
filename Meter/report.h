@@ -9,6 +9,7 @@
 #include <QDialog>
 #include <QCheckBox>
 #include <QLineEdit>
+#include <QString>
 #include <vector>
 
 #include "definitions.h"
@@ -30,6 +31,7 @@ class ReportMeasurements : public QDialog
     ~ReportMeasurements();
 
     void Translate();
+    static void printPdfThread(QString report);
 
   private slots:
     void onPrintClicked();

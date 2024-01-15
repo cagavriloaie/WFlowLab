@@ -48,8 +48,8 @@ struct SelectedInfo
         ambientTemperature{},
         athmosphericPressure{},
         relativeAirHumidity{},
-        rbVolumetric{true},
-        rbGravitmetric{false},
+        rbGravitmetric{true},
+        rbVolumetric{false},
         rbManual{true},
         rbInterface{false},
         rbTerminal{false},
@@ -78,8 +78,8 @@ struct SelectedInfo
     std::string athmosphericPressure;
     std::string relativeAirHumidity;
 
-    bool rbVolumetric;
     bool rbGravitmetric;
+    bool rbVolumetric;
 
     bool rbManual;
     bool rbInterface;
@@ -145,8 +145,8 @@ class MainWindow : public QMainWindow
     void onNumberOfWaterMetersChanged(int index);
     void onNewSessionClicked();
     void onExitApplication();
-    void onRbVolumeClicked();
     void onRbGavritmetricClicked();
+    void onRbVolumeClicked();
     void onRbManualClicked();
     void onRbInterfaceClicked();
     void onAmbientTemperatureTextChanged();

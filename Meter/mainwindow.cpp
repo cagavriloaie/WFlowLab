@@ -540,14 +540,14 @@ void MainWindow::onExitApplication()
     this->close();
 }
 
-void MainWindow::onRbVolumeClicked()
+void MainWindow::onRbGavritmetricClicked()
 {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
     emit measurementTypeChangedSignal();
 }
 
-void MainWindow::onRbGavritmetricClicked()
+void MainWindow::onRbVolumeClicked()
 {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
