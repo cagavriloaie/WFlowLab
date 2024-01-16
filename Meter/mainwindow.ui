@@ -489,7 +489,7 @@ QRadioButton::indicator:unchecked {
            <item row="0" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QRadioButton" name="rbGravitmetric">
+              <widget class="QRadioButton" name="rbGravimetric">
                <property name="minimumSize">
                 <size>
                  <width>200</width>

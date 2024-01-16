@@ -3,22 +3,31 @@
  *  File:   definitions.h
  *  Description: Header file containing constants and definitions for the project.
  */
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+
+#ifndef DEFINITIONS_H_INCLUDED
+#define DEFINITIONS_H_INCLUDED
 
 #include <cstddef>
 
+// Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
+
+// Maximum size for arrays
 constexpr std::size_t MAX_ARRAY_SIZE = 20;
 
+// Alias for MAX_ARRAY_SIZE, used for clarity
+constexpr size_t MAX_ENTRIES{MAX_ARRAY_SIZE};
+
+// Main window dimensions
 constexpr int MAIN_WINDOW_WIDTH = 1450;
 constexpr int MAIN_WINDOW_HEIGHT = 800;
 
+// Default density values
 constexpr double DEFAULT_DENSITY_BELOW_ZERO = 999.8395;
 constexpr double DEFAULT_DENSITY_ABOVE_100 = 958.3449;
 
 // Version information
-const char* const VERSION_BUILD = "1.2 Windows x86_32";
+constexpr const char* VERSION_BUILD = "1.2 Windows x86_32";
 
 // CSV delimiter
 constexpr char CSV_DELIMITER = ',';

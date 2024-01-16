@@ -29,7 +29,7 @@
 
 
 extern QTranslator *appTranslator;
-MainWindow *pw;
+MainWindow *pMainWindow;
 
 std::wstring ExePath()
 {
@@ -114,32 +114,36 @@ void MainWindow::setLabelValue(QLabel* label, double value, int precision)
 
 void MainWindow::updateSelectedInfo()
 {
+    // Update selectedInfo with parameters from optionsConfiguration
     selectedInfo.density_20 = std::stof(optionsConfiguration["density_20"]);
     selectedInfo.pathResults = optionsConfiguration["archive"];
     selectedInfo.certificate = optionsConfiguration["certificate"];
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
 
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
-                       QSettings::NativeFormat);
+    // Read lab conditions from settings
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
 
     // LabConditions
     settings.beginGroup("LabConditions");
 
-    std::string  temperature;
+    // Read and set ambient temperature
+    std::string temperature;
     if (settings.childKeys().contains("labTemperature")) {
         temperature = settings.value("labTemperature").toString().toStdString();
     } else {
-        temperature = "18";
+        temperature = "18";  // Default value if not found
     }
 
-    std::string  humidity;
+    // Read and set relative air humidity
+    std::string humidity;
     if (settings.childKeys().contains("labHumidity")) {
         humidity = settings.value("labHumidity").toString().toStdString();
     } else {
-        humidity ="51";
+        humidity = "51";  // Default value if not found
     }
 
-    std::string  pressure;
+    // Read and set atmospheric pressure
+    std::string pressure;
     if (settings.childKeys().contains("labPressure")) {
         pressure = settings.value("labPressure").toString().toStdString();
     } else {
@@ -148,13 +152,18 @@ void MainWindow::updateSelectedInfo()
 
     settings.endGroup();
 
+    // Update selectedInfo with lab conditions
     selectedInfo.ambientTemperature = temperature;
     selectedInfo.athmosphericPressure = pressure;
     selectedInfo.relativeAirHumidity = humidity;
 
+    // Get selected water meter index from UI
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
+
+    // Retrieve meter flow information from MeterFlowDB
     const auto& meterFlowInfo = MeterFlowDB[selectedWaterMeter];
 
+    // Update selectedInfo with meter flow information
     selectedInfo.nameWaterMeter = meterFlowInfo.nameWaterMeter;
     selectedInfo.nominalDiameter = meterFlowInfo.nominalDiameter;
     selectedInfo.nominalFlow = meterFlowInfo.nominalFlow;
@@ -165,14 +174,17 @@ void MainWindow::updateSelectedInfo()
     selectedInfo.maximumError = meterFlowInfo.maximumError;
 }
 
+
 void MainWindow::SelectMeterComboBox()
 {
-
+    // Update selectedInfo with information based on the selected water meter
     updateSelectedInfo();
 
+    // Create directories for results and input data
     std::filesystem::create_directories(selectedInfo.pathResults);
     std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
 
+    // Update labels in the UI with selectedInfo values
     setLabelValue(ui->lbNominalDiameterCurrent, selectedInfo.nominalDiameter, 0);
     setLabelValue(ui->lbMaximumFlowCurrent, selectedInfo.maximumFlow, 2);
     setLabelValue(ui->lbNominalFlowCurrent, selectedInfo.nominalFlow, 2);
@@ -206,7 +218,7 @@ void MainWindow::Translate()
     ui->lbTab4->setText(tr("[%]"));
     ui->gbMeasurementMethod->setTitle(tr("Measurement method"));
     ui->rbVolumetric->setText(tr("Volumetric"));
-    ui->rbGravitmetric->setText(tr("Gravimetric"));
+    ui->rbGravimetric->setText(tr("Gravimetric"));
     ui->gbReadMethod->setTitle(tr("Read method"));
     ui->rbManual->setText(tr("Manual"));
     ui->rbInterface->setText(tr("Interface"));
@@ -235,7 +247,7 @@ MainWindow::MainWindow(QWidget *parent)
       inputData(nullptr)
 {
     ui->setupUi(this);
-    pw = this;
+    pMainWindow = this;
     bool serialDll{false};
     try
     {
@@ -412,7 +424,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect QRadioButton signals to custom slots
     connect(ui->rbVolumetric, &QRadioButton::clicked, this, &MainWindow::onRbVolumeClicked);
-    connect(ui->rbGravitmetric, &QRadioButton::clicked, this, &MainWindow::onRbGavritmetricClicked);
+    connect(ui->rbGravimetric, &QRadioButton::clicked, this, &MainWindow::onRbGavritmetricClicked);
     connect(ui->rbManual, &QRadioButton::clicked, this, &MainWindow::onRbManualClicked);
     connect(ui->rbInterface, &QRadioButton::clicked, this, &MainWindow::onRbInterfaceClicked);
 
@@ -463,7 +475,7 @@ MainWindow::MainWindow(QWidget *parent)
     {
         ui->cbNumberOfWaterMeters->setCurrentIndex(0);
     }
-    ui->rbGravitmetric->setChecked(true);
+    ui->rbGravimetric->setChecked(true);
     ui->rbManual->setChecked(true);
 
     ui->cbWaterMeterType->setStyleSheet("QComboBox { background: rgb(240, 255, 240); color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0); }");
@@ -517,17 +529,19 @@ void MainWindow::onNewSessionClicked()
 
     // Set the fixed size of the window
     int fixedWidth = MAIN_WINDOW_WIDTH;   // Set your fixed width
-    int fixedHeight = MAIN_WINDOW_HEIGHT; // Set your fixed height
+    int fixedHeight = MAIN_WINDOW_HEIGHT;  // Set your fixed height
     this->inputData->setFixedSize(fixedWidth, fixedHeight);
+
     // Calculate the center position using the primary screen
     QScreen *primaryScreen = QApplication::primaryScreen();
     QRect availableGeometry = primaryScreen->availableGeometry();
     int x = (availableGeometry.width() - fixedWidth) / 2;
     int y = (availableGeometry.height() - fixedHeight) / 2;
-    // Set the position and display the window
-    this->inputData->move(x, y);
-    this->inputData->setModal(false);
-    this->inputData->show();
+
+    // Set the position and display properties for the window
+    this->inputData->move(x, y);         // Set the window position
+    this->inputData->setModal(false);    // Set the window to non-modal
+    this->inputData->show();             // Display the window
 }
 
 void MainWindow::onExitApplication()
@@ -543,14 +557,14 @@ void MainWindow::onExitApplication()
 void MainWindow::onRbGavritmetricClicked()
 {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
-    selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
+    selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
     emit measurementTypeChangedSignal();
 }
 
 void MainWindow::onRbVolumeClicked()
 {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
-    selectedInfo.rbGravitmetric = ui->rbGravitmetric->isChecked();
+    selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
     emit measurementTypeChangedSignal();
 }
 

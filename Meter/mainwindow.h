@@ -48,7 +48,7 @@ struct SelectedInfo
         ambientTemperature{},
         athmosphericPressure{},
         relativeAirHumidity{},
-        rbGravitmetric{true},
+        rbGravimetric_new{true},
         rbVolumetric{false},
         rbManual{true},
         rbInterface{false},
@@ -77,8 +77,8 @@ struct SelectedInfo
     std::string ambientTemperature;
     std::string athmosphericPressure;
     std::string relativeAirHumidity;
-
-    bool rbGravitmetric;
+    
+    bool rbGravimetric_new;
     bool rbVolumetric;
 
     bool rbManual;

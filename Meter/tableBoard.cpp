@@ -19,16 +19,16 @@
 #include <iostream>
 #include <sstream>
 #include <thread>
+#include <mutex>
 
+#include "definitions.h"
 #include "air-density.h"
 #include "mainwindow.h"
 #include "tableBoard.h"
 #include "ui_mainwindow.h"
 #include "ui_tableBoard.h"
 
-constexpr size_t MAX_ENTRIES{MAX_ARRAY_SIZE};
-
-extern MainWindow *pw;
+extern MainWindow *pMainWindow;
 
 namespace
 {
@@ -37,8 +37,13 @@ namespace
 
 QString TableBoard::report;
 
+std::mutex printTablePdfThreadMutex;
+
 void TableBoard::printPdfThread(QString report)
 {
+    // Lock the mutex to ensure exclusive access to the shared resource
+    std::lock_guard<std::mutex> lock(printTablePdfThreadMutex);
+
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
@@ -101,7 +106,7 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
 
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
-    outputDataFile << mainwindow->selectedInfo.rbGravitmetric << "\n";
+    outputDataFile << mainwindow->selectedInfo.rbGravimetric_new << "\n";
     outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
     outputDataFile << mainwindow->selectedInfo.rbInterface << "\n";
     outputDataFile << mainwindow->selectedInfo.rbTerminal << "\n";
@@ -203,14 +208,14 @@ void TableBoard::onOpenInputDataClicked()
     {
         mainwindow->ui->rbVolumetric->setChecked(true);
         mainwindow->selectedInfo.rbVolumetric = true;
-        mainwindow->ui->rbGravitmetric->setChecked(false);
-        mainwindow->selectedInfo.rbGravitmetric = false;
+        mainwindow->ui->rbGravimetric->setChecked(false);
+        mainwindow->selectedInfo.rbGravimetric_new = false;
     }
 
     if (rbGravitmetric)
     {
-        mainwindow->ui->rbGravitmetric->setChecked(true);
-        mainwindow->selectedInfo.rbGravitmetric = true;
+        mainwindow->ui->rbGravimetric->setChecked(true);
+        mainwindow->selectedInfo.rbGravimetric_new = true;
         mainwindow->ui->rbVolumetric->setChecked(false);
         mainwindow->selectedInfo.rbVolumetric = false;
     }
@@ -745,7 +750,7 @@ void TableBoard::onCalculateClicked()
         vectorThirdError[iter]->setText("");
     }
 
-    if (mainwindow->selectedInfo.rbGravitmetric == true)
+    if (mainwindow->selectedInfo.rbGravimetric_new == true)
     {
         bool result_t1{true}, result_t2{true}, result_t3{true};
         bool result_m1{true}, result_m2{true}, result_m3{true};
@@ -1484,46 +1489,39 @@ bool TableBoard::eventFilter(QObject *target, QEvent *event)
 
 void TableBoard::onMeasurementTypeChanged()
 {
-    const bool isGravitmetric = mainwindow->selectedInfo.rbGravitmetric;
+    const bool isGravimetric = mainwindow->selectedInfo.rbGravimetric_new;
 
-    auto showOrHideElements = [this](bool show) {
-        auto setVisibility = [show](QWidget* widget) {
-            widget->setVisible(show);
-        };
-
-        setVisibility(ui->leMass1);
-        setVisibility(ui->leMass2);
-        setVisibility(ui->leMass3);
-        setVisibility(ui->lbMass1);
-        setVisibility(ui->lbMass2);
-        setVisibility(ui->lbMass3);
-        setVisibility(ui->lbTemperature1);
-        setVisibility(ui->lbTemperature2);
-        setVisibility(ui->lbTemperature3);
-        setVisibility(ui->leTemperature1);
-        setVisibility(ui->leTemperature2);
-        setVisibility(ui->leTemperature3);
+    auto setBackgroundAndReadOnly = [](QLineEdit* lineEdit, bool isReadOnly) {
+        lineEdit->setReadOnly(isReadOnly);
+        lineEdit->setStyleSheet(isReadOnly ?
+                                    "QLineEdit {background-color: rgb(220, 235, 220)}" :
+                                    "QLineEdit {background-color: rgb(255, 255, 255)}"
+                                );
     };
 
-    auto setReadOnlyAndBackgroundColor = [](QLineEdit* lineEdit, bool readOnly) {
-        lineEdit->setReadOnly(readOnly);
-
-        QPalette palette;
-        if (readOnly)
-            palette.setColor(QPalette::Base, QColor(220, 235, 220, 255));
-        else
-            palette.setColor(QPalette::Base, QColor(255, 255, 255, 255));
-
-        lineEdit->setPalette(palette);
+    auto setElementVisibility = [](QWidget* widget, bool isVisible) {
+        widget->setVisible(isVisible);
     };
 
-    showOrHideElements(isGravitmetric);
+    // Show or hide elements based on measurement type
+    setElementVisibility(ui->leMass1, isGravimetric);
+    setElementVisibility(ui->leMass2, isGravimetric);
+    setElementVisibility(ui->leMass3, isGravimetric);
+    setElementVisibility(ui->lbMass1, isGravimetric);
+    setElementVisibility(ui->lbMass2, isGravimetric);
+    setElementVisibility(ui->lbMass3, isGravimetric);
+    setElementVisibility(ui->lbTemperature1, isGravimetric);
+    setElementVisibility(ui->lbTemperature2, isGravimetric);
+    setElementVisibility(ui->lbTemperature3, isGravimetric);
+    setElementVisibility(ui->leTemperature1, isGravimetric);
+    setElementVisibility(ui->leTemperature2, isGravimetric);
+    setElementVisibility(ui->leTemperature3, isGravimetric);
 
-    setReadOnlyAndBackgroundColor(ui->leVolume1, isGravitmetric);
-    setReadOnlyAndBackgroundColor(ui->leVolume2, isGravitmetric);
-    setReadOnlyAndBackgroundColor(ui->leVolume3, isGravitmetric);
+    // Set read-only status and background color for volume line edits
+    setBackgroundAndReadOnly(ui->leVolume1, isGravimetric);
+    setBackgroundAndReadOnly(ui->leVolume2, isGravimetric);
+    setBackgroundAndReadOnly(ui->leVolume3, isGravimetric);
 }
-
 
 void TableBoard::onPrintPdfDocClicked()
 {
@@ -1557,7 +1555,7 @@ void TableBoard::onPrintPdfDocClicked()
         mainwindow->selectedInfo.nameWaterMeter.c_str();
     unsigned nominalDiameter = mainwindow->selectedInfo.nominalDiameter;
     QString methodMeasurement{"Volumetric"};
-    if (mainwindow->selectedInfo.rbGravitmetric == true)
+    if (mainwindow->selectedInfo.rbGravimetric_new == true)
     {
         methodMeasurement = "Gravitmetric";
     }
@@ -1820,7 +1818,7 @@ void TableBoard::onPrintPdfDocClicked()
         bool header{true};
         if (iter < entriesTable)
         {
-            for (unsigned iter = 10; iter < entriesTable; ++iter)
+            for (unsigned iterEntry = 10; iterEntry < entriesTable; ++iterEntry)
             {
                 if (totalEntries == 10 && header)
                 {
@@ -1849,50 +1847,50 @@ void TableBoard::onPrintPdfDocClicked()
                         "    </tr>" + "    </thead>" + "    <tbody>";
                     header = false;
                 }
-                if (!vectorCheckNumber[iter]->checkState())
+                if (!vectorCheckNumber[iterEntry]->checkState())
                 {
                     continue;
                 }
-                QString SN = vectorSerialNumber[iter]->text();
-                QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
-                QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
+                QString SN = vectorSerialNumber[iterEntry]->text();
+                QString startFirst = vectorFirstIndexStart[iterEntry]->text() + "&nbsp;";
+                QString stopFirst = vectorFirstIndexStop[iterEntry]->text() + "&nbsp;";
                 QString registerVolumeDoubleFirst =
-                    QString::number((vectorFirstIndexStop[iter]->text().toDouble() -
-                                     vectorFirstIndexStart[iter]->text().toDouble()));
-                QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
+                    QString::number((vectorFirstIndexStop[iterEntry]->text().toDouble() -
+                                     vectorFirstIndexStart[iterEntry]->text().toDouble()));
+                QString errorFirst = vectorFirstError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeFirst =
                     QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
                     "&nbsp;";
-                if (vectorFirstIndexStart[iter]->text() == ""
-                        || vectorFirstIndexStop[iter]->text() == "")
+                if (vectorFirstIndexStart[iterEntry]->text() == ""
+                        || vectorFirstIndexStop[iterEntry]->text() == "")
                 {
                     registerVolumeDoubleFirst = "";
                 }
-                QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
-                QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
+                QString startSecond = vectorSecondIndexStart[iterEntry]->text() + "&nbsp;";
+                QString stopSecond = vectorSecondIndexStop[iterEntry]->text() + "&nbsp;";
                 QString registerVolumeDoubleSecond =
-                    QString::number((vectorSecondIndexStop[iter]->text().toDouble() -
-                                     vectorSecondIndexStart[iter]->text().toDouble()));
-                QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
+                    QString::number((vectorSecondIndexStop[iterEntry]->text().toDouble() -
+                                     vectorSecondIndexStart[iterEntry]->text().toDouble()));
+                QString errorSecond = vectorSecondError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeSecond =
                     QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
                     "&nbsp;";
-                if (vectorSecondIndexStart[iter]->text() == ""
-                        || vectorSecondIndexStop[iter]->text() == "")
+                if (vectorSecondIndexStart[iterEntry]->text() == ""
+                        || vectorSecondIndexStop[iterEntry]->text() == "")
                 {
                     registerVolumeDoubleSecond = "";
                 }
-                QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
-                QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
+                QString startThird = vectorThirdIndexStart[iterEntry]->text() + "&nbsp;";
+                QString stopThird = vectorThirdIndexStop[iterEntry]->text() + "&nbsp;";
                 QString  registerVolumeDoubleThird =
-                    QString::number((vectorThirdIndexStop[iter]->text().toDouble() -
-                                     vectorThirdIndexStart[iter]->text().toDouble()));
-                QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
+                    QString::number((vectorThirdIndexStop[iterEntry]->text().toDouble() -
+                                     vectorThirdIndexStart[iterEntry]->text().toDouble()));
+                QString errorThird = vectorThirdError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeThird =
                     QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
                     "&nbsp;";
-                if (vectorThirdIndexStart[iter]->text() == ""
-                        || vectorThirdIndexStop[iter]->text() == "")
+                if (vectorThirdIndexStart[iterEntry]->text() == ""
+                        || vectorThirdIndexStop[iterEntry]->text() == "")
                 {
                     registerVolumeDoubleThird = "";
                 }
@@ -1994,12 +1992,12 @@ void TableBoard::onPrintPdfDocClicked()
         }
         ////////////////
         report += QString("<br><pre><h3>") +
-                  "  Verificator metrolog                         Conducator"
+                  "  Verificator metrolog                    Conducator"
                   " laborator<br><br>" +
-                  "  Nume ________________________                "
+                  "  Nume ________________________           "
                   "Nume________________________<br>" +
                   "<br>" +
-                  "  Semnatura____________________                "
+                  "  Semnatura____________________           "
                   "Semnatura___________________<br>" +
                   "</h3></pre>";
         std::thread pdfThread(printPdfThread, report);
@@ -2489,8 +2487,6 @@ void TableBoard::PopulateTable()
     ui->leFlowRateTransitoriu->setText(QString::number(transitoriuFlowMain));
     ui->leFlowRateNominal->setText(QString::number(nominalFlowMain));
 }
-
-
 
 void TableBoard::focusInEvent(QFocusEvent *event)
 {

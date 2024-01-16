@@ -77,7 +77,7 @@ public:
     QGroupBox *gbMeasurementMethod;
     QGridLayout *gridLayout_4;
     QVBoxLayout *verticalLayout_2;
-    QRadioButton *rbGravitmetric;
+    QRadioButton *rbGravimetric;
     QRadioButton *rbVolumetric;
     QSpacerItem *verticalSpacer_3;
     QGroupBox *gbReadMethod;
@@ -415,13 +415,13 @@ public:
         gridLayout_4->setContentsMargins(10, 15, -1, 10);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        rbGravitmetric = new QRadioButton(gbMeasurementMethod);
-        rbGravitmetric->setObjectName("rbGravitmetric");
-        rbGravitmetric->setMinimumSize(QSize(200, 20));
-        rbGravitmetric->setMaximumSize(QSize(16777215, 20));
-        rbGravitmetric->setFont(font2);
+        rbGravimetric = new QRadioButton(gbMeasurementMethod);
+        rbGravimetric->setObjectName("rbGravimetric");
+        rbGravimetric->setMinimumSize(QSize(200, 20));
+        rbGravimetric->setMaximumSize(QSize(16777215, 20));
+        rbGravimetric->setFont(font2);
 
-        verticalLayout_2->addWidget(rbGravitmetric);
+        verticalLayout_2->addWidget(rbGravimetric);
 
         rbVolumetric = new QRadioButton(gbMeasurementMethod);
         rbVolumetric->setObjectName("rbVolumetric");
@@ -748,7 +748,7 @@ public:
         lbNumberOfWaterMeters->setText(QString());
         lbTab4->setText(QString());
         gbMeasurementMethod->setTitle(QString());
-        rbGravitmetric->setText(QString());
+        rbGravimetric->setText(QString());
         rbVolumetric->setText(QString());
         gbReadMethod->setTitle(QString());
         rbManual->setText(QString());

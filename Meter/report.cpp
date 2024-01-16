@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <mutex>
 
 #include <QCheckBox>
 #include <QCoreApplication>
@@ -40,19 +41,24 @@
 #include "ui_mainwindow.h"
 #include "ui_report.h"
 
-extern MainWindow *pw;
+extern MainWindow *pMainWindow;
+
+std::mutex printReportPdfThreadMutex;
 
 void ReportMeasurements::printPdfThread(QString report)
 {
+    // Lock the mutex to ensure exclusive access to the shared resource
+    std::lock_guard<std::mutex> lock(printReportPdfThreadMutex);
+
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
     // Construct the file name using QDir
-    QString fileName = QString(pw->selectedInfo.pathResults.c_str()) +
+    QString fileName = QString(pMainWindow->selectedInfo.pathResults.c_str()) +
                        QDir::separator() + QString("BV_") + timestamp + ".pdf";
 
     // Check if the directory exists, and create it if not
-    QDir resultDir(pw->selectedInfo.pathResults.c_str());
+    QDir resultDir(pMainWindow->selectedInfo.pathResults.c_str());
     if (!resultDir.exists())
     {
         resultDir.mkpath(".");
@@ -220,105 +226,88 @@ void ReportMeasurements::Translate()
     ui -> pbInchide -> setText(tr("&Inchide"));
 }
 
+// Constructor
 ReportMeasurements::ReportMeasurements(QWidget *parent,
-                                       const std::vector < QCheckBox * > &vectorCheckNumber,
-                                       const std::vector < QLineEdit * > &vectorSerialNumber,
+                                       const std::vector<QCheckBox *> &vectorCheckNumber,
+                                       const std::vector<QLineEdit *> &vectorSerialNumber,
                                        const QString resultAllTests[20]):
     QDialog(parent),
     ui(new Ui::report),
     vectorCheckNumberCopy(vectorCheckNumber),
     vectorSerialNumberCopy(vectorSerialNumber)
 {
-    ui -> setupUi(this);
+    // Set up the UI
+    ui->setupUi(this);
 
+    // Set window flags
     setWindowFlags(Qt::Window);
 
+    // Copy resultsAllTests array
     for (size_t iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
     {
         resultAllTestsCopy[iter] = resultAllTests[iter];
     }
-    this -> setWindowTitle(tr(
-        "WFlowLab - Informatii buletin de verificare metrologica"));
-    ui -> grBoxBuletin -> setTitle(tr("Date verificare metrologica"));
-    ui -> lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
-    ui -> lbNumarInregistrare -> setText((tr("Numar de inregistrare: ")));
-    ui -> lbBeneficiar -> setText(tr("Beneficiar: "));
-    ui -> lbCodulDinLt -> setText(tr("Codul din LT: "));
-    ui -> lbNormativ -> setText(tr("Normativ: "));
-    ui -> lbValabilitate -> setText(tr("Valabilitate: "));
-    ui -> lbCost -> setText(tr("Cost: "));
-    ui -> lbVerificatorMetrolog -> setText(tr("Verificator metrolog: "));
-    ui -> lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
-    ui -> cbValabilitate -> addItem(tr("6 luni"));
-    ui -> cbValabilitate -> addItem(tr("1 an"));
-    ui -> cbValabilitate -> addItem(tr("2 ani"));
-    ui -> cbValabilitate -> addItem(tr("3"));
-    ui -> cbValabilitate -> addItem(tr("5 ani"));
-    ui -> pbGenerareBV -> setText(tr("&Generare BV"));
-    ui -> pbInchide -> setText(tr("&Inchide"));
 
+    // Set window title
+    setWindowTitle(tr("WFlowLab - Informatii buletin de verificare metrologica"));
+
+    // Set labels and options for the UI elements
+    ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
+    ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
+    ui->lbNumarInregistrare->setText(tr("Numar de inregistrare:"));
+    ui->lbBeneficiar->setText(tr("Beneficiar:"));
+    ui->lbCodulDinLt->setText(tr("Codul din LT:"));
+    ui->lbNormativ->setText(tr("Normativ:"));
+    ui->lbValabilitate->setText(tr("Valabilitate:"));
+    ui->lbCost->setText(tr("Cost:"));
+    ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog:"));
+    ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
+    ui->cbValabilitate->addItem(tr("6 luni"));
+    ui->cbValabilitate->addItem(tr("1 an"));
+    ui->cbValabilitate->addItem(tr("2 ani"));
+    ui->cbValabilitate->addItem(tr("3"));
+    ui->cbValabilitate->addItem(tr("5 ani"));
+    ui->pbGenerareBV->setText(tr("&Generare BV"));
+    ui->pbInchide->setText(tr("&Inchide"));
+
+    // Set up validators
     QDoubleValidator *validatorDoubleNumber = new QDoubleValidator(this);
-    ui -> leCost -> setValidator(validatorDoubleNumber);
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab",
-                       QSettings::NativeFormat);
+    ui->leCost->setValidator(validatorDoubleNumber);
+
+    // Load settings from QSettings
+    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("Report");
 
-    ui -> leAutorizatiaNumarul -> setText(settings.value(
-                                                  "autorizatiaNumarul", "1050/2024").toString());
-    ui -> leNumarInregistrare -> setText(settings.value(
-                                                 "numarInregistrare", 1).toString());
-    ui -> leBeneficiar -> setText(settings.value("beneficiar", "Termo Util")
-                                  .toString());
-    ui -> leCoduldinLt -> setText(settings.value("codulDinLt", "1.06.28.1.1")
-                                  .toString());
-    ui -> leNormativ -> setText(settings.value("normativ", "NML")
-                                .toString());
-    ui -> cbValabilitate -> setCurrentIndex(settings.value("valabilitate",
-                                                       4).toInt());
-    ui -> leCost -> setText(settings.value("cost", 100).toString());
-    ui -> leVerificatorMetrolog -> setText(settings.value(
-                                                   "verificatorMetrolog", "Adrian Pintilie").toString());
-    ui -> leLoculEfectuariiVerificarii -> setText(settings.value(
-                                                          "loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
+    ui->leAutorizatiaNumarul->setText(settings.value("autorizatiaNumarul", "1050/2024").toString());
+    ui->leNumarInregistrare->setText(settings.value("numarInregistrare", 1).toString());
+    ui->leBeneficiar->setText(settings.value("beneficiar", "Termo Util").toString());
+    ui->leCoduldinLt->setText(settings.value("codulDinLt", "1.06.28.1.1").toString());
+    ui->leNormativ->setText(settings.value("normativ", "NML").toString());
+    ui->cbValabilitate->setCurrentIndex(settings.value("valabilitate", 4).toInt());
+    ui->leCost->setText(settings.value("cost", 100).toString());
+    ui->leVerificatorMetrolog->setText(settings.value("verificatorMetrolog", "Adrian Pintilie").toString());
+    ui->leLoculEfectuariiVerificarii->setText(settings.value("loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
 
     settings.endGroup();
     settings.sync();
-    ui ->leAutorizatiaNumarul -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leNumarInregistrare -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leBeneficiar -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leCoduldinLt -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leNormativ -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> cbValabilitate -> setStyleSheet(
-        "QComboBox { background: rgb(240, 255, 240);color: rgb(0, 0, 0); "
-        "selection-background-color: rgb(240, 255, 240); selection-color: "
-        "rgb(0, 0, 0);}");
-    ui -> leCost -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leVerificatorMetrolog -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> leLoculEfectuariiVerificarii -> setStyleSheet(
-        "QLineEdit { background: rgb(240, 255, 240); "
-        "selection-background-color: rgb(0, 0, 0); }");
-    ui -> lbNumarInregistrare -> setFocus();
-    connect(ui -> pbInchide, & QPushButton::clicked, this,
-            &ReportMeasurements::onCloseClicked);
-    connect(ui -> pbGenerareBV, & QPushButton::clicked, this,
-            &ReportMeasurements::onPrintClicked);
+
+    // Set styles for line edits and combo box
+    ui->leAutorizatiaNumarul->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leNumarInregistrare->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leBeneficiar->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leCoduldinLt->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leNormativ->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->cbValabilitate->setStyleSheet("QComboBox { background: rgb(240, 255, 240); color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0); }");
+    ui->leCost->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leVerificatorMetrolog->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->leLoculEfectuariiVerificarii->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
+    ui->lbNumarInregistrare->setFocus();
+    connect(ui->pbInchide, &QPushButton::clicked, this, &ReportMeasurements::onCloseClicked);
+    connect(ui->pbGenerareBV, &QPushButton::clicked, this, &ReportMeasurements::onPrintClicked);
 }
 
+// Destructor
 ReportMeasurements::~ReportMeasurements()
 {
     delete ui;
@@ -365,17 +354,17 @@ void ReportMeasurements::onPrintClicked()
     std::tm *localTime = std::localtime(&currentTime);
 
     // Other variables
-    size_t entriesTable = pw->selectedInfo.entriesNumber;
+    size_t entriesTable = pMainWindow->selectedInfo.entriesNumber;
 
     QString ltCode = ui->leCoduldinLt->text();
     QString nmlNtmNorms = ui->leNormativ->text();
     QString checkValability = ui->cbValabilitate->currentText();
     QString costRon = ui->leCost->text();
-    QString companyLaboratory = QString::fromStdString(pw->optionsConfiguration["company"]);
+    QString companyLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["company"]);
     QString autorizationNumarul = ui->leAutorizatiaNumarul->text();
-    QString certiticateLaboratory = QString::fromStdString(pw->optionsConfiguration["certificate"]);
+    QString certiticateLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["certificate"]);
     QString detinator = ui->leBeneficiar->text();
-    QString meterType = pw->ui->cbWaterMeterType->currentText();
+    QString meterType = pMainWindow->ui->cbWaterMeterType->currentText();
 
     std::stringstream htmlTable;
 
@@ -542,15 +531,15 @@ void ReportMeasurements::onPrintClicked()
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire _______________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire ____________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Semnatura_____________________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">_____________________________________________________________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">__________________________________________________________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Indicativul&nbsp;marcii_______________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Data,ora:&nbsp;__________________________________Semnatura______________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Data,ora:&nbsp;__________________________________Semnatura___________________</td>\n"
               << "        </tr>\n"
               << "    </tbody>\n"
               << "</table>\n"
