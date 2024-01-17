@@ -11,7 +11,10 @@
 #include <QLabel>
 #include <QCheckBox>
 #include <QKeyEvent>
+#include <QTimer>
+
 #include <sstream>
+
 #include "report.h"
 
 namespace Ui
@@ -69,6 +72,7 @@ private:
     std::vector<QLineEdit *> vectorThirdError;
 
     static QString report;
+    QTimer *QTimerGenerareFM;
 
     bool eventFilter(QObject *, QEvent *);
 
@@ -92,6 +96,7 @@ private slots:
     void onCopy23Clicked();
 
     void onReportClicked();
+    void enableGenerareFmButton();
 
 protected:
     void showEvent(QShowEvent *event);

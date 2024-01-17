@@ -34,6 +34,7 @@
 #include <QString>
 #include <QTimer>
 #include <QValidator>
+
 #include <QtDebug>
 
 #include "mainwindow.h"
@@ -47,20 +48,19 @@ std::mutex printReportPdfThreadMutex;
 
 void ReportMeasurements::printPdfThread(QString report)
 {
-    // Lock the mutex to ensure exclusive access to the shared resource
-    std::lock_guard<std::mutex> lock(printReportPdfThreadMutex);
-
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
     // Construct the file name using QDir
-    QString fileName = QString(pMainWindow->selectedInfo.pathResults.c_str()) +
+    QString fileName = QString::fromStdString(pMainWindow->selectedInfo.pathResults) +
                        QDir::separator() + QString("BV_") + timestamp + ".pdf";
 
-    // Check if the directory exists, and create it if not
-    QDir resultDir(pMainWindow->selectedInfo.pathResults.c_str());
-    if (!resultDir.exists())
     {
+        // Lock the mutex to ensure exclusive access to the shared resource
+        std::lock_guard<std::mutex> lock(printReportPdfThreadMutex);
+
+        // Check if the directory exists, and create it if not
+        QDir resultDir(QString::fromStdString(pMainWindow->selectedInfo.pathResults));
         resultDir.mkpath(".");
     }
 
@@ -88,9 +88,16 @@ void ReportMeasurements::printPdfThread(QString report)
     // Print the document to the PDF file
     outputReport.print(&printer);
 
+    // Check if the file was created successfully and is non-empty
+    QFile outputFile(fileName);
+    if (!outputFile.exists() || outputFile.size() == 0)
+    {
+        qDebug() << "Error: Failed to generate a non-empty PDF file.";
+        return;
+    }
+
     // Convert the file path to a URL and open it in the default PDF viewer
     QString fileUrl = QUrl::fromLocalFile(fileName).toString();
-
     QDesktopServices::openUrl(QUrl(fileUrl));
 }
 
@@ -242,6 +249,8 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     // Set window flags
     setWindowFlags(Qt::Window);
 
+    QTimerGenerareBv = new QTimer(this);
+
     // Copy resultsAllTests array
     for (size_t iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
     {
@@ -303,8 +312,10 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui->leVerificatorMetrolog->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
     ui->leLoculEfectuariiVerificarii->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
     ui->lbNumarInregistrare->setFocus();
+
     connect(ui->pbInchide, &QPushButton::clicked, this, &ReportMeasurements::onCloseClicked);
     connect(ui->pbGenerareBV, &QPushButton::clicked, this, &ReportMeasurements::onPrintClicked);
+    connect(QTimerGenerareBv, &QTimer::timeout, this, &ReportMeasurements::enableGenerareBvButton);
 }
 
 // Destructor
@@ -562,7 +573,8 @@ void ReportMeasurements::onPrintClicked()
 //    outputFile.close();
 ///////////////////////
 
-
+    QTimerGenerareBv->start(2000);
+    ui->pbGenerareBV->setEnabled(false);
     std::thread pdfThread(printPdfThread, QString::fromStdString(htmlTable.str()));
     pdfThread.detach();
 
@@ -609,6 +621,15 @@ messageBoxVerificationReport.exec();
 void ReportMeasurements::onCloseClicked()
 {
     this -> hide();
+}
+
+void ReportMeasurements::enableGenerareBvButton()
+{
+    // Stop the timer
+    QTimerGenerareBv->stop();
+
+    // Re-enable the button
+    ui->pbGenerareBV->setEnabled(true);
 }
 
 

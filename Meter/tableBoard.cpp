@@ -13,6 +13,7 @@
 #include <QValidator>
 #include <QtPrintSupport/QPrinter>
 #include <QTimer>
+
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
@@ -32,7 +33,7 @@ extern MainWindow *pMainWindow;
 
 namespace
 {
-    MainWindow *mainwindow;
+    MainWindow *mainwindow = nullptr;;
 }
 
 QString TableBoard::report;
@@ -41,15 +42,15 @@ std::mutex printTablePdfThreadMutex;
 
 void TableBoard::printPdfThread(QString report)
 {
-    // Lock the mutex to ensure exclusive access to the shared resource
-    std::lock_guard<std::mutex> lock(printTablePdfThreadMutex);
-
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
     // Construct the file name using QDir
     QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults) +
                        QDir::separator() + QString("FM_") + timestamp + ".pdf";
+
+    // Lock the mutex to ensure exclusive access to the shared resource
+    std::lock_guard<std::mutex> lock(printTablePdfThreadMutex);
 
     // Check if the directory exists, and create it if not
     QDir resultDir(QString::fromStdString(mainwindow->selectedInfo.pathResults));
@@ -95,9 +96,15 @@ void TableBoard::onSaveCurrentInputDataClicked()
     QDateTime now = QDateTime::currentDateTime();
     QString fileName = QString(mainwindow->selectedInfo.pathResults.c_str()) +
                        "/inputData/" + QString("WStreamLab_") +
-                       now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss"));
-    fileName.append(".in");
+                       now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss")) + ".in";
+
     std::ofstream outputDataFile(fileName.toStdString());
+    if (!outputDataFile.is_open())
+    {
+        qDebug() << "Error: Unable to open the file for writing.";
+        return;
+    }
+
     outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
 
@@ -129,21 +136,25 @@ void TableBoard::onSaveCurrentInputDataClicked()
     outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
     outputDataFile << ui->leMass3->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
+
+    // Display a message box
     QMessageBox messageBoxSaveInputFile;
     messageBoxSaveInputFile.setWindowTitle(tr("Save input data"));
     messageBoxSaveInputFile.setText("The file " + fileName + " was created!");
     messageBoxSaveInputFile.setStandardButtons(QMessageBox::Ok);
-    messageBoxSaveInputFile.setWindowFlags(Qt::Dialog |
-                                           Qt::CustomizeWindowHint |
-                                           Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    messageBoxSaveInputFile.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
     // Create a QTimer
     QTimer *timer = new QTimer(&messageBoxSaveInputFile);
     timer->setSingleShot(true); // Make the timer a single-shot timer
-    timer->setInterval(3000); // Set the interval to 3000 milliseconds (5 seconds)
+    timer->setInterval(3000);   // Set the interval to 3000 milliseconds (5 seconds)
+
     // Connect the timeout signal to close the message box
     QObject::connect(timer, &QTimer::timeout, &messageBoxSaveInputFile, &QMessageBox::accept);
+
     // Start the timer
     timer->start();
+
     // Show the message box
     messageBoxSaveInputFile.exec();
 }
@@ -289,8 +300,9 @@ std::string precision_2(double number)
 
 bool XOR(bool a, bool b)
 {
-    return (a + b) % 2;
+    return a != b;
 }
+
 
 void TableBoard::ValidatorInput()
 {
@@ -659,6 +671,8 @@ TableBoard::TableBoard(QWidget *_parent):
     setModal(false);
     ui->setupUi(this);
 
+    QTimerGenerareFM = new QTimer(this);
+
     mainwindow = dynamic_cast<MainWindow *>(parent);
 
     Translate();
@@ -682,6 +696,8 @@ TableBoard::TableBoard(QWidget *_parent):
     {
         connect(vectorCheckNumber[iter], SIGNAL(clicked(bool)), this, SLOT(onCbClicked(bool)));
     }
+
+    connect(QTimerGenerareFM, &QTimer::timeout, this, &TableBoard::enableGenerareFmButton);
 
     setWindowFlags(Qt::Window);
 }
@@ -2000,6 +2016,10 @@ void TableBoard::onPrintPdfDocClicked()
                   "  Semnatura____________________           "
                   "Semnatura___________________<br>" +
                   "</h3></pre>";
+
+        ui->pbPrint->setEnabled(false);
+        QTimerGenerareFM->start(2000);
+
         std::thread pdfThread(printPdfThread, report);
         pdfThread.detach();
     }
@@ -2394,8 +2414,13 @@ void TableBoard::onPrintPdfDocClicked()
                   "Signature____________________             Signature___________________<br>"
                   +
                   "</h3></pre>";
+
+        ui->pbPrint->setEnabled(false);
+        QTimerGenerareFM->start(2000);
+
         std::thread pdfThread(printPdfThread, report);
         pdfThread.detach();
+
     }
 }
 
@@ -2539,4 +2564,11 @@ void TableBoard::onReportClicked()
     }
 }
 
+void TableBoard::enableGenerareFmButton()
+{
+    // Stop the timer
+    QTimerGenerareFM->stop();
 
+    // Re-enable the button
+    ui->pbPrint->setEnabled(true);
+}
