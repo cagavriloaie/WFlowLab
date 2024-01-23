@@ -118,6 +118,8 @@ std::vector < MeterFlowType > meterFlowTypesDefault =
 std::vector < MeterFlowType > readFlowMeterTypesCSV(
     const std::string  &filename)
 {
+    QString currentPath = QDir::currentPath();
+    Q_UNUSED(currentPath);
     std::ifstream file(filename);
     std::vector < MeterFlowType > meterFlowTypes;
 

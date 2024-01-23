@@ -271,11 +271,16 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui->lbCost->setText(tr("Cost:"));
     ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog:"));
     ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
-    ui->cbValabilitate->addItem(tr("6 luni"));
     ui->cbValabilitate->addItem(tr("1 an"));
     ui->cbValabilitate->addItem(tr("2 ani"));
-    ui->cbValabilitate->addItem(tr("3"));
+    ui->cbValabilitate->addItem(tr("3 ani"));
+    ui->cbValabilitate->addItem(tr("4 ani"));
     ui->cbValabilitate->addItem(tr("5 ani"));
+    ui->cbValabilitate->addItem(tr("6 ani"));
+    ui->cbValabilitate->addItem(tr("7 ani"));
+    ui->cbValabilitate->addItem(tr("8 ani"));
+    ui->cbValabilitate->addItem(tr("9 ani"));
+    ui->cbValabilitate->addItem(tr("10 ani"));
     ui->pbGenerareBV->setText(tr("&Generare BV"));
     ui->pbInchide->setText(tr("&Inchide"));
 
@@ -293,7 +298,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui->leBeneficiar->setText(settings.value("beneficiar", "Termo Util").toString());
     ui->leCoduldinLt->setText(settings.value("codulDinLt", "1.06.28.1.1").toString());
     ui->leNormativ->setText(settings.value("normativ", "NML").toString());
-    ui->cbValabilitate->setCurrentIndex(settings.value("valabilitate", 4).toInt());
+    ui->cbValabilitate->setCurrentIndex(settings.value("valabilitate", 6).toInt());
     ui->leCost->setText(settings.value("cost", 100).toString());
     ui->leVerificatorMetrolog->setText(settings.value("verificatorMetrolog", "Adrian Pintilie").toString());
     ui->leLoculEfectuariiVerificarii->setText(settings.value("loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());

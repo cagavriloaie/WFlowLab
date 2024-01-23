@@ -56,6 +56,9 @@
     Source: ".\build\SerialPorts.dll"; DestDir: "{app}"; Flags: ignoreversion
     Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist ignoreversion
     Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: uninsneveruninstall onlyifdoesntexist ignoreversion
+    Source: ".\build\WStreamLab.ico"; DestDir: "{app}"; Flags: ignoreversion
+    Source: ".\build\README.txt"; DestDir: "{app}"; Flags: ignoreversion
+
     Source: ".\build\iconengines\qsvgicon.dll"; DestDir: "{app}\iconengines"; Flags: ignoreversion
     Source: ".\build\imageformats\qgif.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
     Source: ".\build\imageformats\qico.dll"; DestDir: "{app}\imageformats"; Flags: ignoreversion
@@ -65,8 +68,7 @@
     Source: ".\build\styles\qwindowsvistastyle.dll"; DestDir: "{app}\styles"; Flags: ignoreversion
     Source: ".\build\translations\meter_ro_RO.qm"; DestDir: "{app}\translations"; Flags: ignoreversion
     Source: ".\build\translations\meter_en_EN.qm"; DestDir: "{app}\translations"; Flags: ignoreversion
-    Source: ".\build\WStreamLab.ico"; DestDir: "{app}"; Flags: ignoreversion
-    Source: ".\build\README.txt"; DestDir: "{app}"; Flags: ignoreversion
+   
 
 [Icons]
     Name: "{commondesktop}\{#AppWSLName}"; Filename: "{app}\{#AppWSLExeName}"; IconFilename: "{app}\{#AppWSLIconName}"; Tasks: desktopicon;
@@ -82,7 +84,40 @@
     Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.csv"" ""{userdesktop}\watermeters.csv"""; Flags: runhidden
 
 [UninstallDelete]
-    ; No need to duplicate file names from [Files] section
+    Type: files; Name: "{app}\WStreamLab.exe"
+    Type: files; Name: "{app}\D3Dcompiler_47.dll"
+    Type: files; Name: "{app}\libgcc_s_seh-1.dll"
+    Type: files; Name: "{app}\libstdc++-6.dll"
+    Type: files; Name: "{app}\libwinpthread-1.dll"
+    Type: files; Name: "{app}\opengl32sw.dll"
+    Type: files; Name: "{app}\Qt6Core.dll"
+    Type: files; Name: "{app}\Qt6Gui.dll"
+    Type: files; Name: "{app}\Qt6Network.dll"
+    Type: files; Name: "{app}\Qt6PrintSupport.dll"
+    Type: files; Name: "{app}\Qt6SerialBus.dll"
+    Type: files; Name: "{app}\Qt6SerialPort.dll"
+    Type: files; Name: "{app}\Qt6Svg.dll"
+    Type: files; Name: "{app}\Qt6Widgets.dll"
+    Type: files; Name: "{app}\SerialPorts.dll"
+    Type: files; Name: "{app}\WStreamLab.ico"
+    Type: files; Name: "{app}\README.txt"
+
+    Type: filesandordirs; Name: "{app}\iconengines\qsvgicon.dll"
+    Type: filesandordirs; Name: "{app}\imageformats\qgif.dll"
+    Type: filesandordirs; Name: "{app}\imageformats\qico.dll"
+    Type: filesandordirs; Name: "{app}\imageformats\qjpeg.dll"
+    Type: filesandordirs; Name: "{app}\imageformats\qsvg.dll"
+    Type: filesandordirs; Name: "{app}\platforms\qwindows.dll"
+    Type: filesandordirs; Name: "{app}\styles\qwindowsvistastyle.dll"
+    Type: filesandordirs; Name: "{app}\translations\meter_ro_RO.qm"
+    Type: filesandordirs; Name: "{app}\translations\meter_en_EN.qm"
+
+    Type: dirifempty; Name: "{app}\iconengines"
+    Type: dirifempty; Name: "{app}\imageformats"
+    Type: dirifempty; Name: "{app}\platforms"
+    Type: dirifempty; Name: "{app}\styles"
+    Type: dirifempty; Name: "{app}\translations"
+
 
 [Dirs]
     Name: "{app}"; Flags: uninsneveruninstall
