@@ -35,8 +35,6 @@
 #include <QTimer>
 #include <QValidator>
 
-#include <QtDebug>
-
 #include "mainwindow.h"
 #include "report.h"
 #include "ui_mainwindow.h"
@@ -100,7 +98,6 @@ void ReportMeasurements::printPdfThread(QString report)
     QString fileUrl = QUrl::fromLocalFile(fileName).toString();
     QDesktopServices::openUrl(QUrl(fileUrl));
 }
-
 
 std::string convertNumberToWords(int num, bool addSuffix)
 {

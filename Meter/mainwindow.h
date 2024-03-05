@@ -115,6 +115,7 @@ class MainWindow : public QMainWindow
     void updateSelectedInfo();
     void SelectMeterComboBox();
     void ReadConfiguration();
+    void SetDefaultConfiguration();
     void CenterToScreen(QWidget *widget);
 
     unsigned MAX_NR_WATER_METERS {20};

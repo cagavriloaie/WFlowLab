@@ -23,7 +23,7 @@
 #include <mutex>
 
 #include "definitions.h"
-#include "air-density.h"
+#include "water-density.h"
 #include "mainwindow.h"
 #include "tableBoard.h"
 #include "ui_mainwindow.h"
@@ -283,10 +283,10 @@ void TableBoard::onOpenInputDataClicked()
     onMeasurementTypeChanged();
 }
 
-std::string precision_2(double number)
+std::string precision_4(double number)
 {
     int integer_part = static_cast<int>(number);
-    int decimal_part = static_cast<int>((number - integer_part) * 100);
+    int decimal_part = static_cast<int>((number - integer_part) * 10000);
 
     if (decimal_part >= 10)
     {
@@ -699,7 +699,8 @@ TableBoard::TableBoard(QWidget *_parent):
 
     connect(QTimerGenerareFM, &QTimer::timeout, this, &TableBoard::enableGenerareFmButton);
 
-    setWindowFlags(Qt::Window);
+    Qt::WindowFlags flags = Qt::Dialog | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint;
+    setWindowFlags(flags);
 }
 
 TableBoard::~TableBoard()
@@ -899,6 +900,7 @@ void TableBoard::onCalculateClicked()
         double densitySecond{0};
         double densityThird{0};
         double correction = mainwindow->selectedInfo.density_20;
+
         densityFirst =
             quadraticInterpolationTemperature(temperatureFirst, correction);
         densitySecond =
@@ -906,9 +908,20 @@ void TableBoard::onCalculateClicked()
         densityThird =
             quadraticInterpolationTemperature(temperatureThird, correction);
 
-        double VolumeFirst = 1000 * massFirst / densityFirst;
-        double VolumeSecond = 1000 * massSecond / densitySecond;
-        double VolumeThird = 1000 * massThird / densityThird;
+        double volumeCorrectionFirst {0};
+        double volumeCorrectionSecond {0};
+        double volumeCorrectionThird {0};
+
+        volumeCorrectionFirst =
+            quadraticInterpolationVolumeCorrection(temperatureFirst);
+        volumeCorrectionSecond =
+            quadraticInterpolationVolumeCorrection(temperatureSecond);
+        volumeCorrectionThird =
+            quadraticInterpolationVolumeCorrection(temperatureThird);
+
+        double VolumeFirst = volumeCorrectionFirst * 1000 * massFirst / densityFirst;
+        double VolumeSecond = volumeCorrectionSecond * 1000 * massSecond / densitySecond;
+        double VolumeThird = volumeCorrectionThird * 1000 * massThird / densityThird;
 
         std::ostringstream streamObj;
 
@@ -1566,6 +1579,18 @@ void TableBoard::onPrintPdfDocClicked()
         mainwindow->selectedInfo.athmosphericPressure;
     std::string  humidity = mainwindow->selectedInfo.relativeAirHumidity;
 
+    std::string temperatureMinimum = ui->leTemperature1->text().toStdString();
+    std::string temperatureTransitor = ui->leTemperature2->text().toStdString();
+    std::string temperatureNominal = ui->leTemperature3->text().toStdString();
+
+    std::string  standardVolumeMinimum = ui->leVolume1->text().toStdString();
+    std::string  standardVolumeTransitor = ui->leVolume2->text().toStdString();
+    std::string  standardVolumeNominal = ui->leVolume3->text().toStdString();
+
+    std::string  standardMassMinimum = ui->leMass1->text().toStdString();
+    std::string  standardMassTransitor = ui->leMass2->text().toStdString();
+    std::string  standardMassNominal = ui->leMass3->text().toStdString();
+
     QString certificate = mainwindow->selectedInfo.certificate.c_str();
     QString nameSelectedWaterMeter =
         mainwindow->selectedInfo.nameWaterMeter.c_str();
@@ -1580,13 +1605,13 @@ void TableBoard::onPrintPdfDocClicked()
     double nominalFlow = mainwindow->selectedInfo.nominalFlow;
     double maximumFlow = mainwindow->selectedInfo.maximumFlow;
     QString minimumFlowString =
-        to_string_with_precision(minimumFlow, 2).c_str();
+        to_string_with_precision(minimumFlow, 0).c_str();
     QString transitionFlowString =
-        to_string_with_precision(trasitionFlow, 2).c_str();
+        to_string_with_precision(trasitionFlow, 0).c_str();
     QString nominalFlowString =
-        to_string_with_precision(nominalFlow, 2).c_str();
+        to_string_with_precision(nominalFlow, 0).c_str();
     QString maximumFlowString =
-        to_string_with_precision(maximumFlow, 2).c_str();
+        to_string_with_precision(maximumFlow, 0).c_str();
     auto size = minimumFlowString.size();
     for (auto iter = 1; iter < 10 - size; iter++)
     {
@@ -1639,30 +1664,78 @@ void TableBoard::onPrintPdfDocClicked()
             "<br>" + "Medoda de verificare:&nbsp;" + methodMeasurement +
             "<br>" + "Diametru nominal:&nbsp;" +
             to_string_with_precision(nominalDiameter, 2).c_str() +
-            "&nbsp;[mm]<br>" +
-            "Debit maxim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            maximumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Eroare max:&nbsp;" +
-            to_string_with_precision(nominalWaterMeterError,
-                                     2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit nominal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            nominalFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Eroare max:&nbsp;" +
-            to_string_with_precision(nominalWaterMeterError,
-                                     2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit tranzitoriu:&nbsp;&nbsp;" + transitionFlowString +
-            "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Eroare max:&nbsp;" +
-            to_string_with_precision(nominalWaterMeterError,
-                                     2).c_str() + "&nbsp;[%]" +
-            "<br>" + "Debit minim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-            +
-            minimumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-            "Eroare max:&nbsp;" +
-            to_string_with_precision(maximumWaterMeterError,
-                                     2).c_str() + "&nbsp;[%]" +
-            "<br>" + "</h4>";
+
+            "<br>"
+
+            "<style>"
+            "     th, td {"
+            "          text-align: center;"
+            "      }"
+            "</style>";
+
+    if("Gravitmetric" ==  methodMeasurement) {
         report +=
+            "<table>"
+            "   <tr>"
+            "       <th></th>"
+            "       <th>Volum etalon<br>&nbsp;&nbsp;[L]</th>"
+            "       <th>&nbsp;Masa<br>&nbsp;[kg]</th>"
+            "       <th>Temperatura<br>&nbsp;[°C]</th>"
+            "       <th>Debit<br>&nbsp;&nbsp;[L/h]</th>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qmin&nbsp;</td>"
+            "       <td>" + standardVolumeMinimum + "</td>"
+            "       <td>" + standardMassMinimum + "</td>"
+            "       <td>" + temperatureMinimum + "</td>"
+            "       <td>" + minimumFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qt&nbsp;</td>"
+            "       <td>" + standardVolumeTransitor + "</td>"
+            "       <td>" + standardMassTransitor + "</td>"
+            "       <td>" + temperatureTransitor.c_str() +  "</td>"
+            "       <td>" + transitionFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qn&nbsp;</td>"
+            "       <td>" + standardVolumeNominal + "</td>"
+            "       <td>" + standardMassNominal + "</td>"
+            "       <td>" + temperatureNominal.c_str() +  "</td>"
+            "       <td>" + nominalFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "</table>"
+             "<br>";
+    }
+    else
+    {
+        report +=
+            "<table>"
+            "   <tr>"
+            "       <th></th>"
+            "       <th>Volum etalon<br>&nbsp;&nbsp;[L]</th>"
+            "       <th>Debit<br>&nbsp;&nbsp;[L/h]</th>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qmin&nbsp;</td>"
+            "       <td>" + standardVolumeMinimum + "</td>"
+            "       <td>" + minimumFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qt&nbsp;</td>"
+            "       <td>" + standardVolumeTransitor + "</td>"
+            "       <td>" + transitionFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "   <tr>"
+            "       <td>&nbsp;Qn&nbsp;</td>"
+            "       <td>" + standardVolumeNominal + "</td>"
+            "       <td>" + nominalFlowString.toStdString() + "</td>"
+            "   </tr>"
+            "</table>"
+            "<br>";
+    }
+
+    report +=
             QString("<table width=\"100%\" border=\"1\">") +
             "    <caption>        Rezultate test: "
             "</caption>" +
@@ -1700,7 +1773,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorFirstIndexStart[iter]->text().toDouble()));
             QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
             QString realVolumeFirst =
-                QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                QString(precision_4(ui->leVolume1->text().toDouble()).c_str())  +
                 "&nbsp;";
             if (vectorFirstIndexStart[iter]->text() == ""
                     || vectorFirstIndexStop[iter]->text() == "")
@@ -1714,7 +1787,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorSecondIndexStart[iter]->text().toDouble()));
             QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
             QString realVolumeSecond =
-                QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                QString(precision_4(ui->leVolume2->text().toDouble()).c_str())  +
                 "&nbsp;";
             if (vectorSecondIndexStart[iter]->text() == ""
                     || vectorSecondIndexStop[iter]->text() == "")
@@ -1728,7 +1801,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorThirdIndexStart[iter]->text().toDouble()));
             QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
             QString realVolumeThird =
-                QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) +
                 "&nbsp;";
             if (vectorThirdIndexStart[iter]->text() == ""
                     || vectorThirdIndexStop[iter]->text() == "")
@@ -1875,7 +1948,7 @@ void TableBoard::onPrintPdfDocClicked()
                                      vectorFirstIndexStart[iterEntry]->text().toDouble()));
                 QString errorFirst = vectorFirstError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeFirst =
-                    QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                    QString(precision_4(ui->leVolume1->text().toDouble()).c_str())  +
                     "&nbsp;";
                 if (vectorFirstIndexStart[iterEntry]->text() == ""
                         || vectorFirstIndexStop[iterEntry]->text() == "")
@@ -1889,7 +1962,7 @@ void TableBoard::onPrintPdfDocClicked()
                                      vectorSecondIndexStart[iterEntry]->text().toDouble()));
                 QString errorSecond = vectorSecondError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeSecond =
-                    QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                    QString(precision_4(ui->leVolume2->text().toDouble()).c_str())  +
                     "&nbsp;";
                 if (vectorSecondIndexStart[iterEntry]->text() == ""
                         || vectorSecondIndexStop[iterEntry]->text() == "")
@@ -1903,7 +1976,7 @@ void TableBoard::onPrintPdfDocClicked()
                                      vectorThirdIndexStart[iterEntry]->text().toDouble()));
                 QString errorThird = vectorThirdError[iterEntry]->text() + "&nbsp;";
                 QString realVolumeThird =
-                    QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                    QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) +
                     "&nbsp;";
                 if (vectorThirdIndexStart[iterEntry]->text() == ""
                         || vectorThirdIndexStop[iterEntry]->text() == "")
@@ -2054,23 +2127,77 @@ void TableBoard::onPrintPdfDocClicked()
                  nameSelectedWaterMeter + "<br>" + "Used measurement method:&nbsp;" +
                  methodMeasurement + "<br>" + "Nominal diameter&nbsp;:" +
                  to_string_with_precision(nominalDiameter, 2).c_str() +
-                 "&nbsp;[mm]<br>" + "Maximum flow:&nbsp;&nbsp;&nbsp;&nbsp;" +
-                 maximumFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-                 "Max error:&nbsp;" +
-                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
-                 "&nbsp;[%]" + "<br>" +
-                 "Nominal flow:&nbsp;&nbsp;&nbsp;&nbsp;" + nominalFlowString +
-                 "&nbsp;[L/h]" + "&nbsp;/&nbsp;" + "Max error:&nbsp;" +
-                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
-                 "&nbsp;[%]" + "<br>" + "Transition flow:&nbsp;" +
-                 transitionFlowString + "&nbsp;[L/h]" + "&nbsp;/&nbsp;" +
-                 "Max error:&nbsp;" +
-                 to_string_with_precision(nominalWaterMeterError, 2).c_str() +
-                 "&nbsp;[%]" + "<br>" +
-                 "Minimum flow:&nbsp;&nbsp;&nbsp;&nbsp;" + minimumFlowString +
-                 "&nbsp;[L/h]" + "&nbsp;/&nbsp;" + "Max error:&nbsp;" +
-                 to_string_with_precision(maximumWaterMeterError, 2).c_str() +
-                 "&nbsp;[%]" + "<br>" + "</h4>";
+
+                 "<style>"
+                 "     th, td {"
+                 "          text-align: center;"
+                 "      }"
+                 "</style>"
+
+                 "<br>";
+
+        if("Gravitmetric" ==  methodMeasurement) {
+            report +=
+                "<table>"
+                "   <tr>"
+                "       <th></th>"
+                "       <th>Standard Volume<br>&nbsp;&nbsp;[L]</th>"
+                "       <th>&nbsp;Mass<br>&nbsp;[kg]</th>"
+                "       <th>Temperature<br>&nbsp;[°C]</th>"
+                "       <th>Flow Rate<br>&nbsp;&nbsp;[L/h]</th>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>" + standardVolumeMinimum + "</td>"
+                "       <td>" + standardMassMinimum + "</td>"
+                "       <td>" + temperatureMinimum + "</td>"
+                "       <td>" + minimumFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qt&nbsp;</td>"
+                "       <td>" + standardVolumeTransitor + "</td>"
+                "       <td>" + standardMassTransitor + "</td>"
+                "       <td>" + temperatureTransitor.c_str() +  "</td>"
+                "       <td>" + transitionFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qn&nbsp;</td>"
+                "       <td>" + standardVolumeNominal + "</td>"
+                "       <td>" + standardMassNominal + "</td>"
+                "       <td>" + temperatureNominal.c_str() +  "</td>"
+                "       <td>" + nominalFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "</table>"
+                "<br>";
+        }
+        else
+        {
+            report +=
+                "<table>"
+                "   <tr>"
+                "       <th></th>"
+                "       <th>Standard Volume<br>&nbsp;&nbsp;[L]</th>"
+                "       <th>Flow Rate<br>&nbsp;&nbsp;[L/h]</th>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>" + standardVolumeMinimum + "</td>"
+                "       <td>" + minimumFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qt&nbsp;</td>"
+                "       <td>" + standardVolumeTransitor + "</td>"
+                "       <td>" + transitionFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "   <tr>"
+                "       <td>&nbsp;Qn&nbsp;</td>"
+                "       <td>" + standardVolumeNominal + "</td>"
+                "       <td>" + nominalFlowString.toStdString() + "</td>"
+                "   </tr>"
+                "</table>"
+                "<br>";
+        }
+
         report += QString("<table width=\"100%\" border=\"1\">") +
                   "    <caption style=\"text-align: left\">        Results: "
                   "</caption>" +
@@ -2108,7 +2235,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorFirstIndexStart[iter]->text().toDouble()));
             QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
             QString realVolumeFirst =
-                QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                QString(precision_4(ui->leVolume1->text().toDouble()).c_str())  +
                 "&nbsp;";
             if (vectorFirstIndexStart[iter]->text() == ""
                     || vectorFirstIndexStop[iter]->text() == "")
@@ -2122,7 +2249,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorSecondIndexStart[iter]->text().toDouble()));
             QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
             QString realVolumeSecond =
-                QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                QString(precision_4(ui->leVolume2->text().toDouble()).c_str())  +
                 "&nbsp;";
             if (vectorSecondIndexStart[iter]->text() == ""
                     || vectorSecondIndexStop[iter]->text() == "")
@@ -2136,7 +2263,7 @@ void TableBoard::onPrintPdfDocClicked()
                                  vectorThirdIndexStart[iter]->text().toDouble()));
             QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
             QString realVolumeThird =
-                QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) +
                 "&nbsp;";
             if (vectorThirdIndexStart[iter]->text() == ""
                     || vectorThirdIndexStop[iter]->text() == "")
@@ -2285,7 +2412,7 @@ void TableBoard::onPrintPdfDocClicked()
                 QString errorFirst = vectorFirstError[iter]->text() +
                                      "&nbsp;";
                 QString realVolumeFirst =
-                    QString(precision_2(ui->leVolume1->text().toDouble()).c_str())  +
+                    QString(precision_4(ui->leVolume1->text().toDouble()).c_str())  +
                     "&nbsp;";
                 QString startSecond = vectorSecondIndexStart[iter]->text() +
                                       "&nbsp;";
@@ -2297,7 +2424,7 @@ void TableBoard::onPrintPdfDocClicked()
                 QString errorSecond = vectorSecondError[iter]->text() +
                                       "&nbsp;";
                 QString realVolumeSecond =
-                    QString(precision_2(ui->leVolume2->text().toDouble()).c_str())  +
+                    QString(precision_4(ui->leVolume2->text().toDouble()).c_str())  +
                     "&nbsp;";;
                 QString startThird = vectorThirdIndexStart[iter]->text() +
                                      "&nbsp;";
@@ -2309,7 +2436,7 @@ void TableBoard::onPrintPdfDocClicked()
                 QString errorThird = vectorThirdError[iter]->text() +
                                      "&nbsp;";
                 QString realVolumeThird =
-                    QString(precision_2(ui->leVolume3->text().toDouble()).c_str()) +
+                    QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) +
                     "&nbsp;";
                 if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
                         XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||

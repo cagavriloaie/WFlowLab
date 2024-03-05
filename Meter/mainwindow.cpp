@@ -3,30 +3,32 @@
  *  File:   mainwindow.cpp
  */
 
-#include <QDesktopServices>
-#include <QDir>
-#include <QLibrary>
-#include <QLineEdit>
-#include <QMessageBox>
-#include <QScrollArea>
-#include <QSettings>
-#include <QValidator>
-
-#include <windows.h>
-
+// C++ Standard Library headers
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <map>
 #include <sstream>
 
+// Qt headers
+#include <QDesktopServices>
+#include <QDir>
+#include <QLibrary>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QSettings>
+#include <QValidator>
+
+// Windows-specific headers
+#include <windows.h>
+
+// Custom headers
 #include "definitions.h"
-#include "air-density.h"
+#include "water-density.h"
 #include "flow-meter-type.h"
 #include "mainwindow.h"
 #include "md5.h"
 #include "ui_mainwindow.h"
-
 
 extern QTranslator *appTranslator;
 MainWindow *pMainWindow;
@@ -38,6 +40,16 @@ std::wstring ExePath()
     std::wstring::size_type pos = std::wstring(buffer).find_last_of(
                                       L"\\/");
     return std::wstring(buffer).substr(0, pos);
+}
+
+void MainWindow::SetDefaultConfiguration() {
+    optionsConfiguration.clear();
+    optionsConfiguration["company"] = "NONE";
+    optionsConfiguration["archive"] = "C:/Stand/Fise";
+    optionsConfiguration["maximum"] = "2";
+    optionsConfiguration["certificate"] = "NONE";
+    optionsConfiguration["density_20"] = "998.2009";
+    optionsConfiguration["control"] = "00000000000000000000000000000000";
 }
 
 /*
@@ -57,7 +69,7 @@ void MainWindow::ReadConfiguration()
 {
     std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
     std::ifstream
-    inConfigurationFile(pathToConfig.c_str());
+        inConfigurationFile(pathToConfig.c_str());
     if (inConfigurationFile.is_open())
     {
         std::string key;
@@ -70,12 +82,12 @@ void MainWindow::ReadConfiguration()
                 std::getline(inConfigurationFile, value);
             }
         }
-        if (optionsConfiguration.find("control") !=
-                optionsConfiguration.end() &&
-                optionsConfiguration.find("company") !=
-                optionsConfiguration.end() &&
-                optionsConfiguration.find("density_20") !=
-                optionsConfiguration.end())
+
+        if(
+            optionsConfiguration.find("company") != optionsConfiguration.end() &&
+            optionsConfiguration.find("control") != optionsConfiguration.end() &&
+            optionsConfiguration.find("maximum") != optionsConfiguration.end()
+            )
         {
             std::string md5Read;
             std::string md5Calculate;
@@ -83,19 +95,25 @@ void MainWindow::ReadConfiguration()
             std::string wordControl = optionsConfiguration["company"] +
                                       optionsConfiguration["maximum"];
             md5Calculate = md5(wordControl);
+
             if (md5Read == md5Calculate)
             {
+                // Update options only if the key does not exist
+                optionsConfiguration.insert({"density_20", "998.2009"});
+                optionsConfiguration.insert({"archive", "C:/Stand/Fise"});
+                optionsConfiguration.insert({"certificate", "NONE"});
+
+                // Close the file stream before returning
+                inConfigurationFile.close();
                 return;
             }
         }
     }
-    optionsConfiguration.clear();
-    optionsConfiguration["company"] = "NONE";
-    optionsConfiguration["archive"] = "C:/watermeters/reports";
-    optionsConfiguration["maximum"] = "2";
-    optionsConfiguration["certificate"] = "NONE";
-    optionsConfiguration["density_20"] = "998.2009";
-    optionsConfiguration["control"] = "00000000000000000000000000000000";
+
+    SetDefaultConfiguration();
+
+    inConfigurationFile.close();
+
     return;
 }
 
@@ -653,178 +671,110 @@ void MainWindow::onAthmosphericPressureTextChanged()
 
 void MainWindow::onGeneralDescription()
 {
-    QString htmlFile = QDir::temp().path() + QString("/5igsg2ly2v.html");
-    std::ofstream generalDescriptionHtmlFile(htmlFile.toStdString());
-    std::stringstream output;
-    if (ENGLISH == selectedInfo.selectedLanguage)
-    {
-        output
-                << "<!DOCTYPE html>"
-                "<html>"
-                "   <head>"
-                "      <title>WStreamLab 1.1 Windows OS</title>"
-                "   </head>"
-                "   <body  oncopy=\"return false\" onpaste=\"return false\" "
-                "oncut=\"return false\">"
-                "   <div onmousedown=\"return false\" onselectstart=\"return "
-                "false\">"
-                "   <h2 style=\"font-family:Courier; font-size: 20px; "
-                "color:Black;\"> [ WWStreamLab 1.1 Windows OS ]</h2>"
-                "   <h3 style=\"font-family:Courier; color:Blue; font-size: "
-                "18px; background-color:powderblue;\">"
-                "   The WStreamLab application is designed to be used in "
-                "conjunction with a water meter testing bench.</br></br>"
-                "   The water meter testing bench is the necessary measure "
-                "instrument for the test and repair of water meter in "
-                "metrological service, water meter manufacture, water supply "
-                "company and other industrial establishments.</br></br>"
-                "   As each client has different and specific needs, we design "
-                "and construct test benches to fit your needs, based on our "
-                "largely proven experience throughout the years.</br></br>"
-                "   A Water Meter Test Bench is equipment that can be built "
-                "from a simple and completely manually operated machine, to the "
-                "highest levels of high-tech, designed with automatic controls, "
-                "and software and hardware support.</br></br>"
-                "   Each project is discussed with the client and tailor-made "
-                "to fit both the technical needs and budget "
-                "constraints.</br></br>"
-                "   The Test Bench can be in the following sort and diameters "
-                "(water meters range) DN15 - DN40, DN15 - DN50, DN50 - "
-                "DN200.</br></br>"
-                "   Measurement method from the point of  counted volume are as "
-                "follows:</br></br>"
-                "   - Reference flow meter (comparative method);</br></br>"
-                "   - Weighing scales (gravimetric method);</br></br>"
-                "   In the latter option, we utilize high precision and "
-                "performance digital scales and  include comparative "
-                "method.</br></br>"
-                "   The both methods are used electromagnetic flow meters of "
-                "high precision.</br>"
-                "   </body>"
-                "</html>";
-    }
-    else
-    {
-        output
-                << "<!DOCTYPE html>"
-                "<html>"
-                "   <head>"
-                "      <title>WStreamLab 1.1 Windows OS</title>"
-                "   </head>"
-                "   <body  oncopy=\"return false\" onpaste=\"return false\" "
-                "oncut=\"return false\">"
-                "   <div onmousedown=\"return false\" onselectstart=\"return "
-                "false\">"
-                "   <h2 style=\"font-family:Courier; font-size: 20px; "
-                "color:Black;\"> [ WStreamLab 1.1 Windows OS ]</h2>"
-                "   <h3 style=\"font-family:Courier; color:Blue; font-size: "
-                "18px; background-color:powderblue;\">"
-                "   Aplicația WStreamLab este concepută pentru a fi utilizată "
-                "împreună cu o instalatie de verificare metrologica a "
-                "contoarelor de apă.</br></br>"
-                "   Instalatie de verificare metrologica a contoarelor de apă "
-                "este instrumentul de măsură necesar pentru testarea și "
-                "repararea contoarelor de apă în cadrul serviciilor de "
-                "metrologie, al fabricării contoarelor de apă, al companiilor "
-                "de alimentare cu apă și al altor unități industriale.</br></br>"
-                "   Deoarece fiecare client are nevoi diferite și specifice "
-                "exista instalatii de verificare metrologica care se potriveasc "
-                "nevoilor clientului.</br></br>"
-                "   O instalatie de verificare metrologica a contoarelor de apă "
-                "este un echipament care poate fi construit intr-o gama variata "
-                "pornind de la o instalatie simplă și complet manuală, până la "
-                "cele mai înalte niveluri de înaltă tehnologie, proiectat cu "
-                "comenzi automate și cu suport software și hardware.</br></br>"
-                "   Fiecare proiect este discutat cu clientul și este "
-                "personalizat pentru a se potrivi atât nevoilor tehnice, cât și "
-                "constrângerilor bugetare.</br></br>"
-                "   Instalatia de verificare metrologica poate fi în "
-                "următoarele categorii și diametre (gama de contoare apa) DN15 "
-                "- DN40, DN15 - DN50, DN50 - DN200.</br></br>"
-                "   Metodele de măsurare din punct de vedere al volumului "
-                "masurat sunt următoarele:</br></br>"
-                "   - debitmetru de referință (metodă comparativă);</br></br>"
-                "   - cântar pentru determinare masa (metoda "
-                "gravimetrică);</br></br>"
-                "   În a doua opțiune se utilizează cântare digitale de înaltă "
-                "precizie și performanță și sunt include metode "
-                "comparativă.</br></br>"
-                "   La ambele metode se folosesc debitmetre electromagnetice de "
-                "mare precizie.</br></br>"
-                "   </body></br></br>"
-                "</html>"
-                "</br></br>";
-    }
-    generalDescriptionHtmlFile << output.str() << std::endl;
-    QDesktopServices::openUrl(QUrl::fromUserInput(htmlFile));
-}
-
-void MainWindow::onWaterDensityPage()
-{
-    QString htmlFile = QDir::temp().path() + QString("/5igsg2ly2t.html");
-    std::ofstream densityHtmlFile(htmlFile.toStdString());
-    std::stringstream output;
     if (ROMANIAN == selectedInfo.selectedLanguage)
     {
-        output << "<!DOCTYPE html>"
-               "<html>"
-               "   <head>"
-               "      <title>Densitate apa in functie de temperatura</title>"
-               "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" "
-               "oncut=\"return false\">"
-               "     <div onmousedown=\"return false\" "
-               "onselectstart=\"return false\">";
-        output << "     <pre><h2  style=\"color:DodgerBlue\">";
-        output
-                << "Tabelul de mai jos reprezinta densitatea apei in kg/mc in "
-                "functie de temperatura intre 0 si 100°C</br>"
-                "cu pas de 0.1°C la presiune normala (1013.25 kPa). Aceste "
-                "valori sunt generate plecand de la datele</br>"
-                "existente in aplicatie.</pre></br>";
-        output << "     <pre>   T [°C]  ρ[kg/mc]</pre><hr />";
+        QString fileName = MANUAL_RO;
+        QString appDirPath = QCoreApplication::applicationDirPath();
+        QString filePath = QDir(appDirPath).filePath(fileName);
+
+        if (QFile::exists(filePath)) {
+            QUrl fileUrl = QUrl::fromLocalFile(filePath);
+            QDesktopServices::openUrl(fileUrl);
+        }
     }
-    else
-    {
-        output << "<!DOCTYPE html>"
-               "<html>"
-               "   <head>"
-               "      <title>Water density by temperature</title>"
-               "   </head>"
-               "   <body  oncopy=\"return false\" onpaste=\"return false\" "
-               "oncut=\"return false\">"
-               "     <div onmousedown=\"return false\" "
-               "onselectstart=\"return false\">";
-        output << "     <pre><h2  style=\"color:DodgerBlue\">";
-        output << "The table below shows the density of water in kg/mc for "
-               "different temperatures between 0 and 100°C</br>"
-               "with the step of 0.1°C under normal pressure (1013.25 kPa). "
-               "These values ​​are generated starting from the </br>"
-               "existing database in the "
-               "application.</pre></br>";
-        output << "     <pre>   T [°C]  ρ[kg/mc]</pre><hr />";
+
+    return;
+}
+
+#include <QFile>
+#include <QDir>
+#include <QUrl>
+#include <QDesktopServices>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
+
+void MainWindow::onWaterDensityPage() {
+    QString htmlFilePath = QDir::temp().filePath("water_density.html");
+
+    std::ofstream densityHtmlFile(htmlFilePath.toStdString());
+    if (!densityHtmlFile.is_open()) {
+        // Handle error opening file
+        return;
     }
-    for (int i = 0; i <= 1000; ++i)
-    {
+
+    std::stringstream output;
+
+    output << R"(
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Water Density vs Temperature</title>
+                <style>
+                    body {
+                        -webkit-user-select: none;  /* Chrome all / Safari all */
+                        -moz-user-select: none;     /* Firefox all */
+                        -ms-user-select: none;      /* IE 10+ */
+                        user-select: none;          /* Likely future */
+                    }
+                    .black { color: black; }
+                    .green { color: green; }
+                    .blue { color: blue; }
+                    h2 { font-size: 15px; } /* Adjust font size for the first lines */
+                    pre { font-size: 20px; } /* Adjust font size for the columns */
+                </style>
+            </head>
+            <body>
+                <div>
+                    <pre><h2 style="color:DodgerBlue;">)";
+
+    if (ROMANIAN == selectedInfo.selectedLanguage) {
+        output << "Tabelul de mai jos reprezinta densitatea apei in kg/mc "
+                  "si factorul de corectie volum functie de temperatura intre 0 si 100°C</br>"
+                  "cu un pas de 0.1°C la presiune normala (1013.25 kPa). Aceste valori "
+                  "sunt generate plecand de la datele existente in aplicatie.</pre></br>";
+    } else {
+        output << "The table below shows the density of water in kg/mc and "
+                  "volume correction factor for different temperatures between 0 and 100°C with</br>"
+                  "the step of 0.1°C under normal pressure (1013.25 kPa). "
+                  "These values ​​are generated starting from the existing database in the application.</pre></br>";
+    }
+
+    output << R"(
+                    <pre><span class="white">&nbsp;&nbsp;&nbsp;T [°C]</span>&nbsp;&nbsp;<span class="yellow">ρ[kg/mc]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">K</span></pre>
+                    <hr />
+    )";
+
+    for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
-        double density =
-            quadraticInterpolationTemperature(temperature, 998.2009);
-        output << "     <pre>   " << std::fixed << std::setprecision(1)
-               << temperature << "     " << std::setprecision(4) << density
-               << "</pre>";
-        if ((i + 1) % 10 == 0)
-        {
+        double density = quadraticInterpolationTemperature(temperature, 998.2009);
+        double coefficient = quadraticInterpolationVolumeCorrection(temperature);
+
+        output << "<pre><span class=\"black\">" << std::fixed << std::setprecision(1)
+               << "&nbsp;&nbsp;&nbsp;&nbsp;" << temperature << "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"green\">"
+               << std::setprecision(4) << density << "</span>&nbsp;&nbsp;&nbsp;<span class=\"blue\">"
+               << std::setprecision(5) <<  coefficient << "</span></pre>";
+
+        if ((i + 1) % 10 == 0) {
             output << "<hr />\n";
         }
     }
-    output << "     </h2>"
-           "     </div>"
-           "   </body>"
-           "</html>";
+
+    output << R"(
+                </h2>
+                </div>
+            </body>
+        </html>
+    )";
+
     densityHtmlFile << output.str() << std::endl;
-    QDesktopServices::openUrl(QUrl::fromUserInput(htmlFile));
-    QFile(htmlFile).remove();
+
+    QDesktopServices::openUrl(QUrl::fromLocalFile(htmlFilePath));
+
+    QFile::remove(htmlFilePath);
 }
+
+
 
 void MainWindow::onShowLicense()
 {

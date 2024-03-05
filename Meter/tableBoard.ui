@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1450</width>
-    <height>800</height>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -125,6 +125,9 @@ QMessageBox  {
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMaximumSize</enum>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <property name="spacing">

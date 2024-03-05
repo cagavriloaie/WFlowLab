@@ -421,7 +421,7 @@ public:
             TableBoard->setObjectName("TableBoard");
         TableBoard->resize(1450, 800);
         TableBoard->setMinimumSize(QSize(1400, 800));
-        TableBoard->setMaximumSize(QSize(1450, 800));
+        TableBoard->setMaximumSize(QSize(16777215, 16777215));
         TableBoard->setFocusPolicy(Qt::ClickFocus);
         QIcon icon;
         icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
@@ -519,6 +519,7 @@ public:
 "}"));
         verticalLayout_5 = new QVBoxLayout(TableBoard);
         verticalLayout_5->setObjectName("verticalLayout_5");
+        verticalLayout_5->setSizeConstraint(QLayout::SetMaximumSize);
         verticalLayout_9 = new QVBoxLayout();
         verticalLayout_9->setSpacing(2);
         verticalLayout_9->setObjectName("verticalLayout_9");

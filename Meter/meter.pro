@@ -21,19 +21,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     interface.cpp \
-    air-density.cpp \
     helpabout.cpp \
     ledindicator.cpp \
     license.cpp \
     md5.cpp \
     report.cpp \
-    tableBoard.cpp
+    tableBoard.cpp \
+    water-density.cpp
 
 # Header files
 HEADERS += \
     mainwindow.h \
     interface.h \
-    air-density.h \
     definitions.h \
     flow-meter-type.h \
     helpabout.h \
@@ -41,7 +40,8 @@ HEADERS += \
     license.h \
     md5.h \
     report.h \
-    tableBoard.h
+    tableBoard.h \
+    water-density.h
 
 # UI form files
 FORMS += \
