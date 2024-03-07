@@ -21,7 +21,6 @@
 #include <winnt.h>
 #include <fstream>
 
-#include "definitions.h"
 #include "mainwindow.h"
 
 class PixelImageWidget : public QMainWindow

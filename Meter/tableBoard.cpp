@@ -23,7 +23,7 @@
 #include <mutex>
 
 #include "definitions.h"
-#include "water-density.h"
+#include "waterdensity.h"
 #include "mainwindow.h"
 #include "tableBoard.h"
 #include "ui_mainwindow.h"

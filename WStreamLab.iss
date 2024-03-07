@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define AppWSLName "WStreamLab"
-#define AppWSLVersion "1.2"
+#define AppWSLVersion "1.3"
 #define AppWSLPublisher "ELCOST"
 #define AppWSLExeName "WStreamLab.exe"
 #define AppWSLIconName "WStreamLab.ico"

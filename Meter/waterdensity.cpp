@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "definitions.h"
-#include "water-density.h"
+#include "waterdensity.h"
 
 const double temperaturePoints[] =
     {

@@ -7,9 +7,11 @@
 
 History:
 V 0.9  02.2023  Not official release, under development;
-V 1.0  05.2023  First official release, automatically interface RS 485 detection
-V 1.1  11.2023  Fixing translations and add restriction for data input
-V 1.2  01.2024  Added metrological report pdf document
+V 1.0  05.2023  First official release, automatically interface RS 485 detection;
+V 1.1  11.2023  Fixing translations and add restriction for data input;
+V 1.2  01.2024  Added metrological report pdf document;
+V 1.3  03.2024  Read options configuration file more security;
+                Added volume correction coefficient; 
 
 Application can be installed and run under Windows OS with versions:
 
@@ -19,6 +21,9 @@ Application can be installed and run under Windows OS with versions:
 Architecture:
    IA-32
    x86-64
+   
+Recomanded display resolution:
+   1920 x 1080 or higher
    
 It is good to have an application for reading PDF files installed on your computer (such as Adobe Acrobat Reader) 
 to be able to view and read the measurement sheets.

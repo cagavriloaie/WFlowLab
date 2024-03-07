@@ -27,7 +27,7 @@ SOURCES += \
     md5.cpp \
     report.cpp \
     tableBoard.cpp \
-    water-density.cpp
+    waterdensity.cpp
 
 # Header files
 HEADERS += \
@@ -41,7 +41,7 @@ HEADERS += \
     md5.h \
     report.h \
     tableBoard.h \
-    water-density.h
+    waterdensity.h
 
 # UI form files
 FORMS += \

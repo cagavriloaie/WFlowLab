@@ -24,7 +24,7 @@
 
 // Custom headers
 #include "definitions.h"
-#include "water-density.h"
+#include "waterdensity.h"
 #include "flow-meter-type.h"
 #include "mainwindow.h"
 #include "md5.h"
@@ -741,9 +741,9 @@ void MainWindow::onWaterDensityPage() {
     }
 
     output << R"(
-                    <pre><span class="white">&nbsp;&nbsp;&nbsp;T [°C]</span>&nbsp;&nbsp;<span class="yellow">ρ[kg/mc]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">K</span></pre>
-                    <hr />
-    )";
+        <pre><span class="black">&nbsp;&nbsp;&nbsp;T [°C]</span>&nbsp;&nbsp;<span class="green">ρ[kg/m³]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">K</span></pre>
+        <hr />
+     )";
 
     for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
