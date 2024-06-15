@@ -1,20 +1,17 @@
-# Project configuration
+# Project configuration for WStreamLab application
+
+# Include necessary Qt modules
 QT += core gui printsupport widgets serialbus
 
-# Use widgets module for versions greater than 4
+# Conditionally include widgets module for Qt versions greater than 4
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # Set C++ standard to C++17
 CONFIG += c++17
 
-# Enable all warnings
-#QMAKE_CXXFLAGS += -Wall -Wextra
-
-# Uncomment the following line to treat warnings as errors
+# Enable all warnings and treat them as errors
+# QMAKE_CXXFLAGS += -Wall -Wextra
 # QMAKE_CXXFLAGS += -Werror
-
-# Uncomment the following line to make your code fail to compile if it uses deprecated APIs
-# DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000  # disables all the APIs deprecated before Qt 6.0.0
 
 # Source files
 SOURCES += \

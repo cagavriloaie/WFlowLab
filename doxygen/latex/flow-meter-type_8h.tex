@@ -1,0 +1,93 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/flow-\/meter-\/type.h File Reference}
+\hypertarget{flow-meter-type_8h}{}\label{flow-meter-type_8h}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/flow-\/meter-\/type.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/flow-\/meter-\/type.h}}
+
+
+Header file defining enums for flow meter types.  
+
+
+{\ttfamily \#include $<$QDir$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+Include dependency graph for flow-\/meter-\/type.h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}}
+\begin{DoxyCompactList}\small\item\em Structure representing a water flow meter type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}} $>$ \mbox{\hyperlink{flow-meter-type_8h_a5fb2afda60930f69a251915a88afc620}{read\+Flow\+Meter\+Types\+CSV}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Reads meter flow types from a CSV file and returns them as a vector of \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a}\label{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a} 
+std\+::vector$<$ \mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}} $>$ {\bfseries meter\+Flow\+Types\+Default}
+\begin{DoxyCompactList}\small\item\em Vector containing default \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} objects representing various water flow meters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}} \mbox{\hyperlink{flow-meter-type_8h_af606e83054d55b0e113dc2ef1d88f247}{Meter\+Flow\+DB}} \mbox{[}\mbox{\hyperlink{definitions_8h_a99a00113e87f2480241d21cbda4aa236}{MAX\+\_\+\+NUMBER\+\_\+\+FLOW\+\_\+\+METER\+\_\+\+TYPES}}\mbox{]} = \{\}
+\begin{DoxyCompactList}\small\item\em Database array storing water flow meter types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file defining enums for flow meter types. 
+
+This file defines enums that represent different types of flow meters used in the project.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{flow-meter-type_8h_a5fb2afda60930f69a251915a88afc620}\index{flow-\/meter-\/type.h@{flow-\/meter-\/type.h}!readFlowMeterTypesCSV@{readFlowMeterTypesCSV}}
+\index{readFlowMeterTypesCSV@{readFlowMeterTypesCSV}!flow-\/meter-\/type.h@{flow-\/meter-\/type.h}}
+\doxysubsubsection{\texorpdfstring{readFlowMeterTypesCSV()}{readFlowMeterTypesCSV()}}
+{\footnotesize\ttfamily \label{flow-meter-type_8h_a5fb2afda60930f69a251915a88afc620} 
+std\+::vector$<$ \mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}} $>$ read\+Flow\+Meter\+Types\+CSV (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Reads meter flow types from a CSV file and returns them as a vector of \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} objects. 
+
+This function reads meter flow types from the specified CSV file. Each line in the CSV file represents a \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} object with fields separated by CSV\+\_\+\+DELIMITER. If the file cannot be opened, it displays a warning message using QMessage\+Box and returns the default meter flow types.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The path to the CSV file containing meter flow types. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Meter\+Flow\+Type$>$ A vector containing \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} objects read from the CSV file. If the file cannot be read or is corrupted, it returns meter\+Flow\+Types\+Default.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{struct_meter_flow_type}{Meter\+Flow\+Type}, \doxylink{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a}{meter\+Flow\+Types\+Default}, QMessage\+Box 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{flow-meter-type_8h_af606e83054d55b0e113dc2ef1d88f247}\index{flow-\/meter-\/type.h@{flow-\/meter-\/type.h}!MeterFlowDB@{MeterFlowDB}}
+\index{MeterFlowDB@{MeterFlowDB}!flow-\/meter-\/type.h@{flow-\/meter-\/type.h}}
+\doxysubsubsection{\texorpdfstring{MeterFlowDB}{MeterFlowDB}}
+{\footnotesize\ttfamily \label{flow-meter-type_8h_af606e83054d55b0e113dc2ef1d88f247} 
+\mbox{\hyperlink{struct_meter_flow_type}{Meter\+Flow\+Type}} Meter\+Flow\+DB\mbox{[}\mbox{\hyperlink{definitions_8h_a99a00113e87f2480241d21cbda4aa236}{MAX\+\_\+\+NUMBER\+\_\+\+FLOW\+\_\+\+METER\+\_\+\+TYPES}}\mbox{]} = \{\}}
+
+
+
+Database array storing water flow meter types. 
+
+This array stores information about water flow meter types. Each element represents a \doxylink{struct_meter_flow_type}{Meter\+Flow\+Type} structure, which includes attributes such as name, nominal diameter, flow rates (nominal, maximum, transition, minimum), and error margins.
+
+This array is initialized to store up to MAX\+\_\+\+NUMBER\+\_\+\+FLOW\+\_\+\+METER\+\_\+\+TYPES meter types. Ensure that the array size is sufficient for your application\textquotesingle{}s needs to avoid overflow.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{struct_meter_flow_type}{Meter\+Flow\+Type}, \doxylink{definitions_8h_a99a00113e87f2480241d21cbda4aa236}{MAX\+\_\+\+NUMBER\+\_\+\+FLOW\+\_\+\+METER\+\_\+\+TYPES} 
+\end{DoxySeeAlso}

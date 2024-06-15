@@ -1,0 +1,133 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/waterdensity.h File Reference}
+\hypertarget{waterdensity_8h}{}\label{waterdensity_8h}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/waterdensity.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/waterdensity.h}}
+
+
+Header file for water density calculations.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{waterdensity_8h_a16f081c48b6b437ffb457a76a1bf4498}{linear\+Interpolation\+Temperature}} (double temperature, double correction)
+\begin{DoxyCompactList}\small\item\em Performs linear interpolation for temperature correction. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{waterdensity_8h_afa46f616a57a0ed4ea1ced1a381b7d65}{quadratic\+Interpolation\+Temperature}} (double temperature, double correction)
+\begin{DoxyCompactList}\small\item\em Performs quadratic interpolation for temperature correction. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{waterdensity_8h_ac9147057aa65eea473b0e1a2b264a5c4}{quadratic\+Interpolation\+Volume\+Correction}} (double temperature)
+\begin{DoxyCompactList}\small\item\em Calculates the volume correction using quadratic interpolation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for water density calculations. 
+
+This file defines functions for calculating water density and related corrections.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert date 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{waterdensity_8h_a16f081c48b6b437ffb457a76a1bf4498}\index{waterdensity.h@{waterdensity.h}!linearInterpolationTemperature@{linearInterpolationTemperature}}
+\index{linearInterpolationTemperature@{linearInterpolationTemperature}!waterdensity.h@{waterdensity.h}}
+\doxysubsubsection{\texorpdfstring{linearInterpolationTemperature()}{linearInterpolationTemperature()}}
+{\footnotesize\ttfamily \label{waterdensity_8h_a16f081c48b6b437ffb457a76a1bf4498} 
+double linear\+Interpolation\+Temperature (\begin{DoxyParamCaption}\item[{double}]{temperature}{, }\item[{double}]{correction}{}\end{DoxyParamCaption})}
+
+
+
+Performs linear interpolation for temperature correction. 
+
+Given a temperature and a correction factor, this function performs linear interpolation to adjust the correction factor based on the temperature.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & The temperature for correction. \\
+\hline
+{\em correction} & The correction factor to be adjusted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Adjusted correction factor based on linear interpolation.
+\end{DoxyReturn}
+Performs linear interpolation for temperature correction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & Temperature (in Celsius) for interpolation. \\
+\hline
+{\em correction} & Correction factor applied to the density calculation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Interpolated water density.
+\end{DoxyReturn}
+The function calculates water density using linear interpolation based on temperature points and corresponding density values. It handles out-\/of-\/range temperatures with default values. \Hypertarget{waterdensity_8h_afa46f616a57a0ed4ea1ced1a381b7d65}\index{waterdensity.h@{waterdensity.h}!quadraticInterpolationTemperature@{quadraticInterpolationTemperature}}
+\index{quadraticInterpolationTemperature@{quadraticInterpolationTemperature}!waterdensity.h@{waterdensity.h}}
+\doxysubsubsection{\texorpdfstring{quadraticInterpolationTemperature()}{quadraticInterpolationTemperature()}}
+{\footnotesize\ttfamily \label{waterdensity_8h_afa46f616a57a0ed4ea1ced1a381b7d65} 
+double quadratic\+Interpolation\+Temperature (\begin{DoxyParamCaption}\item[{double}]{temperature}{, }\item[{double}]{correction}{}\end{DoxyParamCaption})}
+
+
+
+Performs quadratic interpolation for temperature correction. 
+
+Given a temperature and a correction factor, this function performs quadratic interpolation to adjust the correction factor based on the temperature.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & The temperature for correction. \\
+\hline
+{\em correction} & The correction factor to be adjusted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Adjusted correction factor based on quadratic interpolation.
+\end{DoxyReturn}
+Performs quadratic interpolation for temperature correction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & Temperature (in Celsius) for interpolation. \\
+\hline
+{\em correction} & Correction factor applied to the density calculation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Interpolated water density.
+\end{DoxyReturn}
+The function calculates water density using quadratic interpolation based on temperature points and corresponding density values. It handles out-\/of-\/range temperatures with default values. \Hypertarget{waterdensity_8h_ac9147057aa65eea473b0e1a2b264a5c4}\index{waterdensity.h@{waterdensity.h}!quadraticInterpolationVolumeCorrection@{quadraticInterpolationVolumeCorrection}}
+\index{quadraticInterpolationVolumeCorrection@{quadraticInterpolationVolumeCorrection}!waterdensity.h@{waterdensity.h}}
+\doxysubsubsection{\texorpdfstring{quadraticInterpolationVolumeCorrection()}{quadraticInterpolationVolumeCorrection()}}
+{\footnotesize\ttfamily \label{waterdensity_8h_ac9147057aa65eea473b0e1a2b264a5c4} 
+double quadratic\+Interpolation\+Volume\+Correction (\begin{DoxyParamCaption}\item[{double}]{temperature}{}\end{DoxyParamCaption})}
+
+
+
+Calculates the volume correction using quadratic interpolation. 
+
+This function determines the volume correction factor based on the temperature using quadratic interpolation. The exact formula and parameters are specific to the application\textquotesingle{}s requirements.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & The temperature for which the volume correction is calculated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Volume correction factor based on quadratic interpolation.
+\end{DoxyReturn}
+Calculates the volume correction using quadratic interpolation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temperature} & Temperature (in Celsius) for interpolation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Interpolated volume correction factor.
+\end{DoxyReturn}
+The function calculates volume correction factor using quadratic interpolation based on temperature points and corresponding correction values. It handles out-\/of-\/range temperatures with default values. 

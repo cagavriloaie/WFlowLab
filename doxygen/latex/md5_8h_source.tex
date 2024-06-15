@@ -1,0 +1,70 @@
+\doxysection{md5.\+h}
+\hypertarget{md5_8h_source}{}\label{md5_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.h}}
+\mbox{\hyperlink{md5_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifndef\ BZF\_MD5\_H}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ BZF\_MD5\_H}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <cstring>}\ \ \ \ \ \textcolor{comment}{//\ C-\/style\ string\ manipulation\ functions}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <iostream>}\ \ \ \ \textcolor{comment}{//\ Standard\ input/output\ stream\ objects}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_m_d5}{MD5}}}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size\_type;\ \textcolor{comment}{//\ must\ be\ 32bit}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_m_d5_afa6155ec36de415ab2dcf5e54b670d13}{MD5}}();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_m_d5_afa6155ec36de415ab2dcf5e54b670d13}{MD5}}(\textcolor{keyword}{const}\ std::string\ \&text);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_m_d5_ac5ddf6cd8f940422396d321ea90ed045}{update}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *buf,\ size\_type\ length);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_m_d5_ac5ccba375539b993958fb235f8ac849c}{update}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ size\_type\ length);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{class_m_d5}{MD5}}\ \&\mbox{\hyperlink{class_m_d5_a10f607494a3f2e3e515fc4b99d1a06cc}{finalize}}();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00095\ \ \ \ \ std::string\ \mbox{\hyperlink{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608}{hexdigest}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\ \&\mbox{\hyperlink{class_m_d5_abe38121c467dc69768b3d3024ce9b326}{operator<<\ }}(std::ostream\ \&os,\ \mbox{\hyperlink{class_m_d5}{MD5}}\ \mbox{\hyperlink{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271}{md5}});}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ init();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ uint1;\ \textcolor{comment}{//\ \ 8bit}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uint4;\ \ \textcolor{comment}{//\ 32bit}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{enum}\ \{\ blocksize\ =\ 64\ \};\ \textcolor{comment}{//\ VC6\ won't\ eat\ a\ const\ static\ int\ here}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ transform(\textcolor{keyword}{const}\ uint1\ block[blocksize]);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ decode(uint4\ output[],\ \textcolor{keyword}{const}\ uint1\ input[],\ size\_type\ len);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ encode(uint1\ output[],\ \textcolor{keyword}{const}\ uint4\ input[],\ size\_type\ len);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ low\ level\ logic\ operations}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint4\ F(uint4\ x,\ uint4\ y,\ uint4\ z);}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint4\ G(uint4\ x,\ uint4\ y,\ uint4\ z);}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint4\ H(uint4\ x,\ uint4\ y,\ uint4\ z);}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint4\ I(uint4\ x,\ uint4\ y,\ uint4\ z);}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint4\ rotate\_left(uint4\ x,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FF(uint4\ \&a,\ uint4\ b,\ uint4\ c,\ uint4\ d,\ uint4\ x,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint4\ s,\ uint4\ ac);}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ GG(uint4\ \&a,\ uint4\ b,\ uint4\ c,\ uint4\ d,\ uint4\ x,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint4\ s,\ uint4\ ac);}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ HH(uint4\ \&a,\ uint4\ b,\ uint4\ c,\ uint4\ d,\ uint4\ x,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint4\ s,\ uint4\ ac);}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ II(uint4\ \&a,\ uint4\ b,\ uint4\ c,\ uint4\ d,\ uint4\ x,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint4\ s,\ uint4\ ac);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{bool}\ finalized;\ }
+\DoxyCodeLine{00153\ \ \ \ \ uint1\ buffer[blocksize];\ }
+\DoxyCodeLine{00154\ \ \ \ \ uint4\ count[2];\ \ \ }
+\DoxyCodeLine{00155\ \ \ \ \ uint4\ state[4];\ \ \ }
+\DoxyCodeLine{00156\ \ \ \ \ uint1\ digest[16];\ }
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ std::string\ \mbox{\hyperlink{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271}{md5}}(\textcolor{keyword}{const}\ std::string\ \&str);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

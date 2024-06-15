@@ -1,0 +1,63 @@
+\doxysection{report.\+h}
+\hypertarget{report_8h_source}{}\label{report_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/report.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/report.h}}
+\mbox{\hyperlink{report_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ REPORT\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ REPORT\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ Qt\ headers\ for\ various\ UI\ components\ and\ utilities}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QDialog>}\ \ \ \ \ \ \textcolor{comment}{//\ Modal\ or\ modeless\ dialog\ window}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QCheckBox>}\ \ \ \ \textcolor{comment}{//\ Checkbox\ UI\ element}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QLineEdit>}\ \ \ \ \textcolor{comment}{//\ Single-\/line\ text\ input\ widget}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QString>}\ \ \ \ \ \ \textcolor{comment}{//\ Qt's\ string\ class\ with\ Unicode\ support}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QTimer>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Timer\ for\ delayed\ or\ periodic\ execution}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <vector>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ vector\ container}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Project-\/specific\ definitions\ and\ constants}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }Ui}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }report;}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_report_measurements}{ReportMeasurements}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_report_measurements_a1a773fd74604c43105902cc7c229415e}{ReportMeasurements}}(QWidget\ *parent,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<QCheckBox\ *>\ \&vectorCheckNumber,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<QLineEdit\ *>\ \&vectorSerialNumber,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ QString\ resultAllTests[MAX\_ARRAY\_SIZE]);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_report_measurements_a8bb4cb0f38fcd875d027d5e5d0534d07}{\string~ReportMeasurements}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_report_measurements_abb1c5cb85cb277c36d20aad60acaa183}{Translate}}();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_report_measurements_ada1acb06cc433c06bfd79c920f6d111d}{printPdfThread}}(QString\ report);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ signals:}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_report_measurements_a8ff7981100a9a276c7b375c9efdba188}{pdfGenerationCompleted}}();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ onPrintClicked();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ onCloseClicked();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ enableGenerareBvButton();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ \ \ \ \ Ui::report\ *ui;\ }
+\DoxyCodeLine{00095\ \ \ \ \ std::vector<QCheckBox\ *>\ vectorCheckNumberCopy;\ }
+\DoxyCodeLine{00096\ \ \ \ \ std::vector<QLineEdit\ *>\ vectorSerialNumberCopy;\ }
+\DoxyCodeLine{00097\ \ \ \ \ QString\ resultAllTestsCopy[MAX\_ARRAY\_SIZE];\ }
+\DoxyCodeLine{00098\ \ \ \ \ QTimer\ *QTimerGenerareBv;\ }
+\DoxyCodeLine{00099\ \ \ \ \ QWidget\ *parentWidget;\ }
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ REPORT\_H}}
+
+\end{DoxyCode}

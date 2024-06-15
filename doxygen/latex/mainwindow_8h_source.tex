@@ -1,0 +1,189 @@
+\doxysection{mainwindow.\+h}
+\hypertarget{mainwindow_8h_source}{}\label{mainwindow_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/mainwindow.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/mainwindow.h}}
+\mbox{\hyperlink{mainwindow_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ MAINWINDOW\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MAINWINDOW\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QMainWindow>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ main\ application\ window.}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QActionGroup>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ grouping\ actions\ together.}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QApplication>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ managing\ the\ application's\ control\ flow.}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QtSerialBus/QModbusRtuSerialClient>}\ \textcolor{comment}{//\ Qt\ class\ for\ Modbus\ RTU\ serial\ client\ communication.}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QSerialPort>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ accessing\ serial\ port\ hardware.}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QSerialPortInfo>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ retrieving\ information\ about\ available\ serial\ ports.}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QTranslator>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ providing\ translations\ in\ the\ application.}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{table_board_8h}{tableBoard.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Custom\ header\ for\ TableBoard\ class.}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{license_8h}{license.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Custom\ header\ for\ License\ class.}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{helpabout_8h}{helpabout.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Custom\ header\ for\ HelpAbout\ class.}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{interface_8h}{interface.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Custom\ header\ for\ Interface\ class.}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{enum}\ SELECTED\_LANGUAGE}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ ROMANIAN,}
+\DoxyCodeLine{00029\ \ \ \ \ ENGLISH,}
+\DoxyCodeLine{00030\ \ \ \ \ DEFAULT\ =\ ENGLISH}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }Ui}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_main_window}{MainWindow}};}
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_selected_info}{SelectedInfo}}}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a4452d7bdf03b180d0a54060a0431784f}{SelectedInfo}}():}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a9c5e207bff6a3891f02684931b948f75}{density\_20}}\{0.0f\},\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a2b91e41d1a6f5a51bbd2ce7f22edf07e}{entriesNumber}}\{0\},\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a9c640dc35ae4790fed0edd764b0aaa7f}{nominalDiameter}}\{0\},\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a767850923f62e41ea91f90be81adcdb1}{nominalFlow}}\{0.0f\},\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_ac3fddd790077de8bfea3e4a41eb905e1}{maximumFlow}}\{0.0f\},\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_aea43d1851bff2645b4ea938b991ba12b}{trasitionFlow}}\{0.0f\},\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a2fc37fc8621c0a32f8baac518a5ac14e}{minimumFlow}}\{0.0f\},\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a0d9fb30565ca716dec64cc088030c5e9}{nominalError}}\{0.0f\},\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a712fd3cc68013523588cd43e614a3012}{maximumError}}\{0.0f\},\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a7b38bac2ed3655087bd3e791b0eab0a8}{ambientTemperature}}\{0\},\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a99f690b30acee2886ddbfd550941c636}{athmosphericPressure}}\{0\},\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a9e72d82e2b4557182c1cd651aebc0d7b}{relativeAirHumidity}}\{0\},\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a49f861af716db13b72517a80b10e1819}{rbGravimetric\_new}}\{true\},\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a9cd939ce2b45fefb4d05344deecaa0d8}{rbVolumetric}}\{false\},\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_ae8df87bec6f37273c0a8aab4b6169566}{rbManual}}\{true\},\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_abd94951f5fa9557495217fbfd9533cba}{rbInterface}}\{false\},\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a144fa8bbbb8c5e08be914f75e0382947}{rbTerminal}}\{false\},\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a490ad5c6431ba5940d370d937daf3f1e}{serialPort}}\{false\},\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a7772c8f82f60954cf7db3ed7e038900c}{selectedLanguage}}\{ROMANIAN\},\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_selected_info_a8cbdc60f8d81e2efc1e8c9e3e0580dac}{modbusDevice}}\{nullptr\}\ }
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_selected_info_a9c5e207bff6a3891f02684931b948f75}{density\_20}};\ }
+\DoxyCodeLine{00076\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_ac2e1205db50144840fc1e6c4fbc86704}{pathResults}};\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_selected_info_a2b91e41d1a6f5a51bbd2ce7f22edf07e}{entriesNumber}};\ }
+\DoxyCodeLine{00079\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_aa7e4ff3c0de80f48251f178a3f899ea5}{certificate}};\ }
+\DoxyCodeLine{00081\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_aabafb66ee252092ee289bc202b9df573}{nameWaterMeter}};\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_selected_info_a9c640dc35ae4790fed0edd764b0aaa7f}{nominalDiameter}};\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_a767850923f62e41ea91f90be81adcdb1}{nominalFlow}};\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_ac3fddd790077de8bfea3e4a41eb905e1}{maximumFlow}};\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_aea43d1851bff2645b4ea938b991ba12b}{trasitionFlow}};\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_a2fc37fc8621c0a32f8baac518a5ac14e}{minimumFlow}};\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_a0d9fb30565ca716dec64cc088030c5e9}{nominalError}};\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_selected_info_a712fd3cc68013523588cd43e614a3012}{maximumError}};\ }
+\DoxyCodeLine{00090\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_a7b38bac2ed3655087bd3e791b0eab0a8}{ambientTemperature}};\ }
+\DoxyCodeLine{00091\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_a99f690b30acee2886ddbfd550941c636}{athmosphericPressure}};\ }
+\DoxyCodeLine{00092\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_selected_info_a9e72d82e2b4557182c1cd651aebc0d7b}{relativeAirHumidity}};\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_a49f861af716db13b72517a80b10e1819}{rbGravimetric\_new}};\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_a9cd939ce2b45fefb4d05344deecaa0d8}{rbVolumetric}};\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_ae8df87bec6f37273c0a8aab4b6169566}{rbManual}};\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_abd94951f5fa9557495217fbfd9533cba}{rbInterface}};\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_a144fa8bbbb8c5e08be914f75e0382947}{rbTerminal}};\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_selected_info_a490ad5c6431ba5940d370d937daf3f1e}{serialPort}};\ }
+\DoxyCodeLine{00102\ \ \ \ \ SELECTED\_LANGUAGE\ \mbox{\hyperlink{struct_selected_info_a7772c8f82f60954cf7db3ed7e038900c}{selectedLanguage}};\ }
+\DoxyCodeLine{00104\ \ \ \ \ QModbusClient\ *\mbox{\hyperlink{struct_selected_info_a8cbdc60f8d81e2efc1e8c9e3e0580dac}{modbusDevice}};\ }
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_main_window}{MainWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{MainWindow}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{\string~MainWindow}}();}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{struct_selected_info}{SelectedInfo}}\ \mbox{\hyperlink{class_main_window_a61ba7aab6ba467452af0defe070bed22}{selectedInfo}};\ }
+\DoxyCodeLine{00125\ \ \ \ \ Ui::MainWindow\ *\mbox{\hyperlink{class_main_window_a35466a70ed47252a0191168126a352a5}{ui}}\ \{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{class_table_board}{TableBoard}}\ *\mbox{\hyperlink{class_main_window_a5c6941298effbe724900991e07366f97}{inputData}}\{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{class_license}{License}}\ *\mbox{\hyperlink{class_main_window_aaf52bac2a1cf1b514c1ba3d4b3d2d171}{licenseDialog}}\{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{class_help_about}{HelpAbout}}\ *\mbox{\hyperlink{class_main_window_a5cfcc2c9e8119ea50a08fe4e0dbe4336}{helpAbout}};\ }
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{class_interface}{Interface}}\ *\mbox{\hyperlink{class_main_window_aff250619741aba58866f0e30cded8ca4}{interfaceDialog}}\{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00130\ \ \ \ \ QActionGroup\ *\mbox{\hyperlink{class_main_window_ac5f2cb2b19570e882d9481ad25764ac5}{alignmentGroup}};\ }
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{class_led_indicator}{LedIndicator}}\ *\mbox{\hyperlink{class_main_window_ab5d27877e86566a985b58451c45d1748}{LED}};\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_af6f053ecad637ab470a258e4962b088c}{Translate}}();}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a8adea2a849e6591542b73c61b0540968}{setLabelValue}}(QLabel*\ label,\ \textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{int}\ precision);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_ab9a88b50db51a22b56a4fb5a2d2dd7a6}{updateSelectedInfo}}();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a7c02331278a2cbbd33bf54efa79612e2}{SelectMeterComboBox}}();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a70cccadec2ccca5781c868ba6d00bd09}{ReadConfiguration}}();}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a20951f546fc8cf0101652bd5b55aff1b}{SetDefaultConfiguration}}();}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a3719c1923c35d0d64cdbb563481a8fef}{CenterToScreen}}(QWidget\ *widget);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{class_main_window_a95d4941e8a204406dffa84477516b592}{MAX\_NR\_WATER\_METERS}}\ \{20\};\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{class_main_window_ab3885828c042ad88b24ddaaa8025882e}{NUMBER\_ENTRIES\_METER\_FLOW\_DB}}\ \{0\};\ }
+\DoxyCodeLine{00174\ \ \ \ \ std::map<std::string,\ std::string>\ \mbox{\hyperlink{class_main_window_ad416c115f3598e59ee1a7895fa479389}{optionsConfiguration}};\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ *(*EnumerateSerialPorts)();\ }
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364}{EnumerateSerialPorts}}\ \mbox{\hyperlink{class_main_window_a1fe6a2466dc9c072a5b3c417988ed85e}{serialPorts}}\{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_a1dff511c9697cbcb60150894f480b9c8}{mousePressEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_main_window_aeaecedc36266ab4571b7af2a9fcd5b08}{eventFilter}}(QObject\ *obj,\ QEvent\ *event)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00193\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (event-\/>type()\ ==\ QEvent::MouseButtonPress)}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ event\ occurred\ on\ this\ window}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ QMouseEvent\ *mouseEvent\ =\ \textcolor{keyword}{static\_cast<}QMouseEvent\ *\textcolor{keyword}{>}(event);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rect().contains(mouseEvent-\/>pos()))}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ activateWindow();}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ QMainWindow::eventFilter(obj,\ event);}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{void}\ onMeterTypeChanged(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{void}\ onNumberOfWaterMetersChanged(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{void}\ onNewSessionClicked();}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{void}\ onExitApplication();}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{void}\ onRbGavritmetricClicked();}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{void}\ onRbVolumeClicked();}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordtype}{void}\ onRbManualClicked();}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{void}\ onRbInterfaceClicked();}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordtype}{void}\ onAmbientTemperatureTextChanged();}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{void}\ onRelativeAirHumidityTextChanged();}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordtype}{void}\ onAthmosphericPressureTextChanged();}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{void}\ onSetRomanian();}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordtype}{void}\ onSetEnglish();}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{void}\ onGeneralDescription();}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordtype}{void}\ onShowLicense();}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{void}\ onWaterDensityPage();}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordtype}{void}\ onHelpAbout();}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordtype}{void}\ onPortSettings();}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordtype}{void}\ closeEvent(QCloseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ signals:}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_afb5fd5bc0bd663730c72f63356150691}{numberOfWaterMetersChangedSignal}}();}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_ab8408998342b22d61d59d7c4e4f6cc3b}{meterTypeChangedSignal}}();}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_main_window_ad3141d6f332ee4598e636c96f74ef65e}{measurementTypeChangedSignal}}();}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \};}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MAINWINDOW\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,129 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/main.cpp@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/main.cpp}}
+
+
+Main entry point of the application.  
+
+
+{\ttfamily \#include $<$QApplication$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QShared\+Memory$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QPainter$>$}\newline
+{\ttfamily \#include $<$QEvent\+Loop$>$}\newline
+{\ttfamily \#include $<$QDir$>$}\newline
+{\ttfamily \#include $<$QThread$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include $<$winnt.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
+Include dependency graph for main.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_pixel_image_widget}{Pixel\+Image\+Widget}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget} class represents a custom widget that displays a pixelated image and handles application-\/specific functionalities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{main_8cpp_a92715c03936f32de48d90dc8a85198a7}{load\+Translations}} ()
+\begin{DoxyCompactList}\small\item\em Loads the application translations from a specified path. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{main_8cpp_a83e8ff65ba039c0ae126f93fa7b9b951}{check\+And\+Handle\+Multiple\+Instances}} (QShared\+Memory \texorpdfstring{$\ast$}{*}shared)
+\begin{DoxyCompactList}\small\item\em Checks and handles multiple instances of the application using shared memory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em The main entry point of the application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+QTranslator \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{main_8cpp_a64e74c803d78c640f3bb549b1fea47ab}{app\+Translator}} = nullptr
+\begin{DoxyCompactList}\small\item\em Global pointer to manage application translations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main entry point of the application. 
+
+This file contains the main function, which serves as the entry point for the application. It initializes necessary components and starts the main event loop.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert date
+\end{DoxyDate}
+\hypertarget{main_8cpp_notes_sec}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{main_8cpp_notes_sec}
+astyle \texorpdfstring{$\ast$}{*}.cpp,\texorpdfstring{$\ast$}{*}.h --style=java --indent=spaces=4 --break-\/blocks --pad-\/oper --pad-\/comma --pad-\/paren --align-\/pointer=name --add-\/braces --mode=c --recursive 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a83e8ff65ba039c0ae126f93fa7b9b951}\index{main.cpp@{main.cpp}!checkAndHandleMultipleInstances@{checkAndHandleMultipleInstances}}
+\index{checkAndHandleMultipleInstances@{checkAndHandleMultipleInstances}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{checkAndHandleMultipleInstances()}{checkAndHandleMultipleInstances()}}
+{\footnotesize\ttfamily \label{main_8cpp_a83e8ff65ba039c0ae126f93fa7b9b951} 
+bool check\+And\+Handle\+Multiple\+Instances (\begin{DoxyParamCaption}\item[{QShared\+Memory \texorpdfstring{$\ast$}{*}}]{shared}{}\end{DoxyParamCaption})}
+
+
+
+Checks and handles multiple instances of the application using shared memory. 
+
+This function attempts to create a shared memory segment with a given key. If the segment cannot be created, it indicates that another instance of the application is already running and displays a warning message.
+
+
+\begin{DoxyParams}{Parameters}
+{\em shared} & Pointer to a QShared\+Memory instance for managing shared memory. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if another instance is already running, false if this is the first instance. 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_a92715c03936f32de48d90dc8a85198a7}\index{main.cpp@{main.cpp}!loadTranslations@{loadTranslations}}
+\index{loadTranslations@{loadTranslations}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loadTranslations()}{loadTranslations()}}
+{\footnotesize\ttfamily \label{main_8cpp_a92715c03936f32de48d90dc8a85198a7} 
+bool load\+Translations (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Loads the application translations from a specified path. 
+
+This function initializes a global QTranslator object ({\ttfamily app\+Translator}) with translations loaded from a specified .qm file located in the application\textquotesingle{}s "{}translations"{} directory.
+
+\begin{DoxyReturn}{Returns}
+True if the translation loaded successfully, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+The main entry point of the application. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Application exit status. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_a64e74c803d78c640f3bb549b1fea47ab}\index{main.cpp@{main.cpp}!appTranslator@{appTranslator}}
+\index{appTranslator@{appTranslator}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{appTranslator}{appTranslator}}
+{\footnotesize\ttfamily \label{main_8cpp_a64e74c803d78c640f3bb549b1fea47ab} 
+QTranslator\texorpdfstring{$\ast$}{*} app\+Translator = nullptr}
+
+
+
+Global pointer to manage application translations. 
+
+\texorpdfstring{$<$}{<} Implements input/output operations on memory-\/based streams.
+
+This pointer is used globally to manage translations for the application. It is initially set to nullptr and later assigned an instance of QTranslator when loading translations. 

@@ -1,0 +1,85 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/md5.cpp File Reference}
+\hypertarget{md5_8cpp}{}\label{md5_8cpp}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.cpp@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.cpp}}
+
+
+\doxylink{class_m_d5}{MD5} class implementation.  
+
+
+{\ttfamily \#include "{}md5.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+Include dependency graph for md5.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{md5_8cpp_a037beb789b0cc8c55a43f82bec2a41c8}{operator$<$$<$}} (std\+::ostream \&out, const \mbox{\hyperlink{class_m_d5}{MD5}} \&\mbox{\hyperlink{md5_8cpp_aa29908ed5cb2b9a2434869b7e30a1271}{md5}})
+\begin{DoxyCompactList}\small\item\em Overloaded operator to output the hexadecimal representation of the \doxylink{class_m_d5}{MD5} digest to an output stream. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{md5_8cpp_aa29908ed5cb2b9a2434869b7e30a1271}{md5}} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em Computes the \doxylink{class_m_d5}{MD5} hash of a given string and returns its hexadecimal representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_m_d5}{MD5} class implementation. 
+
+\begin{DoxyAuthor}{Author}
+Frank Thilo (thilo @unix-\/ag.\+org) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Created\+: 1991 
+
+Last modified\+: Insert modification date
+\end{DoxyDate}
+This file contains the implementation of the \doxylink{class_m_d5}{MD5} class, converted from the reference implementation of RFC 1321 by RSA Data Security, Inc.
+
+The original implementation was based on \doxylink{md5_8h}{md5.\+h} and md5.\+c.
+
+\begin{DoxySeeAlso}{See also}
+\href{http://www.bzflag.org}{\texttt{ http\+://www.\+bzflag.\+org}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{md5_8cpp_aa29908ed5cb2b9a2434869b7e30a1271}\index{md5.cpp@{md5.cpp}!md5@{md5}}
+\index{md5@{md5}!md5.cpp@{md5.cpp}}
+\doxysubsubsection{\texorpdfstring{md5()}{md5()}}
+{\footnotesize\ttfamily \label{md5_8cpp_aa29908ed5cb2b9a2434869b7e30a1271} 
+std\+::string md5 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str}{}\end{DoxyParamCaption})}
+
+
+
+Computes the \doxylink{class_m_d5}{MD5} hash of a given string and returns its hexadecimal representation. 
+
+This function computes the \doxylink{class_m_d5}{MD5} hash of the input string using the \doxylink{class_m_d5}{MD5} class. It then converts the computed digest into a hexadecimal string representation using the hexdigest() method and returns it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The input string for which the \doxylink{class_m_d5}{MD5} hash will be computed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hexadecimal string representation of the \doxylink{class_m_d5}{MD5} hash of the input string. 
+\end{DoxyReturn}
+\Hypertarget{md5_8cpp_a037beb789b0cc8c55a43f82bec2a41c8}\index{md5.cpp@{md5.cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!md5.cpp@{md5.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily \label{md5_8cpp_a037beb789b0cc8c55a43f82bec2a41c8} 
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{out}{, }\item[{const \mbox{\hyperlink{class_m_d5}{MD5}} \&}]{md5}{}\end{DoxyParamCaption})}
+
+
+
+Overloaded operator to output the hexadecimal representation of the \doxylink{class_m_d5}{MD5} digest to an output stream. 
+
+This operator allows the \doxylink{class_m_d5}{MD5} digest to be output directly to an ostream. It calls the hexdigest() method of the \doxylink{class_m_d5}{MD5} object to obtain the hexadecimal representation and outputs it to the specified ostream.
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & The output stream to which the \doxylink{class_m_d5}{MD5} digest will be written. \\
+\hline
+{\em md5} & The \doxylink{class_m_d5}{MD5} object whose digest will be written to the output stream. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the output stream after writing the \doxylink{class_m_d5}{MD5} digest. 
+\end{DoxyReturn}

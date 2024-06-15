@@ -1,0 +1,68 @@
+\doxysection{interface.\+h}
+\hypertarget{interface_8h_source}{}\label{interface_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/interface.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/interface.h}}
+\mbox{\hyperlink{interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ INTERFACE\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INTERFACE\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QDir>}\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ handling\ directories\ and\ their\ contents.}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QMessageBox>}\ \ \textcolor{comment}{//\ Qt\ class\ for\ displaying\ modal\ dialog\ boxes\ with\ messages.}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <iostream>}\ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ stream\ input/output\ library.}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <fstream>}\ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ file\ stream\ input/output\ library.}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <sstream>}\ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ string\ stream\ input/output\ library.}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <vector>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ container\ class\ for\ dynamic\ arrays.}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ string\ class.}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ledindicator_8h}{ledindicator.h}}"{}}\ \textcolor{comment}{//\ Class\ LED\ indicator}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }Ui}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_interface}{Interface}};}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_interface}{Interface}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_interface_aedecb2b6b3994bc9732c346dd7d05ce7}{Interface}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interface_a19179888f29f18f1be54a3dfe98f68c0}{\string~Interface}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interface_a690c79d907fa76f816e90501f637825c}{Translate}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_interface_afe5a72749d3e67e5a6abedcf12daf5cf}{checkModbusAddress}}(qint16\ address);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ Ui::Interface\ *ui;\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ QVector<QString>\ entries;\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isOpenModbusPort\ \{\textcolor{keyword}{false}\};\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_led_indicator}{LedIndicator}}\ *ledStateTable[10];\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ DisconnectSerialPort();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCloseClicked();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onTestConfigurationClicked();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSaveConfigurationClicked();}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onRefreshSerialPortClicked();}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSelectSerialChanged();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onBaudRateChanged();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSelectDataBitsChanged();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSelectParityChanged();}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSelectStopBitsChanged();}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onReadModbusReady();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ showEvent(QShowEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00137\ \ \ \ \ \};}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ INTERFACE\_H}}
+
+\end{DoxyCode}

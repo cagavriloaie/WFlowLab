@@ -1,0 +1,150 @@
+\doxysection{Report\+Measurements Class Reference}
+\hypertarget{class_report_measurements}{}\label{class_report_measurements}\index{ReportMeasurements@{ReportMeasurements}}
+
+
+The \doxylink{class_report_measurements}{Report\+Measurements} class provides a dialog for reporting measurements.  
+
+
+
+
+{\ttfamily \#include $<$report.\+h$>$}
+
+
+
+Inheritance diagram for Report\+Measurements\+:
+% FIG 0
+
+
+Collaboration diagram for Report\+Measurements\+:
+% FIG 1
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_report_measurements_a8ff7981100a9a276c7b375c9efdba188}\label{class_report_measurements_a8ff7981100a9a276c7b375c9efdba188} 
+void {\bfseries pdf\+Generation\+Completed} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when PDF generation is completed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_report_measurements_a1a773fd74604c43105902cc7c229415e}{Report\+Measurements}} (QWidget \texorpdfstring{$\ast$}{*}parent, const std\+::vector$<$ QCheck\+Box \texorpdfstring{$\ast$}{*} $>$ \&vector\+Check\+Number, const std\+::vector$<$ QLine\+Edit \texorpdfstring{$\ast$}{*} $>$ \&vector\+Serial\+Number, const QString result\+All\+Tests\mbox{[}MAX\+\_\+\+ARRAY\+\_\+\+SIZE\mbox{]})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_report_measurements}{Report\+Measurements} dialog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_report_measurements_a8bb4cb0f38fcd875d027d5e5d0534d07}{\texorpdfstring{$\sim$}{\string~}\+Report\+Measurements}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_report_measurements}{Report\+Measurements} dialog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_report_measurements_abb1c5cb85cb277c36d20aad60acaa183}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em Translates the UI elements to the selected language. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_report_measurements_ada1acb06cc433c06bfd79c920f6d111d}{print\+Pdf\+Thread}} (QString report)
+\begin{DoxyCompactList}\small\item\em Static method to start a thread for PDF generation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_report_measurements}{Report\+Measurements} class provides a dialog for reporting measurements. 
+
+This class allows users to generate and print a report based on selected checkboxes and serial numbers. It supports PDF generation and provides signals upon completion. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_report_measurements_a1a773fd74604c43105902cc7c229415e}\index{ReportMeasurements@{ReportMeasurements}!ReportMeasurements@{ReportMeasurements}}
+\index{ReportMeasurements@{ReportMeasurements}!ReportMeasurements@{ReportMeasurements}}
+\doxysubsubsection{\texorpdfstring{ReportMeasurements()}{ReportMeasurements()}}
+{\footnotesize\ttfamily \label{class_report_measurements_a1a773fd74604c43105902cc7c229415e} 
+Report\+Measurements\+::\+Report\+Measurements (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{, }\item[{const std\+::vector$<$ QCheck\+Box \texorpdfstring{$\ast$}{*} $>$ \&}]{vector\+Check\+Number}{, }\item[{const std\+::vector$<$ QLine\+Edit \texorpdfstring{$\ast$}{*} $>$ \&}]{vector\+Serial\+Number}{, }\item[{const QString}]{result\+All\+Tests}{\mbox{[}\+MAX\+\_\+\+ARRAY\+\_\+\+SIZE\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_report_measurements}{Report\+Measurements} dialog. 
+
+Constructor for the \doxylink{class_report_measurements}{Report\+Measurements} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget. \\
+\hline
+{\em vector\+Check\+Number} & Vector of QCheck\+Box pointers for measurement selection. \\
+\hline
+{\em vector\+Serial\+Number} & Vector of QLine\+Edit pointers for serial numbers. \\
+\hline
+{\em result\+All\+Tests} & Array of QStrings containing test results.\\
+\hline
+\end{DoxyParams}
+Initializes the \doxylink{class_report_measurements}{Report\+Measurements} dialog with the provided parent widget, sets up the user interface, copies arrays, and initializes timer and connections.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent widget to which this dialog belongs. \\
+\hline
+{\em vector\+Check\+Number} & Vector of QCheck\+Box pointers used for storing check numbers. \\
+\hline
+{\em vector\+Serial\+Number} & Vector of QLine\+Edit pointers used for storing serial numbers. \\
+\hline
+{\em result\+All\+Tests} & Array of QString containing results of all tests. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_report_measurements_a8bb4cb0f38fcd875d027d5e5d0534d07}\index{ReportMeasurements@{ReportMeasurements}!````~ReportMeasurements@{\texorpdfstring{$\sim$}{\string~}ReportMeasurements}}
+\index{````~ReportMeasurements@{\texorpdfstring{$\sim$}{\string~}ReportMeasurements}!ReportMeasurements@{ReportMeasurements}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ReportMeasurements()}{\string~ReportMeasurements()}}
+{\footnotesize\ttfamily \label{class_report_measurements_a8bb4cb0f38fcd875d027d5e5d0534d07} 
+Report\+Measurements\+::\texorpdfstring{$\sim$}{\string~}\+Report\+Measurements (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_report_measurements}{Report\+Measurements} dialog. 
+
+Destructor for the \doxylink{class_report_measurements}{Report\+Measurements} class.
+
+Cleans up the user interface (ui) resources. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_report_measurements_ada1acb06cc433c06bfd79c920f6d111d}\index{ReportMeasurements@{ReportMeasurements}!printPdfThread@{printPdfThread}}
+\index{printPdfThread@{printPdfThread}!ReportMeasurements@{ReportMeasurements}}
+\doxysubsubsection{\texorpdfstring{printPdfThread()}{printPdfThread()}}
+{\footnotesize\ttfamily \label{class_report_measurements_ada1acb06cc433c06bfd79c920f6d111d} 
+void Report\+Measurements\+::print\+Pdf\+Thread (\begin{DoxyParamCaption}\item[{QString}]{report}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Static method to start a thread for PDF generation. 
+
+Generates a PDF document from HTML content and opens it using the default PDF viewer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & The report to generate in PDF format.\\
+\hline
+\end{DoxyParams}
+This function generates a PDF document from the provided HTML report content. It ensures thread safety when accessing shared resources using a mutex. After generating the PDF, it checks for errors and opens the generated PDF file using the default PDF viewer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & The HTML content to be printed into the PDF. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_report_measurements_abb1c5cb85cb277c36d20aad60acaa183}\index{ReportMeasurements@{ReportMeasurements}!Translate@{Translate}}
+\index{Translate@{Translate}!ReportMeasurements@{ReportMeasurements}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily \label{class_report_measurements_abb1c5cb85cb277c36d20aad60acaa183} 
+void Report\+Measurements\+::\+Translate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Translates the UI elements to the selected language. 
+
+Translates UI elements and sets localized text for the \doxylink{class_report_measurements}{Report\+Measurements} dialog.
+
+This function translates various UI elements and sets localized text using the current application\textquotesingle{}s translation system. It is typically called during initialization or when the language/locale is changed to ensure the UI reflects the selected language.
+
+Translated elements include window title, group box title, labels, combo box items, and push button texts.
+
+Example usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_report_measurements}{ReportMeasurements}}\ report;}
+\DoxyCodeLine{report.\mbox{\hyperlink{class_report_measurements_abb1c5cb85cb277c36d20aad60acaa183}{Translate}}();}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{report_8h}{report.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{report_8cpp}{report.\+cpp}}\end{DoxyCompactItemize}

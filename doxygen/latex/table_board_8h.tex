@@ -1,0 +1,71 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/table\+Board.h File Reference}
+\hypertarget{table_board_8h}{}\label{table_board_8h}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.h}}
+
+
+Header file for the \doxylink{class_table_board}{Table\+Board} class.  
+
+
+{\ttfamily \#include $<$QDialog$>$}\newline
+{\ttfamily \#include $<$QLine\+Edit$>$}\newline
+{\ttfamily \#include $<$QLabel$>$}\newline
+{\ttfamily \#include $<$QCheck\+Box$>$}\newline
+{\ttfamily \#include $<$QKey\+Event$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include "{}report.\+h"{}}\newline
+Include dependency graph for table\+Board.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_table_board}{Table\+Board}}
+\begin{DoxyCompactList}\small\item\em Dialog window for managing and displaying water meter test data in a table format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string \mbox{\hyperlink{table_board_8h_ae63e1db5d0d40db1a2f3f5128478bf78}{to\+\_\+string\+\_\+with\+\_\+precision}} (const T a\+\_\+value, const int n=6)
+\begin{DoxyCompactList}\small\item\em Converts a numeric value to a string with a specified precision. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the \doxylink{class_table_board}{Table\+Board} class. 
+
+This file defines the \doxylink{class_table_board}{Table\+Board} class, which represents a dialog for managing and validating input data related to a table board.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert date 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{table_board_8h_ae63e1db5d0d40db1a2f3f5128478bf78}\index{tableBoard.h@{tableBoard.h}!to\_string\_with\_precision@{to\_string\_with\_precision}}
+\index{to\_string\_with\_precision@{to\_string\_with\_precision}!tableBoard.h@{tableBoard.h}}
+\doxysubsubsection{\texorpdfstring{to\_string\_with\_precision()}{to\_string\_with\_precision()}}
+{\footnotesize\ttfamily \label{table_board_8h_ae63e1db5d0d40db1a2f3f5128478bf78} 
+template$<$typename T $>$ \\
+std\+::string to\+\_\+string\+\_\+with\+\_\+precision (\begin{DoxyParamCaption}\item[{const T}]{a\+\_\+value}{, }\item[{const int}]{n}{ = {\ttfamily 6}}\end{DoxyParamCaption})}
+
+
+
+Converts a numeric value to a string with a specified precision. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Type of the numeric value (e.\+g., float, double, int). \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em a\+\_\+value} & The numeric value to convert to a string. \\
+\hline
+{\em n} & Precision (number of digits after the decimal point). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string The string representation of the numeric value with specified precision. 
+\end{DoxyReturn}

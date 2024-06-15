@@ -1,0 +1,197 @@
+\doxysection{MD5 Class Reference}
+\hypertarget{class_m_d5}{}\label{class_m_d5}\index{MD5@{MD5}}
+
+
+The \doxylink{class_m_d5}{MD5} class computes \doxylink{class_m_d5}{MD5} hashes of strings or byte arrays.  
+
+
+
+
+{\ttfamily \#include $<$md5.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_m_d5_aa836972700679dbcff6ae8337f6db464}\label{class_m_d5_aa836972700679dbcff6ae8337f6db464} 
+typedef unsigned int {\bfseries size\+\_\+type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_m_d5_afa6155ec36de415ab2dcf5e54b670d13}{MD5}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor initializes the \doxylink{class_m_d5}{MD5} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_m_d5_a155356ffd713345e69e6dcbd9f8da6ce}{MD5}} (const std\+::string \&text)
+\begin{DoxyCompactList}\small\item\em Constructor that initializes the \doxylink{class_m_d5}{MD5} state with an initial string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_d5_ac5ddf6cd8f940422396d321ea90ed045}{update}} (const unsigned char \texorpdfstring{$\ast$}{*}buf, size\+\_\+type length)
+\begin{DoxyCompactList}\small\item\em Update the hash with a block of unsigned characters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_d5_ac5ccba375539b993958fb235f8ac849c}{update}} (const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+type length)
+\begin{DoxyCompactList}\small\item\em Update the hash with a block of characters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_m_d5}{MD5}} \& \mbox{\hyperlink{class_m_d5_a10f607494a3f2e3e515fc4b99d1a06cc}{finalize}} ()
+\begin{DoxyCompactList}\small\item\em Finalize the \doxylink{class_m_d5}{MD5} computation. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608}{hexdigest}} () const
+\begin{DoxyCompactList}\small\item\em Get the hexadecimal representation of the \doxylink{class_m_d5}{MD5} hash. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{class_m_d5_abe38121c467dc69768b3d3024ce9b326}{operator$<$$<$}} (std\+::ostream \&os, \mbox{\hyperlink{class_m_d5}{MD5}} \mbox{\hyperlink{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271}{md5}})
+\begin{DoxyCompactList}\small\item\em Output operator to stream the \doxylink{class_m_d5}{MD5} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_m_d5}{MD5} class computes \doxylink{class_m_d5}{MD5} hashes of strings or byte arrays. 
+
+Implementation of the \doxylink{class_m_d5}{MD5} Message-\/\+Digest Algorithm.
+
+It is not designed for speed or security, but rather as a simple implementation for educational purposes.
+
+Usage\+: 1) Feed it blocks of uchars with \doxylink{class_m_d5_ac5ddf6cd8f940422396d321ea90ed045}{update()} 2) Finalize() 3) Get \doxylink{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608}{hexdigest()} string or use \doxylink{class_m_d5}{MD5(std\+::string)}.\doxylink{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608}{hexdigest()}
+
+Assumes that char is 8-\/bit and int is 32-\/bit.
+
+This class provides methods to calculate \doxylink{class_m_d5}{MD5} hashes for strings or byte arrays. It is based on the reference implementation of RFC 1321 by RSA Data Security, Inc.
+
+\begin{DoxyNote}{Note}
+This implementation is not intended for speed or security.
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) 1991-\/2, RSA Data Security, Inc. All rights reserved. \textbackslash{}license \doxylink{class_license}{License} to copy and use this software is granted provided that it is identified as the "{}\+RSA Data Security, Inc. MD5 Message-\/\+Digest Algorithm"{} in all material mentioning or referencing this software or this function. \doxylink{class_license}{License} is also granted to make and use derivative works provided that such works are identified as "{}derived from the RSA Data Security, Inc. MD5 Message-\/\+Digest Algorithm"{} in all material mentioning or referencing the derived work. RSA Data Security, Inc. makes no representations concerning either the merchantability of this software or the suitability of this software for any particular purpose. It is provided "{}as is"{} without express or implied warranty of any kind.
+\end{DoxyCopyright}
+\begin{DoxyNote}{Note}
+These notices must be retained in any copies of any part of this documentation and/or software. 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_m_d5_afa6155ec36de415ab2dcf5e54b670d13}\index{MD5@{MD5}!MD5@{MD5}}
+\index{MD5@{MD5}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{MD5()}{MD5()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_m_d5_afa6155ec36de415ab2dcf5e54b670d13} 
+MD5\+::\+MD5 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Default constructor initializes the \doxylink{class_m_d5}{MD5} state. 
+
+Default constructor for \doxylink{class_m_d5}{MD5} hash computation.
+
+Initializes the \doxylink{class_m_d5}{MD5} hashing algorithm by calling the init() function. This constructor sets up the initial state of the \doxylink{class_m_d5}{MD5} calculation. \Hypertarget{class_m_d5_a155356ffd713345e69e6dcbd9f8da6ce}\index{MD5@{MD5}!MD5@{MD5}}
+\index{MD5@{MD5}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{MD5()}{MD5()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_m_d5_a155356ffd713345e69e6dcbd9f8da6ce} 
+MD5\+::\+MD5 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{text}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor that initializes the \doxylink{class_m_d5}{MD5} state with an initial string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Initial string to hash using \doxylink{class_m_d5}{MD5}. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_d5_a10f607494a3f2e3e515fc4b99d1a06cc}\index{MD5@{MD5}!finalize@{finalize}}
+\index{finalize@{finalize}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{finalize()}{finalize()}}
+{\footnotesize\ttfamily \label{class_m_d5_a10f607494a3f2e3e515fc4b99d1a06cc} 
+\mbox{\hyperlink{class_m_d5}{MD5}} \& MD5\+::finalize (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Finalize the \doxylink{class_m_d5}{MD5} computation. 
+
+Finalizes the \doxylink{class_m_d5}{MD5} message-\/digest operation.
+
+\begin{DoxyReturn}{Returns}
+Reference to the \doxylink{class_m_d5}{MD5} object.
+\end{DoxyReturn}
+Finalizes the current \doxylink{class_m_d5}{MD5} context, computes the message digest, and clears sensitive information from the context for security. This function should be called once after all updates are done.
+
+\begin{DoxyReturn}{Returns}
+Reference to the current \doxylink{class_m_d5}{MD5} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608}\index{MD5@{MD5}!hexdigest@{hexdigest}}
+\index{hexdigest@{hexdigest}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{hexdigest()}{hexdigest()}}
+{\footnotesize\ttfamily \label{class_m_d5_aaf466f683b4bd8b1b66544f48bf09608} 
+std\+::string MD5\+::hexdigest (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the hexadecimal representation of the \doxylink{class_m_d5}{MD5} hash. 
+
+Returns the hexadecimal representation of the \doxylink{class_m_d5}{MD5} digest.
+
+\begin{DoxyReturn}{Returns}
+Hexadecimal string representing the \doxylink{class_m_d5}{MD5} hash.
+\end{DoxyReturn}
+Converts the 16-\/byte \doxylink{class_m_d5}{MD5} digest into a hexadecimal string representation. The function returns an empty string if the \doxylink{class_m_d5}{MD5} context has not been finalized.
+
+\begin{DoxyReturn}{Returns}
+Hexadecimal string representation of the \doxylink{class_m_d5}{MD5} digest. 
+\end{DoxyReturn}
+\Hypertarget{class_m_d5_ac5ccba375539b993958fb235f8ac849c}\index{MD5@{MD5}!update@{update}}
+\index{update@{update}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_m_d5_ac5ccba375539b993958fb235f8ac849c} 
+void MD5\+::update (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+type}]{length}{}\end{DoxyParamCaption})}
+
+
+
+Update the hash with a block of characters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Pointer to the buffer of characters. \\
+\hline
+{\em length} & Length of the buffer in size\+\_\+type units. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_m_d5_ac5ddf6cd8f940422396d321ea90ed045}\index{MD5@{MD5}!update@{update}}
+\index{update@{update}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_m_d5_ac5ddf6cd8f940422396d321ea90ed045} 
+void MD5\+::update (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+type}]{length}{}\end{DoxyParamCaption})}
+
+
+
+Update the hash with a block of unsigned characters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Pointer to the buffer of unsigned characters. \\
+\hline
+{\em length} & Length of the buffer in size\+\_\+type units. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_m_d5_abe38121c467dc69768b3d3024ce9b326}\index{MD5@{MD5}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!MD5@{MD5}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_m_d5_abe38121c467dc69768b3d3024ce9b326} 
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os}{, }\item[{\mbox{\hyperlink{class_m_d5}{MD5}}}]{md5}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Output operator to stream the \doxylink{class_m_d5}{MD5} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & Output stream. \\
+\hline
+{\em md5} & \doxylink{class_m_d5}{MD5} object to output. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the output stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{md5_8h}{md5.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{md5_8cpp}{md5.\+cpp}}\end{DoxyCompactItemize}

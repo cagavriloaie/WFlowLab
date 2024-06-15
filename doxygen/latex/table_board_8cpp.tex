@@ -1,0 +1,131 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/table\+Board.cpp File Reference}
+\hypertarget{table_board_8cpp}{}\label{table_board_8cpp}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.cpp@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.cpp}}
+
+
+Implementation file for the \doxylink{class_table_board}{Table\+Board} class.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$QDesktop\+Services$>$}\newline
+{\ttfamily \#include $<$QDouble\+Validator$>$}\newline
+{\ttfamily \#include $<$QFile\+Dialog$>$}\newline
+{\ttfamily \#include $<$QMain\+Window$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QPainter$>$}\newline
+{\ttfamily \#include $<$QPrinter$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QValidator$>$}\newline
+{\ttfamily \#include $<$Qt\+Print\+Support/\+QPrinter$>$}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}waterdensity.\+h"{}}\newline
+{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}table\+Board.\+h"{}}\newline
+{\ttfamily \#include "{}ui\+\_\+mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}ui\+\_\+table\+Board.\+h"{}}\newline
+Include dependency graph for table\+Board.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{table_board_8cpp_abea52bc13aeb253b1d0a7bf3146ec8f7}{precision\+\_\+4}} (double number)
+\begin{DoxyCompactList}\small\item\em Converts a double number to a string with 4 decimal precision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{table_board_8cpp_a9d7abf20cd0abeee5ec52d0f48c790ad}{XOR}} (bool a, bool b)
+\begin{DoxyCompactList}\small\item\em Performs exclusive OR (XOR) operation between two boolean values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{table_board_8cpp_a0828fe601e8daf46e0f1c70807782096}{p\+Main\+Window}}
+\begin{DoxyCompactList}\small\item\em Pointer to the main window instance. \end{DoxyCompactList}\item 
+\Hypertarget{table_board_8cpp_a067286e3aba2980fad3f3abf2779e96d}\label{table_board_8cpp_a067286e3aba2980fad3f3abf2779e96d} 
+std\+::mutex {\bfseries print\+Table\+Pdf\+Thread\+Mutex}
+\item 
+\Hypertarget{table_board_8cpp_a8b99f64b2ae13db4653e21b6af6a9fd0}\label{table_board_8cpp_a8b99f64b2ae13db4653e21b6af6a9fd0} 
+QString {\bfseries result\+All\+Tests} \mbox{[}20\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for the \doxylink{class_table_board}{Table\+Board} class. 
+
+This file contains the implementation of methods for the \doxylink{class_table_board}{Table\+Board} class, which is responsible for managing and displaying tabular data related to water meters.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert creation date 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{table_board_8cpp_abea52bc13aeb253b1d0a7bf3146ec8f7}\index{tableBoard.cpp@{tableBoard.cpp}!precision\_4@{precision\_4}}
+\index{precision\_4@{precision\_4}!tableBoard.cpp@{tableBoard.cpp}}
+\doxysubsubsection{\texorpdfstring{precision\_4()}{precision\_4()}}
+{\footnotesize\ttfamily \label{table_board_8cpp_abea52bc13aeb253b1d0a7bf3146ec8f7} 
+std\+::string precision\+\_\+4 (\begin{DoxyParamCaption}\item[{double}]{number}{}\end{DoxyParamCaption})}
+
+
+
+Converts a double number to a string with 4 decimal precision. 
+
+This function converts a given double number into a string representation with exactly 4 decimal places.
+
+
+\begin{DoxyParams}{Parameters}
+{\em number} & The double number to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string representation of the number with 4 decimal precision. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Integer part of the number.
+
+\texorpdfstring{$<$}{<} Decimal part of the number.
+
+\texorpdfstring{$<$}{<} Return the formatted string.
+
+\texorpdfstring{$<$}{<} Return the formatted string with leading zero.\Hypertarget{table_board_8cpp_a9d7abf20cd0abeee5ec52d0f48c790ad}\index{tableBoard.cpp@{tableBoard.cpp}!XOR@{XOR}}
+\index{XOR@{XOR}!tableBoard.cpp@{tableBoard.cpp}}
+\doxysubsubsection{\texorpdfstring{XOR()}{XOR()}}
+{\footnotesize\ttfamily \label{table_board_8cpp_a9d7abf20cd0abeee5ec52d0f48c790ad} 
+bool XOR (\begin{DoxyParamCaption}\item[{bool}]{a}{, }\item[{bool}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Performs exclusive OR (XOR) operation between two boolean values. 
+
+This function computes the result of the XOR operation between two boolean values. XOR returns true if one and only one of the boolean operands is true; otherwise, it returns false.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & First boolean operand. \\
+\hline
+{\em b} & Second boolean operand. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The result of the XOR operation between {\ttfamily a} and {\ttfamily b}. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Return true if {\ttfamily a} and {\ttfamily b} are different; otherwise, false.
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{table_board_8cpp_a0828fe601e8daf46e0f1c70807782096}\index{tableBoard.cpp@{tableBoard.cpp}!pMainWindow@{pMainWindow}}
+\index{pMainWindow@{pMainWindow}!tableBoard.cpp@{tableBoard.cpp}}
+\doxysubsubsection{\texorpdfstring{pMainWindow}{pMainWindow}}
+{\footnotesize\ttfamily \label{table_board_8cpp_a0828fe601e8daf46e0f1c70807782096} 
+\mbox{\hyperlink{class_main_window}{Main\+Window}}\texorpdfstring{$\ast$}{*} p\+Main\+Window\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Pointer to the main window instance. 
+
+\textbackslash{}extern \doxylink{class_main_window}{Main\+Window} \texorpdfstring{$\ast$}{*}p\+Main\+Window 
+
+This global variable holds a pointer to the main window instance, allowing access to its properties and methods from various parts of the application. 

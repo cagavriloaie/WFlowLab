@@ -1,0 +1,396 @@
+\doxysection{Main\+Window Class Reference}
+\hypertarget{class_main_window}{}\label{class_main_window}\index{MainWindow@{MainWindow}}
+
+
+Inheritance diagram for Main\+Window\+:
+% FIG 0
+
+
+Collaboration diagram for Main\+Window\+:
+% FIG 1
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef const wchar\+\_\+t \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364}{Enumerate\+Serial\+Ports}}) ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_main_window_afb5fd5bc0bd663730c72f63356150691}\label{class_main_window_afb5fd5bc0bd663730c72f63356150691} 
+void {\bfseries number\+Of\+Water\+Meters\+Changed\+Signal} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the number of water meters is changed. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_ab8408998342b22d61d59d7c4e4f6cc3b}\label{class_main_window_ab8408998342b22d61d59d7c4e4f6cc3b} 
+void {\bfseries meter\+Type\+Changed\+Signal} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the meter type is changed. \end{DoxyCompactList}\item 
+\Hypertarget{class_main_window_ad3141d6f332ee4598e636c96f74ef65e}\label{class_main_window_ad3141d6f332ee4598e636c96f74ef65e} 
+void {\bfseries measurement\+Type\+Changed\+Signal} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the measurement type is changed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_main_window}{Main\+Window} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{\texorpdfstring{$\sim$}{\string~}\+Main\+Window}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_main_window}{Main\+Window} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_af6f053ecad637ab470a258e4962b088c}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em Translates the UI components to the selected language. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_a8adea2a849e6591542b73c61b0540968}{set\+Label\+Value}} (QLabel \texorpdfstring{$\ast$}{*}label, double value, int precision)
+\begin{DoxyCompactList}\small\item\em Sets the value of a QLabel with specified precision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_ab9a88b50db51a22b56a4fb5a2d2dd7a6}{update\+Selected\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Updates the selected information based on user inputs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_a7c02331278a2cbbd33bf54efa79612e2}{Select\+Meter\+Combo\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the Combo\+Box for selecting meter types. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_a70cccadec2ccca5781c868ba6d00bd09}{Read\+Configuration}} ()
+\begin{DoxyCompactList}\small\item\em Reads the application configuration from settings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_a20951f546fc8cf0101652bd5b55aff1b}{Set\+Default\+Configuration}} ()
+\begin{DoxyCompactList}\small\item\em Sets the default configuration settings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_main_window_a3719c1923c35d0d64cdbb563481a8fef}{Center\+To\+Screen}} (QWidget \texorpdfstring{$\ast$}{*}widget)
+\begin{DoxyCompactList}\small\item\em Centers a given widget to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_selected_info}{Selected\+Info}} \mbox{\hyperlink{class_main_window_a61ba7aab6ba467452af0defe070bed22}{selected\+Info}}
+\item 
+Ui\+::\+Main\+Window \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_a35466a70ed47252a0191168126a352a5}{ui}} \{nullptr\}
+\item 
+\mbox{\hyperlink{class_table_board}{Table\+Board}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_a5c6941298effbe724900991e07366f97}{input\+Data}} \{nullptr\}
+\item 
+\mbox{\hyperlink{class_license}{License}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_aaf52bac2a1cf1b514c1ba3d4b3d2d171}{license\+Dialog}} \{nullptr\}
+\item 
+\mbox{\hyperlink{class_help_about}{Help\+About}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_a5cfcc2c9e8119ea50a08fe4e0dbe4336}{help\+About}}
+\item 
+\mbox{\hyperlink{class_interface}{Interface}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_aff250619741aba58866f0e30cded8ca4}{interface\+Dialog}} \{nullptr\}
+\item 
+QAction\+Group \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_ac5f2cb2b19570e882d9481ad25764ac5}{alignment\+Group}}
+\item 
+\mbox{\hyperlink{class_led_indicator}{Led\+Indicator}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_ab5d27877e86566a985b58451c45d1748}{LED}}
+\item 
+unsigned \mbox{\hyperlink{class_main_window_a95d4941e8a204406dffa84477516b592}{MAX\+\_\+\+NR\+\_\+\+WATER\+\_\+\+METERS}} \{20\}
+\item 
+unsigned \mbox{\hyperlink{class_main_window_ab3885828c042ad88b24ddaaa8025882e}{NUMBER\+\_\+\+ENTRIES\+\_\+\+METER\+\_\+\+FLOW\+\_\+\+DB}} \{0\}
+\item 
+std\+::map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{class_main_window_ad416c115f3598e59ee1a7895fa479389}{options\+Configuration}}
+\item 
+\mbox{\hyperlink{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364}{Enumerate\+Serial\+Ports}} \mbox{\hyperlink{class_main_window_a1fe6a2466dc9c072a5b3c417988ed85e}{serial\+Ports}} \{nullptr\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_window_a1dff511c9697cbcb60150894f480b9c8}{mouse\+Press\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Handles mouse press events on the main window. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_main_window_aeaecedc36266ab4571b7af2a9fcd5b08}{event\+Filter}} (QObject \texorpdfstring{$\ast$}{*}obj, QEvent \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Filters events for the main window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364}\index{MainWindow@{MainWindow}!EnumerateSerialPorts@{EnumerateSerialPorts}}
+\index{EnumerateSerialPorts@{EnumerateSerialPorts}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{EnumerateSerialPorts}{EnumerateSerialPorts}}
+{\footnotesize\ttfamily \label{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364} 
+typedef const wchar\+\_\+t \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} Main\+Window\+::\+Enumerate\+Serial\+Ports) ()}
+
+Function pointer type for serial port enumeration. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_a996c5a2b6f77944776856f08ec30858d} 
+Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_main_window}{Main\+Window} object. 
+
+Constructor for \doxylink{class_main_window}{Main\+Window} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget (default\+: nullptr).\\
+\hline
+\end{DoxyParams}
+Initializes the main window of the application, sets up UI elements, loads necessary libraries, handles settings and configurations, connects signals and slots, and initializes dialogs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}\index{MainWindow@{MainWindow}!````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}}
+\index{````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}MainWindow()}{\string~MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7} 
+Main\+Window\+::\texorpdfstring{$\sim$}{\string~}\+Main\+Window (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_main_window}{Main\+Window} object. 
+
+Destructor for \doxylink{class_main_window}{Main\+Window} class.
+
+Cleans up resources associated with the \doxylink{class_main_window}{Main\+Window}. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_main_window_a3719c1923c35d0d64cdbb563481a8fef}\index{MainWindow@{MainWindow}!CenterToScreen@{CenterToScreen}}
+\index{CenterToScreen@{CenterToScreen}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{CenterToScreen()}{CenterToScreen()}}
+{\footnotesize\ttfamily \label{class_main_window_a3719c1923c35d0d64cdbb563481a8fef} 
+void Main\+Window\+::\+Center\+To\+Screen (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{widget}{}\end{DoxyParamCaption})}
+
+
+
+Centers a given widget to the screen. 
+
+Centers a widget to the screen.
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & Pointer to the widget to center.\\
+\hline
+\end{DoxyParams}
+Moves the given widget to the center of the primary screen.
+
+
+\begin{DoxyParams}{Parameters}
+{\em widget} & The widget to be centered. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_aeaecedc36266ab4571b7af2a9fcd5b08}\index{MainWindow@{MainWindow}!eventFilter@{eventFilter}}
+\index{eventFilter@{eventFilter}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{eventFilter()}{eventFilter()}}
+{\footnotesize\ttfamily \label{class_main_window_aeaecedc36266ab4571b7af2a9fcd5b08} 
+bool Main\+Window\+::event\+Filter (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{obj}{, }\item[{QEvent \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Filters events for the main window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & The object that received the event. \\
+\hline
+{\em event} & The event that occurred. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the event was handled, otherwise false. 
+\end{DoxyReturn}
+\Hypertarget{class_main_window_a1dff511c9697cbcb60150894f480b9c8}\index{MainWindow@{MainWindow}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily \label{class_main_window_a1dff511c9697cbcb60150894f480b9c8} 
+void Main\+Window\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Handles mouse press events on the main window. 
+
+Handles the mouse press event.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The mouse event.\\
+\hline
+\end{DoxyParams}
+Activates the main window when a mouse press event occurs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The mouse event object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_a70cccadec2ccca5781c868ba6d00bd09}\index{MainWindow@{MainWindow}!ReadConfiguration@{ReadConfiguration}}
+\index{ReadConfiguration@{ReadConfiguration}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ReadConfiguration()}{ReadConfiguration()}}
+{\footnotesize\ttfamily \label{class_main_window_a70cccadec2ccca5781c868ba6d00bd09} 
+void Main\+Window\+::\+Read\+Configuration (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads the application configuration from settings. 
+
+Reads and parses configuration settings from a file.
+
+This function reads the configuration file specified by \textquotesingle{}watermeters.\+conf\textquotesingle{} located in the application\textquotesingle{}s directory. It parses key-\/value pairs separated by \textquotesingle{}=\textquotesingle{} and terminates each entry with \textquotesingle{}\texorpdfstring{$>$}{>}\textquotesingle{}. It then validates the \doxylink{class_m_d5}{MD5} checksum formed by concatenating \textquotesingle{}company\textquotesingle{} and \textquotesingle{}maximum\textquotesingle{} fields against a stored control checksum (\textquotesingle{}control\textquotesingle{}). If validation succeeds, default configuration values are updated.
+
+If the configuration file cannot be opened or if validation fails, default configuration values are set using \doxylink{class_main_window_a20951f546fc8cf0101652bd5b55aff1b}{Set\+Default\+Configuration()}. e.\+g. company=Compania de Apa Braila\texorpdfstring{$>$}{>} archive=C\+:/\+Stand/\+Fise\texorpdfstring{$>$}{>} maximum=20\texorpdfstring{$>$}{>} certificate=CE 06.\+02-\/355/15\texorpdfstring{$>$}{>} density\+\_\+20=998\texorpdfstring{$>$}{>} control=f1807e24ccba79a76baa08194b7fa9bf\texorpdfstring{$>$}{>}
+
+company + density\+\_\+20 =\texorpdfstring{$>$}{>} \doxylink{class_m_d5}{MD5} \Hypertarget{class_main_window_a7c02331278a2cbbd33bf54efa79612e2}\index{MainWindow@{MainWindow}!SelectMeterComboBox@{SelectMeterComboBox}}
+\index{SelectMeterComboBox@{SelectMeterComboBox}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{SelectMeterComboBox()}{SelectMeterComboBox()}}
+{\footnotesize\ttfamily \label{class_main_window_a7c02331278a2cbbd33bf54efa79612e2} 
+void Main\+Window\+::\+Select\+Meter\+Combo\+Box (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the Combo\+Box for selecting meter types. 
+
+Updates selected\+Info based on the currently selected water meter, creates necessary directories, and updates UI labels.
+
+This function performs the following tasks\+:
+\begin{DoxyEnumerate}
+\item Calls \doxylink{class_main_window_ab9a88b50db51a22b56a4fb5a2d2dd7a6}{update\+Selected\+Info()} to update selected\+Info with current configuration and UI data.
+\item Creates directories for results and input data using selected\+Info.\+path\+Results.
+\item Updates various QLabel widgets in the UI with values from selected\+Info. 
+\end{DoxyEnumerate}\Hypertarget{class_main_window_a20951f546fc8cf0101652bd5b55aff1b}\index{MainWindow@{MainWindow}!SetDefaultConfiguration@{SetDefaultConfiguration}}
+\index{SetDefaultConfiguration@{SetDefaultConfiguration}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{SetDefaultConfiguration()}{SetDefaultConfiguration()}}
+{\footnotesize\ttfamily \label{class_main_window_a20951f546fc8cf0101652bd5b55aff1b} 
+void Main\+Window\+::\+Set\+Default\+Configuration (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Sets the default configuration settings. 
+
+Sets default configuration values for options\+Configuration.
+
+This function clears the options\+Configuration map and initializes default values for various configuration keys\+:
+\begin{DoxyItemize}
+\item "{}company"{}\+: Default value is "{}\+NONE"{}.
+\item "{}archive"{}\+: Default path is "{}\+C\+:/\+Stand/\+Fise"{}.
+\item "{}maximum"{}\+: Default value is "{}2"{}.
+\item "{}certificate"{}\+: Default value is "{}\+NONE"{}.
+\item "{}density\+\_\+20"{}\+: Default value is "{}998.\+2009"{}.
+\item "{}control"{}\+: Default value is "{}00000000000000000000000000000000"{}. 
+\end{DoxyItemize}\Hypertarget{class_main_window_a8adea2a849e6591542b73c61b0540968}\index{MainWindow@{MainWindow}!setLabelValue@{setLabelValue}}
+\index{setLabelValue@{setLabelValue}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setLabelValue()}{setLabelValue()}}
+{\footnotesize\ttfamily \label{class_main_window_a8adea2a849e6591542b73c61b0540968} 
+void Main\+Window\+::set\+Label\+Value (\begin{DoxyParamCaption}\item[{QLabel \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{double}]{value}{, }\item[{int}]{precision}{}\end{DoxyParamCaption})}
+
+
+
+Sets the value of a QLabel with specified precision. 
+
+Sets the text of a QLabel to display a double value with specified precision.
+
+
+\begin{DoxyParams}{Parameters}
+{\em label} & Pointer to the QLabel widget. \\
+\hline
+{\em value} & Value to set on the label. \\
+\hline
+{\em precision} & Number of decimal places for the value.\\
+\hline
+\end{DoxyParams}
+This function converts a double value to a string with fixed precision and sets the text of the specified QLabel to display this string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em label} & The QLabel widget whose text will be set. \\
+\hline
+{\em value} & The double value to be displayed. \\
+\hline
+{\em precision} & The number of decimal places to display. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_main_window_af6f053ecad637ab470a258e4962b088c}\index{MainWindow@{MainWindow}!Translate@{Translate}}
+\index{Translate@{Translate}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily \label{class_main_window_af6f053ecad637ab470a258e4962b088c} 
+void Main\+Window\+::\+Translate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Translates the UI components to the selected language. 
+
+Translates all UI elements to the current language.
+
+This function translates all visible UI elements to the current language. It sets the window title, menu titles, action texts, labels, group box titles, radio button texts, and push button texts. \Hypertarget{class_main_window_ab9a88b50db51a22b56a4fb5a2d2dd7a6}\index{MainWindow@{MainWindow}!updateSelectedInfo@{updateSelectedInfo}}
+\index{updateSelectedInfo@{updateSelectedInfo}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{updateSelectedInfo()}{updateSelectedInfo()}}
+{\footnotesize\ttfamily \label{class_main_window_ab9a88b50db51a22b56a4fb5a2d2dd7a6} 
+void Main\+Window\+::update\+Selected\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Updates the selected information based on user inputs. 
+
+Updates the selected\+Info structure with current configuration and UI data.
+
+This function updates the selected\+Info structure with the following information\+:
+\begin{DoxyItemize}
+\item Parameters from options\+Configuration\+: density\+\_\+20, archive path, certificate, and number of water meters.
+\item Lab conditions from settings\+: ambient temperature, relative air humidity, and atmospheric pressure.
+\item Selected water meter information from UI\+: name, nominal diameter, nominal flow, maximum flow, transition flow, minimum flow, nominal error, and maximum error. 
+\end{DoxyItemize}
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_main_window_ac5f2cb2b19570e882d9481ad25764ac5}\index{MainWindow@{MainWindow}!alignmentGroup@{alignmentGroup}}
+\index{alignmentGroup@{alignmentGroup}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{alignmentGroup}{alignmentGroup}}
+{\footnotesize\ttfamily \label{class_main_window_ac5f2cb2b19570e882d9481ad25764ac5} 
+QAction\+Group\texorpdfstring{$\ast$}{*} Main\+Window\+::alignment\+Group}
+
+Action group for alignment settings. \Hypertarget{class_main_window_a5cfcc2c9e8119ea50a08fe4e0dbe4336}\index{MainWindow@{MainWindow}!helpAbout@{helpAbout}}
+\index{helpAbout@{helpAbout}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{helpAbout}{helpAbout}}
+{\footnotesize\ttfamily \label{class_main_window_a5cfcc2c9e8119ea50a08fe4e0dbe4336} 
+\mbox{\hyperlink{class_help_about}{Help\+About}}\texorpdfstring{$\ast$}{*} Main\+Window\+::help\+About}
+
+Pointer to the help/about dialog. \Hypertarget{class_main_window_a5c6941298effbe724900991e07366f97}\index{MainWindow@{MainWindow}!inputData@{inputData}}
+\index{inputData@{inputData}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{inputData}{inputData}}
+{\footnotesize\ttfamily \label{class_main_window_a5c6941298effbe724900991e07366f97} 
+\mbox{\hyperlink{class_table_board}{Table\+Board}}\texorpdfstring{$\ast$}{*} Main\+Window\+::input\+Data \{nullptr\}}
+
+Pointer to the input data board. \Hypertarget{class_main_window_aff250619741aba58866f0e30cded8ca4}\index{MainWindow@{MainWindow}!interfaceDialog@{interfaceDialog}}
+\index{interfaceDialog@{interfaceDialog}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{interfaceDialog}{interfaceDialog}}
+{\footnotesize\ttfamily \label{class_main_window_aff250619741aba58866f0e30cded8ca4} 
+\mbox{\hyperlink{class_interface}{Interface}}\texorpdfstring{$\ast$}{*} Main\+Window\+::interface\+Dialog \{nullptr\}}
+
+Pointer to the interface dialog. \Hypertarget{class_main_window_ab5d27877e86566a985b58451c45d1748}\index{MainWindow@{MainWindow}!LED@{LED}}
+\index{LED@{LED}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{LED}{LED}}
+{\footnotesize\ttfamily \label{class_main_window_ab5d27877e86566a985b58451c45d1748} 
+\mbox{\hyperlink{class_led_indicator}{Led\+Indicator}}\texorpdfstring{$\ast$}{*} Main\+Window\+::\+LED}
+
+Pointer to the LED indicator. \Hypertarget{class_main_window_aaf52bac2a1cf1b514c1ba3d4b3d2d171}\index{MainWindow@{MainWindow}!licenseDialog@{licenseDialog}}
+\index{licenseDialog@{licenseDialog}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{licenseDialog}{licenseDialog}}
+{\footnotesize\ttfamily \label{class_main_window_aaf52bac2a1cf1b514c1ba3d4b3d2d171} 
+\mbox{\hyperlink{class_license}{License}}\texorpdfstring{$\ast$}{*} Main\+Window\+::license\+Dialog \{nullptr\}}
+
+Pointer to the license dialog. \Hypertarget{class_main_window_a95d4941e8a204406dffa84477516b592}\index{MainWindow@{MainWindow}!MAX\_NR\_WATER\_METERS@{MAX\_NR\_WATER\_METERS}}
+\index{MAX\_NR\_WATER\_METERS@{MAX\_NR\_WATER\_METERS}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MAX\_NR\_WATER\_METERS}{MAX\_NR\_WATER\_METERS}}
+{\footnotesize\ttfamily \label{class_main_window_a95d4941e8a204406dffa84477516b592} 
+unsigned Main\+Window\+::\+MAX\+\_\+\+NR\+\_\+\+WATER\+\_\+\+METERS \{20\}}
+
+Maximum number of water meters supported. \Hypertarget{class_main_window_ab3885828c042ad88b24ddaaa8025882e}\index{MainWindow@{MainWindow}!NUMBER\_ENTRIES\_METER\_FLOW\_DB@{NUMBER\_ENTRIES\_METER\_FLOW\_DB}}
+\index{NUMBER\_ENTRIES\_METER\_FLOW\_DB@{NUMBER\_ENTRIES\_METER\_FLOW\_DB}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{NUMBER\_ENTRIES\_METER\_FLOW\_DB}{NUMBER\_ENTRIES\_METER\_FLOW\_DB}}
+{\footnotesize\ttfamily \label{class_main_window_ab3885828c042ad88b24ddaaa8025882e} 
+unsigned Main\+Window\+::\+NUMBER\+\_\+\+ENTRIES\+\_\+\+METER\+\_\+\+FLOW\+\_\+\+DB \{0\}}
+
+Number of entries in meter flow database. \Hypertarget{class_main_window_ad416c115f3598e59ee1a7895fa479389}\index{MainWindow@{MainWindow}!optionsConfiguration@{optionsConfiguration}}
+\index{optionsConfiguration@{optionsConfiguration}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{optionsConfiguration}{optionsConfiguration}}
+{\footnotesize\ttfamily \label{class_main_window_ad416c115f3598e59ee1a7895fa479389} 
+std\+::map$<$std\+::string, std\+::string$>$ Main\+Window\+::options\+Configuration}
+
+Map for storing configuration options. \Hypertarget{class_main_window_a61ba7aab6ba467452af0defe070bed22}\index{MainWindow@{MainWindow}!selectedInfo@{selectedInfo}}
+\index{selectedInfo@{selectedInfo}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{selectedInfo}{selectedInfo}}
+{\footnotesize\ttfamily \label{class_main_window_a61ba7aab6ba467452af0defe070bed22} 
+\mbox{\hyperlink{struct_selected_info}{Selected\+Info}} Main\+Window\+::selected\+Info}
+
+Holds selected information related to the application. \Hypertarget{class_main_window_a1fe6a2466dc9c072a5b3c417988ed85e}\index{MainWindow@{MainWindow}!serialPorts@{serialPorts}}
+\index{serialPorts@{serialPorts}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{serialPorts}{serialPorts}}
+{\footnotesize\ttfamily \label{class_main_window_a1fe6a2466dc9c072a5b3c417988ed85e} 
+\mbox{\hyperlink{class_main_window_a15437f55ba9e5b5741bbcb4bbd88b364}{Enumerate\+Serial\+Ports}} Main\+Window\+::serial\+Ports \{nullptr\}}
+
+Pointer to the function for serial port enumeration. \Hypertarget{class_main_window_a35466a70ed47252a0191168126a352a5}\index{MainWindow@{MainWindow}!ui@{ui}}
+\index{ui@{ui}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily \label{class_main_window_a35466a70ed47252a0191168126a352a5} 
+Ui\+::\+Main\+Window\texorpdfstring{$\ast$}{*} Main\+Window\+::ui \{nullptr\}}
+
+Pointer to the UI components of the main window. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\end{DoxyCompactItemize}

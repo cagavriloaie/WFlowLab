@@ -1,0 +1,51 @@
+\doxysection{ledindicator.\+h}
+\hypertarget{ledindicator_8h_source}{}\label{ledindicator_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/ledindicator.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/ledindicator.h}}
+\mbox{\hyperlink{ledindicator_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ LEDINDICATOR\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LEDINDICATOR\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QDialog>}\ \ \textcolor{comment}{//\ Qt\ class\ for\ creating\ modal\ or\ modeless\ dialogs.}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_led_indicator}{LedIndicator}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_led_indicator_ae0d2d4c70db192600b03e7526ba8183f}{LedIndicator}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_a64cf63423048207d6f96ab96acf510cd}{setState}}(\textcolor{keywordtype}{bool}\ state);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_aa466a737dff3ee2cae192de76bf892ef}{toggle}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_abcecbd14400f4d21c3bbb3e8b4658acc}{setOnColor}}(QColor\ onColor);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_a71f2a1078c963ef8cf21fd59e41b8d93}{setOffColor}}(QColor\ offColor);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_ad56df317c584e9101c7ada954ac917a3}{setOnPattern}}(Qt::BrushStyle\ onPattern);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_a27c93b0e5464e83c8e9f235dbc13358e}{setOffPattern}}(Qt::BrushStyle\ offPattern);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_ab5ff86900c652939c86eb12851f54696}{setLedSize}}(\textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_a1eebdbb9c758a357b92b3c4c3c51c76a}{switchLedIndicator}}();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_led_indicator_a7a5d845864f9d442927712a0c3a19ace}{paintEvent}}(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ lit;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ QColor\ ledOnColor;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ QColor\ ledOffColor;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ QColor\ ledNeutral;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ Qt::BrushStyle\ ledOnPattern;\ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ Qt::BrushStyle\ ledOffPattern;\ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ Qt::BrushStyle\ ledNeutralPattern;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ ledSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LEDINDICATOR\_H}}
+
+\end{DoxyCode}

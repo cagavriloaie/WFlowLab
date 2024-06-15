@@ -1,0 +1,132 @@
+\doxysection{table\+Board.\+h}
+\hypertarget{table_board_8h_source}{}\label{table_board_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/tableBoard.h}}
+\mbox{\hyperlink{table_board_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ TABLEBOARD\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ TABLEBOARD\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ Qt\ headers\ for\ various\ UI\ components\ and\ utilities}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QDialog>}\ \ \ \ \ \ \textcolor{comment}{//\ Modal\ or\ modeless\ dialog\ window}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QLineEdit>}\ \ \ \ \textcolor{comment}{//\ Single-\/line\ text\ input\ widget}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <QLabel>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Text\ or\ image\ display\ widget}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <QCheckBox>}\ \ \ \ \textcolor{comment}{//\ Checkbox\ UI\ element}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <QKeyEvent>}\ \ \ \ \textcolor{comment}{//\ Keyboard\ event\ handling}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <QTimer>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Timer\ for\ delayed\ or\ periodic\ execution}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Standard\ C++\ header\ for\ string\ stream\ operations}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Project-\/specific\ header\ for\ report\ generation}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{report_8h}{report.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{namespace\ }Ui}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_table_board}{TableBoard}};}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ \mbox{\hyperlink{table_board_8h_ae63e1db5d0d40db1a2f3f5128478bf78}{to\_string\_with\_precision}}(\textcolor{keyword}{const}\ T\ a\_value,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ 6)}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::ostringstream\ out;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ out.precision(n);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ out\ <<\ std::fixed\ <<\ a\_value;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out.str();}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_table_board}{TableBoard}}\ :\ \textcolor{keyword}{public}\ QDialog}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_table_board_a1e594035884d1cfa3c275d7978ed0d0d}{TableBoard}}(QWidget\ *\_parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_table_board_a6fb8ce7f805e7bd12803ce7757a19464}{\string~TableBoard}}();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_table_board_aee4f8aef9f3bee61b107601750d49b46}{ValidatorInput}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4}{PopulateTable}}();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_table_board_ab604128fb65731438452fd0b1bf8101a}{printPdfThread}}(QString\ report);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6}{Translate}}();}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ QWidget\ *parent;\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ Ui::TableBoard\ *ui;\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Member\ variables\ grouped\ by\ functionality}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ entries\ \{0\};\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_report_measurements}{ReportMeasurements}}\ *reportMeasurementsDialog\ \{\textcolor{keyword}{nullptr}\};\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::string\ nameWaterMeter;\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ minimumFlowMain\ \{0\};\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ transitoriuFlowMain\ \{0\};\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ nominalFlowMain\ \{0\};\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ nominalError\ \{0\};\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ maximumError\ \{0\};\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vectors\ for\ managing\ table\ widgets}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ std::vector<QLabel\ *>\ vectorNumber;\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ std::vector<QCheckBox\ *>\ vectorCheckNumber;\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorSerialNumber;\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorFirstIndexStart;\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorFirstIndexStop;\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorFirstError;\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorSecondIndexStart;\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorSecondIndexStop;\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorSecondError;\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorThirdIndexStart;\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorThirdIndexStop;\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ std::vector<QLineEdit\ *>\ vectorThirdError;\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ QString\ report;\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ QTimer\ *QTimerGenerareFM;\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ eventFilter(QObject\ *,\ QEvent\ *);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onTypeMeterChanged();}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onNumberOfWaterMetersChanged();}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onMeasurementTypeChanged();}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSelectAllChanged();}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCbClicked(\textcolor{keywordtype}{bool}\ status);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCalculateClicked();}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCleanClicked();}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCloseClicked();}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onSaveCurrentInputDataClicked();}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onOpenInputDataClicked();}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onPrintPdfDocClicked();}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ focusInEvent(QFocusEvent\ *event);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ focusOutEvent(QFocusEvent\ *event);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ copyTextBetweenWidgets(\textcolor{keyword}{const}\ QString\&\ startRegex,\ \textcolor{keyword}{const}\ QString\&\ stopRegex);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCopy12Clicked();}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onCopy23Clicked();}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ onReportClicked();}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ enableGenerareFmButton();}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_table_board_ae12b9190e48ba1121e1221d2113d5bf2}{showEvent}}(QShowEvent\ *event);}
+\DoxyCodeLine{00250\ \ \ \ \ \};}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TABLEBOARD\_H}}
+
+\end{DoxyCode}

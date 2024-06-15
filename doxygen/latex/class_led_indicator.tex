@@ -1,0 +1,246 @@
+\doxysection{Led\+Indicator Class Reference}
+\hypertarget{class_led_indicator}{}\label{class_led_indicator}\index{LedIndicator@{LedIndicator}}
+
+
+The \doxylink{class_led_indicator}{Led\+Indicator} class represents a custom LED indicator widget.  
+
+
+
+
+{\ttfamily \#include $<$ledindicator.\+h$>$}
+
+
+
+Inheritance diagram for Led\+Indicator\+:
+% FIG 0
+
+
+Collaboration diagram for Led\+Indicator\+:
+% FIG 1
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_led_indicator_a1eebdbb9c758a357b92b3c4c3c51c76a}{switch\+Led\+Indicator}} ()
+\begin{DoxyCompactList}\small\item\em Slot function to switch the state of the LED indicator. This slot is triggered to toggle the state of the LED indicator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_led_indicator_ae0d2d4c70db192600b03e7526ba8183f}{Led\+Indicator}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_led_indicator}{Led\+Indicator} widget. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_a64cf63423048207d6f96ab96acf510cd}{set\+State}} (bool state)
+\begin{DoxyCompactList}\small\item\em Sets the state of the LED indicator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_aa466a737dff3ee2cae192de76bf892ef}{toggle}} ()
+\begin{DoxyCompactList}\small\item\em Toggles the state of the LED indicator. If the LED is currently on, it will be turned off, and vice versa. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_abcecbd14400f4d21c3bbb3e8b4658acc}{set\+On\+Color}} (QColor on\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the color of the LED when it is turned on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_a71f2a1078c963ef8cf21fd59e41b8d93}{set\+Off\+Color}} (QColor off\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the color of the LED when it is turned off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_ad56df317c584e9101c7ada954ac917a3}{set\+On\+Pattern}} (Qt\+::\+Brush\+Style on\+Pattern)
+\begin{DoxyCompactList}\small\item\em Sets the pattern of the LED when it is turned on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_a27c93b0e5464e83c8e9f235dbc13358e}{set\+Off\+Pattern}} (Qt\+::\+Brush\+Style off\+Pattern)
+\begin{DoxyCompactList}\small\item\em Sets the pattern of the LED when it is turned off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_led_indicator_ab5ff86900c652939c86eb12851f54696}{set\+Led\+Size}} (int size)
+\begin{DoxyCompactList}\small\item\em Sets the size of the LED indicator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_led_indicator_a7a5d845864f9d442927712a0c3a19ace}{paint\+Event}} (QPaint\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Overrides the paint event to render the LED indicator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_led_indicator}{Led\+Indicator} class represents a custom LED indicator widget. 
+
+This class provides functionality to display an LED-\/like indicator with customizable colors, patterns, and size. It inherits from QWidget and overrides paint\+Event to customize the rendering of the LED indicator. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_led_indicator_ae0d2d4c70db192600b03e7526ba8183f}\index{LedIndicator@{LedIndicator}!LedIndicator@{LedIndicator}}
+\index{LedIndicator@{LedIndicator}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{LedIndicator()}{LedIndicator()}}
+{\footnotesize\ttfamily \label{class_led_indicator_ae0d2d4c70db192600b03e7526ba8183f} 
+Led\+Indicator\+::\+Led\+Indicator (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_led_indicator}{Led\+Indicator} widget. 
+
+Constructs a \doxylink{class_led_indicator}{Led\+Indicator} widget with default settings.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Optional pointer to the parent widget.\\
+\hline
+{\em parent} & The parent widget (optional). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Color of the LED when it is on
+
+\texorpdfstring{$<$}{<} Color of the LED when it is off
+
+\texorpdfstring{$<$}{<} Pattern of the LED when it is on (solid)
+
+\texorpdfstring{$<$}{<} Pattern of the LED when it is off (solid)
+
+\texorpdfstring{$<$}{<} Neutral pattern of the LED (solid)
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_led_indicator_a7a5d845864f9d442927712a0c3a19ace}\index{LedIndicator@{LedIndicator}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily \label{class_led_indicator_a7a5d845864f9d442927712a0c3a19ace} 
+void Led\+Indicator\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Overrides the paint event to render the LED indicator. 
+
+Paints the LED indicator widget.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The paint event.\\
+\hline
+\end{DoxyParams}
+This function is called automatically whenever the widget needs to be repainted. It draws an ellipse representing the LED, filled with a color and pattern based on the current state ({\ttfamily lit}), and outlines it with a corresponding color.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & A paint event (unused). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_ab5ff86900c652939c86eb12851f54696}\index{LedIndicator@{LedIndicator}!setLedSize@{setLedSize}}
+\index{setLedSize@{setLedSize}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setLedSize()}{setLedSize()}}
+{\footnotesize\ttfamily \label{class_led_indicator_ab5ff86900c652939c86eb12851f54696} 
+void Led\+Indicator\+::set\+Led\+Size (\begin{DoxyParamCaption}\item[{int}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Sets the size of the LED indicator. 
+
+Sets the size of the LED and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & The size (width and height) to set for the LED.\\
+\hline
+{\em size} & The size to set for the LED. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_a71f2a1078c963ef8cf21fd59e41b8d93}\index{LedIndicator@{LedIndicator}!setOffColor@{setOffColor}}
+\index{setOffColor@{setOffColor}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setOffColor()}{setOffColor()}}
+{\footnotesize\ttfamily \label{class_led_indicator_a71f2a1078c963ef8cf21fd59e41b8d93} 
+void Led\+Indicator\+::set\+Off\+Color (\begin{DoxyParamCaption}\item[{QColor}]{off\+Color}{}\end{DoxyParamCaption})}
+
+
+
+Sets the color of the LED when it is turned off. 
+
+Sets the color of the LED when it is off and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em off\+Color} & The color to set when the LED is off. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_a27c93b0e5464e83c8e9f235dbc13358e}\index{LedIndicator@{LedIndicator}!setOffPattern@{setOffPattern}}
+\index{setOffPattern@{setOffPattern}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setOffPattern()}{setOffPattern()}}
+{\footnotesize\ttfamily \label{class_led_indicator_a27c93b0e5464e83c8e9f235dbc13358e} 
+void Led\+Indicator\+::set\+Off\+Pattern (\begin{DoxyParamCaption}\item[{Qt\+::\+Brush\+Style}]{off\+Pattern}{}\end{DoxyParamCaption})}
+
+
+
+Sets the pattern of the LED when it is turned off. 
+
+Sets the pattern of the LED when it is off and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em off\+Pattern} & The brush style pattern to set when the LED is off.\\
+\hline
+{\em off\+Pattern} & The pattern to set when the LED is off (e.\+g., solid, dense, etc.). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_abcecbd14400f4d21c3bbb3e8b4658acc}\index{LedIndicator@{LedIndicator}!setOnColor@{setOnColor}}
+\index{setOnColor@{setOnColor}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setOnColor()}{setOnColor()}}
+{\footnotesize\ttfamily \label{class_led_indicator_abcecbd14400f4d21c3bbb3e8b4658acc} 
+void Led\+Indicator\+::set\+On\+Color (\begin{DoxyParamCaption}\item[{QColor}]{on\+Color}{}\end{DoxyParamCaption})}
+
+
+
+Sets the color of the LED when it is turned on. 
+
+Sets the color of the LED when it is on and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Color} & The color to set when the LED is on. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_ad56df317c584e9101c7ada954ac917a3}\index{LedIndicator@{LedIndicator}!setOnPattern@{setOnPattern}}
+\index{setOnPattern@{setOnPattern}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setOnPattern()}{setOnPattern()}}
+{\footnotesize\ttfamily \label{class_led_indicator_ad56df317c584e9101c7ada954ac917a3} 
+void Led\+Indicator\+::set\+On\+Pattern (\begin{DoxyParamCaption}\item[{Qt\+::\+Brush\+Style}]{on\+Pattern}{}\end{DoxyParamCaption})}
+
+
+
+Sets the pattern of the LED when it is turned on. 
+
+Sets the pattern of the LED when it is on and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+Pattern} & The brush style pattern to set when the LED is on.\\
+\hline
+{\em on\+Pattern} & The pattern to set when the LED is on (e.\+g., solid, dense, etc.). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_a64cf63423048207d6f96ab96acf510cd}\index{LedIndicator@{LedIndicator}!setState@{setState}}
+\index{setState@{setState}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{setState()}{setState()}}
+{\footnotesize\ttfamily \label{class_led_indicator_a64cf63423048207d6f96ab96acf510cd} 
+void Led\+Indicator\+::set\+State (\begin{DoxyParamCaption}\item[{bool}]{state}{}\end{DoxyParamCaption})}
+
+
+
+Sets the state of the LED indicator. 
+
+Sets the state of the LED indicator and triggers a repaint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & true to turn the LED on, false to turn it off.\\
+\hline
+{\em state} & The state to set ({\ttfamily true} for on, {\ttfamily false} for off). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_led_indicator_a1eebdbb9c758a357b92b3c4c3c51c76a}\index{LedIndicator@{LedIndicator}!switchLedIndicator@{switchLedIndicator}}
+\index{switchLedIndicator@{switchLedIndicator}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{switchLedIndicator}{switchLedIndicator}}
+{\footnotesize\ttfamily \label{class_led_indicator_a1eebdbb9c758a357b92b3c4c3c51c76a} 
+void Led\+Indicator\+::switch\+Led\+Indicator (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Slot function to switch the state of the LED indicator. This slot is triggered to toggle the state of the LED indicator. 
+
+Toggles the state of the LED indicator and triggers a repaint. \Hypertarget{class_led_indicator_aa466a737dff3ee2cae192de76bf892ef}\index{LedIndicator@{LedIndicator}!toggle@{toggle}}
+\index{toggle@{toggle}!LedIndicator@{LedIndicator}}
+\doxysubsubsection{\texorpdfstring{toggle()}{toggle()}}
+{\footnotesize\ttfamily \label{class_led_indicator_aa466a737dff3ee2cae192de76bf892ef} 
+void Led\+Indicator\+::toggle (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Toggles the state of the LED indicator. If the LED is currently on, it will be turned off, and vice versa. 
+
+Toggles the state of the LED indicator and triggers a repaint. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{ledindicator_8h}{ledindicator.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{ledindicator_8cpp}{ledindicator.\+cpp}}\end{DoxyCompactItemize}

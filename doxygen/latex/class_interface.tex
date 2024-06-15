@@ -1,0 +1,125 @@
+\doxysection{Interface Class Reference}
+\hypertarget{class_interface}{}\label{class_interface}\index{Interface@{Interface}}
+
+
+The \doxylink{class_interface}{Interface} class represents a dialog window for configuring and managing settings.  
+
+
+
+
+{\ttfamily \#include $<$interface.\+h$>$}
+
+
+
+Inheritance diagram for Interface\+:
+% FIG 0
+
+
+Collaboration diagram for Interface\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_interface_aedecb2b6b3994bc9732c346dd7d05ce7}{Interface}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs the \doxylink{class_interface}{Interface} dialog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_interface_a19179888f29f18f1be54a3dfe98f68c0}{\texorpdfstring{$\sim$}{\string~}\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_interface}{Interface} dialog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface_a690c79d907fa76f816e90501f637825c}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em Translates UI elements to the current language. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_interface_afe5a72749d3e67e5a6abedcf12daf5cf}{check\+Modbus\+Address}} (qint16 address)
+\begin{DoxyCompactList}\small\item\em Checks if the Modbus address is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_interface}{Interface} class represents a dialog window for configuring and managing settings. 
+
+This class extends QDialog and provides functionalities for interacting with various widgets such as buttons, combo boxes, and LEDs. It manages serial port connections, Modbus configurations, and UI translations. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_interface_aedecb2b6b3994bc9732c346dd7d05ce7}\index{Interface@{Interface}!Interface@{Interface}}
+\index{Interface@{Interface}!Interface@{Interface}}
+\doxysubsubsection{\texorpdfstring{Interface()}{Interface()}}
+{\footnotesize\ttfamily \label{class_interface_aedecb2b6b3994bc9732c346dd7d05ce7} 
+Interface\+::\+Interface (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs the \doxylink{class_interface}{Interface} dialog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget (optional).\\
+\hline
+\end{DoxyParams}
+This constructor initializes the user interface, sets up signal-\/slot connections, validators for line edits, style sheets for various widgets, and translates text for internationalization.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget, usually a \doxylink{class_main_window}{Main\+Window}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_interface_a19179888f29f18f1be54a3dfe98f68c0}\index{Interface@{Interface}!````~Interface@{\texorpdfstring{$\sim$}{\string~}Interface}}
+\index{````~Interface@{\texorpdfstring{$\sim$}{\string~}Interface}!Interface@{Interface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Interface()}{\string~Interface()}}
+{\footnotesize\ttfamily \label{class_interface_a19179888f29f18f1be54a3dfe98f68c0} 
+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Interface (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_interface}{Interface} dialog. 
+
+Destructor for the \doxylink{class_interface}{Interface} class.
+
+This destructor deallocates resources associated with the \doxylink{class_interface}{Interface} object. It specifically deletes the user interface object (ui), which manages the graphical components of the interface. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_interface_afe5a72749d3e67e5a6abedcf12daf5cf}\index{Interface@{Interface}!checkModbusAddress@{checkModbusAddress}}
+\index{checkModbusAddress@{checkModbusAddress}!Interface@{Interface}}
+\doxysubsubsection{\texorpdfstring{checkModbusAddress()}{checkModbusAddress()}}
+{\footnotesize\ttfamily \label{class_interface_afe5a72749d3e67e5a6abedcf12daf5cf} 
+bool Interface\+::check\+Modbus\+Address (\begin{DoxyParamCaption}\item[{qint16}]{address}{}\end{DoxyParamCaption})}
+
+
+
+Checks if the Modbus address is valid. 
+
+Checks the Modbus address.
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & The Modbus address to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the address is valid, false otherwise.
+\end{DoxyReturn}
+This function checks if a given Modbus address is valid by sending a read request to the Modbus device. It uses a lock to ensure thread safety and updates the LED state.
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & The Modbus address to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the request was successfully sent, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_interface_a690c79d907fa76f816e90501f637825c}\index{Interface@{Interface}!Translate@{Translate}}
+\index{Translate@{Translate}!Interface@{Interface}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily \label{class_interface_a690c79d907fa76f816e90501f637825c} 
+void Interface\+::\+Translate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Translates UI elements to the current language. 
+
+Translates the UI text to the current language.
+
+This function translates all UI elements to the current language using the current locale settings.
+
+This function sets the translated text for various widgets in the UI based on the current language settings. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{interface_8h}{interface.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{interface_8cpp}{interface.\+cpp}}\end{DoxyCompactItemize}

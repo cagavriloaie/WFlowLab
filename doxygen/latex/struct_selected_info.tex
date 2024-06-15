@@ -1,0 +1,229 @@
+\doxysection{Selected\+Info Struct Reference}
+\hypertarget{struct_selected_info}{}\label{struct_selected_info}\index{SelectedInfo@{SelectedInfo}}
+
+
+The \doxylink{struct_selected_info}{Selected\+Info} struct holds selected information related to a device or configuration.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_selected_info_a4452d7bdf03b180d0a54060a0431784f}{Selected\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor initializes all members to default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{struct_selected_info_a9c5e207bff6a3891f02684931b948f75}{density\+\_\+20}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_ac2e1205db50144840fc1e6c4fbc86704}{path\+Results}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct_selected_info_a2b91e41d1a6f5a51bbd2ce7f22edf07e}{entries\+Number}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_aa7e4ff3c0de80f48251f178a3f899ea5}{certificate}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_aabafb66ee252092ee289bc202b9df573}{name\+Water\+Meter}}
+\item 
+unsigned \mbox{\hyperlink{struct_selected_info_a9c640dc35ae4790fed0edd764b0aaa7f}{nominal\+Diameter}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_a767850923f62e41ea91f90be81adcdb1}{nominal\+Flow}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_ac3fddd790077de8bfea3e4a41eb905e1}{maximum\+Flow}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_aea43d1851bff2645b4ea938b991ba12b}{trasition\+Flow}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_a2fc37fc8621c0a32f8baac518a5ac14e}{minimum\+Flow}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_a0d9fb30565ca716dec64cc088030c5e9}{nominal\+Error}}
+\item 
+double \mbox{\hyperlink{struct_selected_info_a712fd3cc68013523588cd43e614a3012}{maximum\+Error}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_a7b38bac2ed3655087bd3e791b0eab0a8}{ambient\+Temperature}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_a99f690b30acee2886ddbfd550941c636}{athmospheric\+Pressure}}
+\item 
+std\+::string \mbox{\hyperlink{struct_selected_info_a9e72d82e2b4557182c1cd651aebc0d7b}{relative\+Air\+Humidity}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_a49f861af716db13b72517a80b10e1819}{rb\+Gravimetric\+\_\+new}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_a9cd939ce2b45fefb4d05344deecaa0d8}{rb\+Volumetric}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_ae8df87bec6f37273c0a8aab4b6169566}{rb\+Manual}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_abd94951f5fa9557495217fbfd9533cba}{rb\+Interface}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_a144fa8bbbb8c5e08be914f75e0382947}{rb\+Terminal}}
+\item 
+bool \mbox{\hyperlink{struct_selected_info_a490ad5c6431ba5940d370d937daf3f1e}{serial\+Port}}
+\item 
+SELECTED\+\_\+\+LANGUAGE \mbox{\hyperlink{struct_selected_info_a7772c8f82f60954cf7db3ed7e038900c}{selected\+Language}}
+\item 
+QModbus\+Client \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_selected_info_a8cbdc60f8d81e2efc1e8c9e3e0580dac}{modbus\+Device}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{struct_selected_info}{Selected\+Info} struct holds selected information related to a device or configuration. 
+
+This struct encapsulates various parameters and flags that represent selected settings and state for a device or application configuration. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_selected_info_a4452d7bdf03b180d0a54060a0431784f}\index{SelectedInfo@{SelectedInfo}!SelectedInfo@{SelectedInfo}}
+\index{SelectedInfo@{SelectedInfo}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{SelectedInfo()}{SelectedInfo()}}
+{\footnotesize\ttfamily \label{struct_selected_info_a4452d7bdf03b180d0a54060a0431784f} 
+Selected\+Info\+::\+Selected\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor initializes all members to default values. 
+
+\texorpdfstring{$<$}{<} Density at 20 degrees Celsius. \texorpdfstring{$<$}{<} Number of entries. \texorpdfstring{$<$}{<} Nominal diameter of the device. \texorpdfstring{$<$}{<} Nominal flow rate. \texorpdfstring{$<$}{<} Maximum flow rate. \texorpdfstring{$<$}{<} Transition flow rate. \texorpdfstring{$<$}{<} Minimum flow rate. \texorpdfstring{$<$}{<} Nominal error. \texorpdfstring{$<$}{<} Maximum error. \texorpdfstring{$<$}{<} Ambient temperature. \texorpdfstring{$<$}{<} Atmospheric pressure. \texorpdfstring{$<$}{<} Relative air humidity. \texorpdfstring{$<$}{<} Gravimetric measurement flag. \texorpdfstring{$<$}{<} Volumetric measurement flag. \texorpdfstring{$<$}{<} Manual operation mode flag. \texorpdfstring{$<$}{<} \doxylink{class_interface}{Interface} operation mode flag. \texorpdfstring{$<$}{<} Terminal operation mode flag. \texorpdfstring{$<$}{<} Serial port usage flag. \texorpdfstring{$<$}{<} Selected language enumeration. \texorpdfstring{$<$}{<} Pointer to the Modbus client device. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_selected_info_a7b38bac2ed3655087bd3e791b0eab0a8}\index{SelectedInfo@{SelectedInfo}!ambientTemperature@{ambientTemperature}}
+\index{ambientTemperature@{ambientTemperature}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{ambientTemperature}{ambientTemperature}}
+{\footnotesize\ttfamily \label{struct_selected_info_a7b38bac2ed3655087bd3e791b0eab0a8} 
+std\+::string Selected\+Info\+::ambient\+Temperature}
+
+Ambient temperature. \Hypertarget{struct_selected_info_a99f690b30acee2886ddbfd550941c636}\index{SelectedInfo@{SelectedInfo}!athmosphericPressure@{athmosphericPressure}}
+\index{athmosphericPressure@{athmosphericPressure}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{athmosphericPressure}{athmosphericPressure}}
+{\footnotesize\ttfamily \label{struct_selected_info_a99f690b30acee2886ddbfd550941c636} 
+std\+::string Selected\+Info\+::athmospheric\+Pressure}
+
+Atmospheric pressure. \Hypertarget{struct_selected_info_aa7e4ff3c0de80f48251f178a3f899ea5}\index{SelectedInfo@{SelectedInfo}!certificate@{certificate}}
+\index{certificate@{certificate}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{certificate}{certificate}}
+{\footnotesize\ttfamily \label{struct_selected_info_aa7e4ff3c0de80f48251f178a3f899ea5} 
+std\+::string Selected\+Info\+::certificate}
+
+Certificate information. \Hypertarget{struct_selected_info_a9c5e207bff6a3891f02684931b948f75}\index{SelectedInfo@{SelectedInfo}!density\_20@{density\_20}}
+\index{density\_20@{density\_20}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{density\_20}{density\_20}}
+{\footnotesize\ttfamily \label{struct_selected_info_a9c5e207bff6a3891f02684931b948f75} 
+float Selected\+Info\+::density\+\_\+20}
+
+Density at 20 degrees Celsius. \Hypertarget{struct_selected_info_a2b91e41d1a6f5a51bbd2ce7f22edf07e}\index{SelectedInfo@{SelectedInfo}!entriesNumber@{entriesNumber}}
+\index{entriesNumber@{entriesNumber}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{entriesNumber}{entriesNumber}}
+{\footnotesize\ttfamily \label{struct_selected_info_a2b91e41d1a6f5a51bbd2ce7f22edf07e} 
+size\+\_\+t Selected\+Info\+::entries\+Number}
+
+Number of entries. \Hypertarget{struct_selected_info_a712fd3cc68013523588cd43e614a3012}\index{SelectedInfo@{SelectedInfo}!maximumError@{maximumError}}
+\index{maximumError@{maximumError}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{maximumError}{maximumError}}
+{\footnotesize\ttfamily \label{struct_selected_info_a712fd3cc68013523588cd43e614a3012} 
+double Selected\+Info\+::maximum\+Error}
+
+Maximum error. \Hypertarget{struct_selected_info_ac3fddd790077de8bfea3e4a41eb905e1}\index{SelectedInfo@{SelectedInfo}!maximumFlow@{maximumFlow}}
+\index{maximumFlow@{maximumFlow}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{maximumFlow}{maximumFlow}}
+{\footnotesize\ttfamily \label{struct_selected_info_ac3fddd790077de8bfea3e4a41eb905e1} 
+double Selected\+Info\+::maximum\+Flow}
+
+Maximum flow rate. \Hypertarget{struct_selected_info_a2fc37fc8621c0a32f8baac518a5ac14e}\index{SelectedInfo@{SelectedInfo}!minimumFlow@{minimumFlow}}
+\index{minimumFlow@{minimumFlow}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{minimumFlow}{minimumFlow}}
+{\footnotesize\ttfamily \label{struct_selected_info_a2fc37fc8621c0a32f8baac518a5ac14e} 
+double Selected\+Info\+::minimum\+Flow}
+
+Minimum flow rate. \Hypertarget{struct_selected_info_a8cbdc60f8d81e2efc1e8c9e3e0580dac}\index{SelectedInfo@{SelectedInfo}!modbusDevice@{modbusDevice}}
+\index{modbusDevice@{modbusDevice}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{modbusDevice}{modbusDevice}}
+{\footnotesize\ttfamily \label{struct_selected_info_a8cbdc60f8d81e2efc1e8c9e3e0580dac} 
+QModbus\+Client\texorpdfstring{$\ast$}{*} Selected\+Info\+::modbus\+Device}
+
+Pointer to the Modbus client device. \Hypertarget{struct_selected_info_aabafb66ee252092ee289bc202b9df573}\index{SelectedInfo@{SelectedInfo}!nameWaterMeter@{nameWaterMeter}}
+\index{nameWaterMeter@{nameWaterMeter}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{nameWaterMeter}{nameWaterMeter}}
+{\footnotesize\ttfamily \label{struct_selected_info_aabafb66ee252092ee289bc202b9df573} 
+std\+::string Selected\+Info\+::name\+Water\+Meter}
+
+Name of the water meter. \Hypertarget{struct_selected_info_a9c640dc35ae4790fed0edd764b0aaa7f}\index{SelectedInfo@{SelectedInfo}!nominalDiameter@{nominalDiameter}}
+\index{nominalDiameter@{nominalDiameter}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{nominalDiameter}{nominalDiameter}}
+{\footnotesize\ttfamily \label{struct_selected_info_a9c640dc35ae4790fed0edd764b0aaa7f} 
+unsigned Selected\+Info\+::nominal\+Diameter}
+
+Nominal diameter of the device. \Hypertarget{struct_selected_info_a0d9fb30565ca716dec64cc088030c5e9}\index{SelectedInfo@{SelectedInfo}!nominalError@{nominalError}}
+\index{nominalError@{nominalError}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{nominalError}{nominalError}}
+{\footnotesize\ttfamily \label{struct_selected_info_a0d9fb30565ca716dec64cc088030c5e9} 
+double Selected\+Info\+::nominal\+Error}
+
+Nominal error. \Hypertarget{struct_selected_info_a767850923f62e41ea91f90be81adcdb1}\index{SelectedInfo@{SelectedInfo}!nominalFlow@{nominalFlow}}
+\index{nominalFlow@{nominalFlow}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{nominalFlow}{nominalFlow}}
+{\footnotesize\ttfamily \label{struct_selected_info_a767850923f62e41ea91f90be81adcdb1} 
+double Selected\+Info\+::nominal\+Flow}
+
+Nominal flow rate. \Hypertarget{struct_selected_info_ac2e1205db50144840fc1e6c4fbc86704}\index{SelectedInfo@{SelectedInfo}!pathResults@{pathResults}}
+\index{pathResults@{pathResults}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{pathResults}{pathResults}}
+{\footnotesize\ttfamily \label{struct_selected_info_ac2e1205db50144840fc1e6c4fbc86704} 
+std\+::string Selected\+Info\+::path\+Results}
+
+Path for storing results. \Hypertarget{struct_selected_info_a49f861af716db13b72517a80b10e1819}\index{SelectedInfo@{SelectedInfo}!rbGravimetric\_new@{rbGravimetric\_new}}
+\index{rbGravimetric\_new@{rbGravimetric\_new}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{rbGravimetric\_new}{rbGravimetric\_new}}
+{\footnotesize\ttfamily \label{struct_selected_info_a49f861af716db13b72517a80b10e1819} 
+bool Selected\+Info\+::rb\+Gravimetric\+\_\+new}
+
+Gravimetric measurement flag. \Hypertarget{struct_selected_info_abd94951f5fa9557495217fbfd9533cba}\index{SelectedInfo@{SelectedInfo}!rbInterface@{rbInterface}}
+\index{rbInterface@{rbInterface}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{rbInterface}{rbInterface}}
+{\footnotesize\ttfamily \label{struct_selected_info_abd94951f5fa9557495217fbfd9533cba} 
+bool Selected\+Info\+::rb\+Interface}
+
+\doxylink{class_interface}{Interface} operation mode flag. \Hypertarget{struct_selected_info_ae8df87bec6f37273c0a8aab4b6169566}\index{SelectedInfo@{SelectedInfo}!rbManual@{rbManual}}
+\index{rbManual@{rbManual}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{rbManual}{rbManual}}
+{\footnotesize\ttfamily \label{struct_selected_info_ae8df87bec6f37273c0a8aab4b6169566} 
+bool Selected\+Info\+::rb\+Manual}
+
+Manual operation mode flag. \Hypertarget{struct_selected_info_a144fa8bbbb8c5e08be914f75e0382947}\index{SelectedInfo@{SelectedInfo}!rbTerminal@{rbTerminal}}
+\index{rbTerminal@{rbTerminal}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{rbTerminal}{rbTerminal}}
+{\footnotesize\ttfamily \label{struct_selected_info_a144fa8bbbb8c5e08be914f75e0382947} 
+bool Selected\+Info\+::rb\+Terminal}
+
+Terminal operation mode flag. \Hypertarget{struct_selected_info_a9cd939ce2b45fefb4d05344deecaa0d8}\index{SelectedInfo@{SelectedInfo}!rbVolumetric@{rbVolumetric}}
+\index{rbVolumetric@{rbVolumetric}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{rbVolumetric}{rbVolumetric}}
+{\footnotesize\ttfamily \label{struct_selected_info_a9cd939ce2b45fefb4d05344deecaa0d8} 
+bool Selected\+Info\+::rb\+Volumetric}
+
+Volumetric measurement flag. \Hypertarget{struct_selected_info_a9e72d82e2b4557182c1cd651aebc0d7b}\index{SelectedInfo@{SelectedInfo}!relativeAirHumidity@{relativeAirHumidity}}
+\index{relativeAirHumidity@{relativeAirHumidity}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{relativeAirHumidity}{relativeAirHumidity}}
+{\footnotesize\ttfamily \label{struct_selected_info_a9e72d82e2b4557182c1cd651aebc0d7b} 
+std\+::string Selected\+Info\+::relative\+Air\+Humidity}
+
+Relative air humidity. \Hypertarget{struct_selected_info_a7772c8f82f60954cf7db3ed7e038900c}\index{SelectedInfo@{SelectedInfo}!selectedLanguage@{selectedLanguage}}
+\index{selectedLanguage@{selectedLanguage}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{selectedLanguage}{selectedLanguage}}
+{\footnotesize\ttfamily \label{struct_selected_info_a7772c8f82f60954cf7db3ed7e038900c} 
+SELECTED\+\_\+\+LANGUAGE Selected\+Info\+::selected\+Language}
+
+Selected language enumeration. \Hypertarget{struct_selected_info_a490ad5c6431ba5940d370d937daf3f1e}\index{SelectedInfo@{SelectedInfo}!serialPort@{serialPort}}
+\index{serialPort@{serialPort}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{serialPort}{serialPort}}
+{\footnotesize\ttfamily \label{struct_selected_info_a490ad5c6431ba5940d370d937daf3f1e} 
+bool Selected\+Info\+::serial\+Port}
+
+Serial port usage flag. \Hypertarget{struct_selected_info_aea43d1851bff2645b4ea938b991ba12b}\index{SelectedInfo@{SelectedInfo}!trasitionFlow@{trasitionFlow}}
+\index{trasitionFlow@{trasitionFlow}!SelectedInfo@{SelectedInfo}}
+\doxysubsubsection{\texorpdfstring{trasitionFlow}{trasitionFlow}}
+{\footnotesize\ttfamily \label{struct_selected_info_aea43d1851bff2645b4ea938b991ba12b} 
+double Selected\+Info\+::trasition\+Flow}
+
+Transition flow rate. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\end{DoxyCompactItemize}

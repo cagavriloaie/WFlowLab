@@ -1,33 +1,52 @@
-/*
- *  Author: Constantin
- *  File:   flow-meter-type.h
+/**
+ * \file flow-meter-type.h
+ * \brief Header file defining enums for flow meter types.
+ *
+ * This file defines enums that represent different types of flow meters
+ * used in the project.
+ *
+ * \author Constantin
  */
 
 #ifndef FLOWMETERTYPE_H
 #define FLOWMETERTYPE_H
 
-#include <QDir>
-#include <QMessageBox>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
-#include "definitions.h"
+#include <QDir>         // Qt class for handling directories and their contents.
+#include <QMessageBox>  // Qt class for displaying modal dialog boxes with messages.
+#include <iostream>     // Standard C++ stream input/output library.
+#include <fstream>      // Standard C++ file stream input/output library.
+#include <sstream>      // Standard C++ string stream input/output library.
+#include <vector>       // Standard C++ container class for dynamic arrays.
+#include <string>       // Standard C++ string class.
+#include "definitions.h"  // User-defined header file containing project-specific definitions.
 
-/* Water Flow Meters type structure */
+/** \brief Structure representing a water flow meter type.
+ *
+ *  This structure holds various properties of a water flow meter, including its name,
+ *  nominal diameter, flow rates, and error margins.
+ */
 struct MeterFlowType
 {
+    std::string nameWaterMeter; ///< Name of the water meter.
+    unsigned nominalDiameter;   ///< Nominal diameter of the water meter.
+    double nominalFlow;         ///< Nominal flow rate of the water meter.
+    double maximumFlow;         ///< Maximum flow rate of the water meter.
+    double trasitionFlow;       ///< Transition flow rate of the water meter.
+    double minimumFlow;         ///< Minimum flow rate of the water meter.
+    double nominalError;        ///< Nominal error margin of the water meter.
+    double maximumError;        ///< Maximum error margin of the water meter.
 
-    std::string nameWaterMeter;
-    unsigned nominalDiameter;
-    double nominalFlow;
-    double maximumFlow;
-    double trasitionFlow;
-    double minimumFlow;
-    double nominalError;
-    double maximumError;
-
+    /** \brief Constructor to initialize MeterFlowType with specific values.
+     *
+     *  \param _nameWaterMeter Name of the water meter.
+     *  \param _nominalDiameter Nominal diameter of the water meter.
+     *  \param _nominalFlow Nominal flow rate of the water meter.
+     *  \param _maximumFlow Maximum flow rate of the water meter.
+     *  \param _trasitionFlow Transition flow rate of the water meter.
+     *  \param _minimumFlow Minimum flow rate of the water meter.
+     *  \param _nominalError Nominal error margin of the water meter.
+     *  \param _maximumError Maximum error margin of the water meter.
+     */
     MeterFlowType(const std::string &_nameWaterMeter,
                   unsigned _nominalDiameter,
                   double _nominalFlow,
@@ -37,25 +56,32 @@ struct MeterFlowType
                   double _nominalError,
                   double _maximumError)
         : nameWaterMeter(_nameWaterMeter),
-          nominalDiameter(_nominalDiameter),
-          nominalFlow(_nominalFlow),
-          maximumFlow(_maximumFlow),
-          trasitionFlow(_trasitionFlow),
-          minimumFlow(_minimumFlow),
-          nominalError(_nominalError),
-          maximumError(_maximumError) {}
+        nominalDiameter(_nominalDiameter),
+        nominalFlow(_nominalFlow),
+        maximumFlow(_maximumFlow),
+        trasitionFlow(_trasitionFlow),
+        minimumFlow(_minimumFlow),
+        nominalError(_nominalError),
+        maximumError(_maximumError) {}
 
+    /** \brief Default constructor to initialize MeterFlowType with default values.
+     *
+     *  Initializes all properties of the water meter to default values.
+     */
     MeterFlowType()
         : nameWaterMeter(""),
-          nominalDiameter(0),
-          nominalFlow(0),
-          maximumFlow(0),
-          trasitionFlow(0),
-          minimumFlow(0),
-          nominalError(0),
-          maximumError(0) {}
+        nominalDiameter(0),
+        nominalFlow(0),
+        maximumFlow(0),
+        trasitionFlow(0),
+        minimumFlow(0),
+        nominalError(0),
+        maximumError(0) {}
 };
 
+/**
+ * \brief Vector containing default MeterFlowType objects representing various water flow meters.
+ */
 std::vector < MeterFlowType > meterFlowTypesDefault =
 {
     // --------------------------------------------------------------------------------------------------------
@@ -115,6 +141,20 @@ std::vector < MeterFlowType > meterFlowTypesDefault =
     MeterFlowType("FGH MNK DN 50 R255",                50,    25000,    31250,   160,     100,      2,     5)
 };
 
+/**
+ * \brief Reads meter flow types from a CSV file and returns them as a vector of MeterFlowType objects.
+ *
+ * This function reads meter flow types from the specified CSV file. Each line in the CSV file
+ * represents a MeterFlowType object with fields separated by CSV_DELIMITER. If the file cannot
+ * be opened, it displays a warning message using QMessageBox and returns the default meter
+ * flow types.
+ *
+ * \param filename The path to the CSV file containing meter flow types.
+ * \return std::vector<MeterFlowType> A vector containing MeterFlowType objects read from the CSV file.
+ *         If the file cannot be read or is corrupted, it returns meterFlowTypesDefault.
+ *
+ * \see MeterFlowType, meterFlowTypesDefault, QMessageBox
+ */
 std::vector < MeterFlowType > readFlowMeterTypesCSV(
     const std::string  &filename)
 {
@@ -232,7 +272,19 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
     return meterFlowTypes;
 }
 
-/* Water Flow Meters DB */
+/**
+ * \brief Database array storing water flow meter types.
+ *
+ * This array stores information about water flow meter types. Each element represents
+ * a MeterFlowType structure, which includes attributes such as name, nominal diameter,
+ * flow rates (nominal, maximum, transition, minimum), and error margins.
+ *
+ * This array is initialized to store up to MAX_NUMBER_FLOW_METER_TYPES meter types.
+ * Ensure that the array size is sufficient for your application's needs to avoid overflow.
+ *
+ * \see MeterFlowType, MAX_NUMBER_FLOW_METER_TYPES
+ */
 MeterFlowType MeterFlowDB[MAX_NUMBER_FLOW_METER_TYPES] = {};
+
 
 #endif // FLOWMETERTYPE_H

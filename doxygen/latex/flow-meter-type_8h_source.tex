@@ -1,0 +1,238 @@
+\doxysection{flow-\/meter-\/type.h}
+\hypertarget{flow-meter-type_8h_source}{}\label{flow-meter-type_8h_source}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/flow-\/meter-\/type.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/flow-\/meter-\/type.h}}
+\mbox{\hyperlink{flow-meter-type_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ FLOWMETERTYPE\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ FLOWMETERTYPE\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QDir>}\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Qt\ class\ for\ handling\ directories\ and\ their\ contents.}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QMessageBox>}\ \ \textcolor{comment}{//\ Qt\ class\ for\ displaying\ modal\ dialog\ boxes\ with\ messages.}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <iostream>}\ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ stream\ input/output\ library.}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <fstream>}\ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ file\ stream\ input/output\ library.}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <sstream>}\ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ string\ stream\ input/output\ library.}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <vector>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ container\ class\ for\ dynamic\ arrays.}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string>}\ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ C++\ string\ class.}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}\ \ \textcolor{comment}{//\ User-\/defined\ header\ file\ containing\ project-\/specific\ definitions.}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_meter_flow_type_a836cfbc8414e9ad2897aeb6bdd419e7c}{nameWaterMeter}};\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_meter_flow_type_ad4bbaeff90a09b73f4632494dcc778d8}{nominalDiameter}};\ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_a3c53d0d2a146d61f956c02b4ae87fac6}{nominalFlow}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_a607542f50ac55559ccd52a52e8636884}{maximumFlow}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_af333448be713a8ba4db7267a500c49d5}{trasitionFlow}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_acaf37af6f4672c60f3362fbd100008b2}{minimumFlow}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_a0e791e27d85ecc934db2239e003c74b7}{nominalError}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_meter_flow_type_a28bb22fe48be94dc377515cb9530dca6}{maximumError}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a2924c0ce8dbe299b619a9121df93ff75}{MeterFlowType}}(\textcolor{keyword}{const}\ std::string\ \&\_nameWaterMeter,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \_nominalDiameter,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_nominalFlow,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_maximumFlow,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_trasitionFlow,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_minimumFlow,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_nominalError,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \_maximumError)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_meter_flow_type_a836cfbc8414e9ad2897aeb6bdd419e7c}{nameWaterMeter}}(\_nameWaterMeter),}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_ad4bbaeff90a09b73f4632494dcc778d8}{nominalDiameter}}(\_nominalDiameter),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a3c53d0d2a146d61f956c02b4ae87fac6}{nominalFlow}}(\_nominalFlow),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a607542f50ac55559ccd52a52e8636884}{maximumFlow}}(\_maximumFlow),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_af333448be713a8ba4db7267a500c49d5}{trasitionFlow}}(\_trasitionFlow),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_acaf37af6f4672c60f3362fbd100008b2}{minimumFlow}}(\_minimumFlow),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a0e791e27d85ecc934db2239e003c74b7}{nominalError}}(\_nominalError),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a28bb22fe48be94dc377515cb9530dca6}{maximumError}}(\_maximumError)\ \{\}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_aa7239ceb5d80de4b21ba598efeebbf97}{MeterFlowType}}()}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_meter_flow_type_a836cfbc8414e9ad2897aeb6bdd419e7c}{nameWaterMeter}}(\textcolor{stringliteral}{"{}"{}}),}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_ad4bbaeff90a09b73f4632494dcc778d8}{nominalDiameter}}(0),}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a3c53d0d2a146d61f956c02b4ae87fac6}{nominalFlow}}(0),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a607542f50ac55559ccd52a52e8636884}{maximumFlow}}(0),}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_af333448be713a8ba4db7267a500c49d5}{trasitionFlow}}(0),}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_acaf37af6f4672c60f3362fbd100008b2}{minimumFlow}}(0),}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a0e791e27d85ecc934db2239e003c74b7}{nominalError}}(0),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type_a28bb22fe48be94dc377515cb9530dca6}{maximumError}}(0)\ \{\}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00085\ std::vector\ <\ MeterFlowType\ >\ \mbox{\hyperlink{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a}{meterFlowTypesDefault}}\ =}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DN\ \ \ \ \ \ \ QN\ \ \ \ \ \ Qmax\ \ \ \ \ Qt\ \ \ \ \ \ Qmin\ \ \ \ ErrNom\ \ ErrMax}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mm\ \ \ \ \ \ \ l/h\ \ \ \ \ \ l/h\ \ \ \ \ l/h\ \ \ \ \ \ l/h\ \ \ \ \ \ \ \%\ \ \ \ \ \ \%}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flodis\ DN\ 15"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 15,\ \ \ \ \ 1500,\ \ \ \ \ 3000,\ \ 22.5,\ \ \ \ \ \ 15,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flodis\ DN\ 20"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ \ \ \ \ 2500,\ \ \ \ \ 5000,\ \ 37.5,\ \ \ \ \ \ 25,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flodis\ DN\ 25"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 3500,\ \ \ \ \ 7000,\ \ 52.5,\ \ \ \ \ \ 35,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 40"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ 160,\ \ \ \ \ \ \ 80,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 50"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 50,\ \ \ \ 25000,\ \ \ \ 31250,\ \ \ 127,\ \ \ \ \ \ \ 79,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 65"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 65,\ \ \ \ 40000,\ \ \ \ 50000,\ \ \ 160,\ \ \ \ \ \ 100,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 80,\ \ \ \ 63000,\ \ \ \ 78000,\ \ \ 252,\ \ \ \ \ \ 157,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 100"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ 100,\ \ \ 100000,\ \ \ 125000,\ \ \ 400,\ \ \ \ \ \ 250,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}Itron\ Flostar\ DN\ 150"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ 150,\ \ \ 160000,\ \ \ 200000,\ \ \ 406,\ \ \ \ \ \ 254,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 15\ R80"{}},\ \ \ \ \ 15,\ \ \ \ \ 2500,\ \ \ \ \ 3125,\ \ \ \ 50,\ \ \ \ 31.25,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 15\ R160"{}},\ \ \ \ 15,\ \ \ \ \ 2500,\ \ \ \ \ 3125,\ \ \ \ 25,\ \ \ \ \ \ 15.63,\ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 20\ R80"{}},\ \ \ \ \ 20,\ \ \ \ \ 4000,\ \ \ \ \ 5000,\ \ \ 100,\ \ \ \ \ 62.5,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 20\ R160"{}},\ \ \ \ 20,\ \ \ \ \ 4000,\ \ \ \ \ 5000,\ \ \ \ 40,\ \ \ \ \ 25.0,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 25\ R80"{}},\ \ \ \ \ 25,\ \ \ \ \ 6300,\ \ \ \ \ 7875,\ \ \ 126,\ \ \ \ \ \ \ 78.75,\ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 25\ R160"{}},\ \ \ \ 25,\ \ \ \ \ 6300,\ \ \ \ \ 7875,\ \ \ \ 63,\ \ \ \ \ \ \ 39.4,\ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 25\ R80"{}},\ \ \ \ \ 25,\ \ \ \ \ 8000,\ \ \ \ 10000,\ \ \ 160,\ \ \ \ \ \ 100,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 25\ R160"{}},\ \ \ \ 25,\ \ \ \ \ 8000,\ \ \ \ 10000,\ \ \ \ 80.64,\ \ \ \ 50.4,\ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 32\ R80"{}},\ \ \ \ \ 32,\ \ \ \ 10000,\ \ \ \ 12000,\ \ \ 200,\ \ \ \ \ \ 125,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 32\ R160"{}},\ \ \ \ 32,\ \ \ \ 10000,\ \ \ \ 12000,\ \ \ 100,\ \ \ \ \ \ \ 62.5,\ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 40\ R80"{}},\ \ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ 320,\ \ \ \ \ \ 200,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ Sentinel\ 420\ PC\ DN\ 40\ R160"{}},\ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ 160,\ \ \ \ \ \ 100,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 40"{}},\ \ \ \ 40,\ \ \ \ 30000,\ \ \ \ 50000,\ \ \ 130,\ \ \ \ \ \ \ 80,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 50"{}},\ \ \ \ 50,\ \ \ \ 35000,\ \ \ \ 55000,\ \ \ 130,\ \ \ \ \ \ \ 70,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 65"{}},\ \ \ \ 65,\ \ \ \ 40000,\ \ \ \ 60000,\ \ \ 160,\ \ \ \ \ \ 100,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 80"{}},\ \ \ \ 80,\ \ \ \ 63000,\ \ \ 120000,\ \ \ 250,\ \ \ \ \ \ 130,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 100"{}},\ \ 100,\ \ \ 100000,\ \ \ 160000,\ \ \ 400,\ \ \ \ 200,\ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MeiStream\ Plus\ Cl.\ C\ DN\ 150"{}},\ \ 150,\ \ \ 250000,\ \ \ 400000,\ \ \ 630,\ \ \ 350,\ \ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ iPERL\ R800\ DN\ 15"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ 15,\ \ \ \ \ 2500,\ \ \ \ \ 3125,\ \ \ \ \ 5,\ \ \ \ \ \ 3.13,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ iPERL\ R800\ DN\ 20"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ \ \ \ \ 4000,\ \ \ \ \ 5000,\ \ \ \ \ 8,\ \ \ \ \ \ 5,\ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ iPERL\ R800\ DN\ 25"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 6300,\ \ \ \ \ 7875,\ \ \ \ 12.6,\ \ \ \ 7.88,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ iPERL\ R800\ DN\ 30"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ 30,\ \ \ \ 10000,\ \ \ \ 12500,\ \ \ \ 20,\ \ \ \ \ 12.5,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ iPERL\ R800\ DN\ 40"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ \ 32,\ \ \ \ \ 20,\ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 15\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 15,\ \ \ \ \ 2500,\ \ \ \ \ 3125,\ \ \ \ 50,\ \ \ \ \ 31.25,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 15\ R160"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 15,\ \ \ \ \ 2500,\ \ \ \ \ 3125,\ \ \ \ 25,\ \ \ \ \ 15.63,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 20\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ \ \ \ \ 4000,\ \ \ \ \ 5000,\ \ \ 100,\ \ \ \ \ 62.5,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00131\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 20\ R160"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 20,\ \ \ \ \ 4000,\ \ \ \ \ 5000,\ \ \ \ 40,\ \ \ \ \ 25,\ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 25\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 6300,\ \ \ \ \ 7875,\ \ \ 126,\ \ \ \ \ 78.75,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 25\ A"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 6300,\ \ \ \ 7875,\ \ \ \ \ 63,\ \ \ \ \ 39.4,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 25\ B"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 8000,\ \ \ \ 10000,\ \ \ 160,\ \ \ \ 100,\ \ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 25\ C"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25,\ \ \ \ \ 8000,\ \ \ \ 10000,\ \ \ \ 80.64,\ \ 50.4,\ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 32\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 32,\ \ \ \ 10000,\ \ \ \ 12000,\ \ \ 200,\ \ \ \ \ 125,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 32\ R160"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 32,\ \ \ \ 10000,\ \ \ \ 12000,\ \ \ 100,\ \ \ \ \ \ 62.5,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 40\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ 320,\ \ \ \ \ 200,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 40\ R160"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 40,\ \ \ \ 16000,\ \ \ \ 20000,\ \ \ 160,\ \ \ \ \ 100,\ \ \ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 50\ R80"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 50,\ \ \ \ 25000,\ \ \ \ 31250,\ \ \ 500,\ \ \ \ \ 312.5,\ \ \ \ 2,\ \ \ \ \ 5),}
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}(\textcolor{stringliteral}{"{}FGH\ MNK\ DN\ 50\ R255"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 50,\ \ \ \ 25000,\ \ \ \ 31250,\ \ \ 160,\ \ \ \ \ 100,\ \ \ \ \ \ 2,\ \ \ \ \ 5)}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00158\ std::vector\ <\ MeterFlowType\ >\ \mbox{\hyperlink{flow-meter-type_8h_a5fb2afda60930f69a251915a88afc620}{readFlowMeterTypesCSV}}(}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \ \&filename)}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ QString\ currentPath\ =\ QDir::currentPath();}
+\DoxyCodeLine{00162\ \ \ \ \ Q\_UNUSED(currentPath);}
+\DoxyCodeLine{00163\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00164\ \ \ \ \ std::vector\ <\ MeterFlowType\ >\ meterFlowTypes;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ QMessageBox\ warningMessage;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ warningMessage.addButton(QMessageBox::Ok);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ warningMessage.setWindowTitle(QObject::tr(\textcolor{stringliteral}{"{}Warning"{}}));}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ warningMessage.setText(QObject::tr(\textcolor{stringliteral}{"{}Flow\ Meters\ DB"{}}));}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ warningMessage.setInformativeText(}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ QObject::tr(\textcolor{stringliteral}{"{}The\ watermeters.csv\ with\ Flow\ Meters\ DB\ cannot\ be\ found."{}}));}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ warningMessage.setWindowFlags(Qt::Dialog\ |\ Qt::CustomizeWindowHint\ |}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowTitleHint\ |}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowCloseButtonHint);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ warningMessage.exec();}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Default\ Water\ Flow\ Meters\ DB\ */}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a}{meterFlowTypesDefault}};}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{bool}\ dbCorrupted\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00185\ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ expectedFieldCount\ =\ 0;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ field;}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ the\ number\ of\ fields\ in\ the\ first\ line\ to\ determine\ the\ expected\ count}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(iss,\ field,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}}))\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ expectedFieldCount++;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ lineCopy\ =\ line;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ actualFieldCount\ =\ 0;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ the\ number\ of\ fields\ in\ the\ current\ line}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ issCopy(lineCopy);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ field;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(issCopy,\ field,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}}))\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ actualFieldCount++;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ field\ count\ matches\ the\ expected\ count}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (actualFieldCount\ !=\ expectedFieldCount)\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dbCorrupted\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Parse\ the\ line\ into\ MeterFlowType\ structure}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}\ meterFlow;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ token;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_a836cfbc8414e9ad2897aeb6bdd419e7c}{nameWaterMeter}},\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_ad4bbaeff90a09b73f4632494dcc778d8}{nominalDiameter}}\ =\ std::stod(token);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_a607542f50ac55559ccd52a52e8636884}{maximumFlow}}\ =\ std::stod(token);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_a3c53d0d2a146d61f956c02b4ae87fac6}{nominalFlow}}\ =\ std::stod(token);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_af333448be713a8ba4db7267a500c49d5}{trasitionFlow}}\ =\ std::stod(token);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_acaf37af6f4672c60f3362fbd100008b2}{minimumFlow}}\ =\ std::stod(token);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token,\ \mbox{\hyperlink{definitions_8h_a538d371a567914dc23c4b08ecdb3b7b0}{CSV\_DELIMITER}});}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_a0e791e27d85ecc934db2239e003c74b7}{nominalError}}\ =\ std::stod(token);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(iss,\ token);}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlow.\mbox{\hyperlink{struct_meter_flow_type_a28bb22fe48be94dc377515cb9530dca6}{maximumError}}\ =\ std::stod(token);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ parsed\ MeterFlowType\ to\ the\ vector}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ meterFlowTypes.push\_back(meterFlow);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00242\ \ \ \ \ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ QMessageBox\ warningMessage;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ warningMessage.addButton(QMessageBox::Ok);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ warningMessage.setWindowTitle(QObject::tr(\textcolor{stringliteral}{"{}Warning"{}}));}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ warningMessage.setText(QObject::tr(\textcolor{stringliteral}{"{}Flow\ Meters\ DB"{}}));}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ warningMessage.setInformativeText(}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ QObject::tr(\textcolor{stringliteral}{"{}The\ watermeters.csv\ with\ Flow\ Meters\ DB\ is\ corrupted."{}}));}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ warningMessage.setWindowFlags(Qt::Dialog\ |\ Qt::CustomizeWindowHint\ |}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowTitleHint\ |}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowCloseButtonHint);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ warningMessage.exec();}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{flow-meter-type_8h_a56aa1f6190bf3693f1e1cb66e629018a}{meterFlowTypesDefault}};}
+\DoxyCodeLine{00255\ \ \ \ \ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ file.close();}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{if}\ (dbCorrupted)}
+\DoxyCodeLine{00260\ \ \ \ \ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ QMessageBox\ warningMessage;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ warningMessage.addButton(QMessageBox::Ok);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ warningMessage.setWindowTitle(QObject::tr(\textcolor{stringliteral}{"{}Warning"{}}));}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ warningMessage.setText(QObject::tr(\textcolor{stringliteral}{"{}Flow\ Meters\ DB"{}}));}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ warningMessage.setInformativeText(}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ QObject::tr(\textcolor{stringliteral}{"{}The\ watermeters.csv\ with\ Flow\ Meters\ DB\ is\ corrupted."{}}));}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ warningMessage.setWindowFlags(Qt::Dialog\ |\ Qt::CustomizeWindowHint\ |}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowTitleHint\ |}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Qt::WindowCloseButtonHint);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ warningMessage.exec();}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{return}\ meterFlowTypes;}
+\DoxyCodeLine{00273\ \}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00287\ \mbox{\hyperlink{struct_meter_flow_type}{MeterFlowType}}\ \mbox{\hyperlink{flow-meter-type_8h_af606e83054d55b0e113dc2ef1d88f247}{MeterFlowDB}}[\mbox{\hyperlink{definitions_8h_a99a00113e87f2480241d21cbda4aa236}{MAX\_NUMBER\_FLOW\_METER\_TYPES}}]\ =\ \{\};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FLOWMETERTYPE\_H}}
+
+\end{DoxyCode}

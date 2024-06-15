@@ -1,0 +1,196 @@
+\doxysection{Table\+Board Class Reference}
+\hypertarget{class_table_board}{}\label{class_table_board}\index{TableBoard@{TableBoard}}
+
+
+Dialog window for managing and displaying water meter test data in a table format.  
+
+
+
+
+{\ttfamily \#include $<$table\+Board.\+h$>$}
+
+
+
+Inheritance diagram for Table\+Board\+:
+% FIG 0
+
+
+Collaboration diagram for Table\+Board\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_table_board_a1e594035884d1cfa3c275d7978ed0d0d}{Table\+Board}} (QWidget \texorpdfstring{$\ast$}{*}\+\_\+parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_table_board}{Table\+Board} dialog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_table_board_a6fb8ce7f805e7bd12803ce7757a19464}{\texorpdfstring{$\sim$}{\string~}\+Table\+Board}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_table_board}{Table\+Board} dialog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_table_board_aee4f8aef9f3bee61b107601750d49b46}{Validator\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Validates input data in the table. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4}{Populate\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Populates the table with initial data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em Translates the UI components to the current language. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_table_board_ab604128fb65731438452fd0b1bf8101a}{print\+Pdf\+Thread}} (QString report)
+\begin{DoxyCompactList}\small\item\em Initiates a PDF generation process in a separate thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_table_board_ae12b9190e48ba1121e1221d2113d5bf2}{show\+Event}} (QShow\+Event \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em Event handler for when the dialog is shown. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Dialog window for managing and displaying water meter test data in a table format. 
+
+This class extends QDialog and provides functionality for input validation, populating the table with data, and managing PDF report generation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_table_board_a1e594035884d1cfa3c275d7978ed0d0d}\index{TableBoard@{TableBoard}!TableBoard@{TableBoard}}
+\index{TableBoard@{TableBoard}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{TableBoard()}{TableBoard()}}
+{\footnotesize\ttfamily \label{class_table_board_a1e594035884d1cfa3c275d7978ed0d0d} 
+Table\+Board\+::\+Table\+Board (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{\+\_\+parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_table_board}{Table\+Board} dialog. 
+
+Constructor for \doxylink{class_table_board}{Table\+Board} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+parent} & Pointer to the parent widget (default\+: nullptr).\\
+\hline
+\end{DoxyParams}
+Initializes the \doxylink{class_table_board}{Table\+Board} dialog with the given parent widget, sets up UI, connects signals to slots, and configures window flags.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+parent} & Pointer to the parent widget. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_table_board_a6fb8ce7f805e7bd12803ce7757a19464}\index{TableBoard@{TableBoard}!````~TableBoard@{\texorpdfstring{$\sim$}{\string~}TableBoard}}
+\index{````~TableBoard@{\texorpdfstring{$\sim$}{\string~}TableBoard}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TableBoard()}{\string~TableBoard()}}
+{\footnotesize\ttfamily \label{class_table_board_a6fb8ce7f805e7bd12803ce7757a19464} 
+Table\+Board\+::\texorpdfstring{$\sim$}{\string~}\+Table\+Board (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_table_board}{Table\+Board} dialog. 
+
+Destructor for \doxylink{class_table_board}{Table\+Board} class.
+
+Cleans up resources used by the \doxylink{class_table_board}{Table\+Board} dialog. Deletes the UI instance and resets input data in the \doxylink{class_main_window}{Main\+Window} if applicable. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4}\index{TableBoard@{TableBoard}!PopulateTable@{PopulateTable}}
+\index{PopulateTable@{PopulateTable}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{PopulateTable()}{PopulateTable()}}
+{\footnotesize\ttfamily \label{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4} 
+void Table\+Board\+::\+Populate\+Table (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Populates the table with initial data. 
+
+Populates the table with data based on selected information from the main window.
+
+Initializes and fills the table with default or stored data.
+
+This function updates the UI elements in the dialog to reflect the selected water meter information from the main window. It adjusts visibility, sets palettes for rows, and updates text fields with relevant data.
+
+It also initializes and sets palettes for alternating row colors to improve readability.
+
+This function assumes that the necessary data (entries, name\+Water\+Meter, minimum\+Flow\+Main, transitoriu\+Flow\+Main, nominal\+Flow\+Main, nominal\+Error, maximum\+Error) have already been set in the main window (mainwindow-\/\texorpdfstring{$>$}{>}selected\+Info). \Hypertarget{class_table_board_ab604128fb65731438452fd0b1bf8101a}\index{TableBoard@{TableBoard}!printPdfThread@{printPdfThread}}
+\index{printPdfThread@{printPdfThread}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{printPdfThread()}{printPdfThread()}}
+{\footnotesize\ttfamily \label{class_table_board_ab604128fb65731438452fd0b1bf8101a} 
+void Table\+Board\+::print\+Pdf\+Thread (\begin{DoxyParamCaption}\item[{QString}]{report}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initiates a PDF generation process in a separate thread. 
+
+Generates a PDF document from the provided HTML report and saves it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & Path or identifier of the report to generate.\\
+\hline
+\end{DoxyParams}
+This function generates a PDF document using QText\+Document and QPrinter, based on the provided HTML report. The generated PDF is saved to a file with a timestamped filename in a specified directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em report} & The HTML report content to be converted to PDF. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_table_board_ae12b9190e48ba1121e1221d2113d5bf2}\index{TableBoard@{TableBoard}!showEvent@{showEvent}}
+\index{showEvent@{showEvent}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{showEvent()}{showEvent()}}
+{\footnotesize\ttfamily \label{class_table_board_ae12b9190e48ba1121e1221d2113d5bf2} 
+void Table\+Board\+::show\+Event (\begin{DoxyParamCaption}\item[{QShow\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Event handler for when the dialog is shown. 
+
+Overridden function called when the dialog is shown.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Pointer to the QShow\+Event being received.\\
+\hline
+\end{DoxyParams}
+This function is automatically called when the dialog is shown. It ensures that the table is populated with data when the dialog is displayed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & A QShow\+Event object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6}\index{TableBoard@{TableBoard}!Translate@{Translate}}
+\index{Translate@{Translate}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily \label{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6} 
+void Table\+Board\+::\+Translate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Translates the UI components to the current language. 
+
+Translates and updates UI elements with localized texts.
+
+Adjusts all visible UI elements to display text in the chosen language.
+
+This function updates various UI elements such as window title, labels, buttons, and dynamic text with their translated versions. It ensures the user interface reflects the current language settings. \Hypertarget{class_table_board_aee4f8aef9f3bee61b107601750d49b46}\index{TableBoard@{TableBoard}!ValidatorInput@{ValidatorInput}}
+\index{ValidatorInput@{ValidatorInput}!TableBoard@{TableBoard}}
+\doxysubsubsection{\texorpdfstring{ValidatorInput()}{ValidatorInput()}}
+{\footnotesize\ttfamily \label{class_table_board_aee4f8aef9f3bee61b107601750d49b46} 
+void Table\+Board\+::\+Validator\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Validates input data in the table. 
+
+Sets up validators, event filters, read-\/only states, and check states for UI elements.
+
+Invoked to ensure input data in the table cells meets specified criteria.
+
+This method initializes validators for numeric inputs, installs event filters for certain UI elements, sets read-\/only states for error fields, and sets check states for checkboxes.
+
+It also sets specific styles and properties for certain QLine\+Edit elements related to flow rates, masses, and temperatures.
+
+\begin{DoxyNote}{Note}
+This function assumes the existence of specific UI elements (e.\+g., ui-\/\texorpdfstring{$>$}{>}lb\+N1, ui-\/\texorpdfstring{$>$}{>}cb\+Set1, ui-\/\texorpdfstring{$>$}{>}le\+SN1). 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{table_board_8h}{table\+Board.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{table_board_8cpp}{table\+Board.\+cpp}}\end{DoxyCompactItemize}

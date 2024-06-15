@@ -1,0 +1,119 @@
+\doxysection{License Class Reference}
+\hypertarget{class_license}{}\label{class_license}\index{License@{License}}
+
+
+The \doxylink{class_license}{License} class represents a dialog for displaying license information.  
+
+
+
+
+{\ttfamily \#include $<$license.\+h$>$}
+
+
+
+Inheritance diagram for License\+:
+% FIG 0
+
+
+Collaboration diagram for License\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_license_a9cd53ffd6f26a988f2b6e19819d30fcf}{License}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_license}{License} dialog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_license_a8afeca42efa6cef5b1e2696fd1038fe5}{\texorpdfstring{$\sim$}{\string~}\+License}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_license}{License} dialog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_license_af71fdd852e89fa33bc882f3820f025ce}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em Translates the UI components to the current language. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_license_ada484ce6b413e8922f79aa986989a0b3}\label{class_license_ada484ce6b413e8922f79aa986989a0b3} 
+Ui\+::\+Licence \texorpdfstring{$\ast$}{*} {\bfseries ui}
+\begin{DoxyCompactList}\small\item\em Pointer to the UI object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_license}{License} class represents a dialog for displaying license information. 
+
+This class inherits from QDialog and provides methods to translate UI components, handle the show event, and manage the dialog\textquotesingle{}s lifecycle. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_license_a9cd53ffd6f26a988f2b6e19819d30fcf}\index{License@{License}!License@{License}}
+\index{License@{License}!License@{License}}
+\doxysubsubsection{\texorpdfstring{License()}{License()}}
+{\footnotesize\ttfamily \label{class_license_a9cd53ffd6f26a988f2b6e19819d30fcf} 
+License\+::\+License (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_license}{License} dialog. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent widget (optional).\\
+\hline
+\end{DoxyParams}
+This constructor initializes the \doxylink{class_license}{License} dialog by setting up the user interface defined in Ui\+::\+License. It performs translation of UI elements and connects the close button click signal to the on\+Close\+Clicked slot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Pointer to the parent widget. \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Set up the user interface.
+
+\texorpdfstring{$<$}{<} Cast parent to \doxylink{class_main_window}{Main\+Window} pointer.
+
+\texorpdfstring{$<$}{<} Translate UI elements.\Hypertarget{class_license_a8afeca42efa6cef5b1e2696fd1038fe5}\index{License@{License}!````~License@{\texorpdfstring{$\sim$}{\string~}License}}
+\index{````~License@{\texorpdfstring{$\sim$}{\string~}License}!License@{License}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}License()}{\string~License()}}
+{\footnotesize\ttfamily \label{class_license_a8afeca42efa6cef5b1e2696fd1038fe5} 
+License\+::\texorpdfstring{$\sim$}{\string~}\+License (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_license}{License} dialog. 
+
+Destructor for the \doxylink{class_license}{License} dialog.
+
+Deletes the user interface object (ui) associated with the \doxylink{class_license}{License} dialog. This ensures that resources allocated for the user interface are properly freed when the \doxylink{class_license}{License} dialog is destroyed. \texorpdfstring{$<$}{<} Delete the user interface object.
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_license_af71fdd852e89fa33bc882f3820f025ce}\index{License@{License}!Translate@{Translate}}
+\index{Translate@{Translate}!License@{License}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily \label{class_license_af71fdd852e89fa33bc882f3820f025ce} 
+void License\+::\+Translate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Translates the UI components to the current language. 
+
+Translates and sets text for UI elements in the \doxylink{class_license}{License} dialog.
+
+This function sets text for various UI components like labels and buttons based on the current application language settings.
+
+This function translates and sets the text for various QLabel and QPush\+Button UI elements in the \doxylink{class_license}{License} dialog using Qt\textquotesingle{}s translation mechanism (tr()). It ensures that all UI elements display text in the appropriate language specified by the application\textquotesingle{}s current locale. \texorpdfstring{$<$}{<} Set the window title.
+
+\texorpdfstring{$<$}{<} Set text for certificate label.
+
+\texorpdfstring{$<$}{<} Set text for water density label.
+
+\texorpdfstring{$<$}{<} Set text for density unit label.
+
+\texorpdfstring{$<$}{<} Set text for archive folder label.
+
+\texorpdfstring{$<$}{<} Set text for company label.
+
+\texorpdfstring{$<$}{<} Set text for maximum entries label.
+
+\texorpdfstring{$<$}{<} Set text for checksum label.
+
+\texorpdfstring{$<$}{<} Set text for close button.
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{license_8h}{license.\+h}}\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{license_8cpp}{license.\+cpp}}\end{DoxyCompactItemize}

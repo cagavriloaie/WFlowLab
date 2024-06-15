@@ -1,0 +1,66 @@
+INPUT               = ../Meter
+RECURSIVE           = YES
+FILE_PATTERNS       = *.cpp \
+                      *.h
+OUTPUT_DIRECTORY    = /.
+PROJECT_NAME        = "WStreamLab"
+PROJECT_BRIEF       = "Program informatic pentru verificarea metrologica a apometrelor"
+PROJECT_NUMBER      = 1.3
+GENERATE_LATEX      = YES
+HAVE_DOT            = YES
+
+
+
+
+Rules for doxygen for BAP project
+Company: PORSCHE Engineering 2022
+Author: Constantin Agavriloaie 
+
+Here’s a comprehensive guide on documenting C code with Doxygen without using the @ symbol. We'll use \ instead of @ for all commands and directives.
+
+Basic Setup
+
+First, create a configuration file for Doxygen by running
+=========================================================
+
+    doxygen -g
+     INPUT               = ../Meter
+     RECURSIVE           = YES
+     FILE_PATTERNS       = *.cpp \
+                           *.h
+     OUTPUT_DIRECTORY    = /.
+     PROJECT_NAME        = "WStreamLab"
+     PROJECT_BRIEF       = "Program informatic pentru verificarea metrologica a apometrelor"
+     PROJECT_NUMBER      = 1.3
+     GENERATE_LATEX      = YES
+     HAVE_DOT            = YES
+
+Running Doxygen
+===============
+
+To generate documentation, run:
+
+    doxygen Doxyfile
+
+
+Explanation of Tags Used
+\file: Describes the file.
+\def: Documents a macro.
+\enum: Documents an enumeration type.
+\struct: Documents a struct.
+\var: Documents a global variable.
+\brief: Provides a brief description.
+\param: Documents a function parameter.
+\return: Describes the return value.
+\pre: Describes pre-conditions.
+\post: Describes post-conditions.
+\exception: Describes exceptions thrown.
+\deprecated: Marks the function as deprecated.
+\note: Adds notes about the function.
+\warning: Adds warnings about the function.
+\sideeffect: Describes side effects.
+\version: Provides versioning information.
+\code: Includes example code.
+\retval: Describes specific return values.
+\sa: Provides see-also references.
+\defgroup: Groups related items.

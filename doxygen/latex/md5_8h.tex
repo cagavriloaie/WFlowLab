@@ -1,0 +1,70 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/md5.h File Reference}
+\hypertarget{md5_8h}{}\label{md5_8h}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.h@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/md5.h}}
+
+
+Header file for the \doxylink{class_m_d5}{MD5} class.  
+
+
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+Include dependency graph for md5.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_m_d5}{MD5}}
+\begin{DoxyCompactList}\small\item\em The \doxylink{class_m_d5}{MD5} class computes \doxylink{class_m_d5}{MD5} hashes of strings or byte arrays. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271}{md5}} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em Computes the \doxylink{class_m_d5}{MD5} hash of a given string and returns its hexadecimal representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the \doxylink{class_m_d5}{MD5} class. 
+
+This file defines the \doxylink{class_m_d5}{MD5} class, which provides functionality for calculating \doxylink{class_m_d5}{MD5} hashes of strings or byte arrays.
+
+\begin{DoxyAuthor}{Author}
+Frank Thilo (\href{mailto:thilo@unix-ag.org}{\texttt{ thilo@unix-\/ag.\+org}}) 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Converted to C++ class on unknown date (based on \doxylink{md5_8h}{md5.\+h} and md5.\+c) 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) 1991-\/2, RSA Data Security, Inc. All rights reserved.
+\end{DoxyCopyright}
+This class is based on the reference implementation of the \doxylink{class_m_d5}{MD5} Message-\/\+Digest Algorithm, as specified in RFC 1321.
+
+\doxylink{class_license}{License} to copy and use this software is granted provided that it is identified as the "{}\+RSA Data Security, Inc. MD5 Message-\/\+Digest \+Algorithm"{} in all material mentioning or referencing this software or this function.
+
+\doxylink{class_license}{License} is also granted to make and use derivative works provided that such works are identified as "{}derived from the RSA Data \+Security, Inc. MD5 Message-\/\+Digest Algorithm"{} in all material mentioning or referencing the derived work.
+
+RSA Data Security, Inc. makes no representations concerning either the merchantability of this software or the suitability of this software for any particular purpose. It is provided "{}as is"{} without express or implied warranty of any kind.
+
+These notices must be retained in any copies of any part of this documentation and/or software. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271}\index{md5.h@{md5.h}!md5@{md5}}
+\index{md5@{md5}!md5.h@{md5.h}}
+\doxysubsubsection{\texorpdfstring{md5()}{md5()}}
+{\footnotesize\ttfamily \label{md5_8h_aa29908ed5cb2b9a2434869b7e30a1271} 
+std\+::string md5 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str}{}\end{DoxyParamCaption})}
+
+
+
+Computes the \doxylink{class_m_d5}{MD5} hash of a given string and returns its hexadecimal representation. 
+
+This function computes the \doxylink{class_m_d5}{MD5} hash of the input string using the \doxylink{class_m_d5}{MD5} class. It then converts the computed digest into a hexadecimal string representation using the hexdigest() method and returns it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The input string for which the \doxylink{class_m_d5}{MD5} hash will be computed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hexadecimal string representation of the \doxylink{class_m_d5}{MD5} hash of the input string. 
+\end{DoxyReturn}

@@ -1,0 +1,120 @@
+\doxysection{Pixel\+Image\+Widget Class Reference}
+\hypertarget{class_pixel_image_widget}{}\label{class_pixel_image_widget}\index{PixelImageWidget@{PixelImageWidget}}
+
+
+The \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget} class represents a custom widget that displays a pixelated image and handles application-\/specific functionalities.  
+
+
+
+
+Inheritance diagram for Pixel\+Image\+Widget\+:
+% FIG 0
+
+
+Collaboration diagram for Pixel\+Image\+Widget\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_pixel_image_widget_a4be72118a33b3d49f861eebefe9c602f}{Pixel\+Image\+Widget}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_pixel_image_widget_aa41c7c9385ce315e27090f2104b01053}\label{class_pixel_image_widget_aa41c7c9385ce315e27090f2104b01053} 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} \texorpdfstring{$\ast$}{*} {\bfseries main\+Window} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QRect \mbox{\hyperlink{class_pixel_image_widget_abab24cc4dd15abe45b85eab5a8660e2d}{centered\+Rect}} (const QSize \&outer, const QSize \&inner)
+\begin{DoxyCompactList}\small\item\em Calculates the centered rectangle within an outer rectangle. \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{class_pixel_image_widget_a8bbff0298bb7bd80ee525731a66eb987}{Exe\+Path}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the path of the executable file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pixel_image_widget_a09973cb4c12341e927675d50ae6ece3d}{paint\+Event}} (QPaint\+Event \texorpdfstring{$\ast$}{*}) override
+\begin{DoxyCompactList}\small\item\em Paints the widget with a gradient and textual information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget} class represents a custom widget that displays a pixelated image and handles application-\/specific functionalities. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_pixel_image_widget_a4be72118a33b3d49f861eebefe9c602f}\index{PixelImageWidget@{PixelImageWidget}!PixelImageWidget@{PixelImageWidget}}
+\index{PixelImageWidget@{PixelImageWidget}!PixelImageWidget@{PixelImageWidget}}
+\doxysubsubsection{\texorpdfstring{PixelImageWidget()}{PixelImageWidget()}}
+{\footnotesize\ttfamily \label{class_pixel_image_widget_a4be72118a33b3d49f861eebefe9c602f} 
+Pixel\+Image\+Widget\+::\+Pixel\+Image\+Widget (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget}. 
+
+Constructs a \doxylink{class_pixel_image_widget}{Pixel\+Image\+Widget} instance with optional parent widget. Initializes the widget with translucent background, frameless window hint, and a fixed size of 400x300 pixels. Sets up a timer to hide the widget after five seconds.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Optional parent widget (default is nullptr). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_pixel_image_widget_abab24cc4dd15abe45b85eab5a8660e2d}\index{PixelImageWidget@{PixelImageWidget}!centeredRect@{centeredRect}}
+\index{centeredRect@{centeredRect}!PixelImageWidget@{PixelImageWidget}}
+\doxysubsubsection{\texorpdfstring{centeredRect()}{centeredRect()}}
+{\footnotesize\ttfamily \label{class_pixel_image_widget_abab24cc4dd15abe45b85eab5a8660e2d} 
+QRect Pixel\+Image\+Widget\+::centered\+Rect (\begin{DoxyParamCaption}\item[{const QSize \&}]{outer}{, }\item[{const QSize \&}]{inner}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Calculates the centered rectangle within an outer rectangle. 
+
+Calculates and returns a QRect that represents a centered rectangle within the given outer and inner sizes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em outer} & Size of the outer rectangle. \\
+\hline
+{\em inner} & Size of the inner rectangle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+QRect representing the centered rectangle. 
+\end{DoxyReturn}
+\Hypertarget{class_pixel_image_widget_a8bbff0298bb7bd80ee525731a66eb987}\index{PixelImageWidget@{PixelImageWidget}!ExePath@{ExePath}}
+\index{ExePath@{ExePath}!PixelImageWidget@{PixelImageWidget}}
+\doxysubsubsection{\texorpdfstring{ExePath()}{ExePath()}}
+{\footnotesize\ttfamily \label{class_pixel_image_widget_a8bbff0298bb7bd80ee525731a66eb987} 
+std\+::wstring Pixel\+Image\+Widget\+::\+Exe\+Path (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Retrieves the path of the executable file. 
+
+Retrieves the path of the current executable file.
+
+\begin{DoxyReturn}{Returns}
+std\+::wstring containing the path of the executable. 
+\end{DoxyReturn}
+\Hypertarget{class_pixel_image_widget_a09973cb4c12341e927675d50ae6ece3d}\index{PixelImageWidget@{PixelImageWidget}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!PixelImageWidget@{PixelImageWidget}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily \label{class_pixel_image_widget_a09973cb4c12341e927675d50ae6ece3d} 
+void Pixel\+Image\+Widget\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event \texorpdfstring{$\ast$}{*}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Paints the widget with a gradient and textual information. 
+
+This method overrides the QWidget\+::paint\+Event and is responsible for painting the widget with a gradient from red to blue across its entire area. It also displays textual information at the top of the widget.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The paint event that triggered this method. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,91 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/mainwindow.cpp File Reference}
+\hypertarget{mainwindow_8cpp}{}\label{mainwindow_8cpp}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/mainwindow.cpp@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/mainwindow.cpp}}
+
+
+Implementation file for the \doxylink{class_main_window}{Main\+Window} class.  
+
+
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$QDesktop\+Services$>$}\newline
+{\ttfamily \#include $<$QDir$>$}\newline
+{\ttfamily \#include $<$QLibrary$>$}\newline
+{\ttfamily \#include $<$QLine\+Edit$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QSettings$>$}\newline
+{\ttfamily \#include $<$QValidator$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}waterdensity.\+h"{}}\newline
+{\ttfamily \#include "{}flow-\/meter-\/type.\+h"{}}\newline
+{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}md5.\+h"{}}\newline
+{\ttfamily \#include "{}ui\+\_\+mainwindow.\+h"{}}\newline
+{\ttfamily \#include $<$QFile$>$}\newline
+{\ttfamily \#include $<$QUrl$>$}\newline
+Include dependency graph for mainwindow.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_r_s485_setting_info}{RS485\+Setting\+Info}}
+\begin{DoxyCompactList}\small\item\em Structure to hold information about RS485 settings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mainwindow_8cpp_a8ded45a364f13a99ace360959065953f}\label{mainwindow_8cpp_a8ded45a364f13a99ace360959065953f} 
+std\+::wstring {\bfseries Exe\+Path} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+QTranslator \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mainwindow_8cpp_a64e74c803d78c640f3bb549b1fea47ab}{app\+Translator}}
+\begin{DoxyCompactList}\small\item\em \texorpdfstring{$<$}{<} Implements input/output operations on memory-\/based streams. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{mainwindow_8cpp_a0828fe601e8daf46e0f1c70807782096}{p\+Main\+Window}}
+\begin{DoxyCompactList}\small\item\em Pointer to the main window instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for the \doxylink{class_main_window}{Main\+Window} class. 
+
+This file contains the implementations of member functions and slots for the \doxylink{class_main_window}{Main\+Window} class. It handles the main window of the application, including initialization, event handling, and slot implementations.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert date 
+\end{DoxyDate}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{mainwindow_8cpp_a64e74c803d78c640f3bb549b1fea47ab}\index{mainwindow.cpp@{mainwindow.cpp}!appTranslator@{appTranslator}}
+\index{appTranslator@{appTranslator}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{appTranslator}{appTranslator}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a64e74c803d78c640f3bb549b1fea47ab} 
+QTranslator\texorpdfstring{$\ast$}{*} app\+Translator\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+\texorpdfstring{$<$}{<} Implements input/output operations on memory-\/based streams. 
+
+\texorpdfstring{$<$}{<} Provides facilities to manipulate and query file systems and their components. \texorpdfstring{$<$}{<} Input/output stream class to operate on files. Manipulators for formatting output. \texorpdfstring{$<$}{<} Associative containers that store elements in a mapped fashion. \texorpdfstring{$<$}{<} Access to the desktop services such as opening a URL. \texorpdfstring{$<$}{<} Provides access to directory structures and their contents. \texorpdfstring{$<$}{<} Platform-\/independent library loading and function resolution. \texorpdfstring{$<$}{<} Single-\/line text editor widget with input validation and styling. \texorpdfstring{$<$}{<} Modal dialog for informing the user or for asking the user a question and receiving an answer. \texorpdfstring{$<$}{<} Persistent platform-\/independent application settings. \texorpdfstring{$<$}{<} Base class for all validators that can be easily attached to input widgets. \texorpdfstring{$<$}{<} Main Windows SDK header providing core Windows APIs. \texorpdfstring{$<$}{<} Custom application-\/specific definitions. \texorpdfstring{$<$}{<} Header for water density calculations. \texorpdfstring{$<$}{<} Header defining flow meter types. \texorpdfstring{$<$}{<} Header for the main application window. \texorpdfstring{$<$}{<} Header for \doxylink{class_m_d5}{MD5} hashing functionality. \texorpdfstring{$<$}{<} User interface header generated from Qt Designer. \texorpdfstring{$<$}{<} Provides functions to read from and write to files. \texorpdfstring{$<$}{<} Provides access to directory structures and their contents. Represents a URL. \texorpdfstring{$<$}{<} Access to the desktop services such as opening a URL. \texorpdfstring{$<$}{<} Input/output stream class to operate on files. Manipulators for formatting output. Implements input/output operations on memory-\/based streams.
+
+\texorpdfstring{$<$}{<} Implements input/output operations on memory-\/based streams.
+
+This pointer is used globally to manage translations for the application. It is initially set to nullptr and later assigned an instance of QTranslator when loading translations. \Hypertarget{mainwindow_8cpp_a0828fe601e8daf46e0f1c70807782096}\index{mainwindow.cpp@{mainwindow.cpp}!pMainWindow@{pMainWindow}}
+\index{pMainWindow@{pMainWindow}!mainwindow.cpp@{mainwindow.cpp}}
+\doxysubsubsection{\texorpdfstring{pMainWindow}{pMainWindow}}
+{\footnotesize\ttfamily \label{mainwindow_8cpp_a0828fe601e8daf46e0f1c70807782096} 
+\mbox{\hyperlink{class_main_window}{Main\+Window}}\texorpdfstring{$\ast$}{*} p\+Main\+Window}
+
+
+
+Pointer to the main window instance. 
+
+\textbackslash{}extern \doxylink{class_main_window}{Main\+Window} \texorpdfstring{$\ast$}{*}p\+Main\+Window 
+
+This global variable holds a pointer to the main window instance, allowing access to its properties and methods from various parts of the application. 

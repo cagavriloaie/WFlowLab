@@ -1,0 +1,179 @@
+\doxysection{C\+:/\+Users/\+Constantin/\+Desktop/\+HERE\+\_\+\+WFlow\+Lab/\+Meter/report.cpp File Reference}
+\hypertarget{report_8cpp}{}\label{report_8cpp}\index{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/report.cpp@{C:/Users/Constantin/Desktop/HERE\_WFlowLab/Meter/report.cpp}}
+
+
+Implementation file for the \doxylink{class_report_measurements}{Report\+Measurements} class.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$QCheck\+Box$>$}\newline
+{\ttfamily \#include $<$QCore\+Application$>$}\newline
+{\ttfamily \#include $<$QDate\+Time$>$}\newline
+{\ttfamily \#include $<$QDialog$>$}\newline
+{\ttfamily \#include $<$QDesktop\+Services$>$}\newline
+{\ttfamily \#include $<$QDouble\+Validator$>$}\newline
+{\ttfamily \#include $<$QFile\+Dialog$>$}\newline
+{\ttfamily \#include $<$QKey\+Event$>$}\newline
+{\ttfamily \#include $<$QLabel$>$}\newline
+{\ttfamily \#include $<$QLine\+Edit$>$}\newline
+{\ttfamily \#include $<$QMain\+Window$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include $<$QPage\+Size$>$}\newline
+{\ttfamily \#include $<$QPainter$>$}\newline
+{\ttfamily \#include $<$QPrint\+Dialog$>$}\newline
+{\ttfamily \#include $<$QPrinter$>$}\newline
+{\ttfamily \#include $<$QSettings$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QValidator$>$}\newline
+{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}report.\+h"{}}\newline
+{\ttfamily \#include "{}ui\+\_\+mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}ui\+\_\+report.\+h"{}}\newline
+Include dependency graph for report.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{report_8cpp_ab5925364a30ce077150fd29814f6e9f5}{convert\+Number\+To\+Words}} (int num, bool add\+Suffix=false)
+\begin{DoxyCompactList}\small\item\em Converts an integer number into its Romanian words representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{report_8cpp_a0828fe601e8daf46e0f1c70807782096}{p\+Main\+Window}}
+\begin{DoxyCompactList}\small\item\em Pointer to the main window instance. \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{report_8cpp_acb245632ae345c6fc01a7455ab5bb535}{print\+Report\+Pdf\+Thread\+Mutex}}
+\begin{DoxyCompactList}\small\item\em Mutex for thread-\/safe PDF printing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for the \doxylink{class_report_measurements}{Report\+Measurements} class. 
+
+This file contains the implementation of methods for the \doxylink{class_report_measurements}{Report\+Measurements} class, which is responsible for generating and handling reports related to measurements.
+
+\begin{DoxyAuthor}{Author}
+Constantin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Insert creation date 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{report_8cpp_ab5925364a30ce077150fd29814f6e9f5}\index{report.cpp@{report.cpp}!convertNumberToWords@{convertNumberToWords}}
+\index{convertNumberToWords@{convertNumberToWords}!report.cpp@{report.cpp}}
+\doxysubsubsection{\texorpdfstring{convertNumberToWords()}{convertNumberToWords()}}
+{\footnotesize\ttfamily \label{report_8cpp_ab5925364a30ce077150fd29814f6e9f5} 
+std\+::string convert\+Number\+To\+Words (\begin{DoxyParamCaption}\item[{int}]{num}{, }\item[{bool}]{add\+Suffix}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Converts an integer number into its Romanian words representation. 
+
+This function converts a given integer number into its equivalent words in Romanian. It handles numbers from -\/999,999 to 999,999.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & The integer number to convert. \\
+\hline
+{\em add\+Suffix} & Flag indicating whether to add suffixes like "{}mii"{}, "{}milion"{}, etc. Default is false. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the Romanian words representation of the number. 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} 0
+
+\texorpdfstring{$<$}{<} 1
+
+\texorpdfstring{$<$}{<} 2
+
+\texorpdfstring{$<$}{<} 3
+
+\texorpdfstring{$<$}{<} 4
+
+\texorpdfstring{$<$}{<} 5
+
+\texorpdfstring{$<$}{<} 6
+
+\texorpdfstring{$<$}{<} 7
+
+\texorpdfstring{$<$}{<} 8
+
+\texorpdfstring{$<$}{<} 9
+
+\texorpdfstring{$<$}{<} 0
+
+\texorpdfstring{$<$}{<} 11
+
+\texorpdfstring{$<$}{<} 12
+
+\texorpdfstring{$<$}{<} 13
+
+\texorpdfstring{$<$}{<} 14
+
+\texorpdfstring{$<$}{<} 15
+
+\texorpdfstring{$<$}{<} 16
+
+\texorpdfstring{$<$}{<} 17
+
+\texorpdfstring{$<$}{<} 18
+
+\texorpdfstring{$<$}{<} 19
+
+\texorpdfstring{$<$}{<} 0
+
+\texorpdfstring{$<$}{<} 1
+
+\texorpdfstring{$<$}{<} 20
+
+\texorpdfstring{$<$}{<} 30
+
+\texorpdfstring{$<$}{<} 40
+
+\texorpdfstring{$<$}{<} 50
+
+\texorpdfstring{$<$}{<} 60
+
+\texorpdfstring{$<$}{<} 70
+
+\texorpdfstring{$<$}{<} 80
+
+\texorpdfstring{$<$}{<} 90
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{report_8cpp_a0828fe601e8daf46e0f1c70807782096}\index{report.cpp@{report.cpp}!pMainWindow@{pMainWindow}}
+\index{pMainWindow@{pMainWindow}!report.cpp@{report.cpp}}
+\doxysubsubsection{\texorpdfstring{pMainWindow}{pMainWindow}}
+{\footnotesize\ttfamily \label{report_8cpp_a0828fe601e8daf46e0f1c70807782096} 
+\mbox{\hyperlink{class_main_window}{Main\+Window}}\texorpdfstring{$\ast$}{*} p\+Main\+Window\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Pointer to the main window instance. 
+
+\textbackslash{}extern \doxylink{class_main_window}{Main\+Window} \texorpdfstring{$\ast$}{*}p\+Main\+Window 
+
+This global variable holds a pointer to the main window instance, allowing access to its properties and methods from various parts of the application. \Hypertarget{report_8cpp_acb245632ae345c6fc01a7455ab5bb535}\index{report.cpp@{report.cpp}!printReportPdfThreadMutex@{printReportPdfThreadMutex}}
+\index{printReportPdfThreadMutex@{printReportPdfThreadMutex}!report.cpp@{report.cpp}}
+\doxysubsubsection{\texorpdfstring{printReportPdfThreadMutex}{printReportPdfThreadMutex}}
+{\footnotesize\ttfamily \label{report_8cpp_acb245632ae345c6fc01a7455ab5bb535} 
+std\+::mutex print\+Report\+Pdf\+Thread\+Mutex}
+
+
+
+Mutex for thread-\/safe PDF printing. 
+
+\textbackslash{}extern std\+::mutex print\+Report\+Pdf\+Thread\+Mutex 
+
+This global mutex ensures thread safety when printing PDF documents from multiple threads. It protects critical sections where file paths are manipulated and directories are created. 

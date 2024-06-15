@@ -1,49 +1,79 @@
-/*
- *  Author: Constantin
- *  File:   report.cpp
+/**
+ * \file report.cpp
+ * \brief Implementation file for the ReportMeasurements class.
+ *
+ * This file contains the implementation of methods for the ReportMeasurements class,
+ * which is responsible for generating and handling reports related to measurements.
+ *
+ * \author Constantin
+ * \date Insert creation date
  */
 
-#include <algorithm>
-#include <chrono>
-#include <ctime>
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <thread>
-#include <mutex>
+#include <algorithm>            // Standard C++ algorithms
+#include <chrono>               // C++11 time utilities
+#include <ctime>                // C time utilities
+#include <fstream>              // File stream operations
+#include <iomanip>              // I/O manipulators
+#include <iostream>             // Standard I/O streams
+#include <sstream>              // String stream operations
+#include <string>               // String utilities
+#include <thread>               // C++11 thread support
+#include <mutex>                // C++11 mutual exclusion primitives
 
-#include <QCheckBox>
-#include <QCoreApplication>
-#include <QDateTime>
-#include <QDialog>
-#include <QDesktopServices>
-#include <QDoubleValidator>
-#include <QFileDialog>
-#include <QKeyEvent>
-#include <QLabel>
-#include <QLineEdit>
-#include <QMainWindow>
-#include <QMessageBox>
-#include <QPageSize>
-#include <QPainter>
-#include <QPrintDialog>
-#include <QPrinter>
-#include <QSettings>
-#include <QString>
-#include <QTimer>
-#include <QValidator>
+#include <QCheckBox>            // Qt checkbox widget
+#include <QCoreApplication>     // Qt core application handling
+#include <QDateTime>            // Qt date and time handling
+#include <QDialog>              // Qt dialog window
+#include <QDesktopServices>     // Qt desktop services
+#include <QDoubleValidator>     // Qt validator for double values
+#include <QFileDialog>          // Qt file dialog
+#include <QKeyEvent>            // Qt key event handling
+#include <QLabel>               // Qt label widget
+#include <QLineEdit>            // Qt line edit widget
+#include <QMainWindow>          // Qt main window
+#include <QMessageBox>          // Qt message box for alerts
+#include <QPageSize>            // Qt page size
+#include <QPainter>             // Qt painter for drawing
+#include <QPrintDialog>         // Qt print dialog
+#include <QPrinter>             // Qt printer support
+#include <QSettings>            // Qt application settings
+#include <QString>              // Qt string class
+#include <QTimer>               // Qt timer for periodic events
+#include <QValidator>           // Qt validator base class
 
-#include "mainwindow.h"
-#include "report.h"
-#include "ui_mainwindow.h"
-#include "ui_report.h"
+#include "mainwindow.h"        // Your application's main window
+#include "report.h"            // Header for report functionality
+#include "ui_mainwindow.h"      // UI definition for main window
+#include "ui_report.h"         // UI definition for report dialog
 
+
+/**
+ * \extern MainWindow *pMainWindow
+ * \brief Pointer to the main window instance.
+ *
+ * This global variable holds a pointer to the main window instance,
+ * allowing access to its properties and methods from various parts of the application.
+ */
 extern MainWindow *pMainWindow;
 
+/**
+ * \extern std::mutex printReportPdfThreadMutex
+ * \brief Mutex for thread-safe PDF printing.
+ *
+ * This global mutex ensures thread safety when printing PDF documents from multiple threads.
+ * It protects critical sections where file paths are manipulated and directories are created.
+ */
 std::mutex printReportPdfThreadMutex;
 
+/**
+ * \brief Generates a PDF document from HTML content and opens it using the default PDF viewer.
+ *
+ * This function generates a PDF document from the provided HTML report content. It ensures
+ * thread safety when accessing shared resources using a mutex. After generating the PDF,
+ * it checks for errors and opens the generated PDF file using the default PDF viewer.
+ *
+ * \param report The HTML content to be printed into the PDF.
+ */
 void ReportMeasurements::printPdfThread(QString report)
 {
     // Generate a unique timestamp for the file name
@@ -99,73 +129,83 @@ void ReportMeasurements::printPdfThread(QString report)
     QDesktopServices::openUrl(QUrl(fileUrl));
 }
 
-std::string convertNumberToWords(int num, bool addSuffix)
+/**
+ * \brief Converts an integer number into its Romanian words representation.
+ *
+ * This function converts a given integer number into its equivalent words in Romanian.
+ * It handles numbers from -999,999 to 999,999.
+ *
+ * \param num The integer number to convert.
+ * \param addSuffix Flag indicating whether to add suffixes like "mii", "milion", etc.
+ *                  Default is false.
+ * \return A string containing the Romanian words representation of the number.
+ */
+std::string convertNumberToWords(int num, bool addSuffix = false)
 {
-    static
-        const std::string units[] =
+    static const std::string units[] =
         {
-            "",
-            "un",
-            "doua",
-            "trei",
-            "patru",
-            "cinci",
-            "sase",
-            "sapte",
-            "opt",
-            "noua"
+            "",         ///< 0
+            "un",       ///< 1
+            "doua",     ///< 2
+            "trei",     ///< 3
+            "patru",    ///< 4
+            "cinci",    ///< 5
+            "sase",     ///< 6
+            "sapte",    ///< 7
+            "opt",      ///< 8
+            "noua"      ///< 9
         };
-    static
-        const std::string teens[] =
+    static const std::string teens[] =
         {
-            "",
-            "unsprezece",
-            "doisprezece",
-            "treisprezece",
-            "paisprezece",
-            "cincisprezece",
-            "saisprezece",
-            "saptesprezece",
-            "optisprezece",
-            "nouasprezece"
+            "",                 ///< 0
+            "unsprezece",       ///< 11
+            "doisprezece",      ///< 12
+            "treisprezece",     ///< 13
+            "paisprezece",      ///< 14
+            "cincisprezece",    ///< 15
+            "saisprezece",      ///< 16
+            "saptesprezece",    ///< 17
+            "optisprezece",     ///< 18
+            "nouasprezece"      ///< 19
         };
-    static
-        const std::string tens[] =
+    static const std::string tens[] =
         {
-            "",
-            "",
-            "douazeci",
-            "treizeci",
-            "patruzeci",
-            "cincizeci",
-            "saizeci",
-            "saptezeci",
-            "optzeci",
-            "nouazeci"
+            "",             ///< 0
+            "",             ///< 1
+            "douazeci",     ///< 20
+            "treizeci",     ///< 30
+            "patruzeci",    ///< 40
+            "cincizeci",    ///< 50
+            "saizeci",      ///< 60
+            "saptezeci",    ///< 70
+            "optzeci",      ///< 80
+            "nouazeci"      ///< 90
         };
+
     std::string result;
+
+    // Handle zero case
     if (num == 0)
     {
         return (addSuffix) ? "zero" : "";
     }
+
+    // Handle negative numbers
     if (num < 0)
     {
         result += "minus ";
-        num = -num;
+        num = -num; // Make num positive for further processing
     }
+
+    // Handle millions part
     if (num >= 1000000)
     {
         result += convertNumberToWords(num / 1000000, true);
-        if (num / 1000000 == 1)
-        {
-            result += " milion ";
-        }
-        else
-        {
-            result += " milioane ";
-        }
+        result += (num / 1000000 == 1) ? " milion " : " milioane ";
         num %= 1000000;
     }
+
+    // Handle thousands part
     if (num >= 1000)
     {
         if (num >= 2000)
@@ -178,12 +218,13 @@ std::string convertNumberToWords(int num, bool addSuffix)
         }
         num %= 1000;
     }
+
+    // Handle hundreds part
     if (num >= 100)
     {
         if (num >= 200)
         {
-            result += " " + convertNumberToWords(num / 100, true) +
-                      " sute ";
+            result += " " + convertNumberToWords(num / 100, true) + " sute ";
         }
         else
         {
@@ -191,46 +232,77 @@ std::string convertNumberToWords(int num, bool addSuffix)
         }
         num %= 100;
     }
+
+    // Handle teens (11-19)
     if (num >= 11 && num <= 19)
     {
         result += teens[num - 11] + " ";
     }
+    // Handle tens (20, 30, ..., 90)
     else if (num >= 20 || num == 10)
     {
         result += tens[num / 10] + " ";
         num %= 10;
     }
+
+    // Handle units (1-9)
     if (num >= 1 && num <= 9)
     {
         result += units[num];
     }
+
     return result;
 }
 
+/**
+ * \brief Translates UI elements and sets localized text for the ReportMeasurements dialog.
+ *
+ * This function translates various UI elements and sets localized text using the
+ * current application's translation system. It is typically called during initialization
+ * or when the language/locale is changed to ensure the UI reflects the selected language.
+ *
+ * Translated elements include window title, group box title, labels, combo box items,
+ * and push button texts.
+ *
+ * Example usage:
+ * \code
+ * ReportMeasurements report;
+ * report.Translate();
+ * \endcode
+ */
 void ReportMeasurements::Translate()
 {
-    this -> setWindowTitle(tr(
-        "WFlowLab - Informatii buletin verificare metrologica"));
-    ui -> grBoxBuletin -> setTitle(tr("Date verificare metrologica"));
-    ui -> lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
-    ui -> lbNumarInregistrare -> setText((tr("Numar de inregistrare: ")));
-    ui -> lbBeneficiar -> setText(tr("Beneficiar: "));
-    ui -> lbCodulDinLt -> setText(tr("Codul din LT: "));
-    ui -> lbNormativ -> setText(tr("Normativ: "));
-    ui -> lbValabilitate -> setText(tr("Valabilitate: "));
-    ui -> lbCost -> setText(tr("Cost: "));
-    ui -> lbVerificatorMetrolog -> setText(tr("Verificator metrolog: "));
-    ui -> lbLoculEfectuariiVerificarii -> setText(tr("Locul efectuarii verificarii:"));
-    ui -> cbValabilitate -> addItem(tr("6 luni"));
-    ui -> cbValabilitate -> addItem(tr("1 an"));
-    ui -> cbValabilitate -> addItem(tr("2 ani"));
-    ui -> cbValabilitate -> addItem(tr("3"));
-    ui -> cbValabilitate -> addItem(tr("5 ani"));
-    ui -> pbGenerareBV -> setText(tr("&Generare BV"));
-    ui -> pbInchide -> setText(tr("&Inchide"));
+    this->setWindowTitle(tr("WFlowLab - Informatii buletin verificare metrologica"));
+    ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
+    ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
+    ui->lbNumarInregistrare->setText(tr("Numar de inregistrare: "));
+    ui->lbBeneficiar->setText(tr("Beneficiar: "));
+    ui->lbCodulDinLt->setText(tr("Codul din LT: "));
+    ui->lbNormativ->setText(tr("Normativ: "));
+    ui->lbValabilitate->setText(tr("Valabilitate: "));
+    ui->lbCost->setText(tr("Cost: "));
+    ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog: "));
+    ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
+    ui->cbValabilitate->addItem(tr("6 luni"));
+    ui->cbValabilitate->addItem(tr("1 an"));
+    ui->cbValabilitate->addItem(tr("2 ani"));
+    ui->cbValabilitate->addItem(tr("3"));
+    ui->cbValabilitate->addItem(tr("5 ani"));
+    ui->pbGenerareBV->setText(tr("&Generare BV"));
+    ui->pbInchide->setText(tr("&Inchide"));
 }
 
-// Constructor
+/**
+ * \brief Constructor for the ReportMeasurements class.
+ *
+ * Initializes the ReportMeasurements dialog with the provided parent widget,
+ * sets up the user interface, copies arrays, and initializes timer and connections.
+ *
+ * \param parent Parent widget to which this dialog belongs.
+ * \param vectorCheckNumber Vector of QCheckBox pointers used for storing check numbers.
+ * \param vectorSerialNumber Vector of QLineEdit pointers used for storing serial numbers.
+ * \param resultAllTests Array of QString containing results of all tests.
+ */
 ReportMeasurements::ReportMeasurements(QWidget *parent,
                                        const std::vector<QCheckBox *> &vectorCheckNumber,
                                        const std::vector<QLineEdit *> &vectorSerialNumber,
@@ -246,6 +318,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     // Set window flags
     setWindowFlags(Qt::Window);
 
+    // Initialize QTimer for generating BV
     QTimerGenerareBv = new QTimer(this);
 
     // Copy resultsAllTests array
@@ -315,17 +388,28 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui->leLoculEfectuariiVerificarii->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
     ui->lbNumarInregistrare->setFocus();
 
+    // Connect signals and slots
     connect(ui->pbInchide, &QPushButton::clicked, this, &ReportMeasurements::onCloseClicked);
     connect(ui->pbGenerareBV, &QPushButton::clicked, this, &ReportMeasurements::onPrintClicked);
     connect(QTimerGenerareBv, &QTimer::timeout, this, &ReportMeasurements::enableGenerareBvButton);
 }
 
-// Destructor
+/**
+ * \brief Destructor for the ReportMeasurements class.
+ *
+ * Cleans up the user interface (ui) resources.
+ */
 ReportMeasurements::~ReportMeasurements()
 {
     delete ui;
 }
 
+/**
+ * \brief Slot triggered when the "Generate BV" button is clicked.
+ *
+ * Collects data from line edits, validates input, and generates a verification report in PDF format.
+ * Displays error message if any required field is empty.
+ */
 void ReportMeasurements::onPrintClicked()
 {
     // Collect line edits in a vector
@@ -620,11 +704,21 @@ messageBoxVerificationReport.exec();
 */
 }
 
+/**
+ * \brief Slot triggered when the "Close" button is clicked.
+ *
+ * Hides the dialog window.
+ */
 void ReportMeasurements::onCloseClicked()
 {
-    this -> hide();
+    this->hide();
 }
 
+/**
+ * \brief Slot triggered when the timer for "Generate BV" button is stopped.
+ *
+ * Stops the timer and re-enables the "Generate BV" button.
+ */
 void ReportMeasurements::enableGenerareBvButton()
 {
     // Stop the timer
@@ -633,5 +727,3 @@ void ReportMeasurements::enableGenerareBvButton()
     // Re-enable the button
     ui->pbGenerareBV->setEnabled(true);
 }
-
-
