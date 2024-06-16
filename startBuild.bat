@@ -1,61 +1,65 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem Function to clean a directory
-:cleanDirectory
-    if exist "%1\*" (
-        echo Cleaning directory: %1
-        for %%f in ("%1\*") do (
-            if exist "%%f" (
-                del /f /q "%%f" > nul 2>&1
-                if exist "%%f" (
-                    echo Failed to delete: "%%f"
-                ) else (
-                    echo Deleted: "%%f"
-                )
-            )
-        )
-        for /d %%d in ("%1\*") do (
-            if exist "%%d" (
-                rmdir /s /q "%%d" > nul 2>&1
-                if exist "%%d" (
-                    echo Failed to delete directory: "%%d"
-                ) else (
-                    echo Deleted directory: "%%d"
-                )
-            )
-        )
-    ) else (
-        echo Directory %1 is already clean or does not exist.
-    )
-goto :eof
+rem Define paths
+set BASE_PATH=C:\Users\Constantin\Desktop\HERE_WFlowLab
+set PROJECT_PATH=%BASE_PATH%\Meter
+set TRANSLATIONS_PATH=%PROJECT_PATH%\translations
+set OUTPUT_PATH=%BASE_PATH%\output
 
-echo ===== Cleaning Debug and Release directories =====
-call :cleanDirectory "C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug"
-call :cleanDirectory "C:\Users\Constantin\Desktop\HERE_WFlowLab\Release"
+rem Define Qt paths
+set QT_BIN_PATH=C:\Qt\Tools\mingw1310_64\bin
+set QT_VERSION_BIN_PATH=C:\Qt\6.5.0\bin
+set INNO_SETUP_PATH="C:\Program Files (x86)\Inno Setup 6"
 
 echo ===== Checking current directory =====
-cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+cd /D %PROJECT_PATH%
+if errorlevel 1 (
+    echo Failed to change directory to %PROJECT_PATH%
+    goto end
+)
 echo Current directory: %CD%
 
 echo ===== Updating translations =====
-lupdate meter.pro
-cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
-lrelease meter_en_EN.ts
-lrelease meter_ro_RO.ts
+%QT_VERSION_BIN_PATH%\lupdate.exe meter.pro
+if errorlevel 1 (
+    echo lupdate failed
+    goto end
+)
+
+cd /D %TRANSLATIONS_PATH%
+if errorlevel 1 (
+    echo Failed to change directory to %TRANSLATIONS_PATH%
+    goto end
+)
+
+%QT_VERSION_BIN_PATH%\lrelease.exe meter_en_EN.ts
+if errorlevel 1 (
+    echo lrelease for meter_en_EN.ts failed
+    goto end
+)
+
+%QT_VERSION_BIN_PATH%\lrelease.exe meter_ro_RO.ts
+if errorlevel 1 (
+    echo lrelease for meter_ro_RO.ts failed
+    goto end
+)
 
 rem Copy translation files to Build, Debug, and Release directories
 set "translation_dirs=Build Debug Release"
 for %%D in (%translation_dirs%) do (
     echo ===== Copying translations to %%D directory =====
-    mkdir C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations > nul 2>&1
-    copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations
-    copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations
+    mkdir %OUTPUT_PATH%\%%D\translations > nul 2>&1
+    copy *.qm %OUTPUT_PATH%\%%D\translations
+    copy *.ts %OUTPUT_PATH%\%%D\translations
 )
 
 echo ===== Compiling application =====
-echo Open QT Creator and set Debug / Release mode
-cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+cd /D %PROJECT_PATH%
+if errorlevel 1 (
+    echo Failed to change directory to %PROJECT_PATH%
+    goto end
+)
 
 :start
 echo.
@@ -85,26 +89,46 @@ set "build_type=%1"
 set "qmake_config=%2"
 
 echo ">>>>>>>>>>>>>>>>>>> STEP 1: Running qmake"
-C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ %qmake_config%
+%QT_BIN_PATH%\qmake.exe %PROJECT_PATH%\meter.pro -spec win32-g++ %qmake_config%
+if errorlevel 1 (
+    echo qmake failed
+    goto end
+)
 
 echo ">>>>>>>>>>>>>>>>>>> STEP 2: Generating Makefile"
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe qmake_all
+%QT_BIN_PATH%\mingw32-make.exe qmake_all
+if errorlevel 1 (
+    echo Makefile generation failed
+    goto end
+)
 
 echo ">>>>>>>>>>>>>>>>>>> STEP 3: Building"
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -j16
+%QT_BIN_PATH%\mingw32-make.exe -j16
+if errorlevel 1 (
+    echo Build failed
+    goto end
+)
 
 timeout /nobreak /t 5 >nul
 echo "Done waiting for 5 seconds"
 
 echo >>>> Copying executable to Build directory
-copy /Y C:\Users\Constantin\Desktop\HERE_WFlowLab\%build_type%\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
+mkdir %OUTPUT_PATH%\Build > nul 2>&1
+copy /Y %BASE_PATH%\%build_type%\WStreamLab.exe %OUTPUT_PATH%\Build
+if errorlevel 1 (
+    echo Failed to copy executable
+    goto end
+)
 
 goto :EOF
 
 :end
 echo ===== Creating the installer =====
-cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WStreamLab.iss
+cd /D %OUTPUT_PATH%
+if errorlevel 1 (
+    echo Failed to change directory to %OUTPUT_PATH%
+    goto end
+)
 
 echo Ready
 pause

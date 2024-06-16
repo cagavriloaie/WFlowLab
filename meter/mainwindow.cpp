@@ -1004,7 +1004,7 @@ void MainWindow::onWaterDensityPage()
     QDesktopServices::openUrl(QUrl::fromLocalFile(htmlFilePath));
 
     // Remove the temporary HTML file
-    QFile::remove(htmlFilePath);
+    // QFile::remove(htmlFilePath);
 }
 
 /**
