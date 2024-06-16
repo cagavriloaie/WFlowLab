@@ -1,0 +1,5 @@
+<map id="TableBoard::Translate" name="TableBoard::Translate">
+<area shape="rect" id="Node000001" title="Translates the UI components to the current language." alt="" coords="5,13,153,40"/>
+<area shape="rect" id="Node000002" href="$class_report_measurements.html#abb1c5cb85cb277c36d20aad60acaa183" title="Translates the UI elements to the selected language." alt="" coords="201,5,346,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,24,185,24,185,29,153,29"/>
+</map>

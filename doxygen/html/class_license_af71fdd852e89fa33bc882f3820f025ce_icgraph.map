@@ -1,0 +1,7 @@
+<map id="License::Translate" name="License::Translate">
+<area shape="rect" id="Node000001" title="Translates the UI components to the current language." alt="" coords="262,31,389,57"/>
+<area shape="rect" id="Node000002" href="$class_license.html#a9cd53ffd6f26a988f2b6e19819d30fcf" title="Constructs a License dialog." alt="" coords="50,5,169,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,37,169,28,170,23,247,32"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a1dff511c9697cbcb60150894f480b9c8" title="Handles mouse press events on the main window." alt="" coords="5,56,214,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,56,214,60,214,54,246,51"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="MainWindow::SetDefaultConfiguration" name="MainWindow::SetDefaultConfiguration">
+<area shape="rect" id="Node000001" title="Sets the default configuration settings." alt="" coords="487,5,725,32"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#a70cccadec2ccca5781c868ba6d00bd09" title="Reads the application configuration from settings." alt="" coords="231,5,439,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="471,21,439,21,439,16,471,16"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title="Constructs a MainWindow object." alt="" coords="5,5,183,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,21,183,21,183,16,215,16"/>
+</map>

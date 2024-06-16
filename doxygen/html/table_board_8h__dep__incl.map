@@ -1,0 +1,18 @@
+<map id="C:/Users/Constantin/Desktop/HERE_WFlowLab/Meter/tableBoard.h" name="C:/Users/Constantin/Desktop/HERE_WFlowLab/Meter/tableBoard.h">
+<area shape="rect" id="Node000001" title="Header file for the TableBoard class." alt="" coords="756,5,937,64"/>
+<area shape="rect" id="Node000002" href="$mainwindow_8h.html" title="Header file for the MainWindow class." alt="" coords="621,112,803,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="799,76,750,114,747,110,796,72"/>
+<area shape="rect" id="Node000008" href="$table_board_8cpp.html" title="Implementation file for the TableBoard class." alt="" coords="1032,219,1213,277"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="898,71,1087,216,1084,220,894,76"/>
+<area shape="rect" id="Node000003" href="$interface_8cpp.html" title="Implementation file for Interface dialog functionality." alt="" coords="5,219,187,277"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="606,157,416,183,199,221,188,224,187,219,198,216,415,178,606,152"/>
+<area shape="rect" id="Node000004" href="$license_8cpp.html" title="Implementation of the License dialog functionality." alt="" coords="211,219,392,277"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="607,171,405,221,393,224,392,219,403,216,605,166"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main entry point of the application." alt="" coords="416,219,597,277"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="644,180,564,220,562,216,641,176"/>
+<area shape="rect" id="Node000006" href="$mainwindow_8cpp.html" title="Implementation file for the MainWindow class." alt="" coords="621,219,803,277"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="715,186,715,218,709,218,709,186"/>
+<area shape="rect" id="Node000007" href="$report_8cpp.html" title="Implementation file for the ReportMeasurements class." alt="" coords="827,219,1008,277"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="783,176,862,216,860,220,780,180"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="819,166,1021,216,1032,219,1031,224,1019,221,817,171"/>
+</map>

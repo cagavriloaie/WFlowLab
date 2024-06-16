@@ -1,0 +1,5 @@
+<map id="PixelImageWidget::ExePath" name="PixelImageWidget::ExePath">
+<area shape="rect" id="Node000001" title="Retrieves the path of the executable file." alt="" coords="248,5,432,32"/>
+<area shape="rect" id="Node000002" href="$class_pixel_image_widget.html#a09973cb4c12341e927675d50ae6ece3d" title="Paints the widget with a gradient and textual information." alt="" coords="5,5,200,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,21,200,21,200,16,232,16"/>
+</map>

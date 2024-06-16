@@ -1,0 +1,8 @@
+<map id="MainWindow::ReadConfiguration" name="MainWindow::ReadConfiguration">
+<area shape="rect" id="Node000001" title="Reads the application configuration from settings." alt="" coords="5,55,214,81"/>
+<area shape="rect" id="Node000002" href="$md5_8cpp.html#aa29908ed5cb2b9a2434869b7e30a1271" title="Computes the MD5 hash of a given string and returns its hexadecimal representation." alt="" coords="358,29,404,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,56,342,44,343,49,215,61"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a20951f546fc8cf0101652bd5b55aff1b" title="Sets the default configuration settings." alt="" coords="262,80,500,107"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="215,75,246,78,246,83,214,80"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="356,40,333,29,328,22,329,15,346,6,381,3,413,5,431,12,433,23,420,34,417,30,428,22,427,16,411,10,381,8,347,11,333,18,333,21,336,25,359,35"/>
+</map>

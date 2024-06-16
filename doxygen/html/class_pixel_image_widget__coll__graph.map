@@ -1,0 +1,27 @@
+<map id="PixelImageWidget" name="PixelImageWidget">
+<area shape="rect" id="Node000001" title="The PixelImageWidget class represents a custom widget that displays a pixelated image and handles app..." alt="" coords="23,939,159,1072"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,229,103,299"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,314,91,939,85,939,54,314"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html" title=" " alt="" coords="292,469,485,875"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="71,312,90,358,116,404,157,457,202,506,294,592,290,596,198,510,153,460,112,407,86,360,67,314"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="294,782,163,928,159,925,290,779"/>
+<area shape="rect" id="Node000004" href="$struct_selected_info.html" title="The SelectedInfo struct holds selected information related to a device or configuration." alt="" coords="127,123,251,405"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="244,404,262,444,286,492,282,494,257,446,239,406"/>
+<area shape="rect" id="Node000005" href="$class_table_board.html" title="Dialog window for managing and displaying water meter test data in a table format." alt="" coords="275,165,390,363"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="341,362,350,445,351,452,345,453,344,446,336,362"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="465,5,523,75"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="455,74,428,97,404,124,377,167,372,164,400,121,425,93,451,70"/>
+<area shape="rect" id="Node000007" href="$class_license.html" title="The License class represents a dialog for displaying license information." alt="" coords="415,208,499,320"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="488,90,468,209,463,208,483,89"/>
+<area shape="rect" id="Node000008" href="$class_help_about.html" title="HelpAbout class represents a dialog for displaying Help/About information." alt="" coords="523,208,623,320"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="513,88,556,207,551,209,508,90"/>
+<area shape="rect" id="Node000009" href="$class_interface.html" title="The Interface class represents a dialog window for configuring and managing settings." alt="" coords="647,197,807,331"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="538,57,588,84,637,121,669,157,696,196,691,199,665,160,634,125,585,88,536,62"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="450,320,428,453,423,452,445,320"/>
+<area shape="poly" id="edge9_Node000003_Node000008" title=" " alt="" coords="565,320,550,382,527,446,496,510,491,508,522,444,544,380,560,319"/>
+<area shape="poly" id="edge11_Node000003_Node000009" title=" " alt="" coords="687,332,638,407,609,447,499,567,495,564,605,444,633,404,683,329"/>
+<area shape="rect" id="Node000010" href="$class_led_indicator.html" title="The LedIndicator class represents a custom LED indicator widget." alt="" coords="831,133,970,395"/>
+<area shape="poly" id="edge13_Node000003_Node000010" title=" " alt="" coords="834,393,821,407,745,475,662,534,578,584,502,623,499,619,576,579,659,529,742,470,817,403,830,390"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="869,5,933,75"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="903,90,903,134,898,134,898,90"/>
+</map>

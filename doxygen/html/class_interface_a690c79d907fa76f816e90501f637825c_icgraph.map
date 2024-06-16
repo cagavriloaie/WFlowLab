@@ -1,0 +1,7 @@
+<map id="Interface::Translate" name="Interface::Translate">
+<area shape="rect" id="Node000001" title="Translates UI elements to the current language." alt="" coords="262,31,393,57"/>
+<area shape="rect" id="Node000002" href="$class_interface.html#aedecb2b6b3994bc9732c346dd7d05ce7" title="Constructs the Interface dialog." alt="" coords="46,5,173,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,37,173,29,174,23,247,32"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a1dff511c9697cbcb60150894f480b9c8" title="Handles mouse press events on the main window." alt="" coords="5,56,214,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,56,214,60,214,55,246,51"/>
+</map>

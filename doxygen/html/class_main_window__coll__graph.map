@@ -1,0 +1,24 @@
+<map id="MainWindow" name="MainWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="356,469,549,875"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,229,103,299"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,312,89,358,116,404,171,466,234,522,298,571,358,612,355,616,295,576,230,526,168,470,112,407,84,361,65,314"/>
+<area shape="rect" id="Node000003" href="$struct_selected_info.html" title="The SelectedInfo struct holds selected information related to a device or configuration." alt="" coords="127,123,251,405"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="253,383,266,404,348,527,344,530,261,407,248,385"/>
+<area shape="rect" id="Node000004" href="$class_table_board.html" title="Dialog window for managing and displaying water meter test data in a table format." alt="" coords="275,165,390,363"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="362,362,386,445,388,453,383,454,380,446,357,363"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="465,5,523,75"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="455,74,428,97,404,124,377,167,372,164,400,121,425,93,451,70"/>
+<area shape="rect" id="Node000006" href="$class_license.html" title="The License class represents a dialog for displaying license information." alt="" coords="415,208,499,320"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="488,90,468,209,463,208,483,89"/>
+<area shape="rect" id="Node000007" href="$class_help_about.html" title="HelpAbout class represents a dialog for displaying Help/About information." alt="" coords="523,208,623,320"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="513,88,556,207,551,209,508,90"/>
+<area shape="rect" id="Node000008" href="$class_interface.html" title="The Interface class represents a dialog window for configuring and managing settings." alt="" coords="647,197,807,331"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="538,57,588,84,637,121,669,157,696,196,691,199,665,160,634,125,585,88,536,62"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="458,320,457,429,457,453,451,453,452,429,453,320"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="570,320,560,381,546,446,544,454,539,452,541,445,555,380,564,320"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="694,332,624,447,562,535,558,532,620,444,689,329"/>
+<area shape="rect" id="Node000009" href="$class_led_indicator.html" title="The LedIndicator class represents a custom LED indicator widget." alt="" coords="831,133,970,395"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="833,393,821,407,761,467,695,521,628,569,566,610,563,605,625,565,692,517,757,463,817,404,829,389"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="869,5,933,75"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="903,90,903,134,898,134,898,90"/>
+</map>

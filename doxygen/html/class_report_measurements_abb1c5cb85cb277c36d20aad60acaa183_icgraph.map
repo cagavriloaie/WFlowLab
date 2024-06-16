@@ -1,0 +1,13 @@
+<map id="ReportMeasurements::Translate" name="ReportMeasurements::Translate">
+<area shape="rect" id="Node000001" title="Translates the UI elements to the selected language." alt="" coords="661,48,807,91"/>
+<area shape="rect" id="Node000002" href="$class_table_board.html#a3aba8b87be295aa5d88196e85e2ba1c6" title="Translates the UI components to the current language." alt="" coords="466,56,613,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="645,72,614,72,614,67,645,67"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a1dff511c9697cbcb60150894f480b9c8" title="Handles mouse press events on the main window." alt="" coords="210,5,418,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="461,55,376,35,377,30,463,49"/>
+<area shape="rect" id="Node000004" href="$class_table_board.html#a8b42c4c0ca5f016ef0fd90116d3c11c4" title="Populates the table with initial data." alt="" coords="226,56,402,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="451,72,402,72,402,67,451,67"/>
+<area shape="rect" id="Node000006" href="$class_table_board.html#a1e594035884d1cfa3c275d7978ed0d0d" title="Constructs a TableBoard dialog." alt="" coords="234,107,394,133"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="463,89,377,109,376,103,461,84"/>
+<area shape="rect" id="Node000005" href="$class_table_board.html#ae12b9190e48ba1121e1221d2113d5bf2" title="Event handler for when the dialog is shown." alt="" coords="5,56,162,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="210,72,162,72,162,67,210,67"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="C:/Users/Constantin/Desktop/HERE_WFlowLab/Meter/report.h" name="C:/Users/Constantin/Desktop/HERE_WFlowLab/Meter/report.h">
+<area shape="rect" id="Node000001" title="Header file for the ReportMeasurements class." alt="" coords="258,5,439,64"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,112,73,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="258,64,88,113,87,108,256,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,112,189,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,67,187,108,185,103,281,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="213,112,292,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,66,279,103,275,99,316,62"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="316,112,381,139"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="351,64,351,96,346,96,346,64"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="405,112,468,139"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="379,62,415,99,411,103,375,66"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="493,112,548,139"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="405,62,484,102,481,107,403,67"/>
+<area shape="rect" id="Node000008" href="$definitions_8h.html" title="Header file containing constants and definitions for the project." alt="" coords="573,112,663,139"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="437,62,566,104,564,109,435,67"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="586,187,649,213"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="620,139,620,171,615,171,615,139"/>
+</map>

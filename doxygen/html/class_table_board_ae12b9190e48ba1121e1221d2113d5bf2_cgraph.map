@@ -1,0 +1,9 @@
+<map id="TableBoard::showEvent" name="TableBoard::showEvent">
+<area shape="rect" id="Node000001" title="Event handler for when the dialog is shown." alt="" coords="5,13,162,40"/>
+<area shape="rect" id="Node000002" href="$class_table_board.html#a8b42c4c0ca5f016ef0fd90116d3c11c4" title="Populates the table with initial data." alt="" coords="210,13,386,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,24,194,24,194,29,162,29"/>
+<area shape="rect" id="Node000003" href="$class_table_board.html#a3aba8b87be295aa5d88196e85e2ba1c6" title="Translates the UI components to the current language." alt="" coords="434,13,581,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,24,418,24,418,29,386,29"/>
+<area shape="rect" id="Node000004" href="$class_report_measurements.html#abb1c5cb85cb277c36d20aad60acaa183" title="Translates the UI elements to the selected language." alt="" coords="629,5,775,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="581,24,614,24,614,29,581,29"/>
+</map>

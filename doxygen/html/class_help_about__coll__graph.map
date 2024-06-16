@@ -1,0 +1,5 @@
+<map id="HelpAbout" name="HelpAbout">
+<area shape="rect" id="Node000001" title="HelpAbout class represents a dialog for displaying Help/About information." alt="" coords="5,123,105,235"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="26,5,85,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,90,58,123,53,123,53,90"/>
+</map>

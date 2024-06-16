@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,31,111,57"/>
+<area shape="rect" id="Node000001" href="$class_main_window.html" title=" " alt="" coords="174,5,270,32"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="126,31,173,23,174,29,127,36"/>
+<area shape="rect" id="Node000002" href="$class_pixel_image_widget.html" title="The PixelImageWidget class represents a custom widget that displays a pixelated image and handles app..." alt="" coords="159,56,285,83"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="127,52,158,57,158,62,126,57"/>
+</map>

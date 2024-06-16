@@ -1,0 +1,7 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="The main entry point of the application." alt="" coords="5,31,55,57"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#a83e8ff65ba039c0ae126f93fa7b9b951" title="Checks and handles multiple instances of the application using shared memory." alt="" coords="103,5,323,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,38,97,32,98,37,56,43"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a92715c03936f32de48d90dc8a85198a7" title="Loads the application translations from a specified path." alt="" coords="155,56,271,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="56,45,140,57,140,62,55,50"/>
+</map>

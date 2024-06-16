@@ -12,11 +12,23 @@ Dialog window for managing and displaying water meter test data in a table forma
 
 
 Inheritance diagram for Table\+Board\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{class_table_board__inherit__graph}
+\end{center}
+\end{figure}
 
 
 Collaboration diagram for Table\+Board\+:
-% FIG 1
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{class_table_board__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -72,6 +84,14 @@ Initializes the \doxylink{class_table_board}{Table\+Board} dialog with the given
 {\em \+\_\+parent} & Pointer to the parent widget. \\
 \hline
 \end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_a1e594035884d1cfa3c275d7978ed0d0d_cgraph}
+\end{center}
+\end{figure}
 \Hypertarget{class_table_board_a6fb8ce7f805e7bd12803ce7757a19464}\index{TableBoard@{TableBoard}!````~TableBoard@{\texorpdfstring{$\sim$}{\string~}TableBoard}}
 \index{````~TableBoard@{\texorpdfstring{$\sim$}{\string~}TableBoard}!TableBoard@{TableBoard}}
 \doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TableBoard()}{\string~TableBoard()}}
@@ -105,7 +125,23 @@ This function updates the UI elements in the dialog to reflect the selected wate
 
 It also initializes and sets palettes for alternating row colors to improve readability.
 
-This function assumes that the necessary data (entries, name\+Water\+Meter, minimum\+Flow\+Main, transitoriu\+Flow\+Main, nominal\+Flow\+Main, nominal\+Error, maximum\+Error) have already been set in the main window (mainwindow-\/\texorpdfstring{$>$}{>}selected\+Info). \Hypertarget{class_table_board_ab604128fb65731438452fd0b1bf8101a}\index{TableBoard@{TableBoard}!printPdfThread@{printPdfThread}}
+This function assumes that the necessary data (entries, name\+Water\+Meter, minimum\+Flow\+Main, transitoriu\+Flow\+Main, nominal\+Flow\+Main, nominal\+Error, maximum\+Error) have already been set in the main window (mainwindow-\/\texorpdfstring{$>$}{>}selected\+Info). Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_a8b42c4c0ca5f016ef0fd90116d3c11c4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_table_board_ab604128fb65731438452fd0b1bf8101a}\index{TableBoard@{TableBoard}!printPdfThread@{printPdfThread}}
 \index{printPdfThread@{printPdfThread}!TableBoard@{TableBoard}}
 \doxysubsubsection{\texorpdfstring{printPdfThread()}{printPdfThread()}}
 {\footnotesize\ttfamily \label{class_table_board_ab604128fb65731438452fd0b1bf8101a} 
@@ -153,6 +189,14 @@ This function is automatically called when the dialog is shown. It ensures that 
 {\em event} & A QShow\+Event object. \\
 \hline
 \end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_ae12b9190e48ba1121e1221d2113d5bf2_cgraph}
+\end{center}
+\end{figure}
 \Hypertarget{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6}\index{TableBoard@{TableBoard}!Translate@{Translate}}
 \index{Translate@{Translate}!TableBoard@{TableBoard}}
 \doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
@@ -167,7 +211,23 @@ Translates and updates UI elements with localized texts.
 
 Adjusts all visible UI elements to display text in the chosen language.
 
-This function updates various UI elements such as window title, labels, buttons, and dynamic text with their translated versions. It ensures the user interface reflects the current language settings. \Hypertarget{class_table_board_aee4f8aef9f3bee61b107601750d49b46}\index{TableBoard@{TableBoard}!ValidatorInput@{ValidatorInput}}
+This function updates various UI elements such as window title, labels, buttons, and dynamic text with their translated versions. It ensures the user interface reflects the current language settings. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_a3aba8b87be295aa5d88196e85e2ba1c6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_table_board_aee4f8aef9f3bee61b107601750d49b46}\index{TableBoard@{TableBoard}!ValidatorInput@{ValidatorInput}}
 \index{ValidatorInput@{ValidatorInput}!TableBoard@{TableBoard}}
 \doxysubsubsection{\texorpdfstring{ValidatorInput()}{ValidatorInput()}}
 {\footnotesize\ttfamily \label{class_table_board_aee4f8aef9f3bee61b107601750d49b46} 
@@ -188,6 +248,14 @@ It also sets specific styles and properties for certain QLine\+Edit elements rel
 \begin{DoxyNote}{Note}
 This function assumes the existence of specific UI elements (e.\+g., ui-\/\texorpdfstring{$>$}{>}lb\+N1, ui-\/\texorpdfstring{$>$}{>}cb\+Set1, ui-\/\texorpdfstring{$>$}{>}le\+SN1). 
 \end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_table_board_aee4f8aef9f3bee61b107601750d49b46_icgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

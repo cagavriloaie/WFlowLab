@@ -1,0 +1,7 @@
+<map id="MainWindow::SelectMeterComboBox" name="MainWindow::SelectMeterComboBox">
+<area shape="rect" id="Node000001" title="Initializes the ComboBox for selecting meter types." alt="" coords="5,31,243,57"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#a8adea2a849e6591542b73c61b0540968" title="Sets the value of a QLabel with specified precision." alt="" coords="305,5,490,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,30,289,26,289,31,244,36"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#ab9a88b50db51a22b56a4fb5a2d2dd7a6" title="Updates the selected information based on user inputs." alt="" coords="291,56,504,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,52,276,55,275,61,243,58"/>
+</map>

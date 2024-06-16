@@ -1,0 +1,5 @@
+<map id="Interface::checkModbusAddress" name="Interface::checkModbusAddress">
+<area shape="rect" id="Node000001" title="Checks if the Modbus address is valid." alt="" coords="5,5,213,32"/>
+<area shape="rect" id="Node000002" href="$class_led_indicator.html#a64cf63423048207d6f96ab96acf510cd" title="Sets the state of the LED indicator." alt="" coords="261,5,409,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,16,245,16,245,21,213,21"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="MainWindow::mousePressEvent" name="MainWindow::mousePressEvent">
+<area shape="rect" id="Node000001" title="Handles mouse press events on the main window." alt="" coords="5,107,214,133"/>
+<area shape="rect" id="Node000002" href="$class_help_about.html#a33701624f12a4a1d42aa7c3f08b8e3ee" title="Translates UI elements to the current locale." alt="" coords="269,5,411,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,104,191,74,261,42,277,35,279,40,263,46,194,79,137,109"/>
+<area shape="rect" id="Node000003" href="$class_interface.html#a690c79d907fa76f816e90501f637825c" title="Translates UI elements to the current language." alt="" coords="274,56,406,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,103,260,84,262,89,174,109"/>
+<area shape="rect" id="Node000004" href="$class_license.html#af71fdd852e89fa33bc882f3820f025ce" title="Translates the UI components to the current language." alt="" coords="276,107,404,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="214,117,261,117,261,123,214,123"/>
+<area shape="rect" id="Node000005" href="$class_main_window.html#af6f053ecad637ab470a258e4962b088c" title="Translates the UI components to the selected language." alt="" coords="262,157,418,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="174,131,262,151,260,156,173,137"/>
+<area shape="rect" id="Node000006" href="$class_table_board.html#a3aba8b87be295aa5d88196e85e2ba1c6" title="Translates the UI components to the current language." alt="" coords="266,208,414,235"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="137,131,194,161,263,194,279,200,277,205,261,198,191,166,134,136"/>
+<area shape="rect" id="Node000007" href="$class_report_measurements.html#abb1c5cb85cb277c36d20aad60acaa183" title="Translates the UI elements to the selected language." alt="" coords="466,200,611,243"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="414,219,451,219,451,224,414,224"/>
+</map>
