@@ -1,159 +1,110 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "fileList="
-
-rem Populate the array with file paths
-for %%F in ("Meter\*.cpp" "Meter\*.h") do (
-    set "fileName=%%~nxF"
-    if /I not "!fileName:~0,3!" == "ui_" (
-        set "fileList=!fileList!%%F;"
+rem Function to clean a directory
+:cleanDirectory
+    if exist "%1\*" (
+        echo Cleaning directory: %1
+        for %%f in ("%1\*") do (
+            if exist "%%f" (
+                del /f /q "%%f" > nul 2>&1
+                if exist "%%f" (
+                    echo Failed to delete: "%%f"
+                ) else (
+                    echo Deleted: "%%f"
+                )
+            )
+        )
+        for /d %%d in ("%1\*") do (
+            if exist "%%d" (
+                rmdir /s /q "%%d" > nul 2>&1
+                if exist "%%d" (
+                    echo Failed to delete directory: "%%d"
+                ) else (
+                    echo Deleted directory: "%%d"
+                )
+            )
+        )
+    ) else (
+        echo Directory %1 is already clean or does not exist.
     )
-)
+goto :eof
 
-rem Check if fileList is not empty
-if not "!fileList!" == "" (
-    set "fileList=!fileList:~0,-1!"
-    
-    for %%A in (!fileList!) do (
-        echo Processing: %%A
-       .\AStyle\bin\AStyle.exe %%A ^
---recursive ^
---add-brackets ^
---add-braces ^
---style=allman ^
---indent=spaces=4 ^
---indent-modifiers ^
---indent-switches ^
---indent-cases ^
---indent-namespaces ^
---indent-preproc-block ^
---min-conditional-indent=2 ^
---pad-oper ^
---pad-header ^
---unpad-paren ^
---delete-empty-lines ^
---align-pointer=name ^
---align-reference=name ^
---keep-one-line-statements ^
---convert-tabs ^
---close-templates ^
---max-code-length=70 ^
---suffix=none ^
---lineend=linux ^
---verbose 
-    )
-) else (
-    echo No files found for processing.
-)
+echo ===== Cleaning Debug and Release directories =====
+call :cleanDirectory "C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug"
+call :cleanDirectory "C:\Users\Constantin\Desktop\HERE_WFlowLab\Release"
 
-echo ===== Translations update ===== 
+echo ===== Checking current directory =====
+cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+echo Current directory: %CD%
 
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+echo ===== Updating translations =====
 lupdate meter.pro
-
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
+cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
 lrelease meter_en_EN.ts
 lrelease meter_ro_RO.ts
 
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\translations
-copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
-copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
+rem Copy translation files to Build, Debug, and Release directories
+set "translation_dirs=Build Debug Release"
+for %%D in (%translation_dirs%) do (
+    echo ===== Copying translations to %%D directory =====
+    mkdir C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations > nul 2>&1
+    copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations
+    copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\%%D\translations
+)
 
-mkdir C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\translations
-copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\translations
-copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\translations
-
-mkdir C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
-copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
-copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
-
-mkdir C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\translations
-copy *.qm C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
-copy *.ts C:\Users\Constantin\Desktop\HERE_WFlowLab\Build\translations
-
-echo " "
-echo ===== Compile apllication =====
+echo ===== Compiling application =====
 echo Open QT Creator and set Debug / Release mode
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
+cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
 
 :start
-ECHO.
-ECHO 1. Debug
-ECHO 2. Release
+echo.
+echo 1. Debug
+echo 2. Release
 set choice=
-set /p choice=Type the number to print text.
+set /p choice=Type the number to select build mode: 
 if not '%choice%'=='' set choice=%choice:~0,1%
 if '%choice%'=='1' goto Debug
 if '%choice%'=='2' goto Release
-ECHO "%choice%" is not valid, try again
-ECHO.
+echo "%choice%" is not valid, try again
+echo.
 goto start
 
 :Debug
-ECHO echo ===== Debug build =====
+echo ===== Debug build =====
+call :build Debug "CONFIG+=debug CONFIG+=qml_debug"
+goto end
 
-echo ">>>>>>>>>>>>>>>>>>> STEP 1"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe clean -j16
+:Release
+echo ===== Release build =====
+call :build Release "CONFIG+=qtquickcompiler"
+goto end
 
-echo ">>>>>>>>>>>>>>>>>>> STEP 2"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
-C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+:build
+set "build_type=%1"
+set "qmake_config=%2"
 
-echo ">>>>>>>>>>>>>>>>>>> STEP 3"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -f C:/Users/Constantin/Desktop/HERE_WFlowLab/Debug/Makefile qmake_all
+echo ">>>>>>>>>>>>>>>>>>> STEP 1: Running qmake"
+C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ %qmake_config%
 
-echo ">>>>>>>>>>>>>>>>>>> STEP 4"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug
+echo ">>>>>>>>>>>>>>>>>>> STEP 2: Generating Makefile"
+C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe qmake_all
+
+echo ">>>>>>>>>>>>>>>>>>> STEP 3: Building"
 C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -j16
 
 timeout /nobreak /t 5 >nul
-echo Done waiting for 5 seconds
+echo "Done waiting for 5 seconds"
 
-cd ..
+echo >>>> Copying executable to Build directory
+copy /Y C:\Users\Constantin\Desktop\HERE_WFlowLab\%build_type%\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
 
-echo >>>> Copy from C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\WStreamLab.exe to C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
-copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Debug\debug\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
-
-goto end
-
-
-:Release
-ECHO echo ===== Release build =====
-
-echo ">>>>>>>>>>>>>>>>>>> STEP 1"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Release
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe clean -j16
-
-echo ">>>>>>>>>>>>>>>>>>> STEP 2"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter
-C:\Qt6.5\6.5.0\mingw_64\bin\qmake.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Meter\meter.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
-
-echo ">>>>>>>>>>>>>>>>>>> STEP 3"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Release
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -f C:/Users/Constantin/Desktop/HERE_WFlowLab/Release/Makefile qmake_all
-
-echo ">>>>>>>>>>>>>>>>>>> STEP 4"
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\Release
-C:\Qt6.5\Tools\mingw1120_64\bin\mingw32-make.exe -j16
-
-cd ..
-
-echo >>>> Copy from C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\WStreamLab.exe to C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
-copy C:\Users\Constantin\Desktop\HERE_WFlowLab\Release\release\WStreamLab.exe C:\Users\Constantin\Desktop\HERE_WFlowLab\Build
-
-goto end
-
-
-echo 
-cd C:\Users\Constantin\Desktop\HERE_WFlowLab\
-echo ===== Create the build =====
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WStreamLab.iss
+goto :EOF
 
 :end
+echo ===== Creating the installer =====
+cd /D C:\Users\Constantin\Desktop\HERE_WFlowLab
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" WStreamLab.iss
 
 echo Ready
-
 pause
