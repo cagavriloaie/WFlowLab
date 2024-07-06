@@ -371,17 +371,26 @@ MainWindow::MainWindow(QWidget *parent)
     bool serialDll{false};
     try
     {
-        if (QLibrary::isLibrary("SerialPorts.dll"))
-        {
+        if (QLibrary::isLibrary("SerialPorts.dll")) {
             QLibrary library("SerialPorts.dll");
             library.load();
-            if (library.isLoaded())
-            {
-                serialPorts =
+            if (library.isLoaded()) {
+                qDebug() << "Library loaded successfully.";
+                EnumerateSerialPorts serialPorts =
                     (EnumerateSerialPorts)library.resolve("enumerateSerialPorts");
-                serialDll = true;
+                if (serialPorts) {
+                    qDebug() << "Function resolved successfully.";
+                    serialDll = true;
+                } else {
+                    qDebug() << "Failed to resolve function:" << library.errorString();
+                }
+            } else {
+                qDebug() << "Failed to load library:" << library.errorString();
             }
+        } else {
+            qDebug() << "File is not a valid library.";
         }
+
     }
     catch (...)
     {
