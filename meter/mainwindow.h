@@ -176,6 +176,8 @@ public:
     typedef const wchar_t *(*EnumerateSerialPorts)(); /**< Function pointer type for serial port enumeration. */
     EnumerateSerialPorts serialPorts{nullptr}; /**< Pointer to the function for serial port enumeration. */
 
+    QList<QSerialPortInfo> ports;
+
   protected:
     /**
      * \brief Handles mouse press events on the main window.

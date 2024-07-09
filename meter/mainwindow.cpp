@@ -25,6 +25,7 @@
 #include <QMessageBox>      ///< Modal dialog for informing the user or for asking the user a question and receiving an answer.
 #include <QSettings>        ///< Persistent platform-independent application settings.
 #include <QValidator>       ///< Base class for all validators that can be easily attached to input widgets.
+#include <QList>
 
 // Windows-specific headers
 #include <windows.h>    ///< Main Windows SDK header providing core Windows APIs.
@@ -44,6 +45,7 @@
 #include <fstream>      ///< Input/output stream class to operate on files.
 #include <iomanip>      ///< Manipulators for formatting output.
 #include <sstream>      ///< Implements input/output operations on memory-based streams.
+#include <QSerialPortInfo>
 
 extern QTranslator *appTranslator;
 MainWindow *pMainWindow;
@@ -368,53 +370,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     pMainWindow = this;
-    bool serialDll{false};
-    try
-    {
-        if (QLibrary::isLibrary("SerialPorts.dll")) {
-            QLibrary library("SerialPorts.dll");
-            library.load();
-            if (library.isLoaded()) {
-                qDebug() << "Library loaded successfully.";
-                EnumerateSerialPorts serialPorts =
-                    (EnumerateSerialPorts)library.resolve("enumerateSerialPorts");
-                if (serialPorts) {
-                    qDebug() << "Function resolved successfully.";
-                    serialDll = true;
-                } else {
-                    qDebug() << "Failed to resolve function:" << library.errorString();
-                }
-            } else {
-                qDebug() << "Failed to load library:" << library.errorString();
-            }
-        } else {
-            qDebug() << "File is not a valid library.";
-        }
-
-    }
-    catch (...)
-    {
-        // Handle any exceptions (not specified in detail)
-    }
-
-    // Display warning and close application if SerialPorts.dll is not available
-    if (!serialDll)
-    {
-        QMessageBox warningMessage;
-        QApplication::beep();
-        warningMessage.addButton(QMessageBox::Ok);
-        warningMessage.setWindowTitle(QObject::tr("Warning"));
-        warningMessage.setText(
-            QObject::tr("Serial interfaces is not available."));
-        warningMessage.setInformativeText(
-            QObject::tr("The application cannot use serial driver because the "
-                        "dll package is not available."));
-        warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                      Qt::WindowTitleHint |
-                                      Qt::WindowCloseButtonHint);
-        warningMessage.exec();
-        this->close();
-    }
 
     // Center the main window on the screen
     CenterToScreen(this);
@@ -1045,10 +1000,10 @@ void MainWindow::onHelpAbout()
  */
 void MainWindow::onPortSettings()
 {
-    // Update selectedInfo based on UI state
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
 
+/*
     // Check for available serial ports
     const wchar_t *serial = serialPorts();
     if (!std::wcslen(serial))
@@ -1075,6 +1030,8 @@ void MainWindow::onPortSettings()
         // Show the interface dialog for port settings
         interfaceDialog->show();
     }
+*/
+    interfaceDialog->show();
 }
 
 /**

@@ -56,7 +56,6 @@ Source: ".\build\Qt6SerialBus.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6SerialPort.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\build\SerialPorts.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\WStreamLab.exe"; DestDir: "{app}"; Flags: ignoreversion
