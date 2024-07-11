@@ -9,6 +9,7 @@
  * \date Insert creation date
  */
 
+// Standard C++ headers
 #include <algorithm>                // Standard C++ algorithms
 #include <fstream>                  // File stream operations
 #include <iomanip>                  // I/O manipulators
@@ -17,6 +18,7 @@
 #include <thread>                   // C++11 thread support
 #include <mutex>                    // C++11 mutual exclusion primitives
 
+// Qt headers
 #include <QDesktopServices>         // Qt desktop services
 #include <QDoubleValidator>         // Qt validator for double values
 #include <QFileDialog>              // Qt file dialog
@@ -29,14 +31,13 @@
 #include <QValidator>               // Qt validator base class
 #include <QtPrintSupport/QPrinter>  // Qt printer support
 
-#include "definitions.h"           // Project-specific constants and definitions
-#include "waterdensity.h"          // Header for water density calculations
-#include "mainwindow.h"            // Your application's main window
-#include "tableBoard.h"            // Header for table board functionality
+// Project-specific headers
+#include "definitions.h"            // Project-specific constants and definitions
+#include "waterdensity.h"           // Header for water density calculations
+#include "mainwindow.h"             // Your application's main window
+#include "tableBoard.h"             // Header for table board functionality
 #include "ui_mainwindow.h"          // UI definition for main window
 #include "ui_tableBoard.h"          // UI definition for table board
-
-
 
 extern MainWindow *pMainWindow;
 

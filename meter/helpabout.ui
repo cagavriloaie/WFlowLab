@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>235</height>
+    <width>490</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>400</width>
-    <height>235</height>
+    <width>490</width>
+    <height>230</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>400</width>
-    <height>235</height>
+    <width>490</width>
+    <height>280</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,9 +30,83 @@
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton:hover {
-       background-color: #d7d9d7;
-}</string>
+   <string notr="true">/* Common styles */
+* {
+    font-family: Verdana, Arial, sans-serif; /* Fallback to Arial or generic sans-serif if Verdana is not available */
+    font-size: 12pt; /* Base font size */
+}
+
+/* QPushButton */
+QPushButton {
+    padding: 5px 10px;
+    border: 2px solid #ccc; /* Light gray border */
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 5px; /* Rounded corners */
+}
+
+QPushButton:hover {
+    background-color: #d7d9d7; /* Light gray background on hover */
+    border: 2px solid #aaa; /* Darker gray border on hover */
+}
+
+/* QComboBox */
+QComboBox {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px;
+    min-height: 20px; /* Adjust the minimum height */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px; /* Adjust width as needed */
+    border-left: 1px solid #ADD8E6; /* Light blue border for the drop-down button */
+}
+
+QComboBox::down-arrow {
+    width: 0;
+    height: 0;
+}
+
+QComboBox::down-arrow:disabled {
+    image: url(circle.png); /* Replace with your own circle image */
+    width: 16px; /* Adjust width of circle */
+    height: 16px; /* Adjust height of circle */
+}
+
+/* QLineEdit */
+QLineEdit {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    height: 28px; /* Adjusted height */
+    padding: 2px; /* Adjust padding if needed */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+/* QGroupBox */
+QGroupBox {
+    border: 2px solid black;
+    border-color: rgba(0, 0, 0, 0.36); /* Black with transparency */
+    background-color: #E6E6FF; /* Light purple background */
+    font-family: Verdana, Arial, sans-serif; /* Use Verdana for group box */
+    font-size: 12pt; /* Font size */
+    margin-top: 10px;
+    border-radius: 8px; /* Rounded corners */
+    padding-top: 10px; /* Padding for the top of the group box */
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 7px;
+    padding: 5px; /* Adjusted padding for better appearance */
+}
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -49,6 +123,18 @@
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <widget class="QLabel" name="lbName">
+              <property name="minimumSize">
+               <size>
+                <width>195</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>195</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -67,6 +153,18 @@
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QLabel" name="lbCopyright">
+              <property name="minimumSize">
+               <size>
+                <width>195</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>195</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -85,6 +183,18 @@
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
              <widget class="QLabel" name="lbEmail">
+              <property name="minimumSize">
+               <size>
+                <width>195</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>195</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -103,6 +213,18 @@
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <widget class="QLabel" name="lbAddress">
+              <property name="minimumSize">
+               <size>
+                <width>195</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>195</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -121,6 +243,18 @@
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <widget class="QLabel" name="lbAuthor">
+              <property name="minimumSize">
+               <size>
+                <width>195</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>195</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>

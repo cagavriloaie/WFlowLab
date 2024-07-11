@@ -66,10 +66,11 @@ struct SelectedInfo
         rbManual{true}, /**< Manual operation mode flag. */
         rbInterface{false}, /**< Interface operation mode flag. */
         rbTerminal{false}, /**< Terminal operation mode flag. */
-        serialPort{false}, /**< Serial port usage flag. */
-        selectedLanguage{ROMANIAN}, /**< Selected language enumeration. */
-        modbusDevice{nullptr} /**< Pointer to the Modbus client device. */
+        serialPort_1{false}, /**< Serial port usage flag. */
+        serialPort_2{false}, /**< Serial port usage flag. */
+        selectedLanguage{ROMANIAN} /**< Selected language enumeration. */
     {
+
     }
 
     float density_20; /**< Density at 20 degrees Celsius. */
@@ -98,10 +99,9 @@ struct SelectedInfo
     bool rbInterface; /**< Interface operation mode flag. */
     bool rbTerminal; /**< Terminal operation mode flag. */
 
-    bool serialPort; /**< Serial port usage flag. */
+    bool serialPort_1; /**< Serial port usage flag. */
+    bool serialPort_2; /**< Serial port usage flag. */
     SELECTED_LANGUAGE selectedLanguage; /**< Selected language enumeration. */
-
-    QModbusClient *modbusDevice; /**< Pointer to the Modbus client device. */
 };
 
 class MainWindow : public QMainWindow
@@ -178,6 +178,9 @@ public:
 
     QList<QSerialPortInfo> ports;
 
+    QModbusClient *modbusDevice_1; /**< Pointer to the first Modbus client device. */
+    QModbusClient *modbusDevice_2; /**< Pointer to the second Modbus client device. */
+
   protected:
     /**
      * \brief Handles mouse press events on the main window.
@@ -231,7 +234,7 @@ private slots:
     /**
      * \brief Slot function called when the gravimetric measurement mode is selected.
      */
-    void onRbGavritmetricClicked();
+    void onRbGravimetricClicked();
 
     /**
      * \brief Slot function called when the volumetric measurement mode is selected.
@@ -261,7 +264,7 @@ private slots:
     /**
      * \brief Slot function called when the atmospheric pressure text is changed.
      */
-    void onAthmosphericPressureTextChanged();
+    void onAtmosphericPressureTextChanged();
 
     /**
      * \brief Slot function called when the Romanian language is selected.
@@ -303,7 +306,6 @@ private slots:
      * \param event The close event.
      */
     void closeEvent(QCloseEvent *event) override;
-
 
 signals:
     /**

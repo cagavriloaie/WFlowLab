@@ -7,24 +7,25 @@
     <x>0</x>
     <y>0</y>
     <width>580</width>
-    <height>558</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>580</width>
-    <height>558</height>
+    <height>620</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>580</width>
-    <height>558</height>
+    <height>620</height>
    </size>
   </property>
   <property name="font">
    <font>
-    <pointsize>14</pointsize>
+    <family>Verdana</family>
+    <pointsize>12</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -35,75 +36,82 @@
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLabel 
-{
-	font-family: &quot;Segoe UI&quot;;
-	font-size: 12pt;
+   <string notr="true">/* Common styles */
+* {
+    font-family: Verdana, Arial, sans-serif; /* Fallback to Arial or generic sans-serif if Verdana is not available */
+    font-size: 12pt; /* Base font size */
 }
 
-QPushButton 
-{
-	font-family: &quot;Segoe UI&quot;;
-	font-size: 12pt;
+/* QPushButton */
+QPushButton {
+    padding: 5px 10px;
+    border: 2px solid #ccc; /* Light gray border */
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 5px; /* Rounded corners */
 }
 
 QPushButton:hover {
-       background-color: #d7d9d7;
+    background-color: #d7d9d7; /* Light gray background on hover */
+    border: 2px solid #aaa; /* Darker gray border on hover */
 }
 
-QComboBox 
-{
-	font-family: &quot;Segoe UI&quot;;
-	font-size: 12pt;
+/* QComboBox */
+QComboBox {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px;
+    min-height: 20px; /* Adjust the minimum height */
+    background-color: #f0f0f0; /* Light gray background */
 }
 
-QGroupBox  {
-    border: 2px solid gray;
-    border-color: #FF17365D;
-    background-color: #E6E6FF;
-	font-family: &quot;Segoe UI&quot;;
-	font-size: 12pt;
+QComboBox QAbstractItemView {
+    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px; /* Adjust width as needed */
+    border-left: 1px solid #ADD8E6; /* Light blue border for the drop-down button */
+}
+
+QComboBox::down-arrow {
+    width: 0;
+    height: 0;
+}
+
+QComboBox::down-arrow:disabled {
+    image: url(circle.png); /* Replace with your own circle image */
+    width: 16px; /* Adjust width of circle */
+    height: 16px; /* Adjust height of circle */
+}
+
+/* QLineEdit */
+QLineEdit {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    height: 28px; /* Adjusted height */
+    padding: 2px; /* Adjust padding if needed */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+/* QGroupBox */
+QGroupBox {
+    border: 2px solid black;
+    border-color: rgba(0, 0, 0, 0.36); /* Black with transparency */
+    background-color: #E6E6FF; /* Light purple background */
+    font-family: Verdana, Arial, sans-serif; /* Use Verdana for group box */
+    font-size: 12pt; /* Font size */
     margin-top: 10px;
+    border-radius: 8px; /* Rounded corners */
+    padding-top: 10px; /* Padding for the top of the group box */
 }
 
 QGroupBox::title {
     subcontrol-origin: margin;
     left: 7px;
-    padding: -5px 5px 0px 5px;
+    padding: 5px; /* Adjusted padding for better appearance */
 }
-
-QMenu {
-    background-color: white;
-    margin: 2px; /* some spacing around the menu */
-}
-
-QMenu::item {
-    padding: 2px 25px 2px 20px;
-    border: 1px solid transparent; /* reserve space for selection border */
-}
-
-QMenu::item:selected {
-    border-color: darkblue;
-    background: rgba(100, 100, 100, 150);
-}
-
-QRadioButton::indicator {
-    width:                  10px;
-    height:                 10px;
-    border-radius:       7px;
-}
-
-QRadioButton::indicator:checked {
-    background-color:       black;
-    border:                         4px;
-}
-
-QRadioButton::indicator:unchecked {
-    background-color:       white;
-    border:                         4px;
-}
-
-
 </string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -144,7 +152,7 @@ QRadioButton::indicator:unchecked {
         </property>
         <property name="font">
          <font>
-          <family>Segoe UI</family>
+          <family>Verdana</family>
           <pointsize>12</pointsize>
          </font>
         </property>
@@ -173,14 +181,17 @@ QRadioButton::indicator:unchecked {
                <property name="minimumSize">
                 <size>
                  <width>300</width>
-                 <height>0</height>
+                 <height>28</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>300</width>
-                 <height>20</height>
+                 <height>23</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -223,17 +234,18 @@ QRadioButton::indicator:unchecked {
                  <property name="minimumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
+                   <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
@@ -270,17 +282,18 @@ QRadioButton::indicator:unchecked {
                  <property name="minimumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
+                   <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
@@ -344,14 +357,27 @@ QRadioButton::indicator:unchecked {
                <property name="minimumSize">
                 <size>
                  <width>100</width>
-                 <height>0</height>
+                 <height>28</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
                  <width>100</width>
-                 <height>20</height>
+                 <height>23</height>
                 </size>
+               </property>
+               <property name="autoFillBackground">
+                <bool>false</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">/* QComboBox */
+QComboBox {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px;
+    min-height: 20px; /* Adjust the minimum height */
+    background-color: #f0f0f0; /* Light gray background */
+}</string>
                </property>
               </widget>
              </item>
@@ -400,17 +426,18 @@ QRadioButton::indicator:unchecked {
                  <property name="minimumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
                    <width>100</width>
-                   <height>20</height>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="font">
                   <font>
+                   <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
                  </property>
@@ -469,7 +496,7 @@ QRadioButton::indicator:unchecked {
           </property>
           <property name="font">
            <font>
-            <family>Segoe UI</family>
+            <family>Verdana</family>
             <pointsize>12</pointsize>
            </font>
           </property>
@@ -478,13 +505,13 @@ QRadioButton::indicator:unchecked {
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <property name="leftMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <property name="topMargin">
-            <number>15</number>
+            <number>9</number>
            </property>
            <property name="bottomMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <item row="0" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -492,7 +519,7 @@ QRadioButton::indicator:unchecked {
               <widget class="QRadioButton" name="rbGravimetric">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>120</width>
                  <height>20</height>
                 </size>
                </property>
@@ -504,8 +531,12 @@ QRadioButton::indicator:unchecked {
                </property>
                <property name="font">
                 <font>
+                 <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
                </property>
                <property name="text">
                 <string/>
@@ -516,7 +547,7 @@ QRadioButton::indicator:unchecked {
               <widget class="QRadioButton" name="rbVolumetric">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>120</width>
                  <height>20</height>
                 </size>
                </property>
@@ -528,6 +559,7 @@ QRadioButton::indicator:unchecked {
                </property>
                <property name="font">
                 <font>
+                 <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
                </property>
@@ -536,20 +568,20 @@ QRadioButton::indicator:unchecked {
                </property>
               </widget>
              </item>
-             <item>
-              <spacer name="verticalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -564,7 +596,7 @@ QRadioButton::indicator:unchecked {
           </property>
           <property name="font">
            <font>
-            <family>Segoe UI</family>
+            <family>Verdana</family>
             <pointsize>12</pointsize>
            </font>
           </property>
@@ -573,16 +605,16 @@ QRadioButton::indicator:unchecked {
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
            <property name="leftMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <property name="topMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <property name="rightMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <property name="bottomMargin">
-            <number>10</number>
+            <number>9</number>
            </property>
            <item row="0" column="0">
             <layout class="QVBoxLayout" name="verticalLayout">
@@ -602,6 +634,7 @@ QRadioButton::indicator:unchecked {
                </property>
                <property name="font">
                 <font>
+                 <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
                </property>
@@ -614,7 +647,7 @@ QRadioButton::indicator:unchecked {
               <widget class="QRadioButton" name="rbInterface">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>120</width>
                  <height>20</height>
                 </size>
                </property>
@@ -626,6 +659,7 @@ QRadioButton::indicator:unchecked {
                </property>
                <property name="font">
                 <font>
+                 <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
                </property>
@@ -634,20 +668,20 @@ QRadioButton::indicator:unchecked {
                </property>
               </widget>
              </item>
-             <item>
-              <spacer name="verticalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -675,7 +709,7 @@ QRadioButton::indicator:unchecked {
           </property>
           <property name="font">
            <font>
-            <family>Segoe UI</family>
+            <family>Verdana</family>
             <pointsize>12</pointsize>
            </font>
           </property>
@@ -916,7 +950,7 @@ QRadioButton::indicator:unchecked {
          <widget class="QLabel" name="lbConnected">
           <property name="font">
            <font>
-            <family>Segoe UI</family>
+            <family>Verdana</family>
             <pointsize>12</pointsize>
            </font>
           </property>
@@ -976,7 +1010,7 @@ QRadioButton::indicator:unchecked {
      <x>0</x>
      <y>0</y>
      <width>580</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -1066,8 +1100,7 @@ QRadioButton::indicator:unchecked {
   </action>
   <action name="actionLineEntry">
    <property name="icon">
-    <iconset theme="accessories-character-map">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="accessories-character-map"/>
    </property>
    <property name="text">
     <string>LineEntry</string>

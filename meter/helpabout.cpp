@@ -42,7 +42,7 @@ void HelpAbout::Translate()
     setLabelText(ui->lbCopyright, "Copyright:");
     setLabelText(ui->lbCopyrightValue, "2024 Elcost Company srl");
     setLabelText(ui->lbEmail, "Email:");
-    setLabelText(ui->lbEmailValue, "office         @elcost.ro");
+    setLabelText(ui->lbEmailValue, "office      @elcost.ro");
     setLabelText(ui->lbAddress, "Address:");
     setLabelText(ui->lbAddressValue, "Pascani / RO Morilor #8");
     setLabelText(ui->lbAuthor, "Author:");
@@ -66,6 +66,9 @@ HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent),
 {
     ui->setupUi(this);
     Translate(); // Call the translation function
+
+    QSize newSize(490, 230); // New size
+    this->resize(newSize);
 
     // Connect signals and slots
     connect(ui->pbClose, &QPushButton::clicked, this, &HelpAbout::onCloseClicked);

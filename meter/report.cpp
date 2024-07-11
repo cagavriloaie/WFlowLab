@@ -12,7 +12,6 @@
 #include <algorithm>            // Standard C++ algorithms
 #include <chrono>               // C++11 time utilities
 #include <ctime>                // C time utilities
-#include <fstream>              // File stream operations
 #include <iomanip>              // I/O manipulators
 #include <iostream>             // Standard I/O streams
 #include <sstream>              // String stream operations
@@ -375,17 +374,6 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
 
     settings.endGroup();
     settings.sync();
-
-    // Set styles for line edits and combo box
-    ui->leAutorizatiaNumarul->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leNumarInregistrare->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leBeneficiar->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leCoduldinLt->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leNormativ->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->cbValabilitate->setStyleSheet("QComboBox { background: rgb(240, 255, 240); color: rgb(0, 0, 0); selection-background-color: rgb(240, 255, 240); selection-color: rgb(0, 0, 0); }");
-    ui->leCost->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leVerificatorMetrolog->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
-    ui->leLoculEfectuariiVerificarii->setStyleSheet("QLineEdit { background: rgb(240, 255, 240); selection-background-color: rgb(0, 0, 0); }");
     ui->lbNumarInregistrare->setFocus();
 
     // Connect signals and slots

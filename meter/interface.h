@@ -19,6 +19,7 @@
 #include <vector>       // Standard C++ container class for dynamic arrays.
 #include <string>       // Standard C++ string class.
 #include "ledindicator.h" // Class LED indicator
+#include <QSerialPortInfo>
 
 namespace Ui
 {
@@ -77,6 +78,8 @@ namespace Ui
      * closing the connection and releasing associated resources.
      */
         void DisconnectSerialPort();
+
+        QList<QSerialPortInfo>  ports;
 
     private slots:
     /**
