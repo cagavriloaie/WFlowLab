@@ -32,8 +32,8 @@
   <property name="styleSheet">
    <string notr="true">/* Common styles */
 * {
-    font-family: &quot;Segoe UI&quot;;
-    font-size: 12pt;
+    font-family: Verdana, Arial, sans-serif; /* Fallback to Arial or generic sans-serif if Verdana is not available */
+    font-size: 12pt; /* Base font size */
 }
 
 /* QPushButton */
@@ -54,7 +54,7 @@ QComboBox {
     border: 2px solid #ADD8E6; /* Light blue border */
     border-radius: 4px; /* Rounded corners */
     padding: 2px;
-    min-height: 28px; /* Adjust the minimum height */
+    min-height: 20px; /* Adjust the minimum height */
     background-color: #f0f0f0; /* Light gray background */
 }
 
@@ -89,30 +89,13 @@ QLineEdit {
     background-color: #f0f0f0; /* Light gray background */
 }
 
-/* QRadioButton */
-QRadioButton::indicator {
-    width: 14px; /* Adjusted width */
-    height: 14px; /* Adjusted height */
-    border-radius: 7px;
-}
-
-QRadioButton::indicator:checked {
-    background-color: black;
-    border: 4px solid black; /* Added border style */
-}
-
-QRadioButton::indicator:unchecked {
-    background-color: white;
-    border: 4px solid black; /* Added border style */
-}
-
 /* QGroupBox */
 QGroupBox {
     border: 2px solid black;
     border-color: rgba(0, 0, 0, 0.36); /* Black with transparency */
     background-color: #E6E6FF; /* Light purple background */
-    font-family: &quot;Segoe UI&quot;;
-    font-size: 12pt;
+    font-family: Verdana, Arial, sans-serif; /* Use Verdana for group box */
+    font-size: 12pt; /* Font size */
     margin-top: 10px;
     border-radius: 8px; /* Rounded corners */
     padding-top: 10px; /* Padding for the top of the group box */
@@ -123,6 +106,93 @@ QGroupBox::title {
     left: 7px;
     padding: 5px; /* Adjusted padding for better appearance */
 }
+
+/* QRadioButton */
+QRadioButton {
+    spacing: 5px;
+}
+
+QRadioButton::indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 7px; /* Half of width and height to make it a circle */
+    border: 1px solid #ADD8E6; /* Light blue border */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+QRadioButton::indicator:checked {
+    background-color: #ADD8E6; /* Light blue background when checked */
+    border: 1px solid #0078D7; /* Darker blue border when checked */
+}
+
+QRadioButton::indicator:unchecked:hover {
+    background-color: #e0e0e0; /* Slightly darker light gray background on hover when unchecked */
+}
+
+/* Menu Bar */
+QMenuBar {
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+}
+
+/* Base Menu */
+QMenu {
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 4px; /* Adjust padding */
+    font-family: Verdana, Arial, sans-serif; /* Font family */
+    font-size: 12pt; /* Font size */
+}
+
+/* Menu Item */
+QMenu::item {
+    background-color: transparent; /* Transparent background */
+    padding: 4px 24px; /* Adjust padding */
+    font-family: Verdana, Arial, sans-serif; /* Font family */
+    font-size: 12pt; /* Font size */
+}
+
+QMenu::item:selected {
+    background-color: #d7d9d7; /* Light gray background when selected */
+}
+
+/* Disabled Menu Item */
+QMenu::item:disabled {
+    color: #999; /* Gray color for disabled items */
+}
+
+/* Separator */
+QMenu::separator {
+    height: 1px;
+    background-color: #ccc; /* Light gray separator */
+    margin: 4px 0; /* Adjust margin */
+}
+
+/* Action */
+QMenuBar::item,
+QMenu::item {
+    background: transparent;
+    padding: 4px 10px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12pt;
+    color: black;
+}
+
+QMenuBar::item:selected,
+QMenu::item:selected {
+    background: #f0f0f0;
+    color: black;
+    border-radius: 4px;
+}
+
+QMenuBar::item:pressed,
+QMenu::item:pressed {
+    background-color: #d7d9d7;
+    border-radius: 4px;
+    color: black;
+}
+
+
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
@@ -160,7 +230,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -176,7 +246,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -213,7 +283,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -224,12 +294,12 @@ QGroupBox::title {
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>24</height>
+              <height>28</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -245,7 +315,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -261,7 +331,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -284,7 +354,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -314,7 +384,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -337,7 +407,7 @@ QGroupBox::title {
             </property>
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>
@@ -377,7 +447,7 @@ QGroupBox::title {
            <widget class="QPushButton" name="pbGenerareBV">
             <property name="font">
              <font>
-              <family>Segoe UI</family>
+              <family>Verdana</family>
               <pointsize>12</pointsize>
              </font>
             </property>

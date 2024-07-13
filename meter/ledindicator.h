@@ -13,13 +13,6 @@
 
 #include <QDialog>  // Qt class for creating modal or modeless dialogs.
 
-/**
- * \brief The LedIndicator class represents a custom LED indicator widget.
- *
- * This class provides functionality to display an LED-like indicator with customizable
- * colors, patterns, and size. It inherits from QWidget and overrides paintEvent to
- * customize the rendering of the LED indicator.
- */
 class LedIndicator : public QWidget
 {
     Q_OBJECT
@@ -91,11 +84,10 @@ private:
     bool lit;                       ///< Internal state of the LED indicator (on/off).
     QColor ledOnColor;              ///< Color of the LED when it is on.
     QColor ledOffColor;             ///< Color of the LED when it is off.
-    QColor ledNeutral;              ///< Neutral color (optional for a neutral state).
     Qt::BrushStyle ledOnPattern;    ///< Pattern of the LED when it is on.
     Qt::BrushStyle ledOffPattern;   ///< Pattern of the LED when it is off.
-    Qt::BrushStyle ledNeutralPattern;///< Pattern for a neutral state (if applicable).
     int ledSize;                    ///< Size of the LED indicator.
 };
+
 
 #endif // LEDINDICATOR_H

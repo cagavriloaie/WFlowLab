@@ -26,6 +26,7 @@
 #include <QSettings>        ///< Persistent platform-independent application settings.
 #include <QValidator>       ///< Base class for all validators that can be easily attached to input widgets.
 #include <QList>
+#include <QStatusBar>
 
 // Windows-specific headers
 #include <windows.h>    ///< Main Windows SDK header providing core Windows APIs.
@@ -156,13 +157,13 @@ void MainWindow::ReadConfiguration()
 }
 
 /**
- * \brief Structure to hold information about RS485 settings.
+ * \brief Structure to hold information about RS485/422 settings.
  *
  * This struct defines a key-value pair where:
  * - `key` is a pointer to a constant character array representing the setting's identifier.
  * - `defaultValue` is a QVariant storing the default value associated with the setting.
  */
-struct RS485SettingInfo {
+struct serialSettingInfo {
     const char* key;               ///< Pointer to a constant character array representing the setting's identifier.
     const QVariant defaultValue;   ///< QVariant storing the default value associated with the setting.
 };
@@ -179,10 +180,8 @@ struct RS485SettingInfo {
  */
 void MainWindow::setLabelValue(QLabel* label, double value, int precision)
 {
-    std::ostringstream streamObj;  // Create a string stream object
-    streamObj << std::fixed << std::setprecision(precision) << value;  // Format the double value with fixed precision
-    label->setText(streamObj.str().c_str());  // Set the text of the label to the formatted value
-    streamObj.str("");  // Clear the string stream for future use
+    QString text = QString::number(value, 'f', precision); // Format the double value with fixed precision
+    label->setText(text);  // Set the text of the label to the formatted value
 }
 
 /**
@@ -202,25 +201,21 @@ void MainWindow::updateSelectedInfo()
     selectedInfo.certificate = optionsConfiguration["certificate"];
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
 
+    // Read lab conditions from application settings
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
     settings.beginGroup("LabConditions");
 
     // Read and set ambient temperature
-    std::string temperature = settings.value("labTemperature", "18").toString().toStdString();
+    selectedInfo.ambientTemperature = settings.value("labTemperature", "18").toString().toStdString();
 
     // Read and set relative air humidity
-    std::string humidity = settings.value("labHumidity", "51").toString().toStdString();
+    selectedInfo.relativeAirHumidity = settings.value("labHumidity", "51").toString().toStdString();
 
     // Read and set atmospheric pressure
-    std::string pressure = settings.value("labPressure", "1026").toString().toStdString();
+    selectedInfo.athmosphericPressure = settings.value("labPressure", "1026").toString().toStdString();
 
     settings.endGroup();
     settings.sync();
-
-    // Update selectedInfo with lab conditions
-    selectedInfo.ambientTemperature = temperature;
-    selectedInfo.athmosphericPressure = pressure;
-    selectedInfo.relativeAirHumidity = humidity;
 
     // Get selected water meter index from UI
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
@@ -233,7 +228,7 @@ void MainWindow::updateSelectedInfo()
     selectedInfo.nominalDiameter = meterFlowInfo.nominalDiameter;
     selectedInfo.nominalFlow = meterFlowInfo.nominalFlow;
     selectedInfo.maximumFlow = meterFlowInfo.maximumFlow;
-    selectedInfo.trasitionFlow = meterFlowInfo.trasitionFlow;
+    selectedInfo.transitionFlow = meterFlowInfo.trasitionFlow;
     selectedInfo.minimumFlow = meterFlowInfo.minimumFlow;
     selectedInfo.nominalError = meterFlowInfo.nominalError;
     selectedInfo.maximumError = meterFlowInfo.maximumError;
@@ -254,18 +249,24 @@ void MainWindow::SelectMeterComboBox()
     updateSelectedInfo();
 
     // Create directories for results and input data
-    std::filesystem::create_directories(selectedInfo.pathResults);
-    std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
+    try {
+        std::filesystem::create_directories(selectedInfo.pathResults);
+        std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
+    } catch (const std::filesystem::filesystem_error& e) {
+        qDebug() << "Error creating directories: " << e.what();
+        // Handle the error as appropriate (logging, user feedback, etc.)
+    }
 
     // Update labels in the UI with selectedInfo values
     setLabelValue(ui->lbNominalDiameterCurrent, selectedInfo.nominalDiameter, 0);
     setLabelValue(ui->lbMaximumFlowCurrent, selectedInfo.maximumFlow, 2);
     setLabelValue(ui->lbNominalFlowCurrent, selectedInfo.nominalFlow, 2);
-    setLabelValue(ui->lbTransitionFlowCurrent, selectedInfo.trasitionFlow, 2);
+    setLabelValue(ui->lbTransitionFlowCurrent, selectedInfo.transitionFlow, 2); // Corrected typo
     setLabelValue(ui->lbMinimumFlowCurrent, selectedInfo.minimumFlow, 2);
     setLabelValue(ui->lbMaximumErrorCurrent, selectedInfo.maximumError, 1);
     setLabelValue(ui->lbNominalErrorCurrent, selectedInfo.nominalError, 1);
 }
+
 
 /**
  * \brief Translates all UI elements to the current language.
@@ -284,7 +285,7 @@ void MainWindow::Translate()
     ui->menu_Language->setTitle(tr("Language"));
     ui->menu_Help->setTitle(tr("Help"));
 
-    // Translate action texts
+    // Translate actions
     ui->action_StartSession->setText(tr("Start Session"));
     ui->action_ExitApp->setText(tr("Exit"));
     ui->action_English->setText(tr("English"));
@@ -298,10 +299,10 @@ void MainWindow::Translate()
     ui->lbWaterMeterType->setText(tr("Water meter type:"));
     ui->lbNumberOfWaterMeters->setText(tr("Number of water meters:"));
     ui->lbTemperature->setText(tr("Temperature:"));
-    ui->lbPressure->setText(tr("Athmosferic pressure:"));
+    ui->lbPressure->setText(tr("Atmospheric pressure:"));
     ui->lbHumidity->setText(tr("Relative air humidity:"));
     ui->lbTab5->setText(tr("[mbar]"));
-    ui->lbTab3->setText(tr("\302\260C")); // Degrees Celsius symbol
+    ui->lbTab3->setText(tr("°C")); // Degrees Celsius symbol
     ui->lbTab4->setText(tr("[%]"));
 
     // Translate group box titles
@@ -309,11 +310,11 @@ void MainWindow::Translate()
     ui->gbReadMethod->setTitle(tr("Read method"));
     ui->gbWaterMeterFeatures->setTitle(tr("Water meter features"));
 
-    // Translate radio button texts
+    // Translate radio buttons
     ui->rbVolumetric->setText(tr("Volumetric"));
     ui->rbGravimetric->setText(tr("Gravimetric"));
-    ui->rbManual->setText(tr("Manual"));
-    ui->rbInterface->setText(tr("Interface"));
+    ui->rbManual->setText(tr("Manual Mode Operation"));
+    ui->rbInterface->setText(tr("Interface MODBBUS operation"));
 
     // Translate labels in Water Meter Features group
     ui->lbNominalDiameter->setText(tr("Nominal diameter:"));
@@ -331,7 +332,7 @@ void MainWindow::Translate()
     ui->lbMaximumErrorUnit->setText(tr("[%]"));
     ui->lbNominalErrorUnit->setText(tr("[%]"));
 
-    // Translate push button texts
+    // Translate push buttons
     ui->pbNewSession->setText(tr("&New Session"));
     ui->pbExitApplication->setText(tr("&Exit"));
 }
@@ -348,12 +349,16 @@ void MainWindow::Translate()
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      inputData(nullptr)
+      inputData(nullptr),
+      statusBar(new QStatusBar(this))
 {
     ui->setupUi(this);
 
-    // Set up window flags
-    setWindowFlags(Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
+    // Set up the status bar
+    setStatusBar(statusBar);
+
+    // Set window flags to include all but Qt::WindowMaximizeButtonHint
+    setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
 
     // Translate UI elements if needed
     Translate();
@@ -369,7 +374,7 @@ MainWindow::MainWindow(QWidget *parent)
     CenterToScreen(this);
 
     // Initialize UI elements
-    ui->SerialLedIndicator->setState(false);
+    //ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(tr("RS485/RS422 protocol MODBUS ITF off."));
 
     // Read settings from registry
@@ -403,7 +408,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Disable interface radio button (future feature)
     ui->rbManual->setEnabled(true);
-    ui->rbInterface->setDisabled(true);
+    ui->rbInterface->setEnabled(true);
 
     licenseDialog = new License(this);
     licenseDialog->setModal(true);
@@ -505,6 +510,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cbWaterMeterType->setCurrentIndex(settings.value("typeWaterMeters", 1).toInt());
     settings.endGroup();
     settings.sync();
+
+    statusBarMessage = " > Manual Mode Operation";
+    setStatusBarMessage(statusBarMessage);
 }
 
 /**
@@ -515,41 +523,32 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     // Retrieve and update ambient temperature
-    QString temperatureText = ui->leTemperature->text();
-    selectedInfo.ambientTemperature = temperatureText.toStdString();
+    selectedInfo.ambientTemperature = ui->leTemperature->text().toStdString();
 
     // Retrieve and update atmospheric pressure
-    QString pressureText = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = pressureText.toStdString();
+    selectedInfo.athmosphericPressure = ui->lePressure->text().toStdString();
 
     // Retrieve and update relative air humidity
-    QString humidityText = ui->leHumidity->text();
-    selectedInfo.relativeAirHumidity = humidityText.toStdString();
+    selectedInfo.relativeAirHumidity = ui->leHumidity->text().toStdString();
 
     // Update settings with the new values
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
 
     settings.beginGroup("LabConditions");
-    settings.setValue("labTemperature", temperatureText);
-    settings.setValue("labPressure", pressureText);
-    settings.setValue("labHumidity", humidityText);
+    settings.setValue("labTemperature", ui->leTemperature->text());
+    settings.setValue("labPressure", ui->lePressure->text());
+    settings.setValue("labHumidity", ui->leHumidity->text());
     settings.endGroup();
-
     settings.sync();
 
-    // Start BenchConfiguration
+    // Update BenchConfiguration settings
     settings.beginGroup("BenchConfiguration");
-
-    // Number of water meters
     settings.setValue("numberWaterMeters", ui->cbNumberOfWaterMeters->currentIndex());
-
-    // Type of water meters
     settings.setValue("typeWaterMeters", ui->cbWaterMeterType->currentIndex());
-
-    // End BenchConfiguration
     settings.endGroup();
     settings.sync();
 
+    // Clean up UI resources
     delete ui;
 }
 
@@ -681,6 +680,8 @@ void MainWindow::onRbManualClicked()
 {
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
+    statusBarMessage = " > Manual Mode Operation";
+    setStatusBarMessage(statusBarMessage);
 }
 
 /**
@@ -691,9 +692,10 @@ void MainWindow::onRbManualClicked()
  */
 void MainWindow::onRbInterfaceClicked()
 {
-    // Placeholder function
-    // This slot is intended for future use related to the "Interface" radio button.
-}
+    selectedInfo.rbManual = ui->rbManual->isChecked();
+    selectedInfo.rbInterface = ui->rbInterface->isChecked();
+    statusBarMessage = " > MODBUS Interface Mode Operation / Not Connected";
+    setStatusBarMessage(statusBarMessage);}
 
 /**
  * \brief Slot invoked when the text in the ambient temperature QLineEdit (`ui->leTemperature`) changes.
@@ -1011,7 +1013,7 @@ void MainWindow::onSetRomanian()
     }
 
     // Create new translator and load the Romanian translation file
-    appTranslator = new QTranslator(nullptr);
+    appTranslator = new QTranslator();
     if (appTranslator->load(qmPath + "/" + translationFile))
     {
         // Install the translator to the application
@@ -1034,6 +1036,7 @@ void MainWindow::onSetRomanian()
         appTranslator = nullptr;
     }
 }
+
 
 /**
  * \brief Sets the application language to English.
@@ -1121,12 +1124,29 @@ void MainWindow::CenterToScreen(QWidget *widget)
     if (!widget)
         return;
 
+    // Get the geometry of the primary screen
     QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+
+    // Get the dimensions of the widget
     int widgetWidth = widget->width();
     int widgetHeight = widget->height();
 
+    // Calculate the center position for the widget
     int xPosition = screenGeometry.center().x() - widgetWidth / 2;
     int yPosition = screenGeometry.center().y() - widgetHeight / 2;
 
+    // Move the widget to the calculated position
     widget->move(xPosition, yPosition);
 }
+
+/**
+ * \brief Sets the message in the status bar.
+ *
+ * \param message The message to set in the status bar.
+ */
+void MainWindow::setStatusBarMessage(const QString message)
+{
+    // Set the message in the status bar
+    statusBar->showMessage(message);
+}
+

@@ -42,7 +42,7 @@ void HelpAbout::Translate()
     setLabelText(ui->lbCopyright, "Copyright:");
     setLabelText(ui->lbCopyrightValue, "2024 Elcost Company srl");
     setLabelText(ui->lbEmail, "Email:");
-    setLabelText(ui->lbEmailValue, "office      @elcost.ro");
+    setLabelText(ui->lbEmailValue, "office@elcost.ro");
     setLabelText(ui->lbAddress, "Address:");
     setLabelText(ui->lbAddressValue, "Pascani / RO Morilor #8");
     setLabelText(ui->lbAuthor, "Author:");

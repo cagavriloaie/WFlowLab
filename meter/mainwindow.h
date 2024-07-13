@@ -54,7 +54,7 @@ struct SelectedInfo
         nominalDiameter{0}, /**< Nominal diameter of the device. */
         nominalFlow{0.0f}, /**< Nominal flow rate. */
         maximumFlow{0.0f}, /**< Maximum flow rate. */
-        trasitionFlow{0.0f}, /**< Transition flow rate. */
+        transitionFlow{0.0f}, /**< Transition flow rate. */
         minimumFlow{0.0f}, /**< Minimum flow rate. */
         nominalError{0.0f}, /**< Nominal error. */
         maximumError{0.0f}, /**< Maximum error. */
@@ -83,7 +83,7 @@ struct SelectedInfo
     unsigned nominalDiameter; /**< Nominal diameter of the device. */
     double nominalFlow; /**< Nominal flow rate. */
     double maximumFlow; /**< Maximum flow rate. */
-    double trasitionFlow; /**< Transition flow rate. */
+    double transitionFlow; /**< Transition flow rate. */
     double minimumFlow; /**< Minimum flow rate. */
     double nominalError; /**< Nominal error. */
     double maximumError; /**< Maximum error. */
@@ -121,14 +121,22 @@ public:
     ~MainWindow();
 
     SelectedInfo selectedInfo; /**< Holds selected information related to the application. */
-
     Ui::MainWindow *ui {nullptr}; /**< Pointer to the UI components of the main window. */
-    TableBoard *inputData{nullptr}; /**< Pointer to the input data board. */
-    License *licenseDialog{nullptr}; /**< Pointer to the license dialog. */
-    HelpAbout *helpAbout; /**< Pointer to the help/about dialog. */
-    Interface *interfaceDialog{nullptr}; /**< Pointer to the interface dialog. */
-    QActionGroup *alignmentGroup; /**< Action group for alignment settings. */
-    LedIndicator *LED; /**< Pointer to the LED indicator. */
+    TableBoard *inputData {nullptr}; /**< Pointer to the input data board. */
+    License *licenseDialog {nullptr}; /**< Pointer to the license dialog. */
+    HelpAbout *helpAbout {nullptr}; /**< Pointer to the help/about dialog. */
+    Interface *interfaceDialog {nullptr}; /**< Pointer to the interface dialog. */
+    QActionGroup *alignmentGroup {nullptr}; /**< Action group for alignment settings. */
+    LedIndicator *LED {nullptr}; /**< Pointer to the LED indicator. */
+    QStatusBar *statusBar {nullptr}; /**< The status bar widget for displaying messages. */
+    unsigned MAX_NR_WATER_METERS {20}; /**< Maximum number of water meters supported. */
+    unsigned NUMBER_ENTRIES_METER_FLOW_DB {0}; /**< Number of entries in meter flow database. */
+    std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
+    QList<QSerialPortInfo> ports;
+    QString statusBarMessage;
+
+    typedef const wchar_t *(*EnumerateSerialPorts)(); /**< Function pointer type for serial port enumeration. */
+    EnumerateSerialPorts serialPorts{nullptr}; /**< Pointer to the function for serial port enumeration. */
 
     /**
      * \brief Translates the UI components to the selected language.
@@ -169,17 +177,12 @@ public:
      */
     void CenterToScreen(QWidget *widget);
 
-    unsigned MAX_NR_WATER_METERS {20}; /**< Maximum number of water meters supported. */
-    unsigned NUMBER_ENTRIES_METER_FLOW_DB {0}; /**< Number of entries in meter flow database. */
-    std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
-
-    typedef const wchar_t *(*EnumerateSerialPorts)(); /**< Function pointer type for serial port enumeration. */
-    EnumerateSerialPorts serialPorts{nullptr}; /**< Pointer to the function for serial port enumeration. */
-
-    QList<QSerialPortInfo> ports;
-
-    QModbusClient *modbusDevice_1; /**< Pointer to the first Modbus client device. */
-    QModbusClient *modbusDevice_2; /**< Pointer to the second Modbus client device. */
+    /**
+     * \brief Sets the message in the status bar.
+     *
+     * \param message The message to set in the status bar.
+     */
+    void setStatusBarMessage(const QString message);
 
   protected:
     /**

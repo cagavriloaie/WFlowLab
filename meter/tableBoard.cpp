@@ -30,6 +30,9 @@
 #include <QTimer>                   // Qt timer for periodic events
 #include <QValidator>               // Qt validator base class
 #include <QtPrintSupport/QPrinter>  // Qt printer support
+#include <QApplication>
+#include <QMainWindow>
+#include <Windows.h>
 
 // Project-specific headers
 #include "definitions.h"            // Project-specific constants and definitions
@@ -168,7 +171,13 @@ void TableBoard::onSaveCurrentInputDataClicked()
     messageBoxSaveInputFile.setWindowTitle(tr("Save input data"));
     messageBoxSaveInputFile.setText("The file " + fileName + " was created!");
     messageBoxSaveInputFile.setStandardButtons(QMessageBox::Ok);
-    messageBoxSaveInputFile.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
+    // Get the HWND (Windows handle) of the main window
+    HWND hwnd = reinterpret_cast<HWND>(winId());
+
+    // Remove the WS_MAXIMIZEBOX style from the window
+    LONG style = GetWindowLong(hwnd, GWL_STYLE);
+    SetWindowLong(hwnd, GWL_STYLE, style & ~WS_MAXIMIZEBOX);
 
     // Create a QTimer
     QTimer *timer = new QTimer(&messageBoxSaveInputFile);
@@ -1791,7 +1800,7 @@ void TableBoard::onPrintPdfDocClicked()
         methodMeasurement = "Gravitmetric";
     }
     double minimumFlow = mainwindow->selectedInfo.minimumFlow;
-    double trasitionFlow = mainwindow->selectedInfo.trasitionFlow;
+    double trasitionFlow = mainwindow->selectedInfo.transitionFlow;
     double nominalFlow = mainwindow->selectedInfo.nominalFlow;
     double maximumFlow = mainwindow->selectedInfo.maximumFlow;
     QString minimumFlowString =
@@ -2778,7 +2787,7 @@ void TableBoard::PopulateTable()
     entries = mainwindow->selectedInfo.entriesNumber;
     nameWaterMeter = mainwindow->selectedInfo.nameWaterMeter;
     minimumFlowMain = mainwindow->selectedInfo.minimumFlow;
-    transitoriuFlowMain = mainwindow->selectedInfo.trasitionFlow; // Typo corrected to transitoriuFlowMain
+    transitoriuFlowMain = mainwindow->selectedInfo.transitionFlow; // Typo corrected to transitoriuFlowMain
     nominalFlowMain = mainwindow->selectedInfo.nominalFlow;
     nominalError = mainwindow->selectedInfo.nominalError;
     maximumError = mainwindow->selectedInfo.maximumError;

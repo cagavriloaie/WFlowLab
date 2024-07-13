@@ -13,13 +13,10 @@
 
 #include <QDir>         // Qt class for handling directories and their contents.
 #include <QMessageBox>  // Qt class for displaying modal dialog boxes with messages.
-#include <iostream>     // Standard C++ stream input/output library.
-#include <fstream>      // Standard C++ file stream input/output library.
-#include <sstream>      // Standard C++ string stream input/output library.
 #include <vector>       // Standard C++ container class for dynamic arrays.
-#include <string>       // Standard C++ string class.
 #include "ledindicator.h" // Class LED indicator
 #include <QSerialPortInfo>
+#include "definitions.h"
 
 namespace Ui
 {
@@ -63,13 +60,15 @@ namespace Ui
      * \param address The Modbus address to check.
      * \return true if the address is valid, false otherwise.
      */
-        bool checkModbusAddress(qint16 address);
+        bool checkModbusAddresses();
 
     private:
         Ui::Interface *ui; /**< The user interface object. */
         QVector<QString> entries; /**< A vector of strings for storing entries. */
         bool isOpenModbusPort {false}; /**< Flag indicating if the Modbus port is open. */
-        LedIndicator *ledStateTable[10]; /**< Array of LED state indicators. */
+        LedIndicator *ledStateTable[MAX_ENTRIES]; /**< Array of LED state indicators. */
+        std::vector<qint16> nodesModbusCom1;
+        std::vector<qint16> nodesModbusCom2;
 
     /**
      * \brief Disconnects from the serial port.
@@ -79,13 +78,18 @@ namespace Ui
      */
         void DisconnectSerialPort();
 
-        QList<QSerialPortInfo>  ports;
+        QList<QSerialPortInfo>  serialPorts;
 
     private slots:
     /**
      * \brief Slot function called when the Close button is clicked.
      */
         void onCloseClicked();
+
+    /**
+     * \brief Slot function called when the Test Configuration button is clicked.
+     */
+        void onConnectClicked();
 
      /**
      * \brief Slot function called when the Test Configuration button is clicked.

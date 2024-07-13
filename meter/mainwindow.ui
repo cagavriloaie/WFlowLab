@@ -112,6 +112,93 @@ QGroupBox::title {
     left: 7px;
     padding: 5px; /* Adjusted padding for better appearance */
 }
+
+/* QRadioButton */
+QRadioButton {
+    spacing: 5px;
+}
+
+QRadioButton::indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 7px; /* Half of width and height to make it a circle */
+    border: 1px solid #ADD8E6; /* Light blue border */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+QRadioButton::indicator:checked {
+    background-color: #ADD8E6; /* Light blue background when checked */
+    border: 1px solid #0078D7; /* Darker blue border when checked */
+}
+
+QRadioButton::indicator:unchecked:hover {
+    background-color: #e0e0e0; /* Slightly darker light gray background on hover when unchecked */
+}
+
+/* Menu Bar */
+QMenuBar {
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+}
+
+/* Base Menu */
+QMenu {
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 4px; /* Adjust padding */
+    font-family: Verdana, Arial, sans-serif; /* Font family */
+    font-size: 12pt; /* Font size */
+}
+
+/* Menu Item */
+QMenu::item {
+    background-color: transparent; /* Transparent background */
+    padding: 4px 24px; /* Adjust padding */
+    font-family: Verdana, Arial, sans-serif; /* Font family */
+    font-size: 12pt; /* Font size */
+}
+
+QMenu::item:selected {
+    background-color: #d7d9d7; /* Light gray background when selected */
+}
+
+/* Disabled Menu Item */
+QMenu::item:disabled {
+    color: #999; /* Gray color for disabled items */
+}
+
+/* Separator */
+QMenu::separator {
+    height: 1px;
+    background-color: #ccc; /* Light gray separator */
+    margin: 4px 0; /* Adjust margin */
+}
+
+/* Action */
+QMenuBar::item,
+QMenu::item {
+    background: transparent;
+    padding: 4px 10px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12pt;
+    color: black;
+}
+
+QMenuBar::item:selected,
+QMenu::item:selected {
+    background: #f0f0f0;
+    color: black;
+    border-radius: 4px;
+}
+
+QMenuBar::item:pressed,
+QMenu::item:pressed {
+    background-color: #d7d9d7;
+    border-radius: 4px;
+    color: black;
+}
+
+
 </string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -1010,7 +1097,7 @@ QComboBox {
      <x>0</x>
      <y>0</y>
      <width>580</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

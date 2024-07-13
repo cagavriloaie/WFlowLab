@@ -19,19 +19,19 @@
 LedIndicator::LedIndicator(QWidget *parent) : QWidget(parent)
 {
     // Set initial size and state
-    setFixedSize(28, 28);
-    lit = false;
+    setFixedSize(28, 28);   ///< Set fixed size for the widget
+    lit = false;            ///< Initial state of the LED indicator (off)
 
     // Set default colors and patterns
     ledOnColor = Qt::green;        ///< Color of the LED when it is on
     ledOffColor = Qt::red;         ///< Color of the LED when it is off
     ledOnPattern = Qt::SolidPattern;   ///< Pattern of the LED when it is on (solid)
     ledOffPattern = Qt::SolidPattern;  ///< Pattern of the LED when it is off (solid)
-    ledNeutralPattern = Qt::SolidPattern; ///< Neutral pattern of the LED (solid)
 
     // Set default LED size
-    ledSize = 12;
+    ledSize = 12;   ///< Default size of the LED indicator
 }
+
 
 /*!
  * \brief Paints the LED indicator widget.
@@ -49,11 +49,11 @@ void LedIndicator::paintEvent(QPaintEvent *event)
     // Set brush and draw filled ellipse
     lit ? painter.setBrush(QBrush(ledOnColor, ledOnPattern))
         : painter.setBrush(QBrush(ledOffColor, ledOffPattern));
-    painter.drawEllipse(4, 9, ledSize, ledSize);
+    painter.drawEllipse(4, 9, ledSize, ledSize);   ///< Draw filled ellipse for LED indicator
 
     // Set pen color and draw outlined ellipse
     lit ? painter.setPen(ledOnColor) : painter.setPen(ledOffColor);
-    painter.drawEllipse(4, 9, ledSize, ledSize);
+    painter.drawEllipse(4, 9, ledSize, ledSize);   ///< Draw outlined ellipse for LED indicator
 
     Q_UNUSED(event); // Unused parameter (suppresses compiler warning)
 }
@@ -64,8 +64,8 @@ void LedIndicator::paintEvent(QPaintEvent *event)
 void LedIndicator::switchLedIndicator()
 {
     // Toggle the LED state and trigger a repaint
-    lit = !lit;
-    repaint();
+    lit = !lit;     ///< Toggle the state of the LED indicator
+    repaint();      ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -75,8 +75,10 @@ void LedIndicator::switchLedIndicator()
  */
 void LedIndicator::setState(bool state)
 {
-    // Set the LED state and trigger a repaint
+    // Set the LED state
     lit = state;
+
+    // Trigger a repaint to update the visual appearance
     repaint();
 }
 
@@ -86,8 +88,8 @@ void LedIndicator::setState(bool state)
 void LedIndicator::toggle()
 {
     // Toggle the LED state and trigger a repaint
-    lit = !lit;
-    repaint();
+    lit = !lit;     ///< Toggle the state of the LED indicator
+    repaint();      ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -98,8 +100,8 @@ void LedIndicator::toggle()
 void LedIndicator::setOnColor(QColor onColor)
 {
     // Set the color when the LED is on and trigger a repaint
-    ledOnColor = onColor;
-    repaint();
+    ledOnColor = onColor;   ///< Set the color when the LED is on
+    repaint();              ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -110,8 +112,8 @@ void LedIndicator::setOnColor(QColor onColor)
 void LedIndicator::setOffColor(QColor offColor)
 {
     // Set the color when the LED is off and trigger a repaint
-    ledOffColor = offColor;
-    repaint();
+    ledOffColor = offColor;   ///< Set the color when the LED is off
+    repaint();                ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -122,8 +124,8 @@ void LedIndicator::setOffColor(QColor offColor)
 void LedIndicator::setOnPattern(Qt::BrushStyle onPattern)
 {
     // Set the pattern when the LED is on and trigger a repaint
-    ledOnPattern = onPattern;
-    repaint();
+    ledOnPattern = onPattern;   ///< Set the pattern when the LED is on
+    repaint();                  ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -134,8 +136,8 @@ void LedIndicator::setOnPattern(Qt::BrushStyle onPattern)
 void LedIndicator::setOffPattern(Qt::BrushStyle offPattern)
 {
     // Set the pattern when the LED is off and trigger a repaint
-    ledOffPattern = offPattern;
-    repaint();
+    ledOffPattern = offPattern;   ///< Set the pattern when the LED is off
+    repaint();                    ///< Trigger a repaint to update the visual appearance
 }
 
 /**
@@ -146,7 +148,8 @@ void LedIndicator::setOffPattern(Qt::BrushStyle offPattern)
 void LedIndicator::setLedSize(int size)
 {
     // Set the size of the LED and trigger a repaint
-    ledSize = size;
-    setFixedSize(size, size);
-    repaint();
+    ledSize = size;           ///< Set the size of the LED
+    setFixedSize(size, size); ///< Set the fixed size of the widget
+    repaint();                ///< Trigger a repaint to update the visual appearance
 }
+
