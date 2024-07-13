@@ -1,0 +1,7 @@
+**/Debug/
+**/Release/
+build/meter_en_EN*
+build/meter_ro_RO*
+build/translations/*
+meter/UsersCONSTA~*
+
