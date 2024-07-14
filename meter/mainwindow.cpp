@@ -347,20 +347,24 @@ void MainWindow::Translate()
  * \param parent The parent widget.
  */
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      inputData(nullptr),
-      statusBar(new QStatusBar(this))
+  : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    inputData(nullptr),
+    licenseDialog(new License(this)),
+    helpAbout(new HelpAbout(this)),
+    interfaceDialog(new Interface(this)),
+    alignmentGroup(new QActionGroup(this)),
+    statusBar(new QStatusBar(this))
 {
     ui->setupUi(this);
 
-    // Set up the status bar
-    setStatusBar(statusBar);
-
-    // Set window flags to include all but Qt::WindowMaximizeButtonHint
+    // Remove maximize button from window
     setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
 
-    // Translate UI elements if needed
+    // Set up status bar
+    setStatusBar(statusBar);
+
+    // Translate UI elements
     Translate();
 
     // Read configuration settings
@@ -410,19 +414,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->rbManual->setEnabled(true);
     ui->rbInterface->setEnabled(true);
 
-    licenseDialog = new License(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
 
-    helpAbout = new HelpAbout(this);
     helpAbout->setModal(true);
     CenterToScreen(helpAbout);
 
-    interfaceDialog = new Interface(this);
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
 
-    alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
     ui->action_English->setCheckable(true);
@@ -441,18 +441,20 @@ MainWindow::MainWindow(QWidget *parent)
         MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
     }
 
+    // Clear existing items if any
+    ui->cbNumberOfWaterMeters->clear();
+
     // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
-    for (unsigned iter = 1; iter <= MAX_NR_WATER_METERS; ++iter)
+    for (unsigned int i = 1; i <= MAX_NR_WATER_METERS; ++i)
     {
-        std::string value = std::to_string(iter);
-        ui->cbNumberOfWaterMeters->addItem(value.c_str());
+        ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
 
     // Populate cbWaterMeterType with names from MeterFlowDB
-    for (unsigned iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter)
+    ui->cbWaterMeterType->clear(); // Clear existing items if any
+    for (const auto& meter : MeterFlowDB)
     {
-        std::string nameWaterMeter = MeterFlowDB[iter].nameWaterMeter;
-        ui->cbWaterMeterType->addItem(nameWaterMeter.c_str());
+        ui->cbWaterMeterType->addItem(QString::fromStdString(meter.nameWaterMeter));
     }
 
     // Connect QComboBox signals to custom slots
@@ -1146,7 +1148,10 @@ void MainWindow::CenterToScreen(QWidget *widget)
  */
 void MainWindow::setStatusBarMessage(const QString message)
 {
-    // Set the message in the status bar
-    statusBar->showMessage(message);
+    if (statusBar) {
+        statusBar->showMessage(message);
+    } else {
+        qWarning() << "Status bar is null or uninitialized.";
+    }
 }
 

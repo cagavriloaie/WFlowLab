@@ -11,7 +11,7 @@
     <message>
         <location filename="../helpabout.cpp" line="25"/>
         <source>WStreamLab - About</source>
-        <translation>WStreamLab - Input Table</translation>
+        <translation>Water Stream Laboratory - Input Table</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="52"/>
@@ -35,7 +35,7 @@
         <location filename="../interface.cpp" line="145"/>
         <location filename="../interface.cpp" line="155"/>
         <source>RS-485/422 Serial Interface MODBUS</source>
-        <translation>RS-485/422 Serial Interface MODBUS</translation>
+        <translation>RS-485/422 Serial Interface for MODBUS</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="146"/>
@@ -114,7 +114,7 @@
     <message>
         <location filename="../interface.cpp" line="166"/>
         <source>Save Configuration</source>
-        <translation>Save configuration</translation>
+        <translation>Save Configuration</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="167"/>
@@ -132,7 +132,7 @@
     <message>
         <location filename="../license.cpp" line="30"/>
         <source>WStreamLab - License</source>
-        <translation>WStreamLab - License</translation>
+        <translation>Water Stream Laboratory - License</translation>
     </message>
     <message>
         <location filename="../license.cpp" line="31"/>
@@ -212,12 +212,12 @@
     <message>
         <location filename="../mainwindow.ui" line="1216"/>
         <source>Configure Serial Port</source>
-        <translation>Configure Serial Port</translation>
+        <translation>Configure Serial Ports</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="281"/>
         <source>WStreamLab - Dashboard</source>
-        <translation>WStreamLab - Dashboard</translation>
+        <translation>Water Stream Laboratory - Dashboard</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="284"/>
@@ -290,7 +290,7 @@
         <translation>Atmospheric pressure:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="382"/>
         <source>RS485/RS422 protocol MODBUS ITF off.</source>
         <translation>RS485/RS422 protocol MODBUS ITF off.</translation>
     </message>
@@ -446,7 +446,7 @@
     <message>
         <location filename="../main.cpp" line="243"/>
         <source>More than one instance of the WStreamLab program is not permitted.</source>
-        <translation>More than one instance of the WStreamLab program is not permitted.</translation>
+        <translation>More than one instance of the Water Stream Laboratory program is not permitted.</translation>
     </message>
 </context>
 <context>
@@ -661,7 +661,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="664"/>
         <source>WStreamLab - Input Table</source>
-        <translation>WStreamLab - Input Table</translation>
+        <translation>Water Stream Laboratory - Input Data</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="686"/>

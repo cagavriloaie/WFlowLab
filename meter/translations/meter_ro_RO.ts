@@ -6,12 +6,12 @@
     <message>
         <location filename="../helpabout.ui" line="26"/>
         <source>WMeter - About</source>
-        <translation>WStreamLab - Despre</translation>
+        <translation>Water Stream Laboratory - Despre</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="25"/>
         <source>WStreamLab - About</source>
-        <translation>WStreamLab - Despre</translation>
+        <translation>Water Stream Laboratory - Despre</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="52"/>
@@ -132,7 +132,7 @@
     <message>
         <location filename="../license.cpp" line="30"/>
         <source>WStreamLab - License</source>
-        <translation>WStreamLab - Licenta</translation>
+        <translation>Water Stream Laboratory - Licenta</translation>
     </message>
     <message>
         <location filename="../license.cpp" line="31"/>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../license.cpp" line="36"/>
         <source>Maxim number entries</source>
-        <translation>Numar maxim intrari:</translation>
+        <translation>Număr maxim de intrări:</translation>
     </message>
     <message>
         <location filename="../license.cpp" line="37"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="281"/>
         <source>WStreamLab - Dashboard</source>
-        <translation>WStreamLab - Pagina selectie</translation>
+        <translation>Water Stream Laboratory - Pagina de selectie</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="284"/>
@@ -292,7 +292,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="302"/>
         <source>Atmospheric pressure:</source>
-        <translation>PPresiune atmosferica</translation>
+        <translation>Presiune atmosferica</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="378"/>
@@ -446,7 +446,7 @@
     <message>
         <location filename="../main.cpp" line="243"/>
         <source>More than one instance of the WStreamLab program is not permitted.</source>
-        <translation>Doar o singură instanță a aplicatiei WStreamLab este permisa.</translation>
+        <translation>Doar o singură instanță a aplicatiei Water Stream Laboratory este permisa.</translation>
     </message>
 </context>
 <context>
@@ -661,7 +661,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="664"/>
         <source>WStreamLab - Input Table</source>
-        <translation>WStreamLab - Date intrare</translation>
+        <translation>Water Stream Laboratory - Date intrare</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="686"/>
