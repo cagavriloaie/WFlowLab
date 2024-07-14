@@ -39,7 +39,7 @@ constexpr double DEFAULT_VOLUME_CORRECTION_BELOW_ZERO = 1.00116;   ///< Default 
 constexpr double DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED = 1.04451; ///< Default volume correction factor when temperature is above one hundred
 
 // Version information
-constexpr const char* VERSION_BUILD = "1.3 Windows x86_32"; ///< Version and build information of the application
+constexpr const char* VERSION_BUILD = "1.4 Windows x86_32"; ///< Version and build information of the application
 
 // CSV delimiter
 constexpr char CSV_DELIMITER = ','; ///< Delimiter used in CSV files
