@@ -295,7 +295,7 @@
         <translation>Presiune atmosferica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="382"/>
         <source>RS485/RS422 protocol MODBUS ITF off.</source>
         <translation>Comunicare RS485/RS422 este inchisa</translation>
     </message>

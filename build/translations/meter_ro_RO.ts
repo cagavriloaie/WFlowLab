@@ -292,7 +292,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="302"/>
         <source>Atmospheric pressure:</source>
-        <translation>PPresiune atmosferica</translation>
+        <translation>Presiune atmosferica</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="382"/>

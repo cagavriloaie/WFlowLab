@@ -17,6 +17,8 @@ AppCopyright=Copyright © 2024 ELCCOST
 AppComments=Water meters calibration.
 AppMutex=MyAppMutex
 OutputBaseFilename="{#AppName}_v{#AppVersion}_Setup"
+; For x64 default location the setting is:
+; DefaultDirName={pf}\{#AppName}
 DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
 UninstallDisplayName={#AppName} v{#AppVersion} Uninstall
@@ -60,8 +62,8 @@ Source: ".\build\Qt6SerialBus.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6SerialPort.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\Qt6Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: onlyifdoesntexist
+Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: onlyifdoesntexist
 Source: ".\build\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\{#AppIconName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\canbus\*.dll"; DestDir: "{app}\canbus"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -73,7 +75,6 @@ Source: ".\build\platforms\*.dll"; DestDir: "{app}\platforms"; Flags: ignorevers
 Source: ".\build\styles\*.dll"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".\build\tls\*.dll"; DestDir: "{app}\tls"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".\build\translations\*.qm"; DestDir: "{app}\translations"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: ".\build\translations\*.ts"; DestDir: "{app}\translations"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\{#AppIconName}"; Tasks: desktopicon
