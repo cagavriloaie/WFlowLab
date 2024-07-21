@@ -1,4 +1,4 @@
-#define AppName "Water Stream Laboratory"
+#define AppName "WStreamLab"
 #define AppVersion "1.3"
 #define AppPublisher "ELCOST"
 #define AppExeName "WStreamLab.exe"

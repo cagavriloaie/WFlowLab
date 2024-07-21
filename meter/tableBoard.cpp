@@ -85,12 +85,33 @@ void TableBoard::printPdfThread(QString report)
 
     // Initialize the printer
     QPrinter printer(QPrinter::PrinterResolution);
+
+    // Set the output format to PDF
     printer.setOutputFormat(QPrinter::PdfFormat);
+
+    // Set the output file name
     printer.setOutputFileName(fileName);
-    printer.setPageSize(QPageSize::A4);
-    printer.setFullPage(true);
-    printer.setPageMargins(QMarginsF(5, 4, 4, 4));
+
+    // Optionally set a custom or default page size
+    QPageSize pageSize = QPageSize(QPageSize::A4); // Customize as needed
+    printer.setPageSize(pageSize);
+
+    // Set margins dynamically
+    qreal leftMargin = 1.0;
+    qreal topMargin = 1.0;
+    qreal rightMargin = 1.0;
+    qreal bottomMargin = 1.0;
+    printer.setPageMargins(QMarginsF(leftMargin, topMargin, rightMargin, bottomMargin));
+
+    // Set color mode based on document needs
     printer.setColorMode(QPrinter::ColorMode::Color);
+
+    printer.setResolution(300);  // Higher resolution for better quality
+
+    // Optional: Handle printer errors
+    if (!printer.isValid()) {
+        qWarning() << "Printer setup failed.";
+    }
 
     // Initialize QTextDocument with the provided HTML report
     QTextDocument outputReport;
@@ -1837,13 +1858,31 @@ void TableBoard::onPrintPdfDocClicked()
     {
         size_t totalEntries {0};
         report =
-            QString("<!DOCTYPE html>") + "<html>" + "<head>" + "<style>" +
-            "   table, th, td {" + "       border: 1px solid black;" +
-            "       border-collapse: collapse;" + "       width: 100%;" +
-            "       font-family: Courier New;" + "       font-size: 4;" +
-            "       font-weight: 700;" + "       table-layout: fixed;" +
-            "   }" + "th {" + "    word-wrap: break-word;" + "}" + "</style>" +
-            "</head>" +
+            QString("<!DOCTYPE html>\n") +
+            "<html>\n" +
+            "<head>\n" +
+            "   <style>\n" +
+            "       table {\n" +
+            "           width: 100%;\n" +
+            "           border-spacing: 0;" + // Ensures no space between cells
+            "       }\n" +
+            "       th, td {\n" +
+            "           border: 1px solid black;\n" +
+            "           width: 100%;\n" +
+            "           font-family: Courier New;\n" +
+            "           font-size: 10px;\n" +  // Corrected font-size
+            "           font-weight: 700;\n" +
+            "           table-layout: fixed;\n" +
+            "       }\n" +
+            "       th {\n" +
+            "           word-wrap: break-word;\n" +
+            "       }\n" +
+            "   </style>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "</body>\n" +
+            "</html>\n" +
+
             "<body style=\"font-family:'Courier New'\" \"font-weight: 700\" "
             "style=\"font-size: 4\" style=\"text-align: left\" >" +
             "<h4>" + companyName + "<br>" +
@@ -1874,7 +1913,7 @@ void TableBoard::onPrintPdfDocClicked()
 
     if("Gravitmetric" ==  methodMeasurement) {
         report +=
-            "<table>"
+            "<table style=\"border-collapse: collapse;\">"
             "   <tr>"
             "       <th></th>"
             "       <th>Volum etalon<br>&nbsp;&nbsp;[L]</th>"
@@ -1909,7 +1948,7 @@ void TableBoard::onPrintPdfDocClicked()
     else
     {
         report +=
-            "<table>"
+            "<table style=\"border-collapse: collapse;\">"
             "   <tr>"
             "       <th></th>"
             "       <th>Volum etalon<br>&nbsp;&nbsp;[L]</th>"
@@ -1935,27 +1974,22 @@ void TableBoard::onPrintPdfDocClicked()
     }
 
     report +=
-            QString("<table width=\"100%\" border=\"1\">") +
-            "    <caption>        Rezultate test: "
-            "</caption>" +
-            "    <thead>" + "    <tr>" +
-            "        <th style=\"text-align: center\" width=\"16%\"> Serie (Tip) "
-            "</th>" +
-            "        <th style=\"text-align: center\" width=\"9%\"> "
-            "&nbsp;Debit&nbsp;&nbsp;[L/h] </th>" +
-            "        <th style=\"text-align: center\" width=\"14%\"> Index start "
-            "[L] </th>" +
-            "        <th style=\"text-align: center\" width=\"14%\">Index stop "
-            "&nbsp;[L] </th>" +
-            "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-            "contor [L] </th>" +
-            "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-            "etalon [L] </th>" +
-            "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
-            +
-            "        <th style=\"text-align: center\"  width=\"15%\"> "
-            "Rezultate</th>" +
-            "    </tr>" + "    </thead>" + "    <tbody>";
+        QString("<table style=\"border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%;\">") +
+        "\n    <caption>Rezultate test:</caption>" +
+        "\n    <thead>" +
+        "\n        <tr>" +
+        "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Serie (Tip)</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"9%\">&nbsp;Debit&nbsp;&nbsp;[L/h]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Index start [L]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Index stop&nbsp;[L]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum contor [L]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum etalon [L]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"9%\">Eroare [%]</th>"
+        "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Rezultate</th>"
+        "\n        </tr>" +
+        "\n    </thead>" +
+        "\n    <tbody>";
+
         unsigned iter {0};
         size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
         for (; iter < 10 && iter < entriesTable; ++iter)
@@ -2041,67 +2075,34 @@ void TableBoard::onPrintPdfDocClicked()
             double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
             report +=
                 QString("    <tr>") +
-                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
-                +
-                SN + "</th>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "2px\">" +
-                QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                registerVolumeDoubleFirst + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorFirst + "</td>" +
-                "        <th style=\"text-align: center\" rowspan=\"3\">" +
-                resultTests + "</th>" + "    </tr>" + "    <tr>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" + "&nbsp;" +
-                registerVolumeDoubleSecond + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorSecond + "</td>" + "    </tr>" + "    <tr>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                registerVolumeDoubleThird + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorThird + "</td>" + "     </tr>";
+                "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN + "</th>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 2px;\">" + QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleFirst + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst + "</td>" +
+                "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" + resultTests + "</th>" +
+                "    </tr>" +
+                "    <tr>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleSecond + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond + "</td>" +
+                "    </tr>" +
+                "    <tr>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleThird + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird + "</td>" +
+                "    </tr>";
         };
         report += QString("</tbody>") + "</table>";
+
         /////// Page two
         bool header{true};
         if (iter < entriesTable)
@@ -2112,27 +2113,21 @@ void TableBoard::onPrintPdfDocClicked()
                 {
                     report += "<br><br><br><br><br><br><br><br><br><br>";
                     report +=
-                        QString("<table width=\"100%\" border=\"1\">") +
-                        "    <caption>        Rezultate test: "
-                        "</caption>" +
-                        "    <thead>" + "    <tr>" +
-                        "        <th style=\"text-align: center\" width=\"16%\"> Serie (Tip) "
-                        "</th>" +
-                        "        <th style=\"text-align: center\" width=\"9%\"> "
-                        "&nbsp;Debit&nbsp;&nbsp; [L/h] </th>" +
-                        "        <th style=\"text-align: center\" width=\"14%\"> Index start "
-                        " [L] </th>" +
-                        "        <th style=\"text-align: center\" width=\"14%\">Index stop "
-                        "&nbsp; [L] </th>" +
-                        "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-                        "contor [L] </th>" +
-                        "        <th style=\"text-align: center\" width=\"14%\"> Volum "
-                        "etalon [L] </th>" +
-                        "        <th style=\"text-align: center\" width=\"8%\"> Eroare </th>"
-                        +
-                        "        <th style=\"text-align: center\"  width=\"15%\"> "
-                        "Rezultate</th>" +
-                        "    </tr>" + "    </thead>" + "    <tbody>";
+                        QString("<table style=\"border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%;\">") +
+                        "\n    <caption>Rezultate test:</caption>" +
+                        "\n    <thead>" +
+                        "\n        <tr>" +
+                        "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Serie (Tip)</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"9%\">&nbsp;Debit&nbsp;&nbsp;[L/h]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Index start [L]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Index stop&nbsp;[L]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum contor [L]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum etalon [L]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"9%\">Eroare [%]</th>"
+                        "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Rezultate</th>"
+                        "\n        </tr>" +
+                        "\n    </thead>" +
+                        "\n    <tbody>";
                     header = false;
                 }
                 if (!vectorCheckNumber[iterEntry]->checkState())
@@ -2216,77 +2211,40 @@ void TableBoard::onPrintPdfDocClicked()
                 double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
                 report +=
                     QString("    <tr>") +
-                    "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
-                    +
-                    SN + "</th>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    registerVolumeDoubleFirst + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorFirst + "</td>" +
-                    "        <th style=\"text-align: center\" rowspan=\"3\">" +
-                    resultTests + "</th>" + "    </tr>" + "    <tr>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" + "&nbsp;" +
-                    registerVolumeDoubleSecond + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorSecond + "</td>" + "    </tr>" + "    <tr>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    registerVolumeDoubleThird + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorThird + "</td>" + "     </tr>";
+                    "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN + "</th>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 2px;\">" + QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleFirst + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst + "</td>" +
+                    "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" + resultTests + "</th>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleSecond + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleThird + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird + "</td>" +
+                    "    </tr>";
             };
             report += QString("</tbody>") + "</table>";
         }
         ////////////////
         report += QString("<br><pre><h3>") +
-                  "  Verificator metrolog                    Conducator"
-                  " laborator<br><br>" +
-                  "  Nume ________________________           "
-                  "Nume________________________<br>" +
+                  "  Verificator metrolog                   Responsabil tehnic<br><br>" +
+                  "  Nume ________________________          Nume ________________________<br>" +
                   "<br>" +
-                  "  Semnatura____________________           "
-                  "Semnatura___________________<br>" +
+                  "  Semnatura ___________________          Semnatura ___________________<br>" +
                   "</h3></pre>";
 
         ui->pbPrint->setEnabled(false);
@@ -2295,49 +2253,63 @@ void TableBoard::onPrintPdfDocClicked()
         std::thread pdfThread(printPdfThread, report);
         pdfThread.detach();
     }
+
+
     // English translation
     else
     {
         size_t totalEntries {0};
-        report = QString("<!DOCTYPE html>") + "<html>" + "<head>" + "<style>"
-                 +
-                 "   table, th, td {" + "       border: 1px solid black;" +
-                 "       border-collapse: collapse;" + "       width: 100%;" +
-                 "       font-family: Courier New;" + "       font-size: 4;" +
-                 "       font-weight: 700;" + "       table-layout: fixed;" +
-                 "   }" + "th {" + "    word-wrap: break-word;" + "}" +
-                 "</style>" + "</head>" +
-                 "<body style=\"font-family:'Courier New'\" \"font-weight: "
-                 "700\" style=\"font-size: 4\" style=\"text-align: left\" >" +
-                 "<h4>" + companyName + "</h>" +
-                 "<h4 style=\"font-color: dark "
-                 "blue\">Water meters test bench</h4>" +
-                 "<h4 style=\"text-align: center\"><u>Measurement sheet "
-                 "sheet</u></h3><br>" +
-                 "<h4 style=\"text-align: left\">" + formattedTime + "<br>" +
-                 "Certificat number:&nbsp;" +
+        report = QString("<!DOCTYPE html>\n") +
+                 report =
+            QString("<!DOCTYPE html>\n") +
+            "<html>\n" +
+            "<head>\n" +
+            "   <style>\n" +
+            "       table {\n" +
+            "           width: 100%;\n" +
+            "           border-spacing: 0;" + // Ensures no space between cells
+            "       }\n" +
+            "       th, td {\n" +
+            "           border: 1px solid black;\n" +
+            "           width: 100%;\n" +
+            "           font-family: Courier New;\n" +
+            "           font-size: 9px;\n" +  // Corrected font-size
+            "           font-weight: 700;\n" +
+            "           table-layout: fixed;\n" +
+            "       }\n" +
+            "       th {\n" +
+            "           word-wrap: break-word;\n" +
+            "       }\n" +
+            "   </style>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "</body>\n" +
+            "</html>\n" +
+
+            "<body style=\"font-family:'Courier New'\" \"font-weight: 700\" "
+            "style=\"font-size: 5\" style=\"text-align: left\" >" +
+                 "<h4>" + companyName + "</h4>\n" +
+                 "<h4 class=\"header\">Water meters test bench</h4>\n" +
+                 "<h4 class=\"header\"><u>Measurement sheet</u></h4><br>\n" +
+                 "<h4>" + formattedTime + "<br>\n" +
+                 "Certificate number:&nbsp;" +
                  certificate + "&nbsp;<br>" + "Temperature:&nbsp;" +
                  to_string_with_precision(ambientTemperature, 2).c_str() +
-                 "&nbsp;[°C]<br>" + "Athmopheric pressure:&nbsp;" +
+                 "&nbsp;[°C]<br>" + "Atmospheric pressure:&nbsp;" +
                  to_string_with_precision(athmosphericPressure, 2).c_str() +
                  "&nbsp;[mbar]<br>" + "Humidity:&nbsp;" +
                  to_string_with_precision(humidity, 2).c_str() +
                  "&nbsp;[%]<br><br>" + "Water meter type:&nbsp;" +
                  nameSelectedWaterMeter + "<br>" + "Used measurement method:&nbsp;" +
-                 methodMeasurement + "<br>" + "Nominal diameter&nbsp;:" +
+                 methodMeasurement + "<br>" + "Nominal diameter:&nbsp;" +
                  to_string_with_precision(nominalDiameter, 2).c_str() +
+                 "</body>\n" +
+                 "</html>\n";
 
-                 "<style>"
-                 "     th, td {"
-                 "          text-align: center;"
-                 "      }"
-                 "</style>"
-
-                 "<br>";
 
         if("Gravitmetric" ==  methodMeasurement) {
             report +=
-                "<table>"
+                "<table style=\"border-collapse: collapse;\">"
                 "   <tr>"
                 "       <th></th>"
                 "       <th>Standard Volume<br>&nbsp;&nbsp;[L]</th>"
@@ -2372,7 +2344,7 @@ void TableBoard::onPrintPdfDocClicked()
         else
         {
             report +=
-                "<table>"
+                "<table style=\"border-collapse: collapse;\">"
                 "   <tr>"
                 "       <th></th>"
                 "       <th>Standard Volume<br>&nbsp;&nbsp;[L]</th>"
@@ -2397,27 +2369,22 @@ void TableBoard::onPrintPdfDocClicked()
                 "<br>";
         }
 
-        report += QString("<table width=\"100%\" border=\"1\">") +
-                  "    <caption style=\"text-align: left\">        Results: "
-                  "</caption>" +
-                  "    <thead>" + "    <tr>" +
-                  "        <th style=\"text-align: center\" width=\"16%\"> S/N (Type) "
-                  "</th>" +
-                  "        <th style=\"text-align: center\" width=\"9%\"> "
-                  "&nbsp;Flow&nbsp;&nbsp; [L/h] </th>" +
-                  "        <th style=\"text-align: center\" width=\"14%\"> "
-                  "Start Index [L] </th>" +
-                  "        <th style=\"text-align: center\" width=\"14%\">Stop "
-                  "&nbsp;Index [L] </th>" +
-                  "        <th style=\"text-align: center\" width=\"14%\"> "
-                  "Flow Meter Volume [L] </th>" +
-                  "        <th style=\"text-align: center\" width=\"14%\"> "
-                  "Standard Volume [L] </th>" +
-                  "        <th style=\"text-align: center\" width=\"9%\"> "
-                  "Error [%]</th>" +
-                  "        <th style=\"text-align: center\"  width=\"10%\"> "
-                  "Results</th>" +
-                  "    </tr>" + "    </thead>" + "    <tbody>";
+        report +=
+            QString("<table style=\"border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%;\">\n") +
+            "    <caption>Test Results:</caption>\n" +
+            "    <thead>\n" +
+            "        <tr>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"15%\">Series (Type)</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"9%\">&nbsp;Flow&nbsp;&nbsp;[L/h]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"14%\">Start Index [L]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"14%\">Stop Index [L]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"14%\">Meter Volume [L]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"14%\">Reference Volume [L]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"9%\">Error [%]</th>\n" +
+            "            <th style=\"border: 1px solid black;\" width=\"15%\">Results</th>\n" +
+            "        </tr>\n" +
+            "    </thead>\n" +
+            "    <tbody>";
         unsigned iter {0};
         size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
         for (; iter < 10 && iter < entriesTable; ++iter)
@@ -2503,65 +2470,31 @@ void TableBoard::onPrintPdfDocClicked()
             double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
             report +=
                 QString("    <tr>") +
-                "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
-                +
-                SN + "</th>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                registerVolumeDoubleFirst + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeFirst + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorFirst + "</td>" +
-                "        <th style=\"text-align: center\" rowspan=\"3\">" +
-                resultTests + "</th>" + "    </tr>" + "    <tr>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" + "&nbsp;" +
-                registerVolumeDoubleSecond + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeSecond + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorSecond + "</td>" + "    </tr>" + "    <tr>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                startThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                stopThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                registerVolumeDoubleThird + "&nbsp;" + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                realVolumeThird + "</td>" +
-                "        <td style=\"text-align: right\" \"padding-right: "
-                "5px\">" +
-                errorThird + "</td>" + "     </tr>";
+                "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN + "</th>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleFirst + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeFirst + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst + "</td>" +
+                "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" + resultTests + "</th>" +
+                "    </tr>" +
+                "    <tr>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleSecond + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeSecond + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond + "</td>" +
+                "    </tr>" +
+                "    <tr>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + registerVolumeDoubleThird + "&nbsp;</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeThird + "</td>" +
+                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird + "</td>" +
+                "    </tr>";
         };
         report += QString("</tbody>") + "</table>";
         // Part two
@@ -2573,27 +2506,22 @@ void TableBoard::onPrintPdfDocClicked()
                 if (totalEntries == 10 && header)
                 {
                     report += "<br><br><br><br><br><br><br><br><br><br>";
-                    report += QString("<table width=\"100%\" border=\"1\">") +
-                              "    <caption style=\"text-align: left\">        Results: "
-                              "</caption>" +
-                              "    <thead>" + "    <tr>" +
-                              "        <th style=\"text-align: center\" width=\"16%\"> S/N (Type) "
-                              "</th>" +
-                              "        <th style=\"text-align: center\" width=\"9%\"> "
-                              "&nbsp;Flow&nbsp;&nbsp; [L/h] </th>" +
-                              "        <th style=\"text-align: center\" width=\"14%\"> "
-                              "Start Index [L] </th>" +
-                              "        <th style=\"text-align: center\" width=\"14%\">Stop "
-                              "&nbsp;Index [L] </th>" +
-                              "        <th style=\"text-align: center\" width=\"14%\"> "
-                              "Flow Meter Volume [L] </th>" +
-                              "        <th style=\"text-align: center\" width=\"14%\"> "
-                              "Standard Volume [L] </th>" +
-                              "        <th style=\"text-align: center\" width=\"9%\"> "
-                              "Error [%]</th>" +
-                              "        <th style=\"text-align: center\"  width=\"10%\"> "
-                              "Results</th>" +
-                              "    </tr>" + "    </thead>" + "    <tbody>";
+                    report +=
+                        QString("<table style=\"border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%;\">\n") +
+                        "    <caption>Test Results:</caption>\n" +
+                        "    <thead>\n" +
+                        "        <tr>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"15%\">Series (Type)</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"9%\">&nbsp;Flow&nbsp;&nbsp;[L/h]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"14%\">Start Index [L]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"14%\">Stop Index [L]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"14%\">Meter Volume [L]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"14%\">Reference Volume [L]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"9%\">Error [%]</th>\n" +
+                        "            <th style=\"border: 1px solid black;\" width=\"15%\">Results</th>\n" +
+                        "        </tr>\n" +
+                        "    </thead>\n" +
+                        "    <tbody>";
                     header = false;
                 }
                 if (!vectorCheckNumber[iter]->checkState())
@@ -2671,74 +2599,39 @@ void TableBoard::onPrintPdfDocClicked()
                 double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
                 report +=
                     QString("    <tr>") +
-                    "        <th style=\"text-align: left\" rowspan=\"3\"><br>" + "&nbsp;"
-                    +
-                    SN + "</th>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(minimumFlowRate) +  "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(registerVolumeDoubleFirst) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeFirst + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorFirst + "</td>" +
-                    "        <th style=\"text-align: center\" rowspan=\"3\">" +
-                    resultTests + "</th>" + "    </tr>" + "    <tr>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(trasitionFlowRate) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" + "&nbsp;" +
-                    QString::number(registerVolumeDoubleSecond) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeSecond + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorSecond + "</td>" + "    </tr>" + "    <tr>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(nominalFlowRate) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    startThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    stopThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    QString::number(registerVolumeDoubleThird) + "&nbsp;" + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    realVolumeThird + "</td>" +
-                    "        <td style=\"text-align: right\" \"padding-right: "
-                    "5px\">" +
-                    errorThird + "</td>" + "     </tr>";
+                    "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN + "</th>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(registerVolumeDoubleFirst) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeFirst + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst + "</td>" +
+                    "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" + resultTests + "</th>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(registerVolumeDoubleSecond) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeSecond + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + stopThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + QString::number(registerVolumeDoubleThird) + "&nbsp;</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + realVolumeThird + "</td>" +
+                    "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird + "</td>" +
+                    "    </tr>";
             };
             report += QString("</tbody>") + "</table>";
         }
         report += QString("<br><pre><h3>") +
-                  "Verification certified person             Laboratory manager<br>" +
-                  "Name ________________________             Name________________________<br>"
-                  +
-                  "Signature____________________             Signature___________________<br>"
-                  +
+                  "  Metrological Verifier                   Technical Responsible<br><br>" +
+                  "  Name ________________________           Name _______________________<br>" +
+                  "<br>" +
+                  "  Signature ___________________           Signature __________________<br>" +
                   "</h3></pre>";
 
         ui->pbPrint->setEnabled(false);
