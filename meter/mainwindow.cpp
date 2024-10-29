@@ -853,60 +853,73 @@ void MainWindow::onWaterDensityPage()
 
     // HTML header and style
     output << R"(
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Water Density vs Temperature</title>
-                <style>
-                    body {
-                        -webkit-user-select: none;  /* Chrome all / Safari all */
-                        -moz-user-select: none;     /* Firefox all */
-                        -ms-user-select: none;      /* IE 10+ */
-                        user-select: none;          /* Likely future */
-                    }
-                    .black { color: black; }
-                    .green { color: green; }
-                    .blue { color: blue; }
-                    h2 { font-size: 15px; } /* Adjust font size for the first lines */
-                    pre { font-size: 20px; } /* Adjust font size for the columns */
-                </style>
-            </head>
-            <body>
-                <div>
-                    <pre><h2 style="color:DodgerBlue;">)";
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Water Density vs Temperature</title>
+            <style>
+                body {
+                    -webkit-user-select: none;  /* Chrome all / Safari all */
+                    -moz-user-select: none;     /* Firefox all */
+                    -ms-user-select: none;      /* IE 10+ */
+                    user-select: none;          /* Likely future */
+                }
+                .black { color: black; }
+                .green { color: green; }
+                .blue { color: blue; }
+                h2 {
+                    font-size: 24px;
+                    color: DodgerBlue;
+                    font-family: Arial, sans-serif;
+                    font-weight: normal; /* Adjusted to normal weight */
+                }
+                p {
+                    font-size: 18px;
+                    font-family: Arial, sans-serif;
+                    font-weight: normal; /* Adjusted to normal weight */
+                }
+                pre { font-size: 16px; } /* Font size for table content */
+                hr { border: none; border-top: 1px solid #ddd; margin: 5px 0; } /* Styling for horizontal rules */
+            </style>
+        </head>
+        <body>
+            <div>
+)";
 
-    // Language-specific description
+    // Language selection for the header and introductory text
     if (ROMANIAN == selectedInfo.selectedLanguage) {
-        output << "Tabelul de mai jos reprezinta densitatea apei in kg/mc "
-                  "si factorul de corectie volum functie de temperatura intre 0 si 100°C</br>"
-                  "cu un pas de 0.1°C la presiune normala (1013.25 kPa). Aceste valori "
-                  "sunt generate plecand de la datele existente in aplicatie.</pre></br>";
+        output << "<h2>Densitatea și Corecția Volumului Apei</h2>";
+        output << "<p>Tabelul de mai jos reprezintă densitatea apei în kg/m³ "
+                  "și factorul de corecție volum funcție de temperatură între 0 și 100°C<br>"
+                  "cu un pas de 0.1°C la presiune normală (1013.25 kPa). Aceste valori "
+                  "sunt generate plecând de la datele existente în aplicație.</p>";
     } else {
-        output << "The table below shows the density of water in kg/mc and "
-                  "volume correction factor for different temperatures between 0 and 100°C with</br>"
-                  "the step of 0.1°C under normal pressure (1013.25 kPa). "
-                  "These values ​​are generated starting from the existing database in the application.</pre></br>";
+        output << "<h2>Density and Volume Correction of Water</h2>";
+        output << "<p>The table below shows the density of water in kg/m³ and "
+                  "volume correction factor for different temperatures between 0 and 100°C with<br>"
+                  "a step of 0.1°C under normal pressure (1013.25 kPa). "
+                  "These values are generated based on the existing data in the application.</p>";
     }
 
-    // Table header
+    // Table header with color-coded column titles
     output << R"(
-        <pre><span class="black">&nbsp;&nbsp;&nbsp;T [°C]</span>&nbsp;&nbsp;<span class="green">ρ[kg/m³]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">K</span></pre>
-        <hr />
-     )";
+    <pre><span class="black">&nbsp;&nbsp;&nbsp;T [°C]</span>&nbsp;&nbsp;<span class="green">ρ [kg/m³]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">K</span></pre>
+    <hr />
+)";
 
     // Generate table rows with temperature, density, and coefficient values
     for (int i = 0; i <= 1000; ++i) {
-        double temperature = 0.1 * i;
-        double density = quadraticInterpolationTemperature(temperature, 998.2009);
-        double coefficient = quadraticInterpolationVolumeCorrection(temperature);
+        double temperature = 0.1 * i;  // Calculate temperature
+        double density = quadraticInterpolationTemperature(temperature, 998.2009);  // Calculate density
+        double coefficient = quadraticInterpolationVolumeCorrection(temperature);  // Calculate volume correction coefficient
 
-        // Append row to HTML output
+        // Append formatted data row to HTML output with precision settings
         output << "<pre><span class=\"black\">" << std::fixed << std::setprecision(1)
                << "&nbsp;&nbsp;&nbsp;&nbsp;" << temperature << "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"green\">"
                << std::setprecision(4) << density << "</span>&nbsp;&nbsp;&nbsp;<span class=\"blue\">"
-               << std::setprecision(5) <<  coefficient << "</span></pre>";
+               << std::setprecision(5) << coefficient << "</span></pre>";
 
-        // Insert horizontal rule every 10 rows for readability
+        // Add horizontal line every 10 rows to enhance readability
         if ((i + 1) % 10 == 0) {
             output << "<hr />\n";
         }
@@ -914,11 +927,10 @@ void MainWindow::onWaterDensityPage()
 
     // Close HTML body and document
     output << R"(
-                </h2>
-                </div>
-            </body>
-        </html>
-    )";
+            </div>
+        </body>
+    </html>
+)";
 
     // Write HTML content to file and close it
     densityHtmlFile << output.str() << std::endl;
