@@ -186,7 +186,6 @@ private slots:
     {
         mainWindow->show(); // Show the main window
     }
-
 };
 
 /**

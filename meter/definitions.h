@@ -13,6 +13,9 @@
 
 #include <cstddef>  // For NULL, size_t, ptrdiff_t, and other standard library facilities related to sizes and offsets.
 
+// Version information
+constexpr const char* VERSION_BUILD = "1.4 Windows x86_32"; ///< Version and build information of the application
+
 // Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
 
@@ -37,9 +40,6 @@ constexpr double DEFAULT_DENSITY_ABOVE_HUNDRED = 958.3449; ///< Default density 
 // Default volume correction values
 constexpr double DEFAULT_VOLUME_CORRECTION_BELOW_ZERO = 1.00116;   ///< Default volume correction factor when temperature is below zero
 constexpr double DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED = 1.04451; ///< Default volume correction factor when temperature is above one hundred
-
-// Version information
-constexpr const char* VERSION_BUILD = "1.4 Windows x86_32"; ///< Version and build information of the application
 
 // CSV delimiter
 constexpr char CSV_DELIMITER = ','; ///< Delimiter used in CSV files
@@ -69,6 +69,6 @@ constexpr int S43 = 15; ///< MD5 transformation constant S43
 constexpr int S44 = 21; ///< MD5 transformation constant S44
 
 // Filename of the Romanian language manual
-constexpr const char* MANUAL_RO ="Manual de utilizare WStreamLab V1.2.pdf";
+constexpr const char* MANUAL_RO ="Manual de utilizare WStreamLab V1.4.pdf";
 
 #endif // DEFINITIONS_H_INCLUDED

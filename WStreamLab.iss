@@ -1,9 +1,9 @@
 #define AppName "WStreamLab"
-#define AppVersion "1.3"
+#define AppVersion "1.4"
 #define AppPublisher "ELCOST"
 #define AppExeName "WStreamLab.exe"
 #define AppIconName "WStreamLab.ico"
-#define AppReadme "README.txt"
+#define AppReadme "README_RO_EN.txt"
 #define AppWebsite "http://www.elcost.com/"
 #define AppOutputDir "output"
 
@@ -39,7 +39,7 @@ DefaultUserInfoOrg=ELCCOST
 [Code]
 procedure InitializeWizard;
 begin
-  WizardForm.Font.Style := WizardForm.Font.Style + [fsBold]; // Make the font bold
+  WizardForm.Font.Name := 'Segoe UI';
 end;
 
 [Languages]
@@ -82,7 +82,9 @@ Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; IconFilename: "{app}\{#AppIconName}"
 
 [Run]
-Filename: "notepad.exe"; Parameters: "{app}\{#AppReadme}"; Description: "View the README.txt file"; Flags: postinstall shellexec skipifsilent
+; Run README and application after the Finish button is pressed
+Filename: "{app}\{#AppName}"; Flags: nowait postinstall
+Filename: "notepad.exe"; Parameters: "{app}\README_RO_EN.txt"; Flags: shellexec postinstall
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C taskkill /F /IM {#AppExeName}"; Flags: runhidden waituntilterminated

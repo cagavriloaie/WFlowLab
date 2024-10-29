@@ -1,5 +1,8 @@
 # Project configuration for WStreamLab application
 
+# Major.Minor.Build.Revision
+VERSION = 1.4.0.1
+
 # Include necessary Qt modules
 QT += core gui printsupport widgets serialbus
 
@@ -17,9 +20,7 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    interface.cpp \
     helpabout.cpp \
-    ledindicator.cpp \
     license.cpp \
     md5.cpp \
     report.cpp \
@@ -29,11 +30,9 @@ SOURCES += \
 # Header files
 HEADERS += \
     mainwindow.h \
-    interface.h \
     definitions.h \
     flow-meter-type.h \
     helpabout.h \
-    ledindicator.h \
     license.h \
     md5.h \
     report.h \
@@ -43,7 +42,6 @@ HEADERS += \
 # UI form files
 FORMS += \
     mainwindow.ui \
-    interface.ui \
     helpabout.ui \
     license.ui \
     report.ui \
@@ -62,7 +60,7 @@ TRANSLATIONS += translations/meter_ro_RO.ts translations/meter_en_EN.ts
 TARGET = WStreamLab
 
 # Distribution files
-DISTFILES += water-meter-counter-equipment.png
+DISTFILES +=
 
 # Resource files
 RESOURCES += images.qrc

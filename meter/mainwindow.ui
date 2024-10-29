@@ -42,6 +42,12 @@
     font-size: 12pt; /* Base font size */
 }
 
+/* Common border style */
+.common-border {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+}
+
 /* QPushButton */
 QPushButton {
     padding: 5px 10px;
@@ -55,58 +61,15 @@ QPushButton:hover {
     border: 2px solid #aaa; /* Darker gray border on hover */
 }
 
-/* QComboBox */
-QComboBox {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px;
-    min-height: 20px; /* Adjust the minimum height */
-    background-color: #f0f0f0; /* Light gray background */
-}
-
-QComboBox QAbstractItemView {
-    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px; /* Adjust width as needed */
-    border-left: 1px solid #ADD8E6; /* Light blue border for the drop-down button */
-}
-
-QComboBox::down-arrow {
-    width: 0;
-    height: 0;
-}
-
-QComboBox::down-arrow:disabled {
-    image: url(circle.png); /* Replace with your own circle image */
-    width: 16px; /* Adjust width of circle */
-    height: 16px; /* Adjust height of circle */
-}
-
-/* QLineEdit */
-QLineEdit {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    height: 28px; /* Adjusted height */
-    padding: 2px; /* Adjust padding if needed */
-    background-color: #f0f0f0; /* Light gray background */
-}
-
 /* QGroupBox */
 QGroupBox {
-    border: 2px solid black;
-    border-color: rgba(0, 0, 0, 0.36); /* Black with transparency */
+    border: 2px solid rgba(0, 0, 0, 0.36); /* Black with transparency */
     background-color: #E6E6FF; /* Light purple background */
-    font-family: Verdana, Arial, sans-serif; /* Use Verdana for group box */
-    font-size: 12pt; /* Font size */
     margin-top: 10px;
-    border-radius: 8px; /* Rounded corners */
     padding-top: 10px; /* Padding for the top of the group box */
 }
 
+/* QGroupBox Title */
 QGroupBox::title {
     subcontrol-origin: margin;
     left: 7px;
@@ -115,15 +78,15 @@ QGroupBox::title {
 
 /* QRadioButton */
 QRadioButton {
-    spacing: 5px;
+    spacing: 5px; /* Space between text and indicator */
 }
 
 QRadioButton::indicator {
-    width: 15px;
-    height: 15px;
-    border-radius: 7px; /* Half of width and height to make it a circle */
-    border: 1px solid #ADD8E6; /* Light blue border */
+    width: 10px; /* Further reduced width */
+    height: 10px; /* Further reduced height */
+    border-radius: 5px; /* Half of width and height to maintain circular shape */
     background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ADD8E6; /* Light blue border */
 }
 
 QRadioButton::indicator:checked {
@@ -131,8 +94,9 @@ QRadioButton::indicator:checked {
     border: 1px solid #0078D7; /* Darker blue border when checked */
 }
 
-QRadioButton::indicator:unchecked:hover {
-    background-color: #e0e0e0; /* Slightly darker light gray background on hover when unchecked */
+QRadioButton::indicator:unchecked {
+    background-color: #f0f0f0; /* Light gray background when unchecked */
+    border: 1px solid #ADD8E6; /* Light blue border when unchecked */
 }
 
 /* Menu Bar */
@@ -146,16 +110,12 @@ QMenu {
     background-color: #f0f0f0; /* Light gray background */
     border: 1px solid #ccc; /* Light gray border */
     padding: 4px; /* Adjust padding */
-    font-family: Verdana, Arial, sans-serif; /* Font family */
-    font-size: 12pt; /* Font size */
 }
 
 /* Menu Item */
 QMenu::item {
     background-color: transparent; /* Transparent background */
     padding: 4px 24px; /* Adjust padding */
-    font-family: Verdana, Arial, sans-serif; /* Font family */
-    font-size: 12pt; /* Font size */
 }
 
 QMenu::item:selected {
@@ -179,8 +139,6 @@ QMenuBar::item,
 QMenu::item {
     background: transparent;
     padding: 4px 10px;
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 12pt;
     color: black;
 }
 
@@ -195,10 +153,38 @@ QMenuBar::item:pressed,
 QMenu::item:pressed {
     background-color: #d7d9d7;
     border-radius: 4px;
-    color: black;
 }
 
+/* QComboBox */
+QComboBox {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px; /* Padding inside the combo box */
+    min-height: 20px; /* Adjust the minimum height */
+    background-color: #f0f0f0; /* Light gray background */
+    padding-right: 20px; /* Space for the arrow */
+}
 
+/* QComboBox Dropdown */
+QComboBox QAbstractItemView {
+    background-color: #ffffff; /* White background for the dropdown to avoid transparency */
+    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
+}
+
+/* Dropdown Arrow */
+QComboBox::down-arrow {
+    width: 10px; /* Adjust width of the arrow */
+    height: 10px; /* Adjust height of the arrow */
+}
+
+/* QLineEdit */
+QLineEdit {
+    border: 2px solid #ADD8E6; /* Light blue border */
+    border-radius: 4px; /* Rounded corners */
+    height: 28px; /* Adjusted height */
+    padding: 2px; /* Adjust padding if needed */
+    background-color: #f0f0f0; /* Light gray background to match QComboBox */
+}
 </string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -457,14 +443,7 @@ QMenu::item:pressed {
                 <bool>false</bool>
                </property>
                <property name="styleSheet">
-                <string notr="true">/* QComboBox */
-QComboBox {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px;
-    min-height: 20px; /* Adjust the minimum height */
-    background-color: #f0f0f0; /* Light gray background */
-}</string>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -1031,9 +1010,6 @@ QComboBox {
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="LedIndicator" name="SerialLedIndicator" native="true"/>
-        </item>
-        <item>
          <widget class="QLabel" name="lbConnected">
           <property name="font">
            <font>
@@ -1217,14 +1193,6 @@ QComboBox {
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>LedIndicator</class>
-   <extends>QWidget</extends>
-   <header location="global">ledindicator.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>cbNumberOfWaterMeters</tabstop>
   <tabstop>cbWaterMeterType</tabstop>

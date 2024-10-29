@@ -1,1 +1,3 @@
-<!DOCTYPE RCC><RCC version="1.0">    <qresource>        <file>water-meter-counter-equipment.png</file>        <!-- Add more file entries for other resources -->    </qresource></RCC>
+<RCC>
+    <qresource prefix="/"/>
+</RCC>

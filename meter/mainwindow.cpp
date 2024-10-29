@@ -352,7 +352,6 @@ MainWindow::MainWindow(QWidget *parent)
     inputData(nullptr),
     licenseDialog(new License(this)),
     helpAbout(new HelpAbout(this)),
-    interfaceDialog(new Interface(this)),
     alignmentGroup(new QActionGroup(this)),
     statusBar(new QStatusBar(this))
 {
@@ -378,7 +377,6 @@ MainWindow::MainWindow(QWidget *parent)
     CenterToScreen(this);
 
     // Initialize UI elements
-    //ui->SerialLedIndicator->setState(false);
     ui->lbConnected->setText(tr("RS485/RS422 protocol MODBUS ITF off."));
 
     // Read settings from registry
@@ -409,6 +407,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Initialize TableBoard and connect signals to slots
     inputData = new TableBoard(this);
+    inputData->setModal(false);
 
     // Disable interface radio button (future feature)
     ui->rbManual->setEnabled(true);
@@ -502,7 +501,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     SelectMeterComboBox();
 
-    ui->SerialLedIndicator->hide();
     ui->lbConnected->hide();
     installEventFilter(this);
 
@@ -992,7 +990,6 @@ void MainWindow::onPortSettings()
         interfaceDialog->show();
     }
 */
-    interfaceDialog->show();
 }
 
 /**
@@ -1026,7 +1023,6 @@ void MainWindow::onSetRomanian()
         if (inputData) inputData->Translate(); // Translate UI in inputData if available
         if (licenseDialog) licenseDialog->Translate(); // Translate UI in licenseDialog if available
         if (helpAbout) helpAbout->Translate(); // Translate UI in helpAbout if available
-        if (interfaceDialog) interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
 
         // Set the selected language to Romanian
         selectedInfo.selectedLanguage = ROMANIAN;
@@ -1071,7 +1067,6 @@ void MainWindow::onSetEnglish()
         if (inputData) inputData->Translate(); // Translate UI in inputData if available
         if (licenseDialog) licenseDialog->Translate(); // Translate UI in licenseDialog if available
         if (helpAbout) helpAbout->Translate(); // Translate UI in helpAbout if available
-        if (interfaceDialog) interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
 
         // Set the selected language to English
         selectedInfo.selectedLanguage = ENGLISH;
