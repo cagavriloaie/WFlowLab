@@ -6,6 +6,8 @@
 #define AppReadme "README_RO_EN.txt"
 #define AppWebsite "http://www.elcost.com/"
 #define AppOutputDir "output"
+#define AppWizardImage "build\WStreamLab.bmp"
+#define AppWizardSmallImage "build\WStreamLab.bmp"
 
 [Setup]
 AppName={#AppName}
@@ -16,25 +18,25 @@ AppUpdatesURL={#AppWebsite}
 AppCopyright=Copyright © 2024 ELCCOST
 AppComments=Water meters calibration.
 AppMutex=MyAppMutex
-OutputBaseFilename="{#AppName}_v{#AppVersion}_Setup"
-; For x64 default location the setting is:
-; DefaultDirName={pf}\{#AppName}
+OutputBaseFilename={#AppName}_v{#AppVersion}_Setup
 DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
 UninstallDisplayName={#AppName} v{#AppVersion} Uninstall
 SetupLogging=yes
-WizardImageFile=".\build\water-meter.bmp"
-WizardSmallImageFile=".\build\water-meter.bmp"
+WizardImageFile={#AppWizardImage}
+WizardSmallImageFile={#AppWizardSmallImage}
 OutputDir={#AppOutputDir}
-OutputManifestFile=AppExeName
+OutputManifestFile={#AppExeName}
 PrivilegesRequired=admin
 AllowCancelDuringInstall=yes
 DisableDirPage=yes
 DisableProgramGroupPage=yes
 ChangesAssociations=yes
-AppPublisherURL=http://www.elcost.com
+SetupIconFile=".\build\{#AppIconName}"
+AppPublisherURL={#AppWebsite}
 DefaultUserInfoName=John Doe
 DefaultUserInfoOrg=ELCCOST
+
 
 [Code]
 procedure InitializeWizard;
@@ -77,9 +79,9 @@ Source: ".\build\tls\*.dll"; DestDir: "{app}\tls"; Flags: ignoreversion recurses
 Source: ".\build\translations\*.qm"; DestDir: "{app}\translations"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\{#AppIconName}"; Tasks: desktopicon
-Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\{#AppIconName}"
-Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; IconFilename: "{app}\{#AppIconName}"
+Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\{#AppIconName}"; Tasks: desktopicon; Comment: "Create a desktop shortcut for {#AppName}"
+Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\{#AppIconName}"; Comment: "Run {#AppName}"
+Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; IconFilename: "{app}\{#AppIconName}"; Comment: "Uninstall {#AppName}"
 
 [Run]
 ; Run README and application after the Finish button is pressed

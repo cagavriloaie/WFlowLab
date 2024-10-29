@@ -352,6 +352,7 @@ MainWindow::MainWindow(QWidget *parent)
     inputData(nullptr),
     licenseDialog(new License(this)),
     helpAbout(new HelpAbout(this)),
+    interfaceDialog(new Interface(this)),
     alignmentGroup(new QActionGroup(this)),
     statusBar(new QStatusBar(this))
 {
@@ -990,6 +991,7 @@ void MainWindow::onPortSettings()
         interfaceDialog->show();
     }
 */
+    interfaceDialog->show();
 }
 
 /**
@@ -1023,6 +1025,7 @@ void MainWindow::onSetRomanian()
         if (inputData) inputData->Translate(); // Translate UI in inputData if available
         if (licenseDialog) licenseDialog->Translate(); // Translate UI in licenseDialog if available
         if (helpAbout) helpAbout->Translate(); // Translate UI in helpAbout if available
+        if (interfaceDialog) interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
 
         // Set the selected language to Romanian
         selectedInfo.selectedLanguage = ROMANIAN;
@@ -1067,6 +1070,7 @@ void MainWindow::onSetEnglish()
         if (inputData) inputData->Translate(); // Translate UI in inputData if available
         if (licenseDialog) licenseDialog->Translate(); // Translate UI in licenseDialog if available
         if (helpAbout) helpAbout->Translate(); // Translate UI in helpAbout if available
+        if (interfaceDialog) interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
 
         // Set the selected language to English
         selectedInfo.selectedLanguage = ENGLISH;

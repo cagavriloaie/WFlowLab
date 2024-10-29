@@ -21,6 +21,7 @@
 #include "tableBoard.h"                     // Custom header for TableBoard class.
 #include "license.h"                        // Custom header for License class.
 #include "helpabout.h"                      // Custom header for HelpAbout class.
+#include "interface.h"                      // Custom header for Interface class.
 
 enum SELECTED_LANGUAGE
 {
@@ -124,6 +125,7 @@ public:
     TableBoard *inputData {nullptr}; /**< Pointer to the input data board. */
     License *licenseDialog {nullptr}; /**< Pointer to the license dialog. */
     HelpAbout *helpAbout {nullptr}; /**< Pointer to the help/about dialog. */
+    Interface *interfaceDialog {nullptr}; /**< Pointer to the interface dialog. */
     QActionGroup *alignmentGroup {nullptr}; /**< Action group for alignment settings. */
     QStatusBar *statusBar {nullptr}; /**< The status bar widget for displaying messages. */
     unsigned MAX_NR_WATER_METERS {20}; /**< Maximum number of water meters supported. */
