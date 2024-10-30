@@ -32,12 +32,11 @@
  * documentation and/or software.
  */
 
-
 #ifndef BZF_MD5_H
 #define BZF_MD5_H
 
-#include <cstring>     // C-style string manipulation functions
-#include <iostream>    // Standard input/output stream objects
+#include <cstring>  // C-style string manipulation functions
+#include <iostream> // Standard input/output stream objects
 
 /**
  *  \brief The MD5 class computes MD5 hashes of strings or byte arrays.
@@ -52,8 +51,7 @@
  *
  * Assumes that char is 8-bit and int is 32-bit.
  */
-class MD5
-{
+class MD5 {
   public:
     typedef unsigned int size_type; // must be 32bit
 
@@ -66,27 +64,27 @@ class MD5
      *  \brief Constructor that initializes the MD5 state with an initial string.
      *  \param text Initial string to hash using MD5.
      */
-    explicit MD5(const std::string &text);
+    explicit MD5(const std::string& text);
 
     /**
      *  \brief Update the hash with a block of unsigned characters.
      *  \param buf Pointer to the buffer of unsigned characters.
      *  \param length Length of the buffer in size_type units.
      */
-    void update(const unsigned char *buf, size_type length);
+    void update(const unsigned char* buf, size_type length);
 
     /**
      *  \brief Update the hash with a block of characters.
      *  \param buf Pointer to the buffer of characters.
      *  \param length Length of the buffer in size_type units.
      */
-    void update(const char *buf, size_type length);
+    void update(const char* buf, size_type length);
 
     /**
      *  \brief Finalize the MD5 computation.
      *  \return Reference to the MD5 object.
      */
-    MD5 &finalize();
+    MD5& finalize();
 
     /**
      *  \brief Get the hexadecimal representation of the MD5 hash.
@@ -100,17 +98,17 @@ class MD5
      *  \param md5 MD5 object to output.
      *  \return Reference to the output stream.
      */
-    friend std::ostream &operator<< (std::ostream &os, MD5 md5);
+    friend std::ostream& operator<<(std::ostream& os, MD5 md5);
 
-private:
+  private:
     /**
      *  \brief Initialize the MD5 state.
      */
     void init();
 
     typedef unsigned char uint1; //  8bit
-    typedef unsigned int uint4;  // 32bit
-    enum { blocksize = 64 }; // VC6 won't eat a const static int here
+    typedef unsigned int  uint4; // 32bit
+    enum { blocksize = 64 };     // VC6 won't eat a const static int here
 
     /**
      *  \brief Core transformation function for MD5 processing.
@@ -140,22 +138,22 @@ private:
     static inline uint4 H(uint4 x, uint4 y, uint4 z);
     static inline uint4 I(uint4 x, uint4 y, uint4 z);
     static inline uint4 rotate_left(uint4 x, int n);
-    static inline void FF(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x,
-                          uint4 s, uint4 ac);
-    static inline void GG(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x,
-                          uint4 s, uint4 ac);
-    static inline void HH(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x,
-                          uint4 s, uint4 ac);
-    static inline void II(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x,
-                          uint4 s, uint4 ac);
+    static inline void  FF(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
+                           uint4 s, uint4 ac);
+    static inline void  GG(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
+                           uint4 s, uint4 ac);
+    static inline void  HH(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
+                           uint4 s, uint4 ac);
+    static inline void  II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x,
+                           uint4 s, uint4 ac);
 
-    bool finalized; ///< Flag indicating if the hash computation has been finalized.
+    bool  finalized;         ///< Flag indicating if the hash computation has been finalized.
     uint1 buffer[blocksize]; ///< Buffer for data that didn't fit in the last 64-byte chunk.
-    uint4 count[2];   ///< 64-bit counter for number of bits (lo, hi).
-    uint4 state[4];   ///< Current digest state.
-    uint1 digest[16]; ///< Resultant MD5 hash.
+    uint4 count[2];          ///< 64-bit counter for number of bits (lo, hi).
+    uint4 state[4];          ///< Current digest state.
+    uint1 digest[16];        ///< Resultant MD5 hash.
 };
 
-std::string md5(const std::string &str);
+std::string md5(const std::string& str);
 
 #endif

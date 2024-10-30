@@ -9,30 +9,28 @@
  * \date Insert date
  */
 
-#include <mutex>                    // Include for std::mutex
-#include <unistd.h>                 // POSIX API for various functionalities
+#include <mutex>    // Include for std::mutex
+#include <unistd.h> // POSIX API for various functionalities
 
-#include <QMessageBox>              // Qt class for displaying message boxes
-#include <QSettings>                // Qt class for persistent application settings
-#include <QStringList>              // Qt class for manipulating string lists
-#include <QtSerialBus/QModbusClient>        // Qt class for Modbus client functionality
+#include <QMessageBox>                        // Qt class for displaying message boxes
+#include <QSettings>                          // Qt class for persistent application settings
+#include <QStringList>                        // Qt class for manipulating string lists
+#include <QtSerialBus/QModbusClient>          // Qt class for Modbus client functionality
 #include <QtSerialBus/QModbusRtuSerialServer> // Qt class for Modbus RTU serial server
-#include <QtSerialPort/QSerialPort> // Qt class for serial port communication
+#include <QtSerialPort/QSerialPort>           // Qt class for serial port communication
 
-#include "interface.h"              // Include header for Interface dialog
-#include "mainwindow.h"             // Include header for MainWindow
-#include "ui_interface.h"           // Generated UI header file for Interface dialog
-#include "ui_mainwindow.h"          // Generated UI header file for MainWindow
+#include "interface.h"     // Include header for Interface dialog
+#include "mainwindow.h"    // Include header for MainWindow
+#include "ui_interface.h"  // Generated UI header file for Interface dialog
+#include "ui_mainwindow.h" // Generated UI header file for MainWindow
 
-namespace
-{
-MainWindow *mainwindow;
-unsigned positionTable = 0;
-}  // namespace
+namespace {
+MainWindow* mainwindow;
+unsigned    positionTable = 0;
+} // namespace
 
-QModbusClient *modbusDevice_1; /**< Pointer to the first Modbus client device. */
-QModbusClient *modbusDevice_2; /**< Pointer to the second Modbus client device. */
-
+QModbusClient* modbusDevice_1; /**< Pointer to the first Modbus client device. */
+QModbusClient* modbusDevice_2; /**< Pointer to the second Modbus client device. */
 
 std::mutex modbusLock;
 
@@ -52,11 +50,11 @@ std::mutex modbusLock;
  *
  * \param parent The parent widget, usually a MainWindow.
  */
-Interface::Interface(QWidget *parent) : QDialog(parent),
-    ui(new Ui::Interface)
-{
-    ui->setupUi(this);  // Setup the user interface defined in Ui::Interface
-    mainwindow = dynamic_cast<MainWindow *>(parent);  // Cast parent to MainWindow*
+Interface::Interface(QWidget* parent)
+    : QDialog(parent),
+      ui(new Ui::Interface) {
+    ui->setupUi(this);                              // Setup the user interface defined in Ui::Interface
+    mainwindow = dynamic_cast<MainWindow*>(parent); // Cast parent to MainWindow*
 
     std::unique_ptr<QIntValidator> timeoutValidator(new QIntValidator(0, 1000, this));
     ui->leTimeout_1->setValidator(timeoutValidator.get());
@@ -86,8 +84,8 @@ Interface::Interface(QWidget *parent) : QDialog(parent),
     ui->cbSelectSerial_1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     ui->cbSelectSerial_2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    modbusDevice_1 =  new QModbusRtuSerialClient(this);
-    modbusDevice_2 =  new QModbusRtuSerialClient(this);
+    modbusDevice_1 = new QModbusRtuSerialClient(this);
+    modbusDevice_2 = new QModbusRtuSerialClient(this);
 
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
     settings.sync();
@@ -113,7 +111,6 @@ Interface::Interface(QWidget *parent) : QDialog(parent),
     settings.endGroup();
     settings.sync();
 
-
     nodesModbusCom1.emplace_back(1);
     nodesModbusCom2.emplace_back(1);
 
@@ -127,11 +124,9 @@ Interface::Interface(QWidget *parent) : QDialog(parent),
  * It specifically deletes the user interface object (ui), which manages the
  * graphical components of the interface.
  */
-Interface::~Interface()
-{
+Interface::~Interface() {
     delete ui; // Deletes the user interface object
 }
-
 
 /**
  * \brief Translates the UI text to the current language.
@@ -139,8 +134,7 @@ Interface::~Interface()
  * This function sets the translated text for various widgets in the UI
  * based on the current language settings.
  */
-void Interface::Translate()
-{
+void Interface::Translate() {
     // Set translated text for GroupBox 1
     ui->groupBox_1->setTitle(tr("RS-485/422 Serial Interface MODBUS"));
     ui->lbSelectSerial_1->setText(tr("Serial Port:"));
@@ -169,14 +163,12 @@ void Interface::Translate()
     ui->pbConnect->setText(tr("Connect ports"));
 }
 
-
 /**
  * \brief Slot to handle the Close button click event.
  *
  * This function hides the current interface window when the Close button is clicked.
  */
-void Interface::onCloseClicked()
-{
+void Interface::onCloseClicked() {
     // Hide the current interface window
     this->hide();
 }
@@ -187,25 +179,22 @@ void Interface::onCloseClicked()
  * This function is called when a Modbus read request is completed.
  * It updates the LED state based on the result of the read request.
  */
-void Interface::onReadModbusReady()
-{
+void Interface::onReadModbusReady() {
     // Attempt to cast the sender() to a QModbusReply
-    auto reply = qobject_cast<QModbusReply *>(sender());
+    auto reply = qobject_cast<QModbusReply*>(sender());
 
     // Set the state of the LED to false (assuming ledStateTable is a vector of LEDState objects)
-    //ledStateTable[positionTable]->setState(false);
+    // ledStateTable[positionTable]->setState(false);
 
     // Check if the cast was successful
-    if (!reply)
-    {
+    if (!reply) {
         return; // If the cast fails, exit the function
     }
 
     // Check if there was no error in the Modbus reply
-    if (reply->error() == QModbusDevice::NoError)
-    {
+    if (reply->error() == QModbusDevice::NoError) {
         // If there is no error, set the state of the LED to true
-        //ledStateTable[positionTable]->setState(true);
+        // ledStateTable[positionTable]->setState(true);
     }
 
     // Increment the positionTable
@@ -236,36 +225,31 @@ extern const std::vector<qint16> nodesModbusCom1;
  *
  * \return true if all requests were successfully sent and accepted, false otherwise.
  */
-bool Interface::checkModbusAddresses()
-{
+bool Interface::checkModbusAddresses() {
     std::lock_guard<std::mutex> lock(modbusLock); // Lock to ensure thread safety
 
     usleep(50000); // Delay before sending requests (50 ms)
 
     // Ensure modbusDevice_1 is properly initialized
-    if (!modbusDevice_1)
-    {
+    if (!modbusDevice_1) {
         qWarning() << "Modbus device 1 is not initialized.";
         return false;
     }
 
     // Ensure modbusDevice_2 is properly initialized
-    if (!modbusDevice_2)
-    {
+    if (!modbusDevice_2) {
         qWarning() << "Modbus device 2 is not initialized.";
         return false;
     }
 
-    QModbusRtuSerialClient *portModbus_1 = qobject_cast<QModbusRtuSerialClient *>(modbusDevice_1);
-    if (!portModbus_1)
-    {
+    QModbusRtuSerialClient* portModbus_1 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_1);
+    if (!portModbus_1) {
         qWarning() << "Failed to cast modbusDevice_1 to QModbusRtuSerialClient.";
         return false;
     }
 
-    QModbusRtuSerialClient *portModbus_2 = qobject_cast<QModbusRtuSerialClient *>(modbusDevice_2);
-    if (!portModbus_2)
-    {
+    QModbusRtuSerialClient* portModbus_2 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_2);
+    if (!portModbus_2) {
         qWarning() << "Failed to cast modbusDevice_2 to QModbusRtuSerialClient.";
         return false;
     }
@@ -273,48 +257,38 @@ bool Interface::checkModbusAddresses()
     bool allRequestsSent = true;
 
     // Process each address in the nodesModbusCom1 vector
-    for (const qint16 &address : nodesModbusCom1)
-    {
+    for (const qint16& address : nodesModbusCom1) {
         // Send a read request to the Modbus device 1
-        QModbusReply *reply_1 = portModbus_1->sendReadRequest(QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address);
-        if (!reply_1)
-        {
+        QModbusReply* reply_1 = portModbus_1->sendReadRequest(QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address);
+        if (!reply_1) {
             qWarning() << "Failed to send Modbus read request for address (Device 1):" << address;
             allRequestsSent = false;
             continue;
         }
 
-        if (!reply_1->isFinished())
-        {
+        if (!reply_1->isFinished()) {
             // Connect finished signal to handle the reply
             connect(reply_1, &QModbusReply::finished, this, &Interface::onReadModbusReady);
-        }
-        else
-        {
+        } else {
             // Handle immediately finished reply (broadcast replies)
             delete reply_1;
         }
     }
 
     // Process each address in the nodesModbusCom2 vector
-    for (const qint16 &address : nodesModbusCom2)
-    {
+    for (const qint16& address : nodesModbusCom2) {
         // Send a read request to the Modbus device 2
-        QModbusReply *reply_2 = portModbus_2->sendReadRequest(QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address);
-        if (!reply_2)
-        {
+        QModbusReply* reply_2 = portModbus_2->sendReadRequest(QModbusDataUnit(QModbusDataUnit::InputRegisters, 1, 2), address);
+        if (!reply_2) {
             qWarning() << "Failed to send Modbus read request for address (Device 2):" << address;
             allRequestsSent = false;
             continue;
         }
 
-        if (!reply_2->isFinished())
-        {
+        if (!reply_2->isFinished()) {
             // Connect finished signal to handle the reply
             connect(reply_2, &QModbusReply::finished, this, &Interface::onReadModbusReady);
-        }
-        else
-        {
+        } else {
             // Handle immediately finished reply (broadcast replies)
             delete reply_2;
         }
@@ -330,22 +304,20 @@ bool Interface::checkModbusAddresses()
  * and attempting to connect. It updates the UI elements and displays the result
  * of the connection attempt.
  */
-void Interface::onConnectClicked()
-{
+void Interface::onConnectClicked() {
     // Disconnect any existing serial port connections
     DisconnectSerialPort();
 
     if (!modbusDevice_1) {
-        modbusDevice_1 =  new QModbusRtuSerialClient(this);
+        modbusDevice_1 = new QModbusRtuSerialClient(this);
     }
 
     if (!modbusDevice_2) {
-        modbusDevice_2 =  new QModbusRtuSerialClient(this);
+        modbusDevice_2 = new QModbusRtuSerialClient(this);
     }
 
     // Check if either modbusDevice_1 or modbusDevice_2 is not set
-    if (!modbusDevice_1 || !modbusDevice_2)
-    {
+    if (!modbusDevice_1 || !modbusDevice_2) {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
@@ -367,7 +339,7 @@ void Interface::onConnectClicked()
     if (selectedIndex_1 >= 0 && selectedIndex_1 < serialPorts.size()) {
         // Get the selected serial port information
         QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-        QString serialName_1 = serialPortInfo_1.portName();
+        QString         serialName_1     = serialPortInfo_1.portName();
 
         // Ensure modbusDevice_1 is initialized
         if (modbusDevice_1 != nullptr) {
@@ -389,8 +361,7 @@ void Interface::onConnectClicked()
     }
 
     // Set baud rate for modbusDevice_1 based on user selection
-    switch (ui->cbBaudRate_1->currentIndex())
-    {
+    switch (ui->cbBaudRate_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
         break;
@@ -421,8 +392,7 @@ void Interface::onConnectClicked()
     }
 
     // Set data bits for modbusDevice_1 based on user selection
-    switch (ui->cbSelectDataBits_1->currentIndex())
-    {
+    switch (ui->cbSelectDataBits_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
         break;
@@ -441,8 +411,7 @@ void Interface::onConnectClicked()
     }
 
     // Set parity for modbusDevice_1 based on user selection
-    switch (ui->cbSelectParity_1->currentIndex())
-    {
+    switch (ui->cbSelectParity_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
         break;
@@ -464,8 +433,7 @@ void Interface::onConnectClicked()
     }
 
     // Set stop bits for modbusDevice_1 based on user selection
-    switch (ui->cbSelectStopBits_1->currentIndex())
-    {
+    switch (ui->cbSelectStopBits_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
         break;
@@ -481,7 +449,7 @@ void Interface::onConnectClicked()
     }
 
     bool ok_1;
-    int timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
+    int  timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
     if (ok_1 && timeout_1 > 0 && timeout_1 <= 1000) {
         modbusDevice_1->setTimeout(timeout_1);
     } else {
@@ -498,12 +466,11 @@ void Interface::onConnectClicked()
     int retries_1 = ui->cbNumberRetries_1->currentIndex();
     modbusDevice_1->setNumberOfRetries(retries_1);
 
-
     // Configure serial port parameters for modbusDevice_2
     int selectedIndex_2 = ui->cbSelectSerial_2->currentIndex();
     if (selectedIndex_2 >= 0 && selectedIndex_2 < serialPorts.size()) {
         QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-        QString serialName_2 = serialPortInfo_2.portName();
+        QString         serialName_2     = serialPortInfo_2.portName();
 
         if (modbusDevice_2 != nullptr) {
             modbusDevice_2->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_2);
@@ -522,8 +489,7 @@ void Interface::onConnectClicked()
         DisconnectSerialPort(); // Disconnect any existing serial port connections
     }
     // Set baud rate for modbusDevice_2 based on user selection
-    switch (ui->cbBaudRate_2->currentIndex())
-    {
+    switch (ui->cbBaudRate_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
         break;
@@ -554,8 +520,7 @@ void Interface::onConnectClicked()
     }
 
     // Set data bits for modbusDevice_2 based on user selection
-    switch (ui->cbSelectDataBits_2->currentIndex())
-    {
+    switch (ui->cbSelectDataBits_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
         break;
@@ -574,8 +539,7 @@ void Interface::onConnectClicked()
     }
 
     // Set parity for modbusDevice_2 based on user selection
-    switch (ui->cbSelectParity_2->currentIndex())
-    {
+    switch (ui->cbSelectParity_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
         break;
@@ -597,8 +561,7 @@ void Interface::onConnectClicked()
     }
 
     // Set stop bits for modbusDevice_2 based on user selection
-    switch (ui->cbSelectStopBits_2->currentIndex())
-    {
+    switch (ui->cbSelectStopBits_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
         break;
@@ -615,7 +578,7 @@ void Interface::onConnectClicked()
 
     // Set timeout for modbusDevice_2 based on user input
     bool ok_2;
-    int timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
+    int  timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
     if (ok_2 && timeout_2 > 0 && timeout_2 <= 1000) {
         modbusDevice_2->setTimeout(timeout_2);
     } else {
@@ -634,25 +597,19 @@ void Interface::onConnectClicked()
 
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
-    if (!modbusDevice_1_opened)
-    {
+    if (!modbusDevice_1_opened) {
         qDebug() << "Failed to open modbusDevice_1:";
         qDebug() << modbusDevice_1->errorString();
-    }
-    else
-    {
+    } else {
         qDebug() << "modbusDevice_1 opened successfully!";
     }
 
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
-    if (!modbusDevice_2_opened)
-    {
+    if (!modbusDevice_2_opened) {
         qDebug() << "Failed to open modbusDevice_2:";
         qDebug() << modbusDevice_2->errorString();
-    }
-    else
-    {
+    } else {
         qDebug() << "modbusDevice_2 opened successfully!";
     }
 
@@ -660,10 +617,10 @@ void Interface::onConnectClicked()
     QString statusMessage;
 
     QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-    QString serialName_1 = serialPortInfo_1.portName();
+    QString         serialName_1     = serialPortInfo_1.portName();
 
     QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-    QString serialName_2 = serialPortInfo_2.portName();
+    QString         serialName_2     = serialPortInfo_2.portName();
 
     statusMessage += QString("Modbus Device %1 connection status: %2\n").arg(serialName_1).arg(modbusDevice_1_opened ? "Success" : "Failure");
     statusMessage += QString("Modbus Device %1 connection status: %2").arg(serialName_2).arg(modbusDevice_2_opened ? "Success" : "Failure");
@@ -677,11 +634,9 @@ void Interface::onConnectClicked()
     checkModbusAddresses();
 
     if (mainwindow) {
-        if(modbusDevice_1_opened && modbusDevice_1_opened) {
+        if (modbusDevice_1_opened && modbusDevice_1_opened) {
             mainwindow->statusBarMessage = " > MODBUS Interface Mode Operation / Connected";
-        }
-        else
-        {
+        } else {
             mainwindow->statusBarMessage = " > MODBUS Interface Mode Operation / Not Connected";
         }
         mainwindow->setStatusBarMessage(mainwindow->statusBarMessage);
@@ -695,22 +650,20 @@ void Interface::onConnectClicked()
  * and attempting to connect. It updates the UI elements and displays the result
  * of the connection attempt.
  */
-void Interface::onTestConfigurationClicked()
-{
+void Interface::onTestConfigurationClicked() {
     // Disconnect any existing serial port connections
     DisconnectSerialPort();
 
     if (!modbusDevice_1) {
-        modbusDevice_1 =  new QModbusRtuSerialClient(this);
+        modbusDevice_1 = new QModbusRtuSerialClient(this);
     }
 
     if (!modbusDevice_2) {
-        modbusDevice_2 =  new QModbusRtuSerialClient(this);
+        modbusDevice_2 = new QModbusRtuSerialClient(this);
     }
 
     // Check if either modbusDevice_1 or modbusDevice_2 is not set
-    if (!modbusDevice_1 || !modbusDevice_2)
-    {
+    if (!modbusDevice_1 || !modbusDevice_2) {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
@@ -732,7 +685,7 @@ void Interface::onTestConfigurationClicked()
     if (selectedIndex_1 >= 0 && selectedIndex_1 < serialPorts.size()) {
         // Get the selected serial port information
         QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-        QString serialName_1 = serialPortInfo_1.portName();
+        QString         serialName_1     = serialPortInfo_1.portName();
 
         // Ensure modbusDevice_1 is initialized
         if (modbusDevice_1 != nullptr) {
@@ -754,8 +707,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set baud rate for modbusDevice_1 based on user selection
-    switch (ui->cbBaudRate_1->currentIndex())
-    {
+    switch (ui->cbBaudRate_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
         break;
@@ -786,8 +738,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set data bits for modbusDevice_1 based on user selection
-    switch (ui->cbSelectDataBits_1->currentIndex())
-    {
+    switch (ui->cbSelectDataBits_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
         break;
@@ -806,8 +757,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set parity for modbusDevice_1 based on user selection
-    switch (ui->cbSelectParity_1->currentIndex())
-    {
+    switch (ui->cbSelectParity_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
         break;
@@ -829,8 +779,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set stop bits for modbusDevice_1 based on user selection
-    switch (ui->cbSelectStopBits_1->currentIndex())
-    {
+    switch (ui->cbSelectStopBits_1->currentIndex()) {
     case 0:
         modbusDevice_1->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
         break;
@@ -846,7 +795,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     bool ok_1;
-    int timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
+    int  timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
     if (ok_1 && timeout_1 > 0 && timeout_1 <= 1000) {
         modbusDevice_1->setTimeout(timeout_1);
     } else {
@@ -863,12 +812,11 @@ void Interface::onTestConfigurationClicked()
     int retries_1 = ui->cbNumberRetries_1->currentIndex();
     modbusDevice_1->setNumberOfRetries(retries_1);
 
-
     // Configure serial port parameters for modbusDevice_2
     int selectedIndex_2 = ui->cbSelectSerial_2->currentIndex();
     if (selectedIndex_2 >= 0 && selectedIndex_2 < serialPorts.size()) {
         QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-        QString serialName_2 = serialPortInfo_2.portName();
+        QString         serialName_2     = serialPortInfo_2.portName();
 
         if (modbusDevice_2 != nullptr) {
             modbusDevice_2->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_2);
@@ -887,8 +835,7 @@ void Interface::onTestConfigurationClicked()
         DisconnectSerialPort(); // Disconnect any existing serial port connections
     }
     // Set baud rate for modbusDevice_2 based on user selection
-    switch (ui->cbBaudRate_2->currentIndex())
-    {
+    switch (ui->cbBaudRate_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialBaudRateParameter, QSerialPort::Baud1200);
         break;
@@ -919,8 +866,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set data bits for modbusDevice_2 based on user selection
-    switch (ui->cbSelectDataBits_2->currentIndex())
-    {
+    switch (ui->cbSelectDataBits_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialDataBitsParameter, QSerialPort::Data5);
         break;
@@ -939,8 +885,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set parity for modbusDevice_2 based on user selection
-    switch (ui->cbSelectParity_2->currentIndex())
-    {
+    switch (ui->cbSelectParity_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialParityParameter, QSerialPort::NoParity);
         break;
@@ -962,8 +907,7 @@ void Interface::onTestConfigurationClicked()
     }
 
     // Set stop bits for modbusDevice_2 based on user selection
-    switch (ui->cbSelectStopBits_2->currentIndex())
-    {
+    switch (ui->cbSelectStopBits_2->currentIndex()) {
     case 0:
         modbusDevice_2->setConnectionParameter(QModbusDevice::SerialStopBitsParameter, QSerialPort::OneStop);
         break;
@@ -980,7 +924,7 @@ void Interface::onTestConfigurationClicked()
 
     // Set timeout for modbusDevice_2 based on user input
     bool ok_2;
-    int timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
+    int  timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
     if (ok_2 && timeout_2 > 0 && timeout_2 <= 1000) {
         modbusDevice_2->setTimeout(timeout_2);
     } else {
@@ -999,25 +943,19 @@ void Interface::onTestConfigurationClicked()
 
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
-    if (!modbusDevice_1_opened)
-    {
+    if (!modbusDevice_1_opened) {
         qDebug() << "Failed to open modbusDevice_1:";
         qDebug() << modbusDevice_1->errorString();
-    }
-    else
-    {
+    } else {
         qDebug() << "modbusDevice_1 opened successfully!";
     }
 
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
-    if (!modbusDevice_2_opened)
-    {
+    if (!modbusDevice_2_opened) {
         qDebug() << "Failed to open modbusDevice_2:";
         qDebug() << modbusDevice_2->errorString();
-    }
-    else
-    {
+    } else {
         qDebug() << "modbusDevice_2 opened successfully!";
     }
 
@@ -1025,10 +963,10 @@ void Interface::onTestConfigurationClicked()
     QString statusMessage;
 
     QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-    QString serialName_1 = serialPortInfo_1.portName();
+    QString         serialName_1     = serialPortInfo_1.portName();
 
     QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-    QString serialName_2 = serialPortInfo_2.portName();
+    QString         serialName_2     = serialPortInfo_2.portName();
 
     statusMessage += QString("Modbus Device %1 connection status: %2\n").arg(serialName_1).arg(modbusDevice_1_opened ? "Success" : "Failure");
     statusMessage += QString("Modbus Device %1 connection status: %2").arg(serialName_2).arg(modbusDevice_2_opened ? "Success" : "Failure");
@@ -1050,8 +988,7 @@ void Interface::onTestConfigurationClicked()
  * This function refreshes the list of available serial serialPorts, updates the entries in the serial port combo box,
  * and disconnects the current serial port if connected. It also disables the Refresh button to prevent multiple clicks.
  */
-void Interface::onRefreshSerialPortClicked()
-{
+void Interface::onRefreshSerialPortClicked() {
     ui->pbConnect->setEnabled(false);
     ui->pbRefreshSerialPort->setEnabled(true);
     ui->pbSaveConfiguration->setEnabled(false);
@@ -1072,7 +1009,7 @@ void Interface::onRefreshSerialPortClicked()
     ui->cbSelectSerial_2->clear();
 
     // Populate the combo boxes with available serial ports
-    for (const QSerialPortInfo &port : serialPorts) {
+    for (const QSerialPortInfo& port : serialPorts) {
         QString serialPort = port.portName() + " - " + port.description();
         ui->cbSelectSerial_1->addItem(serialPort);
         ui->cbSelectSerial_2->addItem(serialPort); // Assuming both combo boxes should have the same list
@@ -1095,8 +1032,7 @@ void Interface::onRefreshSerialPortClicked()
         ui->pbClose->setEnabled(true);
         ui->pbTestConnection->setEnabled(false);
         QMessageBox::critical(this, tr("Error"), tr("At least two MODBUS interfaces are required."));
-    }
-    else {
+    } else {
         QMessageBox::information(this, tr("Serial Ports Updated"), tr("MODBUS serial ports DB have been updated."));
     }
 }
@@ -1107,11 +1043,9 @@ void Interface::onRefreshSerialPortClicked()
  * This function saves the current configuration settings of the Interface dialog to the Windows registry.
  * It disables the Save button while saving to prevent multiple triggers and re-enables it after saving.
  */
-void Interface::onSaveConfigurationClicked()
-{
+void Interface::onSaveConfigurationClicked() {
     // Check if selections are different
-    if (ui->cbSelectSerial_1->currentIndex() != ui->cbSelectSerial_2->currentIndex())
-    {
+    if (ui->cbSelectSerial_1->currentIndex() != ui->cbSelectSerial_2->currentIndex()) {
         // Disable the Save Configuration button to prevent multiple triggers
         ui->pbSaveConfiguration->setDisabled(true);
 
@@ -1145,9 +1079,7 @@ void Interface::onSaveConfigurationClicked()
 
         // Show message box to confirm configuration saved
         QMessageBox::information(this, "Configuration Saved", "Current MODBUS configuration is saved.");
-    }
-    else
-    {
+    } else {
         // If selections are the same, show a warning message
         QMessageBox::warning(this, "Configuration Not Saved", "Serial port selections must be different to save configuration.");
     }
@@ -1162,8 +1094,7 @@ void Interface::onSaveConfigurationClicked()
  *
  * \param event Pointer to the QShowEvent.
  */
-void Interface::showEvent(QShowEvent *event)
-{
+void Interface::showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
 
     ui->pbConnect->setEnabled(true);
@@ -1250,7 +1181,7 @@ void Interface::showEvent(QShowEvent *event)
         ui->pbTestConnection->setEnabled(false);
         QMessageBox::critical(this, tr("Error"), tr("At least two MODBUS interfaces are required."));
     } else {
-        foreach (const QSerialPortInfo &port, serialPorts) {
+        foreach (const QSerialPortInfo& port, serialPorts) {
             QString serialPort = port.portName() + " - " + port.description();
             ui->cbSelectSerial_1->addItem(serialPort);
             ui->cbSelectSerial_2->addItem(serialPort);
@@ -1265,8 +1196,7 @@ void Interface::showEvent(QShowEvent *event)
  * It updates the UI to reflect the disconnection state and turns off the LED indicator for the serial connection.
  * Additionally, it deletes the ModbusClient object and sets the pointer to null.
  */
-void Interface::DisconnectSerialPort()
-{
+void Interface::DisconnectSerialPort() {
     // Check if the ModbusClient pointers are valid before deleting them
     if (modbusDevice_1) {
         delete modbusDevice_1;
@@ -1284,15 +1214,14 @@ void Interface::DisconnectSerialPort()
         mainwindow->ui->lbConnected->setText(tr("Not connected to RS 485/422 networks"));
 
         // Turn off the LED indicator for serial connection
-        //mainwindow->ui->SerialLedIndicator->setState(false);
+        // mainwindow->ui->SerialLedIndicator->setState(false);
     }
 
     // Update flag indicating Modbus ports are not open
     isOpenModbusPort = false;
 }
 
-void Interface::onSelectSerialChanged()
-{
+void Interface::onSelectSerialChanged() {
     DisconnectSerialPort();
 }
 
@@ -1300,8 +1229,7 @@ void Interface::onSelectSerialChanged()
  * \brief Slot called when the baud rate selection is changed.
  * Disconnects the serial port to apply the new baud rate setting.
  */
-void Interface::onBaudRateChanged()
-{
+void Interface::onBaudRateChanged() {
     DisconnectSerialPort();
 }
 
@@ -1309,8 +1237,7 @@ void Interface::onBaudRateChanged()
  * \brief Slot called when the data bits selection is changed.
  * Disconnects the serial port to apply the new data bits setting.
  */
-void Interface::onSelectDataBitsChanged()
-{
+void Interface::onSelectDataBitsChanged() {
     DisconnectSerialPort();
 }
 
@@ -1318,8 +1245,7 @@ void Interface::onSelectDataBitsChanged()
  * \brief Slot called when the parity selection is changed.
  * Disconnects the serial port to apply the new parity setting.
  */
-void Interface::onSelectParityChanged()
-{
+void Interface::onSelectParityChanged() {
     DisconnectSerialPort();
 }
 
@@ -1327,7 +1253,6 @@ void Interface::onSelectParityChanged()
  * \brief Slot called when the stop bits selection is changed.
  * Disconnects the serial port to apply the new stop bits setting.
  */
-void Interface::onSelectStopBitsChanged()
-{
+void Interface::onSelectStopBitsChanged() {
     DisconnectSerialPort();
 }

@@ -9,9 +9,9 @@
  * \date Insert creation date
  */
 
-#include <cmath>               // Standard C++ math library
-#include "definitions.h"       // Project-specific constants and definitions
-#include "waterdensity.h"      // Header file for water density calculations
+#include "waterdensity.h" // Header file for water density calculations
+#include <cmath>          // Standard C++ math library
+#include "definitions.h"  // Project-specific constants and definitions
 
 /**
  * \brief Array of temperature points (in Celsius) used for various calculations.
@@ -30,8 +30,7 @@ const double temperaturePoints[] =
         70.0, 71.0, 72.0, 73.0, 74.0, 75.0, 76.0, 77.0, 78.0, 79.0,
         80.0, 81.0, 82.0, 83.0, 84.0, 85.0, 86.0, 87.0, 88.0, 89.0,
         90.0, 91.0, 92.0, 93.0, 94.0, 95.0, 96.0, 97.0, 98.0, 99.0,
-        100.0
-};
+        100.0};
 
 /**
  * \brief Array of density values corresponding to temperature points.
@@ -60,19 +59,19 @@ const double densityPoints[] =
  * Contains volume correction factors from 0.0 to 100.0 degrees Celsius (inclusive).
  * These factors are used to correct volumes based on temperature variations.
  */
-        const double volumeCorrectionPoints[] =
-        {
-         1.00116, 1.00110, 1.00106, 1.00104, 1.00103, 1.00104, 1.00106, 1.00110, 1.00115, 1.00122,
-         1.00130, 1.00140, 1.00151, 1.00163, 1.00176, 1.00190, 1.00206, 1.00223, 1.00241, 1.00260,
-         1.00280, 1.00302, 1.00324, 1.00347, 1.00372, 1.00397, 1.00423, 1.00451, 1.00479, 1.00508,
-         1.00538, 1.00569, 1.00601, 1.00634, 1.00667, 1.00702, 1.00737, 1.00773, 1.00810, 1.00847,
-         1.00886, 1.00925, 1.00965, 1.01006, 1.01047, 1.01090, 1.01133, 1.01177, 1.01221, 1.01267,
-         1.01313, 1.01359, 1.01407, 1.01455, 1.01504, 1.01553, 1.01604, 1.01655, 1.01706, 1.01758,
-         1.01811, 1.01865, 1.01919, 1.01974, 1.02030, 1.02086, 1.02143, 1.02200, 1.02259, 1.02317,
-         1.02377, 1.02437, 1.02498, 1.02559, 1.02621, 1.02684, 1.02747, 1.02811, 1.02875, 1.02941,
-         1.03006, 1.03073, 1.03140, 1.03207, 1.03276, 1.03344, 1.03414, 1.03484, 1.03555, 1.03626,
-         1.03698, 1.03770, 1.03844, 1.03917, 1.03992, 1.04067, 1.04142, 1.04219, 1.04295, 1.04373,
-         1.04451, 1.04530 /* 101°C just to be used for interpolation */
+const double volumeCorrectionPoints[] =
+    {
+        1.00116, 1.00110, 1.00106, 1.00104, 1.00103, 1.00104, 1.00106, 1.00110, 1.00115, 1.00122,
+        1.00130, 1.00140, 1.00151, 1.00163, 1.00176, 1.00190, 1.00206, 1.00223, 1.00241, 1.00260,
+        1.00280, 1.00302, 1.00324, 1.00347, 1.00372, 1.00397, 1.00423, 1.00451, 1.00479, 1.00508,
+        1.00538, 1.00569, 1.00601, 1.00634, 1.00667, 1.00702, 1.00737, 1.00773, 1.00810, 1.00847,
+        1.00886, 1.00925, 1.00965, 1.01006, 1.01047, 1.01090, 1.01133, 1.01177, 1.01221, 1.01267,
+        1.01313, 1.01359, 1.01407, 1.01455, 1.01504, 1.01553, 1.01604, 1.01655, 1.01706, 1.01758,
+        1.01811, 1.01865, 1.01919, 1.01974, 1.02030, 1.02086, 1.02143, 1.02200, 1.02259, 1.02317,
+        1.02377, 1.02437, 1.02498, 1.02559, 1.02621, 1.02684, 1.02747, 1.02811, 1.02875, 1.02941,
+        1.03006, 1.03073, 1.03140, 1.03207, 1.03276, 1.03344, 1.03414, 1.03484, 1.03555, 1.03626,
+        1.03698, 1.03770, 1.03844, 1.03917, 1.03992, 1.04067, 1.04142, 1.04219, 1.04295, 1.04373,
+        1.04451, 1.04530 /* 101°C just to be used for interpolation */
 };
 
 /**
@@ -86,15 +85,12 @@ const double densityPoints[] =
  * temperature points and corresponding density values. It handles out-of-range
  * temperatures with default values.
  */
-double linearInterpolationTemperature(double temperature, double correction)
-{
+double linearInterpolationTemperature(double temperature, double correction) {
     // Check if temperature is below 0 or above 100
-    if (temperature <= MIN_TEMPERATURE)
-    {
+    if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_DENSITY_BELOW_ZERO;
     }
-    if (temperature >= MAX_TEMPERATURE)
-    {
+    if (temperature >= MAX_TEMPERATURE) {
         return DEFAULT_DENSITY_ABOVE_HUNDRED;
     }
 
@@ -102,16 +98,15 @@ double linearInterpolationTemperature(double temperature, double correction)
     size_t index = static_cast<size_t>(std::floor(temperature));
 
     // Validate array index
-    if (index >= sizeof(temperaturePoints) / sizeof(temperaturePoints[0]) - 1)
-    {
+    if (index >= sizeof(temperaturePoints) / sizeof(temperaturePoints[0]) - 1) {
         // Handle or log an error, or return a default value
-        return DEFAULT_DENSITY_BELOW_ZERO;  // Adjust with an appropriate default value
+        return DEFAULT_DENSITY_BELOW_ZERO; // Adjust with an appropriate default value
     }
 
     // Perform linear interpolation
     double startTemperature = temperaturePoints[index];
-    double startDensity = densityPoints[index];
-    double stopDensity = densityPoints[index + 1];
+    double startDensity     = densityPoints[index];
+    double stopDensity      = densityPoints[index + 1];
 
     double density = startDensity + (stopDensity - startDensity) * (temperature - startTemperature);
 
@@ -132,37 +127,33 @@ double linearInterpolationTemperature(double temperature, double correction)
  * temperature points and corresponding density values. It handles out-of-range
  * temperatures with default values.
  */
-double quadraticInterpolationTemperature(double temperature, double correction)
-{
-    if (temperature <= MIN_TEMPERATURE)
-    {
+double quadraticInterpolationTemperature(double temperature, double correction) {
+    if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_DENSITY_BELOW_ZERO;
     }
-    if (temperature >= MAX_TEMPERATURE)
-    {
+    if (temperature >= MAX_TEMPERATURE) {
         return DEFAULT_DENSITY_ABOVE_HUNDRED;
     }
 
-    double firstTemperature = std::floor(temperature);
+    double firstTemperature  = std::floor(temperature);
     double secondTemperature = std::floor(temperature + 1);
-    double thirdTemperature = std::floor(temperature + 2);
+    double thirdTemperature  = std::floor(temperature + 2);
 
     // Validate array indices
-    size_t firstIndex = static_cast<size_t>(firstTemperature);
+    size_t firstIndex  = static_cast<size_t>(firstTemperature);
     size_t secondIndex = static_cast<size_t>(secondTemperature);
-    size_t thirdIndex = static_cast<size_t>(thirdTemperature);
+    size_t thirdIndex  = static_cast<size_t>(thirdTemperature);
 
     if (thirdIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
         secondIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
-        firstIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]))
-    {
+        firstIndex >= sizeof(densityPoints) / sizeof(densityPoints[0])) {
         // Handle or log an error, or return a default value
-        return DEFAULT_DENSITY_BELOW_ZERO;  // Adjust with an appropriate default value
+        return DEFAULT_DENSITY_BELOW_ZERO; // Adjust with an appropriate default value
     }
 
-    double firstDensity = densityPoints[firstIndex];
+    double firstDensity  = densityPoints[firstIndex];
     double secondDensity = densityPoints[secondIndex];
-    double thirdDensity = densityPoints[thirdIndex];
+    double thirdDensity  = densityPoints[thirdIndex];
 
     double density = 0.5 * firstDensity * (temperature - secondTemperature) * (temperature - thirdTemperature) -
                      secondDensity * (temperature - firstTemperature) * (temperature - thirdTemperature) +
@@ -184,38 +175,34 @@ double quadraticInterpolationTemperature(double temperature, double correction)
  * temperature points and corresponding correction values. It handles out-of-range
  * temperatures with default values.
  */
-double quadraticInterpolationVolumeCorrection(double temperature)
-{
-    if (temperature <= MIN_TEMPERATURE)
-    {
+double quadraticInterpolationVolumeCorrection(double temperature) {
+    if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_VOLUME_CORRECTION_BELOW_ZERO;
     }
-    if (temperature >= MAX_TEMPERATURE)
-    {
+    if (temperature >= MAX_TEMPERATURE) {
         return DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED;
     }
 
-    double firstTemperature = std::floor(temperature);
+    double firstTemperature  = std::floor(temperature);
     double secondTemperature = std::floor(temperature + 1);
-    double thirdTemperature = std::floor(temperature + 2);
+    double thirdTemperature  = std::floor(temperature + 2);
 
     // Validate array indices
-    size_t firstIndex = static_cast<size_t>(firstTemperature);
+    size_t firstIndex  = static_cast<size_t>(firstTemperature);
     size_t secondIndex = static_cast<size_t>(secondTemperature);
-    size_t thirdIndex = static_cast<size_t>(thirdTemperature);
+    size_t thirdIndex  = static_cast<size_t>(thirdTemperature);
 
     if (thirdIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0]) ||
         secondIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0]) ||
-        firstIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0]))
-    {
+        firstIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0])) {
         // Handle or log an error, or return a default value
-        return DEFAULT_VOLUME_CORRECTION_BELOW_ZERO;  // Adjust with an appropriate default value
+        return DEFAULT_VOLUME_CORRECTION_BELOW_ZERO; // Adjust with an appropriate default value
     }
 
     // Retrieve correction values for interpolation
-    double firstCorrection = volumeCorrectionPoints[firstIndex];
+    double firstCorrection  = volumeCorrectionPoints[firstIndex];
     double secondCorrection = volumeCorrectionPoints[secondIndex];
-    double thirdCorrection = volumeCorrectionPoints[thirdIndex];
+    double thirdCorrection  = volumeCorrectionPoints[thirdIndex];
 
     // Perform quadratic interpolation
     double correctionFactor = 0.5 * firstCorrection * (temperature - secondTemperature) * (temperature - thirdTemperature) -
@@ -224,5 +211,3 @@ double quadraticInterpolationVolumeCorrection(double temperature)
 
     return correctionFactor;
 }
-
-

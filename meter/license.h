@@ -24,16 +24,15 @@ class Licence; ///< Forward declaration of Ui::Licence class.
  * This class inherits from QDialog and provides methods to translate UI components,
  * handle the show event, and manage the dialog's lifecycle.
  */
-class License : public QDialog
-{
+class License : public QDialog {
     Q_OBJECT
 
-public:
+  public:
     /**
      * \brief Constructs a License dialog.
      * \param parent Pointer to the parent widget (optional).
      */
-    explicit License(QWidget *parent = nullptr);
+    explicit License(QWidget* parent = nullptr);
 
     /**
      * \brief Destroys the License dialog.
@@ -48,9 +47,9 @@ public:
      */
     void Translate();
 
-    Ui::Licence *ui; ///< Pointer to the UI object.
+    Ui::Licence* ui; ///< Pointer to the UI object.
 
-private slots:
+  private slots:
     /**
      * \brief Slot function invoked when the dialog is shown.
      * \param event Show event object.
@@ -58,7 +57,7 @@ private slots:
      * Updates UI elements with data from main window's configuration
      * when the License dialog is shown.
      */
-    void showEvent(QShowEvent *event) override;
+    void showEvent(QShowEvent* event) override;
 
     /**
      * \brief Slot function invoked when the close button is clicked.

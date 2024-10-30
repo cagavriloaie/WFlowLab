@@ -11,30 +11,29 @@
 #ifndef FLOWMETERTYPE_H
 #define FLOWMETERTYPE_H
 
-#include <QDir>         // Qt class for handling directories and their contents.
-#include <QMessageBox>  // Qt class for displaying modal dialog boxes with messages.
-#include <iostream>     // Standard C++ stream input/output library.
-#include <fstream>      // Standard C++ file stream input/output library.
-#include <sstream>      // Standard C++ string stream input/output library.
-#include <vector>       // Standard C++ container class for dynamic arrays.
-#include <string>       // Standard C++ string class.
-#include "definitions.h"  // User-defined header file containing project-specific definitions.
+#include <QDir>          // Qt class for handling directories and their contents.
+#include <QMessageBox>   // Qt class for displaying modal dialog boxes with messages.
+#include <fstream>       // Standard C++ file stream input/output library.
+#include <iostream>      // Standard C++ stream input/output library.
+#include <sstream>       // Standard C++ string stream input/output library.
+#include <string>        // Standard C++ string class.
+#include <vector>        // Standard C++ container class for dynamic arrays.
+#include "definitions.h" // User-defined header file containing project-specific definitions.
 
 /** \brief Structure representing a water flow meter type.
  *
  *  This structure holds various properties of a water flow meter, including its name,
  *  nominal diameter, flow rates, and error margins.
  */
-struct MeterFlowType
-{
-    std::string nameWaterMeter; ///< Name of the water meter.
-    unsigned nominalDiameter;   ///< Nominal diameter of the water meter.
-    double nominalFlow;         ///< Nominal flow rate of the water meter.
-    double maximumFlow;         ///< Maximum flow rate of the water meter.
-    double trasitionFlow;       ///< Transition flow rate of the water meter.
-    double minimumFlow;         ///< Minimum flow rate of the water meter.
-    double nominalError;        ///< Nominal error margin of the water meter.
-    double maximumError;        ///< Maximum error margin of the water meter.
+struct MeterFlowType {
+    std::string nameWaterMeter;  ///< Name of the water meter.
+    unsigned    nominalDiameter; ///< Nominal diameter of the water meter.
+    double      nominalFlow;     ///< Nominal flow rate of the water meter.
+    double      maximumFlow;     ///< Maximum flow rate of the water meter.
+    double      trasitionFlow;   ///< Transition flow rate of the water meter.
+    double      minimumFlow;     ///< Minimum flow rate of the water meter.
+    double      nominalError;    ///< Nominal error margin of the water meter.
+    double      maximumError;    ///< Maximum error margin of the water meter.
 
     /** \brief Constructor to initialize MeterFlowType with specific values.
      *
@@ -47,22 +46,22 @@ struct MeterFlowType
      *  \param _nominalError Nominal error margin of the water meter.
      *  \param _maximumError Maximum error margin of the water meter.
      */
-    MeterFlowType(const std::string &_nameWaterMeter,
-                  unsigned _nominalDiameter,
-                  double _nominalFlow,
-                  double _maximumFlow,
-                  double _trasitionFlow,
-                  double _minimumFlow,
-                  double _nominalError,
-                  double _maximumError)
+    MeterFlowType(const std::string& _nameWaterMeter,
+                  unsigned           _nominalDiameter,
+                  double             _nominalFlow,
+                  double             _maximumFlow,
+                  double             _trasitionFlow,
+                  double             _minimumFlow,
+                  double             _nominalError,
+                  double             _maximumError)
         : nameWaterMeter(_nameWaterMeter),
-        nominalDiameter(_nominalDiameter),
-        nominalFlow(_nominalFlow),
-        maximumFlow(_maximumFlow),
-        trasitionFlow(_trasitionFlow),
-        minimumFlow(_minimumFlow),
-        nominalError(_nominalError),
-        maximumError(_maximumError) {}
+          nominalDiameter(_nominalDiameter),
+          nominalFlow(_nominalFlow),
+          maximumFlow(_maximumFlow),
+          trasitionFlow(_trasitionFlow),
+          minimumFlow(_minimumFlow),
+          nominalError(_nominalError),
+          maximumError(_maximumError) {}
 
     /** \brief Default constructor to initialize MeterFlowType with default values.
      *
@@ -155,16 +154,14 @@ std::vector < MeterFlowType > meterFlowTypesDefault =
  *
  * \see MeterFlowType, meterFlowTypesDefault, QMessageBox
  */
-std::vector < MeterFlowType > readFlowMeterTypesCSV(
-    const std::string  &filename)
-{
+std::vector<MeterFlowType> readFlowMeterTypesCSV(
+    const std::string& filename) {
     QString currentPath = QDir::currentPath();
     Q_UNUSED(currentPath);
-    std::ifstream file(filename);
-    std::vector < MeterFlowType > meterFlowTypes;
+    std::ifstream              file(filename);
+    std::vector<MeterFlowType> meterFlowTypes;
 
-    if (!file.is_open())
-    {
+    if (!file.is_open()) {
         QMessageBox warningMessage;
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
@@ -181,14 +178,13 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
 
     bool dbCorrupted = false;
 
-    try
-    {
+    try {
         std::string line;
-        size_t expectedFieldCount = 0;
+        size_t      expectedFieldCount = 0;
 
         if (std::getline(file, line)) {
             std::istringstream iss(line);
-            std::string field;
+            std::string        field;
 
             // Count the number of fields in the first line to determine the expected count
             while (std::getline(iss, field, CSV_DELIMITER)) {
@@ -197,12 +193,12 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
         }
 
         while (std::getline(file, line)) {
-            std::string lineCopy = line;
-            size_t actualFieldCount = 0;
+            std::string lineCopy         = line;
+            size_t      actualFieldCount = 0;
 
             // Count the number of fields in the current line
             std::istringstream issCopy(lineCopy);
-            std::string field;
+            std::string        field;
             while (std::getline(issCopy, field, CSV_DELIMITER)) {
                 actualFieldCount++;
             }
@@ -214,9 +210,9 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
             }
 
             // Parse the line into MeterFlowType structure
-            MeterFlowType meterFlow;
+            MeterFlowType      meterFlow;
             std::istringstream iss(line);
-            std::string token;
+            std::string        token;
 
             std::getline(iss, meterFlow.nameWaterMeter, CSV_DELIMITER);
             std::getline(iss, token, CSV_DELIMITER);
@@ -237,9 +233,7 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
             // Add the parsed MeterFlowType to the vector
             meterFlowTypes.push_back(meterFlow);
         }
-    }
-    catch (const std::exception &e)
-    {
+    } catch (const std::exception& e) {
         file.close();
         QMessageBox warningMessage;
         warningMessage.addButton(QMessageBox::Ok);
@@ -256,8 +250,7 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
 
     file.close();
 
-    if (dbCorrupted)
-    {
+    if (dbCorrupted) {
         QMessageBox warningMessage;
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
@@ -285,6 +278,5 @@ std::vector < MeterFlowType > readFlowMeterTypesCSV(
  * \see MeterFlowType, MAX_NUMBER_FLOW_METER_TYPES
  */
 MeterFlowType MeterFlowDB[MAX_NUMBER_FLOW_METER_TYPES] = {};
-
 
 #endif // FLOWMETERTYPE_H

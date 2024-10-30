@@ -9,9 +9,9 @@
  * \date Insert date
  */
 
-#include "helpabout.h"       // Include the header file for HelpAbout dialog
-#include "ui_helpabout.h"    // Include the generated UI header file
-#include "definitions.h"     // Include project-wide constants and definitions
+#include "helpabout.h"    // Include the header file for HelpAbout dialog
+#include "definitions.h"  // Include project-wide constants and definitions
+#include "ui_helpabout.h" // Include the generated UI header file
 
 /**
  * \brief Translates and sets the text for the About dialog.
@@ -19,8 +19,7 @@
  * This function sets the translated text for various labels and the window title in the About dialog.
  * It ensures that all UI elements display the correct information in the appropriate language.
  */
-void HelpAbout::Translate()
-{
+void HelpAbout::Translate() {
     // Set window title
     setWindowTitle(tr("WStreamLab - About"));
 
@@ -32,7 +31,7 @@ void HelpAbout::Translate()
      * \param label Pointer to the QLabel to set the text for.
      * \param text The text to set for the QLabel.
      */
-    auto setLabelText = [](QLabel *label, const QString &text) {
+    auto setLabelText = [](QLabel* label, const QString& text) {
         label->setText(tr(text.toUtf8()));
     };
 
@@ -61,9 +60,9 @@ void HelpAbout::Translate()
  *
  * \param parent Pointer to the parent widget. Defaults to nullptr.
  */
-HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent),
-    ui(new Ui::HelpAbout)
-{
+HelpAbout::HelpAbout(QWidget* parent)
+    : QDialog(parent),
+      ui(new Ui::HelpAbout) {
     ui->setupUi(this);
     Translate(); // Call the translation function
 
@@ -79,8 +78,7 @@ HelpAbout::HelpAbout(QWidget *parent) : QDialog(parent),
  *
  * This destructor cleans up the user interface by deleting the `ui` pointer.
  */
-HelpAbout::~HelpAbout()
-{
+HelpAbout::~HelpAbout() {
     delete ui;
 }
 
@@ -89,7 +87,6 @@ HelpAbout::~HelpAbout()
  *
  * This function is called when the close button is clicked. It hides the About dialog.
  */
-void HelpAbout::onCloseClicked()
-{
+void HelpAbout::onCloseClicked() {
     this->hide();
 }

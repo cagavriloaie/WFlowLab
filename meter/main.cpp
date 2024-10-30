@@ -16,30 +16,28 @@
  * --recursive
  */
 
-#include <QApplication>      // Qt application handling
-#include <QMessageBox>       // Qt message box for displaying alerts
-#include <QSharedMemory>     // Qt class for managing shared memory segments
-#include <QString>           // Qt string class
-#include <QTimer>            // Qt timer class for periodic events
-#include <QPainter>          // Qt painter for drawing operations
-#include <QEventLoop>        // Qt event loop for event handling
-#include <QDir>              // Qt directory handling
-#include <QThread>           // Qt thread management
+#include <QApplication>  // Qt application handling
+#include <QDir>          // Qt directory handling
+#include <QEventLoop>    // Qt event loop for event handling
+#include <QMessageBox>   // Qt message box for displaying alerts
+#include <QPainter>      // Qt painter for drawing operations
+#include <QSharedMemory> // Qt class for managing shared memory segments
+#include <QString>       // Qt string class
+#include <QThread>       // Qt thread management
+#include <QTimer>        // Qt timer class for periodic events
 
-#include <windows.h>         // Windows API main header
-#include <winnt.h>           // Windows NT definitions
-#include <fstream>           // File stream operations
+#include <fstream>   // File stream operations
+#include <windows.h> // Windows API main header
+#include <winnt.h>   // Windows NT definitions
 
-#include "mainwindow.h"      // Include header for MainWindow class
-
+#include "mainwindow.h" // Include header for MainWindow class
 
 /**
  * \brief The PixelImageWidget class represents a custom widget that displays
  *        a pixelated image and handles application-specific functionalities.
  */
-class PixelImageWidget : public QMainWindow
-{
-public:
+class PixelImageWidget : public QMainWindow {
+  public:
     /**
      * \brief Constructor for PixelImageWidget.
      *
@@ -50,8 +48,8 @@ public:
      *
      * \param parent Optional parent widget (default is nullptr).
      */
-    explicit PixelImageWidget(QWidget *parent = nullptr) : QMainWindow(parent)
-    {
+    explicit PixelImageWidget(QWidget* parent = nullptr)
+        : QMainWindow(parent) {
         setAttribute(Qt::WA_TranslucentBackground); // Enable transparency
         setWindowFlags(Qt::FramelessWindowHint);    // Remove window frame
         setFixedSize(400, 300);                     // Set the size of the widget
@@ -60,9 +58,9 @@ public:
         QTimer::singleShot(3000, this, &PixelImageWidget::hidePixelImage);
     }
 
-    MainWindow *mainWindow = nullptr;
+    MainWindow* mainWindow = nullptr;
 
-protected:
+  protected:
     /**
      * \brief Calculates the centered rectangle within an outer rectangle.
      *
@@ -73,8 +71,7 @@ protected:
      * \param inner Size of the inner rectangle.
      * \return QRect representing the centered rectangle.
      */
-    QRect centeredRect(const QSize &outer, const QSize &inner)
-    {
+    QRect centeredRect(const QSize& outer, const QSize& inner) {
         return QRect((outer.width() - inner.width()) / 2,
                      (outer.height() - inner.height()) / 2, inner.width(), inner.height());
     }
@@ -86,9 +83,8 @@ protected:
      *
      * \return std::wstring containing the path of the executable.
      */
-    std::wstring ExePath()
-    {
-        TCHAR buffer[MAX_PATH] = { 0 };
+    std::wstring ExePath() {
+        TCHAR buffer[MAX_PATH] = {0};
         GetModuleFileName(NULL, buffer, MAX_PATH);
         std::wstring::size_type pos = std::wstring(buffer).find_last_of(
             L"\\/");
@@ -96,26 +92,23 @@ protected:
     }
 
     /**
- * \brief Paints the widget with a gradient and textual information.
- *
- * This method overrides the QWidget::paintEvent and is responsible for painting
- * the widget with a gradient from red to blue across its entire area. It also
- * displays textual information at the top of the widget.
- *
- * \param event The paint event that triggered this method.
- */
-    void paintEvent(QPaintEvent *) override
-    {
+     * \brief Paints the widget with a gradient and textual information.
+     *
+     * This method overrides the QWidget::paintEvent and is responsible for painting
+     * the widget with a gradient from red to blue across its entire area. It also
+     * displays textual information at the top of the widget.
+     *
+     * \param event The paint event that triggered this method.
+     */
+    void paintEvent(QPaintEvent*) override {
         QPainter painter(this);
 
         // Fill the QPixmap with pixel data (example: gradient from red to blue)
-        for (int x = 0; x < width(); ++x)
-        {
-            for (int y = 0; y < height(); ++y)
-            {
-                int red = static_cast<int>(255 * static_cast<double>(x) / width());
+        for (int x = 0; x < width(); ++x) {
+            for (int y = 0; y < height(); ++y) {
+                int red   = static_cast<int>(255 * static_cast<double>(x) / width());
                 int green = static_cast<int>(255 * static_cast<double>(y) / height());
-                int blue = static_cast<int>(255 * (1 - static_cast<double>(x) / width()));
+                int blue  = static_cast<int>(255 * (1 - static_cast<double>(x) / width()));
                 painter.setPen(QColor(red, green, blue));
                 painter.drawPoint(x, y);
             }
@@ -132,21 +125,17 @@ protected:
             "\n"
             "   > WStreamLab\n"
             "   > Elcost Romania\n"
-            "   > Ver [1.2 12.23]\n"
-            );
+            "   > Ver [1.2 12.23]\n");
 
         // Reading configuration file for additional company information
-        std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
-        std::ifstream inConfigurationFile(pathToConfig.c_str());
+        std::wstring                       pathToConfig = ExePath() + L"\\watermeters.conf";
+        std::ifstream                      inConfigurationFile(pathToConfig.c_str());
         std::map<std::string, std::string> optionsConfiguration;
-        if (inConfigurationFile.is_open())
-        {
+        if (inConfigurationFile.is_open()) {
             std::string key;
-            while (std::getline(inConfigurationFile, key, '='))
-            {
+            while (std::getline(inConfigurationFile, key, '=')) {
                 std::string value;
-                if (std::getline(inConfigurationFile, value, '>'))
-                {
+                if (std::getline(inConfigurationFile, value, '>')) {
                     optionsConfiguration[key] = value;
                     std::getline(inConfigurationFile, value);
                 }
@@ -162,18 +151,16 @@ protected:
         painter.drawText(textRect, Qt::AlignTop, message);
     }
 
-
-private slots:
+  private slots:
     /**
      * \brief Hides the PixelImageWidget and shows the main window.
      *
      * This slot function hides the PixelImageWidget and then shows the main window
      * associated with this widget.
      */
-    void hidePixelImage()
-    {
-        hide();         // Hide the PixelImageWidget
-        showMainWindow();// Show the main window
+    void hidePixelImage() {
+        hide();           // Hide the PixelImageWidget
+        showMainWindow(); // Show the main window
     }
 
     /**
@@ -182,8 +169,7 @@ private slots:
      * This slot function shows the main window that is associated with the current
      * PixelImageWidget instance.
      */
-    void showMainWindow()
-    {
+    void showMainWindow() {
         mainWindow->show(); // Show the main window
     }
 };
@@ -195,8 +181,7 @@ private slots:
  * It is initially set to nullptr and later assigned an instance of QTranslator
  * when loading translations.
  */
-QTranslator *appTranslator = nullptr;
-
+QTranslator* appTranslator = nullptr;
 
 /**
  * \brief Loads the application translations from a specified path.
@@ -209,7 +194,7 @@ QTranslator *appTranslator = nullptr;
  */
 bool loadTranslations() {
     QString qmPath = qApp->applicationDirPath() + QDir::separator() + "translations";
-    appTranslator = new QTranslator(nullptr);
+    appTranslator  = new QTranslator(nullptr);
 
     if (appTranslator->load(qmPath + QDir::separator() + "meter_ro_RO.qm")) {
         qApp->installTranslator(appTranslator);
@@ -229,7 +214,7 @@ bool loadTranslations() {
  * \param shared Pointer to a QSharedMemory instance for managing shared memory.
  * \return True if another instance is already running, false if this is the first instance.
  */
-bool checkAndHandleMultipleInstances(QSharedMemory *shared) {
+bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
     // Create a shared memory segment
     if (!shared->create(512, QSharedMemory::ReadWrite)) {
         // Another instance is already running
@@ -252,19 +237,18 @@ bool checkAndHandleMultipleInstances(QSharedMemory *shared) {
     return false; // This instance is the first one
 }
 
-
 /**
  * \brief The main entry point of the application.
  * \param argc Number of command-line arguments.
  * \param argv Array of command-line arguments.
  * \return Application exit status.
  */
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
     // Unique key for shared memory
-    QString key = QString("Constantin + 365566a75ebf0c4a5cbf");
-    QSharedMemory *shared = new QSharedMemory(key);
+    QString        key    = QString("Constantin + 365566a75ebf0c4a5cbf");
+    QSharedMemory* shared = new QSharedMemory(key);
 
     // Load translations
     if (loadTranslations()) {

@@ -9,42 +9,41 @@
  * \date Insert creation date
  */
 
-#include <algorithm>            // Standard C++ algorithms
-#include <chrono>               // C++11 time utilities
-#include <ctime>                // C time utilities
-#include <iomanip>              // I/O manipulators
-#include <iostream>             // Standard I/O streams
-#include <sstream>              // String stream operations
-#include <string>               // String utilities
-#include <thread>               // C++11 thread support
-#include <mutex>                // C++11 mutual exclusion primitives
+#include <algorithm> // Standard C++ algorithms
+#include <chrono>    // C++11 time utilities
+#include <ctime>     // C time utilities
+#include <iomanip>   // I/O manipulators
+#include <iostream>  // Standard I/O streams
+#include <mutex>     // C++11 mutual exclusion primitives
+#include <sstream>   // String stream operations
+#include <string>    // String utilities
+#include <thread>    // C++11 thread support
 
-#include <QCheckBox>            // Qt checkbox widget
-#include <QCoreApplication>     // Qt core application handling
-#include <QDateTime>            // Qt date and time handling
-#include <QDialog>              // Qt dialog window
-#include <QDesktopServices>     // Qt desktop services
-#include <QDoubleValidator>     // Qt validator for double values
-#include <QFileDialog>          // Qt file dialog
-#include <QKeyEvent>            // Qt key event handling
-#include <QLabel>               // Qt label widget
-#include <QLineEdit>            // Qt line edit widget
-#include <QMainWindow>          // Qt main window
-#include <QMessageBox>          // Qt message box for alerts
-#include <QPageSize>            // Qt page size
-#include <QPainter>             // Qt painter for drawing
-#include <QPrintDialog>         // Qt print dialog
-#include <QPrinter>             // Qt printer support
-#include <QSettings>            // Qt application settings
-#include <QString>              // Qt string class
-#include <QTimer>               // Qt timer for periodic events
-#include <QValidator>           // Qt validator base class
+#include <QCheckBox>        // Qt checkbox widget
+#include <QCoreApplication> // Qt core application handling
+#include <QDateTime>        // Qt date and time handling
+#include <QDesktopServices> // Qt desktop services
+#include <QDialog>          // Qt dialog window
+#include <QDoubleValidator> // Qt validator for double values
+#include <QFileDialog>      // Qt file dialog
+#include <QKeyEvent>        // Qt key event handling
+#include <QLabel>           // Qt label widget
+#include <QLineEdit>        // Qt line edit widget
+#include <QMainWindow>      // Qt main window
+#include <QMessageBox>      // Qt message box for alerts
+#include <QPageSize>        // Qt page size
+#include <QPainter>         // Qt painter for drawing
+#include <QPrintDialog>     // Qt print dialog
+#include <QPrinter>         // Qt printer support
+#include <QSettings>        // Qt application settings
+#include <QString>          // Qt string class
+#include <QTimer>           // Qt timer for periodic events
+#include <QValidator>       // Qt validator base class
 
-#include "mainwindow.h"        // Your application's main window
-#include "report.h"            // Header for report functionality
-#include "ui_mainwindow.h"      // UI definition for main window
-#include "ui_report.h"         // UI definition for report dialog
-
+#include "mainwindow.h"    // Your application's main window
+#include "report.h"        // Header for report functionality
+#include "ui_mainwindow.h" // UI definition for main window
+#include "ui_report.h"     // UI definition for report dialog
 
 /**
  * \extern MainWindow *pMainWindow
@@ -53,7 +52,7 @@
  * This global variable holds a pointer to the main window instance,
  * allowing access to its properties and methods from various parts of the application.
  */
-extern MainWindow *pMainWindow;
+extern MainWindow* pMainWindow;
 
 /**
  * \extern std::mutex printReportPdfThreadMutex
@@ -73,8 +72,7 @@ std::mutex printReportPdfThreadMutex;
  *
  * \param report The HTML content to be printed into the PDF.
  */
-void ReportMeasurements::printPdfThread(QString report)
-{
+void ReportMeasurements::printPdfThread(QString report) {
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
@@ -106,8 +104,7 @@ void ReportMeasurements::printPdfThread(QString report)
     outputReport.setDocumentMargin(0);
 
     // Check if the PDF generation is successful
-    if (outputReport.isEmpty() || !printer.isValid())
-    {
+    if (outputReport.isEmpty() || !printer.isValid()) {
         qDebug() << "Error: Empty document or invalid printer, PDF not generated.";
         return;
     }
@@ -117,8 +114,7 @@ void ReportMeasurements::printPdfThread(QString report)
 
     // Check if the file was created successfully and is non-empty
     QFile outputFile(fileName);
-    if (!outputFile.exists() || outputFile.size() == 0)
-    {
+    if (!outputFile.exists() || outputFile.size() == 0) {
         qDebug() << "Error: Failed to generate a non-empty PDF file.";
         return;
     }
@@ -139,114 +135,99 @@ void ReportMeasurements::printPdfThread(QString report)
  *                  Default is false.
  * \return A string containing the Romanian words representation of the number.
  */
-std::string convertNumberToWords(int num, bool addSuffix = false)
-{
+std::string convertNumberToWords(int num, bool addSuffix = false) {
     static const std::string units[] =
         {
-            "",         ///< 0
-            "un",       ///< 1
-            "doua",     ///< 2
-            "trei",     ///< 3
-            "patru",    ///< 4
-            "cinci",    ///< 5
-            "sase",     ///< 6
-            "sapte",    ///< 7
-            "opt",      ///< 8
-            "noua"      ///< 9
+            "",      ///< 0
+            "un",    ///< 1
+            "doua",  ///< 2
+            "trei",  ///< 3
+            "patru", ///< 4
+            "cinci", ///< 5
+            "sase",  ///< 6
+            "sapte", ///< 7
+            "opt",   ///< 8
+            "noua"   ///< 9
         };
     static const std::string teens[] =
         {
-            "",                 ///< 0
-            "unsprezece",       ///< 11
-            "doisprezece",      ///< 12
-            "treisprezece",     ///< 13
-            "paisprezece",      ///< 14
-            "cincisprezece",    ///< 15
-            "saisprezece",      ///< 16
-            "saptesprezece",    ///< 17
-            "optisprezece",     ///< 18
-            "nouasprezece"      ///< 19
+            "",              ///< 0
+            "unsprezece",    ///< 11
+            "doisprezece",   ///< 12
+            "treisprezece",  ///< 13
+            "paisprezece",   ///< 14
+            "cincisprezece", ///< 15
+            "saisprezece",   ///< 16
+            "saptesprezece", ///< 17
+            "optisprezece",  ///< 18
+            "nouasprezece"   ///< 19
         };
     static const std::string tens[] =
         {
-            "",             ///< 0
-            "",             ///< 1
-            "douazeci",     ///< 20
-            "treizeci",     ///< 30
-            "patruzeci",    ///< 40
-            "cincizeci",    ///< 50
-            "saizeci",      ///< 60
-            "saptezeci",    ///< 70
-            "optzeci",      ///< 80
-            "nouazeci"      ///< 90
+            "",          ///< 0
+            "",          ///< 1
+            "douazeci",  ///< 20
+            "treizeci",  ///< 30
+            "patruzeci", ///< 40
+            "cincizeci", ///< 50
+            "saizeci",   ///< 60
+            "saptezeci", ///< 70
+            "optzeci",   ///< 80
+            "nouazeci"   ///< 90
         };
 
     std::string result;
 
     // Handle zero case
-    if (num == 0)
-    {
+    if (num == 0) {
         return (addSuffix) ? "zero" : "";
     }
 
     // Handle negative numbers
-    if (num < 0)
-    {
+    if (num < 0) {
         result += "minus ";
         num = -num; // Make num positive for further processing
     }
 
     // Handle millions part
-    if (num >= 1000000)
-    {
+    if (num >= 1000000) {
         result += convertNumberToWords(num / 1000000, true);
         result += (num / 1000000 == 1) ? " milion " : " milioane ";
         num %= 1000000;
     }
 
     // Handle thousands part
-    if (num >= 1000)
-    {
-        if (num >= 2000)
-        {
+    if (num >= 1000) {
+        if (num >= 2000) {
             result += convertNumberToWords(num / 1000, true);
-        }
-        else
-        {
+        } else {
             result += "o mie ";
         }
         num %= 1000;
     }
 
     // Handle hundreds part
-    if (num >= 100)
-    {
-        if (num >= 200)
-        {
+    if (num >= 100) {
+        if (num >= 200) {
             result += " " + convertNumberToWords(num / 100, true) + " sute ";
-        }
-        else
-        {
+        } else {
             result += "o suta ";
         }
         num %= 100;
     }
 
     // Handle teens (11-19)
-    if (num >= 11 && num <= 19)
-    {
+    if (num >= 11 && num <= 19) {
         result += teens[num - 11] + " ";
     }
     // Handle tens (20, 30, ..., 90)
-    else if (num >= 20 || num == 10)
-    {
+    else if (num >= 20 || num == 10) {
         result += tens[num / 10] + " ";
         num %= 10;
     }
 
     // Handle units (1-9)
-    if (num >= 1 && num <= 9)
-    {
+    if (num >= 1 && num <= 9) {
         result += units[num];
     }
 
@@ -269,8 +250,7 @@ std::string convertNumberToWords(int num, bool addSuffix = false)
  * report.Translate();
  * \endcode
  */
-void ReportMeasurements::Translate()
-{
+void ReportMeasurements::Translate() {
     this->setWindowTitle(tr("WFlowLab - Informatii buletin verificare metrologica"));
     ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
     ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
@@ -302,15 +282,14 @@ void ReportMeasurements::Translate()
  * \param vectorSerialNumber Vector of QLineEdit pointers used for storing serial numbers.
  * \param resultAllTests Array of QString containing results of all tests.
  */
-ReportMeasurements::ReportMeasurements(QWidget *parent,
-                                       const std::vector<QCheckBox *> &vectorCheckNumber,
-                                       const std::vector<QLineEdit *> &vectorSerialNumber,
-                                       const QString resultAllTests[20]):
-    QDialog(parent),
-    ui(new Ui::report),
-    vectorCheckNumberCopy(vectorCheckNumber),
-    vectorSerialNumberCopy(vectorSerialNumber)
-{
+ReportMeasurements::ReportMeasurements(QWidget*                       parent,
+                                       const std::vector<QCheckBox*>& vectorCheckNumber,
+                                       const std::vector<QLineEdit*>& vectorSerialNumber,
+                                       const QString                  resultAllTests[20])
+    : QDialog(parent),
+      ui(new Ui::report),
+      vectorCheckNumberCopy(vectorCheckNumber),
+      vectorSerialNumberCopy(vectorSerialNumber) {
     // Set up the UI
     ui->setupUi(this);
 
@@ -321,8 +300,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     QTimerGenerareBv = new QTimer(this);
 
     // Copy resultsAllTests array
-    for (size_t iter = 0; iter < MAX_ARRAY_SIZE; ++iter)
-    {
+    for (size_t iter = 0; iter < MAX_ARRAY_SIZE; ++iter) {
         resultAllTestsCopy[iter] = resultAllTests[iter];
     }
 
@@ -354,7 +332,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
     ui->pbInchide->setText(tr("&Inchide"));
 
     // Set up validators
-    QDoubleValidator *validatorDoubleNumber = new QDoubleValidator(this);
+    QDoubleValidator* validatorDoubleNumber = new QDoubleValidator(this);
     ui->leCost->setValidator(validatorDoubleNumber);
 
     // Load settings from QSettings
@@ -387,8 +365,7 @@ ReportMeasurements::ReportMeasurements(QWidget *parent,
  *
  * Cleans up the user interface (ui) resources.
  */
-ReportMeasurements::~ReportMeasurements()
-{
+ReportMeasurements::~ReportMeasurements() {
     delete ui;
 }
 
@@ -398,8 +375,7 @@ ReportMeasurements::~ReportMeasurements()
  * Collects data from line edits, validates input, and generates a verification report in PDF format.
  * Displays error message if any required field is empty.
  */
-void ReportMeasurements::onPrintClicked()
-{
+void ReportMeasurements::onPrintClicked() {
     // Collect line edits in a vector
     std::vector<QLineEdit*> lineEdits = {
         ui->leAutorizatiaNumarul,
@@ -409,8 +385,7 @@ void ReportMeasurements::onPrintClicked()
         ui->leNormativ,
         ui->leCost,
         ui->leVerificatorMetrolog,
-        ui->leLoculEfectuariiVerificarii
-    };
+        ui->leLoculEfectuariiVerificarii};
 
     // Check if any field is empty
     bool anyFieldEmpty = std::any_of(lineEdits.begin(), lineEdits.end(), [](const QLineEdit* lineEdit) {
@@ -436,20 +411,20 @@ void ReportMeasurements::onPrintClicked()
     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
 
     // Convert the time_t to a tm structure
-    std::tm *localTime = std::localtime(&currentTime);
+    std::tm* localTime = std::localtime(&currentTime);
 
     // Other variables
     size_t entriesTable = pMainWindow->selectedInfo.entriesNumber;
 
-    QString ltCode = ui->leCoduldinLt->text();
-    QString nmlNtmNorms = ui->leNormativ->text();
-    QString checkValability = ui->cbValabilitate->currentText();
-    QString costRon = ui->leCost->text();
-    QString companyLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["company"]);
-    QString autorizationNumarul = ui->leAutorizatiaNumarul->text();
+    QString ltCode                = ui->leCoduldinLt->text();
+    QString nmlNtmNorms           = ui->leNormativ->text();
+    QString checkValability       = ui->cbValabilitate->currentText();
+    QString costRon               = ui->leCost->text();
+    QString companyLaboratory     = QString::fromStdString(pMainWindow->optionsConfiguration["company"]);
+    QString autorizationNumarul   = ui->leAutorizatiaNumarul->text();
     QString certiticateLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["certificate"]);
-    QString detinator = ui->leBeneficiar->text();
-    QString meterType = pMainWindow->ui->cbWaterMeterType->currentText();
+    QString detinator             = ui->leBeneficiar->text();
+    QString meterType             = pMainWindow->ui->cbWaterMeterType->currentText();
 
     std::stringstream htmlTable;
 
@@ -541,16 +516,14 @@ void ReportMeasurements::onPrintClicked()
 
     size_t entriesTableUsed{0};
 
-    for (size_t row = 0; row < entriesTable; ++row)
-    {
-        if (!vectorCheckNumberCopy[row]->checkState())
-        {
+    for (size_t row = 0; row < entriesTable; ++row) {
+        if (!vectorCheckNumberCopy[row]->checkState()) {
             continue;
         }
         ++entriesTableUsed;
         htmlTable << "      <tr style=\"height: 20px;\">\n"
                   << "        <td class=\"reduced-height\">1</td>\n"
-                  << "        <td class=\"reduced-height\">" << meterType.toStdString() <<  "<br>"
+                  << "        <td class=\"reduced-height\">" << meterType.toStdString() << "<br>"
                   << vectorSerialNumberCopy[row]->text().toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << ltCode.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << nmlNtmNorms.toStdString() << "</td>\n"
@@ -576,13 +549,11 @@ void ReportMeasurements::onPrintClicked()
     streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
 
-
     for (size_t row = 0; row < 1; ++row) // Assuming you want to iterate only once based on the provided loop condition
     {
         htmlTable << "     <tr style=\"height: 20px;\">\n";
 
-        switch (row)
-        {
+        switch (row) {
         case 0:
             htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
                       << "Data si ora finalizarii masurarilor:____________________________________________________</td>\n"
@@ -602,7 +573,6 @@ void ReportMeasurements::onPrintClicked()
                       << "        <td>" << totalCostTVA << "</td>\n";
             break;
         }
-
 
         htmlTable << "        </tr>\n";
     }
@@ -629,23 +599,22 @@ void ReportMeasurements::onPrintClicked()
               << "    </tbody>\n"
               << "</table>\n"
               << "<div class=\"text-container\" style=\"text-align: left;\">"
-              << "<p style=\"font-size: 7px; line-height: 0.6;\">" <<
-        "1) Prezentul buletin nu se refera la caractersitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
-        "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeazasi numarul AM<br>"
-        "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
-        "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul<br>certificatului de "
-        "calibrare<br><br>"
-        "F-02-PML 3-01</p>";
+              << "<p style=\"font-size: 7px; line-height: 0.6;\">" << "1) Prezentul buletin nu se refera la caractersitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
+                                                                      "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeazasi numarul AM<br>"
+                                                                      "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
+                                                                      "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul<br>certificatului de "
+                                                                      "calibrare<br><br>"
+                                                                      "F-02-PML 3-01</p>";
 
     htmlTable << "</body>\n"
               << "</html>\n";
 
-///////////////////////
-//    std::string fileNameHtlm = "generated_html_file.html";
-//    std::ofstream outputFile(fileNameHtlm);
-//    outputFile << htmlTable.str();
-//    outputFile.close();
-///////////////////////
+    ///////////////////////
+    //    std::string fileNameHtlm = "generated_html_file.html";
+    //    std::ofstream outputFile(fileNameHtlm);
+    //    outputFile << htmlTable.str();
+    //    outputFile.close();
+    ///////////////////////
 
     QTimerGenerareBv->start(2000);
     ui->pbGenerareBV->setEnabled(false);
@@ -697,8 +666,7 @@ messageBoxVerificationReport.exec();
  *
  * Hides the dialog window.
  */
-void ReportMeasurements::onCloseClicked()
-{
+void ReportMeasurements::onCloseClicked() {
     this->hide();
 }
 
@@ -707,8 +675,7 @@ void ReportMeasurements::onCloseClicked()
  *
  * Stops the timer and re-enables the "Generate BV" button.
  */
-void ReportMeasurements::enableGenerareBvButton()
-{
+void ReportMeasurements::enableGenerareBvButton() {
     // Stop the timer
     QTimerGenerareBv->stop();
 

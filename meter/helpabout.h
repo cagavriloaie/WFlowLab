@@ -11,7 +11,7 @@
 #ifndef HELPABOUT_H
 #define HELPABOUT_H
 
-#include <QDialog>  // Qt class for creating modal or modeless dialogs.
+#include <QDialog> // Qt class for creating modal or modeless dialogs.
 
 namespace Ui {
 class HelpAbout;
@@ -24,16 +24,15 @@ class HelpAbout;
  * Help/About information in a dialog window. It includes a slot for handling
  * the close button click event and a method for translating UI elements.
  */
-class HelpAbout : public QDialog
-{
+class HelpAbout : public QDialog {
     Q_OBJECT
 
-public:
+  public:
     /**
      * \brief Constructs a HelpAbout dialog.
      * \param parent Optional pointer to the parent widget.
      */
-    explicit HelpAbout(QWidget *parent = nullptr);
+    explicit HelpAbout(QWidget* parent = nullptr);
 
     /**
      * \brief Destructor.
@@ -48,10 +47,10 @@ public:
      */
     void Translate();
 
-private:
-    Ui::HelpAbout *ui; ///< Pointer to the UI object.
+  private:
+    Ui::HelpAbout* ui; ///< Pointer to the UI object.
 
-private slots:
+  private slots:
     /**
      * \brief Slot function called when the close button is clicked.
      *
@@ -60,6 +59,5 @@ private slots:
      */
     void onCloseClicked();
 };
-
 
 #endif // HELPABOUT_H
