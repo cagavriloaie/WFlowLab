@@ -626,7 +626,10 @@ void ReportMeasurements::onPrintClicked() {
     settings.beginGroup("Report");
 
     settings.setValue("autorizatiaNumarul", ui->leAutorizatiaNumarul->text());
-    settings.setValue("numarInregistrare", ui->leNumarInregistrare->text());
+    int numarInregistrare =  ui->leNumarInregistrare->text().toInt();
+    numarInregistrare++;
+    ui->leNumarInregistrare->setText(QString::number(numarInregistrare));
+    settings.setValue("numarInregistrare", numarInregistrare);
     settings.setValue("beneficiar", ui->leBeneficiar->text());
     settings.setValue("codulDinLt", ui->leCoduldinLt->text());
     settings.setValue("normativ", ui->leNormativ->text());
