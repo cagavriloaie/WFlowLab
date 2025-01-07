@@ -1,5 +1,5 @@
 #define AppName "WStreamLab"
-#define AppVersion "1.4"
+#define AppVersion "1.5"
 #define AppPublisher "ELCOST"
 #define AppExeName "WStreamLab.exe"
 #define AppIconName "WStreamLab.ico"

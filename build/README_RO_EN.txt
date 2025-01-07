@@ -12,6 +12,7 @@ V 1.1 11.2023 Traduceri corectate și restricții de introducere a datelor adău
 V 1.2 01.2024 Adăugare document PDF raport metrologic
 V 1.3 03.2024 Corecții pentru fișierul PDF generat FM
 V 1.4 07.2024 Fixuri UI
+V 1.5 01.2025 Observatii Buletin Verificare Metrologica (CUP Focsani)
 
 **Sistem de operare țintă**
    - Windows 11, lansat în 2021 sau ulterior
@@ -76,12 +77,13 @@ Pentru întrebări referitoare la licențiere și permisiuni de utilizare, vă r
 ****************************************************
 
 **History**
-V 0.9   02.2023   Unofficial release, under development;
-V 1.0   05.2023   First official release, automatic RS 485 interface detection
-V 1.1   11.2023   Fixed translations and added data input restrictions
-V 1.2   01.2024   Added metrological report PDF document
-V 1.3   03.2024   Some fixes for generated FM pdf file
-V 1.4   07.2024   UI fixes
+V 0.9 02.2023 Unofficial release, under development;
+V 1.0 05.2023 First official release, automatic RS 485 interface detection
+V 1.1 11.2023 Fixed translations and added data input restrictions
+V 1.2 01.2024 Added metrological report PDF document
+V 1.3 03.2024 Some fixes for generated FM PDF file
+V 1.4 07.2024 UI fixes
+V 1.5 01.2025 CUP Focsani "Buletin Verificare Metrologica" observations
 
 **Target OS**
    - Windows 11, released in 2021 or later

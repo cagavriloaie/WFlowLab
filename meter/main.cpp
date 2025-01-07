@@ -124,8 +124,8 @@ class PixelImageWidget : public QMainWindow {
         QString message(
             "\n"
             "   > WStreamLab\n"
-            "   > Elcost Romania\n"
-            "   > Ver [1.2 12.23]\n");
+            "   > Elcost Company\n"
+            "   > Ver [1.5 01.25]\n");
 
         // Reading configuration file for additional company information
         std::wstring                       pathToConfig = ExePath() + L"\\watermeters.conf";

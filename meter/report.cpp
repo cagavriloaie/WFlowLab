@@ -434,59 +434,38 @@ void ReportMeasurements::onPrintClicked() {
               << "  <title>Buletin de verificare metrologica</title>\n"
               << "  <meta charset=\"UTF-8\">\n"
               << "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-
               << "  <style>\n"
-
               << "    p { font-size: 18px; }\n"
-
               << "    table.first {\n"
               << "      border-collapse: collapse;\n"
               << "      width: 100%;\n"
               << "      font-size: 8px;\n"
-              << "      margin-left: -100px;\n"
+              << "      table-layout: fixed;\n" // Ensures equal width allocation
               << "    }\n"
-
               << "    th, td {\n"
               << "      border: 1px solid #dddddd;\n"
               << "      text-align: center;\n"
               << "      padding: 4px;\n"
               << "      margin: 0;\n"
+              << "      word-wrap: break-word;\n"
               << "    }\n"
-
               << "    th {\n"
               << "      background-color: #f2f2f2;\n"
               << "    }\n"
-
               << "    tbody {\n"
-              << "      background-color: #f0f0f0; /* Example background color */\n"
+              << "      background-color: #f0f0f0;\n"
               << "    }\n"
-
               << "    th.smaller-column {\n"
-              << "      width: 50px; /* Adjust the value as needed */\n"
+              << "      width: 50px;\n"
               << "    }\n"
-
               << "    th:nth-child(2), td:nth-child(2) {\n"
-              << "      width: 450px !important;\n"
+              << "      width: 30%;\n" // More balanced size for description column
               << "    }\n"
-
-              << "    .text-container {\n"
-              << "      width: 200px; /* Set the maximum width for the container */\n"
-              << "      white-space: nowrap; /* Prevent text from wrapping to the next line */\n"
-              << "      overflow: hidden; /* Hide any overflowing content */\n"
+              << "    th:nth-child(5), td:nth-child(5) {\n"
+              << "      width: 35%;\n" // Increased width for column 5
+              << "      word-break: break-word;\n"
               << "    }\n"
-
-              << "    br + br {\n"
-              << "      display: block;\n"
-              << "      content: \" \";\n"
-              << "      margin: 0.5em 0; /* Adjust the margin as needed */\n"
-              << "    }\n"
-
-              << "    br {\n"
-              << "      margin-bottom: 0.5em; /* Adjust the margin as needed */\n"
-              << "    }\n"
-
               << "  </style>\n"
-
               << "</head>\n"
               << "<body>\n"
               << "  <p style=\"font-size: 10px; line-height: 0.6;\">Laboratorul de metrologie al " << companyLaboratory.toStdString() << "</p>\n"
@@ -496,7 +475,7 @@ void ReportMeasurements::onPrintClicked() {
               << "    <p style=\"font-size: 13px; line-height: 0.6;\">nr. " << ui->leNumarInregistrare->text().toStdString() << " data emiterii: "
               << std::put_time(localTime, "%d-%m-%Y") << " ora: " << std::put_time(localTime, "%H:%M") << "<br>\n"
               << "  </center>\n"
-              << "  <p style=\"font-size: 10px;\"  style=\"text-align:left;\">Mijloacele de masurare apartinand\n"
+              << "  <p style=\"font-size: 10px; text-align:left;\">Mijloacele de masurare apartinand "
               << detinator.toStdString() << ", prezentate la verificare metrologica, au obtinut urmatoarele rezultate:</p>\n"
               << "<center>\n"
               << "  <table class=\"first\">\n"
@@ -505,7 +484,7 @@ void ReportMeasurements::onPrintClicked() {
               << "        <th>Nr. <br>buc.</th>\n"
               << "        <th>Mijloc de masurare-denumire, <br>tip, producator, caracteristici, <br>seria/an de fabricatie</th>\n"
               << "        <th>Codul din LT</th>\n"
-              << "        <th>Normativ<br>(NML, NTM etc)<</th>\n"
+              << "        <th>Normativ<br>(NML, NTM etc)</th>\n"
               << "        <th>Etaloane utilizate,<br>denumire, serie, nr. CE</th>\n"
               << "        <th>Rezultatul<br>verificarii</th>\n"
               << "        <th>Valabilitatea<br>verificarii</th>\n"
@@ -594,7 +573,7 @@ void ReportMeasurements::onPrintClicked() {
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Indicativul&nbsp;marcii_______________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Data,ora:&nbsp;__________________________________Semnatura___________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Data,ora&nbsp;__________________________________Semnatura____________________</td>\n"
               << "        </tr>\n"
               << "    </tbody>\n"
               << "</table>\n"
@@ -640,28 +619,6 @@ void ReportMeasurements::onPrintClicked() {
 
     settings.endGroup();
     settings.sync();
-
-    /*
-QMessageBox messageBoxVerificationReport;
-messageBoxVerificationReport.setWindowTitle(tr("Verification report"));
-messageBoxVerificationReport.setText(tr("The file ") + fileName + tr(" was created!"));
-messageBoxVerificationReport.setStandardButtons(QMessageBox::Ok);
-messageBoxVerificationReport.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
-
-// Create a QTimer
-QTimer *timer = new QTimer(&messageBoxVerificationReport);
-timer->setSingleShot(true); // Make the timer a single-shot timer
-timer->setInterval(5000); // Set the interval to 5000 milliseconds (5 seconds)
-
-// Connect the timeout signal to close the message box
-QObject::connect(timer, &QTimer::timeout, &messageBoxVerificationReport, &QMessageBox::accept);
-
-// Start the timer
-timer->start();
-
-// Show the message box
-messageBoxVerificationReport.exec();
-*/
 }
 
 /**

@@ -5,6 +5,7 @@
  * This file contains the implementations of member functions and slots
  * for the MainWindow class. It handles the main window of the application,
  * including initialization, event handling, and slot implementations.
+ * md5 generator: https://www.md5hashgenerator.com/
  *
  * \author Constantin
  * \date Insert date
@@ -72,12 +73,12 @@ std::wstring ExePath() {
  */
 void MainWindow::SetDefaultConfiguration() {
     optionsConfiguration.clear();
-    optionsConfiguration["company"]     = "NONE";
+    optionsConfiguration["company"]     = "Elcost Company";
     optionsConfiguration["archive"]     = "C:/Stand/Fise";
-    optionsConfiguration["maximum"]     = "2";
-    optionsConfiguration["certificate"] = "NONE";
+    optionsConfiguration["maximum"]     = "5";
+    optionsConfiguration["certificate"] = "CE 06.02-355/15";
     optionsConfiguration["density_20"]  = "998.2009";
-    optionsConfiguration["control"]     = "00000000000000000000000000000000";
+    optionsConfiguration["control"]     = "345e1da64a928ceb2736a3633dc3a9ab";
 }
 
 /**
@@ -97,10 +98,10 @@ void MainWindow::SetDefaultConfiguration() {
  *      archive=C:/Stand/Fise>
  *      maximum=20>
  *      certificate=CE 06.02-355/15>
- *      density_20=998>
+ *      density_20=998.2009>
  *      control=f1807e24ccba79a76baa08194b7fa9bf>
  *
- *      company + density_20 => MD5
+ *      company + maximum => MD5
  */
 void MainWindow::ReadConfiguration() {
     std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
@@ -131,7 +132,7 @@ void MainWindow::ReadConfiguration() {
                 // Update options only if the key does not exist
                 optionsConfiguration.insert({"density_20", "998.2009"});
                 optionsConfiguration.insert({"archive", "C:/Stand/Fise"});
-                optionsConfiguration.insert({"certificate", "NONE"});
+                optionsConfiguration.insert({"certificate", "CE 06.02-355/15"});
 
                 // Close the file stream before returning
                 inConfigurationFile.close();
@@ -428,7 +429,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->cbNumberOfWaterMeters->clear();
 
     // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
-    for (unsigned int i = 1; i <= MAX_NR_WATER_METERS; ++i) {
+    for (unsigned int i = 1; i <= std::stoul(optionsConfiguration["maximum"]); ++i) {
         ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
 
@@ -488,6 +489,9 @@ MainWindow::MainWindow(QWidget* parent)
 
     settings.beginGroup("BenchConfiguration");
     index = settings.value("numberWaterMeters", index).toInt();
+    uint maximumEntries = std::stoul(optionsConfiguration["maximum"]);
+    if(index > maximumEntries - 1)
+        index = maximumEntries - 1;
     ui->cbNumberOfWaterMeters->setCurrentIndex(index);
     ui->cbWaterMeterType->setCurrentIndex(settings.value("typeWaterMeters", 1).toInt());
     settings.endGroup();

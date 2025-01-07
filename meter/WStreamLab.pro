@@ -1,7 +1,7 @@
 # Project configuration for WStreamLab application
 
 # Major.Minor.Build.Revision
-VERSION = 1.4.0.1
+VERSION = 1.5.0.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # Include necessary Qt modules
