@@ -39,7 +39,7 @@ void HelpAbout::Translate() {
     setLabelText(ui->lbName, "WStreamLab version:");
     setLabelText(ui->lbNameValue, QString::fromUtf8(VERSION_BUILD));
     setLabelText(ui->lbCopyright, "Copyright:");
-    setLabelText(ui->lbCopyrightValue, "2024 Elcost Company srl");
+    setLabelText(ui->lbCopyrightValue, "2025 Elcost Company srl");
     setLabelText(ui->lbEmail, "Email:");
     setLabelText(ui->lbEmailValue, "office@elcost.ro");
     setLabelText(ui->lbAddress, "Address:");

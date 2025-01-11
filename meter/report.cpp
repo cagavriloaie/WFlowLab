@@ -499,7 +499,10 @@ void ReportMeasurements::onPrintClicked() {
         if (!vectorCheckNumberCopy[row]->checkState()) {
             continue;
         }
+
         ++entriesTableUsed;
+        QString resultEntry = resultAllTestsCopy[row];
+
         htmlTable << "      <tr style=\"height: 20px;\">\n"
                   << "        <td class=\"reduced-height\">1</td>\n"
                   << "        <td class=\"reduced-height\">" << meterType.toStdString() << "<br>"
@@ -507,7 +510,7 @@ void ReportMeasurements::onPrintClicked() {
                   << "        <td class=\"reduced-height\">" << ltCode.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << nmlNtmNorms.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << certiticateLaboratory.toStdString() << "</td>\n"
-                  << "        <td class=\"reduced-height\">" << resultAllTestsCopy[row].toStdString() << "</td>\n"
+                  << "        <td class=\"reduced-height\">" << resultEntry.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << checkValability.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << costRon.toStdString() << "</td>\n"
                   << "      </tr>\n";
@@ -565,11 +568,11 @@ void ReportMeasurements::onPrintClicked() {
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire ____________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire _____________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Semnatura_____________________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">__________________________________________________________________________</td>\n"
+              << "              <td style=\"width: 60%; text-align: left;\">___________________________________________________________________________</td>\n"
               << "        </tr>\n"
               << "        <tr>\n"
               << "              <td style=\"width: 40%; text-align: left;\">Indicativul&nbsp;marcii_______________________</td>\n"

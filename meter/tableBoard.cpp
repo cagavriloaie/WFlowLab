@@ -2597,6 +2597,11 @@ void TableBoard::onCopy23Clicked() {
 void TableBoard::onReportClicked() {
     onCalculateClicked();
 
+    if (reportMeasurementsDialog) {
+        delete reportMeasurementsDialog;
+        reportMeasurementsDialog = nullptr;
+    }
+
     if (!reportMeasurementsDialog) {
         reportMeasurementsDialog = new ReportMeasurements(this, vectorCheckNumber, vectorSerialNumber, resultAllTests);
     }

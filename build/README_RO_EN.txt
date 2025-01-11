@@ -6,13 +6,14 @@
 *****************************************************
 
 **Istoric**
-V 0.9 02.2023 Lansare neoficială, în curs de dezvoltare;
-V 1.0 05.2023 Prima lansare oficială, detectare automată a interfeței RS 485
-V 1.1 11.2023 Traduceri corectate și restricții de introducere a datelor adăugate
-V 1.2 01.2024 Adăugare document PDF raport metrologic
-V 1.3 03.2024 Corecții pentru fișierul PDF generat FM
-V 1.4 07.2024 Fixuri UI
-V 1.5 01.2025 Observatii Buletin Verificare Metrologica (CUP Focsani)
+V 0.9 (02.2023) – Lansare neoficială, în curs de dezvoltare.
+V 1.0 (05.2023) – Prima lansare oficială, cu detectare automată a interfeței RS-485.
+V 1.1 (11.2023) – Corectarea traducerilor și adăugarea restricțiilor de introducere a datelor.
+V 1.2 (01.2024) – Adăugarea unui document PDF pentru raportul metrologic.
+V 1.3 (03.2024) – Corecții la fișierul PDF generat pentru FM.
+V 1.4 (07.2024) – Corecturi de interfață utilizator (UI).
+V 1.5 (01.2025) – Observații adăugate în fișa „Buletin de Verificare Metrologică” și
+                  limitarea numărului maxim de apometre supuse verificării.
 
 **Sistem de operare țintă**
    - Windows 11, lansat în 2021 sau ulterior
@@ -30,11 +31,12 @@ Doar o instanță a aplicației poate fi lansată la un moment dat.
 Setările aplicației sunt salvate automat în Windows Registry.
 
 Exemplu de fișier de licență:
-company=CUP Focsani>
+company=Compania de apa>
 archive=C:/Stand/Fise>
 maximum=10>
 certificate=CE 06.02-355/15>
 density_20=998.2009>
+control=345e1da64a928ceb2736a3633dc3a9ab>
 
 company - Numele companiei;
 archive - Directorul pentru stocarea documentelor PDF;
@@ -56,9 +58,8 @@ Pentru detalii privind instalarea, dezinstalarea, configurarea și utilizarea, c
 - MODBUS: https://en.wikipedia.org/wiki/MODBUS
 
 **Drepturi și utilizare**
-Water Stream Laboratory 1.3 este un software proprietar dezvoltat de ELCOST. Drepturile
-de utilizare, copiere, modificare sau distribuire a acestui software sunt guvernate de acordul de licență inclus
-cu software-ul. Reproducerea sau distribuirea neautorizată a acestui software, sau a oricărei părți a acestuia, poate duce la sancțiuni civile și penale severe și va fi urmărită în măsura maximă posibilă prevăzută de lege.
+Water Stream Laboratory este un software proprietar dezvoltat de ELCOST Company. Drepturile de utilizare, copiere,
+modificare sau distribuire a acestui software sunt guvernate de acordul de licență inclus cu software-ul.
 
 **Contact**
 Pentru întrebări referitoare la licențiere și permisiuni de utilizare, vă rugăm să contactați:
@@ -77,13 +78,14 @@ Pentru întrebări referitoare la licențiere și permisiuni de utilizare, vă r
 ****************************************************
 
 **History**
-V 0.9 02.2023 Unofficial release, under development;
-V 1.0 05.2023 First official release, automatic RS 485 interface detection
-V 1.1 11.2023 Fixed translations and added data input restrictions
-V 1.2 01.2024 Added metrological report PDF document
-V 1.3 03.2024 Some fixes for generated FM PDF file
-V 1.4 07.2024 UI fixes
-V 1.5 01.2025 CUP Focsani "Buletin Verificare Metrologica" observations
+V 0.9 (02.2023) – Unofficial release, under development.
+V 1.0 (05.2023) – First official release, with automatic detection of the RS-485 interface.
+V 1.1 (11.2023) – Corrected translations and added data input restrictions.
+V 1.2 (01.2024) – Added a PDF document for the metrological report.
+V 1.3 (03.2024) – Fixes for the generated FM PDF file.
+V 1.4 (07.2024) – UI improvements.
+V 1.5 (01.2025) – Added notes to the "Metrological Verification Bulletin" form and
+                  limited the maximum number of water meters for verification.
 
 **Target OS**
    - Windows 11, released in 2021 or later
@@ -103,11 +105,12 @@ The license file is located at:
     C:\Program Files\Water Stream Laboratory\watermeters.conf
 
 Example license file:
-    company=CUP Focsani>
+    company=Compania de apa>
     archive=C:/Stand/Fise>
     maximum=10>
     certificate=CE 06.02-355/15>
     density_20=998.2009>
+    control=345e1da64a928ceb2736a3633dc3a9ab>
 
 > company     - Company name;
 > archive     - Directory for storing PDF documents;
@@ -131,11 +134,9 @@ For installation, uninstallation, configuration, and usage details, consult the 
 - MODBUS: https://en.wikipedia.org/wiki/MODBUS
 
 **Rights and Usage**
-Water Stream Laboratory 1.3 is proprietary software developed by ELCOST. The rights
+Water Stream Laboratory is proprietary software developed by ELCOST Company. The rights
 to use, copy, modify, or distribute this software are governed by the license agreement included
-with the software. Unauthorized reproduction or distribution of this software, or any portion of
-it, may result in severe civil and criminal penalties, and will be prosecuted to the maximum extent
-possible under the law.
+with the software.
 
 **Contact**
 For inquiries regarding licensing and usage permissions, please contact:
