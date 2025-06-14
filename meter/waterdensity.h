@@ -21,7 +21,7 @@
  * \param correction The correction factor to be adjusted.
  * \return Adjusted correction factor based on linear interpolation.
  */
-double linearInterpolationTemperature(double temperature,
+double getWaterDensityAtTemperature(double temperature,
                                       double correction);
 
 /**
@@ -34,7 +34,7 @@ double linearInterpolationTemperature(double temperature,
  * \param correction The correction factor to be adjusted.
  * \return Adjusted correction factor based on quadratic interpolation.
  */
-double quadraticInterpolationTemperature(double temperature,
+double getWaterDensityQuadratic(double temperature,
                                          double correction);
 
 /**

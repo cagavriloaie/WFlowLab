@@ -13,7 +13,7 @@ V 1.2 (01.2024) – Adăugarea unui document PDF pentru raportul metrologic.
 V 1.3 (03.2024) – Corecții la fișierul PDF generat pentru FM.
 V 1.4 (07.2024) – Corecturi de interfață utilizator (UI).
 V 1.5 (01.2025) – Observații adăugate în fișa „Buletin de Verificare Metrologică” și
-                  limitarea numărului maxim de apometre supuse verificării.
+                  rezolvare limitare număr maxim de apometre supuse verificării.
 
 **Sistem de operare țintă**
    - Windows 11, lansat în 2021 sau ulterior
@@ -47,8 +47,8 @@ control - Suma de control a licenței
 
 Modificarea câmpurilor "company" sau "maximum" invalidează licența (consultați manualul aplicației).
 Doar Elcost poate modifica acest lucru generând o nouă semnătură digitală.
-Citirea automată a indexului necesită conexiuni RS485 sau RS422 către punctele de date. Aflați mai multe despre protocoalele RS485 și RS422:
-Aplicația calibrează contoarele de apă utilizând un stand de testare, manual sau prin RS485 sau RS422 cu protocolul MODBUS.
+Citirea automată a indexului necesită conexiuni RS485 sau RS422 către punctele de date.
+Aplicația verifica metrologic contoarele de apă utilizând un stand de testare, manual sau prin RS485 sau RS422 cu protocolul MODBUS.
 
 Pentru detalii privind instalarea, dezinstalarea, configurarea și utilizarea, consultați manualul inclus.
 
@@ -85,7 +85,7 @@ V 1.2 (01.2024) – Added a PDF document for the metrological report.
 V 1.3 (03.2024) – Fixes for the generated FM PDF file.
 V 1.4 (07.2024) – UI improvements.
 V 1.5 (01.2025) – Added notes to the "Metrological Verification Bulletin" form and
-                  limited the maximum number of water meters for verification.
+                  fix for limiting the maximum number of water meters for verification.
 
 **Target OS**
    - Windows 11, released in 2021 or later
@@ -121,9 +121,9 @@ Example license file:
 
 Altering "company" or "maximum" fields invalidates the license (refer to the application manual).
 Only Elcost can modify this by generating a new digital signature.
-Automatic index reading requires RS485 or RS422 connections to data points. Learn more about RS485
+Automatic index reading requires RS485 or RS422 connections to data points.
 and RS422 protocols:
-The application calibrates water meters using a test bench, manually or via RS485 or RS422 with
+The application metrologic checks water meters using a test bench, manually or via RS485 or RS422 with
 MODBUS protocol.
 
 For installation, uninstallation, configuration, and usage details, consult the included manual.

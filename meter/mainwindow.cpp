@@ -418,25 +418,25 @@ MainWindow::MainWindow(QWidget* parent)
     std::vector<MeterFlowType> meterFlowTypesVector =
         readFlowMeterTypesCSV(filename);
 
-    NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
-
-    // Copy elements from meterFlowTypesVector to MeterFlowDB
-    for (size_t iter = 0; iter < meterFlowTypesVector.size(); ++iter) {
-        MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
-    }
-
     // Clear existing items if any
     ui->cbNumberOfWaterMeters->clear();
 
-    // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
+           // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
     for (unsigned int i = 1; i <= std::stoul(optionsConfiguration["maximum"]); ++i) {
         ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
 
+    NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
+
+    // Copy elements from meterFlowTypesVector to MeterFlowDB
+    for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
+        MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
+    }
+
     // Populate cbWaterMeterType with names from MeterFlowDB
     ui->cbWaterMeterType->clear(); // Clear existing items if any
-    for (const auto& meter : MeterFlowDB) {
-        ui->cbWaterMeterType->addItem(QString::fromStdString(meter.nameWaterMeter));
+    for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
+        ui->cbWaterMeterType->addItem(QString::fromStdString(MeterFlowDB[iter].nameWaterMeter));
     }
 
     // Connect QComboBox signals to custom slots
@@ -884,7 +884,7 @@ void MainWindow::onWaterDensityPage() {
     // Generate table rows with temperature, density, and coefficient values
     for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;                                                  // Calculate temperature
-        double density     = quadraticInterpolationTemperature(temperature, 998.2009); // Calculate density
+        double density     = getWaterDensityQuadratic(temperature, 998.2009); // Calculate density
         double coefficient = quadraticInterpolationVolumeCorrection(temperature);      // Calculate volume correction coefficient
 
         // Append formatted data row to HTML output with precision settings

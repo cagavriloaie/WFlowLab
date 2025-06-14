@@ -85,7 +85,7 @@ const double volumeCorrectionPoints[] =
  * temperature points and corresponding density values. It handles out-of-range
  * temperatures with default values.
  */
-double linearInterpolationTemperature(double temperature, double correction) {
+double getWaterDensityAtTemperature(double temperature, double correction) {
     // Check if temperature is below 0 or above 100
     if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_DENSITY_BELOW_ZERO;
@@ -116,18 +116,24 @@ double linearInterpolationTemperature(double temperature, double correction) {
     return density;
 }
 
-/**
- * \brief Perform quadratic interpolation to calculate water density at a given temperature.
- *
- * \param temperature Temperature (in Celsius) for interpolation.
- * \param correction Correction factor applied to the density calculation.
- * \return Interpolated water density.
- *
- * The function calculates water density using quadratic interpolation based on
- * temperature points and corresponding density values. It handles out-of-range
- * temperatures with default values.
- */
-double quadraticInterpolationTemperature(double temperature, double correction) {
+// Quadratic interpolation to estimate water density at a given temperature,
+// with an added correction term to adjust density relative to 20°C.
+//
+// Parameters:
+// - temperature: The temperature (°C) for which density is estimated.
+// - correction: A correction factor applied relative to the density at 20°C.
+//
+// Returns:
+// - Estimated water density (kg/m³) based on quadratic interpolation.
+//
+// Notes:
+// - For temperatures below MIN_TEMPERATURE, returns DEFAULT_DENSITY_BELOW_ZERO.
+// - For temperatures above MAX_TEMPERATURE, returns DEFAULT_DENSITY_ABOVE_HUNDRED.
+// - Uses densityPoints array indexed by floor(temperature) and neighbors for interpolation.
+// - Clamps floor(temperature) to avoid out-of-bounds array access.
+//
+double getWaterDensityQuadratic(double temperature, double correction) {
+    // Handle temperatures outside the interpolation range by returning default densities
     if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_DENSITY_BELOW_ZERO;
     }
@@ -135,31 +141,31 @@ double quadraticInterpolationTemperature(double temperature, double correction) 
         return DEFAULT_DENSITY_ABOVE_HUNDRED;
     }
 
-    double firstTemperature  = std::floor(temperature);
-    double secondTemperature = std::floor(temperature + 1);
-    double thirdTemperature  = std::floor(temperature + 2);
+    // Clamp the base temperature index (t0) to ensure safe indexing for quadratic interpolation
+    // We subtract 3 because we use t0, t0+1, and t0+2 indices from densityPoints
 
-    // Validate array indices
-    size_t firstIndex  = static_cast<size_t>(firstTemperature);
-    size_t secondIndex = static_cast<size_t>(secondTemperature);
-    size_t thirdIndex  = static_cast<size_t>(thirdTemperature);
+    constexpr size_t densityPointCount = sizeof(densityPoints) / sizeof(densityPoints[0]);
 
-    if (thirdIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
-        secondIndex >= sizeof(densityPoints) / sizeof(densityPoints[0]) ||
-        firstIndex >= sizeof(densityPoints) / sizeof(densityPoints[0])) {
-        // Handle or log an error, or return a default value
-        return DEFAULT_DENSITY_BELOW_ZERO; // Adjust with an appropriate default value
-    }
+    double t0 = std::min(std::floor(temperature), static_cast<double>(densityPointCount - 3));
+    double t1 = t0 + 1;
+    double t2 = t0 + 2;
 
-    double firstDensity  = densityPoints[firstIndex];
-    double secondDensity = densityPoints[secondIndex];
-    double thirdDensity  = densityPoints[thirdIndex];
+           // Convert clamped temperatures to indices for densityPoints array access
+    size_t i0 = static_cast<size_t>(t0);
+    size_t i1 = static_cast<size_t>(t1);
+    size_t i2 = static_cast<size_t>(t2);
 
-    double density = 0.5 * firstDensity * (temperature - secondTemperature) * (temperature - thirdTemperature) -
-                     secondDensity * (temperature - firstTemperature) * (temperature - thirdTemperature) +
-                     0.5 * thirdDensity * (temperature - firstTemperature) * (temperature - secondTemperature);
+    // Retrieve density values at the three surrounding temperature points
+    double d0 = densityPoints[i0];
+    double d1 = densityPoints[i1];
+    double d2 = densityPoints[i2];
 
-    // Correct the water density based on a specific condition
+    // Compute the quadratic interpolation using the Lagrange polynomial formula
+    double density = 0.5 * d0 * (temperature - t1) * (temperature - t2)
+                     -       d1 * (temperature - t0) * (temperature - t2)
+                     + 0.5 * d2 * (temperature - t0) * (temperature - t1);
+
+           // Apply correction relative to the density at 20°C (index 20)
     density = correction - densityPoints[20] + density;
 
     return density;
@@ -171,9 +177,9 @@ double quadraticInterpolationTemperature(double temperature, double correction) 
  * \param temperature Temperature (in Celsius) for interpolation.
  * \return Interpolated volume correction factor.
  *
- * The function calculates volume correction factor using quadratic interpolation based on
- * temperature points and corresponding correction values. It handles out-of-range
- * temperatures with default values.
+ * This function uses Lagrange’s quadratic interpolation on three adjacent points
+ * from the volumeCorrectionPoints[] array. It falls back to default constants when
+ * temperature is out of bounds.
  */
 double quadraticInterpolationVolumeCorrection(double temperature) {
     if (temperature <= MIN_TEMPERATURE) {
@@ -183,31 +189,33 @@ double quadraticInterpolationVolumeCorrection(double temperature) {
         return DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED;
     }
 
-    double firstTemperature  = std::floor(temperature);
-    double secondTemperature = std::floor(temperature + 1);
-    double thirdTemperature  = std::floor(temperature + 2);
+           // Use floor to get the lower bound of the interval
+    int index = static_cast<int>(std::floor(temperature));
 
-    // Validate array indices
-    size_t firstIndex  = static_cast<size_t>(firstTemperature);
-    size_t secondIndex = static_cast<size_t>(secondTemperature);
-    size_t thirdIndex  = static_cast<size_t>(thirdTemperature);
-
-    if (thirdIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0]) ||
-        secondIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0]) ||
-        firstIndex >= sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0])) {
-        // Handle or log an error, or return a default value
-        return DEFAULT_VOLUME_CORRECTION_BELOW_ZERO; // Adjust with an appropriate default value
+           // Ensure index - 1, index, index + 1 are valid
+    if (index < 1) {
+        index = 1;  // shift to allow index-1 access
+    } else if (index > static_cast<int>(sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0])) - 2) {
+        index = static_cast<int>(sizeof(volumeCorrectionPoints) / sizeof(volumeCorrectionPoints[0])) - 2;
     }
 
-    // Retrieve correction values for interpolation
-    double firstCorrection  = volumeCorrectionPoints[firstIndex];
-    double secondCorrection = volumeCorrectionPoints[secondIndex];
-    double thirdCorrection  = volumeCorrectionPoints[thirdIndex];
+    double x0 = index - 1;
+    double x1 = index;
+    double x2 = index + 1;
 
-    // Perform quadratic interpolation
-    double correctionFactor = 0.5 * firstCorrection * (temperature - secondTemperature) * (temperature - thirdTemperature) -
-                              secondCorrection * (temperature - firstTemperature) * (temperature - thirdTemperature) +
-                              0.5 * thirdCorrection * (temperature - firstTemperature) * (temperature - secondTemperature);
+    double y0 = volumeCorrectionPoints[static_cast<size_t>(x0)];
+    double y1 = volumeCorrectionPoints[static_cast<size_t>(x1)];
+    double y2 = volumeCorrectionPoints[static_cast<size_t>(x2)];
 
-    return correctionFactor;
+           // Lagrange interpolation formula
+    double t = temperature;
+
+    double L0 = ((t - x1) * (t - x2)) / ((x0 - x1) * (x0 - x2));
+    double L1 = ((t - x0) * (t - x2)) / ((x1 - x0) * (x1 - x2));
+    double L2 = ((t - x0) * (t - x1)) / ((x2 - x0) * (x2 - x1));
+
+    double interpolated = y0 * L0 + y1 * L1 + y2 * L2;
+
+    return interpolated;
 }
+

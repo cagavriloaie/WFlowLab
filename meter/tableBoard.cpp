@@ -174,12 +174,17 @@ void TableBoard::onSaveCurrentInputDataClicked() {
     outputDataFile << ui->leFlowRateMinumum->text().toStdString() << "\n";
     outputDataFile << ui->leMass1->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature1->text().toStdString() << "\n";
+    outputDataFile << ui->leVolume1->text().toStdString() << "\n";
+
     outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() << "\n";
     outputDataFile << ui->leMass2->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature2->text().toStdString() << "\n";
+    outputDataFile << ui->leVolume2->text().toStdString() << "\n";
+
     outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
     outputDataFile << ui->leMass3->text().toStdString() << "\n";
     outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
+    outputDataFile << ui->leVolume3->text().toStdString() << "\n";
 
     // Display a message box
     QMessageBox messageBoxSaveInputFile;
@@ -317,17 +322,25 @@ void TableBoard::onOpenInputDataClicked() {
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature1->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
+    ui->leVolume1->setText(tmpInput.c_str());
+
+    std::getline(inputDataFile, tmpInput);
     ui->leFlowRateTransitoriu->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass2->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature2->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
+    ui->leVolume2->setText(tmpInput.c_str());
+
+    std::getline(inputDataFile, tmpInput);
     ui->leFlowRateNominal->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leMass3->setText(tmpInput.c_str());
     std::getline(inputDataFile, tmpInput);
     ui->leTemperature3->setText(tmpInput.c_str());
+    std::getline(inputDataFile, tmpInput);
+    ui->leVolume3->setText(tmpInput.c_str());
 
     onMeasurementTypeChanged();
 }
@@ -617,15 +630,19 @@ void TableBoard::ValidatorInput() {
     ui->leVolume1->setReadOnly(true);
     ui->leVolume2->setReadOnly(true);
     ui->leVolume3->setReadOnly(true);
+
     QPalette paletteDiactivatedLineEdit;
     paletteDiactivatedLineEdit.setColor(QPalette::Base,
                                         QColor(220, 235, 220, 255));
-    ui->leVolume1->setStyleSheet(
-        "QLineEdit {background-color: rgb(235, 235, 235)}");
-    ui->leVolume2->setStyleSheet(
-        "QLineEdit {background-color: rgb(235, 235, 235)}");
-    ui->leVolume3->setStyleSheet(
-        "QLineEdit {background-color: rgb(235, 235, 235)}");
+/*    if (mainwindow->selectedInfo.rbGravimetric_new == true) {
+        ui->leVolume1->setStyleSheet(
+            "QLineEdit {background-color: rgb(235, 235, 235)}");
+        ui->leVolume2->setStyleSheet(
+            "QLineEdit {background-color: rgb(235, 235, 235)}");
+        ui->leVolume3->setStyleSheet(
+            "QLineEdit {background-color: rgb(235, 235, 235)}");
+    }*/
+
     for (auto iter = begin(vectorCheckNumber);
          iter != end(vectorCheckNumber);
          ++iter) {
@@ -820,6 +837,9 @@ void TableBoard::onCleanClicked() {
     }
 
     // Clear temperature, mass, and volume input fields
+    ui->leFlowRateMinumum->clear(); ///< Clear temperature input field for entry 1.
+    ui->leFlowRateNominal->clear(); ///< Clear temperature input field for entry 2.
+    ui->leFlowRateTransitoriu->clear(); ///< Clear temperature input field for entry 3.
     ui->leTemperature1->clear(); ///< Clear temperature input field for entry 1.
     ui->leTemperature2->clear(); ///< Clear temperature input field for entry 2.
     ui->leTemperature3->clear(); ///< Clear temperature input field for entry 3.
@@ -974,18 +994,19 @@ void TableBoard::onCalculateClicked() {
             result_m3 = false;
             result    = false;
         }
+        /*
         double densityFirst{0};
         double densitySecond{0};
         double densityThird{0};
         double correction = mainwindow->selectedInfo.density_20;
 
         densityFirst =
-            quadraticInterpolationTemperature(temperatureFirst, correction);
+            getWaterDensityQuadratic(temperatureFirst, correction);
         densitySecond =
-            quadraticInterpolationTemperature(temperatureSecond, correction);
+            getWaterDensityQuadratic(temperatureSecond, correction);
         densityThird =
-            quadraticInterpolationTemperature(temperatureThird, correction);
-
+            getWaterDensityQuadratic(temperatureThird, correction);
+*/
         double volumeCorrectionFirst{0};
         double volumeCorrectionSecond{0};
         double volumeCorrectionThird{0};
@@ -996,10 +1017,15 @@ void TableBoard::onCalculateClicked() {
             quadraticInterpolationVolumeCorrection(temperatureSecond);
         volumeCorrectionThird =
             quadraticInterpolationVolumeCorrection(temperatureThird);
-
+/*
         double VolumeFirst  = volumeCorrectionFirst * 1000 * massFirst / densityFirst;
         double VolumeSecond = volumeCorrectionSecond * 1000 * massSecond / densitySecond;
         double VolumeThird  = volumeCorrectionThird * 1000 * massThird / densityThird;
+*/
+
+        double VolumeFirst  = volumeCorrectionFirst * massFirst;
+        double VolumeSecond = volumeCorrectionSecond * massSecond;
+        double VolumeThird  = volumeCorrectionThird * massThird;
 
         std::ostringstream streamObj;
 
@@ -1524,7 +1550,7 @@ void TableBoard::onMeasurementTypeChanged() {
     // Lambda function to set background color and read-only status for QLineEdit
     auto setBackgroundAndReadOnly = [](QLineEdit* lineEdit, bool isReadOnly) {
         lineEdit->setReadOnly(isReadOnly);
-        lineEdit->setStyleSheet(isReadOnly ? "QLineEdit {background-color: rgb(220, 235, 220)}" : "QLineEdit {background-color: rgb(255, 255, 255)}");
+        lineEdit->setStyleSheet(isReadOnly ? "QLineEdit {background-color: rgb(220, 235, 220)}" : "QLineEdit {background-color: rgb(235, 235, 235)}");
     };
 
     // Lambda function to set visibility of QWidget
@@ -1533,12 +1559,13 @@ void TableBoard::onMeasurementTypeChanged() {
     };
 
     // Show or hide elements based on measurement type
-    setElementVisibility(ui->leMass1, isGravimetric);
-    setElementVisibility(ui->leMass2, isGravimetric);
-    setElementVisibility(ui->leMass3, isGravimetric);
     setElementVisibility(ui->lbMass1, isGravimetric);
     setElementVisibility(ui->lbMass2, isGravimetric);
     setElementVisibility(ui->lbMass3, isGravimetric);
+    setElementVisibility(ui->leMass1, isGravimetric);
+    setElementVisibility(ui->leMass2, isGravimetric);
+    setElementVisibility(ui->leMass3, isGravimetric);
+
     setElementVisibility(ui->lbTemperature1, isGravimetric);
     setElementVisibility(ui->lbTemperature2, isGravimetric);
     setElementVisibility(ui->lbTemperature3, isGravimetric);
