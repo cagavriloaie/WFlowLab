@@ -808,125 +808,127 @@ void MainWindow::onGeneralDescription() {
  * After generating the HTML file, it opens it using the default web browser and removes the temporary file afterwards.
  */
 void MainWindow::onWaterDensityPage() {
-    // Create a temporary HTML file path
-    QString htmlFilePath = QDir::temp().filePath("water_density.html");
+    // Creează calea fișierului HTML temporar
+    QString tempHtmlFilePath = QDir::temp().filePath("water_density.html");
 
-    // Open the HTML file for writing
-    std::ofstream densityHtmlFile(htmlFilePath.toStdString());
-    if (!densityHtmlFile.is_open()) {
-        // Handle error opening file
-        return;
-    }
+    // Deschide fișierul HTML pentru scriere
+    std::ofstream densityHtmlFile(tempHtmlFilePath.toStdString());
+    if (!densityHtmlFile.is_open()) return;
 
     std::stringstream output;
 
-    // HTML header and style
+    // === HTML Header și CSS ===
     output << R"(
     <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Water Density vs Temperature</title>
-            <style>
-                body {
-                    -webkit-user-select: none;  /* Chrome all / Safari all */
-                    -moz-user-select: none;     /* Firefox all */
-                    -ms-user-select: none;      /* IE 10+ */
-                    user-select: none;          /* Likely future */
-                }
-                .black { color: black; }
-                .green { color: green; }
-                .blue { color: blue; }
-                h2 {
-                    font-size: 24px;
-                    color: DodgerBlue;
-                    font-family: Arial, sans-serif;
-                    font-weight: normal; /* Adjusted to normal weight */
-                }
-                p {
-                    font-size: 18px;
-                    font-family: Arial, sans-serif;
-                    font-weight: normal; /* Adjusted to normal weight */
-                }
-                pre { font-size: 16px; } /* Font size for table content */
-                hr { border: none; border-top: 1px solid #ddd; margin: 5px 0; } /* Styling for horizontal rules */
-            </style>
-        </head>
-        <body>
-            <div>
-)";
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Water Density vs Temperature</title>
+        <style>
+            body {
+                margin: 20px;
+                font-family: Arial, sans-serif;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
 
-    // Language selection for the header and introductory text
+            h2 {
+                font-size: 24px;
+                color: DodgerBlue;
+                font-weight: normal;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 18px;
+                color: #333;
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: Consolas, monospace;
+                font-size: 16px;
+            }
+
+            th, td {
+                padding: 8px 16px;
+                text-align: right;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f0f8ff;
+                color: DodgerBlue;
+            }
+
+            tr:hover {
+                background-color: #f9f9f9;
+            }
+        </style>
+    </head>
+    <body>
+    )";
+
+    // === Text introductiv în funcție de limbă ===
     if (ROMANIAN == selectedInfo.selectedLanguage) {
         output << "<h2>Densitatea și Corecția Volumului Apei</h2>";
-        output << "<p>Tabelul de mai jos reprezintă densitatea apei în kg/m³ "
-                  "și factorul de corecție volum funcție de temperatură între 0 și 100°C<br>"
-                  "cu un pas de 0.1°C la presiune normală (1013.25 kPa). Aceste valori "
-                  "sunt generate plecând de la datele existente în aplicație.</p>";
+        output << "<p>Tabelul de mai jos afișează densitatea apei în kg/m³ și "
+                  "factorul de corecție a volumului în funcție de temperatură între 0 și 100°C, "
+                  "cu un pas de 0,1°C la presiune normală (1013,25 kPa). Valorile sunt generate pe baza datelor din aplicație.</p>";
     } else {
         output << "<h2>Density and Volume Correction of Water</h2>";
-        output << "<p>The table below shows the density of water in kg/m³ and "
-                  "volume correction factor for different temperatures between 0 and 100°C with<br>"
-                  "a step of 0.1°C under normal pressure (1013.25 kPa). "
-                  "These values are generated based on the existing data in the application.</p>";
+        output << "<p>The table below shows the density of water in kg/m³ and the volume correction factor "
+                  "as a function of temperature from 0 to 100°C, with a 0.1°C step under normal pressure (1013.25 kPa). "
+                  "These values are generated based on the application data.</p>";
     }
 
-    // Table header with color-coded column titles
-    output << "<pre>\n"
-           << "&nbsp;&nbsp;&nbsp;&nbsp;"
-           << "    <span class=\"black\">" << " [°C]</span>"
-           << "&nbsp;"
-           << "    <span class=\"green\">ρ [kg/m³]</span>"
-           << "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-           << "    <span class=\"blue\">K</span>\n"
-           << "</pre>\n"
-           << "<hr/>\n";
-
-    // Generate table rows with temperature, density, and coefficient values
-    for (int i = 0; i <= 1000; ++i) {
-        double temperature = 0.1 * i;                                                  // Calculate temperature
-        double density     = getWaterDensityQuadratic(temperature, 998.2009); // Calculate density
-        double coefficient = quadraticInterpolationVolumeCorrection(temperature);      // Calculate volume correction coefficient
-
-        // Append formatted data row to HTML output with precision settings
-        output << "<pre>\n"
-               << "<span class=\"black\">"
-               << SPACES_INDENT_HTML
-               << std::fixed << std::setw(6) << std::setprecision(1)
-               << temperature
-               << "</span>"
-               << "<span class=\"green\">"
-               << SPACES_INDENT_HTML
-               << std::setw(8) << std::setprecision(4)
-               << density
-               << "</span>"
-               << "<span class=\"blue\">"
-               << SPACES_INDENT_HTML
-               << std::setw(9) << std::setprecision(5)
-               << coefficient
-               << "</span></pre>\n";
-
-        // Add horizontal line every 10 rows to enhance readability
-        if ((i + 1) % 10 == 0) {
-            output << "<hr />\n";
-        }
-    }
-
-    // Close HTML body and document
+    // === Tabel HTML ===
     output << R"(
-            </div>
-        </body>
-    </html>
-)";
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;&nbsp;&nbsp;T [°C]</th>
+                <th>ρ [kg/m³]</th>
+                <th>K&nbsp;&nbsp;&nbsp;</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    )";
 
-    // Write HTML content to file and close it
-    densityHtmlFile << output.str() << std::endl;
+    // === Generare rânduri ===
+    for (int i = 0; i <= 1000; ++i) {
+        double temperature = 0.1 * i;
+        double density     = getWaterDensityQuadratic(temperature, 998.2009);
+        double correction  = quadraticInterpolationVolumeCorrection(temperature);
+
+        output << "<tr>"
+               << "<td>" << std::fixed << std::setprecision(1) << temperature << "</td>"
+               << "<td>" << std::fixed << std::setprecision(4) << density << "</td>"
+               << "<td>" << std::fixed << std::setprecision(5) << correction << "</td>"
+               << "</tr>\n";
+    }
+
+    // === Final HTML ===
+    output << R"(
+        </tbody>
+    </table>
+    </body>
+    </html>
+    )";
+
+    // Scrie conținutul în fișier și închide
+    densityHtmlFile << output.str();
     densityHtmlFile.close();
 
-    // Open the generated HTML file in the default web browser
-    QDesktopServices::openUrl(QUrl::fromLocalFile(htmlFilePath));
-
-    // Remove the temporary HTML file
-    // QFile::remove(htmlFilePath);
+    // Deschide fișierul în browser
+    QDesktopServices::openUrl(QUrl::fromLocalFile(tempHtmlFilePath));
 }
 
 /**

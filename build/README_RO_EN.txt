@@ -6,14 +6,15 @@
 *****************************************************
 
 **Istoric**
-V 0.9 (02.2023) – Lansare neoficială, în curs de dezvoltare.
-V 1.0 (05.2023) – Prima lansare oficială, cu detectare automată a interfeței RS-485.
-V 1.1 (11.2023) – Corectarea traducerilor și adăugarea restricțiilor de introducere a datelor.
-V 1.2 (01.2024) – Adăugarea unui document PDF pentru raportul metrologic.
-V 1.3 (03.2024) – Corecții la fișierul PDF generat pentru FM.
-V 1.4 (07.2024) – Corecturi de interfață utilizator (UI).
-V 1.5 (01.2025) – Observații adăugate în fișa „Buletin de Verificare Metrologică” și
-                  rezolvare limitare număr maxim de apometre supuse verificării.
+V 0.9 (02.2023) – Lansare neoficială, în curs de dezvoltare.  
+V 1.0 (05.2023) – Prima lansare oficială, cu detectare automată a interfeței RS-485.  
+V 1.1 (11.2023) – Corectarea traducerilor și adăugarea restricțiilor la introducerea datelor.  
+V 1.2 (01.2024) – Adăugarea unui document PDF pentru raportul metrologic.  
+V 1.3 (03.2024) – Corecții pentru fișierul PDF generat pentru FM.  
+V 1.4 (07.2024) – Îmbunătățiri ale interfeței utilizator (UI).  
+V 1.5 (01.2025) – Adăugarea de observații în formularul „Buletin de Verificare Metrologică” și
+                  remedierea limitării  privind numărul maxim de apometre supuse verificării.
+V 1.6 (06.2025) – Corecție la calculul factorului de corecție a volumului de apă.
 
 **Sistem de operare țintă**
    - Windows 11, lansat în 2021 sau ulterior
@@ -77,15 +78,16 @@ Pentru întrebări referitoare la licențiere și permisiuni de utilizare, vă r
 *   FOR FUTURE REFERENCE                           *
 ****************************************************
 
-**History**
+** History ** 
 V 0.9 (02.2023) – Unofficial release, under development.
 V 1.0 (05.2023) – First official release, with automatic detection of the RS-485 interface.
-V 1.1 (11.2023) – Corrected translations and added data input restrictions.
-V 1.2 (01.2024) – Added a PDF document for the metrological report.
+V 1.1 (11.2023) – Translation corrections and added data input restrictions.
+V 1.2 (01.2024) – Added PDF generation for the metrological report.
 V 1.3 (03.2024) – Fixes for the generated FM PDF file.
-V 1.4 (07.2024) – UI improvements.
-V 1.5 (01.2025) – Added notes to the "Metrological Verification Bulletin" form and
-                  fix for limiting the maximum number of water meters for verification.
+V 1.4 (07.2024) – User interface improvements.
+V 1.5 (01.2025) – Added notes to the "Metrological Verification Bulletin" form and fixed the issue
+                  limiting the maximum number of water meters for verification.
+V 1.6 (06.2025) – Fixed Correction Volume Factor.
 
 **Target OS**
    - Windows 11, released in 2021 or later

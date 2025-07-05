@@ -1,5 +1,5 @@
-#define AppName "WStreamLab"
-#define AppVersion "1.5"
+﻿#define AppName "WStreamLab"
+#define AppVersion "1.6"
 #define AppPublisher "ELCOST"
 #define AppExeName "WStreamLab.exe"
 #define AppIconName "WStreamLab.ico"
@@ -15,7 +15,7 @@ AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 AppSupportURL={#AppWebsite}
 AppUpdatesURL={#AppWebsite}
-AppCopyright=Copyright � 2024 ELCCOST
+AppCopyright=Copyright © 2025 ELCOST
 AppComments=Water meters calibration.
 AppMutex=MyAppMutex
 OutputBaseFilename={#AppName}_v{#AppVersion}_Setup
@@ -36,7 +36,6 @@ SetupIconFile=".\build\{#AppIconName}"
 AppPublisherURL={#AppWebsite}
 DefaultUserInfoName=John Doe
 DefaultUserInfoOrg=ELCCOST
-
 
 [Code]
 procedure InitializeWizard;
@@ -85,17 +84,25 @@ Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; IconFilename: 
 
 [Run]
 ; Run README and application after the Finish button is pressed
-Filename: "{app}\{#AppName}"; Flags: nowait postinstall
-Filename: "notepad.exe"; Parameters: "{app}\README_RO_EN.txt"; Flags: shellexec postinstall
+Filename: "{app}\{#AppExeName}"; Flags: nowait postinstall
+Filename: "notepad.exe"; Parameters: "{app}\{#AppReadme}"; Flags: shellexec postinstall
 
 [UninstallRun]
+; Închide aplicația dacă rulează
 Filename: "{cmd}"; Parameters: "/C taskkill /F /IM {#AppExeName}"; Flags: runhidden waituntilterminated
-Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.conf"" ""{userdesktop}\watermeters.conf"""; Flags: runhidden
-Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.csv"" ""{userdesktop}\watermeters.csv"""; Flags: runhidden
+
+; Creează folderul WSTREAMLAB_OLD pe desktop (dacă nu există deja)
+Filename: "{cmd}"; Parameters: "/C mkdir ""{userdesktop}\WSTREAMLAB_OLD"""; Flags: runhidden
+
+; Copiază fișierele în acel folder
+Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.conf"" ""{userdesktop}\WSTREAMLAB_OLD\watermeters.conf"""; Flags: runhidden
+Filename: "{cmd}"; Parameters: "/C copy ""{app}\watermeters.csv"" ""{userdesktop}\WSTREAMLAB_OLD\watermeters.csv"""; Flags: runhidden
+
 
 [UninstallDelete]
 Type: files; Name: "{app}\{#AppExeName}"
-Type: files; Name: "{app}\D3Dcompiler_47.dll"
+Type: files; Name: "{app}\README*.txt"
+Type: files; Name: "{app}\{#AppIconName}"
 Type: files; Name: "{app}\libgcc_s_seh-1.dll"
 Type: files; Name: "{app}\libstdc++-6.dll"
 Type: files; Name: "{app}\libwinpthread-1.dll"
@@ -110,12 +117,31 @@ Type: files; Name: "{app}\Qt6Svg.dll"
 Type: files; Name: "{app}\Qt6Widgets.dll"
 Type: files; Name: "{app}\watermeters.conf"
 Type: files; Name: "{app}\watermeters.csv"
+
 Type: files; Name: "{app}\canbus\*"
+Type: dirifempty; Name: "{app}\canbus"
+
 Type: files; Name: "{app}\generic\*"
+Type: dirifempty; Name: "{app}\generic"
+
 Type: files; Name: "{app}\iconengines\*"
+Type: dirifempty; Name: "{app}\iconengines"
+
 Type: files; Name: "{app}\imageformats\*"
+Type: dirifempty; Name: "{app}\imageformats"
+
 Type: files; Name: "{app}\networkinformation\*"
+Type: dirifempty; Name: "{app}\networkinformation"
+
 Type: files; Name: "{app}\platforms\*"
+Type: dirifempty; Name: "{app}\platforms"
+
 Type: files; Name: "{app}\styles\*"
+Type: dirifempty; Name: "{app}\styles"
+
 Type: files; Name: "{app}\tls\*"
+Type: dirifempty; Name: "{app}\tls"
+
 Type: files; Name: "{app}\translations\*"
+Type: dirifempty; Name: "{app}\translations"
+

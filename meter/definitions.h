@@ -14,7 +14,7 @@
 #include <cstddef> // For NULL, size_t, ptrdiff_t, and other standard library facilities related to sizes and offsets.
 
 // Version information
-constexpr const char* VERSION_BUILD = "1.5 Windows x86_32"; ///< Version and build information of the application
+constexpr const char* VERSION_BUILD = "1.6 Windows x86_32"; ///< Version and build information of the application
 
 // Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
