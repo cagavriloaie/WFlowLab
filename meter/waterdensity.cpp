@@ -132,7 +132,7 @@ double getWaterDensityAtTemperature(double temperature, double correction) {
 // - Uses densityPoints array indexed by floor(temperature) and neighbors for interpolation.
 // - Clamps floor(temperature) to avoid out-of-bounds array access.
 //
-double getWaterDensityQuadratic(double temperature, double correction) {
+double get_ro(double temperature) {
     // Handle temperatures outside the interpolation range by returning default densities
     if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_DENSITY_BELOW_ZERO;
@@ -165,9 +165,6 @@ double getWaterDensityQuadratic(double temperature, double correction) {
                      -       d1 * (temperature - t0) * (temperature - t2)
                      + 0.5 * d2 * (temperature - t0) * (temperature - t1);
 
-           // Apply correction relative to the density at 20°C (index 20)
-    density = correction - densityPoints[20] + density;
-
     return density;
 }
 
@@ -181,12 +178,12 @@ double getWaterDensityQuadratic(double temperature, double correction) {
  * from the volumeCorrectionPoints[] array. It falls back to default constants when
  * temperature is out of bounds.
  */
-double quadraticInterpolationVolumeCorrection(double temperature) {
+double get_K(double temperature) {
     if (temperature <= MIN_TEMPERATURE) {
         return DEFAULT_VOLUME_CORRECTION_BELOW_ZERO;
     }
     if (temperature >= MAX_TEMPERATURE) {
-        return DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED;
+        return  DEFAULT_VOLUME_CORRECTION_ABOVE_HUNDRED;
     }
 
            // Use floor to get the lower bound of the interval
@@ -218,4 +215,3 @@ double quadraticInterpolationVolumeCorrection(double temperature) {
 
     return interpolated;
 }
-

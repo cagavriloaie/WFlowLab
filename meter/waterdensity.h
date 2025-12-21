@@ -14,15 +14,13 @@
 /**
  * \brief Performs linear interpolation for temperature correction.
  *
- * Given a temperature and a correction factor, this function performs linear interpolation
- * to adjust the correction factor based on the temperature.
+ * Given a temperature, this function performs linear interpolation
  *
  * \param temperature The temperature for correction.
  * \param correction The correction factor to be adjusted.
  * \return Adjusted correction factor based on linear interpolation.
  */
-double getWaterDensityAtTemperature(double temperature,
-                                      double correction);
+double get_ro(double temperature);
 
 /**
  * \brief Performs quadratic interpolation for temperature correction.
@@ -47,6 +45,6 @@ double getWaterDensityQuadratic(double temperature,
  * \param temperature The temperature for which the volume correction is calculated.
  * \return Volume correction factor based on quadratic interpolation.
  */
-double quadraticInterpolationVolumeCorrection(double temperature);
+double get_K(double temperature);
 
 #endif // WATERDENSITY_H

@@ -17,6 +17,7 @@
 #include <iomanip>    ///< Manipulators for formatting output.
 #include <map>        ///< Associative containers that store elements in a mapped fashion.
 #include <sstream>    ///< Implements input/output operations on memory-based streams.
+#include <algorithm>
 
 // Qt headers
 #include <QDesktopServices> ///< Access to the desktop services such as opening a URL.
@@ -40,13 +41,9 @@
 #include "ui_mainwindow.h"   ///< User interface header generated from Qt Designer.
 #include "waterdensity.h"    ///< Header for water density calculations.
 
-#include <QDesktopServices> ///< Access to the desktop services such as opening a URL.
-#include <QDir>             ///< Provides access to directory structures and their contents.
-#include <QFile>            ///< Provides functions to read from and write to files.
-#include <QUrl>             ///< Represents a URL.
-#include <fstream>          ///< Input/output stream class to operate on files.
-#include <iomanip>          ///< Manipulators for formatting output.
-#include <sstream>          ///< Implements input/output operations on memory-based streams.
+// Additional Qt headers (unique includes only)
+#include <QFile> ///< Provides functions to read from and write to files.
+#include <QUrl>  ///< Represents a URL.
 
 extern QTranslator* appTranslator;
 MainWindow*         pMainWindow;
@@ -66,19 +63,19 @@ std::wstring ExePath() {
  * values for various configuration keys:
  * - "company": Default value is "NONE".
  * - "archive": Default path is "C:/Stand/Fise".
- * - "maximum": Default value is "2".
- * - "certificate": Default value is "NONE".
+ * - "volume_correction": Default value is "CLASSIC_VOLUME_CORRECTION".
+ * - "certificate": Default value is "CE 06.02-2025/15".
  * - "density_20": Default value is "998.2009".
- * - "control": Default value is "00000000000000000000000000000000".
+ * - "control": Default value is "004b3d5b6f320ab986035bf8252ea845".
  */
 void MainWindow::SetDefaultConfiguration() {
     optionsConfiguration.clear();
-    optionsConfiguration["company"]     = "Elcost Company";
-    optionsConfiguration["archive"]     = "C:/Stand/Fise";
-    optionsConfiguration["maximum"]     = "5";
-    optionsConfiguration["certificate"] = "CE 06.02-355/15";
-    optionsConfiguration["density_20"]  = "998.2009";
-    optionsConfiguration["control"]     = "345e1da64a928ceb2736a3633dc3a9ab";
+    optionsConfiguration["company"]            = "Elcost Company";
+    optionsConfiguration["archive"]            = "C:/Stand/Fise";
+    optionsConfiguration["volume_correction"]  = "CLASSIC_VOLUME_CORRECTION";
+    optionsConfiguration["certificate"]        = "CE 06.02-2025/15";
+    optionsConfiguration["density_20"]         = "998.2009";
+    optionsConfiguration["control"]            = "004b3d5b6f320ab986035bf8252ea845";
 }
 
 /**
@@ -86,66 +83,127 @@ void MainWindow::SetDefaultConfiguration() {
  *
  * This function reads the configuration file specified by 'watermeters.conf'
  * located in the application's directory. It parses key-value pairs separated
- * by '=' and terminates each entry with '>'. It then validates the MD5 checksum
- * formed by concatenating 'company' and 'maximum' fields against a stored control
- * checksum ('control'). If validation succeeds, default configuration values
- * are updated.
+ * by '=' and terminated by the '>' character.
  *
- * If the configuration file cannot be opened or if validation fails, default
- * configuration values are set using SetDefaultConfiguration().
- *  e.g.
- *      company=Compania de Apa Braila>
- *      archive=C:/Stand/Fise>
- *      maximum=20>
- *      certificate=CE 06.02-355/15>
- *      density_20=998.2009>
- *      control=f1807e24ccba79a76baa08194b7fa9bf>
+ * After loading the configuration, it validates the MD5 checksum formed by
+ * concatenating the values of the following fields:
  *
- *      company + maximum => MD5
+ *     company + volume_correction => MD5
+ *
+ * The resulting string is hashed using MD5 and compared against the stored
+ * checksum value under the 'control' key.
+ *
+ * If the configuration file cannot be opened, required keys are missing,
+ * or the MD5 validation fails, default configuration values are applied using
+ * SetDefaultConfiguration().
+ *
+ * Example configuration file format:
+ *
+ *     company=Compania de Apa Braila>
+ *     archive=C:/Stand/Fise>
+ *     volume_correction=CLASSIC_VOLUME_CORRECTION>
+ *     certificate=CE 06.02-355/15>
+ *     density_20=998.2009>
+ *     control=f1807e24ccba79a76baa08194b7fa9bf>
  */
 void MainWindow::ReadConfiguration() {
     std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
-    std::ifstream
-        inConfigurationFile(pathToConfig.c_str());
-    if (inConfigurationFile.is_open()) {
-        std::string key;
-        while (std::getline(inConfigurationFile, key, '=')) {
-            std::string value;
-            if (std::getline(inConfigurationFile, value, '>')) {
-                optionsConfiguration[key] = value;
-                std::getline(inConfigurationFile, value);
-            }
-        }
+    std::ifstream inConfigurationFile(pathToConfig.c_str());
 
-        if (
-            optionsConfiguration.find("company") != optionsConfiguration.end() &&
-            optionsConfiguration.find("control") != optionsConfiguration.end() &&
-            optionsConfiguration.find("maximum") != optionsConfiguration.end()) {
-            std::string md5Read;
-            std::string md5Calculate;
-            md5Read                 = optionsConfiguration["control"];
-            std::string wordControl = optionsConfiguration["company"] +
-                                      optionsConfiguration["maximum"];
-            md5Calculate = md5(wordControl);
+    // If the configuration file cannot be opened, fall back to defaults
+    if (!inConfigurationFile.is_open()) {
+        SetDefaultConfiguration();
 
-            if (md5Read == md5Calculate) {
-                // Update options only if the key does not exist
-                optionsConfiguration.insert({"density_20", "998.2009"});
-                optionsConfiguration.insert({"archive", "C:/Stand/Fise"});
-                optionsConfiguration.insert({"certificate", "CE 06.02-355/15"});
-
-                // Close the file stream before returning
-                inConfigurationFile.close();
-                return;
-            }
-        }
+        QString msg = QString("The configuration file could not be opened. "
+                                  "Default settings will be used.");
+        QMessageBox box(QMessageBox::Critical,
+                        "Warning",
+                        msg,
+                        QMessageBox::Ok,
+                        nullptr);
+        return;
     }
 
-    // If file cannot be opened or validation fails, set default configuration
-    SetDefaultConfiguration();
+    // Parse configuration lines of the form: key=value>
+    std::string line;
+    while (std::getline(inConfigurationFile, line)) {
+        auto posEq = line.find('=');
+        auto posGt = line.find('>');
 
-    inConfigurationFile.close(); // Close the file stream
-    return;
+        // Ignore malformed lines
+        if (posEq == std::string::npos || posGt == std::string::npos || posGt <= posEq)
+            continue;
+
+        std::string key   = line.substr(0, posEq);
+        std::string value = line.substr(posEq + 1, posGt - posEq - 1);
+
+        if (!key.empty())
+            optionsConfiguration[key] = value;
+    }
+
+    // Validate presence of all mandatory configuration keys
+    if (
+        optionsConfiguration.find("company") == optionsConfiguration.end() ||
+        optionsConfiguration.find("archive") == optionsConfiguration.end() ||
+        optionsConfiguration.find("volume_correction") == optionsConfiguration.end() ||
+        optionsConfiguration.find("certificate") == optionsConfiguration.end() ||
+        optionsConfiguration.find("density_20") == optionsConfiguration.end() ||
+        optionsConfiguration.find("control") == optionsConfiguration.end()
+        )
+    {
+        SetDefaultConfiguration();
+        QString msg = QString("The configuration file does not contain all "
+                              "mandatory entries. Default settings will be used.");
+        QMessageBox box(QMessageBox::Critical,
+                        "Warning",
+                        msg,
+                        QMessageBox::Ok,
+                        nullptr);
+        return;
+    }
+
+    // Validate configuration integrity using MD5 checksum
+    std::string md5Read     = optionsConfiguration["control"];
+    std::string wordControl =
+        optionsConfiguration["company"] +
+        optionsConfiguration["volume_correction"];
+    std::string md5Calculate = md5(wordControl);
+
+    if (md5Read != md5Calculate) {
+        SetDefaultConfiguration();
+        QString msg = QString("The configuration file failed the MD5 integrity check. "
+                                  "Default settings will be used.");
+        QMessageBox box(QMessageBox::Critical,
+                        "Warning",
+                        msg,
+                        QMessageBox::Ok,
+                        nullptr);
+        return;
+    }
+
+    std::string volumeCorrectionType = optionsConfiguration["volume_correction"];
+
+    if (
+        volumeCorrectionType != "CLASSIC_VOLUME_CORRECTION" &&
+        volumeCorrectionType != "INM_VOLUME_CORRECTION" &&
+        volumeCorrectionType != "ELCOST_VOLUME_CORRECTION"
+        )
+    {
+        QString msg = QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
+                          .arg(QString::fromStdString(volumeCorrectionType))
+                          .arg("  CLASSIC_VOLUME_CORRECTION")
+                          .arg("  INM_VOLUME_CORRECTION")
+                          .arg("  CULI_VOLUME_CORRECTION");
+
+        QMessageBox box(QMessageBox::Critical,
+                        "Error",
+                        msg,
+                        QMessageBox::Ok,
+                        nullptr);
+        return;
+    }
+
+    // Configuration is valid; keep loaded values
 }
 
 /**
@@ -186,10 +244,18 @@ void MainWindow::setLabelValue(QLabel* label, double value, int precision) {
  */
 void MainWindow::updateSelectedInfo() {
     // Update selectedInfo with parameters from optionsConfiguration
-    selectedInfo.density_20    = std::stof(optionsConfiguration["density_20"]);
+    try {
+        selectedInfo.density_20 = std::stof(optionsConfiguration["density_20"]);
+    } catch (const std::exception& e) {
+        // Set default or show error
+        selectedInfo.density_20 = 998.2009;
+        qWarning() << "Invalid density_20 value:" << e.what();
+    }
     selectedInfo.pathResults   = optionsConfiguration["archive"];
     selectedInfo.certificate   = optionsConfiguration["certificate"];
-    selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
+    //The new version has just the optin 20 for entries number
+    //selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
+    selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
 
     // Read lab conditions from application settings
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
@@ -202,13 +268,18 @@ void MainWindow::updateSelectedInfo() {
     selectedInfo.relativeAirHumidity = settings.value("labHumidity", "51").toString().toStdString();
 
     // Read and set atmospheric pressure
-    selectedInfo.athmosphericPressure = settings.value("labPressure", "1026").toString().toStdString();
+    selectedInfo.atmosphericPressure = settings.value("labPressure", "1026").toString().toStdString();
 
     settings.endGroup();
     settings.sync();
 
     // Get selected water meter index from UI
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
+    if (selectedWaterMeter < 0 ||
+        static_cast<size_t>(selectedWaterMeter) >= NUMBER_ENTRIES_METER_FLOW_DB) {
+        qWarning() << "Invalid water meter index:" << selectedWaterMeter;
+        return;
+    }
 
     // Retrieve meter flow information from MeterFlowDB
     const auto& meterFlowInfo = MeterFlowDB[selectedWaterMeter];
@@ -242,8 +313,8 @@ void MainWindow::SelectMeterComboBox() {
         std::filesystem::create_directories(selectedInfo.pathResults);
         std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
     } catch (const std::filesystem::filesystem_error& e) {
-        qDebug() << "Error creating directories: " << e.what();
-        // Handle the error as appropriate (logging, user feedback, etc.)
+        QMessageBox::warning(this, tr("Directory Error"),
+           tr("Failed to create directory: %1").arg(QString::fromStdString(e.what())));
     }
 
     // Update labels in the UI with selectedInfo values
@@ -301,7 +372,7 @@ void MainWindow::Translate() {
     ui->rbVolumetric->setText(tr("Volumetric"));
     ui->rbGravimetric->setText(tr("Gravimetric"));
     ui->rbManual->setText(tr("Manual Mode Operation"));
-    ui->rbInterface->setText(tr("Interface MODBBUS operation"));
+    ui->rbInterface->setText(tr("Interface MODDBUS operation"));
 
     // Translate labels in Water Meter Features group
     ui->lbNominalDiameter->setText(tr("Nominal diameter:"));
@@ -344,6 +415,11 @@ MainWindow::MainWindow(QWidget* parent)
       statusBar(new QStatusBar(this)) {
     ui->setupUi(this);
 
+#ifdef BUILD_WITHOUT_RS485_MODBUS
+    // Remove menuInterface from the menu bar
+    ui->menubar->removeAction(ui->menuInterface->menuAction());
+#endif
+
     // Remove maximize button from window
     setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
 
@@ -384,12 +460,7 @@ MainWindow::MainWindow(QWidget* parent)
     settings.endGroup();
     settings.sync();
 
-    ReadConfiguration();
-    size_t index{0};
-    if (optionsConfiguration.find("maximum") !=
-        optionsConfiguration.end()) {
-        index = std::stoi(optionsConfiguration["maximum"]);
-    }
+    size_t index{MAX_NUMBER_FLOW_METERS};
 
     // Initialize TableBoard and connect signals to slots
     inputData = new TableBoard(this);
@@ -422,7 +493,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->cbNumberOfWaterMeters->clear();
 
            // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
-    for (unsigned int i = 1; i <= std::stoul(optionsConfiguration["maximum"]); ++i) {
+    for (unsigned int i = 1; i <= MAX_NUMBER_FLOW_METERS; ++i) {
         ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
 
@@ -489,9 +560,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     settings.beginGroup("BenchConfiguration");
     index = settings.value("numberWaterMeters", index).toInt();
-    uint maximumEntries = std::stoul(optionsConfiguration["maximum"]);
-    if(index > maximumEntries - 1)
-        index = maximumEntries - 1;
+    uint maximumEntries = MAX_NUMBER_FLOW_METERS;
+    index = std::clamp(index, size_t(0), size_t(maximumEntries - 1));
     ui->cbNumberOfWaterMeters->setCurrentIndex(index);
     ui->cbWaterMeterType->setCurrentIndex(settings.value("typeWaterMeters", 1).toInt());
     settings.endGroup();
@@ -507,11 +577,12 @@ MainWindow::MainWindow(QWidget* parent)
  * Cleans up resources associated with the MainWindow.
  */
 MainWindow::~MainWindow() {
+
     // Retrieve and update ambient temperature
     selectedInfo.ambientTemperature = ui->leTemperature->text().toStdString();
 
     // Retrieve and update atmospheric pressure
-    selectedInfo.athmosphericPressure = ui->lePressure->text().toStdString();
+    selectedInfo.atmosphericPressure = ui->lePressure->text().toStdString();
 
     // Retrieve and update relative air humidity
     selectedInfo.relativeAirHumidity = ui->leHumidity->text().toStdString();
@@ -614,7 +685,8 @@ void MainWindow::onNewSessionClicked() {
  */
 void MainWindow::onExitApplication() {
     if (inputData) {
-        // Assuming you do not want to delete inputData to avoid double deletion.
+        inputData->close();
+        delete inputData;
         inputData = nullptr;
     }
     this->close();
@@ -689,7 +761,7 @@ void MainWindow::onAmbientTemperatureTextChanged() {
 
     // Retrieve and update atmospheric pressure
     QString pressureText              = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = pressureText.toStdString();
+    selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
     QString humidityText             = ui->leHumidity->text();
@@ -711,7 +783,7 @@ void MainWindow::onAmbientTemperatureTextChanged() {
  * Retrieves the text from the relative air humidity QLineEdit and updates
  * selectedInfo.relativeAirHumidity with its string representation.
  * Similarly, retrieves text from temperature and pressure QLineEdit fields
- * and updates selectedInfo.ambientTemperature and selectedInfo.athmosphericPressure
+ * and updates selectedInfo.ambientTemperature and selectedInfo.atmosphericPressure
  * respectively. Updates settings with the new values.
  */
 void MainWindow::onRelativeAirHumidityTextChanged() {
@@ -721,7 +793,7 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
 
     // Retrieve and update atmospheric pressure
     QString pressureText              = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = pressureText.toStdString();
+    selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
     QString humidityText             = ui->leHumidity->text();
@@ -742,7 +814,7 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
  * \brief Slot invoked when the atmospheric pressure text field changes.
  *
  * Retrieves the text from the atmospheric pressure QLineEdit and updates
- * selectedInfo.athmosphericPressure with its string representation.
+ * selectedInfo.atmosphericPressure with its string representation.
  * Similarly, retrieves text from temperature and relative air humidity
  * QLineEdit fields and updates selectedInfo.ambientTemperature and
  * selectedInfo.relativeAirHumidity respectively. Updates settings with
@@ -755,7 +827,7 @@ void MainWindow::onAtmosphericPressureTextChanged() {
 
     // Retrieve and update atmospheric pressure
     QString pressureText              = ui->lePressure->text();
-    selectedInfo.athmosphericPressure = pressureText.toStdString();
+    selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
     QString humidityText             = ui->leHumidity->text();
@@ -903,10 +975,11 @@ void MainWindow::onWaterDensityPage() {
     )";
 
     // === Generare rânduri ===
+    //double rho_real20 = std::stof(optionsConfiguration["density_20"]);
     for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
-        double density     = getWaterDensityQuadratic(temperature, 998.2009);
-        double correction  = quadraticInterpolationVolumeCorrection(temperature);
+        double density     = get_ro(temperature);
+        double correction  = get_K(temperature);
 
         output << "<tr>"
                << "<td>" << std::fixed << std::setprecision(1) << temperature << "</td>"
@@ -923,12 +996,16 @@ void MainWindow::onWaterDensityPage() {
     </html>
     )";
 
-    // Scrie conținutul în fișier și închide
+    // Write the content to the file and close it
     densityHtmlFile << output.str();
     densityHtmlFile.close();
 
-    // Deschide fișierul în browser
+    // Open the file in the browser
     QDesktopServices::openUrl(QUrl::fromLocalFile(tempHtmlFilePath));
+
+    // Delete the temporary file after opening
+    // QFile::remove(tempHtmlFilePath);
+
 }
 
 /**

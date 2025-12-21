@@ -46,7 +46,6 @@ extern MainWindow* pMainWindow;
 
 namespace {
 MainWindow* mainwindow = nullptr;
-;
 } // namespace
 
 QString TableBoard::report;
@@ -104,7 +103,7 @@ void TableBoard::printPdfThread(QString report) {
     // Set color mode based on document needs
     printer.setColorMode(QPrinter::ColorMode::Color);
 
-    printer.setResolution(300); // Higher resolution for better quality
+    printer.setResolution(PDF_RESOLUTION_DPI); // Higher resolution for better quality
 
     // Optional: Handle printer errors
     if (!printer.isValid()) {
@@ -154,7 +153,7 @@ void TableBoard::onSaveCurrentInputDataClicked() {
     outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
 
     outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
-    outputDataFile << mainwindow->selectedInfo.athmosphericPressure << "\n";
+    outputDataFile << mainwindow->selectedInfo.atmosphericPressure << "\n";
     outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
 
     outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
@@ -228,6 +227,10 @@ void TableBoard::onOpenInputDataClicked() {
         tr("Input data (*.in);;All file (*.*)"));
 
     std::ifstream inputDataFile(fileName.toStdString());
+    if (!inputDataFile.is_open()) {
+        QMessageBox::warning(this, tr("Error"), tr("Cannot open file"));
+        return;
+    }
     Translate();
 
     size_t      entriesNumber;
@@ -685,15 +688,15 @@ void TableBoard::Translate() {
     ui->lbIndex1->setText(tr("Index"));
     ui->lbStart1->setText(tr("Start index"));
     ui->lbStop1->setText(tr("Stop index"));
-    ui->lbError1->setText(tr("Err. Qmin"));
+    ui->lbError1->setText(tr("Err. Q1"));
     ui->lbIndex2->setText(tr("Index"));
     ui->lbStart2->setText(tr("Start index"));
     ui->lbStop2->setText(tr("Stop index"));
-    ui->lbError2->setText(tr("Err. Qt"));
+    ui->lbError2->setText(tr("Err. Q2"));
     ui->lbIndex3->setText(tr("Index"));
     ui->lbStart3->setText(tr("Start index"));
     ui->lbStop3->setText(tr("Stop index"));
-    ui->lbError3->setText(tr("Err. Qn"));
+    ui->lbError3->setText(tr("Err. Q3"));
     ui->lbFlowRateMin->setText(tr("Flow rate [L/h]"));
     ui->lbMass1->setText(tr("Mass [kg]"));
     ui->lbTemperature1->setText(tr("Temperature [\302\260C]"));
@@ -722,15 +725,15 @@ void TableBoard::Translate() {
     ui->pbClose->setContentsMargins(10, 0, 10, 0);
     ui->pbClean->setContentsMargins(10, 0, 10, 0);
     ui->lbIndex1->setText(
-        QString("Index [L] -  Qmin: %1 L/h  Eroare: %2%")
+        QString("Index [L] -  Q1: %1 L/h  Eroare: %2%")
             .arg(QString::number(minimumFlowMain),
                  QString::number(maximumError)));
     ui->lbIndex2->setText(
-        QString("Index [L] -  Qt:  %1 L/h  Eroare: %2%")
+        QString("Index [L] -  Q2:  %1 L/h  Eroare: %2%")
             .arg(QString::number(transitoriuFlowMain),
                  QString::number(nominalError)));
     ui->lbIndex3->setText(
-        QString("Index [L] -  Qn: %1 L/h  Eroare: %2%")
+        QString("Index [L] -  Q3: %1 L/h  Eroare: %2%")
             .arg(QString::number(nominalFlowMain),
                  QString::number(nominalError)));
     if (reportMeasurementsDialog != nullptr) {
@@ -994,42 +997,93 @@ void TableBoard::onCalculateClicked() {
             result_m3 = false;
             result    = false;
         }
-        /*
-        double densityFirst{0};
-        double densitySecond{0};
-        double densityThird{0};
-        double correction = mainwindow->selectedInfo.density_20;
 
-        densityFirst =
-            getWaterDensityQuadratic(temperatureFirst, correction);
-        densitySecond =
-            getWaterDensityQuadratic(temperatureSecond, correction);
-        densityThird =
-            getWaterDensityQuadratic(temperatureThird, correction);
-*/
         double volumeCorrectionFirst{0};
         double volumeCorrectionSecond{0};
         double volumeCorrectionThird{0};
 
-        volumeCorrectionFirst =
-            quadraticInterpolationVolumeCorrection(temperatureFirst);
-        volumeCorrectionSecond =
-            quadraticInterpolationVolumeCorrection(temperatureSecond);
-        volumeCorrectionThird =
-            quadraticInterpolationVolumeCorrection(temperatureThird);
-/*
-        double VolumeFirst  = volumeCorrectionFirst * 1000 * massFirst / densityFirst;
-        double VolumeSecond = volumeCorrectionSecond * 1000 * massSecond / densitySecond;
-        double VolumeThird  = volumeCorrectionThird * 1000 * massThird / densityThird;
-*/
+        /*
+         * Computes volume-correction factors according to the selected method.
+         * Only one compile-time flag must be active:
+         *   CLASSIC_VOLUME_CORRECTION  - classical model (V = k × m)
+         *   INM_VOLUME_CORRECTION      - model using real density at 20 °C and an ideal reference, INM Bucuresti
+         *   ELCOST_VOLUME_CORRECTION     - CULI-type correction
+         */
 
-        double VolumeFirst  = volumeCorrectionFirst * massFirst;
-        double VolumeSecond = volumeCorrectionSecond * massSecond;
-        double VolumeThird  = volumeCorrectionThird * massThird;
+        std::string volumeCorrectionType = mainwindow->optionsConfiguration["volume_correction"];
 
-        std::ostringstream streamObj;
+        if (volumeCorrectionType == "CLASSIC_VOLUME_CORRECTION") {
+            /*
+             * Classic correction: K(T) obtained from tables
+             */
+            volumeCorrectionFirst  = get_K(temperatureFirst);
+            volumeCorrectionSecond = get_K(temperatureSecond);
+            volumeCorrectionThird  = get_K(temperatureThird);
+        }
 
-        if (VolumeFirst > 0 && result_t1 && result_m1) {
+        else if (volumeCorrectionType == "INM_VOLUME_CORRECTION") {
+            /*
+             * Formula-based correction using ro_real20 and a reference ideal-density model.
+             * Relation:
+             *        V_corrected = 1000 * 1.00105 / ρ_real(T)
+             * ro_real(T) is obtained from get_ro(T) model.
+             * ro_real20 is the real density at 20°C.
+             * ro_ideal20 is the ideal water density at 20°C.
+             */
+            const double rho_ideal20 = 998.2009;
+            const double rho_real20  = std::stof(mainwindow->optionsConfiguration["density_20"]);
+
+            double rho = get_ro(temperatureFirst) * rho_real20 / rho_ideal20;
+            volumeCorrectionFirst = 1000.0 * 1.00105 / rho;
+
+            rho = get_ro(temperatureSecond) * rho_real20 / rho_ideal20;
+            volumeCorrectionSecond = 1000.0 * 1.00105 / rho;
+
+            rho = get_ro(temperatureThird) * rho_real20 / rho_ideal20;
+            volumeCorrectionThird = 1000.0 * 1.00105 / rho;
+        }
+
+        else if (volumeCorrectionType == "ELCOST_VOLUME_CORRECTION") {
+            /*
+             * CULI-type correction derived from the classic formula:
+             *     Vol_corrected(T) = K(T) × (ro_ideal20 / ro_real20)
+             */
+            const double rho_ideal20      = 998.2009;
+            const double rho_real20       = std::stof(mainwindow->optionsConfiguration["density_20"]);
+            const double calibrationFactor = rho_ideal20 / rho_real20;
+
+            volumeCorrectionFirst  = get_K(temperatureFirst)  * calibrationFactor;
+            volumeCorrectionSecond = get_K(temperatureSecond) * calibrationFactor;
+            volumeCorrectionThird  = get_K(temperatureThird)  * calibrationFactor;
+        }
+
+        else {
+            QString msg = QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
+                              .arg(QString::fromStdString(volumeCorrectionType))
+                              .arg("  CLASSIC_VOLUME_CORRECTION")
+                              .arg("  INM_VOLUME_CORRECTION")
+                              .arg("  ELCOST_VOLUME_CORRECTION");
+
+            QMessageBox box(QMessageBox::Critical,
+                            "Error",
+                            msg,
+                            QMessageBox::Ok,
+                            nullptr);;
+            box.exec();
+            QCoreApplication::exit(1);
+        }
+
+        /*
+           Convert corrected masses into actual volumes using the
+           computed temperature-dependent K factors.
+        */
+            double VolumeFirst  = volumeCorrectionFirst  * massFirst;
+            double VolumeSecond = volumeCorrectionSecond * massSecond;
+            double VolumeThird  = volumeCorrectionThird  * massThird;
+
+            std::ostringstream streamObj;
+
+            if (VolumeFirst > 0 && result_t1 && result_m1) {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeFirst;
             ui->leVolume1->setText(streamObj.str().c_str());
@@ -1608,7 +1662,7 @@ void TableBoard::onPrintPdfDocClicked() {
     std::string ambientTemperature =
         mainwindow->selectedInfo.ambientTemperature;
     std::string athmosphericPressure =
-        mainwindow->selectedInfo.athmosphericPressure;
+        mainwindow->selectedInfo.atmosphericPressure;
     std::string humidity = mainwindow->selectedInfo.relativeAirHumidity;
 
     std::string temperatureMinimum   = ui->leTemperature1->text().toStdString();
@@ -1726,7 +1780,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "       <th>Debit<br>&nbsp;&nbsp;[L/h]</th>"
                 "   </tr>"
                 "   <tr>"
-                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>&nbsp;Q1&nbsp;</td>"
                 "       <td>" +
                 standardVolumeMinimum + "</td>"
                                         "       <td>" +
@@ -1737,7 +1791,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 minimumFlowString.toStdString() + "</td>"
                                                   "   </tr>"
                                                   "   <tr>"
-                                                  "       <td>&nbsp;Qt&nbsp;</td>"
+                                                  "       <td>&nbsp;Q2&nbsp;</td>"
                                                   "       <td>" +
                 standardVolumeTransitor + "</td>"
                                           "       <td>" +
@@ -1748,7 +1802,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 transitionFlowString.toStdString() + "</td>"
                                                      "   </tr>"
                                                      "   <tr>"
-                                                     "       <td>&nbsp;Qn&nbsp;</td>"
+                                                     "       <td>&nbsp;Q3&nbsp;</td>"
                                                      "       <td>" +
                 standardVolumeNominal + "</td>"
                                         "       <td>" +
@@ -1769,21 +1823,21 @@ void TableBoard::onPrintPdfDocClicked() {
                 "       <th>Debit<br>&nbsp;&nbsp;[L/h]</th>"
                 "   </tr>"
                 "   <tr>"
-                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>&nbsp;Q1&nbsp;</td>"
                 "       <td>" +
                 standardVolumeMinimum + "</td>"
                                         "       <td>" +
                 minimumFlowString.toStdString() + "</td>"
                                                   "   </tr>"
                                                   "   <tr>"
-                                                  "       <td>&nbsp;Qt&nbsp;</td>"
+                                                  "       <td>&nbsp;Q2&nbsp;</td>"
                                                   "       <td>" +
                 standardVolumeTransitor + "</td>"
                                           "       <td>" +
                 transitionFlowString.toStdString() + "</td>"
                                                      "   </tr>"
                                                      "   <tr>"
-                                                     "       <td>&nbsp;Qn&nbsp;</td>"
+                                                     "       <td>&nbsp;Q3&nbsp;</td>"
                                                      "       <td>" +
                 standardVolumeNominal + "</td>"
                                         "       <td>" +
@@ -1812,7 +1866,8 @@ void TableBoard::onPrintPdfDocClicked() {
 
         unsigned iter{0};
         size_t   entriesTable = mainwindow->selectedInfo.entriesNumber;
-        for (; iter < 10 && iter < entriesTable; ++iter) {
+        constexpr size_t ENTRIES_PER_PAGE = 10;
+        for (; iter < ENTRIES_PER_PAGE && iter < entriesTable; ++iter) {
             if (!vectorCheckNumber[iter]->checkState()) {
                 continue;
             }
@@ -2109,7 +2164,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "       <th>Flow Rate<br>&nbsp;&nbsp;[L/h]</th>"
                 "   </tr>"
                 "   <tr>"
-                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>&nbsp;Q1&nbsp;</td>"
                 "       <td>" +
                 standardVolumeMinimum + "</td>"
                                         "       <td>" +
@@ -2120,7 +2175,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 minimumFlowString.toStdString() + "</td>"
                                                   "   </tr>"
                                                   "   <tr>"
-                                                  "       <td>&nbsp;Qt&nbsp;</td>"
+                                                  "       <td>&nbsp;Q2&nbsp;</td>"
                                                   "       <td>" +
                 standardVolumeTransitor + "</td>"
                                           "       <td>" +
@@ -2131,7 +2186,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 transitionFlowString.toStdString() + "</td>"
                                                      "   </tr>"
                                                      "   <tr>"
-                                                     "       <td>&nbsp;Qn&nbsp;</td>"
+                                                     "       <td>&nbsp;Q3&nbsp;</td>"
                                                      "       <td>" +
                 standardVolumeNominal + "</td>"
                                         "       <td>" +
@@ -2152,21 +2207,21 @@ void TableBoard::onPrintPdfDocClicked() {
                 "       <th>Flow Rate<br>&nbsp;&nbsp;[L/h]</th>"
                 "   </tr>"
                 "   <tr>"
-                "       <td>&nbsp;Qmin&nbsp;</td>"
+                "       <td>&nbsp;Q1&nbsp;</td>"
                 "       <td>" +
                 standardVolumeMinimum + "</td>"
                                         "       <td>" +
                 minimumFlowString.toStdString() + "</td>"
                                                   "   </tr>"
                                                   "   <tr>"
-                                                  "       <td>&nbsp;Qt&nbsp;</td>"
+                                                  "       <td>&nbsp;Q2&nbsp;</td>"
                                                   "       <td>" +
                 standardVolumeTransitor + "</td>"
                                           "       <td>" +
                 transitionFlowString.toStdString() + "</td>"
                                                      "   </tr>"
                                                      "   <tr>"
-                                                     "       <td>&nbsp;Qn&nbsp;</td>"
+                                                     "       <td>&nbsp;Q3&nbsp;</td>"
                                                      "       <td>" +
                 standardVolumeNominal + "</td>"
                                         "       <td>" +
@@ -2370,10 +2425,10 @@ void TableBoard::onPrintPdfDocClicked() {
                         std::abs(std::stod(errorFirst.toStdString().c_str())) <
                         maximumWaterMeterError;
                     bool bSecond =
-                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        std::abs(std::stod(errorSecond.toStdString().c_str())) <
                         nominalWaterMeterError;
                     bool bThird =
-                        std::abs(std::stod(errorFirst.toStdString().c_str())) <
+                        std::abs(std::stod(errorThird.toStdString().c_str())) <
                         nominalWaterMeterError;
                     resultTests =
                         (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
@@ -2538,9 +2593,9 @@ void TableBoard::PopulateTable() {
     }
 
     // Update labels with measurement indices and errors
-    ui->lbIndex1->setText(QString(tr("Index [L] -  Qmin: %1  [L/h]  Eroare: %2 %")).arg(QString::number(minimumFlowMain), QString::number(maximumError)));
-    ui->lbIndex2->setText(QString(tr("Index [L] -  Qt:  %1  [L/h]  Eroare: %2 %")).arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
-    ui->lbIndex3->setText(QString(tr("Index [L] -  Qn: %1  [L/h]  Eroare: %2 %")).arg(QString::number(nominalFlowMain), QString::number(nominalError)));
+    ui->lbIndex1->setText(QString(tr("Index [L] -  Q1: %1  [L/h]  Eroare: %2 %")).arg(QString::number(minimumFlowMain), QString::number(maximumError)));
+    ui->lbIndex2->setText(QString(tr("Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %")).arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
+    ui->lbIndex3->setText(QString(tr("Index [L] -  Q3: %1  [L/h]  Eroare: %2 %")).arg(QString::number(nominalFlowMain), QString::number(nominalError)));
 
     // Update line edits with flow rate values
     ui->leFlowRateMinumum->setText(QString::number(minimumFlowMain));

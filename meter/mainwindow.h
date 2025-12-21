@@ -56,7 +56,7 @@ struct SelectedInfo {
           nominalError{0.0f},        /**< Nominal error. */
           maximumError{0.0f},        /**< Maximum error. */
           ambientTemperature{0},     /**< Ambient temperature. */
-          athmosphericPressure{0},   /**< Atmospheric pressure. */
+          atmosphericPressure{0},    /**< Atmospheric pressure. */
           relativeAirHumidity{0},    /**< Relative air humidity. */
           rbGravimetric_new{true},   /**< Gravimetric measurement flag. */
           rbVolumetric{false},       /**< Volumetric measurement flag. */
@@ -85,7 +85,7 @@ struct SelectedInfo {
     double      maximumError;    /**< Maximum error. */
 
     std::string ambientTemperature;   /**< Ambient temperature. */
-    std::string athmosphericPressure; /**< Atmospheric pressure. */
+    std::string atmosphericPressure; /**< Atmospheric pressure. */
     std::string relativeAirHumidity;  /**< Relative air humidity. */
 
     bool rbGravimetric_new; /**< Gravimetric measurement flag. */

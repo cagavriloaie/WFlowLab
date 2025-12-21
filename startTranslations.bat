@@ -1,83 +1,118 @@
-REM Script author: Constantin
-REM Release: 1.0
-REM Description: Generate translations for WStreamLab application
-
 @echo off
-cls
+REM Script author: Constantin
+REM Release: 3.1
+REM Description: Update .ts, generate .qm, or deploy translation files
+
 setlocal enabledelayedexpansion
 
-REM Variables for paths and filenames
-set "projectDir=C:\Users\Constantin\Desktop\HERE_WFlowLab"
+REM === Project paths ===
+set "projectDir=C:\Users\Constantin\Desktop\WS_corrected\WS"
 set "qtBinDir=C:\Qt\6.7.1\mingw_64\bin"
-set "translationsDir=%projectDir%\translations"
-set "buildDir=%projectDir%\build"
 set "meterDir=%projectDir%\meter"
-set "meterProFile=%meterDir%\meter.pro"
-
-echo. 
-echo **1. ===== Checking current directory =====**
-cd /D "%projectDir%"
-if errorlevel 1 (
-    echo Failed to change directory to %projectDir%
-    goto end
-)
-echo Current directory: %CD%
-echo.
+set "translationsDir=%meterDir%\translations"
+set "meterProFile=%meterDir%\WStreamLab.pro"
 
 echo.
-echo **2. ===== Updating translations =====**
-echo Running lupdate on meter.pro
-cd "%meterDir%"
-"%qtBinDir%\lupdate.exe" "%meterProFile%"
-if errorlevel 1 (
-    echo lupdate failed
-    goto end
-)
-echo.
+echo ===== WStreamLab Translation Script =====
+echo Select an option:
+echo 1. Update all .ts files (lupdate)
+echo 2. Generate .qm files from .ts files (lrelease)
+echo 3. Copy translation files to build / debug / release
+choice /c 123 /n /m "Enter your choice (1, 2 or 3): "
+set "userChoice=%errorlevel%"
 
 echo.
-echo **3. ===== Copy .ts files to translations folder =====**
-REM Create translations directory if it doesn't exist
-mkdir "%translationsDir%" 2>nul
-REM Copy .ts files to translations directory
-copy "%meterDir%\translations\*.ts" "%translationsDir%"
-echo.
 
-echo.
-echo **4. ===== Checking current directory (meterDir) =====**
-cd /D "%meterDir%"
-if errorlevel 1 (
-    echo Failed to change directory to %meterDir%
-    goto end
-)
-echo Current directory: %CD%
-echo.
+REM ==========================================================
+REM OPTION 1: UPDATE .TS FILES
+REM ==========================================================
+if "%userChoice%"=="1" (
+    echo Updating .ts files using project file...
 
-echo.
-echo **4. ===== Generating .qm files =====**
-REM Generate .qm files using lrelease
-"%qtBinDir%\lrelease.exe" "%translationsDir%\meter_ro_RO.ts"
-if errorlevel 1 (
-    echo lrelease for meter_ro_RO.ts failed
+    cd /D "%meterDir%" || (
+        echo ERROR: Cannot change directory to %meterDir%
+        goto end
+    )
+
+    "%qtBinDir%\lupdate.exe" "%meterProFile%"
+    if errorlevel 1 (
+        echo ERROR: lupdate failed
+        goto end
+    )
+
+    echo.
+    echo Updated .ts files:
+    dir /b "%translationsDir%\*.ts"
     goto end
 )
 
-"%qtBinDir%\lrelease.exe" "%translationsDir%\meter_en_EN.ts"
-if errorlevel 1 (
-    echo lrelease for meter_en_EN.ts failed
+REM ==========================================================
+REM OPTION 2: GENERATE .QM FILES
+REM ==========================================================
+if "%userChoice%"=="2" (
+    echo Generating .qm files in meter\translations ...
+
+    if not exist "%translationsDir%\*.ts" (
+        echo ERROR: No .ts files found in %translationsDir%
+        goto end
+    )
+
+    for %%f in ("%translationsDir%\*.ts") do (
+        echo Generating %%~nf.qm
+        "%qtBinDir%\lrelease.exe" "%%f" -qm "%translationsDir%\%%~nf.qm"
+        if errorlevel 1 echo ERROR: lrelease failed for %%~nxf
+    )
+
+    echo.
+    echo Generated .qm files:
+    dir /b "%translationsDir%\*.qm"
     goto end
 )
-echo.
 
-echo.
-echo **7. ===== Copy translation files to build folder =====**
-REM Copy .ts and .qm files to build folder
-copy "%translationsDir%\*.ts" "%buildDir%"
-copy "%translationsDir%\*.qm" "%buildDir%"
-echo Files copied to build folder.
-echo.
+if "%userChoice%"=="3" (
+    echo Deploying translation files...
+    echo.
 
-REM Pause to keep the console window open
-pause
+    set "dst1=%projectDir%\build\translations"
+    set "dst2=%projectDir%\Debug\debug\translations"
+    set "dst3=%projectDir%\Release\release\translations"
+
+    for %%D in ("!dst1!" "!dst2!" "!dst3!") do (
+        if not exist "%%~D" (
+            echo Creating directory: %%~D
+            mkdir "%%~D"
+        )
+
+        echo.
+        echo Copying to: %%~D
+        echo -------------------------------------------
+
+        for %%F in (
+            meter_en_EN.ts
+            meter_en_EN.qm
+            meter_ro_RO.ts
+            meter_ro_RO.qm
+        ) do (
+            if exist "%translationsDir%\%%F" (
+                copy /y "%translationsDir%\%%F" "%%~D\%%F" >nul && (
+                    echo [OK] %%~D\%%F
+                ) || (
+                    echo [ERROR] %%~D\%%F
+                )
+            ) else (
+                echo [SKIP] Source not found: %%F
+            )
+        )
+    )
+
+    echo.
+    echo ===========================================
+    echo Translation files deployed successfully.
+    echo ===========================================
+    goto end
+)
+
+goto :eof
 
 :end
+pause

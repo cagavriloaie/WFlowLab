@@ -13,11 +13,24 @@
 
 #include <cstddef> // For NULL, size_t, ptrdiff_t, and other standard library facilities related to sizes and offsets.
 
-// Version information
-constexpr const char* VERSION_BUILD = "1.6 Windows x86_32"; ///< Version and build information of the application
+// Version information - Single source of truth
+constexpr int APP_VERSION_MAJOR = 1;
+constexpr int APP_VERSION_MINOR = 7;
+constexpr int APP_VERSION_PATCH = 0;
+constexpr const char* APP_VERSION_STRING = "1.7.0";
+constexpr const char* VERSION_BUILD = "1.7.0 Windows x86_32"; ///< Version and build information of the application
 
 // Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
+
+ /* When defined, this flag removes RS485/MODBUS related menu options and
+ * functionality from the application. This is useful for deployments that
+ * don't require serial communication capabilities.
+ *
+ * To enable RS485/MODBUS support, comment out or remove this definition.
+ */
+#define BUILD_WITHOUT_RS485_MODBUS
+
 
 // Maximum size for arrays
 constexpr std::size_t MAX_ARRAY_SIZE = 20;
@@ -30,19 +43,27 @@ constexpr int MAIN_WINDOW_WIDTH  = 1450; ///< Width of the main window in pixels
 constexpr int MAIN_WINDOW_HEIGHT = 800;  ///< Height of the main window in pixels
 
 // Minimum and maximum temperature
-constexpr size_t MIN_TEMPERATURE = 0.0;   ///< Minimum allowable temperature in Celsius
-constexpr size_t MAX_TEMPERATURE = 100.0; ///< Maximum allowable temperature in Celsius
+constexpr double MIN_TEMPERATURE = 0.0;   ///< Minimum allowable temperature in Celsius
+constexpr double MAX_TEMPERATURE = 100.0; ///< Maximum allowable temperature in Celsius
 
 // Default density values
 constexpr double DEFAULT_DENSITY_BELOW_ZERO    = 999.8395; ///< Default density when temperature is below zero
 constexpr double DEFAULT_DENSITY_ABOVE_HUNDRED = 958.3449; ///< Default density when temperature is above one hundred
 
+// Standard "ideal" water density at 20°C
+constexpr double RHO_WATER_IDEAL_20_GRAD_C = 998.2009;
+
+// Correction Factor for Air Buoyancy
+constexpr double CORRECTION_FACTOR_AIR_BUOYANCY = 1.00105;
+
 // Default volume correction values
 constexpr double DEFAULT_VOLUME_CORRECTION_BELOW_ZERO     = 1.00116; ///< Default volume correction factor when temperature is below zero
-constexpr double DEFAULT_VOLUME_CORRECTION__ABOVE_HUNDRED = 1.04451; ///< Default volume correction factor when temperature is above one hundred
+constexpr double DEFAULT_VOLUME_CORRECTION_ABOVE_HUNDRED  = 1.04451; ///< Default volume correction factor when temperature is above one hundred
 
 // CSV delimiter
 constexpr char CSV_DELIMITER = ','; ///< Delimiter used in CSV files
+
+constexpr std::size_t MAX_NUMBER_FLOW_METERS = 20;
 
 // Maximum number of flow meter types
 constexpr std::size_t MAX_NUMBER_FLOW_METER_TYPES = 1000; ///< Maximum number of flow meter types supported
@@ -70,6 +91,10 @@ constexpr int S41 = 6;  ///< MD5 transformation constant S41
 constexpr int S42 = 10; ///< MD5 transformation constant S42
 constexpr int S43 = 15; ///< MD5 transformation constant S43
 constexpr int S44 = 21; ///< MD5 transformation constant S44
+
+// UI timing constants
+constexpr int SPLASH_SCREEN_DURATION_MS = 3000; ///< Splash screen display duration in milliseconds
+constexpr int PDF_RESOLUTION_DPI = 300; ///< PDF output resolution in DPI
 
 // Filename of the Romanian language manual
 constexpr const char* MANUAL_RO = "Manual de utilizare WStreamLab V1.4.pdf";

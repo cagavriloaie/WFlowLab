@@ -178,12 +178,12 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
 
     std::string result;
 
-    // Handle zero case
+    // Handle the zero case
     if (num == 0) {
         return (addSuffix) ? "zero" : "";
     }
 
-    // Handle negative numbers
+    // Handle negative values
     if (num < 0) {
         result += "minus ";
         num = -num; // Make num positive for further processing
@@ -244,14 +244,14 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
  * Translated elements include window title, group box title, labels, combo box items,
  * and push button texts.
  *
- * Example usage:
+ * Example:
  * \code
  * ReportMeasurements report;
  * report.Translate();
  * \endcode
  */
 void ReportMeasurements::Translate() {
-    this->setWindowTitle(tr("WFlowLab - Informatii buletin verificare metrologica"));
+    this->setWindowTitle(tr("WFlowLab - Informatii buletin de verificare metrologica"));
     ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
     ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
     ui->lbNumarInregistrare->setText(tr("Numar de inregistrare: "));
@@ -265,7 +265,7 @@ void ReportMeasurements::Translate() {
     ui->cbValabilitate->addItem(tr("6 luni"));
     ui->cbValabilitate->addItem(tr("1 an"));
     ui->cbValabilitate->addItem(tr("2 ani"));
-    ui->cbValabilitate->addItem(tr("3"));
+    ui->cbValabilitate->addItem(tr("3 ani"));
     ui->cbValabilitate->addItem(tr("5 ani"));
     ui->pbGenerareBV->setText(tr("&Generare BV"));
     ui->pbInchide->setText(tr("&Inchide"));
@@ -308,16 +308,16 @@ ReportMeasurements::ReportMeasurements(QWidget*                       parent,
     setWindowTitle(tr("WFlowLab - Informatii buletin de verificare metrologica"));
 
     // Set labels and options for the UI elements
-    ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
+    ui->grBoxBuletin->setTitle(tr("Date de verificare metrologica"));
     ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
     ui->lbNumarInregistrare->setText(tr("Numar de inregistrare:"));
     ui->lbBeneficiar->setText(tr("Beneficiar:"));
-    ui->lbCodulDinLt->setText(tr("Codul din LT:"));
+    ui->lbCodulDinLt->setText(tr("Cod din LT:"));
     ui->lbNormativ->setText(tr("Normativ:"));
     ui->lbValabilitate->setText(tr("Valabilitate:"));
     ui->lbCost->setText(tr("Cost:"));
     ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog:"));
-    ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
+    ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii metrologice:"));
     ui->cbValabilitate->addItem(tr("1 an"));
     ui->cbValabilitate->addItem(tr("2 ani"));
     ui->cbValabilitate->addItem(tr("3 ani"));
@@ -363,14 +363,14 @@ ReportMeasurements::ReportMeasurements(QWidget*                       parent,
 /**
  * \brief Destructor for the ReportMeasurements class.
  *
- * Cleans up the user interface (ui) resources.
+ * Releases allocated UI resources.
  */
 ReportMeasurements::~ReportMeasurements() {
     delete ui;
 }
 
 /**
- * \brief Slot triggered when the "Generate BV" button is clicked.
+ * \brief Slot invoked when the "Generate BV" button is clicked.
  *
  * Collects data from line edits, validates input, and generates a verification report in PDF format.
  * Displays error message if any required field is empty.
@@ -387,15 +387,15 @@ void ReportMeasurements::onPrintClicked() {
         ui->leVerificatorMetrolog,
         ui->leLoculEfectuariiVerificarii};
 
-    // Check if any field is empty
+    // Check whether any required field is empty
     bool anyFieldEmpty = std::any_of(lineEdits.begin(), lineEdits.end(), [](const QLineEdit* lineEdit) {
         return lineEdit->text().isEmpty();
     });
 
     if (anyFieldEmpty) {
         QMessageBox messageBoxWindowsTitle;
-        messageBoxWindowsTitle.setWindowTitle(tr("Verification report"));
-        messageBoxWindowsTitle.setText(tr("There are unfilled fields!"));
+        messageBoxWindowsTitle.setWindowTitle(tr("Metrological Verification Report"));
+        messageBoxWindowsTitle.setText(tr("Some required fields are not filled in."));
         messageBoxWindowsTitle.setStandardButtons(QMessageBox::Ok);
         messageBoxWindowsTitle.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
         if (messageBoxWindowsTitle.exec() == QMessageBox::Ok) {
@@ -428,7 +428,7 @@ void ReportMeasurements::onPrintClicked() {
 
     std::stringstream htmlTable;
 
-    // Start building the HTML string
+    // Begin constructing the HTML content
     htmlTable << "<html>\n"
               << "<head>\n"
               << "  <title>Buletin de verificare metrologica</title>\n"
@@ -530,7 +530,7 @@ void ReportMeasurements::onPrintClicked() {
     streamObjCostTVA << std::fixed << std::setprecision(2);
     streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
-
+// TODO dar switch-ul tratează cazurile 0, 1 și 2.
     for (size_t row = 0; row < 1; ++row) // Assuming you want to iterate only once based on the provided loop condition
     {
         htmlTable << "     <tr style=\"height: 20px;\">\n";
@@ -538,13 +538,13 @@ void ReportMeasurements::onPrintClicked() {
         switch (row) {
         case 0:
             htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
-                      << "Data si ora finalizarii masurarilor:____________________________________________________</td>\n"
+                      << "Data si ora finalizarii masurarilor metrologic:____________________________________________________</td>\n"
                       << "        <td>Total</td>\n"
                       << "        <td>" << totalCost << "</td>\n";
             break;
 
         case 1:
-            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Costul total al verificarii metrologice fara TVA este " << totalCost << " lei.</td>\n"
+            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Costul total al verificarii metrologice, fara TVA, este " << totalCost << " lei.</td>\n"
                       << "        <td><strong>TVA</strong></td>\n"
                       << "        <td>" << totalTVA << "</td>\n";
             break;
@@ -581,8 +581,8 @@ void ReportMeasurements::onPrintClicked() {
               << "    </tbody>\n"
               << "</table>\n"
               << "<div class=\"text-container\" style=\"text-align: left;\">"
-              << "<p style=\"font-size: 7px; line-height: 0.6;\">" << "1) Prezentul buletin nu se refera la caractersitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
-                                                                      "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeazasi numarul AM<br>"
+              << "<p style=\"font-size: 7px; line-height: 0.6;\">" << "1) Prezentul buletin nu se refera la caracterisitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
+                                                                      "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeaza si numarul AM<br>"
                                                                       "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
                                                                       "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul<br>certificatului de "
                                                                       "calibrare<br><br>"

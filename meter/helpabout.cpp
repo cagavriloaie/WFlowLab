@@ -1,12 +1,13 @@
 /**
  * \file helpabout.cpp
- * \brief Implementation file for HelpAbout dialog functionality.
+ * \brief Implementation of the HelpAbout dialog.
  *
- * This file contains the implementation of the HelpAbout class, which provides
- * functionality for displaying help and about information in a dialog window.
+ * This file contains the implementation of the HelpAbout class, which
+ * displays application information such as version, author, and contact
+ * details in an "About" dialog.
  *
  * \author Constantin
- * \date Insert date
+ * \date To be defined
  */
 
 #include "helpabout.h"    // Include the header file for HelpAbout dialog
@@ -14,10 +15,10 @@
 #include "ui_helpabout.h" // Include the generated UI header file
 
 /**
- * \brief Translates and sets the text for the About dialog.
+ * \brief Applies translated text to the About dialog.
  *
- * This function sets the translated text for various labels and the window title in the About dialog.
- * It ensures that all UI elements display the correct information in the appropriate language.
+ * This function sets the window title and updates all labels in the About
+ * dialog with localized text, ensuring correct language display.
  */
 void HelpAbout::Translate() {
     // Set window title
@@ -36,16 +37,17 @@ void HelpAbout::Translate() {
     };
 
     // Set label texts
-    setLabelText(ui->lbName, "WStreamLab version:");
+    setLabelText(ui->lbName, tr("WStreamLab version:"));
     setLabelText(ui->lbNameValue, QString::fromUtf8(VERSION_BUILD));
-    setLabelText(ui->lbCopyright, "Copyright:");
-    setLabelText(ui->lbCopyrightValue, "2025 Elcost Company srl");
-    setLabelText(ui->lbEmail, "Email:");
-    setLabelText(ui->lbEmailValue, "office@elcost.ro");
-    setLabelText(ui->lbAddress, "Address:");
-    setLabelText(ui->lbAddressValue, "Pascani / RO Morilor #8");
-    setLabelText(ui->lbAuthor, "Author:");
-    setLabelText(ui->lbAuthorValue, "constantin");
+    setLabelText(ui->lbCopyright, tr("Copyright:"));
+    setLabelText(ui->lbCopyrightValue, tr("© 2026 Elcost Company SRL"));
+    setLabelText(ui->lbEmail, tr("Email:"));
+    setLabelText(ui->lbEmailValue, tr("office@elcost.ro"));
+    setLabelText(ui->lbAddress, tr("Address:"));
+    setLabelText(ui->lbAddressValue, tr("Pascani / RO Morilor #8"));
+    setLabelText(ui->lbAuthor, tr("Author:"));
+    setLabelText(ui->lbAuthorValue, tr("constantin"));
+
 
     // Set close button text
     ui->pbClose->setText(tr("&Close"));
