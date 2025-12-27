@@ -2,17 +2,17 @@
  * \file main.cpp
  * \brief Main entry point of the application.
  *
- * This file contains the main function, which serves as the entry point
- * for the application. It initializes necessary components and starts
- * the main event loop.
+ * Contains the main() function, which initializes the application
+ * and starts the main event loop.
  *
  * \author Constantin
- * \date Insert date
+ * \date To be defined
  *
  * \section notes_sec Notes
  *
- *  astyle *.cpp,*.h --style=java --indent=spaces=4 --break-blocks --pad-oper
- *  --pad-comma --pad-paren --align-pointer=name --add-braces --mode=c
+ * Code formatting instructions:
+ * astyle *.cpp,*.h --style=java --indent=spaces=4 --break-blocks --pad-oper
+ * --pad-comma --pad-paren --align-pointer=name --add-braces --mode=c
  * --recursive
  */
 
@@ -33,9 +33,12 @@
 #include "mainwindow.h" // Include header for MainWindow class
 
 /**
- * \brief The PixelImageWidget class represents a custom widget that displays
- *        a pixelated image and handles application-specific functionalities.
+ * \brief Custom widget that displays a pixelated image.
+ *
+ * The PixelImageWidget class provides a widget for displaying pixelated images
+ * and includes application-specific functionality for interacting with the image.
  */
+
 class PixelImageWidget : public QMainWindow {
   public:
     /**
@@ -92,13 +95,12 @@ class PixelImageWidget : public QMainWindow {
     }
 
     /**
-     * \brief Paints the widget with a gradient and textual information.
+     * \brief Paints the widget with a gradient and text.
      *
-     * This method overrides the QWidget::paintEvent and is responsible for painting
-     * the widget with a gradient from red to blue across its entire area. It also
-     * displays textual information at the top of the widget.
+     * Overrides QWidget::paintEvent() to render a gradient from red to blue
+     * across the widget and display textual information at the top.
      *
-     * \param event The paint event that triggered this method.
+     * \param event Pointer to the QPaintEvent that triggered this method.
      */
     void paintEvent(QPaintEvent*) override {
         QPainter painter(this);
@@ -175,22 +177,21 @@ class PixelImageWidget : public QMainWindow {
 };
 
 /**
- * \brief Global pointer to manage application translations.
+ * \brief Global pointer for managing application translations.
  *
- * This pointer is used globally to manage translations for the application.
- * It is initially set to nullptr and later assigned an instance of QTranslator
- * when loading translations.
+ * Initially set to nullptr, this pointer is later assigned a QTranslator
+ * instance to handle loading and applying translations throughout the application.
  */
+
 QTranslator* appTranslator = nullptr;
 
 /**
- * \brief Loads the application translations from a specified path.
+ * \brief Loads application translations from a specified file.
  *
- * This function initializes a global QTranslator object (`appTranslator`) with
- * translations loaded from a specified .qm file located in the application's
- * "translations" directory.
+ * Initializes the global QTranslator (`appTranslator`) with translations
+ * loaded from a .qm file located in the application's "translations" directory.
  *
- * \return True if the translation loaded successfully, false otherwise.
+ * \return True if the translation file was loaded successfully; false otherwise.
  */
 bool loadTranslations() {
     QString qmPath = qApp->applicationDirPath() + QDir::separator() + "translations";
@@ -205,14 +206,14 @@ bool loadTranslations() {
 }
 
 /**
- * \brief Checks and handles multiple instances of the application using shared memory.
+ * \brief Detects and handles multiple instances of the application using shared memory.
  *
- * This function attempts to create a shared memory segment with a given key. If the segment
- * cannot be created, it indicates that another instance of the application is already running
- * and displays a warning message.
+ * Attempts to create a shared memory segment with a specified key. If creation fails,
+ * it indicates that another instance of the application is already running and
+ * displays a warning message.
  *
- * \param shared Pointer to a QSharedMemory instance for managing shared memory.
- * \return True if another instance is already running, false if this is the first instance.
+ * \param shared Pointer to a QSharedMemory instance used for managing the shared memory segment.
+ * \return True if another instance is already running; false if this is the first instance.
  */
 bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
     // Create a shared memory segment
@@ -238,10 +239,13 @@ bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
 }
 
 /**
- * \brief The main entry point of the application.
+ * \brief Main entry point of the application.
+ *
+ * Initializes the application and starts the main event loop.
+ *
  * \param argc Number of command-line arguments.
  * \param argv Array of command-line arguments.
- * \return Application exit status.
+ * \return Exit status of the application.
  */
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);

@@ -1,22 +1,27 @@
 /**
  * \file air-density.cpp
- * \brief Implementation file for air density calculations.
+ * \brief Implementation of water density and volume correction calculations.
  *
- * This file contains the implementation of functions related to air density calculations.
- * It includes functions for computing air density based on temperature and atmospheric pressure.
+ * This source file implements functions used to compute water density
+ * and volume correction factors as functions of temperature.
+ * The calculations are based on tabulated reference values and
+ * linear or quadratic interpolation methods.
  *
  * \author Constantin
- * \date Insert creation date
+ * \date Creation date to be added
  */
+
 
 #include "waterdensity.h" // Header file for water density calculations
 #include <cmath>          // Standard C++ math library
 #include "definitions.h"  // Project-specific constants and definitions
 
 /**
- * \brief Array of temperature points (in Celsius) used for various calculations.
+ * \brief Discrete temperature reference points in degrees Celsius.
  *
- * Contains temperature values from 0.0 to 100.0 degrees Celsius (inclusive).
+ * This array contains integer temperature values from 0 °C to 100 °C inclusive.
+ * The values are used as reference points for density and volume correction
+ * interpolation.
  */
 const double temperaturePoints[] =
     {
@@ -33,10 +38,14 @@ const double temperaturePoints[] =
         100.0};
 
 /**
- * \brief Array of density values corresponding to temperature points.
+ * \brief Reference water density values corresponding to temperaturePoints[].
  *
- * Contains density values corresponding to the temperature points array.
- * These are used for density corrections based on temperature.
+ * Each element represents the water density in kg/m³ at the corresponding
+ * temperature from temperaturePoints[]. These values are used as input data
+ * for interpolation-based density calculations.
+ *
+ * Note: The last value (101 °C) is included only to support interpolation
+ * near the upper boundary.
  */
 const double densityPoints[] =
     {
@@ -54,10 +63,14 @@ const double densityPoints[] =
 };
 
 /**
- * \brief Array of volume correction factors corresponding to temperature points.
+ * \brief Volume correction factors as a function of temperature.
  *
- * Contains volume correction factors from 0.0 to 100.0 degrees Celsius (inclusive).
- * These factors are used to correct volumes based on temperature variations.
+ * This array contains volume correction coefficients corresponding to
+ * temperatures from 0 °C to 100 °C. The factors are used to correct measured
+ * volumes to a reference temperature.
+ *
+ * Note: The value at 101 °C exists only to allow safe interpolation at
+ * the upper temperature limit.
  */
 const double volumeCorrectionPoints[] =
     {
@@ -75,15 +88,17 @@ const double volumeCorrectionPoints[] =
 };
 
 /**
- * \brief Perform linear interpolation to calculate water density at a given temperature.
+ * \brief Computes water density using linear interpolation.
  *
- * \param temperature Temperature (in Celsius) for interpolation.
- * \param correction Correction factor applied to the density calculation.
- * \return Interpolated water density.
+ * This function estimates the water density at a given temperature by
+ * performing linear interpolation between adjacent reference points.
+ * A correction term is applied relative to the density at 20 °C.
  *
- * The function calculates water density using linear interpolation based on
- * temperature points and corresponding density values. It handles out-of-range
- * temperatures with default values.
+ * \param temperature Temperature in degrees Celsius.
+ * \param correction  Reference correction value applied at 20 °C.
+ * \return Interpolated and corrected water density in kg/m³.
+ *
+ * Temperatures outside the supported range return predefined default values.
  */
 double getWaterDensityAtTemperature(double temperature, double correction) {
     // Check if temperature is below 0 or above 100
@@ -116,22 +131,19 @@ double getWaterDensityAtTemperature(double temperature, double correction) {
     return density;
 }
 
-// Quadratic interpolation to estimate water density at a given temperature,
-// with an added correction term to adjust density relative to 20°C.
-//
-// Parameters:
-// - temperature: The temperature (°C) for which density is estimated.
-// - correction: A correction factor applied relative to the density at 20°C.
-//
-// Returns:
-// - Estimated water density (kg/m³) based on quadratic interpolation.
-//
-// Notes:
-// - For temperatures below MIN_TEMPERATURE, returns DEFAULT_DENSITY_BELOW_ZERO.
-// - For temperatures above MAX_TEMPERATURE, returns DEFAULT_DENSITY_ABOVE_HUNDRED.
-// - Uses densityPoints array indexed by floor(temperature) and neighbors for interpolation.
-// - Clamps floor(temperature) to avoid out-of-bounds array access.
-//
+/**
+ * \brief Estimates water density using quadratic interpolation.
+ *
+ * This function computes water density at the specified temperature using
+ * quadratic Lagrange interpolation over three neighboring reference points.
+ * The method provides smoother results compared to linear interpolation.
+ *
+ * \param temperature Temperature in degrees Celsius.
+ * \return Estimated water density in kg/m³.
+ *
+ * For temperatures outside the valid range, predefined default densities
+ * are returned. Array indices are clamped to prevent out-of-bounds access.
+ */
 double get_ro(double temperature) {
     // Handle temperatures outside the interpolation range by returning default densities
     if (temperature <= MIN_TEMPERATURE) {
@@ -169,14 +181,17 @@ double get_ro(double temperature) {
 }
 
 /**
- * \brief Perform quadratic interpolation to calculate volume correction factor at a given temperature.
+ * \brief Computes the volume correction factor using quadratic interpolation.
  *
- * \param temperature Temperature (in Celsius) for interpolation.
+ * This function evaluates the volume correction factor at the given temperature
+ * using quadratic Lagrange interpolation based on three adjacent reference
+ * values from the volumeCorrectionPoints[] table.
+ *
+ * \param temperature Temperature in degrees Celsius.
  * \return Interpolated volume correction factor.
  *
- * This function uses Lagrange’s quadratic interpolation on three adjacent points
- * from the volumeCorrectionPoints[] array. It falls back to default constants when
- * temperature is out of bounds.
+ * If the temperature lies outside the supported range, predefined default
+ * correction factors are returned.
  */
 double get_K(double temperature) {
     if (temperature <= MIN_TEMPERATURE) {

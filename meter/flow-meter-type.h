@@ -1,9 +1,9 @@
 /**
  * \file flow-meter-type.h
- * \brief Header file defining enums for flow meter types.
+ * \brief Definitions for water flow meter types.
  *
- * This file defines enums that represent different types of flow meters
- * used in the project.
+ * Declares structures and interfaces for handling
+ * water flow meter databases.
  *
  * \author Constantin
  */
@@ -11,14 +11,10 @@
 #ifndef FLOWMETERTYPE_H
 #define FLOWMETERTYPE_H
 
-#include <QDir>          // Qt class for handling directories and their contents.
-#include <QMessageBox>   // Qt class for displaying modal dialog boxes with messages.
-#include <fstream>       // Standard C++ file stream input/output library.
-#include <iostream>      // Standard C++ stream input/output library.
-#include <sstream>       // Standard C++ string stream input/output library.
-#include <string>        // Standard C++ string class.
-#include <vector>        // Standard C++ container class for dynamic arrays.
-#include "definitions.h" // User-defined header file containing project-specific definitions.
+#include <string>
+#include <vector>
+
+#include "definitions.h"
 
 /** \brief Structure representing a water flow meter type.
  *
@@ -30,7 +26,7 @@ struct MeterFlowType {
     unsigned    nominalDiameter; ///< Nominal diameter of the water meter.
     double      nominalFlow;     ///< Nominal flow rate of the water meter.
     double      maximumFlow;     ///< Maximum flow rate of the water meter.
-    double      trasitionFlow;   ///< Transition flow rate of the water meter.
+    double      transitionFlow;   ///< Transition flow rate of the water meter.
     double      minimumFlow;     ///< Minimum flow rate of the water meter.
     double      nominalError;    ///< Nominal error margin of the water meter.
     double      maximumError;    ///< Maximum error margin of the water meter.
@@ -58,7 +54,7 @@ struct MeterFlowType {
           nominalDiameter(_nominalDiameter),
           nominalFlow(_nominalFlow),
           maximumFlow(_maximumFlow),
-          trasitionFlow(_trasitionFlow),
+          transitionFlow(_trasitionFlow),
           minimumFlow(_minimumFlow),
           nominalError(_nominalError),
           maximumError(_maximumError) {}
@@ -72,7 +68,7 @@ struct MeterFlowType {
         nominalDiameter(0),
         nominalFlow(0),
         maximumFlow(0),
-        trasitionFlow(0),
+        transitionFlow(0),
         minimumFlow(0),
         nominalError(0),
         maximumError(0) {}
@@ -222,7 +218,7 @@ std::vector<MeterFlowType> readFlowMeterTypesCSV(
             std::getline(iss, token, CSV_DELIMITER);
             meterFlow.nominalFlow = std::stod(token);
             std::getline(iss, token, CSV_DELIMITER);
-            meterFlow.trasitionFlow = std::stod(token);
+            meterFlow.transitionFlow = std::stod(token);
             std::getline(iss, token, CSV_DELIMITER);
             meterFlow.minimumFlow = std::stod(token);
             std::getline(iss, token, CSV_DELIMITER);

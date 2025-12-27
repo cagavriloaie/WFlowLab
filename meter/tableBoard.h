@@ -105,7 +105,7 @@ class TableBoard : public QDialog {
     ReportMeasurements* reportMeasurementsDialog{nullptr}; ///< Pointer to the report measurements dialog.
     std::string         nameWaterMeter;                    ///< Name of the water meter being tested.
     double              minimumFlowMain{0};                ///< Minimum flow rate.
-    double              transitoriuFlowMain{0};            ///< Transitory flow rate.
+    double              transitoriuFlowMain{0};            ///< Transitional flow rate.
     double              nominalFlowMain{0};                ///< Nominal flow rate.
     double              nominalError{0};                   ///< Nominal error.
     double              maximumError{0};                   ///< Maximum error.

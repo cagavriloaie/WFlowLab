@@ -2,9 +2,8 @@
  * \file helpabout.cpp
  * \brief Implementation of the HelpAbout dialog.
  *
- * This file contains the implementation of the HelpAbout class, which
- * displays application information such as version, author, and contact
- * details in an "About" dialog.
+ * Defines the HelpAbout class, which displays application information
+ * such as version, author, and contact details in an "About" dialog.
  *
  * \author Constantin
  * \date To be defined
@@ -15,10 +14,10 @@
 #include "ui_helpabout.h" // Include the generated UI header file
 
 /**
- * \brief Applies translated text to the About dialog.
+ * \brief Updates the About dialog with localized text.
  *
- * This function sets the window title and updates all labels in the About
- * dialog with localized text, ensuring correct language display.
+ * Sets the window title and updates all labels in the About dialog
+ * to display the appropriate translations according to the current language.
  */
 void HelpAbout::Translate() {
     // Set window title
@@ -54,13 +53,13 @@ void HelpAbout::Translate() {
 }
 
 /**
- * \brief Constructor for the HelpAbout dialog.
+ * \brief Constructs the HelpAbout dialog.
  *
- * This constructor initializes the HelpAbout dialog, sets up the user interface, calls the
- * translation function to set the appropriate texts, and connects the close button signal
- * to the onCloseClicked slot.
+ * Initializes the HelpAbout dialog, sets up the UI, applies translations
+ * to display the correct text, and connects the close button to the
+ * onCloseClicked slot.
  *
- * \param parent Pointer to the parent widget. Defaults to nullptr.
+ * \param parent Pointer to the parent QWidget. Defaults to nullptr.
  */
 HelpAbout::HelpAbout(QWidget* parent)
     : QDialog(parent),
@@ -76,18 +75,18 @@ HelpAbout::HelpAbout(QWidget* parent)
 }
 
 /**
- * \brief Destructor for the HelpAbout dialog.
+ * \brief Destroys the HelpAbout dialog.
  *
- * This destructor cleans up the user interface by deleting the `ui` pointer.
+ * Cleans up resources by deleting the `ui` pointer.
  */
 HelpAbout::~HelpAbout() {
     delete ui;
 }
 
 /**
- * \brief Slot function to handle the close button click event.
+ * \brief Slot triggered when the close button is clicked.
  *
- * This function is called when the close button is clicked. It hides the About dialog.
+ * Hides the HelpAbout dialog when the close button is pressed.
  */
 void HelpAbout::onCloseClicked() {
     this->hide();

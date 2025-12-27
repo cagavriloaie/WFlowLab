@@ -1,12 +1,13 @@
 /**
  * \file license.cpp
- * \brief Implementation of the License dialog functionality.
+ * \brief Implementation of the License dialog.
  *
- * This file contains the implementation of methods for the License dialog,
- * which displays configuration details retrieved from the main window.
+ * Defines the methods for the License dialog, which displays configuration
+ * and license information retrieved from the main window.
  *
  * \author Constantin
  */
+
 
 #include "license.h"    // Include the header file for the License dialog class.
 #include "mainwindow.h" // Include the header file for the MainWindow class.
@@ -17,37 +18,38 @@ MainWindow* mainwindow;
 }
 
 /**
- * \brief Translates and sets text for UI elements in the License dialog.
+ * \brief Updates UI elements in the License dialog with localized text.
  *
- * This function translates and sets the text for various QLabel and QPushButton
- * UI elements in the License dialog using Qt's translation mechanism (tr()).
- * It ensures that all UI elements display text in the appropriate language
- * specified by the application's current locale.
+ * Translates and sets the text for QLabel and QPushButton elements
+ * in the License dialog using Qt's tr() mechanism, ensuring all
+ * UI elements display text according to the application's current locale.
  */
 void License::Translate() {
-    this->setWindowTitle(tr("WStreamLab - License"));      ///< Set the window title.
-    ui->lbCertificate->setText(tr("Certificate:"));        ///< Set text for certificate label.
-    ui->lbDensity->setText(tr("Water density at 20 °C:")); ///< Set text for water density label.
-    ui->lbDensityUnit->setText(tr("[kg/m²]"));             ///< Set text for density unit label.
-    ui->lbArchive->setText(tr("Archive folder:"));         ///< Set text for archive folder label.
-    ui->lbCompany->setText(tr("Company:"));                ///< Set text for company label.
-    ui->lbMaximum->setText(tr("Maxim number entries"));    ///< Set text for maximum entries label.
-    ui->lbChecksum->setText(tr("Checksum:"));              ///< Set text for checksum label.
-    ui->pbClose->setText(tr("Close"));                     ///< Set text for close button.
+    this->setWindowTitle(tr("WStreamLab - License"));           ///< Set the window title.
+    ui->lbCertificate->setText(tr("Certificate:"));             ///< Set text for certificate label.
+    ui->lbDensity->setText(tr("Water density at 20 °C:"));      ///< Set text for water density label.
+    ui->lbDensityUnit->setText(tr("[kg/m³]"));                  ///< Set text for density unit label.
+    ui->lbArchive->setText(tr("Archive folder:"));              ///< Set text for archive folder label.
+    ui->lbCompany->setText(tr("Company:"));                     ///< Set text for company label.
+    ui->lbVolumeCorrection->setText(tr("Volume correction:"));  ///< Set text for volume correction label.
+    ui->lbChecksum->setText(tr("Checksum:"));                   ///< Set text for checksum label.
+
+    ui->pbClose->setText(tr("Close"));                          ///< Set text for close button.
 }
 
 /**
- * \brief Constructs a License dialog.
+ * \brief Constructs the License dialog.
  *
- * This constructor initializes the License dialog by setting up the user interface
- * defined in Ui::License. It performs translation of UI elements and connects the
- * close button click signal to the onCloseClicked slot.
+ * Initializes the License dialog, sets up the UI defined in Ui::License,
+ * applies translations to UI elements, and connects the close button
+ * signal to the onCloseClicked slot.
  *
- * \param parent Pointer to the parent widget.
+ * \param parent Pointer to the parent QWidget.
  */
 License::License(QWidget* parent)
     : QDialog(parent),
       ui(new Ui::Licence) {
+
     ui->setupUi(this);                              ///< Set up the user interface.
     mainwindow = dynamic_cast<MainWindow*>(parent); ///< Cast parent to MainWindow pointer.
     Translate();                                    ///< Translate UI elements.
@@ -58,17 +60,20 @@ License::License(QWidget* parent)
 }
 
 /**
- * \brief Event handler for when the License dialog is shown.
+ * \brief Handles the License dialog show event.
  *
- * This function overrides QWidget::showEvent(event) to update the displayed values
- * based on the options configuration stored in the MainWindow instance. It sets the
- * text of several QLabel widgets with specific keys from the options configuration,
- * converting them from std::string to QString.
+ * Overrides QWidget::showEvent() to update displayed values based on
+ * the configuration options stored in the MainWindow. Sets the text
+ * of QLabel widgets using specific keys from the configuration,
+ * converting values from std::string to QString.
  *
- * \param event Show event object.
+ * \param event Pointer to the QShowEvent.
  */
 void License::showEvent(QShowEvent* event) {
     QWidget::showEvent(event); ///< Call base class showEvent.
+
+    if (!mainwindow)
+        return;
 
     // Update UI elements with values from MainWindow's options configuration
     ui->lbCompanyValue->setText(QString::fromStdString(
@@ -77,8 +82,17 @@ void License::showEvent(QShowEvent* event) {
         mainwindow->optionsConfiguration["certificate"]));
     ui->lbArchiveValue->setText(QString::fromStdString(
         mainwindow->optionsConfiguration["archive"]));
-    ui->lbMaximumValue->setText(QString::fromStdString(
-        mainwindow->optionsConfiguration["maximum"]));
+
+    std::string volumeCorrectionType =
+        mainwindow->optionsConfiguration["volume_correction"];
+    if (volumeCorrectionType == "CLASSIC_VOLUME_CORRECTION")
+        volumeCorrectionType = "CLASSIC VOLUME CORRECTION";
+    else if (volumeCorrectionType == "INM_VOLUME_CORRECTION")
+        volumeCorrectionType = "INM VOLUME CORRECTION";
+    else if (volumeCorrectionType == "ELCOST_VOLUME_CORRECTION")
+        volumeCorrectionType = "ELCOST VOLUME CORRECTION";
+    ui->lbVolumeCorrectionValue->setText(QString::fromStdString(volumeCorrectionType));
+
     ui->lbDensityValue->setText(QString::fromStdString(
         mainwindow->optionsConfiguration["density_20"]));
     ui->lbChecksumValue->setText(QString::fromStdString(
@@ -86,21 +100,20 @@ void License::showEvent(QShowEvent* event) {
 }
 
 /**
- * \brief Slot function to handle the close button clicked signal.
+ * \brief Slot triggered when the close button is clicked.
  *
- * This function is connected to the clicked signal of the close button (pbClose).
- * It hides the License dialog when the close button is clicked by calling hide().
+ * Connected to the clicked signal of pbClose. Hides the License dialog
+ * by calling hide() when the button is pressed.
  */
 void License::onCloseClicked() {
     this->hide(); ///< Hide the License dialog.
 }
 
 /**
- * \brief Destructor for the License dialog.
+ * \brief Destroys the License dialog.
  *
- * Deletes the user interface object (ui) associated with the License dialog.
- * This ensures that resources allocated for the user interface are properly freed
- * when the License dialog is destroyed.
+ * Deletes the `ui` object to release resources allocated for
+ * the user interface when the License dialog is destroyed.
  */
 License::~License() {
     delete ui; ///< Delete the user interface object.

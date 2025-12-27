@@ -1,12 +1,12 @@
 /**
- * \file report.cpp
- * \brief Implementation file for the ReportMeasurements class.
+ * \class ReportMeasurements
+ * \brief Handles generation and display of measurement reports.
  *
- * This file contains the implementation of methods for the ReportMeasurements class,
- * which is responsible for generating and handling reports related to measurements.
+ * This class manages report creation, formatting, and interaction with the user interface.
+ * It includes functionalities for generating HTML reports, displaying them in dialogs,
+ * and exporting to PDF.
  *
- * \author Constantin
- * \date Insert creation date
+ * \note Assumes the presence of specific UI elements and connections defined in the associated .ui file.
  */
 
 #include <algorithm> // Standard C++ algorithms
@@ -46,12 +46,16 @@
 #include "ui_report.h"     // UI definition for report dialog
 
 /**
- * \extern MainWindow *pMainWindow
- * \brief Pointer to the main window instance.
+
+ * \brief Generates and displays the measurement report.
  *
- * This global variable holds a pointer to the main window instance,
- * allowing access to its properties and methods from various parts of the application.
+ * This function creates an HTML report based on the current measurement data,
+ * populates the report dialog with the generated content, and shows the dialog
+ * to the user. It ensures that the latest measurements are reflected in the report.
+ *
+ * \note Assumes that the measurement data and UI elements are properly initialized.
  */
+
 extern MainWindow* pMainWindow;
 
 /**

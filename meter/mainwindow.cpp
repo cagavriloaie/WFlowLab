@@ -193,7 +193,7 @@ void MainWindow::ReadConfiguration() {
                           .arg(QString::fromStdString(volumeCorrectionType))
                           .arg("  CLASSIC_VOLUME_CORRECTION")
                           .arg("  INM_VOLUME_CORRECTION")
-                          .arg("  CULI_VOLUME_CORRECTION");
+                          .arg("  ELCOST_VOLUME_CORRECTION");
 
         QMessageBox box(QMessageBox::Critical,
                         "Error",
@@ -253,9 +253,9 @@ void MainWindow::updateSelectedInfo() {
     }
     selectedInfo.pathResults   = optionsConfiguration["archive"];
     selectedInfo.certificate   = optionsConfiguration["certificate"];
-    //The new version has just the optin 20 for entries number
-    //selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
-    selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
+    //The new version has just the option 20 for entries number
+    selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
+    //selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
 
     // Read lab conditions from application settings
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
@@ -289,7 +289,7 @@ void MainWindow::updateSelectedInfo() {
     selectedInfo.nominalDiameter = meterFlowInfo.nominalDiameter;
     selectedInfo.nominalFlow     = meterFlowInfo.nominalFlow;
     selectedInfo.maximumFlow     = meterFlowInfo.maximumFlow;
-    selectedInfo.transitionFlow  = meterFlowInfo.trasitionFlow;
+    selectedInfo.transitionFlow  = meterFlowInfo.transitionFlow;
     selectedInfo.minimumFlow     = meterFlowInfo.minimumFlow;
     selectedInfo.nominalError    = meterFlowInfo.nominalError;
     selectedInfo.maximumError    = meterFlowInfo.maximumError;
@@ -354,7 +354,7 @@ void MainWindow::Translate() {
     ui->action_About->setText(tr("About"));
 
     // Translate labels
-    ui->lbWaterMeterType->setText(tr("Water meter type:"));
+    ui->lbWaterMeterType->setText(tr("Type of water meter:"));
     ui->lbNumberOfWaterMeters->setText(tr("Number of water meters:"));
     ui->lbTemperature->setText(tr("Temperature:"));
     ui->lbPressure->setText(tr("Atmospheric pressure:"));
@@ -372,7 +372,7 @@ void MainWindow::Translate() {
     ui->rbVolumetric->setText(tr("Volumetric"));
     ui->rbGravimetric->setText(tr("Gravimetric"));
     ui->rbManual->setText(tr("Manual Mode Operation"));
-    ui->rbInterface->setText(tr("Interface MODDBUS operation"));
+    ui->rbInterface->setText(tr("Interface MODBUS operation"));
 
     // Translate labels in Water Meter Features group
     ui->lbNominalDiameter->setText(tr("Nominal diameter:"));
@@ -383,10 +383,10 @@ void MainWindow::Translate() {
     ui->lbMaximumError->setText(tr("Maximum error:"));
     ui->lbNominalError->setText(tr("Nominal error:"));
     ui->lbNominalDiameterUnit->setText(tr("[mm]"));
-    ui->lbMaximumFlowUnit->setText(tr("[l/h]"));
-    ui->lbNominalFlowUnit->setText(tr("[l/h]"));
-    ui->lbTransitionFlowUnit->setText(tr("[l/h]"));
-    ui->lbMinimumFlowUnit->setText(tr("[l/h]"));
+    ui->lbMaximumFlowUnit->setText(tr("[L/h]"));
+    ui->lbNominalFlowUnit->setText(tr("[L/h]"));
+    ui->lbTransitionFlowUnit->setText(tr("[L/h]"));
+    ui->lbMinimumFlowUnit->setText(tr("[L/h]"));
     ui->lbMaximumErrorUnit->setText(tr("[%]"));
     ui->lbNominalErrorUnit->setText(tr("[%]"));
 
@@ -418,6 +418,11 @@ MainWindow::MainWindow(QWidget* parent)
 #ifdef BUILD_WITHOUT_RS485_MODBUS
     // Remove menuInterface from the menu bar
     ui->menubar->removeAction(ui->menuInterface->menuAction());
+    ui->rbInterface->setEnabled(false);
+    ui->rbInterface->setStyleSheet(
+        "QRadioButton:disabled { color: gray; }"
+        "QRadioButton::indicator:disabled { background-color: lightgray; }"
+        );
 #endif
 
     // Remove maximize button from window
@@ -460,24 +465,19 @@ MainWindow::MainWindow(QWidget* parent)
     settings.endGroup();
     settings.sync();
 
-    size_t index{MAX_NUMBER_FLOW_METERS};
-
     // Initialize TableBoard and connect signals to slots
     inputData = new TableBoard(this);
     inputData->setModal(false);
 
     // Disable interface radio button (future feature)
-    ui->rbManual->setEnabled(true);
-    ui->rbInterface->setEnabled(true);
+    // ui->rbManual->setEnabled(true);
+    // ui->rbInterface->setEnabled(true);
 
     licenseDialog->setModal(true);
     CenterToScreen(licenseDialog);
 
     helpAbout->setModal(true);
     CenterToScreen(helpAbout);
-
-    licenseDialog->setModal(true);
-    CenterToScreen(licenseDialog);
 
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -559,15 +559,24 @@ MainWindow::MainWindow(QWidget* parent)
     installEventFilter(this);
 
     settings.beginGroup("BenchConfiguration");
-    index = settings.value("numberWaterMeters", index).toInt();
-    uint maximumEntries = MAX_NUMBER_FLOW_METERS;
-    index = std::clamp(index, size_t(0), size_t(maximumEntries - 1));
-    ui->cbNumberOfWaterMeters->setCurrentIndex(index);
-    ui->cbWaterMeterType->setCurrentIndex(settings.value("typeWaterMeters", 1).toInt());
-    settings.endGroup();
-    settings.sync();
 
-    statusBarMessage = " > Manual Mode Operation";
+    int numberWaterMeters = 20;
+    if (settings.contains("numberWaterMeters")) {
+        numberWaterMeters = settings.value("numberWaterMeters").toInt();
+    }
+    numberWaterMeters = std::clamp(numberWaterMeters, 0, static_cast<int>(MAX_NUMBER_FLOW_METERS - 1));
+
+    int waterMeterType = 0;
+    if (settings.contains("typeWaterMeters")) {
+        waterMeterType = settings.value("typeWaterMeters").toInt();
+    }
+    waterMeterType = std::clamp(waterMeterType, 0, static_cast<int>(meterFlowTypesDefault.size() - 1));
+
+    settings.endGroup();
+    ui->cbNumberOfWaterMeters->setCurrentIndex(numberWaterMeters);
+    ui->cbWaterMeterType->setCurrentIndex(waterMeterType);
+
+    statusBarMessage = tr(" > Manual Mode Operation");
     setStatusBarMessage(statusBarMessage);
 }
 
@@ -595,13 +604,13 @@ MainWindow::~MainWindow() {
     settings.setValue("labPressure", ui->lePressure->text());
     settings.setValue("labHumidity", ui->leHumidity->text());
     settings.endGroup();
-    settings.sync();
 
     // Update BenchConfiguration settings
     settings.beginGroup("BenchConfiguration");
     settings.setValue("numberWaterMeters", ui->cbNumberOfWaterMeters->currentIndex());
     settings.setValue("typeWaterMeters", ui->cbWaterMeterType->currentIndex());
     settings.endGroup();
+
     settings.sync();
 
     // Clean up UI resources
@@ -646,7 +655,12 @@ void MainWindow::onNumberOfWaterMetersChanged(int index) {
 void MainWindow::onNewSessionClicked() {
     if (!this->inputData) {
         // Create new TableBoard instance if not already initialized
-        inputData = new TableBoard(this);
+        if (!inputData) {
+            inputData = new TableBoard(this);
+        } else {
+            inputData->raise();
+            inputData->activateWindow();
+        }
 
         // Connect signals to slots in inputData
         connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
@@ -672,9 +686,11 @@ void MainWindow::onNewSessionClicked() {
     int      y                 = (availableGeometry.height() - fixedHeight) / 2;
 
     // Set the position and display properties for the window
-    this->inputData->move(x, y);      // Set the window position
-    this->inputData->setModal(false); // Set the window to non-modal
-    this->inputData->show();          // Display the window
+    inputData->move(x, y);      // Set the window position
+    inputData->setModal(false); // Set the window to non-modal
+    inputData->show();          // Display the window
+    inputData->raise();
+    inputData->activateWindow();
 }
 
 /**
@@ -728,7 +744,7 @@ void MainWindow::onRbVolumeClicked() {
 void MainWindow::onRbManualClicked() {
     selectedInfo.rbManual    = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    statusBarMessage         = " > Manual Mode Operation";
+    statusBarMessage         = tr(" > Manual operation mode");
     setStatusBarMessage(statusBarMessage);
 }
 

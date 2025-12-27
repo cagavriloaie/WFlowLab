@@ -1,40 +1,38 @@
 /**
  * \file md5.cpp
- * \brief MD5 class implementation.
+ * \brief Implementation of the MD5 class.
  *
- * \author Frank Thilo (thilo         @unix-ag.org)
+ * \author Frank Thilo (thilo@unix-ag.org)
  * \date Created: 1991
- * \date Last modified: Insert modification date
+ * \date Last modified: To be defined
  *
- * This file contains the implementation of the MD5 class, converted from
- * the reference implementation of RFC 1321 by RSA Data Security, Inc.
- *
- * The original implementation was based on md5.h and md5.c.
+ * Implements the MD5 class, adapted from the reference implementation
+ * of RFC 1321 by RSA Data Security, Inc. The original source was based
+ * on md5.h and md5.c.
  *
  * \see http://www.bzflag.org
  */
+
 
 /**
  * \class MD5
  * \brief Implementation of the MD5 Message-Digest Algorithm.
  *
- * This class provides methods to calculate MD5 hashes for strings or byte arrays.
- * It is based on the reference implementation of RFC 1321 by RSA Data Security, Inc.
+ * Provides methods to compute MD5 hashes for strings or byte arrays,
+ * based on the reference implementation of RFC 1321 by RSA Data Security, Inc.
  *
- * \note This implementation is not intended for speed or security.
+ * \note This implementation is intended for educational purposes and
+ *       is not optimized for speed or security.
  *
- * \copyright Copyright (C) 1991-2, RSA Data Security, Inc. All rights reserved.
- * \license License to copy and use this software is granted provided that it
- * is identified as the "RSA Data Security, Inc. MD5 Message-Digest Algorithm" in all
- * material mentioning or referencing this software or this function.
- * License is also granted to make and use derivative works provided that such works
- * are identified as "derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm"
- * in all material mentioning or referencing the derived work.
- * RSA Data Security, Inc. makes no representations concerning either the merchantability
- * of this software or the suitability of this software for any particular purpose.
- * It is provided "as is" without express or implied warranty of any kind.
+ * \copyright Copyright (C) 1991-1992, RSA Data Security, Inc. All rights reserved.
+ * \license Permission is granted to copy and use this software provided it is
+ *          identified as the "RSA Data Security, Inc. MD5 Message-Digest Algorithm"
+ *          in all references. Derivative works may be made and used provided they
+ *          are identified as "derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm".
+ *          This software is provided "as is" without any express or implied warranty.
  *
- * \note These notices must be retained in any copies of any part of this documentation and/or software.
+ * \note These copyright and license notices must be retained in all copies
+ *       of this documentation and/or software.
  */
 
 #include "md5.h"

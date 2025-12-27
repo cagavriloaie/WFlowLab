@@ -1,12 +1,13 @@
 /**
  * \file tableBoard.cpp
- * \brief Implementation file for the TableBoard class.
+ * \brief Implementation of the TableBoard class.
  *
- * This file contains the implementation of methods for the TableBoard class,
- * which is responsible for managing and displaying tabular data related to water meters.
+ * This source file contains the implementation of the TableBoard class,
+ * which manages the creation, population, and display of tabular data
+ * associated with water meter measurements and calculations.
  *
  * \author Constantin
- * \date Insert creation date
+ * \date Creation date to be added
  */
 
 // Standard C++ headers
@@ -53,14 +54,15 @@ QString TableBoard::report;
 std::mutex printTablePdfThreadMutex;
 
 /**
- * \brief Generates a PDF document from the provided HTML report and saves it.
+ * \brief Generates and saves a PDF document from an HTML report.
  *
- * This function generates a PDF document using QTextDocument and QPrinter,
- * based on the provided HTML report. The generated PDF is saved to a file
- * with a timestamped filename in a specified directory.
+ * This function converts the provided HTML report into a PDF document
+ * using QTextDocument and QPrinter. The resulting PDF file is saved
+ * to disk with a timestamped filename in the target directory.
  *
- * \param report The HTML report content to be converted to PDF.
+ * \param report HTML content to be rendered and exported as a PDF.
  */
+
 void TableBoard::printPdfThread(QString report) {
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
@@ -130,11 +132,11 @@ void TableBoard::printPdfThread(QString report) {
 }
 
 /**
- * \brief Saves current input data to a text file with a timestamped filename.
+ * \brief Saves the current input data to a timestamped text file.
  *
- * This function saves various input data, including selectedInfo data,
- * vector data, and UI data, to a text file. The file is saved in a specified
- * directory with a filename containing a timestamp.
+ * This function writes input data, including selectedInfo, vectors,
+ * and relevant UI data, to a text file. The file is stored in the
+ * specified directory with a filename that includes the current timestamp.
  */
 void TableBoard::onSaveCurrentInputDataClicked() {
     size_t    entriesNumber = mainwindow->selectedInfo.entriesNumber;
@@ -214,11 +216,12 @@ void TableBoard::onSaveCurrentInputDataClicked() {
 }
 
 /**
- * \brief Opens a dialog to select and load input data from a text file.
+ * \brief Opens a file dialog to load input data from a text file.
  *
- * This function displays a file dialog allowing the user to select an input
- * data file. It reads the selected file and populates various UI elements
- * and internal data structures with the loaded data.
+ * This function presents a file selection dialog to the user, allowing
+ * them to choose an input data file. The selected file is then read,
+ * and the data is used to populate relevant UI elements and internal
+ * data structures.
  */
 void TableBoard::onOpenInputDataClicked() {
     QString fileName = QFileDialog::getOpenFileName(
@@ -349,13 +352,13 @@ void TableBoard::onOpenInputDataClicked() {
 }
 
 /**
- * \brief Converts a double number to a string with 4 decimal precision.
+ * \brief Converts a double to a string with four decimal places.
  *
- * This function converts a given double number into a string representation
- * with exactly 4 decimal places.
+ * This function formats the given double value as a string with
+ * exactly four digits after the decimal point.
  *
- * \param number The double number to convert.
- * \return A string representation of the number with 4 decimal precision.
+ * \param number The double value to convert.
+ * \return String representation of the number with four decimal places.
  */
 std::string precision_4(double number) {
     int integer_part = static_cast<int>(number);                          ///< Integer part of the number.
@@ -369,29 +372,30 @@ std::string precision_4(double number) {
 }
 
 /**
- * \brief Performs exclusive OR (XOR) operation between two boolean values.
+ * \brief Computes the exclusive OR (XOR) of two boolean values.
  *
- * This function computes the result of the XOR operation between two boolean values.
- * XOR returns true if one and only one of the boolean operands is true; otherwise, it returns false.
+ * This function returns true if exactly one of the two boolean operands
+ * is true; otherwise, it returns false.
  *
  * \param a First boolean operand.
  * \param b Second boolean operand.
- * \return The result of the XOR operation between @p a and @p b.
+ * \return Result of the XOR operation between \p a and \p b.
  */
 bool XOR(bool a, bool b) {
     return a != b; ///< Return true if @p a and @p b are different; otherwise, false.
 }
 
 /**
- * \brief Sets up validators, event filters, read-only states, and check states for UI elements.
+ * \brief Initializes validators, event filters, read-only states, and checkbox states for UI elements.
  *
- * This method initializes validators for numeric inputs, installs event filters for certain UI elements,
- * sets read-only states for error fields, and sets check states for checkboxes.
+ * This method sets up input validators for numeric fields, installs event filters
+ * on selected UI elements, configures read-only states for error display fields,
+ * and initializes check states for checkboxes.
  *
- * It also sets specific styles and properties for certain QLineEdit elements related to flow rates,
- * masses, and temperatures.
+ * Additionally, it applies specific styles and properties to QLineEdit elements
+ * related to flow rates, masses, and temperatures.
  *
- * \note This function assumes the existence of specific UI elements (e.g., ui->lbN1, ui->cbSet1, ui->leSN1).
+ * \note Assumes the existence of specific UI elements (e.g., ui->lbN1, ui->cbSet1, ui->leSN1).
  */
 void TableBoard::ValidatorInput() {
     QLabel* pNumber[] = {ui->lbN1, ui->lbN2, ui->lbN3, ui->lbN4, ui->lbN5,
@@ -564,16 +568,16 @@ void TableBoard::ValidatorInput() {
     ui->leTemperature3->installEventFilter(this);
     QRegularExpression rx("\\b[A-Z0-9.-]*",
                           QRegularExpression::CaseInsensitiveOption);
-    auto               validatorAlphanumeric = new QRegularExpressionValidator(rx,
+    auto validatorAlphanumeric = new QRegularExpressionValidator(rx,
                                                                                this);
-    QDoubleValidator*  validatorDoubleNumber = new QDoubleValidator(this);
-    // set natural numbers as input for SN input line
+    QDoubleValidator* validatorDoubleNumber = new QDoubleValidator(this);
+    // Set natural numbers as input for SN input line
     for (auto iter = begin(vectorSerialNumber);
          iter != end(vectorSerialNumber);
          ++iter) {
         (*iter)->setValidator(validatorAlphanumeric);
     }
-    // set natural numbers as input for minimal flow input line
+    // Set natural numbers as input for minimal flow input line
     for (auto iter = begin(vectorFirstIndexStart);
          iter != end(vectorFirstIndexStart); ++iter) {
         (*iter)->setValidator(validatorDoubleNumber);
@@ -585,7 +589,7 @@ void TableBoard::ValidatorInput() {
     ui->leFlowRateMinumum->setValidator(validatorDoubleNumber);
     ui->leMass1->setValidator(validatorDoubleNumber);
     ui->leTemperature1->setValidator(validatorDoubleNumber);
-    // set natural numbers as input for transient flow input line
+    // Set natural numbers as input for transient flow input line
     for (auto iter = begin(vectorSecondIndexStart);
          iter != end(vectorSecondIndexStart); ++iter) {
         (*iter)->setValidator(validatorDoubleNumber);
@@ -637,14 +641,6 @@ void TableBoard::ValidatorInput() {
     QPalette paletteDiactivatedLineEdit;
     paletteDiactivatedLineEdit.setColor(QPalette::Base,
                                         QColor(220, 235, 220, 255));
-/*    if (mainwindow->selectedInfo.rbGravimetric_new == true) {
-        ui->leVolume1->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-        ui->leVolume2->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-        ui->leVolume3->setStyleSheet(
-            "QLineEdit {background-color: rgb(235, 235, 235)}");
-    }*/
 
     for (auto iter = begin(vectorCheckNumber);
          iter != end(vectorCheckNumber);
@@ -655,10 +651,10 @@ void TableBoard::ValidatorInput() {
 }
 
 /**
- * \brief Translates and updates UI elements with localized texts.
+ * \brief Updates UI elements with localized text.
  *
- * This function updates various UI elements such as window title, labels, buttons,
- * and dynamic text with their translated versions. It ensures the user interface
+ * This function sets the window title, labels, buttons, and other dynamic
+ * text elements to their translated versions, ensuring the interface
  * reflects the current language settings.
  */
 void TableBoard::Translate() {
@@ -710,6 +706,7 @@ void TableBoard::Translate() {
     ui->lbTemperature3->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume3->setText(tr("Volume [L]", nullptr));
     ui->lbSN->setText("Seria (Tip)");
+
     // Buttons
     ui->pbCalculate->setText(tr("&Data evaluate"));
     ui->pbPrint->setText(tr("&Print PDF"));
@@ -742,19 +739,19 @@ void TableBoard::Translate() {
 }
 
 /**
- * \brief Constructor for TableBoard class.
+ * \brief Constructs a TableBoard instance.
  *
- * Initializes the TableBoard dialog with the given parent widget, sets up UI,
- * connects signals to slots, and configures window flags.
+ * Initializes the TableBoard dialog with the specified parent widget,
+ * sets up the UI, connects signals to slots, and configures window flags.
  *
- * \param _parent Pointer to the parent widget.
+ * \param _parent Pointer to the parent QWidget.
  */
 TableBoard::TableBoard(QWidget* _parent)
     : QDialog(_parent),
       parent(_parent),
       ui(new Ui::TableBoard) {
     // Ensure the dialog is non-modal
-    setModal(false);
+    //setModal(false);
 
     // Setup the user interface
     ui->setupUi(this);
@@ -793,15 +790,18 @@ TableBoard::TableBoard(QWidget* _parent)
     connect(QTimerGenerareFM, &QTimer::timeout, this, &TableBoard::enableGenerareFmButton);
 
     // Configure window flags for the dialog
-    Qt::WindowFlags flags = Qt::Dialog | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint;
-    setWindowFlags(flags);
+    //Qt::WindowFlags flags = Qt::Dialog | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint;
+    //setWindowFlags(flags);
+    setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
+    setWindowModality(Qt::NonModal);
+
 }
 
 /**
- * \brief Destructor for TableBoard class.
+ * \brief Destroys the TableBoard instance.
  *
- * Cleans up resources used by the TableBoard dialog.
- * Deletes the UI instance and resets input data in the MainWindow if applicable.
+ * Releases resources used by the TableBoard dialog. Deletes the UI instance
+ * and resets input data in the MainWindow, if applicable.
  */
 TableBoard::~TableBoard() {
     // Attempt to cast parent widget to MainWindow
@@ -818,11 +818,10 @@ TableBoard::~TableBoard() {
 }
 
 /**
- * \brief Slot invoked when the "Clean Input" button is clicked.
+ * \brief Slot triggered by the "Clean Input" button.
  *
- * Clears all input fields and widgets on the dialog.
- * This includes serial number, index start/stop, and error fields for each entry,
- * as well as temperature, mass, and volume fields.
+ * Clears all input fields and widgets in the dialog, including serial numbers,
+ * start/stop indices, error fields, as well as temperature, mass, and volume entries.
  */
 void TableBoard::onCleanClicked() {
     // Clear serial number, index start/stop, and error fields for each entry
@@ -857,18 +856,18 @@ void TableBoard::onCleanClicked() {
 QString resultAllTests[20];
 
 /**
- * \brief Slot triggered when the "Calculate" button is clicked.
+ * \brief Slot triggered by the "Calculate" button.
  *
- * This function handles the click event of the "Calculate" button. It performs
- * calculations based on user input and updates the UI with results.
+ * Handles the click event of the "Calculate" button, performing computations
+ * based on user input and updating the UI with the results.
  *
- * Detailed steps:
- * - Clears previous error highlighting.
- * - Calculates results for all input rows.
- * - Updates UI with calculated results and highlights errors.
+ * Steps performed:
+ * - Clears previous error highlights.
+ * - Computes results for all input rows.
+ * - Updates the UI and highlights any errors.
  * - Stores detailed results in the `resultAllTests` array.
  *
- * \note Assumes the UI elements (`vectorSerialNumber`, `vectorFirstIndexStart`, etc.)
+ * \note Assumes that UI elements (e.g., `vectorSerialNumber`, `vectorFirstIndexStart`)
  *       are properly initialized and connected.
  */
 void TableBoard::onCalculateClicked() {
@@ -1479,7 +1478,7 @@ void TableBoard::onCalculateClicked() {
             tr("Collected data from flow meters."));
         messageInputData.setText(
             tr("Some user input data are not available or are outside the "
-               "normal rage!"));
+               "normal range!"));
         messageInputData.setStandardButtons(QMessageBox::Ok);
         messageInputData.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
                                         Qt::WindowTitleHint |
@@ -1491,41 +1490,40 @@ void TableBoard::onCalculateClicked() {
 }
 
 /**
- * \brief Slot triggered when the "Close" button is clicked.
+ * \brief Slot triggered by the "Close" button.
  *
- * This function hides the current dialog window.
+ * Hides the current TableBoard dialog.
  */
 void TableBoard::onCloseClicked() {
     this->hide();
 }
 
 /**
- * \brief Slot triggered when the type of water meter is changed.
+ * \brief Slot triggered when the water meter type changes.
  *
- * This function repopulates the table based on the new type of water meter selected.
- * It updates the UI with relevant data for the new meter type.
+ * Updates and repopulates the table with data corresponding to the
+ * newly selected water meter type, refreshing the UI accordingly.
  */
 void TableBoard::onTypeMeterChanged() {
     PopulateTable();
 }
 
 /**
- * \brief Slot triggered when the number of water meters is changed.
+ * \brief Slot triggered when the number of water meters changes.
  *
- * This function repopulates the table based on the new number of water meters selected.
- * It updates the UI with relevant data for the new number of meters.
+ * Updates and repopulates the table according to the newly selected
+ * number of water meters, refreshing the UI with the corresponding data.
  */
 void TableBoard::onNumberOfWaterMetersChanged() {
     PopulateTable();
 }
 
 /**
- * \brief Slot triggered when a checkbox in the vectorCheckNumber is clicked.
+ * \brief Slot triggered when a checkbox in vectorCheckNumber is clicked.
  *
- * This function handles the enabling or disabling of related input fields
- * based on the state of the checkbox.
+ * Enables or disables related input fields depending on the checkbox state.
  *
- * \param checked Indicates whether the checkbox is checked (true) or unchecked (false).
+ * \param checked True if the checkbox is checked; false otherwise.
  */
 void TableBoard::onCbClicked(bool checked) {
     QObject*   obj      = sender();                      // Get the object that triggered the signal
@@ -1549,10 +1547,9 @@ void TableBoard::onCbClicked(bool checked) {
 }
 
 /**
- * \brief Slot triggered when the state of the "Select All" checkbox (ui->cbSet) changes.
+ * \brief Slot triggered when the "Select All" checkbox (ui->cbSet) state changes.
  *
- * This function sets the check state of all checkboxes in vectorCheckNumber to match
- * the check state of ui->cbSet.
+ * Updates all checkboxes in vectorCheckNumber to match the state of ui->cbSet.
  */
 void TableBoard::onSelectAllChanged() {
     Qt::CheckState checkState = ui->cbSet->checkState();
@@ -1564,15 +1561,16 @@ void TableBoard::onSelectAllChanged() {
 }
 
 /**
- * \brief Custom event filter to handle key events for the dialog.
+ * \brief Custom event filter for handling key events in the dialog.
  *
- * This function filters key press events, specifically handling Enter (Return) key presses
- * to focus on the next child widget.
+ * Intercepts key press events, specifically the Enter (Return) key,
+ * and moves focus to the next child widget when pressed.
  *
  * \param target The object that receives the event.
- * \param event The event that occurred.
- * \return true if the event was handled, otherwise false.
+ * \param event The event to be processed.
+ * \return true if the event was handled; false otherwise.
  */
+
 bool TableBoard::eventFilter(QObject* target, QEvent* event) {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
@@ -1591,12 +1589,15 @@ bool TableBoard::eventFilter(QObject* target, QEvent* event) {
 /**
  * \brief Slot triggered when the measurement type changes.
  *
- * This function adjusts the visibility, read-only status, and background color
- * of widgets based on whether the measurement type is gravimetric or not.
+ * Adjusts the visibility, read-only status, and background color of widgets
+ * depending on whether the measurement type is gravimetric or not.
  *
- * \note Assumes the presence of specific UI elements: ui->leMass1, ui->leMass2, ui->leMass3,
- *       ui->lbMass1, ui->lbMass2, ui->lbMass3, ui->leTemperature1, ui->leTemperature2, ui->leTemperature3,
- *       ui->lbTemperature1, ui->lbTemperature2, ui->lbTemperature3, ui->leVolume1, ui->leVolume2, ui->leVolume3.
+ * \note Requires the presence of specific UI elements:
+ *       ui->leMass1, ui->leMass2, ui->leMass3,
+ *       ui->lbMass1, ui->lbMass2, ui->lbMass3,
+ *       ui->leTemperature1, ui->leTemperature2, ui->leTemperature3,
+ *       ui->lbTemperature1, ui->lbTemperature2, ui->lbTemperature3,
+ *       ui->leVolume1, ui->leVolume2, ui->leVolume3.
  */
 void TableBoard::onMeasurementTypeChanged() {
     const bool isGravimetric = mainwindow->selectedInfo.rbGravimetric_new;
@@ -1634,14 +1635,14 @@ void TableBoard::onMeasurementTypeChanged() {
 }
 
 /**
- * \brief Slot triggered when the user clicks the Print PDF button.
+ * \brief Slot triggered when the "Print PDF" button is clicked.
  *
- * This function initiates the calculation process and then sets the result
- * for all tests to "RESPINS" for each entry.
+ * Initiates the calculation process and then sets the result of all tests
+ * to "RESPINS" for each entry.
  *
- * \note This function assumes the presence of the following:
- *       - resultAllTests[] array with a size of at least mainwindow->selectedInfo.entriesNumber
- *       - onCalculateClicked() function to perform calculations before setting results
+ * \note Assumes the presence of:
+ *       - `resultAllTests[]` array with at least `mainwindow->selectedInfo.entriesNumber` elements
+ *       - `onCalculateClicked()` function to perform calculations before setting results
  */
 void TableBoard::onPrintPdfDocClicked() {
     onCalculateClicked();
@@ -2486,12 +2487,12 @@ void TableBoard::onPrintPdfDocClicked() {
 }
 
 /**
- * \brief Overridden function called when the dialog is shown.
+ * \brief Handles actions when the dialog is shown.
  *
- * This function is automatically called when the dialog is shown. It ensures
- * that the table is populated with data when the dialog is displayed.
+ * Automatically called when the dialog is displayed. Ensures that
+ * the table is populated with the appropriate data.
  *
- * \param event A QShowEvent object.
+ * \param event Pointer to the QShowEvent.
  */
 void TableBoard::showEvent(QShowEvent* event) {
     Q_UNUSED(event);
@@ -2501,17 +2502,17 @@ void TableBoard::showEvent(QShowEvent* event) {
 }
 
 /**
- * \brief Populates the table with data based on selected information from the main window.
+ * \brief Populates the table with data from the main window selection.
  *
- * This function updates the UI elements in the dialog to reflect the selected water meter
- * information from the main window. It adjusts visibility, sets palettes for rows, and updates
- * text fields with relevant data.
+ * Updates the dialog's UI elements to reflect the selected water meter
+ * information from the main window. Adjusts visibility, sets row palettes,
+ * and updates text fields with relevant data.
  *
- * It also initializes and sets palettes for alternating row colors to improve readability.
+ * Alternating row colors are applied to improve readability.
  *
- * This function assumes that the necessary data (entries, nameWaterMeter, minimumFlowMain,
- * transitoriuFlowMain, nominalFlowMain, nominalError, maximumError) have already been set
- * in the main window (mainwindow->selectedInfo).
+ * \note Assumes that the following data have been set in `mainwindow->selectedInfo`:
+ *       entries, nameWaterMeter, minimumFlowMain, transitoriuFlowMain,
+ *       nominalFlowMain, nominalError, and maximumError.
  */
 void TableBoard::PopulateTable() {
     Translate(); // Update UI with translated strings if necessary
@@ -2604,12 +2605,12 @@ void TableBoard::PopulateTable() {
 }
 
 /**
- * \brief Custom logic executed when the dialog gains focus.
+ * \brief Handles custom actions when the dialog gains focus.
  *
- * This function overrides the default behavior when the dialog gains focus.
- * It currently performs no additional actions beyond the base class implementation.
+ * Overrides the default behavior when the dialog receives focus.
+ * Currently, it performs no additional actions beyond the base class implementation.
  *
- * \param event The focus event.
+ * \param event Pointer to the QFocusEvent.
  */
 void TableBoard::focusInEvent(QFocusEvent* event) {
     // Your custom logic when the dialog gains focus
@@ -2617,12 +2618,12 @@ void TableBoard::focusInEvent(QFocusEvent* event) {
 }
 
 /**
- * \brief Custom logic executed when the dialog loses focus.
+ * \brief Handles custom actions when the dialog loses focus.
  *
- * This function overrides the default behavior when the dialog loses focus.
- * It currently performs no additional actions beyond the base class implementation.
+ * Overrides the default behavior when the dialog loses focus.
+ * Currently, no additional actions are performed beyond the base class implementation.
  *
- * \param event The focus event.
+ * \param event Pointer to the QFocusEvent.
  */
 void TableBoard::focusOutEvent(QFocusEvent* event) {
     // Your custom logic when the dialog loses focus
@@ -2630,14 +2631,14 @@ void TableBoard::focusOutEvent(QFocusEvent* event) {
 }
 
 /**
- * \brief Copies text between widgets based on specified regex patterns.
+ * \brief Copies text between widgets matching specified regex patterns.
  *
- * This function finds QLineEdit widgets matching the start and stop regex patterns
- * among the children of this dialog. It copies text from start widgets to
- * corresponding stop widgets up to the minimum of their sizes.
+ * Searches for QLineEdit widgets among the dialog's children that match
+ * the given start and stop regex patterns. Copies text from each start
+ * widget to the corresponding stop widget, up to the minimum number of matches.
  *
- * \param startRegex Regular expression pattern to match start widgets.
- * \param stopRegex Regular expression pattern to match stop widgets.
+ * \param startRegex Regular expression to identify source widgets.
+ * \param stopRegex Regular expression to identify destination widgets.
  */
 void TableBoard::copyTextBetweenWidgets(const QString& startRegex, const QString& stopRegex) {
     QList<QLineEdit*> startWidgets = findChildren<QLineEdit*>(QRegularExpression(startRegex));
@@ -2649,10 +2650,10 @@ void TableBoard::copyTextBetweenWidgets(const QString& startRegex, const QString
 }
 
 /**
- * \brief Slot triggered when the "Copy 1-2" button is clicked.
+ * \brief Slot triggered by the "Copy 1-2" button.
  *
- * This function copies text from widgets matching the start and stop patterns
- * for groups 2 to 1.
+ * Copies text from widgets in group 2 to the corresponding widgets in group 1
+ * based on predefined start and stop patterns.
  */
 void TableBoard::onCopy12Clicked() {
     copyTextBetweenWidgets("leStart2_\\d+", "leStop1_\\d+");
@@ -2660,10 +2661,10 @@ void TableBoard::onCopy12Clicked() {
 }
 
 /**
- * \brief Slot triggered when the "Copy 2-3" button is clicked.
+ * \brief Slot triggered by the "Copy 2-3" button.
  *
- * This function copies text from widgets matching the start and stop patterns
- * for groups 3 to 2.
+ * Copies text from widgets in group 3 to the corresponding widgets in group 2
+ * based on predefined start and stop patterns.
  */
 void TableBoard::onCopy23Clicked() {
     copyTextBetweenWidgets("leStart3_\\d+", "leStop2_\\d+");
@@ -2671,10 +2672,10 @@ void TableBoard::onCopy23Clicked() {
 }
 
 /**
- * \brief Slot triggered when the "Report PDF" button is clicked.
+ * \brief Slot triggered by the "Report PDF" button.
  *
- * This function first calculates data (if necessary) and then shows the report measurements dialog.
- * If the dialog does not exist, it creates a new instance of ReportMeasurements.
+ * Performs calculations if needed, then displays the ReportMeasurements dialog.
+ * Creates a new instance of ReportMeasurements if it does not already exist.
  */
 void TableBoard::onReportClicked() {
     onCalculateClicked();
@@ -2696,7 +2697,7 @@ void TableBoard::onReportClicked() {
 /**
  * \brief Slot triggered to enable the "Print PDF" button.
  *
- * This function stops the QTimerGenerareFM timer and enables the "Print PDF" button.
+ * Stops the QTimerGenerareFM timer and enables the "Print PDF" button in the UI.
  */
 void TableBoard::enableGenerareFmButton() {
     // Stop the timer

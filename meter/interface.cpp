@@ -1,12 +1,12 @@
 /**
  * \file interface.cpp
- * \brief Implementation file for Interface dialog functionality.
- *
- * This file contains the implementation of the Interface class, which provides
- * functionality for configuring and interacting with a user interface dialog.
+ * \brief Implementation of the Interface dialog class.
+ *  * This file implements methods for the Interface class, which manages the
+ * configuration and behavior of a custom user interface dialog. It handles
+ * UI setup, event handling, data synchronization, and user interactions.
  *
  * \author Constantin
- * \date Insert date
+ * \date To be defined
  */
 
 #include <mutex>    // Include for std::mutex
@@ -135,32 +135,32 @@ Interface::~Interface() {
  * based on the current language settings.
  */
 void Interface::Translate() {
-    // Set translated text for GroupBox 1
-    ui->groupBox_1->setTitle(tr("RS-485/422 Serial Interface MODBUS"));
+    // GroupBox 1: Serial Interface MODBUS
+    ui->groupBox_1->setTitle(tr("RS-485/422 Serial Interface (MODBUS)"));
     ui->lbSelectSerial_1->setText(tr("Serial Port:"));
     ui->lbBaudRate_1->setText(tr("Baud Rate:"));
     ui->lbDataBits_1->setText(tr("Data Bits:"));
     ui->lbSelectParity_1->setText(tr("Parity:"));
     ui->lbSelectStopBits_1->setText(tr("Stop Bits:"));
     ui->lbTimeout_1->setText(tr("Timeout [ms]:"));
-    ui->lbNumberOfRetries_1->setText(tr("Number of Retries:"));
+    ui->lbNumberOfRetries_1->setText(tr("Retries:"));
 
-    // Set translated text for GroupBox 2
-    ui->groupBox_2->setTitle(tr("RS-485/422 Serial Interface MODBUS"));
+           // GroupBox 2: Serial Interface MODBUS
+    ui->groupBox_2->setTitle(tr("RS-485/422 Serial Interface (MODBUS)"));
     ui->lbSelectSerial_2->setText(tr("Serial Port:"));
     ui->lbBaudRate_2->setText(tr("Baud Rate:"));
     ui->lbDataBits_2->setText(tr("Data Bits:"));
     ui->lbSelectParity_2->setText(tr("Parity:"));
     ui->lbSelectStopBits_2->setText(tr("Stop Bits:"));
     ui->lbTimeout_2->setText(tr("Timeout [ms]:"));
-    ui->lbNumberOfRetries_2->setText(tr("Number of Retries:"));
+    ui->lbNumberOfRetries_2->setText(tr("Retries:"));
 
-    // Set translated text for buttons
-    ui->pbClose->setText(tr("Close"));
-    ui->pbSaveConfiguration->setText(tr("Save Configuration"));
-    ui->pbTestConnection->setText(tr("Test Connection"));
-    ui->pbRefreshSerialPort->setText(tr("Refresh Ports"));
-    ui->pbConnect->setText(tr("Connect ports"));
+           // Buttons
+    ui->pbClose->setText(tr("&Close"));
+    ui->pbSaveConfiguration->setText(tr("&Save Configuration"));
+    ui->pbTestConnection->setText(tr("&Test Connection"));
+    ui->pbRefreshSerialPort->setText(tr("&Refresh Ports"));
+    ui->pbConnect->setText(tr("&Connect Ports"));
 }
 
 /**

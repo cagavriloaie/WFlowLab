@@ -85,7 +85,7 @@ struct SelectedInfo {
     double      maximumError;    /**< Maximum error. */
 
     std::string ambientTemperature;   /**< Ambient temperature. */
-    std::string atmosphericPressure; /**< Atmospheric pressure. */
+    std::string atmosphericPressure;  /**< Atmospheric pressure. */
     std::string relativeAirHumidity;  /**< Relative air humidity. */
 
     bool rbGravimetric_new; /**< Gravimetric measurement flag. */
