@@ -168,8 +168,8 @@
     </message>
     <message>
         <location filename="../interface.cpp" line="1214"/>
-        <source>Not connected to RS 485/422 networks</source>
-        <translation>Fara conexiune la RS 485/422</translation>
+        <source>Not connected to RS-485/422 networks</source>
+        <translation>Not connected to RS-485/422 networks</translation>
     </message>
 </context>
 <context>
@@ -603,12 +603,6 @@
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="258"/>
-        <location filename="../report.cpp" line="312"/>
-        <source>WFlowLab - Informatii buletin de verificare metrologica</source>
-        <translation>WFlowLab - Informatii buletin de verificare metrologica</translation>
-    </message>
-    <message>
         <location filename="../report.cpp" line="317"/>
         <source>Numar de inregistrare:</source>
         <translation>Numar de inregistrare:</translation>
@@ -643,6 +637,12 @@
         <location filename="../report.cpp" line="327"/>
         <source>3 ani</source>
         <translation>3 ani</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="258"/>
+        <location filename="../report.cpp" line="312"/>
+        <source>WStreamLab - Informatii buletin de verificare metrologica</source>
+        <translation>WStreamLab - Informatii buletin de verificare metrologica</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="315"/>

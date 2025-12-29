@@ -207,7 +207,7 @@ void MainWindow::ReadConfiguration() {
 }
 
 /**
- * \brief Structure to hold information about RS485/422 settings.
+ * \brief Structure to hold information about RS 485/422 settings.
  *
  * This struct defines a key-value pair where:
  * - `key` is a pointer to a constant character array representing the setting's identifier.
@@ -415,7 +415,7 @@ MainWindow::MainWindow(QWidget* parent)
       statusBar(new QStatusBar(this)) {
     ui->setupUi(this);
 
-#ifdef BUILD_WITHOUT_RS485_MODBUS
+#ifdef BUILD_WITHOUT_RS_485_422_MODBUS
     // Remove menuInterface from the menu bar
     ui->menubar->removeAction(ui->menuInterface->menuAction());
     ui->rbInterface->setEnabled(false);

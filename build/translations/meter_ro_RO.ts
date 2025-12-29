@@ -168,8 +168,8 @@
     </message>
     <message>
         <location filename="../interface.cpp" line="1214"/>
-        <source>Not connected to RS 485/422 networks</source>
-        <translation>Fara conexiune la RS 485/422</translation>
+        <source>Not connected to RS-485/422 networks</source>
+        <translation>Not connected to RS-485/422 networks</translation>
     </message>
 </context>
 <context>
@@ -191,8 +191,8 @@
     </message>
     <message>
         <location filename="../license.cpp" line="31"/>
-        <source>[kg/m²]</source>
-        <translation>[kg/m²]</translation>
+        <source>[kg/m³]</source>
+        <translation>[kg/m³]</translation>
     </message>
     <message>
         <location filename="../license.cpp" line="32"/>
@@ -343,12 +343,17 @@
         <translation>[L/h]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="443"/>
+        <location filename="../mainwindow.cpp" line="448"/>
         <source>RS485/RS422 protocol MODBUS ITF off.</source>
         <translation>Comunicare RS485/RS422 este inchisa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="735"/>
+        <location filename="../mainwindow.cpp" line="579"/>
+        <source> &gt; Manual Mode Operation</source>
+        <translation>Mod de operare manual</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="747"/>
         <source> &gt; Manual operation mode</source>
         <translation>Mod de operare manual</translation>
     </message>
@@ -598,12 +603,6 @@
         <translation>&amp;Inchide</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="258"/>
-        <location filename="../report.cpp" line="312"/>
-        <source>WFlowLab - Informatii buletin de verificare metrologica</source>
-        <translation>WFlowLab - Informatii buletin de verificare metrologica</translation>
-    </message>
-    <message>
         <location filename="../report.cpp" line="317"/>
         <source>Numar de inregistrare:</source>
         <translation>Numar de inregistrare:</translation>
@@ -638,6 +637,12 @@
         <location filename="../report.cpp" line="327"/>
         <source>3 ani</source>
         <translation>3 ani</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="258"/>
+        <location filename="../report.cpp" line="312"/>
+        <source>WStreamLab - Informatii buletin de verificare metrologica</source>
+        <translation>WStreamLab - Informatii buletin de verificare metrologica</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="315"/>

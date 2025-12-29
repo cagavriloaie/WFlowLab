@@ -44,10 +44,11 @@ class ReportMeasurements : public QDialog {
      * \param vectorSerialNumber Vector of QLineEdit pointers for serial numbers.
      * \param resultAllTests Array of QStrings containing test results.
      */
-    explicit ReportMeasurements(QWidget*                       parent,
-                                const std::vector<QCheckBox*>& vectorCheckNumber,
-                                const std::vector<QLineEdit*>& vectorSerialNumber,
-                                const QString                  resultAllTests[MAX_ARRAY_SIZE]);
+    explicit ReportMeasurements(
+        QWidget*                       parent,
+        const std::vector<QCheckBox*>& vectorCheckNumber,
+        const std::vector<QLineEdit*>& vectorSerialNumber,
+        const QString                  resultAllTests[MAX_ARRAY_SIZE]);
 
     /**
      * \brief Destroys the ReportMeasurements dialog.

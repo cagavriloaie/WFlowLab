@@ -1211,7 +1211,7 @@ void Interface::DisconnectSerialPort() {
     // Update UI indicators if mainwindow is valid
     if (mainwindow) {
         // Update connected status label
-        mainwindow->ui->lbConnected->setText(tr("Not connected to RS 485/422 networks"));
+        mainwindow->ui->lbConnected->setText(tr("Not connected to RS-485/422 networks"));
 
         // Turn off the LED indicator for serial connection
         // mainwindow->ui->SerialLedIndicator->setState(false);

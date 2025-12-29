@@ -23,14 +23,13 @@ constexpr const char* VERSION_BUILD = "1.7.0 Windows x86_32"; ///< Version and b
 // Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
 
- /* When defined, this flag removes RS485/MODBUS related menu options and
+ /* When defined, this flag removes RS-485/422 MODBUS related menu options and
  * functionality from the application. This is useful for deployments that
  * don't require serial communication capabilities.
  *
- * To enable RS485/MODBUS support, comment out or remove this definition.
+ * To enable RS-485/422 MODBUS support, comment out or remove this definition.
  */
-#define BUILD_WITHOUT_RS485_MODBUS
-
+#define BUILD_WITHOUT_RS_485_422_MODBUS
 
 // Maximum size for arrays
 constexpr std::size_t MAX_ARRAY_SIZE = 20;
@@ -97,6 +96,6 @@ constexpr int SPLASH_SCREEN_DURATION_MS = 3000; ///< Splash screen display durat
 constexpr int PDF_RESOLUTION_DPI = 300; ///< PDF output resolution in DPI
 
 // Filename of the Romanian language manual
-constexpr const char* MANUAL_RO = "Manual de utilizare WStreamLab V1.4.pdf";
+constexpr const char* MANUAL_RO = "Manual de utilizare WStreamLab V1.7.pdf";
 
 #endif // DEFINITIONS_H_INCLUDED

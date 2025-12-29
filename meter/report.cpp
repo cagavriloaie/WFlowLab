@@ -9,36 +9,20 @@
  * \note Assumes the presence of specific UI elements and connections defined in the associated .ui file.
  */
 
-#include <algorithm> // Standard C++ algorithms
-#include <chrono>    // C++11 time utilities
-#include <ctime>     // C time utilities
-#include <iomanip>   // I/O manipulators
-#include <iostream>  // Standard I/O streams
+#include <thread>    // C++11 thread support
 #include <mutex>     // C++11 mutual exclusion primitives
 #include <sstream>   // String stream operations
-#include <string>    // String utilities
-#include <thread>    // C++11 thread support
+#include <iomanip>   // I/O manipulators
+#include <algorithm> // Standard C++ algorithms
 
-#include <QCheckBox>        // Qt checkbox widget
-#include <QCoreApplication> // Qt core application handling
-#include <QDateTime>        // Qt date and time handling
-#include <QDesktopServices> // Qt desktop services
-#include <QDialog>          // Qt dialog window
-#include <QDoubleValidator> // Qt validator for double values
-#include <QFileDialog>      // Qt file dialog
-#include <QKeyEvent>        // Qt key event handling
-#include <QLabel>           // Qt label widget
-#include <QLineEdit>        // Qt line edit widget
-#include <QMainWindow>      // Qt main window
-#include <QMessageBox>      // Qt message box for alerts
-#include <QPageSize>        // Qt page size
-#include <QPainter>         // Qt painter for drawing
-#include <QPrintDialog>     // Qt print dialog
-#include <QPrinter>         // Qt printer support
-#include <QSettings>        // Qt application settings
-#include <QString>          // Qt string class
-#include <QTimer>           // Qt timer for periodic events
-#include <QValidator>       // Qt validator base class
+#include <QTimer>
+#include <QMessageBox>
+#include <QSettings>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QDesktopServices>
+#include <QDateTime>
+#include <QDir>
 
 #include "mainwindow.h"    // Your application's main window
 #include "report.h"        // Header for report functionality
@@ -255,7 +239,7 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
  * \endcode
  */
 void ReportMeasurements::Translate() {
-    this->setWindowTitle(tr("WFlowLab - Informatii buletin de verificare metrologica"));
+    this->setWindowTitle(tr("WStreamLab - Informatii buletin de verificare metrologica"));
     ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
     ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));
     ui->lbNumarInregistrare->setText(tr("Numar de inregistrare: "));
@@ -309,7 +293,7 @@ ReportMeasurements::ReportMeasurements(QWidget*                       parent,
     }
 
     // Set window title
-    setWindowTitle(tr("WFlowLab - Informatii buletin de verificare metrologica"));
+    setWindowTitle(tr("WStreamLab - Informatii buletin de verificare metrologica"));
 
     // Set labels and options for the UI elements
     ui->grBoxBuletin->setTitle(tr("Date de verificare metrologica"));
