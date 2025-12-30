@@ -16,21 +16,23 @@
  * --recursive
  */
 
-#include <QApplication>  // Qt application handling
-#include <QDir>          // Qt directory handling
-#include <QEventLoop>    // Qt event loop for event handling
-#include <QMessageBox>   // Qt message box for displaying alerts
-#include <QPainter>      // Qt painter for drawing operations
-#include <QSharedMemory> // Qt class for managing shared memory segments
-#include <QString>       // Qt string class
-#include <QThread>       // Qt thread management
-#include <QTimer>        // Qt timer class for periodic events
+#include <QApplication>   // Qt application handling
+#include <QDir>           // Qt directory handling
+#include <QEventLoop>     // Qt event loop for event handling
+#include <QFile>          // Qt file handling
+#include <QMessageBox>    // Qt message box for displaying alerts
+#include <QPainter>       // Qt painter for drawing operations
+#include <QSharedMemory>  // Qt class for managing shared memory segments
+#include <QString>        // Qt string class
+#include <QThread>        // Qt thread management
+#include <QTimer>         // Qt timer class for periodic events
 
-#include <fstream>   // File stream operations
-#include <windows.h> // Windows API main header
-#include <winnt.h>   // Windows NT definitions
+#include <windows.h>  // Windows API main header
+#include <winnt.h>    // Windows NT definitions
 
-#include "mainwindow.h" // Include header for MainWindow class
+#include <fstream>  // File stream operations
+
+#include "mainwindow.h"  // Include header for MainWindow class
 
 /**
  * \brief Custom widget that displays a pixelated image.
@@ -51,11 +53,10 @@ class PixelImageWidget : public QMainWindow {
      *
      * \param parent Optional parent widget (default is nullptr).
      */
-    explicit PixelImageWidget(QWidget* parent = nullptr)
-        : QMainWindow(parent) {
-        setAttribute(Qt::WA_TranslucentBackground); // Enable transparency
-        setWindowFlags(Qt::FramelessWindowHint);    // Remove window frame
-        setFixedSize(400, 300);                     // Set the size of the widget
+    explicit PixelImageWidget(QWidget* parent = nullptr) : QMainWindow(parent) {
+        setAttribute(Qt::WA_TranslucentBackground);  // Enable transparency
+        setWindowFlags(Qt::FramelessWindowHint);     // Remove window frame
+        setFixedSize(400, 300);                      // Set the size of the widget
 
         // Set up a timer to hide the pixel image after five seconds
         QTimer::singleShot(3000, this, &PixelImageWidget::hidePixelImage);
@@ -75,8 +76,8 @@ class PixelImageWidget : public QMainWindow {
      * \return QRect representing the centered rectangle.
      */
     QRect centeredRect(const QSize& outer, const QSize& inner) {
-        return QRect((outer.width() - inner.width()) / 2,
-                     (outer.height() - inner.height()) / 2, inner.width(), inner.height());
+        return QRect((outer.width() - inner.width()) / 2, (outer.height() - inner.height()) / 2, inner.width(),
+                     inner.height());
     }
 
     /**
@@ -89,8 +90,7 @@ class PixelImageWidget : public QMainWindow {
     std::wstring ExePath() {
         TCHAR buffer[MAX_PATH] = {0};
         GetModuleFileName(NULL, buffer, MAX_PATH);
-        std::wstring::size_type pos = std::wstring(buffer).find_last_of(
-            L"\\/");
+        std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
         return std::wstring(buffer).substr(0, pos);
     }
 
@@ -108,9 +108,9 @@ class PixelImageWidget : public QMainWindow {
         // Fill the QPixmap with pixel data (example: gradient from red to blue)
         for (int x = 0; x < width(); ++x) {
             for (int y = 0; y < height(); ++y) {
-                int red   = static_cast<int>(255 * static_cast<double>(x) / width());
+                int red = static_cast<int>(255 * static_cast<double>(x) / width());
                 int green = static_cast<int>(255 * static_cast<double>(y) / height());
-                int blue  = static_cast<int>(255 * (1 - static_cast<double>(x) / width()));
+                int blue = static_cast<int>(255 * (1 - static_cast<double>(x) / width()));
                 painter.setPen(QColor(red, green, blue));
                 painter.drawPoint(x, y);
             }
@@ -123,15 +123,14 @@ class PixelImageWidget : public QMainWindow {
         painter.setFont(font);
 
         // Constructing message to display
-        QString message(
-            "\n"
-            "   > WStreamLab\n"
-            "   > Elcost Company\n"
-            "   > Ver [1.5 01.25]\n");
+        QString message("\n"
+                        "   > WStreamLab\n"
+                        "   > Elcost Company\n"
+                        "   > Ver [1.5 01.25]\n");
 
         // Reading configuration file for additional company information
-        std::wstring                       pathToConfig = ExePath() + L"\\watermeters.conf";
-        std::ifstream                      inConfigurationFile(pathToConfig.c_str());
+        std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
+        std::ifstream inConfigurationFile(pathToConfig.c_str());
         std::map<std::string, std::string> optionsConfiguration;
         if (inConfigurationFile.is_open()) {
             std::string key;
@@ -161,8 +160,8 @@ class PixelImageWidget : public QMainWindow {
      * associated with this widget.
      */
     void hidePixelImage() {
-        hide();           // Hide the PixelImageWidget
-        showMainWindow(); // Show the main window
+        hide();            // Hide the PixelImageWidget
+        showMainWindow();  // Show the main window
     }
 
     /**
@@ -172,7 +171,7 @@ class PixelImageWidget : public QMainWindow {
      * PixelImageWidget instance.
      */
     void showMainWindow() {
-        mainWindow->show(); // Show the main window
+        mainWindow->show();  // Show the main window
     }
 };
 
@@ -195,14 +194,39 @@ QTranslator* appTranslator = nullptr;
  */
 bool loadTranslations() {
     QString qmPath = qApp->applicationDirPath() + QDir::separator() + "translations";
-    appTranslator  = new QTranslator(nullptr);
+    appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
 
     if (appTranslator->load(qmPath + QDir::separator() + "meter_ro_RO.qm")) {
         qApp->installTranslator(appTranslator);
-        return true; // Translation loaded successfully
+        return true;  // Translation loaded successfully
     }
 
+    // Clean up if loading fails
+    delete appTranslator;
+    appTranslator = nullptr;
     return false;
+}
+
+/**
+ * \brief Loads the application stylesheet from Qt resources.
+ *
+ * Loads the external QSS stylesheet file from the application's resources
+ * and applies it to the entire application.
+ *
+ * \return True if the stylesheet was loaded and applied successfully; false otherwise.
+ */
+bool loadStylesheet() {
+    QFile styleFile(":/resources/styles/app.qss");
+
+    if (!styleFile.open(QFile::ReadOnly)) {
+        return false;
+    }
+
+    QString styleSheet = QLatin1String(styleFile.readAll());
+    qApp->setStyleSheet(styleSheet);
+    styleFile.close();
+
+    return true;
 }
 
 /**
@@ -224,18 +248,16 @@ bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
         warningMessage.addButton(QMessageBox::Ok);
         warningMessage.setWindowTitle(QObject::tr("Warning"));
         warningMessage.setText(QObject::tr("Already running"));
-        warningMessage.setInformativeText(
-            QObject::tr("More than one instance of the WStreamLab program is "
-                        "not permitted."));
-        warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint |
-                                      Qt::WindowTitleHint |
+        warningMessage.setInformativeText(QObject::tr("More than one instance of the WStreamLab program is "
+                                                      "not permitted."));
+        warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint |
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
 
-        return true; // Another instance is running
+        return true;  // Another instance is running
     }
 
-    return false; // This instance is the first one
+    return false;  // This instance is the first one
 }
 
 /**
@@ -250,8 +272,11 @@ bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
+    // Load application stylesheet
+    loadStylesheet();
+
     // Unique key for shared memory
-    QString        key    = QString("Constantin + 365566a75ebf0c4a5cbf");
+    QString key = QString("Constantin + 365566a75ebf0c4a5cbf");
     QSharedMemory* shared = new QSharedMemory(key);
 
     // Load translations

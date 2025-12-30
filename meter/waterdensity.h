@@ -32,8 +32,7 @@ double get_ro(double temperature);
  * \param correction The correction factor to be adjusted.
  * \return Adjusted correction factor based on quadratic interpolation.
  */
-double getWaterDensityQuadratic(double temperature,
-                                         double correction);
+double getWaterDensityQuadratic(double temperature, double correction);
 
 /**
  * \brief Calculates the volume correction using quadratic interpolation.
@@ -47,4 +46,4 @@ double getWaterDensityQuadratic(double temperature,
  */
 double get_K(double temperature);
 
-#endif // WATERDENSITY_H
+#endif  // WATERDENSITY_H

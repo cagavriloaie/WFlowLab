@@ -1,38 +1,69 @@
-# .clang-format
+# .clang-format - WStreamLab Qt/C++ Code Style
 #
-# for /R meter %i in (*.h, *.cpp) do clang-format -i "%i"
-#
+# Format all files: for /R meter %i in (*.h, *.cpp) do clang-format -i "%i"
+# Format single file: clang-format -i <filename>
 
 BasedOnStyle: LLVM
-IndentWidth: 4                                      # Number of spaces for indentation
-UseTab: Never                                       # Use spaces instead of tabs
-TabWidth: 4                                         # Number of spaces for a tab
-ContinuationIndentWidth: 4                          # Indentation for continued lines
-ColumnLimit: 0                                      # Disable column limit (0 means no limit)
-AllowShortBlocksOnASingleLine: Empty                # Allow short blocks to fit on a single line
-AllowShortCaseLabelsOnASingleLine: true             # Allow short case labels to fit on a single line
-AllowShortFunctionsOnASingleLine: Empty             # Allow short functions to fit on a single line
-BreakBeforeBraces: Attach                           # Brace placement style
-SpacesBeforeTrailingComments: 1                     # Spaces before trailing comments
-SpaceAfterCStyleCast: true                          # Space after C-style casts
-SpacesInParentheses: false                          # No spaces inside parentheses
-SpacesInAngles: false                               # No spaces in angle brackets
-SpaceBeforeParens: ControlStatements                # Space before parentheses in control statements
-SortIncludes: true                                  # Sort includes
-IncludeBlocks: Preserve                             # Preserve include blocks
-IncludeCategories:                                  # Include categories
-  - Regex:           '^<.*>'
-    Priority:        1
-  - Regex:           '^".*"$'
-    Priority:        2
-CommentPragmas: Keep                                # Keep comments with pragmas
 
-# Additional formatting options
-AlignConsecutiveDeclarations: true                  # Align consecutive declarations
-AlignConsecutiveAssignments: true                   # Align consecutive assignments
-BinPackParameters: true                             # Pack function parameters
-BinPackArguments: true                              # Pack function arguments
-DerivePointerAlignment: false                       # Do not derive pointer alignment from the first argument
-PointerAlignment: Left                              # Align pointers to the left
-ReflowComments: true                                # Reflow comments to the specified column limit
-BreakBeforeTernaryOperators: true                   # Break before ternary operators
+# Indentation
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4
+
+# Line Length
+ColumnLimit: 120
+
+# Braces
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# Spacing
+SpacesBeforeTrailingComments: 2
+SpaceAfterCStyleCast: false
+SpacesInParentheses: false
+SpacesInAngles: false
+SpaceBeforeParens: ControlStatements
+
+# Pointers and References
+PointerAlignment: Left
+DerivePointerAlignment: false
+
+# Includes
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^<Q.*>'
+    Priority:        1
+  - Regex:           '^<.*\.h>'
+    Priority:        2
+  - Regex:           '^<.*>'
+    Priority:        3
+  - Regex:           '.*'
+    Priority:        4
+
+# Alignment
+AlignConsecutiveDeclarations: false
+AlignConsecutiveAssignments: false
+AlignAfterOpenBracket: Align
+AlignTrailingComments: true
+
+# Packing
+BinPackParameters: true
+BinPackArguments: true
+
+# Comments
+ReflowComments: true
+
+# Breaking
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+AlwaysBreakTemplateDeclarations: Yes
+
+# C++ Standard
+Standard: c++17

@@ -642,7 +642,7 @@
         <location filename="../report.cpp" line="258"/>
         <location filename="../report.cpp" line="312"/>
         <source>WStreamLab - Informatii buletin de verificare metrologica</source>
-        <translation type="unfinished"></translation>
+        <translation>WStreamLab - Metrological Verification Report Information</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="315"/>

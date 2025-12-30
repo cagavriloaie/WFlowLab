@@ -11,23 +11,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QActionGroup>                       // Qt class for grouping actions together.
-#include <QApplication>                       // Qt class for managing the application's control flow.
-#include <QMainWindow>                        // Qt class for main application window.
-#include <QSerialPort>                        // Qt class for accessing serial port hardware.
-#include <QSerialPortInfo>                    // Qt class for retrieving information about available serial ports.
-#include <QTranslator>                        // Qt class for providing translations in the application.
-#include <QtSerialBus/QModbusRtuSerialClient> // Qt class for Modbus RTU serial client communication.
-#include "helpabout.h"                        // Custom header for HelpAbout class.
-#include "interface.h"                        // Custom header for Interface class.
-#include "license.h"                          // Custom header for License class.
-#include "tableBoard.h"                       // Custom header for TableBoard class.
+#include <QActionGroup>                        // Qt class for grouping actions together.
+#include <QApplication>                        // Qt class for managing the application's control flow.
+#include <QMainWindow>                         // Qt class for main application window.
+#include <QSerialPort>                         // Qt class for accessing serial port hardware.
+#include <QSerialPortInfo>                     // Qt class for retrieving information about available serial ports.
+#include <QTranslator>                         // Qt class for providing translations in the application.
+#include <QtSerialBus/QModbusRtuSerialClient>  // Qt class for Modbus RTU serial client communication.
 
-enum SELECTED_LANGUAGE {
-    ROMANIAN,
-    ENGLISH,
-    DEFAULT = ENGLISH
-};
+#include "helpabout.h"   // Custom header for HelpAbout class.
+#include "interface.h"   // Custom header for Interface class.
+#include "license.h"     // Custom header for License class.
+#include "tableBoard.h"  // Custom header for TableBoard class.
+
+enum SELECTED_LANGUAGE { ROMANIAN, ENGLISH, DEFAULT = ENGLISH };
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -66,27 +63,26 @@ struct SelectedInfo {
           serialPort_1{false},       /**< Serial port usage flag. */
           serialPort_2{false},       /**< Serial port usage flag. */
           selectedLanguage{ROMANIAN} /**< Selected language enumeration. */
-    {
-    }
+    {}
 
-    float       density_20;  /**< Density at 20 degrees Celsius. */
+    float density_20;        /**< Density at 20 degrees Celsius. */
     std::string pathResults; /**< Path for storing results. */
 
-    size_t      entriesNumber; /**< Number of entries. */
-    std::string certificate;   /**< Certificate information. */
+    size_t entriesNumber;    /**< Number of entries. */
+    std::string certificate; /**< Certificate information. */
 
-    std::string nameWaterMeter;  /**< Name of the water meter. */
-    unsigned    nominalDiameter; /**< Nominal diameter of the device. */
-    double      nominalFlow;     /**< Nominal flow rate. */
-    double      maximumFlow;     /**< Maximum flow rate. */
-    double      transitionFlow;  /**< Transition flow rate. */
-    double      minimumFlow;     /**< Minimum flow rate. */
-    double      nominalError;    /**< Nominal error. */
-    double      maximumError;    /**< Maximum error. */
+    std::string nameWaterMeter; /**< Name of the water meter. */
+    unsigned nominalDiameter;   /**< Nominal diameter of the device. */
+    double nominalFlow;         /**< Nominal flow rate. */
+    double maximumFlow;         /**< Maximum flow rate. */
+    double transitionFlow;      /**< Transition flow rate. */
+    double minimumFlow;         /**< Minimum flow rate. */
+    double nominalError;        /**< Nominal error. */
+    double maximumError;        /**< Maximum error. */
 
-    std::string ambientTemperature;   /**< Ambient temperature. */
-    std::string atmosphericPressure;  /**< Atmospheric pressure. */
-    std::string relativeAirHumidity;  /**< Relative air humidity. */
+    std::string ambientTemperature;  /**< Ambient temperature. */
+    std::string atmosphericPressure; /**< Atmospheric pressure. */
+    std::string relativeAirHumidity; /**< Relative air humidity. */
 
     bool rbGravimetric_new; /**< Gravimetric measurement flag. */
     bool rbVolumetric;      /**< Volumetric measurement flag. */
@@ -95,8 +91,8 @@ struct SelectedInfo {
     bool rbInterface; /**< Interface operation mode flag. */
     bool rbTerminal;  /**< Terminal operation mode flag. */
 
-    bool              serialPort_1;     /**< Serial port usage flag. */
-    bool              serialPort_2;     /**< Serial port usage flag. */
+    bool serialPort_1;                  /**< Serial port usage flag. */
+    bool serialPort_2;                  /**< Serial port usage flag. */
     SELECTED_LANGUAGE selectedLanguage; /**< Selected language enumeration. */
 };
 
@@ -115,19 +111,19 @@ class MainWindow : public QMainWindow {
      */
     ~MainWindow();
 
-    SelectedInfo                       selectedInfo;                    /**< Holds selected information related to the application. */
-    Ui::MainWindow*                    ui{nullptr};                     /**< Pointer to the UI components of the main window. */
-    TableBoard*                        inputData{nullptr};              /**< Pointer to the input data board. */
-    License*                           licenseDialog{nullptr};          /**< Pointer to the license dialog. */
-    HelpAbout*                         helpAbout{nullptr};              /**< Pointer to the help/about dialog. */
-    Interface*                         interfaceDialog{nullptr};        /**< Pointer to the interface dialog. */
-    QActionGroup*                      alignmentGroup{nullptr};         /**< Action group for alignment settings. */
-    QStatusBar*                        statusBar{nullptr};              /**< The status bar widget for displaying messages. */
-    unsigned                           MAX_NR_WATER_METERS{20};         /**< Maximum number of water meters supported. */
-    unsigned                           NUMBER_ENTRIES_METER_FLOW_DB{0}; /**< Number of entries in meter flow database. */
-    std::map<std::string, std::string> optionsConfiguration;            /**< Map for storing configuration options. */
-    QList<QSerialPortInfo>             ports;
-    QString                            statusBarMessage;
+    SelectedInfo selectedInfo;                /**< Holds selected information related to the application. */
+    Ui::MainWindow* ui{nullptr};              /**< Pointer to the UI components of the main window. */
+    TableBoard* inputData{nullptr};           /**< Pointer to the input data board. */
+    License* licenseDialog{nullptr};          /**< Pointer to the license dialog. */
+    HelpAbout* helpAbout{nullptr};            /**< Pointer to the help/about dialog. */
+    Interface* interfaceDialog{nullptr};      /**< Pointer to the interface dialog. */
+    QActionGroup* alignmentGroup{nullptr};    /**< Action group for alignment settings. */
+    QStatusBar* statusBar{nullptr};           /**< The status bar widget for displaying messages. */
+    unsigned MAX_NR_WATER_METERS{20};         /**< Maximum number of water meters supported. */
+    unsigned NUMBER_ENTRIES_METER_FLOW_DB{0}; /**< Number of entries in meter flow database. */
+    std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
+    QList<QSerialPortInfo> ports;
+    QString statusBarMessage;
 
     typedef const wchar_t* (*EnumerateSerialPorts)(); /**< Function pointer type for serial port enumeration. */
     EnumerateSerialPorts serialPorts{nullptr};        /**< Pointer to the function for serial port enumeration. */
@@ -317,4 +313,4 @@ class MainWindow : public QMainWindow {
      */
     void measurementTypeChangedSignal();
 };
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

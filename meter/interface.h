@@ -11,10 +11,11 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include <QDir>        // Qt class for handling directories and their contents.
-#include <QMessageBox> // Qt class for displaying modal dialog boxes with messages.
+#include <QDir>         // Qt class for handling directories and their contents.
+#include <QMessageBox>  // Qt class for displaying modal dialog boxes with messages.
 #include <QSerialPortInfo>
-#include <vector> // Standard C++ container class for dynamic arrays.
+
+#include <vector>  // Standard C++ container class for dynamic arrays.
 
 namespace Ui {
 class Interface;
@@ -59,9 +60,9 @@ class Interface : public QDialog {
     bool checkModbusAddresses();
 
   private:
-    Ui::Interface*      ui;                      /**< The user interface object. */
-    QVector<QString>    entries;                 /**< A vector of strings for storing entries. */
-    bool                isOpenModbusPort{false}; /**< Flag indicating if the Modbus port is open. */
+    Ui::Interface* ui;            /**< The user interface object. */
+    QVector<QString> entries;     /**< A vector of strings for storing entries. */
+    bool isOpenModbusPort{false}; /**< Flag indicating if the Modbus port is open. */
     std::vector<qint16> nodesModbusCom1;
     std::vector<qint16> nodesModbusCom2;
 
@@ -137,4 +138,4 @@ class Interface : public QDialog {
      */
     void showEvent(QShowEvent* event) override;
 };
-#endif // INTERFACE_H
+#endif  // INTERFACE_H

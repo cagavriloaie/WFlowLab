@@ -15,7 +15,7 @@
 #include <QDialog>
 
 namespace Ui {
-class Licence; ///< Forward declaration of Ui::Licence class.
+class Licence;  ///< Forward declaration of Ui::Licence class.
 }
 
 /**
@@ -47,7 +47,7 @@ class License : public QDialog {
      */
     void Translate();
 
-    Ui::Licence* ui; ///< Pointer to the UI object.
+    Ui::Licence* ui;  ///< Pointer to the UI object.
 
   private slots:
     /**
@@ -67,4 +67,4 @@ class License : public QDialog {
     void onCloseClicked();
 };
 
-#endif // LICENSE_H
+#endif  // LICENSE_H

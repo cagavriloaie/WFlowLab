@@ -9,25 +9,26 @@
  * \note Assumes the presence of specific UI elements and connections defined in the associated .ui file.
  */
 
-#include <thread>    // C++11 thread support
-#include <mutex>     // C++11 mutual exclusion primitives
-#include <sstream>   // String stream operations
-#include <iomanip>   // I/O manipulators
-#include <algorithm> // Standard C++ algorithms
+#include "report.h"  // Header for report functionality
 
-#include <QTimer>
+#include <QDateTime>
+#include <QDesktopServices>
+#include <QDir>
 #include <QMessageBox>
+#include <QPrinter>
 #include <QSettings>
 #include <QTextDocument>
-#include <QPrinter>
-#include <QDesktopServices>
-#include <QDateTime>
-#include <QDir>
+#include <QTimer>
 
-#include "mainwindow.h"    // Your application's main window
-#include "report.h"        // Header for report functionality
-#include "ui_mainwindow.h" // UI definition for main window
-#include "ui_report.h"     // UI definition for report dialog
+#include <algorithm>  // Standard C++ algorithms
+#include <iomanip>    // I/O manipulators
+#include <mutex>      // C++11 mutual exclusion primitives
+#include <sstream>    // String stream operations
+#include <thread>     // C++11 thread support
+
+#include "mainwindow.h"     // Your application's main window
+#include "ui_mainwindow.h"  // UI definition for main window
+#include "ui_report.h"      // UI definition for report dialog
 
 /**
 
@@ -65,8 +66,8 @@ void ReportMeasurements::printPdfThread(QString report) {
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
     // Construct the file name using QDir
-    QString fileName = QString::fromStdString(pMainWindow->selectedInfo.pathResults) +
-                       QDir::separator() + QString("BV_") + timestamp + ".pdf";
+    QString fileName = QString::fromStdString(pMainWindow->selectedInfo.pathResults) + QDir::separator() +
+                       QString("BV_") + timestamp + ".pdf";
 
     {
         // Lock the mutex to ensure exclusive access to the shared resource
@@ -93,7 +94,7 @@ void ReportMeasurements::printPdfThread(QString report) {
 
     // Check if the PDF generation is successful
     if (outputReport.isEmpty() || !printer.isValid()) {
-        qDebug() << "Error: Empty document or invalid printer, PDF not generated.";
+        qWarning() << "Error: Empty document or invalid printer, PDF not generated.";
         return;
     }
 
@@ -103,7 +104,7 @@ void ReportMeasurements::printPdfThread(QString report) {
     // Check if the file was created successfully and is non-empty
     QFile outputFile(fileName);
     if (!outputFile.exists() || outputFile.size() == 0) {
-        qDebug() << "Error: Failed to generate a non-empty PDF file.";
+        qWarning() << "Error: Failed to generate a non-empty PDF file.";
         return;
     }
 
@@ -124,45 +125,42 @@ void ReportMeasurements::printPdfThread(QString report) {
  * \return A string containing the Romanian words representation of the number.
  */
 std::string convertNumberToWords(int num, bool addSuffix = false) {
-    static const std::string units[] =
-        {
-            "",      ///< 0
-            "un",    ///< 1
-            "doua",  ///< 2
-            "trei",  ///< 3
-            "patru", ///< 4
-            "cinci", ///< 5
-            "sase",  ///< 6
-            "sapte", ///< 7
-            "opt",   ///< 8
-            "noua"   ///< 9
-        };
-    static const std::string teens[] =
-        {
-            "",              ///< 0
-            "unsprezece",    ///< 11
-            "doisprezece",   ///< 12
-            "treisprezece",  ///< 13
-            "paisprezece",   ///< 14
-            "cincisprezece", ///< 15
-            "saisprezece",   ///< 16
-            "saptesprezece", ///< 17
-            "optisprezece",  ///< 18
-            "nouasprezece"   ///< 19
-        };
-    static const std::string tens[] =
-        {
-            "",          ///< 0
-            "",          ///< 1
-            "douazeci",  ///< 20
-            "treizeci",  ///< 30
-            "patruzeci", ///< 40
-            "cincizeci", ///< 50
-            "saizeci",   ///< 60
-            "saptezeci", ///< 70
-            "optzeci",   ///< 80
-            "nouazeci"   ///< 90
-        };
+    static const std::string units[] = {
+        "",       ///< 0
+        "un",     ///< 1
+        "doua",   ///< 2
+        "trei",   ///< 3
+        "patru",  ///< 4
+        "cinci",  ///< 5
+        "sase",   ///< 6
+        "sapte",  ///< 7
+        "opt",    ///< 8
+        "noua"    ///< 9
+    };
+    static const std::string teens[] = {
+        "",               ///< 0
+        "unsprezece",     ///< 11
+        "doisprezece",    ///< 12
+        "treisprezece",   ///< 13
+        "paisprezece",    ///< 14
+        "cincisprezece",  ///< 15
+        "saisprezece",    ///< 16
+        "saptesprezece",  ///< 17
+        "optisprezece",   ///< 18
+        "nouasprezece"    ///< 19
+    };
+    static const std::string tens[] = {
+        "",           ///< 0
+        "",           ///< 1
+        "douazeci",   ///< 20
+        "treizeci",   ///< 30
+        "patruzeci",  ///< 40
+        "cincizeci",  ///< 50
+        "saizeci",    ///< 60
+        "saptezeci",  ///< 70
+        "optzeci",    ///< 80
+        "nouazeci"    ///< 90
+    };
 
     std::string result;
 
@@ -174,7 +172,7 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
     // Handle negative values
     if (num < 0) {
         result += "minus ";
-        num = -num; // Make num positive for further processing
+        num = -num;  // Make num positive for further processing
     }
 
     // Handle millions part
@@ -270,13 +268,10 @@ void ReportMeasurements::Translate() {
  * \param vectorSerialNumber Vector of QLineEdit pointers used for storing serial numbers.
  * \param resultAllTests Array of QString containing results of all tests.
  */
-ReportMeasurements::ReportMeasurements(QWidget*                       parent,
-                                       const std::vector<QCheckBox*>& vectorCheckNumber,
+ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheckBox*>& vectorCheckNumber,
                                        const std::vector<QLineEdit*>& vectorSerialNumber,
-                                       const QString                  resultAllTests[20])
-    : QDialog(parent),
-      ui(new Ui::report),
-      vectorCheckNumberCopy(vectorCheckNumber),
+                                       const QString resultAllTests[20])
+    : QDialog(parent), ui(new Ui::report), vectorCheckNumberCopy(vectorCheckNumber),
       vectorSerialNumberCopy(vectorSerialNumber) {
     // Set up the UI
     ui->setupUi(this);
@@ -336,11 +331,14 @@ ReportMeasurements::ReportMeasurements(QWidget*                       parent,
     ui->cbValabilitate->setCurrentIndex(settings.value("valabilitate", 6).toInt());
     ui->leCost->setText(settings.value("cost", 100).toString());
     ui->leVerificatorMetrolog->setText(settings.value("verificatorMetrolog", "Adrian Pintilie").toString());
-    ui->leLoculEfectuariiVerificarii->setText(settings.value("loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
+    ui->leLoculEfectuariiVerificarii->setText(
+        settings.value("loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
 
     settings.endGroup();
     settings.sync();
-    ui->lbNumarInregistrare->setFocus();
+
+    // Set initial focus to the first input field in the tab order
+    ui->leAutorizatiaNumarul->setFocus();
 
     // Connect signals and slots
     connect(ui->pbInchide, &QPushButton::clicked, this, &ReportMeasurements::onCloseClicked);
@@ -365,27 +363,26 @@ ReportMeasurements::~ReportMeasurements() {
  */
 void ReportMeasurements::onPrintClicked() {
     // Collect line edits in a vector
-    std::vector<QLineEdit*> lineEdits = {
-        ui->leAutorizatiaNumarul,
-        ui->leNumarInregistrare,
-        ui->leBeneficiar,
-        ui->leCoduldinLt,
-        ui->leNormativ,
-        ui->leCost,
-        ui->leVerificatorMetrolog,
-        ui->leLoculEfectuariiVerificarii};
+    std::vector<QLineEdit*> lineEdits = {ui->leAutorizatiaNumarul,
+                                         ui->leNumarInregistrare,
+                                         ui->leBeneficiar,
+                                         ui->leCoduldinLt,
+                                         ui->leNormativ,
+                                         ui->leCost,
+                                         ui->leVerificatorMetrolog,
+                                         ui->leLoculEfectuariiVerificarii};
 
     // Check whether any required field is empty
-    bool anyFieldEmpty = std::any_of(lineEdits.begin(), lineEdits.end(), [](const QLineEdit* lineEdit) {
-        return lineEdit->text().isEmpty();
-    });
+    bool anyFieldEmpty = std::any_of(lineEdits.begin(), lineEdits.end(),
+                                     [](const QLineEdit* lineEdit) { return lineEdit->text().isEmpty(); });
 
     if (anyFieldEmpty) {
         QMessageBox messageBoxWindowsTitle;
         messageBoxWindowsTitle.setWindowTitle(tr("Metrological Verification Report"));
         messageBoxWindowsTitle.setText(tr("Some required fields are not filled in."));
         messageBoxWindowsTitle.setStandardButtons(QMessageBox::Ok);
-        messageBoxWindowsTitle.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+        messageBoxWindowsTitle.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint |
+                                              Qt::WindowCloseButtonHint);
         if (messageBoxWindowsTitle.exec() == QMessageBox::Ok) {
             messageBoxWindowsTitle.close();
         }
@@ -404,15 +401,15 @@ void ReportMeasurements::onPrintClicked() {
     // Other variables
     size_t entriesTable = pMainWindow->selectedInfo.entriesNumber;
 
-    QString ltCode                = ui->leCoduldinLt->text();
-    QString nmlNtmNorms           = ui->leNormativ->text();
-    QString checkValability       = ui->cbValabilitate->currentText();
-    QString costRon               = ui->leCost->text();
-    QString companyLaboratory     = QString::fromStdString(pMainWindow->optionsConfiguration["company"]);
-    QString autorizationNumarul   = ui->leAutorizatiaNumarul->text();
+    QString ltCode = ui->leCoduldinLt->text();
+    QString nmlNtmNorms = ui->leNormativ->text();
+    QString checkValability = ui->cbValabilitate->currentText();
+    QString costRon = ui->leCost->text();
+    QString companyLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["company"]);
+    QString autorizationNumarul = ui->leAutorizatiaNumarul->text();
     QString certiticateLaboratory = QString::fromStdString(pMainWindow->optionsConfiguration["certificate"]);
-    QString detinator             = ui->leBeneficiar->text();
-    QString meterType             = pMainWindow->ui->cbWaterMeterType->currentText();
+    QString detinator = ui->leBeneficiar->text();
+    QString meterType = pMainWindow->ui->cbWaterMeterType->currentText();
 
     std::stringstream htmlTable;
 
@@ -428,7 +425,7 @@ void ReportMeasurements::onPrintClicked() {
               << "      border-collapse: collapse;\n"
               << "      width: 100%;\n"
               << "      font-size: 8px;\n"
-              << "      table-layout: fixed;\n" // Ensures equal width allocation
+              << "      table-layout: fixed;\n"  // Ensures equal width allocation
               << "    }\n"
               << "    th, td {\n"
               << "      border: 1px solid #dddddd;\n"
@@ -447,30 +444,36 @@ void ReportMeasurements::onPrintClicked() {
               << "      width: 50px;\n"
               << "    }\n"
               << "    th:nth-child(2), td:nth-child(2) {\n"
-              << "      width: 30%;\n" // More balanced size for description column
+              << "      width: 30%;\n"  // More balanced size for description column
               << "    }\n"
               << "    th:nth-child(5), td:nth-child(5) {\n"
-              << "      width: 35%;\n" // Increased width for column 5
+              << "      width: 35%;\n"  // Increased width for column 5
               << "      word-break: break-word;\n"
               << "    }\n"
               << "  </style>\n"
               << "</head>\n"
               << "<body>\n"
-              << "  <p style=\"font-size: 10px; line-height: 0.6;\">Laboratorul de metrologie al " << companyLaboratory.toStdString() << "</p>\n"
-              << "  <p style=\"font-size: 10px; line-height: 0.6;\">Autorizatia nr. " << autorizationNumarul.toStdString() << "</p>\n"
+              << "  <p style=\"font-size: 10px; line-height: 0.6;\">Laboratorul de metrologie al "
+              << companyLaboratory.toStdString() << "</p>\n"
+              << "  <p style=\"font-size: 10px; line-height: 0.6;\">Autorizatia nr. "
+              << autorizationNumarul.toStdString() << "</p>\n"
               << "  <center>\n"
               << "    <p style=\"font-size: 13px; line-height: 0.6;\">Buletin de verificare metrologica</p>\n"
-              << "    <p style=\"font-size: 13px; line-height: 0.6;\">nr. " << ui->leNumarInregistrare->text().toStdString() << " data emiterii: "
-              << std::put_time(localTime, "%d-%m-%Y") << " ora: " << std::put_time(localTime, "%H:%M") << "<br>\n"
+              << "    <p style=\"font-size: 13px; line-height: 0.6;\">nr. "
+              << ui->leNumarInregistrare->text().toStdString()
+              << " data emiterii: " << std::put_time(localTime, "%d-%m-%Y")
+              << " ora: " << std::put_time(localTime, "%H:%M") << "<br>\n"
               << "  </center>\n"
               << "  <p style=\"font-size: 10px; text-align:left;\">Mijloacele de masurare apartinand "
-              << detinator.toStdString() << ", prezentate la verificare metrologica, au obtinut urmatoarele rezultate:</p>\n"
+              << detinator.toStdString()
+              << ", prezentate la verificare metrologica, au obtinut urmatoarele rezultate:</p>\n"
               << "<center>\n"
               << "  <table class=\"first\">\n"
               << "    <thead>\n"
               << "      <tr>\n"
               << "        <th>Nr. <br>buc.</th>\n"
-              << "        <th>Mijloc de masurare-denumire, <br>tip, producator, caracteristici, <br>seria/an de fabricatie</th>\n"
+              << "        <th>Mijloc de masurare-denumire, <br>tip, producator, caracteristici, <br>seria/an de "
+                 "fabricatie</th>\n"
               << "        <th>Codul din LT</th>\n"
               << "        <th>Normativ<br>(NML, NTM etc)</th>\n"
               << "        <th>Etaloane utilizate,<br>denumire, serie, nr. CE</th>\n"
@@ -518,21 +521,26 @@ void ReportMeasurements::onPrintClicked() {
     streamObjCostTVA << std::fixed << std::setprecision(2);
     streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
-// TODO dar switch-ul tratează cazurile 0, 1 și 2.
-    for (size_t row = 0; row < 1; ++row) // Assuming you want to iterate only once based on the provided loop condition
+    // TODO but the switch handles cases 0, 1, and 2.
+    for (size_t row = 0; row < 1; ++row)  // Assuming you want to iterate only once based on the provided loop condition
     {
         htmlTable << "     <tr style=\"height: 20px;\">\n";
 
         switch (row) {
         case 0:
-            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii verificarii metrologice: " << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
-                      << "Data si ora finalizarii masurarilor metrologic:____________________________________________________</td>\n"
+            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii "
+                         "verificarii metrologice: "
+                      << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
+                      << "Data si ora finalizarii masurarilor "
+                         "metrologic:____________________________________________________</td>\n"
                       << "        <td>Total</td>\n"
                       << "        <td>" << totalCost << "</td>\n";
             break;
 
         case 1:
-            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Costul total al verificarii metrologice, fara TVA, este " << totalCost << " lei.</td>\n"
+            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Costul total al verificarii "
+                         "metrologice, fara TVA, este "
+                      << totalCost << " lei.</td>\n"
                       << "        <td><strong>TVA</strong></td>\n"
                       << "        <td>" << totalTVA << "</td>\n";
             break;
@@ -547,34 +555,46 @@ void ReportMeasurements::onPrintClicked() {
         htmlTable << "        </tr>\n";
     }
 
-    htmlTable << "  </table><br>\n"
-              << "<table width=\"100%\" style=\"text-align: left;\">\n"
-              << "    <tbody>\n"
-              << "        <tr>\n"
-              << "                <td style=\"width: 40%; text-align: left;\"><u>Verificator metrolog </u></td>\n"
-              << "                <td style=\"width: 60%; text-align: left;\">Prezentul document a fost predat beneficiarului</td>\n"
-              << "        </tr>\n"
-              << "        <tr>\n"
-              << "              <td style=\"width: 40%; text-align: left;\">" << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire _____________________________</td>\n"
-              << "        </tr>\n"
-              << "        <tr>\n"
-              << "              <td style=\"width: 40%; text-align: left;\">Semnatura_____________________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">___________________________________________________________________________</td>\n"
-              << "        </tr>\n"
-              << "        <tr>\n"
-              << "              <td style=\"width: 40%; text-align: left;\">Indicativul&nbsp;marcii_______________________</td>\n"
-              << "              <td style=\"width: 60%; text-align: left;\">Data,ora&nbsp;__________________________________Semnatura____________________</td>\n"
-              << "        </tr>\n"
-              << "    </tbody>\n"
-              << "</table>\n"
-              << "<div class=\"text-container\" style=\"text-align: left;\">"
-              << "<p style=\"font-size: 7px; line-height: 0.6;\">" << "1) Prezentul buletin nu se refera la caracterisitici sau functii pentru care normativele nu contin cerinte metrologice sau tehnice.<br>"
-                                                                      "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta aprobarea de model se completeaza si numarul AM<br>"
-                                                                      "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
-                                                                      "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si calibrarea, se mentioneaza numarul<br>certificatului de "
-                                                                      "calibrare<br><br>"
-                                                                      "F-02-PML 3-01</p>";
+    htmlTable
+        << "  </table><br>\n"
+        << "<table width=\"100%\" style=\"text-align: left;\">\n"
+        << "    <tbody>\n"
+        << "        <tr>\n"
+        << "                <td style=\"width: 40%; text-align: left;\"><u>Verificator metrolog </u></td>\n"
+        << "                <td style=\"width: 60%; text-align: left;\">Prezentul document a fost predat "
+           "beneficiarului</td>\n"
+        << "        </tr>\n"
+        << "        <tr>\n"
+        << "              <td style=\"width: 40%; text-align: left;\">"
+        << ui->leVerificatorMetrolog->text().toStdString() << "</td>\n"
+        << "              <td style=\"width: 60%; text-align: "
+           "left;\">Nume,&nbsp;prenume,&nbsp;B.I.&nbsp;/&nbsp;C.I.,&nbsp;nr.&nbsp;imputernicire "
+           "_____________________________</td>\n"
+        << "        </tr>\n"
+        << "        <tr>\n"
+        << "              <td style=\"width: 40%; text-align: left;\">Semnatura_____________________________</td>\n"
+        << "              <td style=\"width: 60%; text-align: "
+           "left;\">___________________________________________________________________________</td>\n"
+        << "        </tr>\n"
+        << "        <tr>\n"
+        << "              <td style=\"width: 40%; text-align: "
+           "left;\">Indicativul&nbsp;marcii_______________________</td>\n"
+        << "              <td style=\"width: 60%; text-align: "
+           "left;\">Data,ora&nbsp;__________________________________Semnatura____________________</td>\n"
+        << "        </tr>\n"
+        << "    </tbody>\n"
+        << "</table>\n"
+        << "<div class=\"text-container\" style=\"text-align: left;\">"
+        << "<p style=\"font-size: 7px; line-height: 0.6;\">"
+        << "1) Prezentul buletin nu se refera la caracterisitici sau functii pentru care normativele nu contin cerinte "
+           "metrologice sau tehnice.<br>"
+           "2) In cazul mijloacelor de masurare pentru care, conform reglementarilor in vigoare, este prevazuta "
+           "aprobarea de model se completeaza si numarul AM<br>"
+           "sau AM CEE. In cazul evaluarii conformitatii, se completeaza numarul documentului care aproba tipul.<br>"
+           "3) Daca rezultatul este \"RESPINS\" se precizeaza succint cauzele respingerii, daca s-a efectuat si "
+           "calibrarea, se mentioneaza numarul<br>certificatului de "
+           "calibrare<br><br>"
+           "F-02-PML 3-01</p>";
 
     htmlTable << "</body>\n"
               << "</html>\n";
@@ -596,7 +616,7 @@ void ReportMeasurements::onPrintClicked() {
     settings.beginGroup("Report");
 
     settings.setValue("autorizatiaNumarul", ui->leAutorizatiaNumarul->text());
-    int numarInregistrare =  ui->leNumarInregistrare->text().toInt();
+    int numarInregistrare = ui->leNumarInregistrare->text().toInt();
     numarInregistrare++;
     ui->leNumarInregistrare->setText(QString::number(numarInregistrare));
     settings.setValue("numarInregistrare", numarInregistrare);

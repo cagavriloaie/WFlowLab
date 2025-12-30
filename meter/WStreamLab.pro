@@ -54,15 +54,6 @@ for(file, REQUIRED_UI_FILES) {
 
 message("All required UI files found: $$size(REQUIRED_UI_FILES) files")
 
-# Verify resource file if it's being used
-contains(RESOURCES, images.qrc) {
-    !exists(images.qrc) {
-        error("images.qrc is defined but file doesn't exist!")
-    } else {
-        message("Resource file found: images.qrc")
-    }
-}
-
 # Windows-specific icon check
 win32 {
     !isEmpty(RC_ICONS) {
@@ -135,8 +126,7 @@ FORMS += \
 # RESOURCES
 # ============================================
 
-# Resource files (comment out if images.qrc is empty)
-# RESOURCES += images.qrc
+RESOURCES += resources.qrc
 
 # ============================================
 # PLATFORM-SPECIFIC CONFIGURATION
@@ -144,7 +134,7 @@ FORMS += \
 
 # Include the icon for Windows
 win32 {
-    RC_ICONS = ../build/WStreamLab.ico
+    RC_ICONS = WStreamLab.ico
 }
 
 # ============================================

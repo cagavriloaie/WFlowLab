@@ -11,7 +11,7 @@
 #ifndef HELPABOUT_H
 #define HELPABOUT_H
 
-#include <QDialog> // Qt class for creating modal or modeless dialogs.
+#include <QDialog>  // Qt class for creating modal or modeless dialogs.
 
 namespace Ui {
 class HelpAbout;
@@ -48,7 +48,7 @@ class HelpAbout : public QDialog {
     void Translate();
 
   private:
-    Ui::HelpAbout* ui; ///< Pointer to the UI object.
+    Ui::HelpAbout* ui;  ///< Pointer to the UI object.
 
   private slots:
     /**
@@ -60,4 +60,4 @@ class HelpAbout : public QDialog {
     void onCloseClicked();
 };
 
-#endif // HELPABOUT_H
+#endif  // HELPABOUT_H

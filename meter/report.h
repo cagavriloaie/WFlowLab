@@ -13,12 +13,13 @@
 #define REPORT_H
 
 // Qt headers for various UI components and utilities
-#include <QCheckBox> // Checkbox UI element
-#include <QDialog>   // Modal or modeless dialog window
-#include <QLineEdit> // Single-line text input widget
-#include <QString>   // Qt's string class with Unicode support
-#include <QTimer>    // Timer for delayed or periodic execution
-#include <vector>    // Standard C++ vector container
+#include <QCheckBox>  // Checkbox UI element
+#include <QDialog>    // Modal or modeless dialog window
+#include <QLineEdit>  // Single-line text input widget
+#include <QString>    // Qt's string class with Unicode support
+#include <QTimer>     // Timer for delayed or periodic execution
+
+#include <vector>  // Standard C++ vector container
 
 // Project-specific definitions and constants
 #include "definitions.h"
@@ -44,11 +45,9 @@ class ReportMeasurements : public QDialog {
      * \param vectorSerialNumber Vector of QLineEdit pointers for serial numbers.
      * \param resultAllTests Array of QStrings containing test results.
      */
-    explicit ReportMeasurements(
-        QWidget*                       parent,
-        const std::vector<QCheckBox*>& vectorCheckNumber,
-        const std::vector<QLineEdit*>& vectorSerialNumber,
-        const QString                  resultAllTests[MAX_ARRAY_SIZE]);
+    explicit ReportMeasurements(QWidget* parent, const std::vector<QCheckBox*>& vectorCheckNumber,
+                                const std::vector<QLineEdit*>& vectorSerialNumber,
+                                const QString resultAllTests[MAX_ARRAY_SIZE]);
 
     /**
      * \brief Destroys the ReportMeasurements dialog.
@@ -89,12 +88,12 @@ class ReportMeasurements : public QDialog {
     void enableGenerareBvButton();
 
   private:
-    Ui::report*             ui;                                 ///< User interface object.
-    std::vector<QCheckBox*> vectorCheckNumberCopy;              ///< Copy of vectorCheckNumber.
-    std::vector<QLineEdit*> vectorSerialNumberCopy;             ///< Copy of vectorSerialNumber.
-    QString                 resultAllTestsCopy[MAX_ARRAY_SIZE]; ///< Copy of resultAllTests.
-    QTimer*                 QTimerGenerareBv;                   ///< Timer object for enabling "Generare BV" button.
-    QWidget*                parentWidget;                       ///< Parent widget (avoid renaming for now to maintain consistency).
+    Ui::report* ui;                                  ///< User interface object.
+    std::vector<QCheckBox*> vectorCheckNumberCopy;   ///< Copy of vectorCheckNumber.
+    std::vector<QLineEdit*> vectorSerialNumberCopy;  ///< Copy of vectorSerialNumber.
+    QString resultAllTestsCopy[MAX_ARRAY_SIZE];      ///< Copy of resultAllTests.
+    QTimer* QTimerGenerareBv;                        ///< Timer object for enabling "Generare BV" button.
+    QWidget* parentWidget;  ///< Parent widget (avoid renaming for now to maintain consistency).
 };
 
-#endif // REPORT_H
+#endif  // REPORT_H

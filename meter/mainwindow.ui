@@ -16,12 +16,6 @@
     <height>620</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>580</width>
-    <height>620</height>
-   </size>
-  </property>
   <property name="font">
    <font>
     <family>Verdana</family>
@@ -34,158 +28,6 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">/* Common styles */
-* {
-    font-family: Verdana, Arial, sans-serif; /* Fallback to Arial or generic sans-serif if Verdana is not available */
-    font-size: 12pt; /* Base font size */
-}
-
-/* Common border style */
-.common-border {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-}
-
-/* QPushButton */
-QPushButton {
-    padding: 5px 10px;
-    border: 2px solid #ccc; /* Light gray border */
-    background-color: #f0f0f0; /* Light gray background */
-    border-radius: 5px; /* Rounded corners */
-}
-
-QPushButton:hover {
-    background-color: #d7d9d7; /* Light gray background on hover */
-    border: 2px solid #aaa; /* Darker gray border on hover */
-}
-
-/* QGroupBox */
-QGroupBox {
-    border: 2px solid rgba(0, 0, 0, 0.36); /* Black with transparency */
-    background-color: #E6E6FF; /* Light purple background */
-    margin-top: 10px;
-    padding-top: 10px; /* Padding for the top of the group box */
-}
-
-/* QGroupBox Title */
-QGroupBox::title {
-    subcontrol-origin: margin;
-    left: 7px;
-    padding: 5px; /* Adjusted padding for better appearance */
-}
-
-/* QRadioButton */
-QRadioButton {
-    spacing: 5px; /* Space between text and indicator */
-}
-
-QRadioButton::indicator {
-    width: 10px; /* Further reduced width */
-    height: 10px; /* Further reduced height */
-    border-radius: 5px; /* Half of width and height to maintain circular shape */
-    background-color: #f0f0f0; /* Light gray background */
-    border: 1px solid #ADD8E6; /* Light blue border */
-}
-
-QRadioButton::indicator:checked {
-    background-color: #ADD8E6; /* Light blue background when checked */
-    border: 1px solid #0078D7; /* Darker blue border when checked */
-}
-
-QRadioButton::indicator:unchecked {
-    background-color: #f0f0f0; /* Light gray background when unchecked */
-    border: 1px solid #ADD8E6; /* Light blue border when unchecked */
-}
-
-/* Menu Bar */
-QMenuBar {
-    background-color: #f0f0f0; /* Light gray background */
-    border: 1px solid #ccc; /* Light gray border */
-}
-
-/* Base Menu */
-QMenu {
-    background-color: #f0f0f0; /* Light gray background */
-    border: 1px solid #ccc; /* Light gray border */
-    padding: 4px; /* Adjust padding */
-}
-
-/* Menu Item */
-QMenu::item {
-    background-color: transparent; /* Transparent background */
-    padding: 4px 24px; /* Adjust padding */
-}
-
-QMenu::item:selected {
-    background-color: #d7d9d7; /* Light gray background when selected */
-}
-
-/* Disabled Menu Item */
-QMenu::item:disabled {
-    color: #999; /* Gray color for disabled items */
-}
-
-/* Separator */
-QMenu::separator {
-    height: 1px;
-    background-color: #ccc; /* Light gray separator */
-    margin: 4px 0; /* Adjust margin */
-}
-
-/* Action */
-QMenuBar::item,
-QMenu::item {
-    background: transparent;
-    padding: 4px 10px;
-    color: black;
-}
-
-QMenuBar::item:selected,
-QMenu::item:selected {
-    background: #f0f0f0;
-    color: black;
-    border-radius: 4px;
-}
-
-QMenuBar::item:pressed,
-QMenu::item:pressed {
-    background-color: #d7d9d7;
-    border-radius: 4px;
-}
-
-/* QComboBox */
-QComboBox {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px; /* Padding inside the combo box */
-    min-height: 20px; /* Adjust the minimum height */
-    background-color: #f0f0f0; /* Light gray background */
-    padding-right: 20px; /* Space for the arrow */
-}
-
-/* QComboBox Dropdown */
-QComboBox QAbstractItemView {
-    background-color: #ffffff; /* White background for the dropdown to avoid transparency */
-    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
-}
-
-/* Dropdown Arrow */
-QComboBox::down-arrow {
-    width: 10px; /* Adjust width of the arrow */
-    height: 10px; /* Adjust height of the arrow */
-}
-
-/* QLineEdit */
-QLineEdit {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    height: 28px; /* Adjusted height */
-    padding: 2px; /* Adjust padding if needed */
-    background-color: #f0f0f0; /* Light gray background to match QComboBox */
-}
-</string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>true</bool>
@@ -263,6 +105,9 @@ QLineEdit {
                  <height>23</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Selectează tipul de apometru pentru verificare</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -316,6 +161,9 @@ QLineEdit {
                    <height>23</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>Presiunea atmosferică în mbar</string>
+                 </property>
                  <property name="font">
                   <font>
                    <family>Verdana</family>
@@ -363,6 +211,9 @@ QLineEdit {
                    <width>100</width>
                    <height>23</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Temperatura ambiantă în grade Celsius</string>
                  </property>
                  <property name="font">
                   <font>
@@ -439,6 +290,9 @@ QLineEdit {
                  <height>23</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Numărul de apometre de verificat în această sesiune</string>
+               </property>
                <property name="autoFillBackground">
                 <bool>false</bool>
                </property>
@@ -500,6 +354,9 @@ QLineEdit {
                    <width>100</width>
                    <height>23</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Umiditatea relativă a aerului în procente</string>
                  </property>
                  <property name="font">
                   <font>
@@ -595,6 +452,9 @@ QLineEdit {
                  <height>20</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Metoda gravimetrică - determinare prin cântărire</string>
+               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
@@ -622,6 +482,9 @@ QLineEdit {
                  <width>16777215</width>
                  <height>20</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Metoda volumetrică - determinare prin măsurare volum</string>
                </property>
                <property name="font">
                 <font>
@@ -698,6 +561,9 @@ QLineEdit {
                  <height>20</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Introducere manuală a valorilor</string>
+               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
@@ -722,6 +588,9 @@ QLineEdit {
                  <width>16777215</width>
                  <height>20</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Citire automată prin interfață de comunicare</string>
                </property>
                <property name="font">
                 <font>
@@ -1037,11 +906,8 @@ QLineEdit {
         </item>
         <item>
          <widget class="QPushButton" name="pbNewSession">
-          <property name="styleSheet">
-           <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 10px; </string>
+          <property name="toolTip">
+           <string>Începe o nouă sesiune de verificare (Ctrl+N)</string>
           </property>
           <property name="text">
            <string/>
@@ -1050,11 +916,8 @@ QLineEdit {
         </item>
         <item>
          <widget class="QPushButton" name="pbExitApplication">
-          <property name="styleSheet">
-           <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 10px; </string>
+          <property name="toolTip">
+           <string>Închide aplicația (Ctrl+Q)</string>
           </property>
           <property name="text">
            <string/>
@@ -1120,15 +983,24 @@ QLineEdit {
    <property name="text">
     <string/>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="action_Save">
    <property name="text">
     <string>&amp;Save</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="action_Print">
    <property name="text">
     <string>&amp;Print</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="action_Exit">
@@ -1139,6 +1011,9 @@ QLineEdit {
   <action name="action_ExitApp">
    <property name="text">
     <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="action_English">
@@ -1159,6 +1034,9 @@ QLineEdit {
   <action name="action_WaterDensity">
    <property name="text">
     <string/>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
    </property>
   </action>
   <action name="actionLineEntry">
@@ -1181,10 +1059,16 @@ QLineEdit {
    <property name="text">
     <string/>
    </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
   </action>
   <action name="action_About">
    <property name="text">
     <string/>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
   <action name="action_Configure_Serial_Port">
@@ -1196,6 +1080,10 @@ QLineEdit {
  <tabstops>
   <tabstop>cbNumberOfWaterMeters</tabstop>
   <tabstop>cbWaterMeterType</tabstop>
+  <tabstop>leTemperature</tabstop>
+  <tabstop>leHumidity</tabstop>
+  <tabstop>lePressure</tabstop>
+  <tabstop>rbGravimetric</tabstop>
   <tabstop>rbVolumetric</tabstop>
   <tabstop>rbManual</tabstop>
   <tabstop>rbInterface</tabstop>

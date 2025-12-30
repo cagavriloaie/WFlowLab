@@ -13,12 +13,12 @@
 #define TABLEBOARD_H
 
 // Qt headers for various UI components and utilities
-#include <QCheckBox> // Checkbox UI element
-#include <QDialog>   // Modal or modeless dialog window
-#include <QKeyEvent> // Keyboard event handling
-#include <QLabel>    // Text or image display widget
-#include <QLineEdit> // Single-line text input widget
-#include <QTimer>    // Timer for delayed or periodic execution
+#include <QCheckBox>  // Checkbox UI element
+#include <QDialog>    // Modal or modeless dialog window
+#include <QKeyEvent>  // Keyboard event handling
+#include <QLabel>     // Text or image display widget
+#include <QLineEdit>  // Single-line text input widget
+#include <QTimer>     // Timer for delayed or periodic execution
 
 // Standard C++ header for string stream operations
 #include <sstream>
@@ -97,35 +97,35 @@ class TableBoard : public QDialog {
     void Translate();
 
   private:
-    QWidget*        parent; ///< Pointer to the parent widget.
-    Ui::TableBoard* ui;     ///< User interface object for the TableBoard dialog.
+    QWidget* parent;     ///< Pointer to the parent widget.
+    Ui::TableBoard* ui;  ///< User interface object for the TableBoard dialog.
 
     // Member variables grouped by functionality
-    size_t              entries{0};                        ///< Number of entries in the table.
-    ReportMeasurements* reportMeasurementsDialog{nullptr}; ///< Pointer to the report measurements dialog.
-    std::string         nameWaterMeter;                    ///< Name of the water meter being tested.
-    double              minimumFlowMain{0};                ///< Minimum flow rate.
-    double              transitoriuFlowMain{0};            ///< Transitional flow rate.
-    double              nominalFlowMain{0};                ///< Nominal flow rate.
-    double              nominalError{0};                   ///< Nominal error.
-    double              maximumError{0};                   ///< Maximum error.
+    size_t entries{0};                                      ///< Number of entries in the table.
+    ReportMeasurements* reportMeasurementsDialog{nullptr};  ///< Pointer to the report measurements dialog.
+    std::string nameWaterMeter;                             ///< Name of the water meter being tested.
+    double minimumFlowMain{0};                              ///< Minimum flow rate.
+    double transitoriuFlowMain{0};                          ///< Transitional flow rate.
+    double nominalFlowMain{0};                              ///< Nominal flow rate.
+    double nominalError{0};                                 ///< Nominal error.
+    double maximumError{0};                                 ///< Maximum error.
 
     // Vectors for managing table widgets
-    std::vector<QLabel*>    vectorNumber;           ///< Vector of labels for row numbers.
-    std::vector<QCheckBox*> vectorCheckNumber;      ///< Vector of checkboxes for row selection.
-    std::vector<QLineEdit*> vectorSerialNumber;     ///< Vector of line edits for serial numbers.
-    std::vector<QLineEdit*> vectorFirstIndexStart;  ///< Vector of line edits for first index start values.
-    std::vector<QLineEdit*> vectorFirstIndexStop;   ///< Vector of line edits for first index stop values.
-    std::vector<QLineEdit*> vectorFirstError;       ///< Vector of line edits for first index error values.
-    std::vector<QLineEdit*> vectorSecondIndexStart; ///< Vector of line edits for second index start values.
-    std::vector<QLineEdit*> vectorSecondIndexStop;  ///< Vector of line edits for second index stop values.
-    std::vector<QLineEdit*> vectorSecondError;      ///< Vector of line edits for second index error values.
-    std::vector<QLineEdit*> vectorThirdIndexStart;  ///< Vector of line edits for third index start values.
-    std::vector<QLineEdit*> vectorThirdIndexStop;   ///< Vector of line edits for third index stop values.
-    std::vector<QLineEdit*> vectorThirdError;       ///< Vector of line edits for third index error values.
+    std::vector<QLabel*> vectorNumber;               ///< Vector of labels for row numbers.
+    std::vector<QCheckBox*> vectorCheckNumber;       ///< Vector of checkboxes for row selection.
+    std::vector<QLineEdit*> vectorSerialNumber;      ///< Vector of line edits for serial numbers.
+    std::vector<QLineEdit*> vectorFirstIndexStart;   ///< Vector of line edits for first index start values.
+    std::vector<QLineEdit*> vectorFirstIndexStop;    ///< Vector of line edits for first index stop values.
+    std::vector<QLineEdit*> vectorFirstError;        ///< Vector of line edits for first index error values.
+    std::vector<QLineEdit*> vectorSecondIndexStart;  ///< Vector of line edits for second index start values.
+    std::vector<QLineEdit*> vectorSecondIndexStop;   ///< Vector of line edits for second index stop values.
+    std::vector<QLineEdit*> vectorSecondError;       ///< Vector of line edits for second index error values.
+    std::vector<QLineEdit*> vectorThirdIndexStart;   ///< Vector of line edits for third index start values.
+    std::vector<QLineEdit*> vectorThirdIndexStop;    ///< Vector of line edits for third index stop values.
+    std::vector<QLineEdit*> vectorThirdError;        ///< Vector of line edits for third index error values.
 
-    static QString report;           ///< Static variable for storing report information.
-    QTimer*        QTimerGenerareFM; ///< Timer object for generating FM.
+    static QString report;     ///< Static variable for storing report information.
+    QTimer* QTimerGenerareFM;  ///< Timer object for generating FM.
 
     /**
      * \brief Event filter for intercepting events targeted at this object.
@@ -136,22 +136,26 @@ class TableBoard : public QDialog {
      */
     bool eventFilter(QObject*, QEvent*);
 
-  private slots:
+  public slots:
     /**
      * \brief Slot called when the type of water meter is changed.
+     * Note: Public because it's connected from MainWindow
      */
     void onTypeMeterChanged();
 
     /**
      * \brief Slot called when the number of water meters is changed.
+     * Note: Public because it's connected from MainWindow
      */
     void onNumberOfWaterMetersChanged();
 
     /**
      * \brief Slot called when the measurement type is changed.
+     * Note: Public because it's connected from MainWindow
      */
     void onMeasurementTypeChanged();
 
+  private slots:
     /**
      * \brief Slot called when the select all checkbox state changes.
      */
@@ -245,4 +249,4 @@ class TableBoard : public QDialog {
     void showEvent(QShowEvent* event);
 };
 
-#endif // TABLEBOARD_H
+#endif  // TABLEBOARD_H

@@ -12,47 +12,46 @@
  */
 
 // C++ Standard Library headers
-#include <filesystem> ///< Provides facilities to manipulate and query file systems and their components.
-#include <fstream>    ///< Input/output stream class to operate on files.
-#include <iomanip>    ///< Manipulators for formatting output.
-#include <map>        ///< Associative containers that store elements in a mapped fashion.
-#include <sstream>    ///< Implements input/output operations on memory-based streams.
 #include <algorithm>
+#include <filesystem>  ///< Provides facilities to manipulate and query file systems and their components.
+#include <fstream>     ///< Input/output stream class to operate on files.
+#include <iomanip>     ///< Manipulators for formatting output.
+#include <map>         ///< Associative containers that store elements in a mapped fashion.
+#include <sstream>     ///< Implements input/output operations on memory-based streams.
 
 // Qt headers
-#include <QDesktopServices> ///< Access to the desktop services such as opening a URL.
-#include <QDir>             ///< Provides access to directory structures and their contents.
-#include <QLibrary>         ///< Platform-independent library loading and function resolution.
-#include <QLineEdit>        ///< Single-line text editor widget with input validation and styling.
+#include <QDesktopServices>  ///< Access to the desktop services such as opening a URL.
+#include <QDir>              ///< Provides access to directory structures and their contents.
+#include <QLibrary>          ///< Platform-independent library loading and function resolution.
+#include <QLineEdit>         ///< Single-line text editor widget with input validation and styling.
 #include <QList>
-#include <QMessageBox> ///< Modal dialog for informing the user or for asking the user a question and receiving an answer.
-#include <QSettings>   ///< Persistent platform-independent application settings.
+#include <QMessageBox>  ///< Modal dialog for informing the user or for asking the user a question and receiving an answer.
+#include <QSettings>  ///< Persistent platform-independent application settings.
 #include <QStatusBar>
-#include <QValidator> ///< Base class for all validators that can be easily attached to input widgets.
+#include <QValidator>  ///< Base class for all validators that can be easily attached to input widgets.
 
 // Windows-specific headers
-#include <windows.h> ///< Main Windows SDK header providing core Windows APIs.
+#include <windows.h>  ///< Main Windows SDK header providing core Windows APIs.
 
 // Custom headers
-#include "definitions.h"     ///< Custom application-specific definitions.
-#include "flow-meter-type.h" ///< Header defining flow meter types.
-#include "mainwindow.h"      ///< Header for the main application window.
-#include "md5.h"             ///< Header for MD5 hashing functionality.
-#include "ui_mainwindow.h"   ///< User interface header generated from Qt Designer.
-#include "waterdensity.h"    ///< Header for water density calculations.
+#include "definitions.h"      ///< Custom application-specific definitions.
+#include "flow-meter-type.h"  ///< Header defining flow meter types.
+#include "mainwindow.h"       ///< Header for the main application window.
+#include "md5.h"              ///< Header for MD5 hashing functionality.
+#include "ui_mainwindow.h"    ///< User interface header generated from Qt Designer.
+#include "waterdensity.h"     ///< Header for water density calculations.
 
 // Additional Qt headers (unique includes only)
-#include <QFile> ///< Provides functions to read from and write to files.
-#include <QUrl>  ///< Represents a URL.
+#include <QFile>  ///< Provides functions to read from and write to files.
+#include <QUrl>   ///< Represents a URL.
 
 extern QTranslator* appTranslator;
-MainWindow*         pMainWindow;
+MainWindow* pMainWindow;
 
 std::wstring ExePath() {
     TCHAR buffer[MAX_PATH] = {0};
     GetModuleFileName(NULL, buffer, MAX_PATH);
-    std::wstring::size_type pos = std::wstring(buffer).find_last_of(
-        L"\\/");
+    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
     return std::wstring(buffer).substr(0, pos);
 }
 
@@ -61,7 +60,7 @@ std::wstring ExePath() {
  *
  * This function clears the optionsConfiguration map and initializes default
  * values for various configuration keys:
- * - "company": Default value is "NONE".
+ * - "company": Default value is "Elcost Company".
  * - "archive": Default path is "C:/Stand/Fise".
  * - "volume_correction": Default value is "CLASSIC_VOLUME_CORRECTION".
  * - "certificate": Default value is "CE 06.02-2025/15".
@@ -70,12 +69,12 @@ std::wstring ExePath() {
  */
 void MainWindow::SetDefaultConfiguration() {
     optionsConfiguration.clear();
-    optionsConfiguration["company"]            = "Elcost Company";
-    optionsConfiguration["archive"]            = "C:/Stand/Fise";
-    optionsConfiguration["volume_correction"]  = "CLASSIC_VOLUME_CORRECTION";
-    optionsConfiguration["certificate"]        = "CE 06.02-2025/15";
-    optionsConfiguration["density_20"]         = "998.2009";
-    optionsConfiguration["control"]            = "004b3d5b6f320ab986035bf8252ea845";
+    optionsConfiguration["company"] = "Elcost Company";
+    optionsConfiguration["archive"] = "C:/Stand/Fise";
+    optionsConfiguration["volume_correction"] = "CLASSIC_VOLUME_CORRECTION";
+    optionsConfiguration["certificate"] = "CE 06.02-2025/15";
+    optionsConfiguration["density_20"] = "998.2009";
+    optionsConfiguration["control"] = "004b3d5b6f320ab986035bf8252ea845";
 }
 
 /**
@@ -115,12 +114,8 @@ void MainWindow::ReadConfiguration() {
         SetDefaultConfiguration();
 
         QString msg = QString("The configuration file could not be opened. "
-                                  "Default settings will be used.");
-        QMessageBox box(QMessageBox::Critical,
-                        "Warning",
-                        msg,
-                        QMessageBox::Ok,
-                        nullptr);
+                              "Default settings will be used.");
+        QMessageBox box(QMessageBox::Critical, "Warning", msg, QMessageBox::Ok, nullptr);
         return;
     }
 
@@ -134,7 +129,7 @@ void MainWindow::ReadConfiguration() {
         if (posEq == std::string::npos || posGt == std::string::npos || posGt <= posEq)
             continue;
 
-        std::string key   = line.substr(0, posEq);
+        std::string key = line.substr(0, posEq);
         std::string value = line.substr(posEq + 1, posGt - posEq - 1);
 
         if (!key.empty())
@@ -142,64 +137,43 @@ void MainWindow::ReadConfiguration() {
     }
 
     // Validate presence of all mandatory configuration keys
-    if (
-        optionsConfiguration.find("company") == optionsConfiguration.end() ||
+    if (optionsConfiguration.find("company") == optionsConfiguration.end() ||
         optionsConfiguration.find("archive") == optionsConfiguration.end() ||
         optionsConfiguration.find("volume_correction") == optionsConfiguration.end() ||
         optionsConfiguration.find("certificate") == optionsConfiguration.end() ||
         optionsConfiguration.find("density_20") == optionsConfiguration.end() ||
-        optionsConfiguration.find("control") == optionsConfiguration.end()
-        )
-    {
+        optionsConfiguration.find("control") == optionsConfiguration.end()) {
         SetDefaultConfiguration();
         QString msg = QString("The configuration file does not contain all "
                               "mandatory entries. Default settings will be used.");
-        QMessageBox box(QMessageBox::Critical,
-                        "Warning",
-                        msg,
-                        QMessageBox::Ok,
-                        nullptr);
+        QMessageBox box(QMessageBox::Critical, "Warning", msg, QMessageBox::Ok, nullptr);
         return;
     }
 
     // Validate configuration integrity using MD5 checksum
-    std::string md5Read     = optionsConfiguration["control"];
-    std::string wordControl =
-        optionsConfiguration["company"] +
-        optionsConfiguration["volume_correction"];
+    std::string md5Read = optionsConfiguration["control"];
+    std::string wordControl = optionsConfiguration["company"] + optionsConfiguration["volume_correction"];
     std::string md5Calculate = md5(wordControl);
 
     if (md5Read != md5Calculate) {
         SetDefaultConfiguration();
         QString msg = QString("The configuration file failed the MD5 integrity check. "
-                                  "Default settings will be used.");
-        QMessageBox box(QMessageBox::Critical,
-                        "Warning",
-                        msg,
-                        QMessageBox::Ok,
-                        nullptr);
+                              "Default settings will be used.");
+        QMessageBox box(QMessageBox::Critical, "Warning", msg, QMessageBox::Ok, nullptr);
         return;
     }
 
     std::string volumeCorrectionType = optionsConfiguration["volume_correction"];
 
-    if (
-        volumeCorrectionType != "CLASSIC_VOLUME_CORRECTION" &&
-        volumeCorrectionType != "INM_VOLUME_CORRECTION" &&
-        volumeCorrectionType != "ELCOST_VOLUME_CORRECTION"
-        )
-    {
+    if (volumeCorrectionType != "CLASSIC_VOLUME_CORRECTION" && volumeCorrectionType != "INM_VOLUME_CORRECTION" &&
+        volumeCorrectionType != "ELCOST_VOLUME_CORRECTION") {
         QString msg = QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
                           .arg(QString::fromStdString(volumeCorrectionType))
                           .arg("  CLASSIC_VOLUME_CORRECTION")
                           .arg("  INM_VOLUME_CORRECTION")
                           .arg("  ELCOST_VOLUME_CORRECTION");
 
-        QMessageBox box(QMessageBox::Critical,
-                        "Error",
-                        msg,
-                        QMessageBox::Ok,
-                        nullptr);
+        QMessageBox box(QMessageBox::Critical, "Error", msg, QMessageBox::Ok, nullptr);
         return;
     }
 
@@ -214,8 +188,8 @@ void MainWindow::ReadConfiguration() {
  * - `defaultValue` is a QVariant storing the default value associated with the setting.
  */
 struct serialSettingInfo {
-    const char*    key;          ///< Pointer to a constant character array representing the setting's identifier.
-    const QVariant defaultValue; ///< QVariant storing the default value associated with the setting.
+    const char* key;              ///< Pointer to a constant character array representing the setting's identifier.
+    const QVariant defaultValue;  ///< QVariant storing the default value associated with the setting.
 };
 
 /**
@@ -229,8 +203,8 @@ struct serialSettingInfo {
  * \param precision The number of decimal places to display.
  */
 void MainWindow::setLabelValue(QLabel* label, double value, int precision) {
-    QString text = QString::number(value, 'f', precision); // Format the double value with fixed precision
-    label->setText(text);                                  // Set the text of the label to the formatted value
+    QString text = QString::number(value, 'f', precision);  // Format the double value with fixed precision
+    label->setText(text);                                   // Set the text of the label to the formatted value
 }
 
 /**
@@ -251,11 +225,11 @@ void MainWindow::updateSelectedInfo() {
         selectedInfo.density_20 = 998.2009;
         qWarning() << "Invalid density_20 value:" << e.what();
     }
-    selectedInfo.pathResults   = optionsConfiguration["archive"];
-    selectedInfo.certificate   = optionsConfiguration["certificate"];
-    //The new version has just the option 20 for entries number
+    selectedInfo.pathResults = optionsConfiguration["archive"];
+    selectedInfo.certificate = optionsConfiguration["certificate"];
+    // The new version has just the option 20 for entries number
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
-    //selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
+    // selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
 
     // Read lab conditions from application settings
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
@@ -275,8 +249,7 @@ void MainWindow::updateSelectedInfo() {
 
     // Get selected water meter index from UI
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
-    if (selectedWaterMeter < 0 ||
-        static_cast<size_t>(selectedWaterMeter) >= NUMBER_ENTRIES_METER_FLOW_DB) {
+    if (selectedWaterMeter < 0 || static_cast<size_t>(selectedWaterMeter) >= NUMBER_ENTRIES_METER_FLOW_DB) {
         qWarning() << "Invalid water meter index:" << selectedWaterMeter;
         return;
     }
@@ -285,14 +258,14 @@ void MainWindow::updateSelectedInfo() {
     const auto& meterFlowInfo = MeterFlowDB[selectedWaterMeter];
 
     // Update selectedInfo with meter flow information
-    selectedInfo.nameWaterMeter  = meterFlowInfo.nameWaterMeter;
+    selectedInfo.nameWaterMeter = meterFlowInfo.nameWaterMeter;
     selectedInfo.nominalDiameter = meterFlowInfo.nominalDiameter;
-    selectedInfo.nominalFlow     = meterFlowInfo.nominalFlow;
-    selectedInfo.maximumFlow     = meterFlowInfo.maximumFlow;
-    selectedInfo.transitionFlow  = meterFlowInfo.transitionFlow;
-    selectedInfo.minimumFlow     = meterFlowInfo.minimumFlow;
-    selectedInfo.nominalError    = meterFlowInfo.nominalError;
-    selectedInfo.maximumError    = meterFlowInfo.maximumError;
+    selectedInfo.nominalFlow = meterFlowInfo.nominalFlow;
+    selectedInfo.maximumFlow = meterFlowInfo.maximumFlow;
+    selectedInfo.transitionFlow = meterFlowInfo.transitionFlow;
+    selectedInfo.minimumFlow = meterFlowInfo.minimumFlow;
+    selectedInfo.nominalError = meterFlowInfo.nominalError;
+    selectedInfo.maximumError = meterFlowInfo.maximumError;
 }
 
 /**
@@ -314,14 +287,14 @@ void MainWindow::SelectMeterComboBox() {
         std::filesystem::create_directories(selectedInfo.pathResults + "/inputData");
     } catch (const std::filesystem::filesystem_error& e) {
         QMessageBox::warning(this, tr("Directory Error"),
-           tr("Failed to create directory: %1").arg(QString::fromStdString(e.what())));
+                             tr("Failed to create directory: %1").arg(QString::fromStdString(e.what())));
     }
 
     // Update labels in the UI with selectedInfo values
     setLabelValue(ui->lbNominalDiameterCurrent, selectedInfo.nominalDiameter, 0);
     setLabelValue(ui->lbMaximumFlowCurrent, selectedInfo.maximumFlow, 2);
     setLabelValue(ui->lbNominalFlowCurrent, selectedInfo.nominalFlow, 2);
-    setLabelValue(ui->lbTransitionFlowCurrent, selectedInfo.transitionFlow, 2); // Corrected typo
+    setLabelValue(ui->lbTransitionFlowCurrent, selectedInfo.transitionFlow, 2);  // Corrected typo
     setLabelValue(ui->lbMinimumFlowCurrent, selectedInfo.minimumFlow, 2);
     setLabelValue(ui->lbMaximumErrorCurrent, selectedInfo.maximumError, 1);
     setLabelValue(ui->lbNominalErrorCurrent, selectedInfo.nominalError, 1);
@@ -360,7 +333,7 @@ void MainWindow::Translate() {
     ui->lbPressure->setText(tr("Atmospheric pressure:"));
     ui->lbHumidity->setText(tr("Relative air humidity:"));
     ui->lbTab5->setText(tr("[mbar]"));
-    ui->lbTab3->setText(tr("°C")); // Degrees Celsius symbol
+    ui->lbTab3->setText(tr("°C"));  // Degrees Celsius symbol
     ui->lbTab4->setText(tr("[%]"));
 
     // Translate group box titles
@@ -405,13 +378,8 @@ void MainWindow::Translate() {
  * \param parent The parent widget.
  */
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      inputData(nullptr),
-      licenseDialog(new License(this)),
-      helpAbout(new HelpAbout(this)),
-      interfaceDialog(new Interface(this)),
-      alignmentGroup(new QActionGroup(this)),
+    : QMainWindow(parent), ui(new Ui::MainWindow), inputData(nullptr), licenseDialog(new License(this)),
+      helpAbout(new HelpAbout(this)), interfaceDialog(new Interface(this)), alignmentGroup(new QActionGroup(this)),
       statusBar(new QStatusBar(this)) {
     ui->setupUi(this);
 
@@ -419,10 +387,6 @@ MainWindow::MainWindow(QWidget* parent)
     // Remove menuInterface from the menu bar
     ui->menubar->removeAction(ui->menuInterface->menuAction());
     ui->rbInterface->setEnabled(false);
-    ui->rbInterface->setStyleSheet(
-        "QRadioButton:disabled { color: gray; }"
-        "QRadioButton::indicator:disabled { background-color: lightgray; }"
-        );
 #endif
 
     // Remove maximize button from window
@@ -485,14 +449,13 @@ MainWindow::MainWindow(QWidget* parent)
     ui->action_Romana->setCheckable(true);
     ui->action_Romana->setChecked(true);
 
-    std::string                filename = CSV_FLOW_METER_TYPES;
-    std::vector<MeterFlowType> meterFlowTypesVector =
-        readFlowMeterTypesCSV(filename);
+    std::string filename = CSV_FLOW_METER_TYPES;
+    std::vector<MeterFlowType> meterFlowTypesVector = readFlowMeterTypesCSV(filename);
 
     // Clear existing items if any
     ui->cbNumberOfWaterMeters->clear();
 
-           // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
+    // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
     for (unsigned int i = 1; i <= MAX_NUMBER_FLOW_METERS; ++i) {
         ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
@@ -505,13 +468,14 @@ MainWindow::MainWindow(QWidget* parent)
     }
 
     // Populate cbWaterMeterType with names from MeterFlowDB
-    ui->cbWaterMeterType->clear(); // Clear existing items if any
+    ui->cbWaterMeterType->clear();  // Clear existing items if any
     for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
         ui->cbWaterMeterType->addItem(QString::fromStdString(MeterFlowDB[iter].nameWaterMeter));
     }
 
     // Connect QComboBox signals to custom slots
-    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this, &MainWindow::onNumberOfWaterMetersChanged);
+    connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this,
+            &MainWindow::onNumberOfWaterMetersChanged);
     connect(ui->cbWaterMeterType, &QComboBox::currentIndexChanged, this, &MainWindow::onMeterTypeChanged);
 
     // Connect QRadioButton signals to custom slots
@@ -542,10 +506,10 @@ MainWindow::MainWindow(QWidget* parent)
     connect(ui->action_English, &QAction::triggered, this, &MainWindow::onSetEnglish);
     connect(ui->action_Configure_Serial_Port, &QAction::triggered, this, &MainWindow::onPortSettings);
 
-    // Connect signals to slots in another object (inputData)
-    connect(this, SIGNAL(meterTypeChangedSignal()), inputData, SLOT(onTypeMeterChanged()));
-    connect(this, SIGNAL(numberOfWaterMetersChangedSignal()), inputData, SLOT(onNumberOfWaterMetersChanged()));
-    connect(this, SIGNAL(measurementTypeChangedSignal()), inputData, SLOT(onMeasurementTypeChanged()));
+    // Connect signals to slots in another object (inputData) - Modern Qt5+ syntax
+    connect(this, &MainWindow::meterTypeChangedSignal, inputData, &TableBoard::onTypeMeterChanged);
+    connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData, &TableBoard::onNumberOfWaterMetersChanged);
+    connect(this, &MainWindow::measurementTypeChangedSignal, inputData, &TableBoard::onMeasurementTypeChanged);
 
     // Added for future improvements
     ui->action_General_Description->setVisible(false);
@@ -578,6 +542,9 @@ MainWindow::MainWindow(QWidget* parent)
 
     statusBarMessage = tr(" > Manual Mode Operation");
     setStatusBarMessage(statusBarMessage);
+
+    // Set initial focus to the first input widget in the tab order
+    ui->cbNumberOfWaterMeters->setFocus();
 }
 
 /**
@@ -662,33 +629,31 @@ void MainWindow::onNewSessionClicked() {
             inputData->activateWindow();
         }
 
-        // Connect signals to slots in inputData
-        connect(this, SIGNAL(meterTypeChangedSignal()), inputData,
-                SLOT(onTypeMeterChanged()));
-        connect(this, SIGNAL(numberOfWaterMetersChangedSignal()), inputData,
-                SLOT(onNumberOfWaterMetersChanged()));
-        connect(this, SIGNAL(measurementTypeChangedSignal()), inputData,
-                SLOT(onMeasurementTypeChanged()));
+        // Connect signals to slots in inputData - Modern Qt5+ syntax
+        connect(this, &MainWindow::meterTypeChangedSignal, inputData, &TableBoard::onTypeMeterChanged);
+        connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData,
+                &TableBoard::onNumberOfWaterMetersChanged);
+        connect(this, &MainWindow::measurementTypeChangedSignal, inputData, &TableBoard::onMeasurementTypeChanged);
     }
 
     // Update selected information (assuming this function exists in your class)
     updateSelectedInfo();
 
     // Set the fixed size of the window
-    int fixedWidth  = MAIN_WINDOW_WIDTH;  // Set your fixed width
-    int fixedHeight = MAIN_WINDOW_HEIGHT; // Set your fixed height
+    int fixedWidth = MAIN_WINDOW_WIDTH;    // Set your fixed width
+    int fixedHeight = MAIN_WINDOW_HEIGHT;  // Set your fixed height
     this->inputData->setFixedSize(fixedWidth, fixedHeight);
 
     // Calculate the center position using the primary screen
-    QScreen* primaryScreen     = QApplication::primaryScreen();
-    QRect    availableGeometry = primaryScreen->availableGeometry();
-    int      x                 = (availableGeometry.width() - fixedWidth) / 2;
-    int      y                 = (availableGeometry.height() - fixedHeight) / 2;
+    QScreen* primaryScreen = QApplication::primaryScreen();
+    QRect availableGeometry = primaryScreen->availableGeometry();
+    int x = (availableGeometry.width() - fixedWidth) / 2;
+    int y = (availableGeometry.height() - fixedHeight) / 2;
 
     // Set the position and display properties for the window
-    inputData->move(x, y);      // Set the window position
-    inputData->setModal(false); // Set the window to non-modal
-    inputData->show();          // Display the window
+    inputData->move(x, y);       // Set the window position
+    inputData->setModal(false);  // Set the window to non-modal
+    inputData->show();           // Display the window
     inputData->raise();
     inputData->activateWindow();
 }
@@ -715,7 +680,7 @@ void MainWindow::onExitApplication() {
  * radio buttons. Then, emits the measurementTypeChangedSignal to notify listeners.
  */
 void MainWindow::onRbGravimetricClicked() {
-    selectedInfo.rbVolumetric      = ui->rbVolumetric->isChecked();
+    selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
     emit measurementTypeChangedSignal();
 }
@@ -727,7 +692,7 @@ void MainWindow::onRbGravimetricClicked() {
  * radio buttons. Then, emits the measurementTypeChangedSignal to notify listeners.
  */
 void MainWindow::onRbVolumeClicked() {
-    selectedInfo.rbVolumetric      = ui->rbVolumetric->isChecked();
+    selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
     emit measurementTypeChangedSignal();
 }
@@ -742,9 +707,9 @@ void MainWindow::onRbVolumeClicked() {
  *       selected options or settings.
  */
 void MainWindow::onRbManualClicked() {
-    selectedInfo.rbManual    = ui->rbManual->isChecked();
+    selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    statusBarMessage         = tr(" > Manual operation mode");
+    statusBarMessage = tr(" > Manual operation mode");
     setStatusBarMessage(statusBarMessage);
 }
 
@@ -755,9 +720,9 @@ void MainWindow::onRbManualClicked() {
  * related to the "Interface" radio button.
  */
 void MainWindow::onRbInterfaceClicked() {
-    selectedInfo.rbManual    = ui->rbManual->isChecked();
+    selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    statusBarMessage         = " > MODBUS Interface Mode Operation / Not Connected";
+    statusBarMessage = " > MODBUS Interface Mode Operation / Not Connected";
     setStatusBarMessage(statusBarMessage);
 }
 
@@ -772,15 +737,15 @@ void MainWindow::onRbInterfaceClicked() {
  */
 void MainWindow::onAmbientTemperatureTextChanged() {
     // Retrieve and update ambient temperature
-    QString temperatureText         = ui->leTemperature->text();
+    QString temperatureText = ui->leTemperature->text();
     selectedInfo.ambientTemperature = temperatureText.toStdString();
 
     // Retrieve and update atmospheric pressure
-    QString pressureText              = ui->lePressure->text();
+    QString pressureText = ui->lePressure->text();
     selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
-    QString humidityText             = ui->leHumidity->text();
+    QString humidityText = ui->leHumidity->text();
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
@@ -804,15 +769,15 @@ void MainWindow::onAmbientTemperatureTextChanged() {
  */
 void MainWindow::onRelativeAirHumidityTextChanged() {
     // Retrieve and update ambient temperature
-    QString temperatureText         = ui->leTemperature->text();
+    QString temperatureText = ui->leTemperature->text();
     selectedInfo.ambientTemperature = temperatureText.toStdString();
 
     // Retrieve and update atmospheric pressure
-    QString pressureText              = ui->lePressure->text();
+    QString pressureText = ui->lePressure->text();
     selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
-    QString humidityText             = ui->leHumidity->text();
+    QString humidityText = ui->leHumidity->text();
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
@@ -838,15 +803,15 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
  */
 void MainWindow::onAtmosphericPressureTextChanged() {
     // Retrieve and update ambient temperature
-    QString temperatureText         = ui->leTemperature->text();
+    QString temperatureText = ui->leTemperature->text();
     selectedInfo.ambientTemperature = temperatureText.toStdString();
 
     // Retrieve and update atmospheric pressure
-    QString pressureText              = ui->lePressure->text();
+    QString pressureText = ui->lePressure->text();
     selectedInfo.atmosphericPressure = pressureText.toStdString();
 
     // Retrieve and update relative air humidity
-    QString humidityText             = ui->leHumidity->text();
+    QString humidityText = ui->leHumidity->text();
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
@@ -872,14 +837,14 @@ void MainWindow::onAtmosphericPressureTextChanged() {
  */
 void MainWindow::onGeneralDescription() {
     if (ROMANIAN == selectedInfo.selectedLanguage) {
-        QString fileName   = MANUAL_RO;                              // Filename of the Romanian manual
-        QString appDirPath = QCoreApplication::applicationDirPath(); // Get application directory path
-        QString filePath   = QDir(appDirPath).filePath(fileName);    // Construct full file path
+        QString fileName = MANUAL_RO;                                 // Filename of the Romanian manual
+        QString appDirPath = QCoreApplication::applicationDirPath();  // Get application directory path
+        QString filePath = QDir(appDirPath).filePath(fileName);       // Construct full file path
 
         // Check if the file exists
         if (QFile::exists(filePath)) {
-            QUrl fileUrl = QUrl::fromLocalFile(filePath); // Create a URL from local file path
-            QDesktopServices::openUrl(fileUrl);           // Open the file URL using default application
+            QUrl fileUrl = QUrl::fromLocalFile(filePath);  // Create a URL from local file path
+            QDesktopServices::openUrl(fileUrl);            // Open the file URL using default application
         }
     }
 
@@ -896,16 +861,17 @@ void MainWindow::onGeneralDescription() {
  * After generating the HTML file, it opens it using the default web browser and removes the temporary file afterwards.
  */
 void MainWindow::onWaterDensityPage() {
-    // Creează calea fișierului HTML temporar
+    // Create temporary HTML file path
     QString tempHtmlFilePath = QDir::temp().filePath("water_density.html");
 
-    // Deschide fișierul HTML pentru scriere
+    // Open HTML file for writing
     std::ofstream densityHtmlFile(tempHtmlFilePath.toStdString());
-    if (!densityHtmlFile.is_open()) return;
+    if (!densityHtmlFile.is_open())
+        return;
 
     std::stringstream output;
 
-    // === HTML Header și CSS ===
+    // === HTML Header and CSS ===
     output << R"(
     <!DOCTYPE html>
     <html lang="en">
@@ -963,17 +929,19 @@ void MainWindow::onWaterDensityPage() {
     <body>
     )";
 
-    // === Text introductiv în funcție de limbă ===
+    // === Introductory text depending on language ===
     if (ROMANIAN == selectedInfo.selectedLanguage) {
         output << "<h2>Densitatea și Corecția Volumului Apei</h2>";
         output << "<p>Tabelul de mai jos afișează densitatea apei în kg/m³ și "
                   "factorul de corecție a volumului în funcție de temperatură între 0 și 100°C, "
-                  "cu un pas de 0,1°C la presiune normală (1013,25 kPa). Valorile sunt generate pe baza datelor din aplicație.</p>";
+                  "cu un pas de 0,1°C la presiune normală (1013,25 kPa). Valorile sunt generate pe baza datelor din "
+                  "aplicație.</p>";
     } else {
         output << "<h2>Density and Volume Correction of Water</h2>";
-        output << "<p>The table below shows the density of water in kg/m³ and the volume correction factor "
-                  "as a function of temperature from 0 to 100°C, with a 0.1°C step under normal pressure (1013.25 kPa). "
-                  "These values are generated based on the application data.</p>";
+        output
+            << "<p>The table below shows the density of water in kg/m³ and the volume correction factor "
+               "as a function of temperature from 0 to 100°C, with a 0.1°C step under normal pressure (1013.25 kPa). "
+               "These values are generated based on the application data.</p>";
     }
 
     // === Tabel HTML ===
@@ -990,12 +958,12 @@ void MainWindow::onWaterDensityPage() {
         <tbody>
     )";
 
-    // === Generare rânduri ===
-    //double rho_real20 = std::stof(optionsConfiguration["density_20"]);
+    // === Generate table rows ===
+    // double rho_real20 = std::stof(optionsConfiguration["density_20"]);
     for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
-        double density     = get_ro(temperature);
-        double correction  = get_K(temperature);
+        double density = get_ro(temperature);
+        double correction = get_K(temperature);
 
         output << "<tr>"
                << "<td>" << std::fixed << std::setprecision(1) << temperature << "</td>"
@@ -1021,7 +989,6 @@ void MainWindow::onWaterDensityPage() {
 
     // Delete the temporary file after opening
     // QFile::remove(tempHtmlFilePath);
-
 }
 
 /**
@@ -1050,7 +1017,7 @@ void MainWindow::onHelpAbout() {
  * it shows the interface dialog for port settings.
  */
 void MainWindow::onPortSettings() {
-    selectedInfo.rbManual    = ui->rbManual->isChecked();
+    selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
 
     /*
@@ -1091,7 +1058,7 @@ void MainWindow::onPortSettings() {
  * Translates UI elements in various components and updates the selected language.
  */
 void MainWindow::onSetRomanian() {
-    QString qmPath          = qApp->applicationDirPath() + "/translations";
+    QString qmPath = qApp->applicationDirPath() + "/translations";
     QString translationFile = "meter_ro_RO.qm";
 
     // Remove existing translator if it exists
@@ -1102,21 +1069,21 @@ void MainWindow::onSetRomanian() {
     }
 
     // Create new translator and load the Romanian translation file
-    appTranslator = new QTranslator();
+    appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
     if (appTranslator->load(qmPath + "/" + translationFile)) {
         // Install the translator to the application
         qApp->installTranslator(appTranslator);
 
         // Translate UI elements in various components
-        Translate(); // Assuming Translate() function handles translation in MainWindow
+        Translate();  // Assuming Translate() function handles translation in MainWindow
         if (inputData)
-            inputData->Translate(); // Translate UI in inputData if available
+            inputData->Translate();  // Translate UI in inputData if available
         if (licenseDialog)
-            licenseDialog->Translate(); // Translate UI in licenseDialog if available
+            licenseDialog->Translate();  // Translate UI in licenseDialog if available
         if (helpAbout)
-            helpAbout->Translate(); // Translate UI in helpAbout if available
+            helpAbout->Translate();  // Translate UI in helpAbout if available
         if (interfaceDialog)
-            interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
+            interfaceDialog->Translate();  // Translate UI in interfaceDialog if available
 
         // Set the selected language to Romanian
         selectedInfo.selectedLanguage = ROMANIAN;
@@ -1134,7 +1101,7 @@ void MainWindow::onSetRomanian() {
  * Translates UI elements in various components and updates the selected language.
  */
 void MainWindow::onSetEnglish() {
-    QString qmPath          = qApp->applicationDirPath() + "/translations";
+    QString qmPath = qApp->applicationDirPath() + "/translations";
     QString translationFile = "meter_en_EN.qm";
 
     // Remove existing translator if it exists
@@ -1145,21 +1112,21 @@ void MainWindow::onSetEnglish() {
     }
 
     // Create new translator and load the English translation file
-    appTranslator = new QTranslator(nullptr);
+    appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
     if (appTranslator->load(qmPath + "/" + translationFile)) {
         // Install the translator to the application
         qApp->installTranslator(appTranslator);
 
         // Translate UI elements in various components
-        Translate(); // Assuming Translate() function handles translation in MainWindow
+        Translate();  // Assuming Translate() function handles translation in MainWindow
         if (inputData)
-            inputData->Translate(); // Translate UI in inputData if available
+            inputData->Translate();  // Translate UI in inputData if available
         if (licenseDialog)
-            licenseDialog->Translate(); // Translate UI in licenseDialog if available
+            licenseDialog->Translate();  // Translate UI in licenseDialog if available
         if (helpAbout)
-            helpAbout->Translate(); // Translate UI in helpAbout if available
+            helpAbout->Translate();  // Translate UI in helpAbout if available
         if (interfaceDialog)
-            interfaceDialog->Translate(); // Translate UI in interfaceDialog if available
+            interfaceDialog->Translate();  // Translate UI in interfaceDialog if available
 
         // Set the selected language to English
         selectedInfo.selectedLanguage = ENGLISH;
@@ -1212,7 +1179,7 @@ void MainWindow::CenterToScreen(QWidget* widget) {
     QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
 
     // Get the dimensions of the widget
-    int widgetWidth  = widget->width();
+    int widgetWidth = widget->width();
     int widgetHeight = widget->height();
 
     // Calculate the center position for the widget

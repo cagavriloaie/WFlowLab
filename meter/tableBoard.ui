@@ -12,14 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1400</width>
-    <height>838</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1400</width>
-    <height>838</height>
+    <width>1024</width>
+    <height>700</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -32,90 +26,7 @@
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
-  <property name="styleSheet">
-   <string notr="true">/* Common styles */
-* {
-    font-family: Verdana, Arial, sans-serif; /* Fallback to Arial or generic sans-serif if Verdana is not available */
-    font-size: 12pt; /* Base font size */
-}
-
-/* QPushButton */
-QPushButton {
-    padding: 5px 10px;
-    border: 2px solid #ccc; /* Light gray border */
-    background-color: #f0f0f0; /* Light gray background */
-    border-radius: 5px; /* Rounded corners */
-}
-
-QPushButton:hover {
-    background-color: #d7d9d7; /* Light gray background on hover */
-    border: 2px solid #aaa; /* Darker gray border on hover */
-}
-
-/* QComboBox */
-QComboBox {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px;
-    min-height: 20px; /* Adjust the minimum height */
-    background-color: #f0f0f0; /* Light gray background */
-}
-
-QComboBox QAbstractItemView {
-    border: 2px solid #ADD8E6; /* Light blue border for the dropdown */
-}
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px; /* Adjust width as needed */
-    border-left: 1px solid #ADD8E6; /* Light blue border for the drop-down button */
-}
-
-QComboBox::down-arrow {
-    width: 0;
-    height: 0;
-}
-
-QComboBox::down-arrow:disabled {
-    image: url(circle.png); /* Replace with your own circle image */
-    width: 16px; /* Adjust width of circle */
-    height: 16px; /* Adjust height of circle */
-}
-
-/* QLineEdit */
-QLineEdit {
-    border: 2px solid #ADD8E6; /* Light blue border */
-    border-radius: 4px; /* Rounded corners */
-    height: 28px; /* Adjusted height */
-    padding: 2px; /* Adjust padding if needed */
-    background-color: #f0f0f0; /* Light gray background */
-}
-
-/* QGroupBox */
-QGroupBox {
-    border: 2px solid black;
-    border-color: rgba(0, 0, 0, 0.36); /* Black with transparency */
-    background-color: #E6E6FF; /* Light purple background */
-    font-family: Verdana, Arial, sans-serif; /* Use Verdana for group box */
-    font-size: 12pt; /* Font size */
-    margin-top: 10px;
-    border-radius: 8px; /* Rounded corners */
-    padding-top: 10px; /* Padding for the top of the group box */
-}
-
-QGroupBox::title {
-    subcontrol-origin: margin;
-    left: 7px;
-    padding: 5px; /* Adjusted padding for better appearance */
-}
-</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetMaximumSize</enum>
-   </property>
-   <item>
+  <layout class="QVBoxLayout" name="verticalLayout_5"><item>
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <property name="spacing">
       <number>2</number>
@@ -147,10 +58,9 @@ QGroupBox::title {
         <bool>false</bool>
        </property>
        <layout class="QGridLayout" name="gridLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMaximumSize</enum>
-        </property>
-        <property name="leftMargin">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMinimumSize</enum>
+    </property><property name="leftMargin">
          <number>2</number>
         </property>
         <property name="topMargin">
@@ -204,13 +114,10 @@ QGroupBox::title {
              </sizepolicy>
             </property>
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 10px; </string>
+            <property name="toolTip">
+             <string>Calculează rezultatele verificării</string>
             </property>
             <property name="text">
              <string/>
@@ -220,13 +127,10 @@ QGroupBox::title {
           <item>
            <widget class="QPushButton" name="pbPrint">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
+            <property name="toolTip">
+             <string>Generează fișa de măsurători (Ctrl+P)</string>
             </property>
             <property name="text">
              <string/>
@@ -236,13 +140,10 @@ QGroupBox::title {
           <item>
            <widget class="QPushButton" name="pbReport">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px;</string>
+            <property name="toolTip">
+             <string>Generează buletinul de verificare metrologică</string>
             </property>
             <property name="text">
              <string/>
@@ -268,13 +169,10 @@ QGroupBox::title {
           <item>
            <widget class="QPushButton" name="pbOpen">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
+            <property name="toolTip">
+             <string>Deschide un fișier de rezultate salvat anterior</string>
             </property>
             <property name="text">
              <string/>
@@ -284,13 +182,10 @@ QGroupBox::title {
           <item>
            <widget class="QPushButton" name="pbSaveResults">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
+            <property name="toolTip">
+             <string>Salvează rezultatele verificării (Ctrl+S)</string>
             </property>
             <property name="text">
              <string/>
@@ -316,29 +211,26 @@ QGroupBox::title {
           <item>
            <widget class="QPushButton" name="pbClose">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
+            <property name="toolTip">
+             <string>Închide fereastra de verificare (Esc)</string>
             </property>
             <property name="text">
              <string/>
+            </property>
+            <property name="shortcut">
+             <string>Esc</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pbClean">
             <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
+             <enum>Qt::StrongFocus</enum>
             </property>
-            <property name="styleSheet">
-             <string notr="true"> padding-left: 10px; 
- padding-top: 1px; 
- padding-right: 10px;
- padding-down: 5px; </string>
+            <property name="toolTip">
+             <string>Curăță toate câmpurile și resetează datele</string>
             </property>
             <property name="text">
              <string/>
@@ -362,19 +254,11 @@ QGroupBox::title {
          </widget>
         </item>
         <item row="0" column="1">
-         <layout class="QHBoxLayout" name="hb_1">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetMinimumSize</enum>
-          </property>
-          <item>
+         <layout class="QHBoxLayout" name="hb_1"><item>
            <layout class="QVBoxLayout" name="vb_1" stretch="0,0,0,0,0">
             <property name="spacing">
-             <number>4</number>
-            </property>
-            <property name="sizeConstraint">
-             <enum>QLayout::SetFixedSize</enum>
-            </property>
-            <property name="leftMargin">
+             <number>3</number>
+            </property><property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -439,19 +323,11 @@ QGroupBox::title {
              <layout class="QHBoxLayout" name="hb_2">
               <property name="spacing">
                <number>0</number>
-              </property>
-              <property name="sizeConstraint">
-               <enum>QLayout::SetFixedSize</enum>
-              </property>
-              <item>
+              </property><item>
                <layout class="QVBoxLayout" name="vb2">
                 <property name="spacing">
-                 <number>4</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMinimumSize</enum>
-                </property>
-                <item>
+                 <number>3</number>
+                </property><item>
                  <widget class="QLabel" name="lbTabCurrentNb">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -462,7 +338,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>15</height>
+                    <height>20</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -490,7 +366,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -524,7 +400,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -558,7 +434,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -592,7 +468,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -626,7 +502,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -660,7 +536,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -694,7 +570,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -728,7 +604,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -762,7 +638,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -796,7 +672,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -830,7 +706,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -864,7 +740,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -898,7 +774,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -932,7 +808,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -966,7 +842,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1000,7 +876,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1034,7 +910,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1068,7 +944,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1102,7 +978,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1136,7 +1012,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1174,7 +1050,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -1207,9 +1083,6 @@ QGroupBox::title {
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_14"/>
-                </item>
                </layout>
               </item>
               <item>
@@ -1223,11 +1096,7 @@ QGroupBox::title {
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <property name="spacing">
                  <number>3</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMinAndMaxSize</enum>
-                </property>
-                <property name="leftMargin">
+                </property><property name="leftMargin">
                  <number>10</number>
                 </property>
                 <property name="topMargin">
@@ -1768,7 +1637,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
-                    <height>21</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1799,7 +1668,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
-                    <height>21</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1830,7 +1699,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1861,7 +1730,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -1947,25 +1816,6 @@ QGroupBox::title {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="lbTab33">
-                  <property name="minimumSize">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <spacer name="verticalSpacer_19">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -1973,7 +1823,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -1990,12 +1840,8 @@ QGroupBox::title {
               <item>
                <layout class="QVBoxLayout" name="vb_2">
                 <property name="spacing">
-                 <number>4</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMinAndMaxSize</enum>
-                </property>
-                <property name="leftMargin">
+                 <number>3</number>
+                </property><property name="leftMargin">
                  <number>10</number>
                 </property>
                 <property name="rightMargin">
@@ -2028,7 +1874,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2053,7 +1899,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2075,7 +1921,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2097,7 +1943,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2119,7 +1965,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2141,7 +1987,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2163,7 +2009,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2185,7 +2031,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2207,7 +2053,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2229,7 +2075,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2251,7 +2097,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2273,7 +2119,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2295,7 +2141,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2317,7 +2163,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2339,7 +2185,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2361,7 +2207,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2383,7 +2229,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2405,7 +2251,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2427,7 +2273,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2449,7 +2295,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2474,7 +2320,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -2593,12 +2439,8 @@ QGroupBox::title {
           <item>
            <layout class="QVBoxLayout" name="vb_4">
             <property name="spacing">
-             <number>4</number>
-            </property>
-            <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
-            </property>
-            <property name="leftMargin">
+             <number>3</number>
+            </property><property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -2655,12 +2497,8 @@ QGroupBox::title {
               <item>
                <layout class="QVBoxLayout" name="vb_5">
                 <property name="spacing">
-                 <number>4</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetFixedSize</enum>
-                </property>
-                <property name="leftMargin">
+                 <number>3</number>
+                </property><property name="leftMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
@@ -2693,7 +2531,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2718,7 +2556,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2740,7 +2578,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2762,7 +2600,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2784,7 +2622,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2806,7 +2644,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2828,7 +2666,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2850,7 +2688,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2872,7 +2710,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2894,7 +2732,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2916,7 +2754,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2938,7 +2776,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2960,7 +2798,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2982,7 +2820,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3004,7 +2842,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3026,7 +2864,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3048,7 +2886,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3070,7 +2908,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3092,7 +2930,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3114,7 +2952,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3139,7 +2977,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -3244,12 +3082,8 @@ QGroupBox::title {
               <item>
                <layout class="QVBoxLayout" name="vb_6">
                 <property name="spacing">
-                 <number>4</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetMinimumSize</enum>
-                </property>
-                <property name="leftMargin">
+                 <number>3</number>
+                </property><property name="leftMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
@@ -3282,7 +3116,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3304,7 +3138,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3326,7 +3160,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3348,7 +3182,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3370,7 +3204,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3392,7 +3226,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3414,7 +3248,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3436,7 +3270,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3458,7 +3292,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3480,7 +3314,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3502,7 +3336,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3524,7 +3358,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3546,7 +3380,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3568,7 +3402,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3590,7 +3424,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3612,7 +3446,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3634,7 +3468,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3656,7 +3490,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3678,7 +3512,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3700,7 +3534,7 @@ QGroupBox::title {
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>22</height>
+                    <height>23</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -3725,7 +3559,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -3751,7 +3585,10 @@ QGroupBox::title {
                    </size>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
+                  </property>
+                  <property name="toolTip">
+                   <string>Copiază datele din rândul 1 în rândul 2</string>
                   </property>
                   <property name="text">
                    <string>&gt;&gt;&gt;</string>
@@ -3855,18 +3692,14 @@ QGroupBox::title {
                <layout class="QVBoxLayout" name="verticalLayout">
                 <property name="spacing">
                  <number>3</number>
-                </property>
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetFixedSize</enum>
-                </property>
-                <property name="rightMargin">
+                </property><property name="rightMargin">
                  <number>15</number>
                 </property>
                 <item>
                  <widget class="QLabel" name="lbError1">
                   <property name="minimumSize">
                    <size>
-                    <width>70</width>
+                    <width>75</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -3888,7 +3721,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_1">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -3905,7 +3738,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3913,7 +3746,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_2">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -3930,7 +3763,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3938,7 +3771,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_3">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -3955,7 +3788,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3963,7 +3796,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_4">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -3980,7 +3813,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3988,7 +3821,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_5">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4005,7 +3838,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4013,7 +3846,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_6">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4030,7 +3863,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4038,7 +3871,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_7">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4055,7 +3888,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4063,7 +3896,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_8">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4080,7 +3913,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4088,7 +3921,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_9">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4105,7 +3938,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4113,7 +3946,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_10">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4130,7 +3963,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4138,7 +3971,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_11">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4155,7 +3988,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4163,7 +3996,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_12">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4180,7 +4013,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4188,7 +4021,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_13">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4205,7 +4038,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4213,7 +4046,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_14">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4230,7 +4063,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4238,7 +4071,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_15">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4255,7 +4088,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4263,7 +4096,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_16">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4280,7 +4113,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4288,7 +4121,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_17">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4305,7 +4138,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4313,7 +4146,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_18">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4330,7 +4163,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4338,7 +4171,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_19">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4355,7 +4188,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4363,7 +4196,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError1_20">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -4380,7 +4213,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4392,7 +4225,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -4508,12 +4341,8 @@ QGroupBox::title {
           <item>
            <layout class="QVBoxLayout" name="vb_3">
             <property name="spacing">
-             <number>4</number>
-            </property>
-            <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
-            </property>
-            <property name="leftMargin">
+             <number>3</number>
+            </property><property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -5042,7 +4871,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -5619,7 +5448,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -5645,7 +5474,10 @@ QGroupBox::title {
                    </size>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
+                  </property>
+                  <property name="toolTip">
+                   <string>Copiază datele din rândul 2 în rândul 3</string>
                   </property>
                   <property name="text">
                    <string>&gt;&gt;&gt;</string>
@@ -5757,7 +5589,7 @@ QGroupBox::title {
                  <widget class="QLabel" name="lbError2">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
+                    <width>75</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -5779,7 +5611,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_1">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5796,7 +5628,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5804,7 +5636,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_2">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5821,7 +5653,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5829,7 +5661,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_3">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5846,7 +5678,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5854,7 +5686,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_4">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5871,7 +5703,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5879,7 +5711,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_5">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5896,7 +5728,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5904,7 +5736,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_6">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5921,7 +5753,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5929,7 +5761,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_7">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5946,7 +5778,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5954,7 +5786,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_8">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5971,7 +5803,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5979,7 +5811,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_9">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -5996,7 +5828,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6004,7 +5836,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_10">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6021,7 +5853,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6029,7 +5861,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_11">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6046,7 +5878,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6054,7 +5886,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_12">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6071,7 +5903,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6079,7 +5911,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_13">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6096,7 +5928,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6104,7 +5936,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_14">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6121,7 +5953,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6129,7 +5961,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_15">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6146,7 +5978,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6154,7 +5986,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_16">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6171,7 +6003,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6179,7 +6011,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_17">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6196,7 +6028,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6204,7 +6036,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_18">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6221,7 +6053,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6229,7 +6061,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_19">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6246,7 +6078,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6254,7 +6086,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError2_20">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -6271,7 +6103,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6283,7 +6115,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -6381,12 +6213,8 @@ QGroupBox::title {
           <item>
            <layout class="QVBoxLayout" name="vb1_2">
             <property name="spacing">
-             <number>4</number>
-            </property>
-            <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
-            </property>
-            <property name="leftMargin">
+             <number>3</number>
+            </property><property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -6915,7 +6743,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -7492,7 +7320,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>
@@ -7624,7 +7452,7 @@ QGroupBox::title {
                  <widget class="QLabel" name="lbError3">
                   <property name="minimumSize">
                    <size>
-                    <width>50</width>
+                    <width>75</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -7646,7 +7474,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_1">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7663,7 +7491,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7671,7 +7499,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_2">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7688,7 +7516,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7696,7 +7524,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_3">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7713,7 +7541,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7721,7 +7549,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_4">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7738,7 +7566,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7746,7 +7574,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_5">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7763,7 +7591,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7771,7 +7599,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_6">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7788,7 +7616,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7796,7 +7624,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_7">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7813,7 +7641,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7821,7 +7649,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_8">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7838,7 +7666,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7846,7 +7674,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_9">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7863,7 +7691,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7871,7 +7699,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_10">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7888,7 +7716,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7896,7 +7724,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_11">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7913,7 +7741,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7921,7 +7749,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_12">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7938,7 +7766,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7946,7 +7774,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_13">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7963,7 +7791,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7971,7 +7799,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_14">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -7988,7 +7816,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7996,7 +7824,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_15">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8013,7 +7841,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8021,7 +7849,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_16">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8038,7 +7866,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8046,7 +7874,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_17">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8063,7 +7891,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8071,7 +7899,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_18">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8088,7 +7916,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8096,7 +7924,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_19">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8113,7 +7941,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8121,7 +7949,7 @@ QGroupBox::title {
                  <widget class="QLineEdit" name="leError3_20">
                   <property name="minimumSize">
                    <size>
-                    <width>60</width>
+                    <width>75</width>
                     <height>23</height>
                    </size>
                   </property>
@@ -8138,7 +7966,7 @@ QGroupBox::title {
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8245,7 +8073,7 @@ QGroupBox::title {
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>40</height>
+                    <height>500</height>
                    </size>
                   </property>
                  </spacer>

@@ -9,9 +9,10 @@
  * \date To be defined
  */
 
-#include "helpabout.h"    // Include the header file for HelpAbout dialog
-#include "definitions.h"  // Include project-wide constants and definitions
-#include "ui_helpabout.h" // Include the generated UI header file
+#include "helpabout.h"  // Include the header file for HelpAbout dialog
+
+#include "definitions.h"   // Include project-wide constants and definitions
+#include "ui_helpabout.h"  // Include the generated UI header file
 
 /**
  * \brief Updates the About dialog with localized text.
@@ -31,9 +32,7 @@ void HelpAbout::Translate() {
      * \param label Pointer to the QLabel to set the text for.
      * \param text The text to set for the QLabel.
      */
-    auto setLabelText = [](QLabel* label, const QString& text) {
-        label->setText(tr(text.toUtf8()));
-    };
+    auto setLabelText = [](QLabel* label, const QString& text) { label->setText(tr(text.toUtf8())); };
 
     // Set label texts
     setLabelText(ui->lbName, tr("WStreamLab version:"));
@@ -46,7 +45,6 @@ void HelpAbout::Translate() {
     setLabelText(ui->lbAddressValue, tr("Pascani / RO Morilor #8"));
     setLabelText(ui->lbAuthor, tr("Author:"));
     setLabelText(ui->lbAuthorValue, tr("constantin"));
-
 
     // Set close button text
     ui->pbClose->setText(tr("&Close"));
@@ -61,14 +59,15 @@ void HelpAbout::Translate() {
  *
  * \param parent Pointer to the parent QWidget. Defaults to nullptr.
  */
-HelpAbout::HelpAbout(QWidget* parent)
-    : QDialog(parent),
-      ui(new Ui::HelpAbout) {
+HelpAbout::HelpAbout(QWidget* parent) : QDialog(parent), ui(new Ui::HelpAbout) {
     ui->setupUi(this);
-    Translate(); // Call the translation function
+    Translate();  // Call the translation function
 
-    QSize newSize(490, 230); // New size
+    QSize newSize(490, 230);  // New size
     this->resize(newSize);
+
+    // Set initial focus to the close button
+    ui->pbClose->setFocus();
 
     // Connect signals and slots
     connect(ui->pbClose, &QPushButton::clicked, this, &HelpAbout::onCloseClicked);
