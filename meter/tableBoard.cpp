@@ -37,19 +37,14 @@
 #include <Windows.h>
 
 // Project-specific headers
-#include "colors.h"         // Centralized color definitions
-#include "definitions.h"    // Project-specific constants and definitions
-#include "mainwindow.h"     // Your application's main window
-#include "tableBoard.h"     // Header for table board functionality
-#include "ui_mainwindow.h"  // UI definition for main window
-#include "ui_tableBoard.h"  // UI definition for table board
-#include "waterdensity.h"   // Header for water density calculations
-
-extern MainWindow* pMainWindow;
-
-namespace {
-MainWindow* mainwindow = nullptr;
-}  // namespace
+#include "colors.h"            // Centralized color definitions
+#include "definitions.h"       // Project-specific constants and definitions
+#include "mainwindow.h"        // Your application's main window
+#include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
+#include "tableBoard.h"        // Header for table board functionality
+#include "ui_mainwindow.h"     // UI definition for main window
+#include "ui_tableBoard.h"     // UI definition for table board
+#include "waterdensity.h"      // Header for water density calculations
 
 QString TableBoard::report;
 
@@ -66,6 +61,13 @@ std::mutex printTablePdfThreadMutex;
  */
 
 void TableBoard::printPdfThread(QString report) {
+    // Get MainWindow instance thread-safely
+    MainWindow* mainwindow = MainWindowInstance::getInstance();
+    if (!mainwindow) {
+        qCritical() << "TableBoard::printPdfThread: MainWindow instance is null!";
+        return;
+    }
+
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
@@ -304,7 +306,7 @@ void TableBoard::onOpenInputDataClicked() {
 
     std::getline(inputDataFile, tmpInput);
 
-    for (size_t iter = 0; iter < entries; ++iter) {
+    for (size_t iter = 0; iter < entriesNumber; ++iter) {
         std::getline(inputDataFile, tmpInput);
         vectorSerialNumber[iter]->setText(tmpInput.c_str());
         std::getline(inputDataFile, tmpInput);
@@ -1611,7 +1613,7 @@ void TableBoard::onPrintPdfDocClicked() {
 
     QString certificate = mainwindow->selectedInfo.certificate.c_str();
     QString nameSelectedWaterMeter = mainwindow->selectedInfo.nameWaterMeter.c_str();
-    unsigned nominalDiameter = mainwindow->selectedInfo.nominalDiameter;
+    size_t nominalDiameter = mainwindow->selectedInfo.nominalDiameter;
     QString methodMeasurement{"Volumetric"};
     if (mainwindow->selectedInfo.rbGravimetric_new == true) {
         methodMeasurement = "Gravitmetric";

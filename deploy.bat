@@ -41,10 +41,10 @@ if not exist "%BUILD_DIR%\WStreamLab.exe" (
     exit /b 1
 )
 
-echo [1/3] Cleaning previous deployment files...
+echo [1/4] Cleaning previous deployment files...
 del /Q "%BUILD_DIR%\*.dll" 2>nul
 
-echo [2/3] Running windeployqt...
+echo [2/4] Running windeployqt...
 "%QT_PATH%\bin\windeployqt.exe" --no-compiler-runtime "%BUILD_DIR%\WStreamLab.exe"
 
 if errorlevel 1 (
@@ -53,7 +53,12 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo [3/3] Copying additional files...
+echo [3/4] Copying MinGW runtime DLLs...
+copy /Y "%QT_PATH%\bin\libgcc_s_seh-1.dll" "%BUILD_DIR%\" >nul
+copy /Y "%QT_PATH%\bin\libstdc++-6.dll" "%BUILD_DIR%\" >nul
+copy /Y "%QT_PATH%\bin\libwinpthread-1.dll" "%BUILD_DIR%\" >nul
+
+echo [4/4] Copying additional files...
 REM Copy documentation if needed
 if exist "%~dp0PROCES_CALCUL_VERIFICARE_CONTOARE.md" (
     copy /Y "%~dp0PROCES_CALCUL_VERIFICARE_CONTOARE.md" "%BUILD_DIR%\" >nul

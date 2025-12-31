@@ -59,14 +59,29 @@ struct MeterFlowType {
 };
 
 /**
- * \brief Vector containing default MeterFlowType objects representing various water flow meters.
+ * \namespace FlowMeterDB
+ * \brief Namespace containing flow meter database access functions.
+ *
+ * This namespace encapsulates flow meter database functionality using
+ * static local variables to avoid global mutable state.
  */
-std::vector<MeterFlowType> meterFlowTypesDefault = {
-    // --------------------------------------------------------------------------------------------------------
-    //                  Type                           DN       QN      Qmax     Qt      Qmin    ErrNom  ErrMax
-    //                                                 mm       l/h      l/h     l/h      l/h       %      %
-    // --------------------------------------------------------------------------------------------------------
-    MeterFlowType("Itron Flodis DN 15", 15, 1500, 3000, 22.5, 15, 2, 5),
+namespace FlowMeterDB {
+
+/**
+ * \brief Returns a const reference to the default flow meter types.
+ *
+ * Uses Meyer's Singleton pattern (static local variable) for thread-safe
+ * lazy initialization and prevention of the static initialization order fiasco.
+ *
+ * \return const std::vector<MeterFlowType>& Reference to default meter types.
+ */
+inline const std::vector<MeterFlowType>& getDefaultTypes() {
+    static const std::vector<MeterFlowType> defaults = {
+        // --------------------------------------------------------------------------------------------------------
+        //                  Type                           DN       QN      Qmax     Qt      Qmin    ErrNom  ErrMax
+        //                                                 mm       l/h      l/h     l/h      l/h       %      %
+        // --------------------------------------------------------------------------------------------------------
+        MeterFlowType("Itron Flodis DN 15", 15, 1500, 3000, 22.5, 15, 2, 5),
     MeterFlowType("Itron Flodis DN 20", 20, 2500, 5000, 37.5, 25, 2, 5),
     MeterFlowType("Itron Flodis DN 25", 25, 3500, 7000, 52.5, 35, 2, 5),
     // --------------------------------------------------------------------------------------------------------
@@ -117,6 +132,8 @@ std::vector<MeterFlowType> meterFlowTypesDefault = {
     MeterFlowType("FGH MNK DN 40 R160", 40, 16000, 20000, 160, 100, 2, 5),
     MeterFlowType("FGH MNK DN 50 R80", 50, 25000, 31250, 500, 312.5, 2, 5),
     MeterFlowType("FGH MNK DN 50 R255", 50, 25000, 31250, 160, 100, 2, 5)};
+    return defaults;
+}
 
 /**
  * \brief Reads meter flow types from a CSV file and returns them as a vector of MeterFlowType objects.
@@ -128,11 +145,11 @@ std::vector<MeterFlowType> meterFlowTypesDefault = {
  *
  * \param filename The path to the CSV file containing meter flow types.
  * \return std::vector<MeterFlowType> A vector containing MeterFlowType objects read from the CSV file.
- *         If the file cannot be read or is corrupted, it returns meterFlowTypesDefault.
+ *         If the file cannot be read or is corrupted, it returns FlowMeterDB::getDefaultTypes().
  *
- * \see MeterFlowType, meterFlowTypesDefault, QMessageBox
+ * \see MeterFlowType, FlowMeterDB::getDefaultTypes, QMessageBox
  */
-std::vector<MeterFlowType> readFlowMeterTypesCSV(const std::string& filename) {
+inline std::vector<MeterFlowType> readFlowMeterTypesCSV(const std::string& filename) {
     QString currentPath = QDir::currentPath();
     Q_UNUSED(currentPath);
     std::ifstream file(filename);
@@ -148,7 +165,8 @@ std::vector<MeterFlowType> readFlowMeterTypesCSV(const std::string& filename) {
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
         /* Default Water Flow Meters DB */
-        return meterFlowTypesDefault;
+        return std::vector<MeterFlowType>(FlowMeterDB::getDefaultTypes().begin(),
+                                          FlowMeterDB::getDefaultTypes().end());
     }
 
     bool dbCorrupted = false;
@@ -218,7 +236,8 @@ std::vector<MeterFlowType> readFlowMeterTypesCSV(const std::string& filename) {
         warningMessage.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint |
                                       Qt::WindowCloseButtonHint);
         warningMessage.exec();
-        return meterFlowTypesDefault;
+        return std::vector<MeterFlowType>(FlowMeterDB::getDefaultTypes().begin(),
+                                          FlowMeterDB::getDefaultTypes().end());
     }
 
     file.close();
@@ -237,17 +256,21 @@ std::vector<MeterFlowType> readFlowMeterTypesCSV(const std::string& filename) {
 }
 
 /**
- * \brief Database array storing water flow meter types.
+ * \brief Returns a reference to the runtime flow meter database.
  *
- * This array stores information about water flow meter types. Each element represents
- * a MeterFlowType structure, which includes attributes such as name, nominal diameter,
- * flow rates (nominal, maximum, transition, minimum), and error margins.
+ * This database is populated at runtime from CSV files or defaults.
+ * Uses static local variable for controlled initialization.
  *
- * This array is initialized to store up to MAX_NUMBER_FLOW_METER_TYPES meter types.
- * Ensure that the array size is sufficient for your application's needs to avoid overflow.
+ * \return MeterFlowType* Pointer to the database array.
  *
+ * \note This array is mutable and populated at runtime.
  * \see MeterFlowType, MAX_NUMBER_FLOW_METER_TYPES
  */
-MeterFlowType MeterFlowDB[MAX_NUMBER_FLOW_METER_TYPES] = {};
+inline MeterFlowType* getDatabase() {
+    static MeterFlowType database[MAX_NUMBER_FLOW_METER_TYPES] = {};
+    return database;
+}
+
+}  // namespace FlowMeterDB
 
 #endif  // FLOWMETERTYPE_H

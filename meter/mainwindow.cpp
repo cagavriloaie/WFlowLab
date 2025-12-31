@@ -52,8 +52,9 @@
 #include <QTextStream>          ///< Provides a convenient interface for reading and writing text.
 #include <QStringConverter>     ///< Provides encoding and decoding of text.
 
+#include "MainWindowInstance.h" ///< Thread-safe singleton for MainWindow access
+
 extern QTranslator* appTranslator;
-MainWindow* pMainWindow;
 
 std::wstring ExePath() {
     TCHAR buffer[MAX_PATH] = {0};
@@ -239,7 +240,7 @@ void MainWindow::updateSelectedInfo() {
     // selectedInfo.entriesNumber = MAX_NUMBER_FLOW_METERS;
 
     // Read lab conditions from application settings
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.beginGroup("LabConditions");
 
     // Read and set ambient temperature
@@ -261,8 +262,8 @@ void MainWindow::updateSelectedInfo() {
         return;
     }
 
-    // Retrieve meter flow information from MeterFlowDB
-    const auto& meterFlowInfo = MeterFlowDB[selectedWaterMeter];
+    // Retrieve meter flow information from FlowMeterDB
+    const auto& meterFlowInfo = FlowMeterDB::getDatabase()[selectedWaterMeter];
 
     // Update selectedInfo with meter flow information
     selectedInfo.nameWaterMeter = meterFlowInfo.nameWaterMeter;
@@ -390,8 +391,9 @@ void MainWindow::Translate() {
  * \param parent The parent widget.
  */
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), inputData(nullptr), licenseDialog(new License(this)),
-      helpAbout(new HelpAbout(this)), interfaceDialog(new Interface(this)), alignmentGroup(new QActionGroup(this)) {
+    : QMainWindow(parent), ui(std::make_unique<Ui::MainWindow>()), inputData(nullptr),
+      licenseDialog(std::make_unique<License>(this)), helpAbout(std::make_unique<HelpAbout>(this)),
+      interfaceDialog(std::make_unique<Interface>(this)), alignmentGroup(std::make_unique<QActionGroup>(this)) {
     ui->setupUi(this);
 
 #ifdef BUILD_WITHOUT_RS_485_422_MODBUS
@@ -410,9 +412,9 @@ MainWindow::MainWindow(QWidget* parent)
     statusBar()->setVisible(true);
 
     // Create a permanent label in the status bar
-    statusBarLabel = new QLabel(this);
+    statusBarLabel = std::make_unique<QLabel>(this);
     statusBarLabel->setStyleSheet("QLabel { padding-left: 5px; }");
-    statusBar()->addPermanentWidget(statusBarLabel, 1);  // Stretch factor 1
+    statusBar()->addPermanentWidget(statusBarLabel.get(), 1);  // Stretch factor 1, Qt takes ownership via parent
 
     // Set Romanian as default language at startup
     onSetRomanian();
@@ -420,9 +422,11 @@ MainWindow::MainWindow(QWidget* parent)
     // Read configuration settings
     ReadConfiguration();
 
-    // Set main window pointer and apply style sheet
-    pMainWindow = this;
-    pMainWindow->setStyleSheet(styleSheet());
+    // Register this instance with the thread-safe singleton
+    MainWindowInstance::setInstance(this);
+
+    // Apply style sheet
+    this->setStyleSheet(styleSheet());
 
     // Center the main window on the screen
     CenterToScreen(this);
@@ -431,7 +435,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->lbConnected->setText(tr("RS485/RS422 protocol MODBUS ITF off."));
 
     // Read settings from registry
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
 
     // LabConditions
     settings.beginGroup("LabConditions");
@@ -449,7 +453,7 @@ MainWindow::MainWindow(QWidget* parent)
     settings.sync();
 
     // Initialize TableBoard and connect signals to slots
-    inputData = new TableBoard(this);
+    inputData = std::make_unique<TableBoard>(this);
     inputData->setModal(false);
 
     // Disable interface radio button (future feature)
@@ -457,10 +461,10 @@ MainWindow::MainWindow(QWidget* parent)
     // ui->rbInterface->setEnabled(true);
 
     licenseDialog->setModal(true);
-    CenterToScreen(licenseDialog);
+    CenterToScreen(licenseDialog.get());
 
     helpAbout->setModal(true);
-    CenterToScreen(helpAbout);
+    CenterToScreen(helpAbout.get());
 
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -469,7 +473,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->action_Romana->setChecked(true);
 
     std::string filename = CSV_FLOW_METER_TYPES;
-    std::vector<MeterFlowType> meterFlowTypesVector = readFlowMeterTypesCSV(filename);
+    std::vector<MeterFlowType> meterFlowTypesVector = FlowMeterDB::readFlowMeterTypesCSV(filename);
 
     // Clear existing items if any
     ui->cbNumberOfWaterMeters->clear();
@@ -481,15 +485,16 @@ MainWindow::MainWindow(QWidget* parent)
 
     NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
 
-    // Copy elements from meterFlowTypesVector to MeterFlowDB
+    // Copy elements from meterFlowTypesVector to FlowMeterDB
+    auto* database = FlowMeterDB::getDatabase();
     for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
-        MeterFlowDB[iter] = meterFlowTypesVector.at(iter);
+        database[iter] = meterFlowTypesVector.at(iter);
     }
 
-    // Populate cbWaterMeterType with names from MeterFlowDB
+    // Populate cbWaterMeterType with names from FlowMeterDB
     ui->cbWaterMeterType->clear();  // Clear existing items if any
     for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
-        ui->cbWaterMeterType->addItem(QString::fromStdString(MeterFlowDB[iter].nameWaterMeter));
+        ui->cbWaterMeterType->addItem(QString::fromStdString(database[iter].nameWaterMeter));
     }
 
     // Connect QComboBox signals to custom slots
@@ -527,9 +532,9 @@ MainWindow::MainWindow(QWidget* parent)
     connect(ui->action_Configure_Serial_Port, &QAction::triggered, this, &MainWindow::onPortSettings);
 
     // Connect signals to slots in another object (inputData) - Modern Qt5+ syntax
-    connect(this, &MainWindow::meterTypeChangedSignal, inputData, &TableBoard::onTypeMeterChanged);
-    connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData, &TableBoard::onNumberOfWaterMetersChanged);
-    connect(this, &MainWindow::measurementTypeChangedSignal, inputData, &TableBoard::onMeasurementTypeChanged);
+    connect(this, &MainWindow::meterTypeChangedSignal, inputData.get(), &TableBoard::onTypeMeterChanged);
+    connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData.get(), &TableBoard::onNumberOfWaterMetersChanged);
+    connect(this, &MainWindow::measurementTypeChangedSignal, inputData.get(), &TableBoard::onMeasurementTypeChanged);
 
     // Added for future improvements
     ui->action_General_Description->setVisible(false);
@@ -554,7 +559,7 @@ MainWindow::MainWindow(QWidget* parent)
     if (settings.contains("typeWaterMeters")) {
         waterMeterType = settings.value("typeWaterMeters").toInt();
     }
-    waterMeterType = std::clamp(waterMeterType, 0, static_cast<int>(meterFlowTypesDefault.size() - 1));
+    waterMeterType = std::clamp(waterMeterType, 0, static_cast<int>(FlowMeterDB::getDefaultTypes().size() - 1));
 
     settings.endGroup();
     ui->cbNumberOfWaterMeters->setCurrentIndex(numberWaterMeters);
@@ -576,6 +581,8 @@ MainWindow::MainWindow(QWidget* parent)
  * Cleans up resources associated with the MainWindow.
  */
 MainWindow::~MainWindow() {
+    // Clear the singleton instance before destruction
+    MainWindowInstance::clearInstance();
 
     // Retrieve and update ambient temperature
     selectedInfo.ambientTemperature = ui->leTemperature->text().toStdString();
@@ -587,7 +594,7 @@ MainWindow::~MainWindow() {
     selectedInfo.relativeAirHumidity = ui->leHumidity->text().toStdString();
 
     // Update settings with the new values
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
 
     settings.beginGroup("LabConditions");
     settings.setValue("labTemperature", ui->leTemperature->text());
@@ -603,8 +610,7 @@ MainWindow::~MainWindow() {
 
     settings.sync();
 
-    // Clean up UI resources
-    delete ui;
+    // UI resources are automatically cleaned up by unique_ptr
 }
 
 /**
@@ -646,17 +652,17 @@ void MainWindow::onNewSessionClicked() {
     if (!this->inputData) {
         // Create new TableBoard instance if not already initialized
         if (!inputData) {
-            inputData = new TableBoard(this);
+            inputData = std::make_unique<TableBoard>(this);
         } else {
             inputData->raise();
             inputData->activateWindow();
         }
 
         // Connect signals to slots in inputData - Modern Qt5+ syntax
-        connect(this, &MainWindow::meterTypeChangedSignal, inputData, &TableBoard::onTypeMeterChanged);
-        connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData,
+        connect(this, &MainWindow::meterTypeChangedSignal, inputData.get(), &TableBoard::onTypeMeterChanged);
+        connect(this, &MainWindow::numberOfWaterMetersChangedSignal, inputData.get(),
                 &TableBoard::onNumberOfWaterMetersChanged);
-        connect(this, &MainWindow::measurementTypeChangedSignal, inputData, &TableBoard::onMeasurementTypeChanged);
+        connect(this, &MainWindow::measurementTypeChangedSignal, inputData.get(), &TableBoard::onMeasurementTypeChanged);
     }
 
     // Update selected information (assuming this function exists in your class)
@@ -690,8 +696,7 @@ void MainWindow::onNewSessionClicked() {
 void MainWindow::onExitApplication() {
     if (inputData) {
         inputData->close();
-        delete inputData;
-        inputData = nullptr;
+        inputData.reset();  // Smart pointer automatically deletes and sets to nullptr
     }
     this->close();
 }
@@ -772,7 +777,7 @@ void MainWindow::onAmbientTemperatureTextChanged() {
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.beginGroup("LabConditions");
     settings.setValue("labTemperature", temperatureText);
     settings.setValue("labPressure", pressureText);
@@ -804,7 +809,7 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("LabConditions");
     settings.setValue("labTemperature", temperatureText);
@@ -838,7 +843,7 @@ void MainWindow::onAtmosphericPressureTextChanged() {
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
 
     // Update settings with the new values
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("LabConditions");
     settings.setValue("labTemperature", temperatureText);
@@ -1573,8 +1578,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
  */
 void MainWindow::closeEvent(QCloseEvent* event) {
     if (inputData) {
-        delete inputData;
-        inputData = nullptr;
+        inputData.reset();  // Smart pointer automatically deletes and sets to nullptr
     }
     event->accept();
 }

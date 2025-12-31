@@ -1825,7 +1825,7 @@ public:
         leError1_1->setMinimumSize(QSize(75, 23));
         leError1_1->setMaximumSize(QSize(60, 23));
         leError1_1->setFont(font);
-        leError1_1->setFocusPolicy(Qt::StrongFocus);
+        leError1_1->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_1);
 
@@ -1834,7 +1834,7 @@ public:
         leError1_2->setMinimumSize(QSize(75, 23));
         leError1_2->setMaximumSize(QSize(60, 23));
         leError1_2->setFont(font);
-        leError1_2->setFocusPolicy(Qt::StrongFocus);
+        leError1_2->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_2);
 
@@ -1843,7 +1843,7 @@ public:
         leError1_3->setMinimumSize(QSize(75, 23));
         leError1_3->setMaximumSize(QSize(60, 23));
         leError1_3->setFont(font);
-        leError1_3->setFocusPolicy(Qt::StrongFocus);
+        leError1_3->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_3);
 
@@ -1852,7 +1852,7 @@ public:
         leError1_4->setMinimumSize(QSize(75, 23));
         leError1_4->setMaximumSize(QSize(60, 23));
         leError1_4->setFont(font);
-        leError1_4->setFocusPolicy(Qt::StrongFocus);
+        leError1_4->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_4);
 
@@ -1861,7 +1861,7 @@ public:
         leError1_5->setMinimumSize(QSize(75, 23));
         leError1_5->setMaximumSize(QSize(60, 23));
         leError1_5->setFont(font);
-        leError1_5->setFocusPolicy(Qt::StrongFocus);
+        leError1_5->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_5);
 
@@ -1870,7 +1870,7 @@ public:
         leError1_6->setMinimumSize(QSize(75, 23));
         leError1_6->setMaximumSize(QSize(60, 23));
         leError1_6->setFont(font);
-        leError1_6->setFocusPolicy(Qt::StrongFocus);
+        leError1_6->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_6);
 
@@ -1879,7 +1879,7 @@ public:
         leError1_7->setMinimumSize(QSize(75, 23));
         leError1_7->setMaximumSize(QSize(60, 23));
         leError1_7->setFont(font);
-        leError1_7->setFocusPolicy(Qt::StrongFocus);
+        leError1_7->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_7);
 
@@ -1888,7 +1888,7 @@ public:
         leError1_8->setMinimumSize(QSize(75, 23));
         leError1_8->setMaximumSize(QSize(60, 23));
         leError1_8->setFont(font);
-        leError1_8->setFocusPolicy(Qt::StrongFocus);
+        leError1_8->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_8);
 
@@ -1897,7 +1897,7 @@ public:
         leError1_9->setMinimumSize(QSize(75, 23));
         leError1_9->setMaximumSize(QSize(60, 23));
         leError1_9->setFont(font);
-        leError1_9->setFocusPolicy(Qt::StrongFocus);
+        leError1_9->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_9);
 
@@ -1906,7 +1906,7 @@ public:
         leError1_10->setMinimumSize(QSize(75, 23));
         leError1_10->setMaximumSize(QSize(60, 23));
         leError1_10->setFont(font);
-        leError1_10->setFocusPolicy(Qt::StrongFocus);
+        leError1_10->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_10);
 
@@ -1915,7 +1915,7 @@ public:
         leError1_11->setMinimumSize(QSize(75, 23));
         leError1_11->setMaximumSize(QSize(60, 23));
         leError1_11->setFont(font);
-        leError1_11->setFocusPolicy(Qt::StrongFocus);
+        leError1_11->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_11);
 
@@ -1924,7 +1924,7 @@ public:
         leError1_12->setMinimumSize(QSize(75, 23));
         leError1_12->setMaximumSize(QSize(60, 23));
         leError1_12->setFont(font);
-        leError1_12->setFocusPolicy(Qt::StrongFocus);
+        leError1_12->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_12);
 
@@ -1933,7 +1933,7 @@ public:
         leError1_13->setMinimumSize(QSize(75, 23));
         leError1_13->setMaximumSize(QSize(60, 23));
         leError1_13->setFont(font);
-        leError1_13->setFocusPolicy(Qt::StrongFocus);
+        leError1_13->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_13);
 
@@ -1942,7 +1942,7 @@ public:
         leError1_14->setMinimumSize(QSize(75, 23));
         leError1_14->setMaximumSize(QSize(60, 23));
         leError1_14->setFont(font);
-        leError1_14->setFocusPolicy(Qt::StrongFocus);
+        leError1_14->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_14);
 
@@ -1951,7 +1951,7 @@ public:
         leError1_15->setMinimumSize(QSize(75, 23));
         leError1_15->setMaximumSize(QSize(60, 23));
         leError1_15->setFont(font);
-        leError1_15->setFocusPolicy(Qt::StrongFocus);
+        leError1_15->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_15);
 
@@ -1960,7 +1960,7 @@ public:
         leError1_16->setMinimumSize(QSize(75, 23));
         leError1_16->setMaximumSize(QSize(60, 23));
         leError1_16->setFont(font);
-        leError1_16->setFocusPolicy(Qt::StrongFocus);
+        leError1_16->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_16);
 
@@ -1969,7 +1969,7 @@ public:
         leError1_17->setMinimumSize(QSize(75, 23));
         leError1_17->setMaximumSize(QSize(60, 23));
         leError1_17->setFont(font);
-        leError1_17->setFocusPolicy(Qt::StrongFocus);
+        leError1_17->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_17);
 
@@ -1978,7 +1978,7 @@ public:
         leError1_18->setMinimumSize(QSize(75, 23));
         leError1_18->setMaximumSize(QSize(60, 23));
         leError1_18->setFont(font);
-        leError1_18->setFocusPolicy(Qt::StrongFocus);
+        leError1_18->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_18);
 
@@ -1987,7 +1987,7 @@ public:
         leError1_19->setMinimumSize(QSize(75, 23));
         leError1_19->setMaximumSize(QSize(60, 23));
         leError1_19->setFont(font);
-        leError1_19->setFocusPolicy(Qt::StrongFocus);
+        leError1_19->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_19);
 
@@ -1996,7 +1996,7 @@ public:
         leError1_20->setMinimumSize(QSize(75, 23));
         leError1_20->setMaximumSize(QSize(60, 23));
         leError1_20->setFont(font);
-        leError1_20->setFocusPolicy(Qt::StrongFocus);
+        leError1_20->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout->addWidget(leError1_20);
 
@@ -2542,7 +2542,7 @@ public:
         leError2_1->setMinimumSize(QSize(75, 23));
         leError2_1->setMaximumSize(QSize(60, 23));
         leError2_1->setFont(font);
-        leError2_1->setFocusPolicy(Qt::StrongFocus);
+        leError2_1->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_1);
 
@@ -2551,7 +2551,7 @@ public:
         leError2_2->setMinimumSize(QSize(75, 23));
         leError2_2->setMaximumSize(QSize(60, 23));
         leError2_2->setFont(font);
-        leError2_2->setFocusPolicy(Qt::StrongFocus);
+        leError2_2->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_2);
 
@@ -2560,7 +2560,7 @@ public:
         leError2_3->setMinimumSize(QSize(75, 23));
         leError2_3->setMaximumSize(QSize(60, 23));
         leError2_3->setFont(font);
-        leError2_3->setFocusPolicy(Qt::StrongFocus);
+        leError2_3->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_3);
 
@@ -2569,7 +2569,7 @@ public:
         leError2_4->setMinimumSize(QSize(75, 23));
         leError2_4->setMaximumSize(QSize(60, 23));
         leError2_4->setFont(font);
-        leError2_4->setFocusPolicy(Qt::StrongFocus);
+        leError2_4->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_4);
 
@@ -2578,7 +2578,7 @@ public:
         leError2_5->setMinimumSize(QSize(75, 23));
         leError2_5->setMaximumSize(QSize(60, 23));
         leError2_5->setFont(font);
-        leError2_5->setFocusPolicy(Qt::StrongFocus);
+        leError2_5->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_5);
 
@@ -2587,7 +2587,7 @@ public:
         leError2_6->setMinimumSize(QSize(75, 23));
         leError2_6->setMaximumSize(QSize(60, 23));
         leError2_6->setFont(font);
-        leError2_6->setFocusPolicy(Qt::StrongFocus);
+        leError2_6->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_6);
 
@@ -2596,7 +2596,7 @@ public:
         leError2_7->setMinimumSize(QSize(75, 23));
         leError2_7->setMaximumSize(QSize(60, 23));
         leError2_7->setFont(font);
-        leError2_7->setFocusPolicy(Qt::StrongFocus);
+        leError2_7->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_7);
 
@@ -2605,7 +2605,7 @@ public:
         leError2_8->setMinimumSize(QSize(75, 23));
         leError2_8->setMaximumSize(QSize(60, 23));
         leError2_8->setFont(font);
-        leError2_8->setFocusPolicy(Qt::StrongFocus);
+        leError2_8->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_8);
 
@@ -2614,7 +2614,7 @@ public:
         leError2_9->setMinimumSize(QSize(75, 23));
         leError2_9->setMaximumSize(QSize(60, 23));
         leError2_9->setFont(font);
-        leError2_9->setFocusPolicy(Qt::StrongFocus);
+        leError2_9->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_9);
 
@@ -2623,7 +2623,7 @@ public:
         leError2_10->setMinimumSize(QSize(75, 23));
         leError2_10->setMaximumSize(QSize(60, 23));
         leError2_10->setFont(font);
-        leError2_10->setFocusPolicy(Qt::StrongFocus);
+        leError2_10->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_10);
 
@@ -2632,7 +2632,7 @@ public:
         leError2_11->setMinimumSize(QSize(75, 23));
         leError2_11->setMaximumSize(QSize(60, 23));
         leError2_11->setFont(font);
-        leError2_11->setFocusPolicy(Qt::StrongFocus);
+        leError2_11->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_11);
 
@@ -2641,7 +2641,7 @@ public:
         leError2_12->setMinimumSize(QSize(75, 23));
         leError2_12->setMaximumSize(QSize(60, 23));
         leError2_12->setFont(font);
-        leError2_12->setFocusPolicy(Qt::StrongFocus);
+        leError2_12->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_12);
 
@@ -2650,7 +2650,7 @@ public:
         leError2_13->setMinimumSize(QSize(75, 23));
         leError2_13->setMaximumSize(QSize(60, 23));
         leError2_13->setFont(font);
-        leError2_13->setFocusPolicy(Qt::StrongFocus);
+        leError2_13->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_13);
 
@@ -2659,7 +2659,7 @@ public:
         leError2_14->setMinimumSize(QSize(75, 23));
         leError2_14->setMaximumSize(QSize(60, 23));
         leError2_14->setFont(font);
-        leError2_14->setFocusPolicy(Qt::StrongFocus);
+        leError2_14->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_14);
 
@@ -2668,7 +2668,7 @@ public:
         leError2_15->setMinimumSize(QSize(75, 23));
         leError2_15->setMaximumSize(QSize(60, 23));
         leError2_15->setFont(font);
-        leError2_15->setFocusPolicy(Qt::StrongFocus);
+        leError2_15->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_15);
 
@@ -2677,7 +2677,7 @@ public:
         leError2_16->setMinimumSize(QSize(75, 23));
         leError2_16->setMaximumSize(QSize(60, 23));
         leError2_16->setFont(font);
-        leError2_16->setFocusPolicy(Qt::StrongFocus);
+        leError2_16->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_16);
 
@@ -2686,7 +2686,7 @@ public:
         leError2_17->setMinimumSize(QSize(75, 23));
         leError2_17->setMaximumSize(QSize(60, 23));
         leError2_17->setFont(font);
-        leError2_17->setFocusPolicy(Qt::StrongFocus);
+        leError2_17->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_17);
 
@@ -2695,7 +2695,7 @@ public:
         leError2_18->setMinimumSize(QSize(75, 23));
         leError2_18->setMaximumSize(QSize(60, 23));
         leError2_18->setFont(font);
-        leError2_18->setFocusPolicy(Qt::StrongFocus);
+        leError2_18->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_18);
 
@@ -2704,7 +2704,7 @@ public:
         leError2_19->setMinimumSize(QSize(75, 23));
         leError2_19->setMaximumSize(QSize(60, 23));
         leError2_19->setFont(font);
-        leError2_19->setFocusPolicy(Qt::StrongFocus);
+        leError2_19->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_19);
 
@@ -2713,7 +2713,7 @@ public:
         leError2_20->setMinimumSize(QSize(75, 23));
         leError2_20->setMaximumSize(QSize(60, 23));
         leError2_20->setFont(font);
-        leError2_20->setFocusPolicy(Qt::StrongFocus);
+        leError2_20->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_3->addWidget(leError2_20);
 
@@ -3253,7 +3253,7 @@ public:
         leError3_1->setMinimumSize(QSize(75, 23));
         leError3_1->setMaximumSize(QSize(60, 23));
         leError3_1->setFont(font);
-        leError3_1->setFocusPolicy(Qt::StrongFocus);
+        leError3_1->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_1);
 
@@ -3262,7 +3262,7 @@ public:
         leError3_2->setMinimumSize(QSize(75, 23));
         leError3_2->setMaximumSize(QSize(60, 23));
         leError3_2->setFont(font);
-        leError3_2->setFocusPolicy(Qt::StrongFocus);
+        leError3_2->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_2);
 
@@ -3271,7 +3271,7 @@ public:
         leError3_3->setMinimumSize(QSize(75, 23));
         leError3_3->setMaximumSize(QSize(60, 23));
         leError3_3->setFont(font);
-        leError3_3->setFocusPolicy(Qt::StrongFocus);
+        leError3_3->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_3);
 
@@ -3280,7 +3280,7 @@ public:
         leError3_4->setMinimumSize(QSize(75, 23));
         leError3_4->setMaximumSize(QSize(60, 23));
         leError3_4->setFont(font);
-        leError3_4->setFocusPolicy(Qt::StrongFocus);
+        leError3_4->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_4);
 
@@ -3289,7 +3289,7 @@ public:
         leError3_5->setMinimumSize(QSize(75, 23));
         leError3_5->setMaximumSize(QSize(60, 23));
         leError3_5->setFont(font);
-        leError3_5->setFocusPolicy(Qt::StrongFocus);
+        leError3_5->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_5);
 
@@ -3298,7 +3298,7 @@ public:
         leError3_6->setMinimumSize(QSize(75, 23));
         leError3_6->setMaximumSize(QSize(60, 23));
         leError3_6->setFont(font);
-        leError3_6->setFocusPolicy(Qt::StrongFocus);
+        leError3_6->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_6);
 
@@ -3307,7 +3307,7 @@ public:
         leError3_7->setMinimumSize(QSize(75, 23));
         leError3_7->setMaximumSize(QSize(60, 23));
         leError3_7->setFont(font);
-        leError3_7->setFocusPolicy(Qt::StrongFocus);
+        leError3_7->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_7);
 
@@ -3316,7 +3316,7 @@ public:
         leError3_8->setMinimumSize(QSize(75, 23));
         leError3_8->setMaximumSize(QSize(60, 23));
         leError3_8->setFont(font);
-        leError3_8->setFocusPolicy(Qt::StrongFocus);
+        leError3_8->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_8);
 
@@ -3325,7 +3325,7 @@ public:
         leError3_9->setMinimumSize(QSize(75, 23));
         leError3_9->setMaximumSize(QSize(60, 23));
         leError3_9->setFont(font);
-        leError3_9->setFocusPolicy(Qt::StrongFocus);
+        leError3_9->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_9);
 
@@ -3334,7 +3334,7 @@ public:
         leError3_10->setMinimumSize(QSize(75, 23));
         leError3_10->setMaximumSize(QSize(60, 23));
         leError3_10->setFont(font);
-        leError3_10->setFocusPolicy(Qt::StrongFocus);
+        leError3_10->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_10);
 
@@ -3343,7 +3343,7 @@ public:
         leError3_11->setMinimumSize(QSize(75, 23));
         leError3_11->setMaximumSize(QSize(60, 23));
         leError3_11->setFont(font);
-        leError3_11->setFocusPolicy(Qt::StrongFocus);
+        leError3_11->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_11);
 
@@ -3352,7 +3352,7 @@ public:
         leError3_12->setMinimumSize(QSize(75, 23));
         leError3_12->setMaximumSize(QSize(60, 23));
         leError3_12->setFont(font);
-        leError3_12->setFocusPolicy(Qt::StrongFocus);
+        leError3_12->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_12);
 
@@ -3361,7 +3361,7 @@ public:
         leError3_13->setMinimumSize(QSize(75, 23));
         leError3_13->setMaximumSize(QSize(60, 23));
         leError3_13->setFont(font);
-        leError3_13->setFocusPolicy(Qt::StrongFocus);
+        leError3_13->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_13);
 
@@ -3370,7 +3370,7 @@ public:
         leError3_14->setMinimumSize(QSize(75, 23));
         leError3_14->setMaximumSize(QSize(60, 23));
         leError3_14->setFont(font);
-        leError3_14->setFocusPolicy(Qt::StrongFocus);
+        leError3_14->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_14);
 
@@ -3379,7 +3379,7 @@ public:
         leError3_15->setMinimumSize(QSize(75, 23));
         leError3_15->setMaximumSize(QSize(60, 23));
         leError3_15->setFont(font);
-        leError3_15->setFocusPolicy(Qt::StrongFocus);
+        leError3_15->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_15);
 
@@ -3388,7 +3388,7 @@ public:
         leError3_16->setMinimumSize(QSize(75, 23));
         leError3_16->setMaximumSize(QSize(60, 23));
         leError3_16->setFont(font);
-        leError3_16->setFocusPolicy(Qt::StrongFocus);
+        leError3_16->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_16);
 
@@ -3397,7 +3397,7 @@ public:
         leError3_17->setMinimumSize(QSize(75, 23));
         leError3_17->setMaximumSize(QSize(60, 23));
         leError3_17->setFont(font);
-        leError3_17->setFocusPolicy(Qt::StrongFocus);
+        leError3_17->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_17);
 
@@ -3406,7 +3406,7 @@ public:
         leError3_18->setMinimumSize(QSize(75, 23));
         leError3_18->setMaximumSize(QSize(60, 23));
         leError3_18->setFont(font);
-        leError3_18->setFocusPolicy(Qt::StrongFocus);
+        leError3_18->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_18);
 
@@ -3415,7 +3415,7 @@ public:
         leError3_19->setMinimumSize(QSize(75, 23));
         leError3_19->setMaximumSize(QSize(60, 23));
         leError3_19->setFont(font);
-        leError3_19->setFocusPolicy(Qt::StrongFocus);
+        leError3_19->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_19);
 
@@ -3424,7 +3424,7 @@ public:
         leError3_20->setMinimumSize(QSize(75, 23));
         leError3_20->setMaximumSize(QSize(60, 23));
         leError3_20->setFont(font);
-        leError3_20->setFocusPolicy(Qt::StrongFocus);
+        leError3_20->setFocusPolicy(Qt::NoFocus);
 
         verticalLayout_4->addWidget(leError3_20);
 
@@ -3759,7 +3759,6 @@ public:
         lbSpaceSN5->setText(QString());
         lbIndex1->setText(QString());
         lbStart1->setText(QString());
-        leStart1_1->setText(QString());
         lbTab9->setText(QString());
         lbFlowRateMin->setText(QString());
         lbMass1->setText(QString());

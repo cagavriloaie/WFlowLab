@@ -2546,9 +2546,6 @@
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="text">
-                   <string/>
-                  </property>
                  </widget>
                 </item>
                 <item>
@@ -3738,7 +3735,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3763,7 +3760,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3788,7 +3785,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3813,7 +3810,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3838,7 +3835,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3863,7 +3860,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3888,7 +3885,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3913,7 +3910,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3938,7 +3935,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3963,7 +3960,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -3988,7 +3985,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4013,7 +4010,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4038,7 +4035,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4063,7 +4060,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4088,7 +4085,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4113,7 +4110,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4138,7 +4135,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4163,7 +4160,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4188,7 +4185,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -4213,7 +4210,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5628,7 +5625,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5653,7 +5650,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5678,7 +5675,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5703,7 +5700,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5728,7 +5725,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5753,7 +5750,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5778,7 +5775,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5803,7 +5800,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5828,7 +5825,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5853,7 +5850,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5878,7 +5875,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5903,7 +5900,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5928,7 +5925,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5953,7 +5950,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5978,7 +5975,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6003,7 +6000,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6028,7 +6025,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6053,7 +6050,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6078,7 +6075,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -6103,7 +6100,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7491,7 +7488,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7516,7 +7513,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7541,7 +7538,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7566,7 +7563,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7591,7 +7588,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7616,7 +7613,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7641,7 +7638,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7666,7 +7663,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7691,7 +7688,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7716,7 +7713,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7741,7 +7738,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7766,7 +7763,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7791,7 +7788,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7816,7 +7813,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7841,7 +7838,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7866,7 +7863,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7891,7 +7888,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7916,7 +7913,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7941,7 +7938,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7966,7 +7963,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>

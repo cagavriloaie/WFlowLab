@@ -10,7 +10,7 @@
  * of RFC 1321 by RSA Data Security, Inc. The original source was based
  * on md5.h and md5.c.
  *
- * \see http://www.bzflag.org
+ * \see html://www.bzflag.org
  */
 
 /**

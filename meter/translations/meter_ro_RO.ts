@@ -153,7 +153,7 @@
     <message>
         <location filename="../interface.cpp" line="169" />
         <source>&amp;Save Configuration</source>
-        <translation>&amp;Save Configuration</translation>
+        <translation>&amp;Salvează Configurația</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="170" />
@@ -163,12 +163,12 @@
     <message>
         <location filename="../interface.cpp" line="171" />
         <source>&amp;Refresh Ports</source>
-        <translation>&amp;Refresh Ports</translation>
+        <translation>&amp;Actualizează Porturi</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="172" />
         <source>&amp;Connect Ports</source>
-        <translation>&amp;Connect Ports</translation>
+        <translation>&amp;Conectează Porturi</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="1053" />
@@ -180,7 +180,7 @@
         <location filename="../interface.cpp" line="1053" />
         <location filename="../interface.cpp" line="1202" />
         <source>At least two MODBUS interfaces are required.</source>
-        <translation>Cel putin doua interfete MODBUS sunt necesare.</translation>
+        <translation>Cel puțin două interfețe MODBUS sunt necesare.</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="1055" />
@@ -190,12 +190,12 @@
     <message>
         <location filename="../interface.cpp" line="1055" />
         <source>MODBUS serial ports DB have been updated.</source>
-        <translation>DB porturi seriale MODBUS trebuie actualizată.</translation>
+        <translation>Baza de date cu porturi seriale MODBUS a fost actualizată.</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="1234" />
         <source>Not connected to RS-485/422 networks</source>
-        <translation>Not connected to RS-485/422 networks</translation>
+        <translation>Neconectat la rețelele RS-485/422</translation>
     </message>
 </context>
 <context>
@@ -247,7 +247,7 @@
     <message>
         <location filename="../license.cpp" line="54" />
         <source>Volume correction:</source>
-        <translation>Corecție volum</translation>
+        <translation>Corecție volum:</translation>
     </message>
     <message>
         <location filename="../license.cpp" line="55" />
@@ -387,13 +387,13 @@
         <location filename="../mainwindow.ui" line="1047" />
         <location filename="../ui_mainwindow.h" line="659" />
         <source>LineEntry</source>
-        <translation />
+        <translation>Introducere Date</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1050" />
         <location filename="../ui_mainwindow.h" line="661" />
         <source>water meter entry</source>
-        <translation />
+        <translation>introducere date contor</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1055" />
@@ -423,7 +423,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="315" />
         <source>WStreamLab - Dashboard</source>
-        <translation>Water Stream Laboratory - Pagina de selectie</translation>
+        <translation>Water Stream Laboratory - Panou de Control</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="318" />
@@ -493,7 +493,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="336" />
         <source>Atmospheric pressure:</source>
-        <translation>Presiune atmosferică</translation>
+        <translation>Presiune atmosferică:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="343" />
@@ -511,7 +511,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="423" />
         <source>RS485/RS422 protocol MODBUS ITF off.</source>
-        <translation>Comunicare RS485/RS422 este închisă</translation>
+        <translation>Comunicare RS485/RS422: inactivă</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="559" />
@@ -560,7 +560,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="339" />
         <source>°C</source>
-        <translation>[°C]</translation>
+        <translation>°C</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="340" />
@@ -577,12 +577,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="349" />
         <source>Volumetric</source>
-        <translation>Volumetric:</translation>
+        <translation>Volumetrică</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="350" />
         <source>Gravimetric</source>
-        <translation>Gravimetric:</translation>
+        <translation>Gravimetrică</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="345" />
@@ -676,7 +676,7 @@
         <location filename="../flow-meter-type.h" line="217" />
         <location filename="../flow-meter-type.h" line="231" />
         <source>The watermeters.csv with Flow Meters DB is corrupted.</source>
-        <translation>Baza de date cu contoare de debit watermeters.csv.</translation>
+        <translation>Baza de date cu contoare de debit watermeters.csv este coruptă.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="250" />
@@ -694,7 +694,7 @@
     <message>
         <location filename="../report.cpp" line="241" />
         <source>Date verificare metrologică</source>
-        <translation>Informații buletin de verificare</translation>
+        <translation>Date pentru buletin de verificare metrologică</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="242" />
@@ -872,7 +872,7 @@
     <message>
         <location filename="../report.cpp" line="382" />
         <source>Some required fields are not filled in.</source>
-        <translation>Câteva campuri obligatorii nu au fost completate,</translation>
+        <translation>Câteva câmpuri obligatorii nu au fost completate.</translation>
     </message>
 </context>
 <context>
@@ -968,7 +968,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="234" />
         <source>Cannot open file</source>
-        <translation>Cannot open file</translation>
+        <translation>Nu se poate deschide fișierul</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="598" />
@@ -1047,7 +1047,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="649" />
         <source>&amp;Data evaluate</source>
-        <translation>&amp;Verifică</translation>
+        <translation>&amp;Evaluează Date</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="650" />
@@ -1087,7 +1087,7 @@
     <message>
         <location filename="../tableBoard.cpp" line="1413" />
         <source>Some user input data are not available or are outside the normal range!</source>
-        <translation>Sunt date introduse de utilizator care nu sunt disponibile sau care sunt în afară domeniului de utilizare!</translation>
+        <translation>Unele date introduse lipsesc sau sunt în afara domeniului permis!</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="2460" />

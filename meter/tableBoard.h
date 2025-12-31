@@ -30,6 +30,9 @@ namespace Ui {
 class TableBoard;
 }
 
+// Forward declarations
+class MainWindow;
+
 /**
  * \brief Converts a numeric value to a string with a specified precision.
  *
@@ -99,6 +102,7 @@ class TableBoard : public QDialog {
   private:
     QWidget* parent;     ///< Pointer to the parent widget.
     Ui::TableBoard* ui;  ///< User interface object for the TableBoard dialog.
+    MainWindow* mainwindow{nullptr};  ///< Pointer to MainWindow obtained via parent cast.
 
     // Member variables grouped by functionality
     size_t entries{0};                                      ///< Number of entries in the table.

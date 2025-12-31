@@ -31,9 +31,6 @@ MainWindow* mainwindow;
 unsigned positionTable = 0;
 }  // namespace
 
-QModbusClient* modbusDevice_1; /**< Pointer to the first Modbus client device. */
-QModbusClient* modbusDevice_2; /**< Pointer to the second Modbus client device. */
-
 std::mutex modbusLock;
 
 /**
@@ -96,7 +93,7 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     modbusDevice_1 = new QModbusRtuSerialClient(this);
     modbusDevice_2 = new QModbusRtuSerialClient(this);
 
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("RS_485_422");
 
@@ -1072,7 +1069,7 @@ void Interface::onSaveConfigurationClicked() {
         ui->pbSaveConfiguration->setDisabled(true);
 
         // Initialize QSettings to save settings in the Windows registry
-        QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+        QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
         settings.sync();
         settings.beginGroup("RS_485_422");
 
@@ -1165,7 +1162,7 @@ void Interface::showEvent(QShowEvent* event) {
     ui->pbRefreshSerialPort->setEnabled(true);
 
     // Load settings from the registry
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("RS_485_422");
 
@@ -1221,13 +1218,16 @@ void Interface::showEvent(QShowEvent* event) {
  */
 void Interface::DisconnectSerialPort() {
     // Check if the ModbusClient pointers are valid before deleting them
+    // Use deleteLater() for safe Qt object deletion instead of raw delete
     if (modbusDevice_1) {
-        delete modbusDevice_1;
+        modbusDevice_1->disconnectDevice();
+        modbusDevice_1->deleteLater();
         modbusDevice_1 = nullptr;
     }
 
     if (modbusDevice_2) {
-        delete modbusDevice_2;
+        modbusDevice_2->disconnectDevice();
+        modbusDevice_2->deleteLater();
         modbusDevice_2 = nullptr;
     }
 

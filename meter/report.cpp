@@ -26,9 +26,10 @@
 #include <sstream>    // String stream operations
 #include <thread>     // C++11 thread support
 
-#include "mainwindow.h"     // Your application's main window
-#include "ui_mainwindow.h"  // UI definition for main window
-#include "ui_report.h"      // UI definition for report dialog
+#include "mainwindow.h"        // Your application's main window
+#include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
+#include "ui_mainwindow.h"     // UI definition for main window
+#include "ui_report.h"         // UI definition for report dialog
 
 /**
 
@@ -40,8 +41,6 @@
  *
  * \note Assumes that the measurement data and UI elements are properly initialized.
  */
-
-extern MainWindow* pMainWindow;
 
 /**
  * \extern std::mutex printReportPdfThreadMutex
@@ -62,6 +61,13 @@ std::mutex printReportPdfThreadMutex;
  * \param report The HTML content to be printed into the PDF.
  */
 void ReportMeasurements::printPdfThread(QString report) {
+    // Get MainWindow instance thread-safely
+    MainWindow* pMainWindow = MainWindowInstance::getInstance();
+    if (!pMainWindow) {
+        qCritical() << "ReportMeasurements::printPdfThread: MainWindow instance is null!";
+        return;
+    }
+
     // Generate a unique timestamp for the file name
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
 
@@ -322,7 +328,7 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     ui->leCost->setValidator(validatorDoubleNumber);
 
     // Load settings from QSettings
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("Report");
 
@@ -389,6 +395,13 @@ void ReportMeasurements::onPrintClicked() {
         if (messageBoxWindowsTitle.exec() == QMessageBox::Ok) {
             messageBoxWindowsTitle.close();
         }
+        return;
+    }
+
+    // Get MainWindow instance thread-safely
+    MainWindow* pMainWindow = MainWindowInstance::getInstance();
+    if (!pMainWindow) {
+        qCritical() << "ReportMeasurements::onPrintClicked: MainWindow instance is null!";
         return;
     }
 
@@ -614,7 +627,7 @@ void ReportMeasurements::onPrintClicked() {
     std::thread pdfThread(printPdfThread, QString::fromStdString(htmlTable.str()));
     pdfThread.detach();
 
-    QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab", QSettings::NativeFormat);
+    QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("Report");
 

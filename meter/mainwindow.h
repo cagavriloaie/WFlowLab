@@ -20,6 +20,8 @@
 #include <QTranslator>                         // Qt class for providing translations in the application.
 #include <QtSerialBus/QModbusRtuSerialClient>  // Qt class for Modbus RTU serial client communication.
 
+#include <memory>  // For std::unique_ptr
+
 #include "helpabout.h"   // Custom header for HelpAbout class.
 #include "interface.h"   // Custom header for Interface class.
 #include "license.h"     // Custom header for License class.
@@ -73,7 +75,7 @@ struct SelectedInfo {
     std::string certificate; /**< Certificate information. */
 
     std::string nameWaterMeter; /**< Name of the water meter. */
-    unsigned nominalDiameter;   /**< Nominal diameter of the device. */
+    size_t nominalDiameter;     /**< Nominal diameter of the device. */
     double nominalFlow;         /**< Nominal flow rate. */
     double maximumFlow;         /**< Maximum flow rate. */
     double transitionFlow;      /**< Transition flow rate. */
@@ -112,16 +114,16 @@ class MainWindow : public QMainWindow {
      */
     ~MainWindow();
 
-    SelectedInfo selectedInfo;                /**< Holds selected information related to the application. */
-    Ui::MainWindow* ui{nullptr};              /**< Pointer to the UI components of the main window. */
-    TableBoard* inputData{nullptr};           /**< Pointer to the input data board. */
-    License* licenseDialog{nullptr};          /**< Pointer to the license dialog. */
-    HelpAbout* helpAbout{nullptr};            /**< Pointer to the help/about dialog. */
-    Interface* interfaceDialog{nullptr};      /**< Pointer to the interface dialog. */
-    QActionGroup* alignmentGroup{nullptr};    /**< Action group for alignment settings. */
-    QLabel* statusBarLabel{nullptr};          /**< Permanent label widget in the status bar. */
-    unsigned MAX_NR_WATER_METERS{20};         /**< Maximum number of water meters supported. */
-    unsigned NUMBER_ENTRIES_METER_FLOW_DB{0}; /**< Number of entries in meter flow database. */
+    SelectedInfo selectedInfo;                         /**< Holds selected information related to the application. */
+    std::unique_ptr<Ui::MainWindow> ui;                /**< Pointer to the UI components of the main window. */
+    std::unique_ptr<TableBoard> inputData;             /**< Pointer to the input data board. */
+    std::unique_ptr<License> licenseDialog;            /**< Pointer to the license dialog. */
+    std::unique_ptr<HelpAbout> helpAbout;              /**< Pointer to the help/about dialog. */
+    std::unique_ptr<Interface> interfaceDialog;        /**< Pointer to the interface dialog. */
+    std::unique_ptr<QActionGroup> alignmentGroup;      /**< Action group for alignment settings. */
+    std::unique_ptr<QLabel> statusBarLabel;            /**< Permanent label widget in the status bar. */
+    size_t MAX_NR_WATER_METERS{20};           /**< Maximum number of water meters supported. */
+    size_t NUMBER_ENTRIES_METER_FLOW_DB{0};   /**< Number of entries in meter flow database. */
     std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
     QList<QSerialPortInfo> ports;
     QString statusBarMessage;

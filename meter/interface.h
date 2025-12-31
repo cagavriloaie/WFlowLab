@@ -17,6 +17,9 @@
 
 #include <vector>  // Standard C++ container class for dynamic arrays.
 
+// Forward declarations for Qt SerialBus classes
+class QModbusClient;
+
 namespace Ui {
 class Interface;
 }
@@ -65,6 +68,9 @@ class Interface : public QDialog {
     bool isOpenModbusPort{false}; /**< Flag indicating if the Modbus port is open. */
     std::vector<qint16> nodesModbusCom1;
     std::vector<qint16> nodesModbusCom2;
+
+    QModbusClient* modbusDevice_1{nullptr}; /**< Pointer to the first Modbus client device. */
+    QModbusClient* modbusDevice_2{nullptr}; /**< Pointer to the second Modbus client device. */
 
     /**
      * \brief Disconnects from the serial port.
