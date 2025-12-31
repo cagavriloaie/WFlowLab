@@ -44,7 +44,11 @@ License::License(QWidget* parent) : QDialog(parent), ui(new Ui::Licence) {
  * UI elements display text according to the application's current locale.
  */
 void License::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     setWindowTitle(tr("WStreamLab - License"));                 ///< Set the window title.
+    ui->groupBox->setTitle(tr("License Information"));          ///< Set text for group box.
     ui->lbCertificate->setText(tr("Certificate:"));             ///< Set text for certificate label.
     ui->lbDensity->setText(tr("Water density at 20 °C:"));      ///< Set text for water density label.
     ui->lbDensityUnit->setText(tr("[kg/m³]"));                  ///< Set text for density unit label.

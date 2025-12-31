@@ -21,8 +21,14 @@
  * to display the appropriate translations according to the current language.
  */
 void HelpAbout::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     // Set window title
     setWindowTitle(tr("WStreamLab - About"));
+
+    // Set group box title
+    ui->grAbout->setTitle(tr("About Application"));
 
     /**
      * \brief Helper function to set the text of a QLabel.

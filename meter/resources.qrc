@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>resources/styles/app.qss</file>
+        <file>translations/meter_ro_RO.qm</file>
+        <file>translations/meter_en_EN.qm</file>
+    </qresource>
+</RCC>

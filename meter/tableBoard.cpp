@@ -594,8 +594,14 @@ void TableBoard::ValidatorInput() {
  * reflects the current language settings.
  */
 void TableBoard::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     nameWaterMeter = mainwindow->selectedInfo.nameWaterMeter;
     this->setWindowTitle(tr("WStreamLab - Input Table") + " [ " + QString::fromUtf8(nameWaterMeter.c_str()) + " ]");
+
+    // Set group box title
+    ui->gbInput->setTitle(tr("Measurement Data"));
     ui->lbN1->setText("01");
     ui->lbN2->setText("02");
     ui->lbN3->setText("03");
@@ -2354,6 +2360,11 @@ void TableBoard::showEvent(QShowEvent* event) {
 
     // Populate the table with data when the dialog is shown
     PopulateTable();
+
+    // Set focus to the first serial number field (row 1, column "Serie tip")
+    if (!vectorSerialNumber.empty() && vectorSerialNumber[0]) {
+        vectorSerialNumber[0]->setFocus();
+    }
 }
 
 /**

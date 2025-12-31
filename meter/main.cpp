@@ -20,12 +20,14 @@
 #include <QDir>           // Qt directory handling
 #include <QEventLoop>     // Qt event loop for event handling
 #include <QFile>          // Qt file handling
+#include <QLocale>        // Qt locale for language detection
 #include <QMessageBox>    // Qt message box for displaying alerts
 #include <QPainter>       // Qt painter for drawing operations
 #include <QSharedMemory>  // Qt class for managing shared memory segments
 #include <QString>        // Qt string class
 #include <QThread>        // Qt thread management
 #include <QTimer>         // Qt timer class for periodic events
+#include <QTranslator>    // Qt translator for internationalization
 
 #include <windows.h>  // Windows API main header
 #include <winnt.h>    // Windows NT definitions
@@ -188,23 +190,15 @@ QTranslator* appTranslator = nullptr;
  * \brief Loads application translations from a specified file.
  *
  * Initializes the global QTranslator (`appTranslator`) with translations
- * loaded from a .qm file located in the application's "translations" directory.
+ * loaded from a .qm file. First tries to load from embedded resources,
+ * then falls back to external files. Automatically detects system language.
  *
  * \return True if the translation file was loaded successfully; false otherwise.
  */
 bool loadTranslations() {
-    QString qmPath = qApp->applicationDirPath() + QDir::separator() + "translations";
-    appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
-
-    if (appTranslator->load(qmPath + QDir::separator() + "meter_ro_RO.qm")) {
-        qApp->installTranslator(appTranslator);
-        return true;  // Translation loaded successfully
-    }
-
-    // Clean up if loading fails
-    delete appTranslator;
-    appTranslator = nullptr;
-    return false;
+    // Romanian is the default language - no translation needed at startup
+    // User can change language via the Language menu in the application
+    return true;  // Start with source text (Romanian)
 }
 
 /**

@@ -144,8 +144,11 @@ Interface::~Interface() {
  * based on the current language settings.
  */
 void Interface::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     // GroupBox 1: Serial Interface MODBUS
-    ui->groupBox_1->setTitle(tr("RS-485/422 Serial Interface (MODBUS)"));
+    ui->groupBox_1->setTitle(tr("Serial Interface 1 - MODBUS"));
     ui->lbSelectSerial_1->setText(tr("Serial Port:"));
     ui->lbBaudRate_1->setText(tr("Baud Rate:"));
     ui->lbDataBits_1->setText(tr("Data Bits:"));
@@ -155,7 +158,7 @@ void Interface::Translate() {
     ui->lbNumberOfRetries_1->setText(tr("Retries:"));
 
     // GroupBox 2: Serial Interface MODBUS
-    ui->groupBox_2->setTitle(tr("RS-485/422 Serial Interface (MODBUS)"));
+    ui->groupBox_2->setTitle(tr("Serial Interface 2 - MODBUS"));
     ui->lbSelectSerial_2->setText(tr("Serial Port:"));
     ui->lbBaudRate_2->setText(tr("Baud Rate:"));
     ui->lbDataBits_2->setText(tr("Data Bits:"));

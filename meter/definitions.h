@@ -15,10 +15,10 @@
 
 // Version information - Single source of truth
 constexpr int APP_VERSION_MAJOR = 1;
-constexpr int APP_VERSION_MINOR = 7;
+constexpr int APP_VERSION_MINOR = 8;
 constexpr int APP_VERSION_PATCH = 0;
-constexpr const char* APP_VERSION_STRING = "1.7.0";
-constexpr const char* VERSION_BUILD = "1.7.0 Windows x86_32";  ///< Version and build information of the application
+constexpr const char* APP_VERSION_STRING = "1.8.0";
+constexpr const char* VERSION_BUILD = "1.8.0 Windows x86_32";  ///< Version and build information of the application
 
 // Maximum path length
 constexpr std::size_t MAX_PATH_LENGTH = 260;
@@ -116,6 +116,6 @@ constexpr int UI_COLOR_GROUPBOX_PURPLE = 0xE6E6FF;    ///< Light purple for grou
 constexpr int UI_COLOR_PRIMARY_BLUE = 0x0078D7;       ///< Primary blue for focus indicators
 
 // Filename of the Romanian language manual
-constexpr const char* MANUAL_RO = "Manual de utilizare WStreamLab V1.7.pdf";
+constexpr const char* MANUAL_RO = "Manual de utilizare WStreamLab V1.8.pdf";
 
 #endif  // DEFINITIONS_H_INCLUDED

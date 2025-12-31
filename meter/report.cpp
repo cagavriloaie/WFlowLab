@@ -237,6 +237,9 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
  * \endcode
  */
 void ReportMeasurements::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     this->setWindowTitle(tr("WStreamLab - Informatii buletin de verificare metrologica"));
     ui->grBoxBuletin->setTitle(tr("Date verificare metrologica"));
     ui->lbAutorizatiaNumarul->setText(tr("Autorizatia numarul:"));

@@ -214,7 +214,7 @@ public:
 
         leTimeout_1 = new QLineEdit(groupBox_1);
         leTimeout_1->setObjectName("leTimeout_1");
-        leTimeout_1->setMinimumSize(QSize(200, 0));
+        leTimeout_1->setMinimumSize(QSize(200, 28));
         leTimeout_1->setMaximumSize(QSize(200, 16777215));
         QFont font;
         font.setFamilies({QString::fromUtf8("Segoe UI")});
@@ -475,7 +475,7 @@ public:
 
         leTimeout_2 = new QLineEdit(groupBox_2);
         leTimeout_2->setObjectName("leTimeout_2");
-        leTimeout_2->setMinimumSize(QSize(200, 0));
+        leTimeout_2->setMinimumSize(QSize(200, 28));
         leTimeout_2->setMaximumSize(QSize(200, 16777215));
         leTimeout_2->setFont(font);
         leTimeout_2->setAutoFillBackground(false);

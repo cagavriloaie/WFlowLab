@@ -4,7 +4,7 @@
 
 # Version configuration
 # Major.Minor.Build.Revision
-VERSION = 1.7.0.0
+VERSION = 1.8.0.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # ============================================
@@ -170,9 +170,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 win32 {
     QMAKE_POST_LINK += echo "Post-build validation..." &&
     CONFIG(debug, debug|release) {
-        QMAKE_POST_LINK += if exist "$$OUT_PWD/debug/$$TARGET.exe" (echo [OK] Debug executable created successfully) else (echo [ERROR] Debug executable not found!)
+        QMAKE_POST_LINK += if exist "$$OUT_PWD/debug/$$TARGET.exe" (echo [OK] Debug executable created successfully) else (echo [ERROR] Debug executable not found!) &&
+        QMAKE_POST_LINK += copy /Y "$$PWD\\..\\PROCES_CALCUL_VERIFICARE_CONTOARE.md" "$$OUT_PWD\\debug\\" >nul 2>&1 &&
+        QMAKE_POST_LINK += copy /Y "$$PWD\\..\\VERIFICATION_METHOD_PROCESS.md" "$$OUT_PWD\\debug\\" >nul 2>&1 &&
+        QMAKE_POST_LINK += echo [OK] Documentation files copied to debug folder
     } else {
-        QMAKE_POST_LINK += if exist "$$OUT_PWD/release/$$TARGET.exe" (echo [OK] Release executable created successfully) else (echo [ERROR] Release executable not found!)
+        QMAKE_POST_LINK += if exist "$$OUT_PWD/release/$$TARGET.exe" (echo [OK] Release executable created successfully) else (echo [ERROR] Release executable not found!) &&
+        QMAKE_POST_LINK += copy /Y "$$PWD\\..\\PROCES_CALCUL_VERIFICARE_CONTOARE.md" "$$OUT_PWD\\release\\" >nul 2>&1 &&
+        QMAKE_POST_LINK += copy /Y "$$PWD\\..\\VERIFICATION_METHOD_PROCESS.md" "$$OUT_PWD\\release\\" >nul 2>&1 &&
+        QMAKE_POST_LINK += echo [OK] Documentation files copied to release folder
     }
 }
 

@@ -22,12 +22,16 @@
 // Qt headers
 #include <QDesktopServices>  ///< Access to the desktop services such as opening a URL.
 #include <QDir>              ///< Provides access to directory structures and their contents.
+#include <QKeyEvent>         ///< Provides key event handling.
 #include <QLibrary>          ///< Platform-independent library loading and function resolution.
 #include <QLineEdit>         ///< Single-line text editor widget with input validation and styling.
 #include <QList>
+#include <QMap>              ///< Associative container that provides a dictionary-like interface.
 #include <QMessageBox>  ///< Modal dialog for informing the user or for asking the user a question and receiving an answer.
-#include <QSettings>  ///< Persistent platform-independent application settings.
+#include <QPushButton>  ///< Provides push button widget.
+#include <QSettings>    ///< Persistent platform-independent application settings.
 #include <QStatusBar>
+#include <QTimer>      ///< Provides timers for single-shot and repeating actions.
 #include <QValidator>  ///< Base class for all validators that can be easily attached to input widgets.
 
 // Windows-specific headers
@@ -42,8 +46,11 @@
 #include "waterdensity.h"     ///< Header for water density calculations.
 
 // Additional Qt headers (unique includes only)
-#include <QFile>  ///< Provides functions to read from and write to files.
-#include <QUrl>   ///< Represents a URL.
+#include <QFile>                ///< Provides functions to read from and write to files.
+#include <QUrl>                 ///< Represents a URL.
+#include <QRegularExpression>   ///< Provides regular expression pattern matching.
+#include <QTextStream>          ///< Provides a convenient interface for reading and writing text.
+#include <QStringConverter>     ///< Provides encoding and decoding of text.
 
 extern QTranslator* appTranslator;
 MainWindow* pMainWindow;
@@ -308,6 +315,9 @@ void MainWindow::SelectMeterComboBox() {
  * radio button texts, and push button texts.
  */
 void MainWindow::Translate() {
+    // Retranslate UI elements from .ui file (tooltips, etc.)
+    ui->retranslateUi(this);
+
     // Translate window title
     this->setWindowTitle(tr("WStreamLab - Dashboard"));
 
@@ -322,6 +332,7 @@ void MainWindow::Translate() {
     ui->action_English->setText(tr("English"));
     ui->action_Romana->setText(tr("Română"));
     ui->action_General_Description->setText(tr("General Description"));
+    ui->action_Verification_Method->setText(tr("Verification Method"));
     ui->action_WaterDensity->setText(tr("Water Density"));
     ui->action_License->setText(tr("License"));
     ui->action_About->setText(tr("About"));
@@ -337,6 +348,7 @@ void MainWindow::Translate() {
     ui->lbTab4->setText(tr("[%]"));
 
     // Translate group box titles
+    ui->gbInputData->setTitle(tr("Configuration"));
     ui->gbMeasurementMethod->setTitle(tr("Measurement method"));
     ui->gbReadMethod->setTitle(tr("Read method"));
     ui->gbWaterMeterFeatures->setTitle(tr("Water meter features"));
@@ -379,8 +391,7 @@ void MainWindow::Translate() {
  */
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), inputData(nullptr), licenseDialog(new License(this)),
-      helpAbout(new HelpAbout(this)), interfaceDialog(new Interface(this)), alignmentGroup(new QActionGroup(this)),
-      statusBar(new QStatusBar(this)) {
+      helpAbout(new HelpAbout(this)), interfaceDialog(new Interface(this)), alignmentGroup(new QActionGroup(this)) {
     ui->setupUi(this);
 
 #ifdef BUILD_WITHOUT_RS_485_422_MODBUS
@@ -389,14 +400,22 @@ MainWindow::MainWindow(QWidget* parent)
     ui->rbInterface->setEnabled(false);
 #endif
 
-    // Remove maximize button from window
-    setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
+    // Remove maximize button from window and make non-resizable
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint |
+                   Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    setFixedSize(580, 620);
 
-    // Set up status bar
-    setStatusBar(statusBar);
+    // Initialize status bar explicitly with permanent label
+    statusBar()->setSizeGripEnabled(false);
+    statusBar()->setVisible(true);
 
-    // Translate UI elements
-    Translate();
+    // Create a permanent label in the status bar
+    statusBarLabel = new QLabel(this);
+    statusBarLabel->setStyleSheet("QLabel { padding-left: 5px; }");
+    statusBar()->addPermanentWidget(statusBarLabel, 1);  // Stretch factor 1
+
+    // Set Romanian as default language at startup
+    onSetRomanian();
 
     // Read configuration settings
     ReadConfiguration();
@@ -500,6 +519,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(ui->action_WaterDensity, &QAction::triggered, this, &MainWindow::onWaterDensityPage);
     connect(ui->action_About, &QAction::triggered, this, &MainWindow::onHelpAbout);
     connect(ui->action_General_Description, &QAction::triggered, this, &MainWindow::onGeneralDescription);
+    connect(ui->action_Verification_Method, &QAction::triggered, this, &MainWindow::onVerificationMethod);
 
     // Connect QAction signals for language and serial port configuration
     connect(ui->action_Romana, &QAction::triggered, this, &MainWindow::onSetRomanian);
@@ -540,11 +560,14 @@ MainWindow::MainWindow(QWidget* parent)
     ui->cbNumberOfWaterMeters->setCurrentIndex(numberWaterMeters);
     ui->cbWaterMeterType->setCurrentIndex(waterMeterType);
 
-    statusBarMessage = tr(" > Manual Mode Operation");
-    setStatusBarMessage(statusBarMessage);
-
     // Set initial focus to the first input widget in the tab order
     ui->cbNumberOfWaterMeters->setFocus();
+
+    // Set status bar message after UI is fully initialized using QTimer
+    QTimer::singleShot(100, this, [this]() {
+        statusBarMessage = tr("Mod de operare stand: manual");
+        setStatusBarMessage(statusBarMessage);
+    });
 }
 
 /**
@@ -709,7 +732,7 @@ void MainWindow::onRbVolumeClicked() {
 void MainWindow::onRbManualClicked() {
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    statusBarMessage = tr(" > Manual operation mode");
+    statusBarMessage = tr("Mod de operare stand: manual");
     setStatusBarMessage(statusBarMessage);
 }
 
@@ -722,7 +745,7 @@ void MainWindow::onRbManualClicked() {
 void MainWindow::onRbInterfaceClicked() {
     selectedInfo.rbManual = ui->rbManual->isChecked();
     selectedInfo.rbInterface = ui->rbInterface->isChecked();
-    statusBarMessage = " > MODBUS Interface Mode Operation / Not Connected";
+    statusBarMessage = tr("Mod de operare stand: interface");
     setStatusBarMessage(statusBarMessage);
 }
 
@@ -849,6 +872,361 @@ void MainWindow::onGeneralDescription() {
     }
 
     return;
+}
+
+/**
+ * \brief Opens the verification method documentation.
+ *
+ * Displays the verification method documentation in HTML format when called.
+ * Reads the appropriate markdown file based on selected language and converts it to HTML for display.
+ */
+void MainWindow::onVerificationMethod() {
+    // Select file based on language
+    QString fileName;
+    if (ROMANIAN == selectedInfo.selectedLanguage) {
+        fileName = "PROCES_CALCUL_VERIFICARE_CONTOARE.md";
+    } else {
+        fileName = "VERIFICATION_METHOD_PROCESS.md";
+    }
+
+    QString appDirPath = QCoreApplication::applicationDirPath();
+    QString filePath = QDir(appDirPath).filePath(fileName);
+
+    // Check if the markdown file exists
+    if (!QFile::exists(filePath)) {
+        QMessageBox::warning(this,
+            tr("Fișier lipsă"),
+            tr("Fișierul cu documentația metodei de verificare nu a fost găsit:\n%1").arg(filePath));
+        return;
+    }
+
+    // Read the markdown file
+    QFile mdFile(filePath);
+    if (!mdFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this,
+            tr("Eroare citire"),
+            tr("Nu s-a putut deschide fișierul pentru citire."));
+        return;
+    }
+
+    QTextStream in(&mdFile);
+    in.setEncoding(QStringConverter::Utf8);
+    QString markdownContent = in.readAll();
+    mdFile.close();
+
+    // Create temporary HTML file path
+    QString tempHtmlFilePath = QDir::temp().filePath("verification_method.html");
+
+    // Open HTML file for writing
+    std::ofstream htmlFile(tempHtmlFilePath.toStdString());
+    if (!htmlFile.is_open())
+        return;
+
+    std::stringstream output;
+
+    // === HTML Header and CSS ===
+    output << R"(
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metoda de Verificare - Contoare de Apă</title>
+    <style>
+        body {
+            margin: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1a5490;
+            border-bottom: 3px solid #1a5490;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            font-size: 26px;
+            color: #2874a6;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid #2874a6;
+            padding-left: 15px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            white-space: pre;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2874a6;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .formula {
+            background-color: #e8f4f8;
+            padding: 10px 15px;
+            border-left: 4px solid #2874a6;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 15px;
+        }
+
+        blockquote {
+            border-left: 4px solid #95a5a6;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 30px 0;
+        }
+
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+)";
+
+    // Convert markdown to HTML - line by line processing
+    QStringList lines = markdownContent.split('\n');
+    QString processedHtml;
+    bool inList = false;
+    bool inOrderedList = false;
+    bool inTable = false;
+    bool inCodeBlock = false;
+    QString codeBlockContent;
+
+    for (int i = 0; i < lines.size(); ++i) {
+        QString line = lines[i];
+
+        // Check for code block markers
+        if (line.trimmed() == "```" || line.trimmed().startsWith("```")) {
+            if (!inCodeBlock) {
+                // Starting a code block
+                inCodeBlock = true;
+                codeBlockContent.clear();
+                continue;
+            } else {
+                // Ending a code block
+                inCodeBlock = false;
+                processedHtml += "<pre>" + codeBlockContent + "</pre>\n";
+                codeBlockContent.clear();
+                continue;
+            }
+        }
+
+        // If inside code block, collect content
+        if (inCodeBlock) {
+            codeBlockContent += line + "\n";
+            continue;
+        }
+
+        // Escape HTML special characters for regular content
+        line.replace("&", "&amp;");
+        line.replace("<", "&lt;");
+        line.replace(">", "&gt;");
+
+        // Convert inline code (` ... `)
+        QRegularExpression inlineCodeRegex("`([^`]+)`");
+        line.replace(inlineCodeRegex, "<code>\\1</code>");
+
+        // Convert headers
+        if (line.startsWith("# ")) {
+            line = "<h1>" + line.mid(2) + "</h1>";
+        } else if (line.startsWith("## ")) {
+            line = "<h2>" + line.mid(3) + "</h2>";
+        } else if (line.startsWith("### ")) {
+            line = "<h3>" + line.mid(4) + "</h3>";
+        } else if (line.startsWith("#### ")) {
+            line = "<h4>" + line.mid(5) + "</h4>";
+        }
+
+        // Convert bold (**text**)
+        line.replace(QRegularExpression("\\*\\*([^*]+)\\*\\*"), "<strong>\\1</strong>");
+
+        // Convert italic (*text*)
+        line.replace(QRegularExpression("\\*([^*]+)\\*"), "<em>\\1</em>");
+
+        // Convert horizontal rules
+        if (line.trimmed() == "---" || line.trimmed().startsWith("---")) {
+            line = "<hr>";
+        }
+
+        // Handle tables
+        if (line.trimmed().startsWith("|")) {
+            if (!inTable) {
+                processedHtml += "<table>\n";
+                inTable = true;
+            }
+
+            // Split by |
+            QStringList cells = line.split('|', Qt::SkipEmptyParts);
+
+            // Check if it's a header separator line
+            if (i + 1 < lines.size() && lines[i + 1].contains("---")) {
+                processedHtml += "<thead><tr>";
+                for (const QString& cell : cells) {
+                    processedHtml += "<th>" + cell.trimmed() + "</th>";
+                }
+                processedHtml += "</tr></thead>\n<tbody>\n";
+                ++i; // Skip separator line
+                continue;
+            }
+
+            // Regular table row
+            if (!lines[i].contains("---")) {
+                processedHtml += "<tr>";
+                for (const QString& cell : cells) {
+                    processedHtml += "<td>" + cell.trimmed() + "</td>";
+                }
+                processedHtml += "</tr>\n";
+            }
+        } else {
+            if (inTable) {
+                processedHtml += "</tbody></table>\n";
+                inTable = false;
+            }
+
+            // Handle unordered lists
+            if (line.trimmed().startsWith("- ") || line.trimmed().startsWith("* ")) {
+                if (!inList) {
+                    processedHtml += "<ul>\n";
+                    inList = true;
+                }
+                QString listItem = line.trimmed().mid(2); // Remove "- " or "* "
+                processedHtml += "<li>" + listItem + "</li>\n";
+            } else if (QRegularExpression("^\\d+\\.\\s").match(line.trimmed()).hasMatch()) {
+                // Handle ordered lists
+                if (!inOrderedList) {
+                    processedHtml += "<ol>\n";
+                    inOrderedList = true;
+                }
+                QString listItem = line.trimmed();
+                listItem = listItem.mid(listItem.indexOf('.') + 1).trimmed();
+                processedHtml += "<li>" + listItem + "</li>\n";
+            } else {
+                // Close lists if needed
+                if (inList) {
+                    processedHtml += "</ul>\n";
+                    inList = false;
+                }
+                if (inOrderedList) {
+                    processedHtml += "</ol>\n";
+                    inOrderedList = false;
+                }
+
+                // Add paragraph for non-empty lines (but not for special tags)
+                if (!line.trimmed().isEmpty() &&
+                    !line.contains("<h1>") && !line.contains("<h2>") &&
+                    !line.contains("<h3>") && !line.contains("<h4>") &&
+                    !line.contains("<pre>") && !line.contains("<hr>")) {
+                    processedHtml += "<p>" + line + "</p>\n";
+                } else {
+                    processedHtml += line + "\n";
+                }
+            }
+        }
+    }
+
+    // Close any remaining open lists or tables
+    if (inList) processedHtml += "</ul>\n";
+    if (inOrderedList) processedHtml += "</ol>\n";
+    if (inTable) processedHtml += "</tbody></table>\n";
+
+    output << processedHtml.toStdString();
+
+    // === Close HTML ===
+    output << R"(
+</body>
+</html>
+)";
+
+    // Write the content to the file and close it
+    htmlFile << output.str();
+    htmlFile.close();
+
+    // Open the file in the browser
+    QDesktopServices::openUrl(QUrl::fromLocalFile(tempHtmlFilePath));
 }
 
 /**
@@ -1058,9 +1436,6 @@ void MainWindow::onPortSettings() {
  * Translates UI elements in various components and updates the selected language.
  */
 void MainWindow::onSetRomanian() {
-    QString qmPath = qApp->applicationDirPath() + "/translations";
-    QString translationFile = "meter_ro_RO.qm";
-
     // Remove existing translator if it exists
     if (appTranslator) {
         qApp->removeTranslator(appTranslator);
@@ -1068,9 +1443,17 @@ void MainWindow::onSetRomanian() {
         appTranslator = nullptr;
     }
 
-    // Create new translator and load the Romanian translation file
+    // Create new translator and try loading from embedded resources first
     appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
-    if (appTranslator->load(qmPath + "/" + translationFile)) {
+    bool loaded = appTranslator->load(":/translations/meter_ro_RO.qm");
+
+    // Fallback to external file if embedded resource not found
+    if (!loaded) {
+        QString qmPath = qApp->applicationDirPath() + "/translations";
+        loaded = appTranslator->load(qmPath + "/meter_ro_RO.qm");
+    }
+
+    if (loaded) {
         // Install the translator to the application
         qApp->installTranslator(appTranslator);
 
@@ -1101,9 +1484,6 @@ void MainWindow::onSetRomanian() {
  * Translates UI elements in various components and updates the selected language.
  */
 void MainWindow::onSetEnglish() {
-    QString qmPath = qApp->applicationDirPath() + "/translations";
-    QString translationFile = "meter_en_EN.qm";
-
     // Remove existing translator if it exists
     if (appTranslator) {
         qApp->removeTranslator(appTranslator);
@@ -1111,9 +1491,17 @@ void MainWindow::onSetEnglish() {
         appTranslator = nullptr;
     }
 
-    // Create new translator and load the English translation file
+    // Create new translator and try loading from embedded resources first
     appTranslator = new QTranslator(qApp);  // Use qApp as parent for automatic cleanup
-    if (appTranslator->load(qmPath + "/" + translationFile)) {
+    bool loaded = appTranslator->load(":/translations/meter_en_EN.qm");
+
+    // Fallback to external file if embedded resource not found
+    if (!loaded) {
+        QString qmPath = qApp->applicationDirPath() + "/translations";
+        loaded = appTranslator->load(qmPath + "/meter_en_EN.qm");
+    }
+
+    if (loaded) {
         // Install the translator to the application
         qApp->installTranslator(appTranslator);
 
@@ -1147,6 +1535,33 @@ void MainWindow::onSetEnglish() {
 void MainWindow::mousePressEvent(QMouseEvent* event) {
     activateWindow();
     QMainWindow::mousePressEvent(event);
+}
+
+/**
+ * \brief Handles key press events for the main window.
+ *
+ * When Enter or Return key is pressed and a button has focus, trigger the button click.
+ *
+ * \param event The key event object.
+ */
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    // Check if Enter or Return key was pressed
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+        // Get the currently focused widget
+        QWidget* focusedWidget = QApplication::focusWidget();
+
+        // Check if the focused widget is a QPushButton
+        QPushButton* button = qobject_cast<QPushButton*>(focusedWidget);
+        if (button) {
+            // Trigger the button click
+            button->click();
+            event->accept();
+            return;
+        }
+    }
+
+    // Call base class implementation for other keys
+    QMainWindow::keyPressEvent(event);
 }
 
 /**
@@ -1196,9 +1611,8 @@ void MainWindow::CenterToScreen(QWidget* widget) {
  * \param message The message to set in the status bar.
  */
 void MainWindow::setStatusBarMessage(const QString message) {
-    if (statusBar) {
-        statusBar->showMessage(message);
-    } else {
-        qWarning() << "Status bar is null or uninitialized.";
+    // Update the permanent label in the status bar
+    if (statusBarLabel) {
+        statusBarLabel->setText(message);
     }
 }

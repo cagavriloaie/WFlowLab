@@ -1,11 +1,49 @@
+# Build directories
 **/Debug/
 **/Release/
-build/meter_en_EN*
-build/meter_ro_RO*
-build/translations/*
-build/imageformats/
+output/
+meter/debug/
+meter/release/
+
+# Build directory - Option 2: Keep DLLs and plugins for easy deployment
+# Only exclude the executable (rebuilt on each compile)
+build/WStreamLab.exe
+
+# Qt generated files
+*.pro.user
+*.pro.user.*
+.qmake.stash
+*.qmake.stash
+Makefile
+Makefile.*
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+meter/ui_*.h
+
+# Generated resource files
+meter/*.qm
+
+# Documentation copies (source is in root)
+meter/PROCES_CALCUL_VERIFICARE_CONTOARE.md
+meter/VERIFICATION_METHOD_PROCESS.md
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Temporary files
+nul
+*.tmp
+*.temp
+
+# User-specific files
 meter/UsersCONSTA~*
 meter/*.json
-meter/*.pro.user
 cfgs/*.conf
-output/
+
+# IDE and editor files
+.claude/
+.vscode/
+.idea/

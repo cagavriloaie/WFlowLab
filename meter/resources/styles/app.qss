@@ -19,37 +19,55 @@
     border-radius: 4px;
 }
 
-/* QPushButton */
+/* QPushButton - Extra compact with optimal gray/white combination */
 QPushButton {
-    padding: 5px 10px;
-    border: 2px solid #ccc;        /* AppColors::BorderStandard */
-    background-color: #f0f0f0;     /* AppColors::BackgroundLight */
-    border-radius: 5px;
+    min-height: 20px;              /* Even shorter/extra compact */
+    padding: 3px 12px;             /* Minimal vertical padding */
+    border: 1px solid #5a6268;     /* Dark gray border */
+    background-color: #6c757d;     /* Medium-dark gray background */
+    color: #ffffff;                /* White text for contrast */
+    border-radius: 4px;            /* Modern radius */
+    font-weight: 500;              /* Slightly bold for readability */
 }
 
 QPushButton:hover {
-    background-color: #d7d9d7;     /* AppColors::BackgroundHover */
-    border: 2px solid #aaa;        /* AppColors::BorderHover */
+    background-color: #5a6268;     /* Darker gray on hover */
+    border: 1px solid #495057;     /* Even darker border on hover */
+    color: #ffffff;                /* Keep white text */
 }
 
 QPushButton:focus {
-    border: 2px solid #0078D7;     /* AppColors::Primary */
+    border: 1px solid #0078D7;     /* Blue focus indicator */
     outline: none;
+}
+
+QPushButton:disabled {
+    background-color: #adb5bd;     /* Light gray when disabled */
+    color: #e9ecef;                /* Faded white text */
+    border: 1px solid #ced4da;
 }
 
 /* QGroupBox */
 QGroupBox {
     border: 2px solid rgba(0, 0, 0, 0.36);  /* AppColors::BorderGroupBox */
-    background-color: #E6E6FF;              /* AppColors::BackgroundGroupBox */
-    margin-top: 10px;
+    background-color: #F0F0FF;              /* Lighter background */
+    margin-top: 18px;                       /* Extra space for badge title */
     padding-top: 10px;
+    border-radius: 6px;
 }
 
-/* QGroupBox Title */
+/* QGroupBox Title - Badge Style */
 QGroupBox::title {
     subcontrol-origin: margin;
-    left: 7px;
-    padding: 5px;
+    subcontrol-position: top left;
+    left: 15px;                            /* Align nicely at left */
+    top: 8px;                              /* Position from top */
+    padding: 2px 8px;                      /* Compact padding */
+    background-color: #0078D7;             /* Blue primary color */
+    color: white;                          /* White text */
+    border-radius: 4px;                    /* Rounded corners */
+    font-weight: bold;                     /* Bold text */
+    font-size: 8pt;                        /* Smaller compact font */
 }
 
 /* QRadioButton */
@@ -89,7 +107,7 @@ QRadioButton::indicator:disabled {
 
 /* Menu Bar */
 QMenuBar {
-    background-color: #f0f0f0;
+    background-color: #E8F4F8;              /* Same as status bar */
     border: 1px solid #ccc;
 }
 
@@ -193,4 +211,15 @@ QLineEdit[state="success"] {
 
 QLineEdit[readOnly="true"][state="success"] {
     background-color: rgb(220, 235, 220);   /* AppColors::Success */
+}
+
+/* QStatusBar */
+QStatusBar {
+    background-color: #E8F4F8;              /* Light blue background */
+    color: #000000;                         /* Black text */
+    padding: 2px;
+}
+
+QStatusBar::item {
+    border: none;
 }

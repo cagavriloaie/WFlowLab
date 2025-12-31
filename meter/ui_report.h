@@ -61,8 +61,9 @@ public:
     {
         if (report->objectName().isEmpty())
             report->setObjectName("report");
-        report->resize(490, 400);
-        report->setMinimumSize(QSize(490, 400));
+        report->resize(600, 400);
+        report->setMinimumSize(QSize(600, 400));
+        report->setMaximumSize(QSize(600, 400));
         QIcon icon;
         icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
         report->setWindowIcon(icon);

@@ -41,6 +41,7 @@ public:
     QAction *action_English;
     QAction *action_Romana;
     QAction *action_General_Description;
+    QAction *action_Verification_Method;
     QAction *action_WaterDensity;
     QAction *actionLineEntry;
     QAction *actionAbout;
@@ -156,6 +157,8 @@ public:
         action_Romana->setObjectName("action_Romana");
         action_General_Description = new QAction(MainWindow);
         action_General_Description->setObjectName("action_General_Description");
+        action_Verification_Method = new QAction(MainWindow);
+        action_Verification_Method->setObjectName("action_Verification_Method");
         action_WaterDensity = new QAction(MainWindow);
         action_WaterDensity->setObjectName("action_WaterDensity");
         actionLineEntry = new QAction(MainWindow);
@@ -197,7 +200,7 @@ public:
         cbWaterMeterType = new QComboBox(gbInputData);
         cbWaterMeterType->setObjectName("cbWaterMeterType");
         cbWaterMeterType->setMinimumSize(QSize(300, 28));
-        cbWaterMeterType->setMaximumSize(QSize(300, 23));
+        cbWaterMeterType->setMaximumSize(QSize(300, 28));
         cbWaterMeterType->setStyleSheet(QString::fromUtf8(""));
 
         gridLayout_6->addWidget(cbWaterMeterType, 1, 1, 1, 1);
@@ -219,8 +222,8 @@ public:
         horizontalLayout_7->setObjectName("horizontalLayout_7");
         lePressure = new QLineEdit(gbInputData);
         lePressure->setObjectName("lePressure");
-        lePressure->setMinimumSize(QSize(100, 23));
-        lePressure->setMaximumSize(QSize(100, 23));
+        lePressure->setMinimumSize(QSize(100, 28));
+        lePressure->setMaximumSize(QSize(100, 28));
         lePressure->setFont(font);
         lePressure->setCursorPosition(0);
 
@@ -240,8 +243,8 @@ public:
         horizontalLayout_5->setObjectName("horizontalLayout_5");
         leTemperature = new QLineEdit(gbInputData);
         leTemperature->setObjectName("leTemperature");
-        leTemperature->setMinimumSize(QSize(100, 23));
-        leTemperature->setMaximumSize(QSize(100, 23));
+        leTemperature->setMinimumSize(QSize(100, 28));
+        leTemperature->setMaximumSize(QSize(100, 28));
         leTemperature->setFont(font);
 
         horizontalLayout_5->addWidget(leTemperature);
@@ -270,7 +273,7 @@ public:
         cbNumberOfWaterMeters = new QComboBox(gbInputData);
         cbNumberOfWaterMeters->setObjectName("cbNumberOfWaterMeters");
         cbNumberOfWaterMeters->setMinimumSize(QSize(100, 28));
-        cbNumberOfWaterMeters->setMaximumSize(QSize(100, 23));
+        cbNumberOfWaterMeters->setMaximumSize(QSize(100, 28));
         cbNumberOfWaterMeters->setAutoFillBackground(false);
         cbNumberOfWaterMeters->setStyleSheet(QString::fromUtf8(""));
 
@@ -294,8 +297,8 @@ public:
         horizontalLayout_6->setObjectName("horizontalLayout_6");
         leHumidity = new QLineEdit(gbInputData);
         leHumidity->setObjectName("leHumidity");
-        leHumidity->setMinimumSize(QSize(100, 23));
-        leHumidity->setMaximumSize(QSize(100, 23));
+        leHumidity->setMinimumSize(QSize(100, 28));
+        leHumidity->setMaximumSize(QSize(100, 28));
         leHumidity->setFont(font);
 
         horizontalLayout_6->addWidget(leHumidity);
@@ -617,6 +620,7 @@ public:
         menu_Language->addAction(action_English);
         menu_Language->addAction(action_Romana);
         menu_Help->addAction(action_General_Description);
+        menu_Help->addAction(action_Verification_Method);
         menu_Help->addAction(action_WaterDensity);
         menu_Help->addSeparator();
         menu_Help->addAction(action_License);
@@ -652,6 +656,10 @@ public:
         action_English->setText(QString());
         action_Romana->setText(QString());
         action_General_Description->setText(QString());
+        action_Verification_Method->setText(QString());
+#if QT_CONFIG(shortcut)
+        action_Verification_Method->setShortcut(QCoreApplication::translate("MainWindow", "F4", nullptr));
+#endif // QT_CONFIG(shortcut)
         action_WaterDensity->setText(QString());
 #if QT_CONFIG(shortcut)
         action_WaterDensity->setShortcut(QCoreApplication::translate("MainWindow", "F2", nullptr));

@@ -13,6 +13,7 @@
 
 #include <QActionGroup>                        // Qt class for grouping actions together.
 #include <QApplication>                        // Qt class for managing the application's control flow.
+#include <QLabel>                              // Qt class for displaying text or images.
 #include <QMainWindow>                         // Qt class for main application window.
 #include <QSerialPort>                         // Qt class for accessing serial port hardware.
 #include <QSerialPortInfo>                     // Qt class for retrieving information about available serial ports.
@@ -118,7 +119,7 @@ class MainWindow : public QMainWindow {
     HelpAbout* helpAbout{nullptr};            /**< Pointer to the help/about dialog. */
     Interface* interfaceDialog{nullptr};      /**< Pointer to the interface dialog. */
     QActionGroup* alignmentGroup{nullptr};    /**< Action group for alignment settings. */
-    QStatusBar* statusBar{nullptr};           /**< The status bar widget for displaying messages. */
+    QLabel* statusBarLabel{nullptr};          /**< Permanent label widget in the status bar. */
     unsigned MAX_NR_WATER_METERS{20};         /**< Maximum number of water meters supported. */
     unsigned NUMBER_ENTRIES_METER_FLOW_DB{0}; /**< Number of entries in meter flow database. */
     std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
@@ -180,6 +181,12 @@ class MainWindow : public QMainWindow {
      * \param event The mouse event.
      */
     void mousePressEvent(QMouseEvent* event) override;
+
+    /**
+     * \brief Handles key press events for the main window.
+     * \param event The key event.
+     */
+    void keyPressEvent(QKeyEvent* event) override;
 
     /**
      * \brief Filters events for the main window.
@@ -270,6 +277,11 @@ class MainWindow : public QMainWindow {
      * \brief Slot function called when the general description action is triggered.
      */
     void onGeneralDescription();
+
+    /**
+     * \brief Slot function called when the verification method documentation is requested.
+     */
+    void onVerificationMethod();
 
     /**
      * \brief Slot function called when the license dialog is requested to be shown.
