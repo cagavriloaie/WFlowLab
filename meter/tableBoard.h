@@ -23,8 +23,9 @@
 // Standard C++ header for string stream operations
 #include <sstream>
 
-// Project-specific header for report generation
+// Project-specific headers
 #include "report.h"
+#include "InputDataSerializer.h"
 
 namespace Ui {
 class TableBoard;
@@ -139,6 +140,29 @@ class TableBoard : public QDialog {
      * \return bool True if the event was handled; otherwise false.
      */
     bool eventFilter(QObject*, QEvent*);
+
+    /**
+     * \brief Shows an auto-closing message box (cross-platform)
+     *
+     * \param title Message box title
+     * \param message Message box text
+     * \param duration Duration in milliseconds before auto-close
+     */
+    void showAutoCloseMessage(const QString& title, const QString& message, int duration);
+
+    /**
+     * \brief Collects current input data from UI into InputDataSerializer::InputData structure
+     *
+     * \return InputData structure populated with current UI values
+     */
+    InputDataSerializer::InputData collectInputData() const;
+
+    /**
+     * \brief Applies loaded input data to the UI
+     *
+     * \param data Input data to apply to UI elements
+     */
+    void applyInputData(const InputDataSerializer::InputData& data);
 
   public slots:
     /**

@@ -143,79 +143,31 @@ void TableBoard::printPdfThread(QString report) {
  * specified directory with a filename that includes the current timestamp.
  */
 void TableBoard::onSaveCurrentInputDataClicked() {
-    size_t entriesNumber = mainwindow->selectedInfo.entriesNumber;
+    // Generate filename with timestamp (24-hour format)
     QDateTime now = QDateTime::currentDateTime();
-    QString fileName = QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/" + QString("WStreamLab_") +
-                       now.toString(QLatin1String("dd-MM-yyyy_hh_mm_ss")) + ".in";
+    QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults)
+        + "/inputData/WStreamLab_"
+        + now.toString("dd-MM-yyyy_HH-mm-ss")
+        + TableBoardConstants::INPUT_FILE_EXTENSION;
 
-    std::ofstream outputDataFile(fileName.toStdString());
-    if (!outputDataFile.is_open()) {
-        qWarning() << "Error: Unable to open the file for writing.";
+    // Collect data from UI
+    InputDataSerializer::InputData data = collectInputData();
+
+    // Attempt to save
+    QString errorMsg;
+    if (!InputDataSerializer::save(fileName, data, errorMsg)) {
+        QMessageBox::critical(this, tr("Save Error"),
+            tr("Failed to save input data:\n%1\n\nError: %2")
+            .arg(fileName).arg(errorMsg));
         return;
     }
 
-    outputDataFile << mainwindow->selectedInfo.entriesNumber << "\n";
-    outputDataFile << mainwindow->selectedInfo.nameWaterMeter << "\n";
-
-    outputDataFile << mainwindow->selectedInfo.ambientTemperature << "\n";
-    outputDataFile << mainwindow->selectedInfo.atmosphericPressure << "\n";
-    outputDataFile << mainwindow->selectedInfo.relativeAirHumidity << "\n";
-
-    outputDataFile << mainwindow->selectedInfo.rbVolumetric << "\n";
-    outputDataFile << mainwindow->selectedInfo.rbGravimetric_new << "\n";
-    outputDataFile << mainwindow->selectedInfo.rbManual << "\n";
-    outputDataFile << mainwindow->selectedInfo.rbInterface << "\n";
-    outputDataFile << mainwindow->selectedInfo.rbTerminal << "\n";
-    for (size_t iter = 0; iter < entriesNumber; ++iter) {
-        outputDataFile << vectorSerialNumber[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorFirstIndexStart[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorFirstIndexStop[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorSecondIndexStart[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorSecondIndexStop[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorThirdIndexStart[iter]->text().toStdString() << "\n";
-        outputDataFile << vectorThirdIndexStop[iter]->text().toStdString() << "\n";
-    }
-    outputDataFile << ui->leFlowRateMinumum->text().toStdString() << "\n";
-    outputDataFile << ui->leMass1->text().toStdString() << "\n";
-    outputDataFile << ui->leTemperature1->text().toStdString() << "\n";
-    outputDataFile << ui->leVolume1->text().toStdString() << "\n";
-
-    outputDataFile << ui->leFlowRateTransitoriu->text().toStdString() << "\n";
-    outputDataFile << ui->leMass2->text().toStdString() << "\n";
-    outputDataFile << ui->leTemperature2->text().toStdString() << "\n";
-    outputDataFile << ui->leVolume2->text().toStdString() << "\n";
-
-    outputDataFile << ui->leFlowRateNominal->text().toStdString() << "\n";
-    outputDataFile << ui->leMass3->text().toStdString() << "\n";
-    outputDataFile << ui->leTemperature3->text().toStdString() << "\n";
-    outputDataFile << ui->leVolume3->text().toStdString() << "\n";
-
-    // Display a message box
-    QMessageBox messageBoxSaveInputFile;
-    messageBoxSaveInputFile.setWindowTitle(tr("Save input data"));
-    messageBoxSaveInputFile.setText("The file " + fileName + " was created!");
-    messageBoxSaveInputFile.setStandardButtons(QMessageBox::Ok);
-
-    // Get the HWND (Windows handle) of the main window
-    HWND hwnd = reinterpret_cast<HWND>(winId());
-
-    // Remove the WS_MAXIMIZEBOX style from the window
-    LONG style = GetWindowLong(hwnd, GWL_STYLE);
-    SetWindowLong(hwnd, GWL_STYLE, style & ~WS_MAXIMIZEBOX);
-
-    // Create a QTimer
-    QTimer* timer = new QTimer(&messageBoxSaveInputFile);
-    timer->setSingleShot(true);  // Make the timer a single-shot timer
-    timer->setInterval(3000);    // Set the interval to 3000 milliseconds (5 seconds)
-
-    // Connect the timeout signal to close the message box
-    QObject::connect(timer, &QTimer::timeout, &messageBoxSaveInputFile, &QMessageBox::accept);
-
-    // Start the timer
-    timer->start();
-
-    // Show the message box
-    messageBoxSaveInputFile.exec();
+    // Show success message with auto-close
+    showAutoCloseMessage(
+        tr("Save Successful"),
+        tr("Input data saved to:\n%1").arg(fileName),
+        TableBoardConstants::AUTOHIDE_MESSAGE_DURATION_MS
+    );
 }
 
 /**
@@ -227,130 +179,36 @@ void TableBoard::onSaveCurrentInputDataClicked() {
  * data structures.
  */
 void TableBoard::onOpenInputDataClicked() {
+    // Show file dialog
     QString fileName = QFileDialog::getOpenFileName(
-        this, tr("Open Input Data"), QString(mainwindow->selectedInfo.pathResults.c_str()) + "/inputData/",
-        tr("Input data (*.in);;All file (*.*)"));
+        this,
+        tr("Open Input Data"),
+        QString::fromStdString(mainwindow->selectedInfo.pathResults) + "/inputData/",
+        tr(TableBoardConstants::INPUT_FILE_FILTER));
 
-    std::ifstream inputDataFile(fileName.toStdString());
-    if (!inputDataFile.is_open()) {
-        QMessageBox::warning(this, tr("Error"), tr("Cannot open file"));
+    // User cancelled
+    if (fileName.isEmpty()) {
         return;
     }
-    Translate();
 
-    size_t entriesNumber;
-    std::string nameSelectedWaterMeter;
+    // Load data from file
+    InputDataSerializer::InputData data;
+    QString errorMsg;
 
-    std::string ambientTemperature;
-    std::string athmosphericPressure;
-    std::string relativeAirHumidity;
-
-    bool rbVolumetric;
-    bool rbGravitmetric;
-    bool rbManual;
-    bool rbInterface;
-    bool rbTerminal;
-    std::string tmpInput;
-
-    inputDataFile >> entriesNumber;
-    std::getline(inputDataFile, tmpInput);
-    std::getline(inputDataFile, nameSelectedWaterMeter);
-    inputDataFile >> ambientTemperature;
-    inputDataFile >> athmosphericPressure;
-    inputDataFile >> relativeAirHumidity;
-    inputDataFile >> rbVolumetric;
-    inputDataFile >> rbGravitmetric;
-    inputDataFile >> rbManual;
-    inputDataFile >> rbInterface;
-    inputDataFile >> rbTerminal;
-
-    int index = mainwindow->ui->cbNumberOfWaterMeters->findText(std::to_string(entriesNumber).c_str());
-    if (index != -1) {
-        mainwindow->ui->cbNumberOfWaterMeters->setCurrentIndex(index);
+    if (!InputDataSerializer::load(fileName, data, errorMsg)) {
+        QMessageBox::critical(this, tr("Load Error"),
+            tr("Failed to load input data:\n%1\n\nError: %2")
+            .arg(fileName).arg(errorMsg));
+        return;
     }
 
-    index = mainwindow->ui->cbWaterMeterType->findText(nameSelectedWaterMeter.c_str());
-    if (index != -1) {
-        mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
-    }
+    // Apply loaded data to UI
+    applyInputData(data);
 
-    QString qAmbientTemperature = ambientTemperature.c_str();
-    QString qAthmosphericPressure = athmosphericPressure.c_str();
-    QString qRelativeAirHumidity = relativeAirHumidity.c_str();
-
-    mainwindow->ui->leTemperature->setText(qAmbientTemperature);
-    mainwindow->ui->lePressure->setText(qAthmosphericPressure);
-    mainwindow->ui->leHumidity->setText(qRelativeAirHumidity);
-
-    if (rbVolumetric) {
-        mainwindow->ui->rbVolumetric->setChecked(true);
-        mainwindow->selectedInfo.rbVolumetric = true;
-        mainwindow->ui->rbGravimetric->setChecked(false);
-        mainwindow->selectedInfo.rbGravimetric_new = false;
-    }
-
-    if (rbGravitmetric) {
-        mainwindow->ui->rbGravimetric->setChecked(true);
-        mainwindow->selectedInfo.rbGravimetric_new = true;
-        mainwindow->ui->rbVolumetric->setChecked(false);
-        mainwindow->selectedInfo.rbVolumetric = false;
-    }
-
-    if (rbManual) {
-        mainwindow->ui->rbManual->setChecked(true);
-    }
-
-    if (rbInterface) {
-        mainwindow->ui->rbInterface->setChecked(true);
-    }
-
-    std::getline(inputDataFile, tmpInput);
-
-    for (size_t iter = 0; iter < entriesNumber; ++iter) {
-        std::getline(inputDataFile, tmpInput);
-        vectorSerialNumber[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorFirstIndexStart[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorFirstIndexStop[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorSecondIndexStart[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorSecondIndexStop[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorThirdIndexStart[iter]->setText(tmpInput.c_str());
-        std::getline(inputDataFile, tmpInput);
-        vectorThirdIndexStop[iter]->setText(tmpInput.c_str());
-    }
-
-    std::getline(inputDataFile, tmpInput);
-    ui->leFlowRateMinumum->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leMass1->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leTemperature1->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leVolume1->setText(tmpInput.c_str());
-
-    std::getline(inputDataFile, tmpInput);
-    ui->leFlowRateTransitoriu->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leMass2->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leTemperature2->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leVolume2->setText(tmpInput.c_str());
-
-    std::getline(inputDataFile, tmpInput);
-    ui->leFlowRateNominal->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leMass3->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leTemperature3->setText(tmpInput.c_str());
-    std::getline(inputDataFile, tmpInput);
-    ui->leVolume3->setText(tmpInput.c_str());
-
-    onMeasurementTypeChanged();
+    // Show success message
+    QMessageBox::information(this, tr("Load Successful"),
+        tr("Input data loaded successfully from:\n%1\n\nEntries: %2")
+        .arg(fileName).arg(data.entriesNumber));
 }
 
 /**
@@ -2576,4 +2434,162 @@ void TableBoard::enableGenerareFmButton() {
 
     // Re-enable the button
     ui->pbPrint->setEnabled(true);
+}
+
+/**
+ * \brief Shows an auto-closing message box (cross-platform implementation)
+ *
+ * This replaces the Windows-specific code with Qt's cross-platform APIs.
+ *
+ * \param title Message box title
+ * \param message Message box text
+ * \param duration Duration in milliseconds before auto-close
+ */
+void TableBoard::showAutoCloseMessage(const QString& title, const QString& message, int duration) {
+    QMessageBox* messageBox = new QMessageBox(this);
+    messageBox->setWindowTitle(title);
+    messageBox->setText(message);
+    messageBox->setStandardButtons(QMessageBox::Ok);
+    messageBox->setAttribute(Qt::WA_DeleteOnClose);
+
+    // Remove maximize button (cross-platform way)
+    messageBox->setWindowFlags(messageBox->windowFlags() & ~Qt::WindowMaximizeButtonHint);
+
+    // Auto-close after specified duration
+    QTimer::singleShot(duration, messageBox, &QMessageBox::accept);
+
+    messageBox->show();
+}
+
+/**
+ * \brief Collects current input data from UI into InputDataSerializer::InputData structure
+ *
+ * \return InputData structure populated with current UI values
+ */
+InputDataSerializer::InputData TableBoard::collectInputData() const {
+    InputDataSerializer::InputData data;
+
+    // Basic metadata
+    data.entriesNumber = mainwindow->selectedInfo.entriesNumber;
+    data.waterMeterName = QString::fromStdString(mainwindow->selectedInfo.nameWaterMeter);
+    data.ambientTemperature = QString::fromStdString(mainwindow->selectedInfo.ambientTemperature);
+    data.atmosphericPressure = QString::fromStdString(mainwindow->selectedInfo.atmosphericPressure);
+    data.relativeAirHumidity = QString::fromStdString(mainwindow->selectedInfo.relativeAirHumidity);
+
+    // Boolean flags
+    data.rbVolumetric = mainwindow->selectedInfo.rbVolumetric;
+    data.rbGravimetric = mainwindow->selectedInfo.rbGravimetric_new;
+    data.rbManual = mainwindow->selectedInfo.rbManual;
+    data.rbInterface = mainwindow->selectedInfo.rbInterface;
+    data.rbTerminal = mainwindow->selectedInfo.rbTerminal;
+
+    // Collect meter entries
+    data.meterEntries.reserve(data.entriesNumber);
+    for (size_t i = 0; i < data.entriesNumber; ++i) {
+        InputDataSerializer::MeterEntry entry;
+        entry.serialNumber = vectorSerialNumber[i]->text();
+        entry.firstIndexStart = vectorFirstIndexStart[i]->text();
+        entry.firstIndexStop = vectorFirstIndexStop[i]->text();
+        entry.secondIndexStart = vectorSecondIndexStart[i]->text();
+        entry.secondIndexStop = vectorSecondIndexStop[i]->text();
+        entry.thirdIndexStart = vectorThirdIndexStart[i]->text();
+        entry.thirdIndexStop = vectorThirdIndexStop[i]->text();
+        data.meterEntries.push_back(entry);
+    }
+
+    // Collect flow rate data
+    data.minimum.flowRate = ui->leFlowRateMinumum->text();
+    data.minimum.mass = ui->leMass1->text();
+    data.minimum.temperature = ui->leTemperature1->text();
+    data.minimum.volume = ui->leVolume1->text();
+
+    data.transitory.flowRate = ui->leFlowRateTransitoriu->text();
+    data.transitory.mass = ui->leMass2->text();
+    data.transitory.temperature = ui->leTemperature2->text();
+    data.transitory.volume = ui->leVolume2->text();
+
+    data.nominal.flowRate = ui->leFlowRateNominal->text();
+    data.nominal.mass = ui->leMass3->text();
+    data.nominal.temperature = ui->leTemperature3->text();
+    data.nominal.volume = ui->leVolume3->text();
+
+    return data;
+}
+
+/**
+ * \brief Applies loaded input data to the UI
+ *
+ * \param data Input data to apply to UI elements
+ */
+void TableBoard::applyInputData(const InputDataSerializer::InputData& data) {
+    // Update number of water meters combo box
+    int index = mainwindow->ui->cbNumberOfWaterMeters->findText(QString::number(data.entriesNumber));
+    if (index != -1) {
+        mainwindow->ui->cbNumberOfWaterMeters->setCurrentIndex(index);
+    }
+
+    // Update water meter type combo box
+    index = mainwindow->ui->cbWaterMeterType->findText(data.waterMeterName);
+    if (index != -1) {
+        mainwindow->ui->cbWaterMeterType->setCurrentIndex(index);
+    }
+
+    // Update environmental conditions
+    mainwindow->ui->leTemperature->setText(data.ambientTemperature);
+    mainwindow->ui->lePressure->setText(data.atmosphericPressure);
+    mainwindow->ui->leHumidity->setText(data.relativeAirHumidity);
+
+    // Update method radio buttons
+    if (data.rbVolumetric) {
+        mainwindow->ui->rbVolumetric->setChecked(true);
+        mainwindow->selectedInfo.rbVolumetric = true;
+        mainwindow->ui->rbGravimetric->setChecked(false);
+        mainwindow->selectedInfo.rbGravimetric_new = false;
+    }
+
+    if (data.rbGravimetric) {
+        mainwindow->ui->rbGravimetric->setChecked(true);
+        mainwindow->selectedInfo.rbGravimetric_new = true;
+        mainwindow->ui->rbVolumetric->setChecked(false);
+        mainwindow->selectedInfo.rbVolumetric = false;
+    }
+
+    if (data.rbManual) {
+        mainwindow->ui->rbManual->setChecked(true);
+    }
+
+    if (data.rbInterface) {
+        mainwindow->ui->rbInterface->setChecked(true);
+    }
+
+    // Apply meter entries
+    for (size_t i = 0; i < data.meterEntries.size() && i < data.entriesNumber; ++i) {
+        const auto& entry = data.meterEntries[i];
+        vectorSerialNumber[i]->setText(entry.serialNumber);
+        vectorFirstIndexStart[i]->setText(entry.firstIndexStart);
+        vectorFirstIndexStop[i]->setText(entry.firstIndexStop);
+        vectorSecondIndexStart[i]->setText(entry.secondIndexStart);
+        vectorSecondIndexStop[i]->setText(entry.secondIndexStop);
+        vectorThirdIndexStart[i]->setText(entry.thirdIndexStart);
+        vectorThirdIndexStop[i]->setText(entry.thirdIndexStop);
+    }
+
+    // Apply flow rate data
+    ui->leFlowRateMinumum->setText(data.minimum.flowRate);
+    ui->leMass1->setText(data.minimum.mass);
+    ui->leTemperature1->setText(data.minimum.temperature);
+    ui->leVolume1->setText(data.minimum.volume);
+
+    ui->leFlowRateTransitoriu->setText(data.transitory.flowRate);
+    ui->leMass2->setText(data.transitory.mass);
+    ui->leTemperature2->setText(data.transitory.temperature);
+    ui->leVolume2->setText(data.transitory.volume);
+
+    ui->leFlowRateNominal->setText(data.nominal.flowRate);
+    ui->leMass3->setText(data.nominal.mass);
+    ui->leTemperature3->setText(data.nominal.temperature);
+    ui->leVolume3->setText(data.nominal.volume);
+
+    // Trigger measurement type changed event
+    onMeasurementTypeChanged();
 }
