@@ -549,8 +549,13 @@ public:
 
         lbTab1 = new QLabel(gbInput);
         lbTab1->setObjectName("lbTab1");
-        lbTab1->setMinimumSize(QSize(150, 20));
-        lbTab1->setMaximumSize(QSize(150, 20));
+        lbTab1->setMinimumSize(QSize(300, 20));
+        lbTab1->setMaximumSize(QSize(300, 20));
+        QFont font1;
+        font1.setPointSize(9);
+        font1.setBold(true);
+        lbTab1->setFont(font1);
+        lbTab1->setStyleSheet(QString::fromUtf8("color: #0078D7;"));
         lbTab1->setAlignment(Qt::AlignCenter);
 
         vb_1->addWidget(lbTab1);

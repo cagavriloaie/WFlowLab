@@ -458,7 +458,10 @@ void TableBoard::Translate() {
     ui->retranslateUi(this);
 
     nameWaterMeter = mainwindow->selectedInfo.nameWaterMeter;
-    this->setWindowTitle(tr("WStreamLab - Input Table") + " [ " + QString::fromUtf8(nameWaterMeter.c_str()) + " ]");
+    this->setWindowTitle(tr("WStreamLab - Input Table"));
+
+    // Display water meter type in lbTab1
+    ui->lbTab1->setText(QString::fromStdString(nameWaterMeter));
 
     // Set group box title
     ui->gbInput->setTitle(tr("Measurement Data"));
@@ -2251,6 +2254,9 @@ void TableBoard::PopulateTable() {
     nominalFlowMain = mainwindow->selectedInfo.nominalFlow;
     nominalError = mainwindow->selectedInfo.nominalError;
     maximumError = mainwindow->selectedInfo.maximumError;
+
+    // Display water meter type in lbTab1
+    ui->lbTab1->setText(QString::fromStdString(nameWaterMeter));
 
     // Define palettes for row colors
     QPalette paletteOddRow, paletteEvenRow, paletteOddRowErr, paletteEvenRowErr;

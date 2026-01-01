@@ -236,7 +236,7 @@ Configuration: `.clang-format`
 
 ### Version History
 
-- **v1.8** (2025) - Current version with improved UI and calculation methods
+- **v1.8** (2026) - Current version with improved UI and calculation methods
 - **v1.2** - Enhanced metrological verification features
 - **v1.1** - Initial stable release
 

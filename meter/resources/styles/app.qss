@@ -13,6 +13,13 @@
     font-size: 12pt;
 }
 
+/* Water meter type label - smaller font to fit long names */
+QLabel#lbTab1 {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #0078D7;  /* AppColors::Primary */
+}
+
 /* Common border style */
 .common-border {
     border: 2px solid #ADD8E6;  /* AppColors::Border */

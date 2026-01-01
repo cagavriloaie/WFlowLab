@@ -26,7 +26,8 @@
    <iconset>
     <normaloff>WStreamLab.ico</normaloff>WStreamLab.ico</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5"><item>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <property name="spacing">
       <number>2</number>
@@ -58,9 +59,10 @@
         <bool>false</bool>
        </property>
        <layout class="QGridLayout" name="gridLayout">
-    <property name="sizeConstraint">
-     <enum>QLayout::SetMinimumSize</enum>
-    </property><property name="leftMargin">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <property name="leftMargin">
          <number>2</number>
         </property>
         <property name="topMargin">
@@ -254,11 +256,13 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <layout class="QHBoxLayout" name="hb_1"><item>
+         <layout class="QHBoxLayout" name="hb_1">
+          <item>
            <layout class="QVBoxLayout" name="vb_1" stretch="0,0,0,0,0">
             <property name="spacing">
              <number>3</number>
-            </property><property name="leftMargin">
+            </property>
+            <property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -282,15 +286,24 @@
              <widget class="QLabel" name="lbTab1">
               <property name="minimumSize">
                <size>
-                <width>150</width>
+                <width>300</width>
                 <height>20</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>150</width>
+                <width>300</width>
                 <height>20</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>9</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: #0078D7;</string>
               </property>
               <property name="text">
                <string/>
@@ -323,11 +336,13 @@
              <layout class="QHBoxLayout" name="hb_2">
               <property name="spacing">
                <number>0</number>
-              </property><item>
+              </property>
+              <item>
                <layout class="QVBoxLayout" name="vb2">
                 <property name="spacing">
                  <number>3</number>
-                </property><item>
+                </property>
+                <item>
                  <widget class="QLabel" name="lbTabCurrentNb">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -1096,7 +1111,8 @@
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <property name="spacing">
                  <number>3</number>
-                </property><property name="leftMargin">
+                </property>
+                <property name="leftMargin">
                  <number>10</number>
                 </property>
                 <property name="topMargin">
@@ -1841,7 +1857,8 @@
                <layout class="QVBoxLayout" name="vb_2">
                 <property name="spacing">
                  <number>3</number>
-                </property><property name="leftMargin">
+                </property>
+                <property name="leftMargin">
                  <number>10</number>
                 </property>
                 <property name="rightMargin">
@@ -2440,7 +2457,8 @@
            <layout class="QVBoxLayout" name="vb_4">
             <property name="spacing">
              <number>3</number>
-            </property><property name="leftMargin">
+            </property>
+            <property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -2498,7 +2516,8 @@
                <layout class="QVBoxLayout" name="vb_5">
                 <property name="spacing">
                  <number>3</number>
-                </property><property name="leftMargin">
+                </property>
+                <property name="leftMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
@@ -3080,7 +3099,8 @@
                <layout class="QVBoxLayout" name="vb_6">
                 <property name="spacing">
                  <number>3</number>
-                </property><property name="leftMargin">
+                </property>
+                <property name="leftMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
@@ -3689,7 +3709,8 @@
                <layout class="QVBoxLayout" name="verticalLayout">
                 <property name="spacing">
                  <number>3</number>
-                </property><property name="rightMargin">
+                </property>
+                <property name="rightMargin">
                  <number>15</number>
                 </property>
                 <item>
@@ -4339,7 +4360,8 @@
            <layout class="QVBoxLayout" name="vb_3">
             <property name="spacing">
              <number>3</number>
-            </property><property name="leftMargin">
+            </property>
+            <property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
@@ -6211,7 +6233,8 @@
            <layout class="QVBoxLayout" name="vb1_2">
             <property name="spacing">
              <number>3</number>
-            </property><property name="leftMargin">
+            </property>
+            <property name="leftMargin">
              <number>2</number>
             </property>
             <property name="rightMargin">
