@@ -18,7 +18,7 @@ AppPublisher={#AppPublisher}
 AppSupportURL={#AppWebsite}
 AppUpdatesURL={#AppWebsite}
 AppPublisherURL={#AppWebsite}
-AppCopyright=Copyright © 2025 ELCOST
+AppCopyright=Copyright © 2026 ELCOST
 AppComments=Water meters calibration.
 AppMutex=MyAppMutex
 
@@ -26,7 +26,7 @@ AppMutex=MyAppMutex
 VersionInfoVersion=1.8.0.0
 VersionInfoCompany={#AppPublisher}
 VersionInfoDescription=Water Meter Calibration Software
-VersionInfoCopyright=Copyright © 2025 {#AppPublisher}
+VersionInfoCopyright=Copyright © 2026 {#AppPublisher}
 VersionInfoProductName={#AppName}
 VersionInfoProductVersion=1.8.0
 

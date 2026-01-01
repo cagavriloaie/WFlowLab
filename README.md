@@ -210,7 +210,7 @@ This script safely removes deprecated registry keys while preserving user data t
 
 ## License
 
-Copyright (c) 2025 ELCOST
+Copyright (c) 2026 ELCOST
 All rights reserved.
 
 This software is proprietary and confidential. Unauthorized copying, distribution, or use is strictly prohibited.
