@@ -143,6 +143,71 @@ Configuration files are located in `configs/` directory:
 - `CUP_General/` - General default configuration
 - `watermeters.conf` - Main water meter configuration file
 
+## Windows Registry Settings
+
+WStreamLab stores application settings in the Windows Registry under:
+```
+HKEY_CURRENT_USER\SOFTWARE\WStreamLab
+```
+
+### Registry Groups and Keys
+
+#### LabConditions
+Laboratory environmental conditions for metrological calculations:
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `temperature` | String | "18" | Ambient temperature (°C) |
+| `humidity` | String | "51" | Relative air humidity (%) |
+| `pressure` | String | "1026" | Atmospheric pressure (mbar) |
+
+#### BenchConfiguration
+Test bench configuration:
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `numberWaterMeters` | Integer | 20 | Number of water meters to test (max 20) |
+| `waterMeterType` | Integer | 0 | Selected water meter type index |
+
+#### Report
+Verification report settings:
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `authorizationNumber` | String | "1050/2024" | Authorization number |
+| `registrationNumber` | Integer | 1 | Registration number (auto-increments) |
+| `beneficiary` | String | "Termo Util" | Beneficiary name |
+| `ltCode` | String | "1.06.28.1.1" | LT code identifier |
+| `standard` | String | "NML" | Normative standard reference |
+| `validityYears` | Integer | 6 | Validity period index (years) |
+| `cost` | String | "100" | Verification cost |
+| `metrologistName` | String | "Adrian Pintilie" | Metrologist name |
+| `verificationLocation` | String | "Str. Morilor nr 8, Pascani" | Verification location |
+
+#### RS_485_422
+Serial communication settings (when RS-485/422 support is enabled):
+
+| Key | Type | Default (Port 1) | Default (Port 2) | Description |
+|-----|------|------------------|------------------|-------------|
+| `serialPort_1` / `serialPort_2` | Integer | 0 | 1 | Serial port selection index |
+| `baudRate_1` / `baudRate_2` | Integer | 3 | 3 | Baud rate index (9600) |
+| `dataBits_1` / `dataBits_2` | Integer | 3 | 3 | Data bits index (8 bits) |
+| `parity_1` / `parity_2` | Integer | 1 | 1 | Parity index (Even) |
+| `stopBits_1` / `stopBits_2` | Integer | 0 | 0 | Stop bits index (1 bit) |
+| `timeout_1` / `timeout_2` | Integer | 1000 | 1000 | Communication timeout (ms) |
+| `numberOfRetries_1` / `numberOfRetries_2` | Integer | 4 | 4 | Number of retries (5 retries) |
+
+**Note:** RS-485/422 settings only apply when built without the `BUILD_WITHOUT_RS_485_422_MODBUS` flag.
+
+### Registry Cleanup
+
+To remove old registry keys from previous versions, run the provided PowerShell script:
+```powershell
+.\cleanup_old_registry_keys.ps1
+```
+
+This script safely removes deprecated registry keys while preserving user data through application defaults.
+
 ## License
 
 Copyright (c) 2025 ELCOST
