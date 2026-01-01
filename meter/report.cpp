@@ -332,16 +332,16 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     settings.sync();
     settings.beginGroup("Report");
 
-    ui->leAutorizatiaNumarul->setText(settings.value("autorizatiaNumarul", "1050/2024").toString());
-    ui->leNumarInregistrare->setText(settings.value("numarInregistrare", 1).toString());
-    ui->leBeneficiar->setText(settings.value("beneficiar", "Termo Util").toString());
-    ui->leCoduldinLt->setText(settings.value("codulDinLt", "1.06.28.1.1").toString());
-    ui->leNormativ->setText(settings.value("normativ", "NML").toString());
-    ui->cbValabilitate->setCurrentIndex(settings.value("valabilitate", 6).toInt());
+    ui->leAutorizatiaNumarul->setText(settings.value("authorizationNumber", "1050/2024").toString());
+    ui->leNumarInregistrare->setText(settings.value("registrationNumber", 1).toString());
+    ui->leBeneficiar->setText(settings.value("beneficiary", "Termo Util").toString());
+    ui->leCoduldinLt->setText(settings.value("ltCode", "1.06.28.1.1").toString());
+    ui->leNormativ->setText(settings.value("standard", "NML").toString());
+    ui->cbValabilitate->setCurrentIndex(settings.value("validityYears", 6).toInt());
     ui->leCost->setText(settings.value("cost", 100).toString());
-    ui->leVerificatorMetrolog->setText(settings.value("verificatorMetrolog", "Adrian Pintilie").toString());
+    ui->leVerificatorMetrolog->setText(settings.value("metrologistName", "Adrian Pintilie").toString());
     ui->leLoculEfectuariiVerificarii->setText(
-        settings.value("loculEfectuariiVerificarii", "Str. Morilor nr 8, Pascani").toString());
+        settings.value("verificationLocation", "Str. Morilor nr 8, Pascani").toString());
 
     settings.endGroup();
     settings.sync();
@@ -631,18 +631,18 @@ void ReportMeasurements::onPrintClicked() {
     settings.sync();
     settings.beginGroup("Report");
 
-    settings.setValue("autorizatiaNumarul", ui->leAutorizatiaNumarul->text());
+    settings.setValue("authorizationNumber", ui->leAutorizatiaNumarul->text());
     int numarInregistrare = ui->leNumarInregistrare->text().toInt();
     numarInregistrare++;
     ui->leNumarInregistrare->setText(QString::number(numarInregistrare));
-    settings.setValue("numarInregistrare", numarInregistrare);
-    settings.setValue("beneficiar", ui->leBeneficiar->text());
-    settings.setValue("codulDinLt", ui->leCoduldinLt->text());
-    settings.setValue("normativ", ui->leNormativ->text());
-    settings.setValue("valabilitate", ui->cbValabilitate->currentIndex());
+    settings.setValue("registrationNumber", numarInregistrare);
+    settings.setValue("beneficiary", ui->leBeneficiar->text());
+    settings.setValue("ltCode", ui->leCoduldinLt->text());
+    settings.setValue("standard", ui->leNormativ->text());
+    settings.setValue("validityYears", ui->cbValabilitate->currentIndex());
     settings.setValue("cost", ui->leCost->text());
-    settings.setValue("verificatorMetrolog", ui->leVerificatorMetrolog->text());
-    settings.setValue("loculEfectuariiVerificarii", ui->leLoculEfectuariiVerificarii->text());
+    settings.setValue("metrologistName", ui->leVerificatorMetrolog->text());
+    settings.setValue("verificationLocation", ui->leLoculEfectuariiVerificarii->text());
 
     settings.endGroup();
     settings.sync();

@@ -244,13 +244,13 @@ void MainWindow::updateSelectedInfo() {
     settings.beginGroup("LabConditions");
 
     // Read and set ambient temperature
-    selectedInfo.ambientTemperature = settings.value("labTemperature", "18").toString().toStdString();
+    selectedInfo.ambientTemperature = settings.value("temperature", "18").toString().toStdString();
 
     // Read and set relative air humidity
-    selectedInfo.relativeAirHumidity = settings.value("labHumidity", "51").toString().toStdString();
+    selectedInfo.relativeAirHumidity = settings.value("humidity", "51").toString().toStdString();
 
     // Read and set atmospheric pressure
-    selectedInfo.atmosphericPressure = settings.value("labPressure", "1026").toString().toStdString();
+    selectedInfo.atmosphericPressure = settings.value("pressure", "1026").toString().toStdString();
 
     settings.endGroup();
     settings.sync();
@@ -441,13 +441,13 @@ MainWindow::MainWindow(QWidget* parent)
     settings.beginGroup("LabConditions");
 
     // Set temperature with default value "18"
-    ui->leTemperature->setText(settings.value("labTemperature", "18").toString());
+    ui->leTemperature->setText(settings.value("temperature", "18").toString());
 
     // Set humidity with default value "51"
-    ui->leHumidity->setText(settings.value("labHumidity", "51").toString());
+    ui->leHumidity->setText(settings.value("humidity", "51").toString());
 
     // Set pressure with default value "1026"
-    ui->lePressure->setText(settings.value("labPressure", "1026").toString());
+    ui->lePressure->setText(settings.value("pressure", "1026").toString());
 
     settings.endGroup();
     settings.sync();
@@ -556,8 +556,8 @@ MainWindow::MainWindow(QWidget* parent)
     numberWaterMeters = std::clamp(numberWaterMeters, 0, static_cast<int>(MAX_NUMBER_FLOW_METERS - 1));
 
     int waterMeterType = 0;
-    if (settings.contains("typeWaterMeters")) {
-        waterMeterType = settings.value("typeWaterMeters").toInt();
+    if (settings.contains("waterMeterType")) {
+        waterMeterType = settings.value("waterMeterType").toInt();
     }
     waterMeterType = std::clamp(waterMeterType, 0, static_cast<int>(FlowMeterDB::getDefaultTypes().size() - 1));
 
@@ -597,15 +597,15 @@ MainWindow::~MainWindow() {
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
 
     settings.beginGroup("LabConditions");
-    settings.setValue("labTemperature", ui->leTemperature->text());
-    settings.setValue("labPressure", ui->lePressure->text());
-    settings.setValue("labHumidity", ui->leHumidity->text());
+    settings.setValue("temperature", ui->leTemperature->text());
+    settings.setValue("pressure", ui->lePressure->text());
+    settings.setValue("humidity", ui->leHumidity->text());
     settings.endGroup();
 
     // Update BenchConfiguration settings
     settings.beginGroup("BenchConfiguration");
     settings.setValue("numberWaterMeters", ui->cbNumberOfWaterMeters->currentIndex());
-    settings.setValue("typeWaterMeters", ui->cbWaterMeterType->currentIndex());
+    settings.setValue("waterMeterType", ui->cbWaterMeterType->currentIndex());
     settings.endGroup();
 
     settings.sync();
@@ -779,9 +779,9 @@ void MainWindow::onAmbientTemperatureTextChanged() {
     // Update settings with the new values
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.beginGroup("LabConditions");
-    settings.setValue("labTemperature", temperatureText);
-    settings.setValue("labPressure", pressureText);
-    settings.setValue("labHumidity", humidityText);
+    settings.setValue("temperature", temperatureText);
+    settings.setValue("pressure", pressureText);
+    settings.setValue("humidity", humidityText);
     settings.endGroup();
     settings.sync();
 }
@@ -812,9 +812,9 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("LabConditions");
-    settings.setValue("labTemperature", temperatureText);
-    settings.setValue("labPressure", pressureText);
-    settings.setValue("labHumidity", humidityText);
+    settings.setValue("temperature", temperatureText);
+    settings.setValue("pressure", pressureText);
+    settings.setValue("humidity", humidityText);
     settings.endGroup();
     settings.sync();
 }
@@ -846,9 +846,9 @@ void MainWindow::onAtmosphericPressureTextChanged() {
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
     settings.beginGroup("LabConditions");
-    settings.setValue("labTemperature", temperatureText);
-    settings.setValue("labPressure", pressureText);
-    settings.setValue("labHumidity", humidityText);
+    settings.setValue("temperature", temperatureText);
+    settings.setValue("pressure", pressureText);
+    settings.setValue("humidity", humidityText);
     settings.endGroup();
     settings.sync();
 }

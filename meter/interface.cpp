@@ -98,21 +98,21 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     settings.beginGroup("RS_485_422");
 
     // Set UI components to the saved settings
-    ui->cbSelectSerial_1->setCurrentIndex(settings.value("selectedSerial_1", 0).toInt());
+    ui->cbSelectSerial_1->setCurrentIndex(settings.value("serialPort_1", 0).toInt());
     ui->cbBaudRate_1->setCurrentIndex(settings.value("baudRate_1", 7).toInt());
     ui->cbSelectDataBits_1->setCurrentIndex(settings.value("dataBits_1", 1).toInt());
     ui->cbSelectParity_1->setCurrentIndex(settings.value("parity_1", 2).toInt());
     ui->cbSelectStopBits_1->setCurrentIndex(settings.value("stopBits_1", 1).toInt());
     ui->leTimeout_1->setText(settings.value("timeout_1", 1000).toString());
-    ui->cbNumberRetries_1->setCurrentIndex(settings.value("retriesNumber_1", 0).toInt());
+    ui->cbNumberRetries_1->setCurrentIndex(settings.value("numberOfRetries_1", 0).toInt());
 
-    ui->cbSelectSerial_2->setCurrentIndex(settings.value("selectedSerial_2", 0).toInt());
+    ui->cbSelectSerial_2->setCurrentIndex(settings.value("serialPort_2", 0).toInt());
     ui->cbBaudRate_2->setCurrentIndex(settings.value("baudRate_2", 7).toInt());
     ui->cbSelectDataBits_2->setCurrentIndex(settings.value("dataBits_2", 1).toInt());
     ui->cbSelectParity_2->setCurrentIndex(settings.value("parity_2", 2).toInt());
     ui->cbSelectStopBits_2->setCurrentIndex(settings.value("stopBits_2", 1).toInt());
     ui->leTimeout_2->setText(settings.value("timeout_2", 1000).toString());
-    ui->cbNumberRetries_2->setCurrentIndex(settings.value("retriesNumber_2", 0).toInt());
+    ui->cbNumberRetries_2->setCurrentIndex(settings.value("numberOfRetries_2", 0).toInt());
 
     settings.endGroup();
     settings.sync();
@@ -1074,21 +1074,21 @@ void Interface::onSaveConfigurationClicked() {
         settings.beginGroup("RS_485_422");
 
         // Save the current configuration settings to the registry
-        settings.setValue("selectedSerial_1", ui->cbSelectSerial_1->currentIndex());
+        settings.setValue("serialPort_1", ui->cbSelectSerial_1->currentIndex());
         settings.setValue("baudRate_1", ui->cbBaudRate_1->currentIndex());
         settings.setValue("dataBits_1", ui->cbSelectDataBits_1->currentIndex());
         settings.setValue("parity_1", ui->cbSelectParity_1->currentIndex());
         settings.setValue("stopBits_1", ui->cbSelectStopBits_1->currentIndex());
         settings.setValue("timeout_1", ui->leTimeout_1->text().toInt());
-        settings.setValue("retriesNumber_1", ui->cbNumberRetries_1->currentIndex());
+        settings.setValue("numberOfRetries_1", ui->cbNumberRetries_1->currentIndex());
 
-        settings.setValue("selectedSerial_2", ui->cbSelectSerial_2->currentIndex());
+        settings.setValue("serialPort_2", ui->cbSelectSerial_2->currentIndex());
         settings.setValue("baudRate_2", ui->cbBaudRate_2->currentIndex());
         settings.setValue("dataBits_2", ui->cbSelectDataBits_2->currentIndex());
         settings.setValue("parity_2", ui->cbSelectParity_2->currentIndex());
         settings.setValue("stopBits_2", ui->cbSelectStopBits_2->currentIndex());
         settings.setValue("timeout_2", ui->leTimeout_2->text().toInt());
-        settings.setValue("retriesNumber_2", ui->cbNumberRetries_2->currentIndex());
+        settings.setValue("numberOfRetries_2", ui->cbNumberRetries_2->currentIndex());
 
         settings.endGroup();
         settings.sync();
@@ -1167,22 +1167,22 @@ void Interface::showEvent(QShowEvent* event) {
     settings.beginGroup("RS_485_422");
 
     // Set UI components to the saved settings for port 1
-    ui->cbSelectSerial_1->setCurrentIndex(settings.value("selectedSerial_1", 0).toInt());
+    ui->cbSelectSerial_1->setCurrentIndex(settings.value("serialPort_1", 0).toInt());
     ui->cbBaudRate_1->setCurrentIndex(settings.value("baudRate_1", 3).toInt());
     ui->cbSelectDataBits_1->setCurrentIndex(settings.value("dataBits_1", 3).toInt());
     ui->cbSelectParity_1->setCurrentIndex(settings.value("parity_1", 1).toInt());
     ui->cbSelectStopBits_1->setCurrentIndex(settings.value("stopBits_1", 0).toInt());
     ui->leTimeout_1->setText(settings.value("timeout_1", 1000).toString());
-    ui->cbNumberRetries_1->setCurrentIndex(settings.value("retriesNumber_1", 4).toInt());
+    ui->cbNumberRetries_1->setCurrentIndex(settings.value("numberOfRetries_1", 4).toInt());
 
     // Set UI components to the saved settings for port 2
-    ui->cbSelectSerial_2->setCurrentIndex(settings.value("selectedSerial_2", 1).toInt());
+    ui->cbSelectSerial_2->setCurrentIndex(settings.value("serialPort_2", 1).toInt());
     ui->cbBaudRate_2->setCurrentIndex(settings.value("baudRate_2", 3).toInt());
     ui->cbSelectDataBits_2->setCurrentIndex(settings.value("dataBits_2", 3).toInt());
     ui->cbSelectParity_2->setCurrentIndex(settings.value("parity_2", 1).toInt());
     ui->cbSelectStopBits_2->setCurrentIndex(settings.value("stopBits_2", 0).toInt());
     ui->leTimeout_2->setText(settings.value("timeout_2", 1000).toString());
-    ui->cbNumberRetries_2->setCurrentIndex(settings.value("retriesNumber_2", 4).toInt());
+    ui->cbNumberRetries_2->setCurrentIndex(settings.value("numberOfRetries_2", 4).toInt());
 
     settings.endGroup();
     settings.sync();
