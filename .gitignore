@@ -47,3 +47,5 @@ cfgs/*.conf
 .claude/
 .vscode/
 .idea/
+**/.qtc_clangd/
+**/.qm/
