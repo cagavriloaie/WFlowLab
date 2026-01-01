@@ -1254,114 +1254,770 @@ void MainWindow::onWaterDensityPage() {
 
     std::stringstream output;
 
-    // === HTML Header and CSS ===
-    output << R"(
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Water Density vs Temperature</title>
-        <style>
-            body {
-                margin: 20px;
-                font-family: Arial, sans-serif;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
+    // Determine language-specific text
+    bool isRomanian = (ROMANIAN == selectedInfo.selectedLanguage);
 
-            h2 {
-                font-size: 24px;
-                color: DodgerBlue;
-                font-weight: normal;
-                margin-bottom: 10px;
-            }
+    // Calculate statistics
+    double minDensity = 999999.0, maxDensity = 0.0, sumDensity = 0.0;
+    double tempAtMaxDensity = 0.0;
+    int dataCount = 0;
 
-            p {
-                font-size: 18px;
-                color: #333;
-                margin-bottom: 20px;
-                line-height: 1.5;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                font-family: Consolas, monospace;
-                font-size: 16px;
-            }
-
-            th, td {
-                padding: 8px 16px;
-                text-align: right;
-                border-bottom: 1px solid #ddd;
-            }
-
-            th {
-                background-color: #f0f8ff;
-                color: DodgerBlue;
-            }
-
-            tr:hover {
-                background-color: #f9f9f9;
-            }
-        </style>
-    </head>
-    <body>
-    )";
-
-    // === Introductory text depending on language ===
-    if (ROMANIAN == selectedInfo.selectedLanguage) {
-        output << "<h2>Densitatea și Corecția Volumului Apei</h2>";
-        output << "<p>Tabelul de mai jos afișează densitatea apei în kg/m³ și "
-                  "factorul de corecție a volumului în funcție de temperatură între 0 și 100°C, "
-                  "cu un pas de 0,1°C la presiune normală (1013,25 kPa). Valorile sunt generate pe baza datelor din "
-                  "aplicație.</p>";
-    } else {
-        output << "<h2>Density and Volume Correction of Water</h2>";
-        output
-            << "<p>The table below shows the density of water in kg/m³ and the volume correction factor "
-               "as a function of temperature from 0 to 100°C, with a 0.1°C step under normal pressure (1013.25 kPa). "
-               "These values are generated based on the application data.</p>";
+    for (int i = 0; i <= 1000; ++i) {
+        double temp = 0.1 * i;
+        double dens = get_ro(temp);
+        if (dens < minDensity) minDensity = dens;
+        if (dens > maxDensity) {
+            maxDensity = dens;
+            tempAtMaxDensity = temp;
+        }
+        sumDensity += dens;
+        dataCount++;
     }
+    double avgDensity = sumDensity / dataCount;
 
-    // === Tabel HTML ===
-    output << R"(
-    <table>
-        <thead>
-            <tr>
-                <th>&nbsp;&nbsp;&nbsp;T [°C]</th>
-                <th>ρ [kg/m³]</th>
-                <th>K&nbsp;&nbsp;&nbsp;</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    )";
+    // === HTML Header and Modern CSS ===
+    output << R"(<!DOCTYPE html>
+<html lang=")" << (isRomanian ? "ro" : "en") << R"(">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>)" << (isRomanian ? "Densitatea Apei în funcție de Temperatură" : "Water Density vs Temperature") << R"(</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    // === Generate table rows ===
-    // double rho_real20 = std::stof(optionsConfiguration["density_20"]);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            color: #2a5298;
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: "📊";
+            font-size: 28px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #2a5298;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2a5298;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-section h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .info-section p, .info-section ul {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .formula {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 4px solid #1565c0;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: #2a5298;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        #chartContainer {
+            position: relative;
+            height: 400px;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 12px;
+        }
+
+        th:first-child {
+            text-align: center;
+        }
+
+        td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        td:first-child {
+            text-align: center;
+            font-weight: 600;
+            color: #2a5298;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr.critical-temp {
+            background: #fff3cd !important;
+            font-weight: bold;
+        }
+
+        tr.critical-temp td {
+            color: #856404;
+        }
+
+        tr.highlight {
+            background: #d1ecf1 !important;
+        }
+
+        .table-wrapper {
+            max-height: 600px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .calc-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .calc-input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .calc-result {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 4px solid #1565c0;
+        }
+
+        .calc-result strong {
+            color: #1565c0;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .controls, .btn, #chartContainer, .calculator {
+                display: none !important;
+            }
+
+            .table-wrapper {
+                max-height: none;
+                overflow: visible;
+            }
+
+            thead {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>)"
+           << (isRomanian ? "Densitatea Apei in functie de Temperatura" : "Water Density vs Temperature") << R"(</h1>
+        <p>)"
+           << (isRomanian
+            ? "Date metrologic pentru verificarea contoarelor de apa - Presiune standard 1013.25 hPa (101.325 kPa)"
+            : "Metrological data for water meter verification - Standard pressure 1013.25 hPa (101.325 kPa)") << R"(</p>
+    </div>
+
+    <div class="content">
+        <!-- Statistics Card -->
+        <div class="card">
+            <h2>)" << (isRomanian ? "Statistici" : "Statistics") << R"(</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">)"
+                   << (isRomanian ? "Densitate Maxima" : "Maximum Density") << R"(</div>
+                    <div class="stat-value">)" << std::fixed << std::setprecision(4) << maxDensity << R"(</div>
+                    <div class="stat-label">kg/m&sup3; la )"
+                   << std::setprecision(1) << tempAtMaxDensity << R"( &deg;C</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">)"
+                   << (isRomanian ? "Densitate Minima" : "Minimum Density") << R"(</div>
+                    <div class="stat-value">)" << std::setprecision(4) << minDensity << R"(</div>
+                    <div class="stat-label">kg/m&sup3;</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">)"
+                   << (isRomanian ? "Densitate Medie" : "Average Density") << R"(</div>
+                    <div class="stat-value">)" << std::setprecision(4) << avgDensity << R"(</div>
+                    <div class="stat-label">kg/m&sup3; (0-100&deg;C)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">)"
+                   << (isRomanian ? "Interval Temperatura" : "Temperature Range") << R"(</div>
+                    <div class="stat-value">0 - 100</div>
+                    <div class="stat-label">&deg;C (pas 0.1&deg;C)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Card -->
+        <div class="card">
+            <h2>)"
+           << (isRomanian ? "Informatii Tehnice" : "Technical Information") << R"(</h2>
+
+            <div class="info-section">
+                <h3>)"
+               << (isRomanian ? "Factorul de Corectie Volumetrica (K)" : "Volume Correction Factor (K)") << R"(</h3>
+                <p>)"
+               << (isRomanian
+                    ? "Factorul K corectează volumul de apa masurat la temperatura de test la volumul echivalent la temperatura de referinta (20&deg;C). "
+                      "Aceasta compenseaza dilatarea/contractarea termica a apei."
+                    : "The K factor corrects the water volume measured at test temperature to the equivalent volume at reference temperature (20&deg;C). "
+                      "This compensates for thermal expansion/contraction of water.") << R"(</p>
+                <div class="formula">K(T) = &rho;(T) / &rho;(20&deg;C)</div>
+                <p>)"
+               << (isRomanian
+                    ? "unde &rho;(T) este densitatea la temperatura T, iar &rho;(20&deg;C) &asymp; 998.2 kg/m&sup3;"
+                    : "where &rho;(T) is density at temperature T, and &rho;(20&deg;C) &asymp; 998.2 kg/m&sup3;") << R"(</p>
+            </div>
+
+            <div class="info-section">
+                <h3>)"
+               << (isRomanian ? "Standarde si Referinte" : "Standards & References") << R"(</h3>
+                <ul>
+                    <li><strong>ISO 4064</strong> - )"
+                   << (isRomanian ? "Contoare de apa pentru apa potabila rece si apa calda"
+                                  : "Water meters for cold potable water and hot water") << R"(</li>
+                    <li><strong>OIML R 49</strong> - )"
+                   << (isRomanian ? "Contoare de apa pentru apa potabila rece si apa calda"
+                                  : "Water meters for cold potable water and hot water") << R"(</li>
+                    <li><strong>ISO/TR 15377</strong> - )"
+                   << (isRomanian ? "Ghid pentru selectia si utilizarea contoarelor de apa"
+                                  : "Measurement of water flow in closed conduits") << R"(</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>)"
+               << (isRomanian ? "Temperaturi Critice" : "Critical Temperatures") << R"(</h3>
+                <ul>
+                    <li><strong>4&deg;C</strong> - )"
+                   << (isRomanian ? "Temperatura la care apa are densitatea maxima (999.9720 kg/m&sup3;)"
+                                  : "Temperature at which water has maximum density (999.9720 kg/m&sup3;)") << R"(</li>
+                    <li><strong>20&deg;C</strong> - )"
+                   << (isRomanian ? "Temperatura de referinta standard pentru verificari metrologice"
+                                  : "Standard reference temperature for metrological verification") << R"(</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Interactive Calculator -->
+        <div class="card">
+            <h2>)" << (isRomanian ? "Calculator Interactiv" : "Interactive Calculator") << R"(</h2>
+            <div class="calculator">
+                <div class="calc-inputs">
+                    <div class="calc-input-group">
+)";
+    output << "                        <label>"
+           << (isRomanian ? "Temperatura (grade C):" : "Temperature (degrees C):")
+           << "</label>\n";
+    output << R"(                        <input type="number" id="calcTemp" min="0" max="100" step="0.1" value="20" />
+                    </div>
+                </div>
+)";
+    output << "                <button class=\"btn btn-primary\" onclick=\"calculateValues()\">"
+           << (isRomanian ? "Calculeaza" : "Calculate")
+           << "</button>\n";
+    output << R"(                <div id="calcResult" class="calc-result hidden"></div>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="card">
+)";
+    output << "            <h2>"
+           << (isRomanian ? "Grafic Densitate vs Temperatura" : "Density vs Temperature Chart")
+           << "</h2>\n";
+    output << R"(            <div id="chartContainer">
+                <canvas id="densityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="card">
+)";
+    output << "            <h2>"
+           << (isRomanian ? "Tabel Date Complete" : "Complete Data Table")
+           << "</h2>\n";
+    output << R"(            <div class="controls">
+)";
+    output << "                <input type=\"text\" class=\"search-box\" id=\"searchBox\" placeholder=\""
+           << (isRomanian ? "Cauta temperatura (ex: 20.5)..." : "Search temperature (e.g., 20.5)...")
+           << "\" />\n";
+    output << "                <button class=\"btn btn-primary\" onclick=\"exportToCSV()\">"
+           << (isRomanian ? "Export CSV" : "Export CSV")
+           << "</button>\n";
+    output << "                <button class=\"btn btn-secondary\" onclick=\"window.print()\">"
+           << (isRomanian ? "Printeaza" : "Print")
+           << "</button>\n";
+    output << R"(            </div>
+
+            <div class="table-wrapper">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>T [&deg;C]</th>
+                            <th>&rho; [kg/m&sup3;]</th>
+                            <th>K</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+)";
+
+    // === Generate table rows with data ===
     for (int i = 0; i <= 1000; ++i) {
         double temperature = 0.1 * i;
         double density = get_ro(temperature);
         double correction = get_K(temperature);
 
-        output << "<tr>"
+        // Mark critical temperatures
+        std::string rowClass = "";
+        if (std::abs(temperature - 4.0) < 0.05) {
+            rowClass = " class=\"critical-temp\"";
+        } else if (std::abs(temperature - 20.0) < 0.05) {
+            rowClass = " class=\"critical-temp\"";
+        }
+
+        output << "                        <tr" << rowClass << " data-temp=\"" << std::setprecision(1) << temperature << "\">"
                << "<td>" << std::fixed << std::setprecision(1) << temperature << "</td>"
-               << "<td>" << std::fixed << std::setprecision(4) << density << "</td>"
-               << "<td>" << std::fixed << std::setprecision(5) << correction << "</td>"
+               << "<td>" << std::setprecision(4) << density << "</td>"
+               << "<td>" << std::setprecision(5) << correction << "</td>"
                << "</tr>\n";
     }
 
-    // === Final HTML ===
+    output << R"(                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Chart.js Configuration
+    const chartData = {
+        labels: [],
+        datasets: [{
+            label: 'ρ (kg/m³)',
+            data: [],
+            borderColor: '#2a5298',
+            backgroundColor: 'rgba(42, 82, 152, 0.1)',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.4
+        }]
+    };
+
+    // Populate chart data (sample every 1°C for performance)
+)";
+
+    // Generate chart data (every 1°C)
+    output << "    const chartTemps = [";
+    for (int i = 0; i <= 100; ++i) {
+        if (i > 0) output << ", ";
+        output << i;
+    }
+    output << "];\n    const chartDensities = [";
+    for (int i = 0; i <= 100; ++i) {
+        if (i > 0) output << ", ";
+        output << std::fixed << std::setprecision(4) << get_ro(static_cast<double>(i));
+    }
+    output << "];\n";
+
     output << R"(
-        </tbody>
-    </table>
-    </body>
-    </html>
-    )";
+    chartData.labels = chartTemps;
+    chartData.datasets[0].data = chartDensities;
+
+    const ctx = document.getElementById('densityChart').getContext('2d');
+    const densityChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Density: ' + context.parsed.y.toFixed(4) + ' kg/m³';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Temperature (°C)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Density (kg/m³)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Search functionality
+    const searchBox = document.getElementById('searchBox');
+    const tableBody = document.getElementById('tableBody');
+    const allRows = tableBody.getElementsByTagName('tr');
+
+    searchBox.addEventListener('input', function() {
+        const searchTerm = this.value.trim();
+
+        for (let row of allRows) {
+            row.classList.remove('highlight');
+            if (searchTerm === '') {
+                row.style.display = '';
+            } else {
+                const temp = row.getAttribute('data-temp');
+                if (temp && temp.includes(searchTerm)) {
+                    row.style.display = '';
+                    row.classList.add('highlight');
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        // Scroll to first match
+        const firstVisible = tableBody.querySelector('tr:not([style*="display: none"])');
+        if (firstVisible) {
+            firstVisible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+
+    // Calculator functionality
+    function calculateValues() {
+        const temp = parseFloat(document.getElementById('calcTemp').value);
+        if (isNaN(temp) || temp < 0 || temp > 100) {
+            alert(')"
+               << (isRomanian ? "Va rugam introduceti o temperatura valida intre 0 si 100 grade C"
+                              : "Please enter a valid temperature between 0 and 100 degrees C") << R"(');
+            return;
+        }
+
+        // Find closest value in table
+        const rows = tableBody.getElementsByTagName('tr');
+        let closestRow = null;
+        let minDiff = Infinity;
+
+        for (let row of rows) {
+            const rowTemp = parseFloat(row.getAttribute('data-temp'));
+            const diff = Math.abs(rowTemp - temp);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestRow = row;
+            }
+        }
+
+        if (closestRow) {
+            const cells = closestRow.getElementsByTagName('td');
+            const resultDiv = document.getElementById('calcResult');
+            resultDiv.innerHTML = `
+                <strong>)" << (isRomanian ? "Rezultate pentru" : "Results for") << R"( ${temp.toFixed(1)} grade C:</strong><br/>
+                )" << (isRomanian ? "Densitate" : "Density") << R"(: <strong>${cells[1].textContent}</strong> kg/m3<br/>
+                )" << (isRomanian ? "Factor corectie" : "Correction factor") << R"(: <strong>${cells[2].textContent}</strong>
+            `;
+            resultDiv.classList.remove('hidden');
+
+            // Highlight row in table
+            for (let row of rows) {
+                row.classList.remove('highlight');
+            }
+            closestRow.classList.add('highlight');
+            closestRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    // Export to CSV functionality
+    function exportToCSV() {
+        let csv = 'Temperature (°C),Density (kg/m³),Correction Factor K\n';
+        const rows = tableBody.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            if (row.style.display !== 'none') {
+                const cells = row.getElementsByTagName('td');
+                csv += `${cells[0].textContent},${cells[1].textContent},${cells[2].textContent}\n`;
+            }
+        }
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'water_density_data.csv';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+
+    // Allow Enter key in calculator
+    document.getElementById('calcTemp').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            calculateValues();
+        }
+    });
+</script>
+</body>
+</html>
+)";
 
     // Write the content to the file and close it
     densityHtmlFile << output.str();
@@ -1370,7 +2026,7 @@ void MainWindow::onWaterDensityPage() {
     // Open the file in the browser
     QDesktopServices::openUrl(QUrl::fromLocalFile(tempHtmlFilePath));
 
-    // Delete the temporary file after opening
+    // Keep the file for reference (don't delete)
     // QFile::remove(tempHtmlFilePath);
 }
 
