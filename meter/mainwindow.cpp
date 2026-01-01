@@ -40,6 +40,7 @@
 // Custom headers
 #include "definitions.h"      ///< Custom application-specific definitions.
 #include "flow-meter-type.h"  ///< Header defining flow meter types.
+#include "logger.h"           ///< Header for logging system.
 #include "mainwindow.h"       ///< Header for the main application window.
 #include "md5.h"              ///< Header for MD5 hashing functionality.
 #include "ui_mainwindow.h"    ///< User interface header generated from Qt Designer.
@@ -120,6 +121,7 @@ void MainWindow::ReadConfiguration() {
     // If the configuration file cannot be opened, fall back to defaults
     if (!inConfigurationFile.is_open()) {
         SetDefaultConfiguration();
+        Logger::warning(LogCategory::System, "Fișier configurație lipsă - folosește default settings");
 
         QString msg = QString("The configuration file could not be opened. "
                               "Default settings will be used.");
@@ -152,6 +154,7 @@ void MainWindow::ReadConfiguration() {
         optionsConfiguration.find("density_20") == optionsConfiguration.end() ||
         optionsConfiguration.find("control") == optionsConfiguration.end()) {
         SetDefaultConfiguration();
+        Logger::error(LogCategory::System, "Fișier configurație incomplet - lipsesc chei obligatorii");
         QString msg = QString("The configuration file does not contain all "
                               "mandatory entries. Default settings will be used.");
         QMessageBox box(QMessageBox::Critical, "Warning", msg, QMessageBox::Ok, nullptr);
@@ -165,6 +168,7 @@ void MainWindow::ReadConfiguration() {
 
     if (md5Read != md5Calculate) {
         SetDefaultConfiguration();
+        Logger::error(LogCategory::System, "Verificare integritate configurație eșuată - MD5 checksum invalid");
         QString msg = QString("The configuration file failed the MD5 integrity check. "
                               "Default settings will be used.");
         QMessageBox box(QMessageBox::Critical, "Warning", msg, QMessageBox::Ok, nullptr);
@@ -175,6 +179,8 @@ void MainWindow::ReadConfiguration() {
 
     if (volumeCorrectionType != "CLASSIC_VOLUME_CORRECTION" && volumeCorrectionType != "INM_VOLUME_CORRECTION" &&
         volumeCorrectionType != "ELCOST_VOLUME_CORRECTION") {
+        Logger::error(LogCategory::System,
+                      QString("Tip corecție volum necunoscut: %1").arg(QString::fromStdString(volumeCorrectionType)));
         QString msg = QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
                           .arg(QString::fromStdString(volumeCorrectionType))
                           .arg("  CLASSIC_VOLUME_CORRECTION")
@@ -186,6 +192,7 @@ void MainWindow::ReadConfiguration() {
     }
 
     // Configuration is valid; keep loaded values
+    Logger::info(LogCategory::System, "Configurație încărcată cu succes din watermeters.conf");
 }
 
 /**
@@ -497,6 +504,11 @@ MainWindow::MainWindow(QWidget* parent)
         ui->cbWaterMeterType->addItem(QString::fromStdString(database[iter].nameWaterMeter));
     }
 
+    // Log number of water meters loaded
+    Logger::info(LogCategory::System,
+                 QString("Bază de date apometre încărcată: %1 tipuri disponibile")
+                     .arg(NUMBER_ENTRIES_METER_FLOW_DB));
+
     // Connect QComboBox signals to custom slots
     connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this,
             &MainWindow::onNumberOfWaterMetersChanged);
@@ -622,7 +634,15 @@ MainWindow::~MainWindow() {
  */
 void MainWindow::onMeterTypeChanged(int index) {
     Q_UNUSED(index);
+    QString oldMeter = QString::fromStdString(selectedInfo.nameWaterMeter);
     SelectMeterComboBox();
+    QString newMeter = QString::fromStdString(selectedInfo.nameWaterMeter);
+
+    if (oldMeter != newMeter && !newMeter.isEmpty()) {
+        Logger::info(LogCategory::UserAction,
+                     QString("Tip apometru schimbat: \"%1\" → \"%2\"").arg(oldMeter).arg(newMeter));
+    }
+
     emit meterTypeChangedSignal();
 }
 
@@ -636,7 +656,16 @@ void MainWindow::onMeterTypeChanged(int index) {
  */
 void MainWindow::onNumberOfWaterMetersChanged(int index) {
     Q_UNUSED(index);
+    size_t oldEntries = selectedInfo.entriesNumber;
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
+
+    if (oldEntries != selectedInfo.entriesNumber) {
+        Logger::info(LogCategory::UserAction,
+                     QString("Număr contoare schimbat: %1 → %2")
+                         .arg(oldEntries)
+                         .arg(selectedInfo.entriesNumber));
+    }
+
     emit numberOfWaterMetersChangedSignal();
 }
 
@@ -667,6 +696,26 @@ void MainWindow::onNewSessionClicked() {
 
     // Update selected information (assuming this function exists in your class)
     updateSelectedInfo();
+
+    // Log session start with detailed parameters
+    QString sessionDetails = QString("Sesiune verificare început: %1, DN=%2mm, Q_nom=%3 m³/h, Q_max=%4 m³/h, "
+                                     "Q_t=%5 m³/h, Q_min=%6 m³/h, Mod=%7, Interface=%8, Entries=%9, "
+                                     "Temp=%10°C, Presiune=%11mbar, Umiditate=%12%, Certificat=%13")
+        .arg(QString::fromStdString(selectedInfo.nameWaterMeter))
+        .arg(selectedInfo.nominalDiameter)
+        .arg(selectedInfo.nominalFlow, 0, 'f', 3)
+        .arg(selectedInfo.maximumFlow, 0, 'f', 3)
+        .arg(selectedInfo.transitionFlow, 0, 'f', 3)
+        .arg(selectedInfo.minimumFlow, 0, 'f', 4)
+        .arg(selectedInfo.rbGravimetric_new ? "Gravimetric" : "Volumetric")
+        .arg(selectedInfo.rbManual ? "Manual" : (selectedInfo.rbInterface ? "Modbus" : "Terminal"))
+        .arg(selectedInfo.entriesNumber)
+        .arg(QString::fromStdString(selectedInfo.ambientTemperature))
+        .arg(QString::fromStdString(selectedInfo.atmosphericPressure))
+        .arg(QString::fromStdString(selectedInfo.relativeAirHumidity))
+        .arg(QString::fromStdString(selectedInfo.certificate));
+
+    Logger::info(LogCategory::Metrology, sessionDetails);
 
     // Set the fixed size of the window
     int fixedWidth = MAIN_WINDOW_WIDTH;    // Set your fixed width
@@ -710,6 +759,11 @@ void MainWindow::onExitApplication() {
 void MainWindow::onRbGravimetricClicked() {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
+
+    if (selectedInfo.rbGravimetric_new) {
+        Logger::info(LogCategory::UserAction, "Mod măsurare schimbat: Volumetric → Gravimetric");
+    }
+
     emit measurementTypeChangedSignal();
 }
 
@@ -722,6 +776,11 @@ void MainWindow::onRbGravimetricClicked() {
 void MainWindow::onRbVolumeClicked() {
     selectedInfo.rbVolumetric = ui->rbVolumetric->isChecked();
     selectedInfo.rbGravimetric_new = ui->rbGravimetric->isChecked();
+
+    if (selectedInfo.rbVolumetric) {
+        Logger::info(LogCategory::UserAction, "Mod măsurare schimbat: Gravimetric → Volumetric");
+    }
+
     emit measurementTypeChangedSignal();
 }
 
@@ -766,7 +825,13 @@ void MainWindow::onRbInterfaceClicked() {
 void MainWindow::onAmbientTemperatureTextChanged() {
     // Retrieve and update ambient temperature
     QString temperatureText = ui->leTemperature->text();
+    std::string oldTemp = selectedInfo.ambientTemperature;
     selectedInfo.ambientTemperature = temperatureText.toStdString();
+
+    if (!temperatureText.isEmpty() && oldTemp != selectedInfo.ambientTemperature) {
+        Logger::info(LogCategory::UserAction,
+                     QString("Temperatură setată: %1°C").arg(temperatureText));
+    }
 
     // Retrieve and update atmospheric pressure
     QString pressureText = ui->lePressure->text();
@@ -806,7 +871,13 @@ void MainWindow::onRelativeAirHumidityTextChanged() {
 
     // Retrieve and update relative air humidity
     QString humidityText = ui->leHumidity->text();
+    std::string oldHumidity = selectedInfo.relativeAirHumidity;
     selectedInfo.relativeAirHumidity = humidityText.toStdString();
+
+    if (!humidityText.isEmpty() && oldHumidity != selectedInfo.relativeAirHumidity) {
+        Logger::info(LogCategory::UserAction,
+                     QString("Umiditate setată: %1%").arg(humidityText));
+    }
 
     // Update settings with the new values
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
@@ -836,7 +907,13 @@ void MainWindow::onAtmosphericPressureTextChanged() {
 
     // Retrieve and update atmospheric pressure
     QString pressureText = ui->lePressure->text();
+    std::string oldPressure = selectedInfo.atmosphericPressure;
     selectedInfo.atmosphericPressure = pressureText.toStdString();
+
+    if (!pressureText.isEmpty() && oldPressure != selectedInfo.atmosphericPressure) {
+        Logger::info(LogCategory::UserAction,
+                     QString("Presiune setată: %1 mbar").arg(pressureText));
+    }
 
     // Retrieve and update relative air humidity
     QString humidityText = ui->leHumidity->text();

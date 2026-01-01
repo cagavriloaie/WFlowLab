@@ -39,6 +39,7 @@
 // Project-specific headers
 #include "colors.h"            // Centralized color definitions
 #include "definitions.h"       // Project-specific constants and definitions
+#include "logger.h"            // Logging system
 #include "mainwindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
 #include "tableBoard.h"        // Header for table board functionality
@@ -82,7 +83,9 @@ void TableBoard::printPdfThread(QString report) {
     QDir resultDir(QString::fromStdString(mainwindow->selectedInfo.pathResults));
 
     if (!resultDir.exists() && !resultDir.mkpath(".")) {
-        qWarning() << "Error: Failed to create result directory, PDF not generated.";
+        Logger::error(LogCategory::UserAction,
+                      QString("Creare director rezultate eșuată: %1")
+                          .arg(QString::fromStdString(mainwindow->selectedInfo.pathResults)));
         return;
     }
 
@@ -113,7 +116,7 @@ void TableBoard::printPdfThread(QString report) {
 
     // Optional: Handle printer errors
     if (!printer.isValid()) {
-        qWarning() << "Printer setup failed.";
+        Logger::error(LogCategory::UserAction, "Inițializare printer eșuată pentru generare PDF");
     }
 
     // Initialize QTextDocument with the provided HTML report
@@ -122,12 +125,27 @@ void TableBoard::printPdfThread(QString report) {
 
     // Check if the PDF generation is successful
     if (outputReport.isEmpty() || !printer.isValid()) {
-        qWarning() << "Error: Empty document or invalid printer, PDF not generated.";
+        Logger::error(LogCategory::UserAction, "Export PDF eșuat: document gol sau printer invalid");
         return;
     }
 
     // Print the document to the PDF file
     outputReport.print(&printer);
+
+    // Log successful PDF generation with file size
+    QFileInfo pdfFileInfo(fileName);
+    qint64 fileSize = pdfFileInfo.size();
+    QString fileSizeStr;
+    if (fileSize < 1024) {
+        fileSizeStr = QString("%1 bytes").arg(fileSize);
+    } else if (fileSize < 1024 * 1024) {
+        fileSizeStr = QString("%1 KB").arg(fileSize / 1024.0, 0, 'f', 1);
+    } else {
+        fileSizeStr = QString("%1 MB").arg(fileSize / (1024.0 * 1024.0), 0, 'f', 2);
+    }
+
+    Logger::info(LogCategory::UserAction,
+                 QString("PDF exportat: %1 (%2)").arg(fileName).arg(fileSizeStr));
 
     // Convert the file path to a URL and open it in the default PDF viewer
     QString fileUrl = QUrl::fromLocalFile(fileName).toString();
@@ -156,11 +174,23 @@ void TableBoard::onSaveCurrentInputDataClicked() {
     // Attempt to save
     QString errorMsg;
     if (!InputDataSerializer::save(fileName, data, errorMsg)) {
+        Logger::error(LogCategory::UserAction,
+                      QString("Salvare date eșuată: %1 - %2").arg(fileName).arg(errorMsg));
         QMessageBox::critical(this, tr("Save Error"),
             tr("Failed to save input data:\n%1\n\nError: %2")
             .arg(fileName).arg(errorMsg));
         return;
     }
+
+    // Log with file size
+    QFileInfo savedFileInfo(fileName);
+    qint64 fileSize = savedFileInfo.size();
+    QString fileSizeStr = (fileSize < 1024) ? QString("%1 bytes").arg(fileSize) : QString("%1 KB").arg(fileSize / 1024.0, 0, 'f', 1);
+    Logger::info(LogCategory::UserAction,
+                 QString("Date salvate: %1 (%2, %3 măsurători)")
+                     .arg(fileName)
+                     .arg(fileSizeStr)
+                     .arg(mainwindow->selectedInfo.entriesNumber));
 
     // Show success message with auto-close
     showAutoCloseMessage(
@@ -196,11 +226,23 @@ void TableBoard::onOpenInputDataClicked() {
     QString errorMsg;
 
     if (!InputDataSerializer::load(fileName, data, errorMsg)) {
+        Logger::error(LogCategory::UserAction,
+                      QString("Încărcare date eșuată: %1 - %2").arg(fileName).arg(errorMsg));
         QMessageBox::critical(this, tr("Load Error"),
             tr("Failed to load input data:\n%1\n\nError: %2")
             .arg(fileName).arg(errorMsg));
         return;
     }
+
+    // Log with file size and entries count
+    QFileInfo loadedFileInfo(fileName);
+    qint64 fileSize = loadedFileInfo.size();
+    QString fileSizeStr = (fileSize < 1024) ? QString("%1 bytes").arg(fileSize) : QString("%1 KB").arg(fileSize / 1024.0, 0, 'f', 1);
+    Logger::info(LogCategory::UserAction,
+                 QString("Date încărcate din fișier: %1 (%2, %3 măsurători)")
+                     .arg(fileName)
+                     .arg(fileSizeStr)
+                     .arg(data.entriesNumber));
 
     // Apply loaded data to UI
     applyInputData(data);
@@ -598,6 +640,13 @@ TableBoard::TableBoard(QWidget* _parent) : QDialog(_parent), parent(_parent), ui
  * and resets input data in the MainWindow, if applicable.
  */
 TableBoard::~TableBoard() {
+    // Log session end
+    if (mainwindow) {
+        Logger::info(LogCategory::Metrology,
+                     QString("Sesiune verificare terminată: %1")
+                         .arg(QString::fromStdString(mainwindow->selectedInfo.nameWaterMeter)));
+    }
+
     // Attempt to cast parent widget to MainWindow
     MainWindow* mainWindow = dynamic_cast<MainWindow*>(this->parent);
 
@@ -665,6 +714,10 @@ QString resultAllTests[20];
  *       are properly initialized and connected.
  */
 void TableBoard::onCalculateClicked() {
+    Logger::info(LogCategory::Metrology,
+                 QString("Calcule începute pentru %1 măsurători")
+                     .arg(mainwindow->selectedInfo.entriesNumber));
+
     QPalette paletteOddRowErr;
     paletteOddRowErr.setColor(QPalette::Base, AppColors::Success);
     QPalette paletteEvenRowErr;
@@ -701,12 +754,16 @@ void TableBoard::onCalculateClicked() {
             if (temperatureFirst < 0 || temperatureFirst > 100) {
                 ui->leTemperature1->setPalette(paletteErr);
                 result_t1 = false;
+                Logger::warning(LogCategory::Metrology,
+                                QString("Temperatură Q_min în afara intervalului: %1°C (valid: 0-100°C)")
+                                    .arg(temperatureFirst, 0, 'f', 1));
             }
         } else {
             ui->leTemperature1->setPalette(paletteErr);
             temperatureFirst = 20;
             result_t1 = false;
             result = false;
+            Logger::error(LogCategory::Metrology, "Temperatură Q_min invalidă - folosită valoare default 20°C");
         }
         // Temperature for transitoriu flow
         tmp = ui->leTemperature2->text().toDouble(&bConvert);
@@ -716,12 +773,16 @@ void TableBoard::onCalculateClicked() {
             if (temperatureSecond < 0 || temperatureSecond > 100) {
                 ui->leTemperature2->setPalette(paletteErr);
                 result_t2 = false;
+                Logger::warning(LogCategory::Metrology,
+                                QString("Temperatură Q_t în afara intervalului: %1°C (valid: 0-100°C)")
+                                    .arg(temperatureSecond, 0, 'f', 1));
             }
         } else {
             ui->leTemperature2->setPalette(paletteErr);
             temperatureSecond = 20;
             result_t2 = false;
             result = false;
+            Logger::error(LogCategory::Metrology, "Temperatură Q_t invalidă - folosită valoare default 20°C");
         }
         // Temperature for nominal flow
         tmp = ui->leTemperature3->text().toDouble(&bConvert);
@@ -1273,7 +1334,29 @@ void TableBoard::onCalculateClicked() {
             }
         }
     }
+    // Count results and log statistics
+    size_t admisCount = 0;
+    size_t respinsCount = 0;
+    for (size_t iter = 0; iter < mainwindow->selectedInfo.entriesNumber; ++iter) {
+        if (resultAllTests[iter] == "ADMIS") {
+            admisCount++;
+        } else if (resultAllTests[iter] == "RESPINS") {
+            respinsCount++;
+        }
+    }
+
+    QString resultSummary = (respinsCount == 0) ? "ADMIS" : "RESPINS";
+    Logger::info(LogCategory::Metrology,
+                 QString("Calcule finalizate: %1/%2 măsurători procesate, Rezultat: %3 (%4 ADMIS, %5 RESPINS)")
+                     .arg(mainwindow->selectedInfo.entriesNumber)
+                     .arg(mainwindow->selectedInfo.entriesNumber)
+                     .arg(resultSummary)
+                     .arg(admisCount)
+                     .arg(respinsCount));
+
     if (!result) {
+        Logger::warning(LogCategory::Metrology,
+                        "Date invalide sau în afara intervalului normal detectate în calcule");
         QMessageBox messageInputData;
         messageInputData.setWindowTitle(tr("Collected data from flow meters."));
         messageInputData.setText(tr("Some user input data are not available or are outside the "

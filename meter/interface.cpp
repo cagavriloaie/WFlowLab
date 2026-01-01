@@ -22,6 +22,7 @@
 
 #include <mutex>  // Include for std::mutex
 
+#include "logger.h"         // Include header for logging system
 #include "mainwindow.h"     // Include header for MainWindow
 #include "ui_interface.h"   // Generated UI header file for Interface dialog
 #include "ui_mainwindow.h"  // Generated UI header file for MainWindow
@@ -609,19 +610,19 @@ void Interface::onConnectClicked() {
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
     if (!modbusDevice_1_opened) {
-        qWarning() << "Failed to open modbusDevice_1:";
-        qWarning() << modbusDevice_1->errorString();
+        Logger::warning(LogCategory::System,
+                        QString("Conectare Modbus device 1 eșuată: %1").arg(modbusDevice_1->errorString()));
     } else {
-        qInfo() << "modbusDevice_1 opened successfully!";
+        Logger::info(LogCategory::System, "Conectare Modbus device 1 reușită");
     }
 
-    // Attempt to open modbusDevice_1 with configured parameters
+    // Attempt to open modbusDevice_2 with configured parameters
     bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
     if (!modbusDevice_2_opened) {
-        qWarning() << "Failed to open modbusDevice_2:";
-        qWarning() << modbusDevice_2->errorString();
+        Logger::warning(LogCategory::System,
+                        QString("Conectare Modbus device 2 eșuată: %1").arg(modbusDevice_2->errorString()));
     } else {
-        qInfo() << "modbusDevice_2 opened successfully!";
+        Logger::info(LogCategory::System, "Conectare Modbus device 2 reușită");
     }
 
     // Create a message box to display the connection status
@@ -959,19 +960,19 @@ void Interface::onTestConfigurationClicked() {
     // Attempt to open modbusDevice_1 with configured parameters
     bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
     if (!modbusDevice_1_opened) {
-        qWarning() << "Failed to open modbusDevice_1:";
-        qWarning() << modbusDevice_1->errorString();
+        Logger::warning(LogCategory::System,
+                        QString("Conectare Modbus device 1 eșuată: %1").arg(modbusDevice_1->errorString()));
     } else {
-        qInfo() << "modbusDevice_1 opened successfully!";
+        Logger::info(LogCategory::System, "Conectare Modbus device 1 reușită");
     }
 
-    // Attempt to open modbusDevice_1 with configured parameters
+    // Attempt to open modbusDevice_2 with configured parameters
     bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
     if (!modbusDevice_2_opened) {
-        qWarning() << "Failed to open modbusDevice_2:";
-        qWarning() << modbusDevice_2->errorString();
+        Logger::warning(LogCategory::System,
+                        QString("Conectare Modbus device 2 eșuată: %1").arg(modbusDevice_2->errorString()));
     } else {
-        qInfo() << "modbusDevice_2 opened successfully!";
+        Logger::info(LogCategory::System, "Conectare Modbus device 2 reușită");
     }
 
     // Create a message box to display the connection status
@@ -1223,12 +1224,14 @@ void Interface::DisconnectSerialPort() {
         modbusDevice_1->disconnectDevice();
         modbusDevice_1->deleteLater();
         modbusDevice_1 = nullptr;
+        Logger::info(LogCategory::System, "Deconectare interfață Modbus device 1");
     }
 
     if (modbusDevice_2) {
         modbusDevice_2->disconnectDevice();
         modbusDevice_2->deleteLater();
         modbusDevice_2 = nullptr;
+        Logger::info(LogCategory::System, "Deconectare interfață Modbus device 2");
     }
 
     // Update UI indicators if mainwindow is valid

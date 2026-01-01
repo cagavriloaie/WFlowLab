@@ -208,6 +208,146 @@ To remove old registry keys from previous versions, run the provided PowerShell 
 
 This script safely removes deprecated registry keys while preserving user data through application defaults.
 
+## Logging System
+
+WStreamLab includes a comprehensive production-ready logging system for audit trail, troubleshooting, and compliance tracking.
+
+### Overview
+
+The logging system automatically records all important operations, user actions, and system events with detailed context. Logs are essential for:
+- **Audit Trail:** Complete history of metrological verification sessions
+- **Troubleshooting:** Detailed error messages and operational context
+- **Compliance:** Tracking for metrological regulations
+- **Performance Monitoring:** System behavior analysis
+
+### Log File Location
+
+Logs are automatically saved to:
+```
+{ApplicationFolder}\Logs\wstreamlab_YYYY-MM-DD.log
+```
+
+**Example:**
+```
+C:\Users\Constantin\Desktop\WS_corrected\WS\Release\Logs\wstreamlab_2026-01-01.log
+```
+
+### Log Management
+
+- **Automatic Rotation:** New log file created daily
+- **Retention:** Logs kept for 30 days (configurable)
+- **File Splitting:** Automatic split when file exceeds 10 MB
+- **Cleanup:** Old logs automatically deleted
+
+### Log Levels
+
+| Level        | Usage                                 | Examples                                  |
+|--------------|---------------------------------------|-------------------------------------------|
+| **INFO**     | Normal important operations           | Session started, PDF exported             |
+| **WARNING**  | Unusual but recoverable situations    | Modbus connection retry, Missing data     |
+| **ERROR**    | Errors affecting operations           | File save failed, Invalid calculation     |
+| **CRITICAL** | Severe system errors                  | Application crash, Data corruption        |
+
+### Log Categories
+
+| Category        | Description              | Examples                                      |
+|-----------------|--------------------------|-----------------------------------------------|
+| **Metrology**   | Metrological operations  | Measurements, calculations, verifications     |
+| **UserAction**  | User actions             | PDF export, data save/load, configuration     |
+| **System**      | System operations        | App start/stop, file I/O, Modbus, registry    |
+| **Error**       | Errors and exceptions    | All error types with context                  |
+
+### Log Format
+
+```
+[YYYY-MM-DD HH:MM:SS] [LEVEL] [CATEGORY] Message
+```
+
+**Example:**
+```
+[2026-01-01 14:23:45] [INFO] [Metrology] Sesiune verificare început: Itron Flodis DN 25
+[2026-01-01 14:24:12] [INFO] [UserAction] Măsurătoare adăugată: Q=3.5 m³/h, Index=1234.567
+[2026-01-01 14:25:03] [WARNING] [System] Conectare Modbus device 1 eșuată (tentativa 2/3)
+[2026-01-01 14:26:30] [INFO] [UserAction] PDF exportat: C:\Results\FM_20260101_142630.pdf (245.3 KB)
+```
+
+### Logged Events (50 cases)
+
+#### Metrology Operations (12 events)
+- ✅ Session start with full parameters (DN, flow rates, conditions, certificate)
+- ✅ Session end
+- ✅ Calculations started/completed with statistics (ADMIS/RESPINS counts)
+- ✅ Temperature/mass values out of range (warnings)
+- ✅ Invalid data auto-corrected (errors)
+
+#### User Actions (14 events)
+- ✅ PDF exported with file size
+- ✅ Data saved/loaded with size and measurement count
+- ✅ Meter type changed (old → new)
+- ✅ Number of meters changed
+- ✅ Measurement mode changed (Gravimetric ↔ Volumetric)
+- ✅ Verification parameters set (temperature, pressure, humidity)
+- ✅ Configuration changes
+
+#### System Operations (19 events)
+- ✅ Application started (version, user, PC name)
+- ✅ Application closed
+- ✅ Water meter database loaded (count of available types)
+- ✅ Configuration loaded from watermeters.conf
+- ✅ Configuration errors (missing file, invalid MD5, incomplete data)
+- ✅ Modbus device connect/disconnect (success/failure with retry info)
+- ✅ Registry keys created with defaults
+- ✅ Multiple instance attempt blocked
+
+#### Errors & Warnings (5 events)
+- ✅ File access denied
+- ✅ Registry write failed
+- ✅ PDF export errors (directory creation, printer setup, invalid document)
+- ✅ Data validation warnings
+
+### Registry Configuration
+
+Logging behavior can be customized via Windows Registry:
+
+```
+HKEY_CURRENT_USER\Software\WStreamLab\Logging
+```
+
+| Key              | Type   | Default | Description                             |
+|------------------|--------|---------|-----------------------------------------|
+| `Enabled`        | DWORD  | 1       | Enable/disable logging (1=on, 0=off)    |
+| `MaxDays`        | DWORD  | 30      | Days to keep log files                  |
+| `MaxFileSizeMB`  | DWORD  | 10      | Maximum size per log file (MB)          |
+| `LogPath`        | String | ""      | Custom log path (empty = app folder)    |
+
+**Note:** Registry keys are automatically created with default values on first run.
+
+### Example Complete Log Session
+
+```log
+[2026-01-01 14:00:01] [INFO] [System] Aplicație pornită - Versiune: 1.5, Utilizator: Constantin, PC: DESKTOP-LAB
+[2026-01-01 14:00:02] [INFO] [System] Configurație încărcată cu succes din watermeters.conf
+[2026-01-01 14:00:02] [INFO] [System] Bază de date apometre încărcată: 156 tipuri disponibile
+[2026-01-01 14:00:15] [INFO] [UserAction] Tip apometru schimbat: "Itron Flodis DN 15" → "Itron Flodis DN 25"
+[2026-01-01 14:00:20] [INFO] [UserAction] Număr contoare schimbat: 3 → 5
+[2026-01-01 14:00:25] [INFO] [UserAction] Temperatură setată: 22.5°C
+[2026-01-01 14:00:30] [INFO] [Metrology] Sesiune verificare început: Itron Flodis DN 25, DN=25mm, Q_nom=3.500 m³/h, Q_max=7.000 m³/h, Q_t=0.053 m³/h, Q_min=0.0350 m³/h, Mod=Gravimetric, Interface=Manual, Entries=5, Temp=22.5°C, Presiune=1013mbar, Umiditate=65%, Certificat=CE 06.02-2025/15
+[2026-01-01 14:05:45] [INFO] [Metrology] Calcule începute pentru 5 măsurători
+[2026-01-01 14:05:46] [INFO] [Metrology] Calcule finalizate: 5/5 măsurători procesate, Rezultat: ADMIS (5 ADMIS, 0 RESPINS)
+[2026-01-01 14:06:10] [INFO] [UserAction] PDF exportat: C:\Results\FM_20260101_140610.pdf (245.3 KB)
+[2026-01-01 14:06:15] [INFO] [UserAction] Date salvate: inputData_20260101.txt (12.5 KB, 5 măsurători)
+[2026-01-01 14:06:30] [INFO] [Metrology] Sesiune verificare terminată: Itron Flodis DN 25
+[2026-01-01 14:10:00] [INFO] [System] Aplicație închisă
+```
+
+### Benefits
+
+✅ **Complete Audit Trail** - Full session history for compliance
+✅ **Fast Troubleshooting** - Detailed context for error diagnosis
+✅ **No Performance Impact** - Asynchronous writing, minimal overhead
+✅ **Automatic Management** - Rotation and cleanup handled automatically
+✅ **Privacy-Conscious** - Only technical/operational data, no sensitive info
+
 ## License
 
 Copyright (c) 2026 ELCOST

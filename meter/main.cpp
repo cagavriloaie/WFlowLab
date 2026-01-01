@@ -35,6 +35,7 @@
 #include <fstream>  // File stream operations
 
 #include "mainwindow.h"  // Include header for MainWindow class
+#include "logger.h"      // Include header for Logger class
 
 /**
  * \brief Custom widget that displays a pixelated image.
@@ -266,6 +267,12 @@ bool checkAndHandleMultipleInstances(QSharedMemory* shared) {
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
+    // Log application startup
+    QString startupInfo = QString("Aplicație pornită - Versiune: 1.5, Utilizator: %1, PC: %2")
+        .arg(qgetenv("USERNAME"))
+        .arg(qgetenv("COMPUTERNAME"));
+    Logger::info(LogCategory::System, startupInfo);
+
     // Load application stylesheet
     loadStylesheet();
 
@@ -280,7 +287,12 @@ int main(int argc, char* argv[]) {
         // Check if another instance is already running
         if (!checkAndHandleMultipleInstances(shared)) {
             mainWindow.show();
-            return a.exec();
+            int exitCode = a.exec();
+            Logger::info(LogCategory::System, "Aplicație închisă");
+            delete shared;
+            return exitCode;
+        } else {
+            Logger::warning(LogCategory::System, "Tentativă pornire instanță dublă blocată");
         }
     }
 
