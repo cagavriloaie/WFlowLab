@@ -17,8 +17,9 @@
 constexpr int APP_VERSION_MAJOR = 1;
 constexpr int APP_VERSION_MINOR = 8;
 constexpr int APP_VERSION_PATCH = 0;
+constexpr int APP_VERSION_REVISION = 0;
 constexpr const char* APP_VERSION_STRING = "1.8.0";
-constexpr const char* VERSION_BUILD = "1.8.0 Windows x86_32";  ///< Version and build information of the application
+constexpr const char* VERSION_BUILD = "1.8.0.0";  ///< Full version number
 
 // Registry path for application settings
 constexpr const char* REGISTRY_PATH = "HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab";  ///< Windows registry path for storing application settings

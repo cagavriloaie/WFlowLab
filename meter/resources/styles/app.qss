@@ -26,25 +26,25 @@ QLabel#lbTab1 {
     border-radius: 4px;
 }
 
-/* QPushButton - Extra compact with optimal gray/white combination */
+/* QPushButton - Extra compact with light pastel blue */
 QPushButton {
     min-height: 20px;              /* Even shorter/extra compact */
     padding: 3px 12px;             /* Minimal vertical padding */
-    border: 1px solid #5a6268;     /* Dark gray border */
-    background-color: #6c757d;     /* Medium-dark gray background */
-    color: #ffffff;                /* White text for contrast */
+    border: 1px solid #0078D7;     /* Blue border for definition */
+    background-color: #C8E0FF;     /* Light pastel blue background */
+    color: #212529;                /* Dark text for contrast */
     border-radius: 4px;            /* Modern radius */
     font-weight: 500;              /* Slightly bold for readability */
 }
 
 QPushButton:hover {
-    background-color: #5a6268;     /* Darker gray on hover */
-    border: 1px solid #495057;     /* Even darker border on hover */
-    color: #ffffff;                /* Keep white text */
+    background-color: #1E90FF;     /* Brighter blue on hover */
+    border: 1px solid #0078D7;     /* Blue border on hover */
+    color: #ffffff;                /* White text on hover */
 }
 
 QPushButton:focus {
-    border: 1px solid #0078D7;     /* Blue focus indicator */
+    border: 1px solid #003d82;     /* Darker blue focus indicator */
     outline: none;
 }
 
@@ -70,7 +70,7 @@ QGroupBox::title {
     left: 15px;                            /* Align nicely at left */
     top: 8px;                              /* Position from top */
     padding: 2px 8px;                      /* Compact padding */
-    background-color: #0078D7;             /* Blue primary color */
+    background-color: #6c757d;             /* Gray matching border style */
     color: white;                          /* White text */
     border-radius: 4px;                    /* Rounded corners */
     font-weight: bold;                     /* Bold text */

@@ -4,14 +4,20 @@
 <context>
     <name>HelpAbout</name>
     <message>
-        <location filename="../helpabout.ui" line="20"/>
-        <location filename="../ui_helpabout.h" line="199"/>
+        <location filename="../helpabout.ui" line="26"/>
+        <location filename="../ui_helpabout.h" line="334"/>
         <source>WMeter - About</source>
         <translation>WMeter - About</translation>
     </message>
     <message>
-        <location filename="../helpabout.ui" line="229"/>
-        <location filename="../ui_helpabout.h" line="213"/>
+        <location filename="../helpabout.ui" line="358"/>
+        <location filename="../ui_helpabout.h" line="355"/>
+        <source>Website:</source>
+        <translation>Website:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.ui" line="432"/>
+        <location filename="../ui_helpabout.h" line="359"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
@@ -22,56 +28,134 @@
     </message>
     <message>
         <location filename="../helpabout.cpp" line="31"/>
-        <source>About Application</source>
-        <translation>About Application</translation>
+        <source>About</source>
+        <translation>&amp;About</translation>
     </message>
     <message>
         <location filename="../helpabout.cpp" line="44"/>
+        <source>WStreamLab</source>
+        <translation>WStreamLab</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="45"/>
+        <source>Professional Water Meter Test System</source>
+        <translation>Professional Water Meter Test System</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="49"/>
+        <source>WStreamLab is a professional water meter testing and verification system compliant with recognized standards.</source>
+        <translation>WStreamLab is a professional water meter testing and verification system compliant with recognized standards.</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="52"/>
+        <source>Version:</source>
+        <translation>Version:</translation>
+    </message>
+    <message>
+        <source>Qt Version:</source>
+        <translation type="vanished">Qt Version:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="59"/>
+        <source>6.7.1</source>
+        <translation>6.7.1</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="60"/>
+        <source>License:</source>
+        <translation>License:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="61"/>
+        <source>Commercial</source>
+        <translation>Commercial</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="56"/>
+        <source>Build:</source>
+        <translation>Build:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="54"/>
+        <source>Platform:</source>
+        <translation>Platform:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="55"/>
+        <source>Windows 8.1 or later</source>
+        <translation>Windows 8.1 or later</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="57"/>
+        <source>2026-01-02</source>
+        <translation>2026-01-02</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="58"/>
+        <source>Qt:</source>
+        <translation>Qt:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="64"/>
+        <source>Company:</source>
+        <translation>Company:</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="71"/>
+        <source>Pascani, Morilor #8, Romania</source>
+        <translation>Pascani, Morilor #8, Romania</translation>
+    </message>
+    <message>
+        <location filename="../helpabout.cpp" line="75"/>
+        <source>www.elcost.ro</source>
+        <translation>www.elcost.ro</translation>
+    </message>
+    <message>
+        <source>About Application</source>
+        <translation type="vanished">About Application</translation>
+    </message>
+    <message>
         <source>WStreamLab version:</source>
-        <translation>WStreamLab version:</translation>
+        <translation type="vanished">WStreamLab version:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="46"/>
         <source>Copyright:</source>
-        <translation>Copyright:</translation>
+        <translation type="vanished">Copyright:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="47"/>
+        <location filename="../helpabout.cpp" line="65"/>
         <source>© 2026 Elcost Company SRL</source>
         <translation>© 2026 Elcost Company SRL</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="48"/>
+        <location filename="../helpabout.ui" line="314"/>
+        <location filename="../ui_helpabout.h" line="352"/>
         <source>Email:</source>
         <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="49"/>
+        <location filename="../helpabout.cpp" line="69"/>
         <source>office@elcost.ro</source>
         <translation>office@elcost.ro</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="50"/>
         <source>Address:</source>
-        <translation>Address:</translation>
+        <translation type="vanished">Address:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="51"/>
         <source>Pascani / RO Morilor #8</source>
-        <translation>Pascani / RO Morilor #8</translation>
+        <translation type="vanished">Pascani / RO Morilor #8</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="52"/>
         <source>Author:</source>
-        <translation>Author:</translation>
+        <translation type="vanished">Author:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="53"/>
         <source>constantin</source>
-        <translation>constantin</translation>
+        <translation type="vanished">constantin</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="56"/>
+        <location filename="../helpabout.cpp" line="78"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
@@ -1227,42 +1311,42 @@ Entries: %2</source>
         <translation>Clean &amp;Input</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1266"/>
+        <location filename="../tableBoard.cpp" line="1277"/>
         <source>Collected data from flow meters.</source>
         <translation>Collected data from flow meters.</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1267"/>
+        <location filename="../tableBoard.cpp" line="1278"/>
         <source>Some user input data are not available or are outside the normal range!</source>
         <translation>Some user input data are not available or are outside the normal range!</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2199"/>
+        <location filename="../tableBoard.cpp" line="2314"/>
         <source>MainWindow instance is null!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2210"/>
+        <location filename="../tableBoard.cpp" line="2325"/>
         <source>Invalid or unsafe path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2212"/>
+        <location filename="../tableBoard.cpp" line="2327"/>
         <source>FM Report failed - invalid path: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2351"/>
+        <location filename="../tableBoard.cpp" line="2466"/>
         <source>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2353"/>
+        <location filename="../tableBoard.cpp" line="2468"/>
         <source>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2355"/>
+        <location filename="../tableBoard.cpp" line="2470"/>
         <source>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</translation>
     </message>

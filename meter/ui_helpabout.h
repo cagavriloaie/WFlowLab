@@ -31,21 +31,43 @@ public:
     QGroupBox *grAbout;
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *lbName;
-    QLabel *lbNameValue;
-    QHBoxLayout *horizontalLayout_3;
+    QHBoxLayout *horizontalLayout_header;
+    QSpacerItem *horizontalSpacer_left;
+    QLabel *lbAppIcon;
+    QSpacerItem *horizontalSpacer_middle;
+    QLabel *lbAppTitle;
+    QSpacerItem *horizontalSpacer_right;
+    QLabel *lbAppSubtitle;
+    QSpacerItem *verticalSpacer_2;
+    QLabel *lbDescription;
+    QSpacerItem *verticalSpacer_3;
+    QHBoxLayout *horizontalLayout_version;
+    QLabel *lbVersion;
+    QLabel *lbVersionValue;
+    QHBoxLayout *horizontalLayout_platform;
+    QLabel *lbPlatform;
+    QLabel *lbPlatformValue;
+    QHBoxLayout *horizontalLayout_build;
+    QLabel *lbBuildDate;
+    QLabel *lbBuildDateValue;
+    QHBoxLayout *horizontalLayout_qt;
+    QLabel *lbQtVersion;
+    QLabel *lbQtVersionValue;
+    QHBoxLayout *horizontalLayout_license;
+    QLabel *lbLicense;
+    QLabel *lbLicenseValue;
+    QSpacerItem *verticalSpacer_4;
+    QLabel *lbCompany;
     QLabel *lbCopyright;
-    QLabel *lbCopyrightValue;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *lbEmail;
-    QLabel *lbEmailValue;
-    QHBoxLayout *horizontalLayout_5;
     QLabel *lbAddress;
-    QLabel *lbAddressValue;
-    QHBoxLayout *horizontalLayout_6;
-    QLabel *lbAuthor;
-    QLabel *lbAuthorValue;
+    QHBoxLayout *horizontalLayout_email;
+    QLabel *lbEmailLabel;
+    QLabel *lbEmail;
+    QSpacerItem *horizontalSpacer_email;
+    QHBoxLayout *horizontalLayout_website;
+    QLabel *lbWebsiteLabel;
+    QLabel *lbWebsite;
+    QSpacerItem *horizontalSpacer_website;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
@@ -56,8 +78,9 @@ public:
     {
         if (HelpAbout->objectName().isEmpty())
             HelpAbout->setObjectName("HelpAbout");
-        HelpAbout->resize(490, 278);
-        HelpAbout->setMinimumSize(QSize(490, 230));
+        HelpAbout->resize(510, 540);
+        HelpAbout->setMinimumSize(QSize(510, 540));
+        HelpAbout->setMaximumSize(QSize(510, 540));
         QIcon icon;
         icon.addFile(QString::fromUtf8("WStreamLab.ico"), QSize(), QIcon::Normal, QIcon::Off);
         HelpAbout->setWindowIcon(icon);
@@ -71,90 +94,207 @@ public:
         gridLayout_2->setObjectName("gridLayout_2");
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName("horizontalLayout_2");
-        lbName = new QLabel(grAbout);
-        lbName->setObjectName("lbName");
-        lbName->setMinimumSize(QSize(195, 0));
-        lbName->setMaximumSize(QSize(195, 16777215));
+        horizontalLayout_header = new QHBoxLayout();
+        horizontalLayout_header->setObjectName("horizontalLayout_header");
+        horizontalSpacer_left = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        horizontalLayout_2->addWidget(lbName);
+        horizontalLayout_header->addItem(horizontalSpacer_left);
 
-        lbNameValue = new QLabel(grAbout);
-        lbNameValue->setObjectName("lbNameValue");
+        lbAppIcon = new QLabel(grAbout);
+        lbAppIcon->setObjectName("lbAppIcon");
+        lbAppIcon->setAlignment(Qt::AlignCenter);
+        lbAppIcon->setMinimumSize(QSize(64, 64));
+        lbAppIcon->setMaximumSize(QSize(64, 64));
+        lbAppIcon->setScaledContents(true);
 
-        horizontalLayout_2->addWidget(lbNameValue);
+        horizontalLayout_header->addWidget(lbAppIcon);
+
+        horizontalSpacer_middle = new QSpacerItem(10, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_header->addItem(horizontalSpacer_middle);
+
+        lbAppTitle = new QLabel(grAbout);
+        lbAppTitle->setObjectName("lbAppTitle");
+        lbAppTitle->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
+        QFont font;
+        font.setPointSize(16);
+        font.setBold(true);
+        lbAppTitle->setFont(font);
+
+        horizontalLayout_header->addWidget(lbAppTitle);
+
+        horizontalSpacer_right = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_header->addItem(horizontalSpacer_right);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        verticalLayout->addLayout(horizontalLayout_header);
 
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        lbAppSubtitle = new QLabel(grAbout);
+        lbAppSubtitle->setObjectName("lbAppSubtitle");
+        lbAppSubtitle->setAlignment(Qt::AlignCenter);
+        QFont font1;
+        font1.setPointSize(10);
+        lbAppSubtitle->setFont(font1);
+
+        verticalLayout->addWidget(lbAppSubtitle);
+
+        verticalSpacer_2 = new QSpacerItem(20, 3, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_2);
+
+        lbDescription = new QLabel(grAbout);
+        lbDescription->setObjectName("lbDescription");
+        lbDescription->setWordWrap(true);
+        lbDescription->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(lbDescription);
+
+        verticalSpacer_3 = new QSpacerItem(20, 8, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_3);
+
+        horizontalLayout_version = new QHBoxLayout();
+        horizontalLayout_version->setObjectName("horizontalLayout_version");
+        lbVersion = new QLabel(grAbout);
+        lbVersion->setObjectName("lbVersion");
+        lbVersion->setMinimumSize(QSize(70, 0));
+
+        horizontalLayout_version->addWidget(lbVersion);
+
+        lbVersionValue = new QLabel(grAbout);
+        lbVersionValue->setObjectName("lbVersionValue");
+
+        horizontalLayout_version->addWidget(lbVersionValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_version);
+
+        horizontalLayout_platform = new QHBoxLayout();
+        horizontalLayout_platform->setObjectName("horizontalLayout_platform");
+        lbPlatform = new QLabel(grAbout);
+        lbPlatform->setObjectName("lbPlatform");
+        lbPlatform->setMinimumSize(QSize(70, 0));
+
+        horizontalLayout_platform->addWidget(lbPlatform);
+
+        lbPlatformValue = new QLabel(grAbout);
+        lbPlatformValue->setObjectName("lbPlatformValue");
+
+        horizontalLayout_platform->addWidget(lbPlatformValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_platform);
+
+        horizontalLayout_build = new QHBoxLayout();
+        horizontalLayout_build->setObjectName("horizontalLayout_build");
+        lbBuildDate = new QLabel(grAbout);
+        lbBuildDate->setObjectName("lbBuildDate");
+        lbBuildDate->setMinimumSize(QSize(70, 0));
+
+        horizontalLayout_build->addWidget(lbBuildDate);
+
+        lbBuildDateValue = new QLabel(grAbout);
+        lbBuildDateValue->setObjectName("lbBuildDateValue");
+
+        horizontalLayout_build->addWidget(lbBuildDateValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_build);
+
+        horizontalLayout_qt = new QHBoxLayout();
+        horizontalLayout_qt->setObjectName("horizontalLayout_qt");
+        lbQtVersion = new QLabel(grAbout);
+        lbQtVersion->setObjectName("lbQtVersion");
+        lbQtVersion->setMinimumSize(QSize(70, 0));
+
+        horizontalLayout_qt->addWidget(lbQtVersion);
+
+        lbQtVersionValue = new QLabel(grAbout);
+        lbQtVersionValue->setObjectName("lbQtVersionValue");
+
+        horizontalLayout_qt->addWidget(lbQtVersionValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_qt);
+
+        horizontalLayout_license = new QHBoxLayout();
+        horizontalLayout_license->setObjectName("horizontalLayout_license");
+        lbLicense = new QLabel(grAbout);
+        lbLicense->setObjectName("lbLicense");
+        lbLicense->setMinimumSize(QSize(70, 0));
+
+        horizontalLayout_license->addWidget(lbLicense);
+
+        lbLicenseValue = new QLabel(grAbout);
+        lbLicenseValue->setObjectName("lbLicenseValue");
+
+        horizontalLayout_license->addWidget(lbLicenseValue);
+
+
+        verticalLayout->addLayout(horizontalLayout_license);
+
+        verticalSpacer_4 = new QSpacerItem(20, 8, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_4);
+
+        lbCompany = new QLabel(grAbout);
+        lbCompany->setObjectName("lbCompany");
+        QFont font2;
+        font2.setBold(true);
+        lbCompany->setFont(font2);
+
+        verticalLayout->addWidget(lbCompany);
+
         lbCopyright = new QLabel(grAbout);
         lbCopyright->setObjectName("lbCopyright");
-        lbCopyright->setMinimumSize(QSize(195, 0));
-        lbCopyright->setMaximumSize(QSize(195, 16777215));
 
-        horizontalLayout_3->addWidget(lbCopyright);
+        verticalLayout->addWidget(lbCopyright);
 
-        lbCopyrightValue = new QLabel(grAbout);
-        lbCopyrightValue->setObjectName("lbCopyrightValue");
-
-        horizontalLayout_3->addWidget(lbCopyrightValue);
-
-
-        verticalLayout->addLayout(horizontalLayout_3);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName("horizontalLayout_4");
-        lbEmail = new QLabel(grAbout);
-        lbEmail->setObjectName("lbEmail");
-        lbEmail->setMinimumSize(QSize(195, 0));
-        lbEmail->setMaximumSize(QSize(195, 16777215));
-
-        horizontalLayout_4->addWidget(lbEmail);
-
-        lbEmailValue = new QLabel(grAbout);
-        lbEmailValue->setObjectName("lbEmailValue");
-
-        horizontalLayout_4->addWidget(lbEmailValue);
-
-
-        verticalLayout->addLayout(horizontalLayout_4);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setObjectName("horizontalLayout_5");
         lbAddress = new QLabel(grAbout);
         lbAddress->setObjectName("lbAddress");
-        lbAddress->setMinimumSize(QSize(195, 0));
-        lbAddress->setMaximumSize(QSize(195, 16777215));
 
-        horizontalLayout_5->addWidget(lbAddress);
+        verticalLayout->addWidget(lbAddress);
 
-        lbAddressValue = new QLabel(grAbout);
-        lbAddressValue->setObjectName("lbAddressValue");
+        horizontalLayout_email = new QHBoxLayout();
+        horizontalLayout_email->setObjectName("horizontalLayout_email");
+        lbEmailLabel = new QLabel(grAbout);
+        lbEmailLabel->setObjectName("lbEmailLabel");
+        lbEmailLabel->setMinimumSize(QSize(60, 0));
 
-        horizontalLayout_5->addWidget(lbAddressValue);
+        horizontalLayout_email->addWidget(lbEmailLabel);
 
+        lbEmail = new QLabel(grAbout);
+        lbEmail->setObjectName("lbEmail");
 
-        verticalLayout->addLayout(horizontalLayout_5);
+        horizontalLayout_email->addWidget(lbEmail);
 
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName("horizontalLayout_6");
-        lbAuthor = new QLabel(grAbout);
-        lbAuthor->setObjectName("lbAuthor");
-        lbAuthor->setMinimumSize(QSize(195, 0));
-        lbAuthor->setMaximumSize(QSize(195, 16777215));
+        horizontalSpacer_email = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        horizontalLayout_6->addWidget(lbAuthor);
-
-        lbAuthorValue = new QLabel(grAbout);
-        lbAuthorValue->setObjectName("lbAuthorValue");
-
-        horizontalLayout_6->addWidget(lbAuthorValue);
+        horizontalLayout_email->addItem(horizontalSpacer_email);
 
 
-        verticalLayout->addLayout(horizontalLayout_6);
+        verticalLayout->addLayout(horizontalLayout_email);
+
+        horizontalLayout_website = new QHBoxLayout();
+        horizontalLayout_website->setObjectName("horizontalLayout_website");
+        lbWebsiteLabel = new QLabel(grAbout);
+        lbWebsiteLabel->setObjectName("lbWebsiteLabel");
+        lbWebsiteLabel->setMinimumSize(QSize(60, 0));
+
+        horizontalLayout_website->addWidget(lbWebsiteLabel);
+
+        lbWebsite = new QLabel(grAbout);
+        lbWebsite->setObjectName("lbWebsite");
+
+        horizontalLayout_website->addWidget(lbWebsite);
+
+        horizontalSpacer_website = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_website->addItem(horizontalSpacer_website);
+
+
+        verticalLayout->addLayout(horizontalLayout_website);
 
 
         gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
@@ -162,7 +302,7 @@ public:
 
         verticalLayout_2->addWidget(grAbout);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 10, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         verticalLayout_2->addItem(verticalSpacer);
 
@@ -198,16 +338,27 @@ public:
     {
         HelpAbout->setWindowTitle(QCoreApplication::translate("HelpAbout", "WMeter - About", nullptr));
         grAbout->setTitle(QString());
-        lbName->setText(QString());
-        lbNameValue->setText(QString());
+        lbAppIcon->setText(QString());
+        lbAppTitle->setText(QString());
+        lbAppSubtitle->setText(QString());
+        lbDescription->setText(QString());
+        lbVersion->setText(QString());
+        lbVersionValue->setText(QString());
+        lbPlatform->setText(QString());
+        lbPlatformValue->setText(QString());
+        lbBuildDate->setText(QString());
+        lbBuildDateValue->setText(QString());
+        lbQtVersion->setText(QString());
+        lbQtVersionValue->setText(QString());
+        lbLicense->setText(QString());
+        lbLicenseValue->setText(QString());
+        lbCompany->setText(QString());
         lbCopyright->setText(QString());
-        lbCopyrightValue->setText(QString());
-        lbEmail->setText(QString());
-        lbEmailValue->setText(QString());
         lbAddress->setText(QString());
-        lbAddressValue->setText(QString());
-        lbAuthor->setText(QString());
-        lbAuthorValue->setText(QString());
+        lbEmailLabel->setText(QCoreApplication::translate("HelpAbout", "Email:", nullptr));
+        lbEmail->setText(QString());
+        lbWebsiteLabel->setText(QCoreApplication::translate("HelpAbout", "Website:", nullptr));
+        lbWebsite->setText(QString());
         pbClose->setText(QString());
 #if QT_CONFIG(shortcut)
         pbClose->setShortcut(QCoreApplication::translate("HelpAbout", "Esc", nullptr));

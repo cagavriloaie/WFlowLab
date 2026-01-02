@@ -49,6 +49,8 @@ class HelpAbout : public QDialog {
 
   private:
     Ui::HelpAbout* ui;  ///< Pointer to the UI object.
+    static constexpr int FIXED_WIDTH = 510;   ///< Fixed dialog width
+    static constexpr int FIXED_HEIGHT = 540;  ///< Fixed dialog height
 
   private slots:
     /**

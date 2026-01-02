@@ -11,6 +11,8 @@
 
 #include "helpabout.h"  // Include the header file for HelpAbout dialog
 
+#include <QResizeEvent>    // Include for QResizeEvent override
+
 #include "definitions.h"   // Include project-wide constants and definitions
 #include "ui_helpabout.h"  // Include the generated UI header file
 
@@ -28,7 +30,7 @@ void HelpAbout::Translate() {
     setWindowTitle(tr("WStreamLab - About"));
 
     // Set group box title
-    ui->grAbout->setTitle(tr("About Application"));
+    ui->grAbout->setTitle(tr("About"));
 
     /**
      * \brief Helper function to set the text of a QLabel.
@@ -40,17 +42,39 @@ void HelpAbout::Translate() {
      */
     auto setLabelText = [](QLabel* label, const QString& text) { label->setText(tr(text.toUtf8())); };
 
-    // Set label texts
-    setLabelText(ui->lbName, tr("WStreamLab version:"));
-    setLabelText(ui->lbNameValue, QString::fromUtf8(VERSION_BUILD));
-    setLabelText(ui->lbCopyright, tr("Copyright:"));
-    setLabelText(ui->lbCopyrightValue, tr("© 2026 Elcost Company SRL"));
-    setLabelText(ui->lbEmail, tr("Email:"));
-    setLabelText(ui->lbEmailValue, tr("office@elcost.ro"));
-    setLabelText(ui->lbAddress, tr("Address:"));
-    setLabelText(ui->lbAddressValue, tr("Pascani / RO Morilor #8"));
-    setLabelText(ui->lbAuthor, tr("Author:"));
-    setLabelText(ui->lbAuthorValue, tr("constantin"));
+    // Application title and description
+    setLabelText(ui->lbAppTitle, tr("WStreamLab"));
+    setLabelText(ui->lbAppSubtitle, tr("Professional Water Meter Test System"));
+
+    // Description text - note: using "recognized" (correct spelling)
+    setLabelText(ui->lbDescription,
+        tr("WStreamLab is a professional water meter testing and verification system compliant with recognized standards."));
+
+    // Version information
+    setLabelText(ui->lbVersion, tr("Version:"));
+    setLabelText(ui->lbVersionValue, QString::fromUtf8(VERSION_BUILD));
+    setLabelText(ui->lbPlatform, tr("Platform:"));
+    setLabelText(ui->lbPlatformValue, tr("Windows 8.1 or later"));
+    setLabelText(ui->lbBuildDate, tr("Build:"));
+    setLabelText(ui->lbBuildDateValue, tr("2026-01-02"));
+    setLabelText(ui->lbQtVersion, tr("Qt:"));
+    setLabelText(ui->lbQtVersionValue, tr("6.7.1"));
+    setLabelText(ui->lbLicense, tr("License:"));
+    setLabelText(ui->lbLicenseValue, tr("Commercial"));
+
+    // Company information
+    setLabelText(ui->lbCompany, tr("Company:"));
+    setLabelText(ui->lbCopyright, tr("© 2026 Elcost Company SRL"));
+
+    // Email as clickable link (using app primary color)
+    ui->lbEmail->setText(QString("<a href=\"mailto:office@elcost.ro\" style=\"color: #0078D7; text-decoration: none;\">%1</a>")
+                         .arg(tr("office@elcost.ro")));
+
+    setLabelText(ui->lbAddress, tr("Pascani, Morilor #8, Romania"));
+
+    // Website as clickable link (using app primary color)
+    ui->lbWebsite->setText(QString("<a href=\"https://www.elcost.ro\" style=\"color: #0078D7; text-decoration: none;\">%1</a>")
+                           .arg(tr("www.elcost.ro")));
 
     // Set close button text
     ui->pbClose->setText(tr("&Close"));
@@ -69,8 +93,44 @@ HelpAbout::HelpAbout(QWidget* parent) : QDialog(parent), ui(new Ui::HelpAbout) {
     ui->setupUi(this);
     Translate();  // Call the translation function
 
-    QSize newSize(490, 230);  // New size
-    this->resize(newSize);
+    // Load and set application icon (compact size for About dialog)
+    QPixmap appIcon(":/WStreamLab.ico");
+    if (appIcon.isNull()) {
+        // Fallback to window icon if resource not found
+        appIcon = windowIcon().pixmap(64, 64);
+    }
+    ui->lbAppIcon->setPixmap(appIcon.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    // Configure email and website labels as clickable links
+    ui->lbEmail->setTextFormat(Qt::RichText);
+    ui->lbEmail->setOpenExternalLinks(true);
+    ui->lbWebsite->setTextFormat(Qt::RichText);
+    ui->lbWebsite->setOpenExternalLinks(true);
+
+    // Apply minimal styling for title and links (matching app color scheme)
+    QString dialogStyle = R"(
+        QLabel#lbAppTitle {
+            color: #0056b3;  /* Darker blue for better visibility */
+            font-weight: bold;
+        }
+        QLabel#lbAppSubtitle {
+            color: #495057;  /* Dark gray for professional look */
+            font-weight: 500;
+        }
+        QLabel#lbDescription {
+            color: #6c757d;  /* Medium gray for description */
+            font-size: 9pt;  /* Compact font for description to prevent overflow */
+        }
+        QLabel#lbCompany {
+            color: #0078D7;  /* Primary color from app.qss */
+            margin-top: 5px;
+        }
+    )";
+    this->setStyleSheet(dialogStyle);
+
+    // Set fixed window size to prevent auto-resizing
+    // Use setFixedSize to completely lock the dimensions
+    this->setFixedSize(FIXED_WIDTH, FIXED_HEIGHT);
 
     // Set initial focus to the close button
     ui->pbClose->setFocus();

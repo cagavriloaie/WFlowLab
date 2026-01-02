@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
-    <height>278</height>
+    <width>510</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>490</width>
-    <height>230</height>
+    <width>510</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>510</width>
+    <height>540</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -34,29 +40,165 @@
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout">
+          <!-- Icon and Title on same row - centered -->
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <layout class="QHBoxLayout" name="horizontalLayout_header">
             <item>
-             <widget class="QLabel" name="lbName">
+             <spacer name="horizontalSpacer_left">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbAppIcon">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>195</width>
-                <height>0</height>
+                <width>64</width>
+                <height>64</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>195</width>
-                <height>16777215</height>
+                <width>64</width>
+                <height>64</height>
                </size>
               </property>
-              <property name="text">
-               <string/>
+              <property name="scaledContents">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbNameValue">
+             <spacer name="horizontalSpacer_middle">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>10</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbAppTitle">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignVCenter|Qt::AlignLeft</set>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_right">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbAppSubtitle">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>3</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <!-- Description -->
+          <item>
+           <widget class="QLabel" name="lbDescription">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>8</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <!-- Version Information -->
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_version">
+            <item>
+             <widget class="QLabel" name="lbVersion">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbVersionValue">
               <property name="text">
                <string/>
               </property>
@@ -65,28 +207,22 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <layout class="QHBoxLayout" name="horizontalLayout_platform">
             <item>
-             <widget class="QLabel" name="lbCopyright">
-              <property name="minimumSize">
-               <size>
-                <width>195</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>195</width>
-                <height>16777215</height>
-               </size>
-              </property>
+             <widget class="QLabel" name="lbPlatform">
               <property name="text">
                <string/>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbCopyrightValue">
+             <widget class="QLabel" name="lbPlatformValue">
               <property name="text">
                <string/>
               </property>
@@ -95,92 +231,189 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <layout class="QHBoxLayout" name="horizontalLayout_build">
+            <item>
+             <widget class="QLabel" name="lbBuildDate">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbBuildDateValue">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_qt">
+            <item>
+             <widget class="QLabel" name="lbQtVersion">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbQtVersionValue">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_license">
+            <item>
+             <widget class="QLabel" name="lbLicense">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbLicenseValue">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>8</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <!-- Company Information -->
+          <item>
+           <widget class="QLabel" name="lbCompany">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbCopyright">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbAddress">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_email">
+            <item>
+             <widget class="QLabel" name="lbEmailLabel">
+              <property name="text">
+               <string>Email:</string>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>60</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="lbEmail">
-              <property name="minimumSize">
-               <size>
-                <width>195</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>195</width>
-                <height>16777215</height>
-               </size>
-              </property>
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbEmailValue">
-              <property name="text">
-               <string/>
+             <spacer name="horizontalSpacer_email">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-             </widget>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <layout class="QHBoxLayout" name="horizontalLayout_website">
             <item>
-             <widget class="QLabel" name="lbAddress">
+             <widget class="QLabel" name="lbWebsiteLabel">
+              <property name="text">
+               <string>Website:</string>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>195</width>
+                <width>60</width>
                 <height>0</height>
                </size>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>195</width>
-                <height>16777215</height>
-               </size>
-              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbWebsite">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbAddressValue">
-              <property name="text">
-               <string/>
+             <spacer name="horizontalSpacer_website">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <widget class="QLabel" name="lbAuthor">
-              <property name="minimumSize">
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>195</width>
-                <height>0</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>195</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lbAuthorValue">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -197,7 +430,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>40</height>
+         <height>10</height>
         </size>
        </property>
       </spacer>
