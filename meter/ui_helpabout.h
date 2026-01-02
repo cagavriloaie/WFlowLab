@@ -32,11 +32,11 @@ public:
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_header;
-    QSpacerItem *horizontalSpacer_left;
     QLabel *lbAppIcon;
-    QSpacerItem *horizontalSpacer_middle;
+    QSpacerItem *horizontalSpacer_left;
     QLabel *lbAppTitle;
     QSpacerItem *horizontalSpacer_right;
+    QSpacerItem *horizontalSpacer_rightFixed;
     QLabel *lbAppSubtitle;
     QSpacerItem *verticalSpacer_2;
     QLabel *lbDescription;
@@ -96,26 +96,22 @@ public:
         verticalLayout->setObjectName("verticalLayout");
         horizontalLayout_header = new QHBoxLayout();
         horizontalLayout_header->setObjectName("horizontalLayout_header");
-        horizontalSpacer_left = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
-
-        horizontalLayout_header->addItem(horizontalSpacer_left);
-
         lbAppIcon = new QLabel(grAbout);
         lbAppIcon->setObjectName("lbAppIcon");
-        lbAppIcon->setAlignment(Qt::AlignCenter);
+        lbAppIcon->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
         lbAppIcon->setMinimumSize(QSize(64, 64));
         lbAppIcon->setMaximumSize(QSize(64, 64));
         lbAppIcon->setScaledContents(true);
 
         horizontalLayout_header->addWidget(lbAppIcon);
 
-        horizontalSpacer_middle = new QSpacerItem(10, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+        horizontalSpacer_left = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        horizontalLayout_header->addItem(horizontalSpacer_middle);
+        horizontalLayout_header->addItem(horizontalSpacer_left);
 
         lbAppTitle = new QLabel(grAbout);
         lbAppTitle->setObjectName("lbAppTitle");
-        lbAppTitle->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
+        lbAppTitle->setAlignment(Qt::AlignCenter);
         QFont font;
         font.setPointSize(16);
         font.setBold(true);
@@ -126,6 +122,10 @@ public:
         horizontalSpacer_right = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_header->addItem(horizontalSpacer_right);
+
+        horizontalSpacer_rightFixed = new QSpacerItem(64, 20, QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_header->addItem(horizontalSpacer_rightFixed);
 
 
         verticalLayout->addLayout(horizontalLayout_header);

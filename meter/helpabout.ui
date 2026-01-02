@@ -40,29 +40,16 @@
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout">
-          <!-- Icon and Title on same row - centered -->
+          <!-- Icon and Title on same row - icon left, text centered -->
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_header">
-            <item>
-             <spacer name="horizontalSpacer_left">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
             <item>
              <widget class="QLabel" name="lbAppIcon">
               <property name="text">
                <string/>
               </property>
               <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <set>Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
               <property name="minimumSize">
                <size>
@@ -82,13 +69,16 @@
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_middle">
+             <spacer name="horizontalSpacer_left">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>10</width>
+                <width>40</width>
                 <height>20</height>
                </size>
               </property>
@@ -100,7 +90,7 @@
                <string/>
               </property>
               <property name="alignment">
-               <set>Qt::AlignVCenter|Qt::AlignLeft</set>
+               <set>Qt::AlignCenter</set>
               </property>
               <property name="font">
                <font>
@@ -116,9 +106,28 @@
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
               <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_rightFixed">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>64</width>
                 <height>20</height>
                </size>
               </property>

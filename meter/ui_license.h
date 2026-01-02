@@ -46,6 +46,9 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *lbDensityValue;
     QLabel *lbDensityUnit;
+    QLabel *lbFileLocation;
+    QLabel *lbFileLocationValue;
+    QLabel *lbElcostInfo;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *pbClose;
@@ -168,6 +171,19 @@ public:
 
         gridLayout->addLayout(horizontalLayout_3, 4, 1, 1, 1);
 
+        lbFileLocation = new QLabel(groupBox);
+        lbFileLocation->setObjectName("lbFileLocation");
+        lbFileLocation->setFont(font);
+
+        gridLayout->addWidget(lbFileLocation, 6, 0, 1, 1);
+
+        lbFileLocationValue = new QLabel(groupBox);
+        lbFileLocationValue->setObjectName("lbFileLocationValue");
+        lbFileLocationValue->setFont(font);
+        lbFileLocationValue->setWordWrap(true);
+
+        gridLayout->addWidget(lbFileLocationValue, 6, 1, 1, 1);
+
 
         verticalLayout->addLayout(gridLayout);
 
@@ -176,6 +192,18 @@ public:
 
 
         verticalLayout_2->addWidget(groupBox);
+
+        lbElcostInfo = new QLabel(Licence);
+        lbElcostInfo->setObjectName("lbElcostInfo");
+        QFont font1;
+        font1.setFamilies({QString::fromUtf8("Verdana")});
+        font1.setPointSize(4);
+        font1.setItalic(true);
+        lbElcostInfo->setFont(font1);
+        lbElcostInfo->setAlignment(Qt::AlignCenter);
+        lbElcostInfo->setWordWrap(false);
+
+        verticalLayout_2->addWidget(lbElcostInfo);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
@@ -226,6 +254,9 @@ public:
         lbDensity->setText(QString());
         lbDensityValue->setText(QString());
         lbDensityUnit->setText(QString());
+        lbFileLocation->setText(QString());
+        lbFileLocationValue->setText(QString());
+        lbElcostInfo->setText(QString());
         pbClose->setText(QString());
 #if QT_CONFIG(shortcut)
         pbClose->setShortcut(QCoreApplication::translate("Licence", "Esc", nullptr));
