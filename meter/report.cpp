@@ -18,106 +18,21 @@
 #include <QPrinter>
 #include <QSettings>
 #include <QTextDocument>
+#include <QThread>
 #include <QTimer>
 
 #include <algorithm>  // Standard C++ algorithms
 #include <iomanip>    // I/O manipulators
-#include <mutex>      // C++11 mutual exclusion primitives
 #include <sstream>    // String stream operations
-#include <thread>     // C++11 thread support
 
+#include "logger.h"            // Logging system
 #include "mainwindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
+#include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
 #include "ui_mainwindow.h"     // UI definition for main window
 #include "ui_report.h"         // UI definition for report dialog
 
-/**
-
- * \brief Generates and displays the measurement report.
- *
- * This function creates an HTML report based on the current measurement data,
- * populates the report dialog with the generated content, and shows the dialog
- * to the user. It ensures that the latest measurements are reflected in the report.
- *
- * \note Assumes that the measurement data and UI elements are properly initialized.
- */
-
-/**
- * \extern std::mutex printReportPdfThreadMutex
- * \brief Mutex for thread-safe PDF printing.
- *
- * This global mutex ensures thread safety when printing PDF documents from multiple threads.
- * It protects critical sections where file paths are manipulated and directories are created.
- */
-std::mutex printReportPdfThreadMutex;
-
-/**
- * \brief Generates a PDF document from HTML content and opens it using the default PDF viewer.
- *
- * This function generates a PDF document from the provided HTML report content. It ensures
- * thread safety when accessing shared resources using a mutex. After generating the PDF,
- * it checks for errors and opens the generated PDF file using the default PDF viewer.
- *
- * \param report The HTML content to be printed into the PDF.
- */
-void ReportMeasurements::printPdfThread(QString report) {
-    // Get MainWindow instance thread-safely
-    MainWindow* pMainWindow = MainWindowInstance::getInstance();
-    if (!pMainWindow) {
-        qCritical() << "ReportMeasurements::printPdfThread: MainWindow instance is null!";
-        return;
-    }
-
-    // Generate a unique timestamp for the file name
-    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
-
-    // Construct the file name using QDir
-    QString fileName = QString::fromStdString(pMainWindow->selectedInfo.pathResults) + QDir::separator() +
-                       QString("BV_") + timestamp + ".pdf";
-
-    {
-        // Lock the mutex to ensure exclusive access to the shared resource
-        std::lock_guard<std::mutex> lock(printReportPdfThreadMutex);
-
-        // Check if the directory exists, and create it if not
-        QDir resultDir(QString::fromStdString(pMainWindow->selectedInfo.pathResults));
-        resultDir.mkpath(".");
-    }
-
-    // Initialize the printer
-    QPrinter printer(QPrinter::PrinterResolution);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setOutputFileName(fileName);
-    printer.setPageSize(QPageSize::A4);
-    printer.setFullPage(true);
-    qreal margin = 5.0;
-    printer.setPageMargins(QMarginsF(margin, margin, margin, margin), QPageLayout::Millimeter);
-
-    // Initialize QTextDocument with the provided HTML report
-    QTextDocument outputReport;
-    outputReport.setHtml(report);
-    outputReport.setDocumentMargin(0);
-
-    // Check if the PDF generation is successful
-    if (outputReport.isEmpty() || !printer.isValid()) {
-        qWarning() << "Error: Empty document or invalid printer, PDF not generated.";
-        return;
-    }
-
-    // Print the document to the PDF file
-    outputReport.print(&printer);
-
-    // Check if the file was created successfully and is non-empty
-    QFile outputFile(fileName);
-    if (!outputFile.exists() || outputFile.size() == 0) {
-        qWarning() << "Error: Failed to generate a non-empty PDF file.";
-        return;
-    }
-
-    // Convert the file path to a URL and open it in the default PDF viewer
-    QString fileUrl = QUrl::fromLocalFile(fileName).toString();
-    QDesktopServices::openUrl(QUrl(fileUrl));
-}
+// NOTE: printPdfThread() function removed - PDF generation now handled by PdfGeneratorWorker with QThread
 
 /**
  * \brief Converts an integer number into its Romanian words representation.
@@ -401,7 +316,7 @@ void ReportMeasurements::onPrintClicked() {
     // Get MainWindow instance thread-safely
     MainWindow* pMainWindow = MainWindowInstance::getInstance();
     if (!pMainWindow) {
-        qCritical() << "ReportMeasurements::onPrintClicked: MainWindow instance is null!";
+        qCritical() << "ReportMeasurements::onPrintClicked:" << tr("MainWindow instance is null!");
         return;
     }
 
@@ -624,8 +539,34 @@ void ReportMeasurements::onPrintClicked() {
 
     QTimerGenerareBv->start(2000);
     ui->pbGenerareBV->setEnabled(false);
-    std::thread pdfThread(printPdfThread, QString::fromStdString(htmlTable.str()));
-    pdfThread.detach();
+
+    // Validate path before use - critical security check (pMainWindow already declared earlier)
+    QString pathResults = QString::fromStdString(pMainWindow->selectedInfo.pathResults);
+    QString validatedPath = MainWindow::validateAndSanitizePath(pathResults, true);
+
+    if (validatedPath.isEmpty()) {
+        qCritical() << "ReportMeasurements::onPrintClicked:" << tr("Invalid or unsafe path:") << pathResults;
+        Logger::error(LogCategory::UserAction,
+                     tr("BV Report failed - invalid path: %1").arg(pathResults));
+        return;
+    }
+
+    // Create worker and thread for PDF generation
+    QString htmlReport = QString::fromStdString(htmlTable.str());
+    QThread* pdfThread = new QThread();
+    PdfGeneratorWorker* worker = new PdfGeneratorWorker();
+    worker->moveToThread(pdfThread);
+
+    // Connect signals and slots
+    connect(pdfThread, &QThread::started, worker, [worker, htmlReport, validatedPath]() {
+        worker->generatePdf(htmlReport, validatedPath, "BV_");
+    });
+    connect(worker, &PdfGeneratorWorker::finished, pdfThread, &QThread::quit);
+    connect(worker, &PdfGeneratorWorker::finished, worker, &PdfGeneratorWorker::deleteLater);
+    connect(pdfThread, &QThread::finished, pdfThread, &QThread::deleteLater);
+
+    // Start the thread
+    pdfThread->start();
 
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();

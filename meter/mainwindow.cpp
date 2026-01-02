@@ -240,7 +240,26 @@ void MainWindow::updateSelectedInfo() {
         selectedInfo.density_20 = 998.2009;
         qWarning() << "Invalid density_20 value:" << e.what();
     }
-    selectedInfo.pathResults = optionsConfiguration["archive"];
+
+    // Validate and sanitize archive path for security
+    QString archivePath = QString::fromStdString(optionsConfiguration["archive"]);
+    QString validatedPath = validateAndSanitizePath(archivePath, true);
+
+    if (validatedPath.isEmpty()) {
+        // Fall back to safe default within application directory
+        QString fallbackPath = QCoreApplication::applicationDirPath() + QDir::separator() + "Results";
+        validatedPath = validateAndSanitizePath(fallbackPath, true);
+
+        Logger::warning(LogCategory::System,
+                       QString("Invalid archive path '%1', using fallback: %2")
+                           .arg(archivePath, validatedPath));
+
+        QMessageBox::warning(nullptr, "Configuration Warning",
+                            QString("Invalid archive path in configuration.\n"
+                                   "Using fallback: %1").arg(validatedPath));
+    }
+
+    selectedInfo.pathResults = validatedPath.toStdString();
     selectedInfo.certificate = optionsConfiguration["certificate"];
     // The new version has just the option 20 for entries number
     selectedInfo.entriesNumber = ui->cbNumberOfWaterMeters->currentText().toInt();
@@ -264,8 +283,18 @@ void MainWindow::updateSelectedInfo() {
 
     // Get selected water meter index from UI
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
-    if (selectedWaterMeter < 0 || static_cast<size_t>(selectedWaterMeter) >= NUMBER_ENTRIES_METER_FLOW_DB) {
-        qWarning() << "Invalid water meter index:" << selectedWaterMeter;
+
+    // Defensive check: Ensure database is initialized
+    size_t dbSize = NUMBER_ENTRIES_METER_FLOW_DB.load();
+    if (dbSize == 0) {
+        qCritical() << "updateSelectedInfo: Flow meter database not initialized!";
+        return;
+    }
+
+    // Bounds check with defensive programming
+    if (selectedWaterMeter < 0 || static_cast<size_t>(selectedWaterMeter) >= dbSize) {
+        qWarning() << "Invalid water meter index:" << selectedWaterMeter
+                   << "Database size:" << dbSize;
         return;
     }
 
@@ -313,6 +342,71 @@ void MainWindow::SelectMeterComboBox() {
     setLabelValue(ui->lbMinimumFlowCurrent, selectedInfo.minimumFlow, 2);
     setLabelValue(ui->lbMaximumErrorCurrent, selectedInfo.maximumError, 1);
     setLabelValue(ui->lbNominalErrorCurrent, selectedInfo.nominalError, 1);
+}
+
+/**
+ * \brief Validates and sanitizes a file path to prevent path traversal attacks.
+ *
+ * This function ensures that:
+ * - Path is normalized to canonical form
+ * - Path doesn't contain "..", "~", or other dangerous patterns after normalization
+ * - Path is within the application directory (only if strictMode is true)
+ * - Path exists or can be created (if allowCreate is true)
+ *
+ * \param path The path to validate
+ * \param allowCreate Whether to create the directory if it doesn't exist
+ * \param strictMode If true, enforces path must be within application directory (default: false for user flexibility)
+ * \return Validated canonical path, or empty string if invalid
+ */
+QString MainWindow::validateAndSanitizePath(const QString& path, bool allowCreate, bool strictMode) {
+    if (path.isEmpty()) {
+        qWarning() << "validateAndSanitizePath:" << QObject::tr("Empty path provided");
+        return QString();
+    }
+
+    // Get application directory as trusted base (used only if strictMode is enabled)
+    QString appDir = QCoreApplication::applicationDirPath();
+    QDir appDirObj(appDir);
+    QString canonicalAppDir = appDirObj.canonicalPath();
+
+    // Normalize the input path
+    QDir inputDir(path);
+    QString canonicalPath;
+
+    if (inputDir.exists()) {
+        canonicalPath = inputDir.canonicalPath();
+    } else if (allowCreate) {
+        // Try to create the directory
+        if (!inputDir.mkpath(".")) {
+            qWarning() << "validateAndSanitizePath:" << QObject::tr("Failed to create directory:") << path;
+            return QString();
+        }
+        canonicalPath = inputDir.canonicalPath();
+    } else {
+        qWarning() << "validateAndSanitizePath:" << QObject::tr("Path doesn't exist and creation not allowed:") << path;
+        return QString();
+    }
+
+    // Reject if canonicalization failed
+    if (canonicalPath.isEmpty()) {
+        qWarning() << "validateAndSanitizePath:" << QObject::tr("Failed to canonicalize path:") << path;
+        return QString();
+    }
+
+    // Security check: Reject dangerous patterns in canonicalized path
+    // After canonicalization, ".." and "~" shouldn't appear in a safe path
+    if (canonicalPath.contains("..") || canonicalPath.contains("~")) {
+        qWarning() << "validateAndSanitizePath:" << QObject::tr("Path contains dangerous characters:") << canonicalPath;
+        return QString();
+    }
+
+    // Optional security check: Ensure path is within application directory (only if strictMode enabled)
+    if (strictMode && !canonicalPath.startsWith(canonicalAppDir)) {
+        qWarning() << "validateAndSanitizePath:" << QObject::tr("Strict mode - path is outside application directory:") << canonicalPath;
+        return QString();
+    }
+
+    return canonicalPath;
 }
 
 /**

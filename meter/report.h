@@ -59,11 +59,7 @@ class ReportMeasurements : public QDialog {
      */
     void Translate();
 
-    /**
-     * \brief Static method to start a thread for PDF generation.
-     * \param report The report to generate in PDF format.
-     */
-    static void printPdfThread(QString report);
+    // NOTE: printPdfThread() removed - using PdfGeneratorWorker with QThread instead
 
   signals:
     /**

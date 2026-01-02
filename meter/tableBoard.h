@@ -86,12 +86,7 @@ class TableBoard : public QDialog {
      */
     void PopulateTable();
 
-    /**
-     * \brief Initiates a PDF generation process in a separate thread.
-     *
-     * \param report Path or identifier of the report to generate.
-     */
-    static void printPdfThread(QString report);
+    // NOTE: printPdfThread() removed - using PdfGeneratorWorker with QThread instead
 
     /**
      * \brief Translates the UI components to the current language.
@@ -129,7 +124,7 @@ class TableBoard : public QDialog {
     std::vector<QLineEdit*> vectorThirdIndexStop;    ///< Vector of line edits for third index stop values.
     std::vector<QLineEdit*> vectorThirdError;        ///< Vector of line edits for third index error values.
 
-    static QString report;     ///< Static variable for storing report information.
+    // NOTE: Static QString report removed - using QThread signal/slot pattern instead
     QTimer* QTimerGenerareFM;  ///< Timer object for generating FM.
 
     /**

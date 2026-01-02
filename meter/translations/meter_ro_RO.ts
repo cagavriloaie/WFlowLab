@@ -1,76 +1,77 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
 <TS version="2.1" language="ro_RO">
 <context>
     <name>HelpAbout</name>
     <message>
-        <location filename="../helpabout.ui" line="20" />
-        <location filename="../ui_helpabout.h" line="199" />
+        <location filename="../helpabout.ui" line="20"/>
+        <location filename="../ui_helpabout.h" line="199"/>
         <source>WMeter - About</source>
         <translation>Water Stream Laboratory - Despre</translation>
     </message>
     <message>
-        <location filename="../helpabout.ui" line="229" />
-        <location filename="../ui_helpabout.h" line="213" />
+        <location filename="../helpabout.ui" line="229"/>
+        <location filename="../ui_helpabout.h" line="213"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="25" />
+        <location filename="../helpabout.cpp" line="28"/>
         <source>WStreamLab - About</source>
         <translation>Water Stream Laboratory - Despre</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="28" />
+        <location filename="../helpabout.cpp" line="31"/>
         <source>About Application</source>
         <translation>Despre Aplicație</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="41" />
+        <location filename="../helpabout.cpp" line="44"/>
         <source>WStreamLab version:</source>
         <translation>Versiune WStreamLab:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="43" />
+        <location filename="../helpabout.cpp" line="46"/>
         <source>Copyright:</source>
         <translation>Copyright:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="44" />
+        <location filename="../helpabout.cpp" line="47"/>
         <source>© 2026 Elcost Company SRL</source>
         <translation>© 2026 Elcost Company SRL</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="45" />
+        <location filename="../helpabout.cpp" line="48"/>
         <source>Email:</source>
         <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="46" />
+        <location filename="../helpabout.cpp" line="49"/>
         <source>office@elcost.ro</source>
         <translation>office@elcost.ro</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="47" />
+        <location filename="../helpabout.cpp" line="50"/>
         <source>Address:</source>
         <translation>Adresă:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="48" />
+        <location filename="../helpabout.cpp" line="51"/>
         <source>Pascani / RO Morilor #8</source>
         <translation>Pascani / RO Morilor #8</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="49" />
+        <location filename="../helpabout.cpp" line="52"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="50" />
+        <location filename="../helpabout.cpp" line="53"/>
         <source>constantin</source>
         <translation>constantin</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="53" />
+        <location filename="../helpabout.cpp" line="56"/>
         <source>&amp;Close</source>
         <translation>&amp;Închide</translation>
     </message>
@@ -78,14 +79,14 @@
 <context>
     <name>Interface</name>
     <message>
-        <location filename="../interface.ui" line="26" />
-        <location filename="../ui_interface.h" line="690" />
+        <location filename="../interface.ui" line="26"/>
+        <location filename="../ui_interface.h" line="690"/>
         <source>Serial Port Configuration</source>
         <translation>Configurare Port Serial</translation>
     </message>
     <message>
-        <location filename="../interface.ui" line="998" />
-        <location filename="../ui_interface.h" line="713" />
+        <location filename="../interface.ui" line="998"/>
+        <location filename="../ui_interface.h" line="713"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
@@ -94,106 +95,106 @@
         <translation type="vanished">RS-485/422 Serial Interface (MODBUS)</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="148" />
+        <location filename="../interface.cpp" line="156"/>
         <source>Serial Interface 1 - MODBUS</source>
         <translation>Interfață Serială 1 - MODBUS</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="149" />
-        <location filename="../interface.cpp" line="159" />
+        <location filename="../interface.cpp" line="157"/>
+        <location filename="../interface.cpp" line="167"/>
         <source>Serial Port:</source>
         <translation>Port Serial:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="150" />
-        <location filename="../interface.cpp" line="160" />
+        <location filename="../interface.cpp" line="158"/>
+        <location filename="../interface.cpp" line="168"/>
         <source>Baud Rate:</source>
         <translation>Rata Baud:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="151" />
-        <location filename="../interface.cpp" line="161" />
+        <location filename="../interface.cpp" line="159"/>
+        <location filename="../interface.cpp" line="169"/>
         <source>Data Bits:</source>
         <translation>Biti Date:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="152" />
-        <location filename="../interface.cpp" line="162" />
+        <location filename="../interface.cpp" line="160"/>
+        <location filename="../interface.cpp" line="170"/>
         <source>Parity:</source>
         <translation>Paritate:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="153" />
-        <location filename="../interface.cpp" line="163" />
+        <location filename="../interface.cpp" line="161"/>
+        <location filename="../interface.cpp" line="171"/>
         <source>Stop Bits:</source>
         <translation>Biti Stop:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="154" />
-        <location filename="../interface.cpp" line="164" />
+        <location filename="../interface.cpp" line="162"/>
+        <location filename="../interface.cpp" line="172"/>
         <source>Timeout [ms]:</source>
         <translation>Timp așteptare [ms]:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="155" />
-        <location filename="../interface.cpp" line="165" />
+        <location filename="../interface.cpp" line="163"/>
+        <location filename="../interface.cpp" line="173"/>
         <source>Retries:</source>
         <translation>Reîncercări:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="158" />
+        <location filename="../interface.cpp" line="166"/>
         <source>Serial Interface 2 - MODBUS</source>
         <translation>Interfață Serială 2 - MODBUS</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="168" />
+        <location filename="../interface.cpp" line="176"/>
         <source>&amp;Close</source>
         <translation>&amp;Închide</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="169" />
+        <location filename="../interface.cpp" line="177"/>
         <source>&amp;Save Configuration</source>
         <translation>&amp;Salvează Configurația</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="170" />
+        <location filename="../interface.cpp" line="178"/>
         <source>&amp;Test Connection</source>
         <translation>Test conectare</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="171" />
+        <location filename="../interface.cpp" line="179"/>
         <source>&amp;Refresh Ports</source>
         <translation>&amp;Actualizează Porturi</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="172" />
+        <location filename="../interface.cpp" line="180"/>
         <source>&amp;Connect Ports</source>
         <translation>&amp;Conectează Porturi</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1053" />
-        <location filename="../interface.cpp" line="1202" />
+        <location filename="../interface.cpp" line="1061"/>
+        <location filename="../interface.cpp" line="1210"/>
         <source>Error</source>
         <translation>Eroare</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1053" />
-        <location filename="../interface.cpp" line="1202" />
+        <location filename="../interface.cpp" line="1061"/>
+        <location filename="../interface.cpp" line="1210"/>
         <source>At least two MODBUS interfaces are required.</source>
         <translation>Cel puțin două interfețe MODBUS sunt necesare.</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1055" />
+        <location filename="../interface.cpp" line="1063"/>
         <source>Serial Ports Updated</source>
         <translation>Actualizat listă porturi seriale</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1055" />
+        <location filename="../interface.cpp" line="1063"/>
         <source>MODBUS serial ports DB have been updated.</source>
         <translation>Baza de date cu porturi seriale MODBUS a fost actualizată.</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1234" />
+        <location filename="../interface.cpp" line="1247"/>
         <source>Not connected to RS-485/422 networks</source>
         <translation>Neconectat la rețelele RS-485/422</translation>
     </message>
@@ -201,8 +202,8 @@
 <context>
     <name>Licence</name>
     <message>
-        <location filename="../license.ui" line="288" />
-        <location filename="../ui_license.h" line="231" />
+        <location filename="../license.ui" line="288"/>
+        <location filename="../ui_license.h" line="231"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
@@ -210,52 +211,52 @@
 <context>
     <name>License</name>
     <message>
-        <location filename="../license.cpp" line="47" />
+        <location filename="../license.cpp" line="50"/>
         <source>WStreamLab - License</source>
         <translation>Water Stream Laboratory - Licență</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="48" />
+        <location filename="../license.cpp" line="51"/>
         <source>License Information</source>
         <translation>Informații Licență</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="49" />
+        <location filename="../license.cpp" line="52"/>
         <source>Certificate:</source>
         <translation>Certificat:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="50" />
+        <location filename="../license.cpp" line="53"/>
         <source>Water density at 20 °C:</source>
         <translation>Densitate apă la 20 °C:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="51" />
+        <location filename="../license.cpp" line="54"/>
         <source>[kg/m³]</source>
         <translation>[kg/m³]</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="52" />
+        <location filename="../license.cpp" line="55"/>
         <source>Archive folder:</source>
         <translation>Director arhive:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="53" />
+        <location filename="../license.cpp" line="56"/>
         <source>Company:</source>
         <translation>Companie:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="54" />
+        <location filename="../license.cpp" line="57"/>
         <source>Volume correction:</source>
         <translation>Corecție volum:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="55" />
+        <location filename="../license.cpp" line="58"/>
         <source>Checksum:</source>
         <translation>Suma de control:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="56" />
+        <location filename="../license.cpp" line="59"/>
         <source>Close</source>
         <translation>&amp;Închide</translation>
     </message>
@@ -263,266 +264,294 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="109" />
-        <location filename="../ui_mainwindow.h" line="675" />
+        <location filename="../mainwindow.ui" line="109"/>
+        <location filename="../ui_mainwindow.h" line="683"/>
         <source>Selectează tipul de apometru pentru verificare</source>
         <translation>Selectează tipul de apometru pentru verificare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="165" />
-        <location filename="../ui_mainwindow.h" line="680" />
+        <location filename="../mainwindow.ui" line="165"/>
+        <location filename="../ui_mainwindow.h" line="688"/>
         <source>Presiunea atmosferică în mbar</source>
         <translation>Presiunea atmosferică în mbar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="216" />
-        <location filename="../ui_mainwindow.h" line="684" />
+        <location filename="../mainwindow.ui" line="216"/>
+        <location filename="../ui_mainwindow.h" line="692"/>
         <source>Temperatura ambiantă în grade Celsius</source>
         <translation>Temperatura ambiantă în grade Celsius</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="294" />
-        <location filename="../ui_mainwindow.h" line="689" />
+        <location filename="../mainwindow.ui" line="294"/>
+        <location filename="../ui_mainwindow.h" line="697"/>
         <source>Numărul de apometre de verificat în această sesiune</source>
         <translation>Numărul de apometre de verificat în această sesiune</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="359" />
-        <location filename="../ui_mainwindow.h" line="694" />
+        <location filename="../mainwindow.ui" line="359"/>
+        <location filename="../ui_mainwindow.h" line="702"/>
         <source>Umiditatea relativă a aerului în procente</source>
         <translation>Umiditatea relativă a aerului în procente</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="456" />
-        <location filename="../ui_mainwindow.h" line="699" />
+        <location filename="../mainwindow.ui" line="456"/>
+        <location filename="../ui_mainwindow.h" line="707"/>
         <source>Metoda gravimetrică - determinare prin cântărire</source>
         <translation>Metoda gravimetrică - determinare prin cântărire</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="487" />
-        <location filename="../ui_mainwindow.h" line="703" />
+        <location filename="../mainwindow.ui" line="487"/>
+        <location filename="../ui_mainwindow.h" line="711"/>
         <source>Metoda volumetrică - determinare prin măsurare volum</source>
         <translation>Metoda volumetrică - determinare prin măsurare volum</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="565" />
-        <location filename="../ui_mainwindow.h" line="708" />
+        <location filename="../mainwindow.ui" line="565"/>
+        <location filename="../ui_mainwindow.h" line="716"/>
         <source>Introducere manuală a valorilor</source>
         <translation>Introducere manuală a valorilor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="593" />
-        <location filename="../ui_mainwindow.h" line="712" />
+        <location filename="../mainwindow.ui" line="593"/>
+        <location filename="../ui_mainwindow.h" line="720"/>
         <source>Citire automată prin interfață de comunicare</source>
         <translation>Citire automată prin interfață de comunicare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="910" />
-        <location filename="../ui_mainwindow.h" line="740" />
+        <location filename="../mainwindow.ui" line="910"/>
+        <location filename="../ui_mainwindow.h" line="748"/>
         <source>Începe o nouă sesiune de verificare (Ctrl+N)</source>
         <translation>Începe o nouă sesiune de verificare (Ctrl+N)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="920" />
-        <location filename="../ui_mainwindow.h" line="744" />
+        <location filename="../mainwindow.ui" line="920"/>
+        <location filename="../ui_mainwindow.h" line="752"/>
         <source>Închide aplicația (Ctrl+Q)</source>
         <translation>Închide aplicația (Ctrl+Q)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="973" />
-        <location filename="../ui_mainwindow.h" line="750" />
+        <location filename="../mainwindow.ui" line="974"/>
+        <location filename="../ui_mainwindow.h" line="758"/>
         <source>Interface</source>
         <translation>Interfață</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="987" />
-        <location filename="../ui_mainwindow.h" line="637" />
+        <location filename="../mainwindow.ui" line="988"/>
+        <location filename="../ui_mainwindow.h" line="641"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="992" />
-        <location filename="../ui_mainwindow.h" line="639" />
+        <location filename="../mainwindow.ui" line="993"/>
+        <location filename="../ui_mainwindow.h" line="643"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvează</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="995" />
-        <location filename="../ui_mainwindow.h" line="641" />
+        <location filename="../mainwindow.ui" line="996"/>
+        <location filename="../ui_mainwindow.h" line="645"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1000" />
-        <location filename="../ui_mainwindow.h" line="643" />
+        <location filename="../mainwindow.ui" line="1001"/>
+        <location filename="../ui_mainwindow.h" line="647"/>
         <source>&amp;Print</source>
         <translation>&amp;Tipărește</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1003" />
-        <location filename="../ui_mainwindow.h" line="645" />
+        <location filename="../mainwindow.ui" line="1004"/>
+        <location filename="../ui_mainwindow.h" line="649"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1008" />
-        <location filename="../mainwindow.cpp" line="372" />
-        <location filename="../ui_mainwindow.h" line="647" />
+        <location filename="../mainwindow.ui" line="1009"/>
+        <location filename="../mainwindow.cpp" line="482"/>
+        <location filename="../ui_mainwindow.h" line="651"/>
         <source>&amp;Exit</source>
         <translation>&amp;Ieșire</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1016" />
-        <location filename="../ui_mainwindow.h" line="650" />
+        <location filename="../mainwindow.ui" line="1017"/>
+        <location filename="../ui_mainwindow.h" line="654"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1039" />
-        <location filename="../ui_mainwindow.h" line="657" />
+        <location filename="../mainwindow.ui" line="1040"/>
+        <location filename="../ui_mainwindow.h" line="661"/>
+        <source>F4</source>
+        <translation>F4</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="1048"/>
+        <location filename="../ui_mainwindow.h" line="665"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1047" />
-        <location filename="../ui_mainwindow.h" line="659" />
+        <location filename="../mainwindow.ui" line="1056"/>
+        <location filename="../ui_mainwindow.h" line="667"/>
         <source>LineEntry</source>
         <translation>Introducere Date</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1050" />
-        <location filename="../ui_mainwindow.h" line="661" />
+        <location filename="../mainwindow.ui" line="1059"/>
+        <location filename="../ui_mainwindow.h" line="669"/>
         <source>water meter entry</source>
         <translation>introducere date contor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1055" />
-        <location filename="../mainwindow.cpp" line="330" />
-        <location filename="../ui_mainwindow.h" line="663" />
+        <location filename="../mainwindow.ui" line="1064"/>
+        <location filename="../mainwindow.cpp" line="440"/>
+        <location filename="../ui_mainwindow.h" line="671"/>
         <source>About</source>
         <translation>Des&amp;pre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1063" />
-        <location filename="../ui_mainwindow.h" line="666" />
+        <location filename="../mainwindow.ui" line="1072"/>
+        <location filename="../ui_mainwindow.h" line="674"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1071" />
-        <location filename="../ui_mainwindow.h" line="670" />
+        <location filename="../mainwindow.ui" line="1080"/>
+        <location filename="../ui_mainwindow.h" line="678"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="1076" />
-        <location filename="../ui_mainwindow.h" line="672" />
+        <location filename="../mainwindow.ui" line="1085"/>
+        <location filename="../ui_mainwindow.h" line="680"/>
         <source>Configure Serial Port</source>
         <translation>Configurare Port Serial</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="315" />
+        <location filename="../mainwindow.cpp" line="424"/>
         <source>WStreamLab - Dashboard</source>
         <translation>Water Stream Laboratory - Panou de Control</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="318" />
+        <location filename="../mainwindow.cpp" line="427"/>
         <source>File</source>
         <translation>&amp;Fisier</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="319" />
+        <location filename="../mainwindow.cpp" line="428"/>
         <source>Language</source>
         <translation>&amp;Limba</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="320" />
+        <location filename="../mainwindow.cpp" line="429"/>
         <source>Help</source>
         <translation>&amp;Ajutor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="323" />
+        <location filename="../mainwindow.cpp" line="432"/>
         <source>Start Session</source>
         <translation>&amp;Sesiune Nouă</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="324" />
+        <location filename="../mainwindow.cpp" line="433"/>
         <source>Exit</source>
         <translation>&amp;Ieșire</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="325" />
+        <location filename="../mainwindow.cpp" line="434"/>
         <source>English</source>
         <translation>&amp;English</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="326" />
+        <location filename="../mainwindow.cpp" line="435"/>
         <source>Română</source>
         <translation>&amp;Română</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="327" />
+        <location filename="../mainwindow.cpp" line="436"/>
         <source>General Description</source>
         <translation>&amp;Descriere Generală</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="328" />
+        <location filename="../mainwindow.cpp" line="437"/>
         <source>Verification Method</source>
         <translation>&amp;Metoda de Verificare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="329" />
+        <location filename="../mainwindow.cpp" line="438"/>
         <source>Water Density</source>
         <translation>Densitate / Factor Corecție &amp;Apă</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="329" />
+        <location filename="../mainwindow.cpp" line="439"/>
         <source>License</source>
         <translation>&amp;Licență</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="334" />
+        <location filename="../mainwindow.cpp" line="444"/>
         <source>Number of water meters:</source>
         <translation>Număr contoare apă:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="335" />
+        <location filename="../mainwindow.cpp" line="445"/>
         <source>Temperature:</source>
         <translation>Temperatura ambiantă:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="336" />
+        <location filename="../mainwindow.cpp" line="446"/>
         <source>Atmospheric pressure:</source>
         <translation>Presiune atmosferică:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="343" />
+        <location filename="../mainwindow.cpp" line="453"/>
         <source>Configuration</source>
         <translation>Configurare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="363" />
-        <location filename="../mainwindow.cpp" line="364" />
-        <location filename="../mainwindow.cpp" line="365" />
-        <location filename="../mainwindow.cpp" line="366" />
+        <location filename="../mainwindow.cpp" line="473"/>
+        <location filename="../mainwindow.cpp" line="474"/>
+        <location filename="../mainwindow.cpp" line="475"/>
+        <location filename="../mainwindow.cpp" line="476"/>
         <source>[L/h]</source>
         <translation>[L/h]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="423" />
+        <location filename="../mainwindow.cpp" line="536"/>
         <source>RS485/RS422 protocol MODBUS ITF off.</source>
         <translation>Comunicare RS485/RS422: inactivă</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="559" />
-        <location filename="../mainwindow.cpp" line="726" />
+        <location filename="../mainwindow.cpp" line="679"/>
+        <location filename="../mainwindow.cpp" line="893"/>
         <source>Mod de operare stand: manual</source>
         <translation>Mod de operare stand: manual</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="739" />
+        <location filename="../mainwindow.cpp" line="906"/>
         <source>Mod de operare stand: interface</source>
         <translation>Mod de operare stand: interfață</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1074"/>
+        <source>Fișier lipsă</source>
+        <translation>Fișier lipsă</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1075"/>
+        <source>Fișierul cu documentația metodei de verificare nu a fost găsit:
+%1</source>
+        <translation>Fișierul cu documentația metodei de verificare nu a fost găsit:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1083"/>
+        <source>Eroare citire</source>
+        <translation>Eroare citire</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1084"/>
+        <source>Nu s-a putut deschide fișierul pentru citire.</source>
+        <translation>Nu s-a putut deschide fișierul pentru citire.</translation>
     </message>
     <message>
         <source> &gt; Manual Mode Operation</source>
@@ -533,574 +562,754 @@
         <translation type="vanished">Mod de operare manual</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="337" />
+        <location filename="../mainwindow.cpp" line="447"/>
         <source>Relative air humidity:</source>
         <translation>Umiditate relativă aer:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="292" />
+        <location filename="../mainwindow.cpp" line="333"/>
         <source>Directory Error</source>
         <translation>Eroare director</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="293" />
+        <location filename="../mainwindow.cpp" line="334"/>
         <source>Failed to create directory: %1</source>
         <translation>Directorul nu a putut fi creat: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="333" />
+        <location filename="../mainwindow.cpp" line="443"/>
         <source>Type of water meter:</source>
         <translation>Tipul de apometru</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="338" />
+        <location filename="../mainwindow.cpp" line="448"/>
         <source>[mbar]</source>
         <translation>[mbar]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="339" />
+        <location filename="../mainwindow.cpp" line="449"/>
         <source>°C</source>
         <translation>°C</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="340" />
-        <location filename="../mainwindow.cpp" line="367" />
-        <location filename="../mainwindow.cpp" line="368" />
+        <location filename="../mainwindow.cpp" line="450"/>
+        <location filename="../mainwindow.cpp" line="477"/>
+        <location filename="../mainwindow.cpp" line="478"/>
         <source>[%]</source>
         <translation>[%]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="344" />
+        <location filename="../mainwindow.cpp" line="454"/>
         <source>Measurement method</source>
         <translation>Metoda de măsurare</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="349" />
+        <location filename="../mainwindow.cpp" line="459"/>
         <source>Volumetric</source>
         <translation>Volumetrică</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="350" />
+        <location filename="../mainwindow.cpp" line="460"/>
         <source>Gravimetric</source>
         <translation>Gravimetrică</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="345" />
+        <location filename="../mainwindow.cpp" line="455"/>
         <source>Read method</source>
         <translation>Metoda de citire:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="346" />
+        <location filename="../mainwindow.cpp" line="456"/>
         <source>Water meter features</source>
         <translation>Caracteristici contor apă</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="351" />
+        <location filename="../mainwindow.cpp" line="461"/>
         <source>Manual Mode Operation</source>
         <translation>Mod de Operare Manual</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="352" />
+        <location filename="../mainwindow.cpp" line="462"/>
         <source>Interface MODBUS operation</source>
         <translation>Interfață MODBUS activa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="355" />
+        <location filename="../mainwindow.cpp" line="465"/>
         <source>Nominal diameter:</source>
         <translation>Diametrul nominal:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="356" />
+        <location filename="../mainwindow.cpp" line="466"/>
         <source>Maximum flow:</source>
         <translation>Debit maxim:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="357" />
+        <location filename="../mainwindow.cpp" line="467"/>
         <source>Nominal flow:</source>
         <translation>Debit nominal:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="358" />
+        <location filename="../mainwindow.cpp" line="468"/>
         <source>Transition flow:</source>
         <translation>Debit tranzitoriu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="359" />
+        <location filename="../mainwindow.cpp" line="469"/>
         <source>Minimum flow:</source>
         <translation>Debit minim:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="360" />
+        <location filename="../mainwindow.cpp" line="470"/>
         <source>Maximum error:</source>
         <translation>Eroare maximă:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="361" />
+        <location filename="../mainwindow.cpp" line="471"/>
         <source>Nominal error:</source>
         <translation>Eroare nominală:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="362" />
+        <location filename="../mainwindow.cpp" line="472"/>
         <source>[mm]</source>
         <translation>[mm]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="371" />
+        <location filename="../mainwindow.cpp" line="481"/>
         <source>&amp;New Session</source>
         <translation>&amp;Sesiune nouă</translation>
     </message>
 </context>
 <context>
+    <name>PdfGeneratorWorker</name>
+    <message>
+        <location filename="../PdfGeneratorWorker.cpp" line="45"/>
+        <source>Output directory does not exist: %1</source>
+        <translation>Directorul de ieșire nu există: %1</translation>
+    </message>
+    <message>
+        <location filename="../PdfGeneratorWorker.cpp" line="70"/>
+        <source>Cannot generate PDF from empty HTML document</source>
+        <translation>Nu se poate genera PDF din document HTML gol</translation>
+    </message>
+    <message>
+        <location filename="../PdfGeneratorWorker.cpp" line="78"/>
+        <source>Printer configuration is invalid</source>
+        <translation>Configurația imprimantei este invalidă</translation>
+    </message>
+    <message>
+        <location filename="../PdfGeneratorWorker.cpp" line="91"/>
+        <source>Failed to create PDF file: %1</source>
+        <translation>Eșec la crearea fișierului PDF: %1</translation>
+    </message>
+    <message>
+        <location filename="../PdfGeneratorWorker.cpp" line="101"/>
+        <source>Generated PDF file is empty: %1</source>
+        <translation>Fișierul PDF generat este gol: %1</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="../flow-meter-type.h" line="144" />
-        <location filename="../flow-meter-type.h" line="215" />
-        <location filename="../flow-meter-type.h" line="229" />
-        <location filename="../main.cpp" line="249" />
+        <location filename="../flow-meter-type.h" line="161"/>
+        <location filename="../flow-meter-type.h" line="233"/>
+        <location filename="../flow-meter-type.h" line="248"/>
+        <location filename="../main.cpp" line="244"/>
         <source>Warning</source>
         <translation>Atenție</translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="145" />
-        <location filename="../flow-meter-type.h" line="216" />
-        <location filename="../flow-meter-type.h" line="230" />
+        <location filename="../flow-meter-type.h" line="162"/>
+        <location filename="../flow-meter-type.h" line="234"/>
+        <location filename="../flow-meter-type.h" line="249"/>
         <source>Flow Meters DB</source>
         <translation>DB contoare</translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="146" />
+        <location filename="../flow-meter-type.h" line="163"/>
         <source>The watermeters.csv with Flow Meters DB cannot be found.</source>
         <translation>Baza de date cu contoare de debit watermeters.csv nu poate fi găsită.</translation>
     </message>
     <message>
-        <location filename="../flow-meter-type.h" line="217" />
-        <location filename="../flow-meter-type.h" line="231" />
+        <location filename="../flow-meter-type.h" line="235"/>
+        <location filename="../flow-meter-type.h" line="250"/>
         <source>The watermeters.csv with Flow Meters DB is corrupted.</source>
         <translation>Baza de date cu contoare de debit watermeters.csv este coruptă.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="250" />
+        <location filename="../main.cpp" line="245"/>
         <source>Already running</source>
         <translation>Deja rulează</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="251" />
+        <location filename="../main.cpp" line="246"/>
         <source>More than one instance of the WStreamLab program is not permitted.</source>
         <translation>Doar o singură instanță a aplicației Water Stream Laboratory este permisă.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="363"/>
+        <source>Empty path provided</source>
+        <translation>Cale goală furnizată</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="381"/>
+        <source>Failed to create directory:</source>
+        <translation>Eșec la crearea directorului:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="386"/>
+        <source>Path doesn&apos;t exist and creation not allowed:</source>
+        <translation>Calea nu există și crearea nu este permisă:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="392"/>
+        <source>Failed to canonicalize path:</source>
+        <translation>Eșec la canonizarea căii:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="399"/>
+        <source>Path contains dangerous characters:</source>
+        <translation>Calea conține caractere periculoase:</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="405"/>
+        <source>Strict mode - path is outside application directory:</source>
+        <translation>Mod strict - calea este în afara directorului aplicației:</translation>
     </message>
 </context>
 <context>
     <name>ReportMeasurements</name>
     <message>
-        <location filename="../report.cpp" line="241" />
         <source>Date verificare metrologică</source>
-        <translation>Date pentru buletin de verificare metrologică</translation>
+        <translation type="vanished">Date pentru buletin de verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="242" />
-        <location filename="../report.cpp" line="295" />
         <source>Autorizatia numărul:</source>
-        <translation>Autorizatia numărul:</translation>
+        <translation type="vanished">Autorizatia numărul:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="243" />
         <source>Număr de înregistrare: </source>
-        <translation>Număr de înregistrare: </translation>
+        <translation type="vanished">Număr de înregistrare: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="247" />
+        <location filename="../report.cpp" line="171"/>
         <source>Valabilitate: </source>
         <translation>Valabilitate: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="248" />
+        <location filename="../report.cpp" line="172"/>
         <source>Cost: </source>
         <translation>Cost: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="249" />
+        <location filename="../report.cpp" line="173"/>
         <source>Verificator metrolog: </source>
         <translation>Verificator metrolog: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="244" />
+        <location filename="../report.cpp" line="168"/>
         <source>Beneficiar: </source>
         <translation>Beneficiar:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="245" />
+        <location filename="../report.cpp" line="164"/>
+        <location filename="../report.cpp" line="215"/>
+        <source>WStreamLab - Informatii buletin de verificare metrologica</source>
+        <translation>WStreamLab - Informații buletin de verificare metrologică</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="165"/>
+        <source>Date verificare metrologica</source>
+        <translation>Date verificare metrologică</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="166"/>
+        <location filename="../report.cpp" line="219"/>
+        <source>Autorizatia numarul:</source>
+        <translation>Autorizația numărul:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="167"/>
+        <source>Numar de inregistrare: </source>
+        <translation>Număr de înregistrare: </translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="169"/>
         <source>Codul din LT: </source>
         <translation>Codul din LT:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="246" />
+        <location filename="../report.cpp" line="170"/>
         <source>Normativ: </source>
         <translation>Normativ: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="250" />
         <source>Locul efectuării verificării:</source>
-        <translation>Locul efectuării verificării:</translation>
+        <translation type="vanished">Locul efectuării verificării:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="251" />
+        <location filename="../report.cpp" line="175"/>
         <source>6 luni</source>
         <translation>6 luni</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="252" />
-        <location filename="../report.cpp" line="304" />
+        <location filename="../report.cpp" line="176"/>
+        <location filename="../report.cpp" line="228"/>
         <source>1 an</source>
         <translation>1 an</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="253" />
-        <location filename="../report.cpp" line="305" />
+        <location filename="../report.cpp" line="177"/>
+        <location filename="../report.cpp" line="229"/>
         <source>2 ani</source>
         <translation>2 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="255" />
-        <location filename="../report.cpp" line="308" />
+        <location filename="../report.cpp" line="179"/>
+        <location filename="../report.cpp" line="232"/>
         <source>5 ani</source>
         <translation>5 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="256" />
-        <location filename="../report.cpp" line="314" />
+        <location filename="../report.cpp" line="180"/>
+        <location filename="../report.cpp" line="238"/>
         <source>&amp;Generare BV</source>
         <translation>&amp;Generare BV</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="257" />
-        <location filename="../report.cpp" line="315" />
         <source>&amp;Închide</source>
-        <translation>&amp;Închide</translation>
+        <translation type="vanished">&amp;Închide</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="296" />
         <source>Număr de înregistrare:</source>
-        <translation>Număr de înregistrare:</translation>
+        <translation type="vanished">Număr de înregistrare:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="297" />
+        <location filename="../report.cpp" line="221"/>
         <source>Beneficiar:</source>
         <translation>Beneficiar:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="299" />
+        <location filename="../report.cpp" line="223"/>
         <source>Normativ:</source>
         <translation>Normativ:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="300" />
+        <location filename="../report.cpp" line="224"/>
         <source>Valabilitate:</source>
         <translation>Valabilitate:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="301" />
+        <location filename="../report.cpp" line="225"/>
         <source>Cost:</source>
         <translation>Cost:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="302" />
+        <location filename="../report.cpp" line="226"/>
         <source>Verificator metrolog:</source>
         <translation>Verificator metrolog:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="254" />
-        <location filename="../report.cpp" line="306" />
+        <location filename="../report.cpp" line="178"/>
+        <location filename="../report.cpp" line="230"/>
         <source>3 ani</source>
         <translation>3 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="240" />
-        <location filename="../report.cpp" line="291" />
         <source>WStreamLab - Informații buletin de verificare metrologică</source>
-        <translation>WStreamLab - Informații buletin de verificare metrologică</translation>
+        <translation type="vanished">WStreamLab - Informații buletin de verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="294" />
         <source>Date de verificare metrologică</source>
-        <translation>Date de verificare metrologică</translation>
+        <translation type="vanished">Date de verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="298" />
+        <location filename="../report.cpp" line="222"/>
         <source>Cod din LT:</source>
         <translation>Cod din LT:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="303" />
         <source>Locul efectuării verificării metrologice:</source>
+        <translation type="vanished">Locul efectuării verificării metrologice:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="174"/>
+        <source>Locul efectuarii verificarii:</source>
+        <translation>Locul efectuării verificării:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="181"/>
+        <location filename="../report.cpp" line="239"/>
+        <source>&amp;Inchide</source>
+        <translation>&amp;Închide</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="218"/>
+        <source>Date de verificare metrologica</source>
+        <translation>Date de verificare metrologică</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="220"/>
+        <source>Numar de inregistrare:</source>
+        <translation>Număr de înregistrare:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="227"/>
+        <source>Locul efectuarii verificarii metrologice:</source>
         <translation>Locul efectuării verificării metrologice:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="307" />
+        <location filename="../report.cpp" line="231"/>
         <source>4 ani</source>
         <translation>4 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="309" />
+        <location filename="../report.cpp" line="233"/>
         <source>6 ani</source>
         <translation>6 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="310" />
+        <location filename="../report.cpp" line="234"/>
         <source>7 ani</source>
         <translation>7 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="311" />
+        <location filename="../report.cpp" line="235"/>
         <source>8 ani</source>
         <translation>8 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="312" />
+        <location filename="../report.cpp" line="236"/>
         <source>9 ani</source>
         <translation>9 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="313" />
+        <location filename="../report.cpp" line="237"/>
         <source>10 ani</source>
         <translation>10 ani</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="381" />
+        <location filename="../report.cpp" line="305"/>
         <source>Metrological Verification Report</source>
         <translation>Raport verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="382" />
+        <location filename="../report.cpp" line="306"/>
         <source>Some required fields are not filled in.</source>
         <translation>Câteva câmpuri obligatorii nu au fost completate.</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="319"/>
+        <source>MainWindow instance is null!</source>
+        <translation>Instanța MainWindow este nulă!</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="548"/>
+        <source>Invalid or unsafe path:</source>
+        <translation>Cale invalidă sau nesigură:</translation>
+    </message>
+    <message>
+        <location filename="../report.cpp" line="550"/>
+        <source>BV Report failed - invalid path: %1</source>
+        <translation>Raport BV eșuat - cale invalidă: %1</translation>
     </message>
 </context>
 <context>
     <name>TableBoard</name>
     <message>
-        <location filename="../tableBoard.ui" line="120" />
-        <location filename="../ui_tableBoard.h" line="3671" />
+        <location filename="../tableBoard.ui" line="122"/>
+        <location filename="../ui_tableBoard.h" line="3676"/>
         <source>Calculează rezultatele verificării</source>
         <translation>Calculează rezultatele verificării</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="133" />
-        <location filename="../ui_tableBoard.h" line="3675" />
+        <location filename="../tableBoard.ui" line="135"/>
+        <location filename="../ui_tableBoard.h" line="3680"/>
         <source>Generează fișa de măsurători (Ctrl+P)</source>
         <translation>Generează fișa de măsurători (Ctrl+P)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="146" />
-        <location filename="../ui_tableBoard.h" line="3679" />
+        <location filename="../tableBoard.ui" line="148"/>
+        <location filename="../ui_tableBoard.h" line="3684"/>
         <source>Generează buletinul de verificare metrologică</source>
         <translation>Generează buletinul de verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="175" />
-        <location filename="../ui_tableBoard.h" line="3683" />
+        <location filename="../tableBoard.ui" line="177"/>
+        <location filename="../ui_tableBoard.h" line="3688"/>
         <source>Deschide un fișier de rezultate salvat anterior</source>
         <translation>Deschide un fișier de rezultate salvat anterior</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="188" />
-        <location filename="../ui_tableBoard.h" line="3687" />
+        <location filename="../tableBoard.ui" line="190"/>
+        <location filename="../ui_tableBoard.h" line="3692"/>
         <source>Salvează rezultatele verificării (Ctrl+S)</source>
         <translation>Salvează rezultatele verificării (Ctrl+S)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="217" />
-        <location filename="../ui_tableBoard.h" line="3691" />
+        <location filename="../tableBoard.ui" line="219"/>
+        <location filename="../ui_tableBoard.h" line="3696"/>
         <source>Închide fereastra de verificare (Esc)</source>
         <translation>Închide fereastra de verificare (Esc)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="223" />
-        <location filename="../ui_tableBoard.h" line="3695" />
+        <location filename="../tableBoard.ui" line="225"/>
+        <location filename="../ui_tableBoard.h" line="3700"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="233" />
-        <location filename="../ui_tableBoard.h" line="3698" />
+        <location filename="../tableBoard.ui" line="235"/>
+        <location filename="../ui_tableBoard.h" line="3703"/>
         <source>Curăță toate câmpurile și resetează datele</source>
         <translation>Curăță toate câmpurile și resetează datele</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="3591" />
-        <location filename="../ui_tableBoard.h" line="3770" />
+        <location filename="../tableBoard.ui" line="3608"/>
+        <location filename="../ui_tableBoard.h" line="3774"/>
         <source>Copiază datele din rândul 1 în rândul 2</source>
         <translation>Copiază datele din rândul 1 în rândul 2</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="3594" />
-        <location filename="../tableBoard.ui" line="5483" />
-        <location filename="../ui_tableBoard.h" line="3772" />
-        <location filename="../ui_tableBoard.h" line="3790" />
+        <location filename="../tableBoard.ui" line="3611"/>
+        <location filename="../tableBoard.ui" line="5502"/>
+        <location filename="../ui_tableBoard.h" line="3776"/>
+        <location filename="../ui_tableBoard.h" line="3794"/>
         <source>&gt;&gt;&gt;</source>
         <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../tableBoard.ui" line="5480" />
-        <location filename="../ui_tableBoard.h" line="3788" />
+        <location filename="../tableBoard.ui" line="5499"/>
+        <location filename="../ui_tableBoard.h" line="3792"/>
         <source>Copiază datele din rândul 2 în rândul 3</source>
         <translation>Copiază datele din rândul 2 în rândul 3</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="193" />
         <source>Save input data</source>
-        <translation>Salvare date</translation>
+        <translation type="vanished">Salvare date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="229" />
+        <location filename="../tableBoard.cpp" line="115"/>
         <source>Open Input Data</source>
         <translation>Deschide date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="230" />
         <source>Input data (*.in);;All file (*.*)</source>
-        <translation>Date intrare (*.in);;Toate fișierele (*.*)</translation>
+        <translation type="vanished">Date intrare (*.in);;Toate fișierele (*.*)</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="234" />
         <source>Error</source>
-        <translation>Eroare</translation>
+        <translation type="vanished">Eroare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="234" />
         <source>Cannot open file</source>
-        <translation>Nu se poate deschide fișierul</translation>
+        <translation type="vanished">Nu se poate deschide fișierul</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="598" />
+        <location filename="../tableBoard.cpp" line="79"/>
+        <source>Save Error</source>
+        <translation>Eroare salvare</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="80"/>
+        <source>Failed to save input data:
+%1
+
+Error: %2</source>
+        <translation>Salvarea datelor de intrare a eșuat:
+%1
+
+Eroare: %2</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="97"/>
+        <source>Save Successful</source>
+        <translation>Salvare reușită</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="98"/>
+        <source>Input data saved to:
+%1</source>
+        <translation>Datele de intrare au fost salvate în:
+%1</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="131"/>
+        <source>Load Error</source>
+        <translation>Eroare încărcare</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="132"/>
+        <source>Failed to load input data:
+%1
+
+Error: %2</source>
+        <translation>Încărcarea datelor de intrare a eșuat:
+%1
+
+Eroare: %2</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="151"/>
+        <source>Load Successful</source>
+        <translation>Încărcare reușită</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="152"/>
+        <source>Input data loaded successfully from:
+%1
+
+Entries: %2</source>
+        <translation>Datele de intrare au fost încărcate cu succes din:
+%1
+
+Înregistrări: %2</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="403"/>
         <source>WStreamLab - Input Table</source>
         <translation>Water Stream Laboratory - Date intrare</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="601" />
+        <location filename="../tableBoard.cpp" line="409"/>
         <source>Measurement Data</source>
         <translation>Date Măsurători</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="622" />
-        <location filename="../tableBoard.cpp" line="626" />
-        <location filename="../tableBoard.cpp" line="630" />
+        <location filename="../tableBoard.cpp" line="430"/>
+        <location filename="../tableBoard.cpp" line="434"/>
+        <location filename="../tableBoard.cpp" line="438"/>
         <source>Index</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="623" />
-        <location filename="../tableBoard.cpp" line="627" />
-        <location filename="../tableBoard.cpp" line="631" />
+        <location filename="../tableBoard.cpp" line="431"/>
+        <location filename="../tableBoard.cpp" line="435"/>
+        <location filename="../tableBoard.cpp" line="439"/>
         <source>Start index</source>
         <translation>Index start</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="624" />
-        <location filename="../tableBoard.cpp" line="628" />
-        <location filename="../tableBoard.cpp" line="632" />
+        <location filename="../tableBoard.cpp" line="432"/>
+        <location filename="../tableBoard.cpp" line="436"/>
+        <location filename="../tableBoard.cpp" line="440"/>
         <source>Stop index</source>
         <translation>Index stop</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="625" />
+        <location filename="../tableBoard.cpp" line="433"/>
         <source>Err. Q1</source>
         <translation>Err. Q1</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="629" />
+        <location filename="../tableBoard.cpp" line="437"/>
         <source>Err. Q2</source>
         <translation>Err. Q2</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="633" />
+        <location filename="../tableBoard.cpp" line="441"/>
         <source>Err. Q3</source>
         <translation>Err. Q3</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="634" />
-        <location filename="../tableBoard.cpp" line="638" />
-        <location filename="../tableBoard.cpp" line="642" />
+        <location filename="../tableBoard.cpp" line="442"/>
+        <location filename="../tableBoard.cpp" line="446"/>
+        <location filename="../tableBoard.cpp" line="450"/>
         <source>Flow rate [L/h]</source>
         <translation>Debit [L/h]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="635" />
-        <location filename="../tableBoard.cpp" line="639" />
-        <location filename="../tableBoard.cpp" line="643" />
+        <location filename="../tableBoard.cpp" line="443"/>
+        <location filename="../tableBoard.cpp" line="447"/>
+        <location filename="../tableBoard.cpp" line="451"/>
         <source>Mass [kg]</source>
         <translation>Masă [kg]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="636" />
-        <location filename="../tableBoard.cpp" line="640" />
-        <location filename="../tableBoard.cpp" line="644" />
+        <location filename="../tableBoard.cpp" line="444"/>
+        <location filename="../tableBoard.cpp" line="448"/>
+        <location filename="../tableBoard.cpp" line="452"/>
         <source>Temperature [°C]</source>
         <translation>Temperatură [°C]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="637" />
-        <location filename="../tableBoard.cpp" line="641" />
-        <location filename="../tableBoard.cpp" line="645" />
+        <location filename="../tableBoard.cpp" line="445"/>
+        <location filename="../tableBoard.cpp" line="449"/>
+        <location filename="../tableBoard.cpp" line="453"/>
         <source>Volume [L]</source>
         <translation>Volum [L]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="649" />
+        <location filename="../tableBoard.cpp" line="457"/>
         <source>&amp;Data evaluate</source>
         <translation>&amp;Evaluează Date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="650" />
+        <location filename="../tableBoard.cpp" line="458"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Generare FM</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="651" />
+        <location filename="../tableBoard.cpp" line="459"/>
         <source>Report PDF</source>
         <translation>Generare &amp;BV</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="652" />
+        <location filename="../tableBoard.cpp" line="460"/>
         <source>&amp;Open</source>
         <translation>&amp;Deschide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="653" />
+        <location filename="../tableBoard.cpp" line="461"/>
         <source>&amp;Save</source>
         <translation>&amp;Salvează</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="654" />
+        <location filename="../tableBoard.cpp" line="462"/>
         <source>&amp;Close</source>
         <translation>&amp;Închide</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="655" />
+        <location filename="../tableBoard.cpp" line="463"/>
         <source>Clean &amp;Input</source>
         <translation>Ster&amp;ge date</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1412" />
+        <location filename="../tableBoard.cpp" line="1266"/>
         <source>Collected data from flow meters.</source>
         <translation>Date colectate de la contoare apă</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1413" />
+        <location filename="../tableBoard.cpp" line="1267"/>
         <source>Some user input data are not available or are outside the normal range!</source>
         <translation>Unele date introduse lipsesc sau sunt în afara domeniului permis!</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2460" />
+        <location filename="../tableBoard.cpp" line="2199"/>
+        <source>MainWindow instance is null!</source>
+        <translation>Instanța MainWindow este nulă!</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="2210"/>
+        <source>Invalid or unsafe path:</source>
+        <translation>Cale invalidă sau nesigură:</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="2212"/>
+        <source>FM Report failed - invalid path: %1</source>
+        <translation>Raport FM eșuat - cale invalidă: %1</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="2351"/>
         <source>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2462" />
+        <location filename="../tableBoard.cpp" line="2353"/>
         <source>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2464" />
+        <location filename="../tableBoard.cpp" line="2355"/>
         <source>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</translation>
     </message>
@@ -1108,20 +1317,20 @@
 <context>
     <name>report</name>
     <message>
-        <location filename="../report.ui" line="292" />
-        <location filename="../ui_report.h" line="256" />
+        <location filename="../report.ui" line="292"/>
+        <location filename="../ui_report.h" line="256"/>
         <source>Generează buletinul de verificare metrologică</source>
         <translation>Generează buletinul de verificare metrologică</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="305" />
-        <location filename="../ui_report.h" line="260" />
+        <location filename="../report.ui" line="305"/>
+        <location filename="../ui_report.h" line="260"/>
         <source>Închide fereastra (Esc)</source>
         <translation>Închide fereastra (Esc)</translation>
     </message>
     <message>
-        <location filename="../report.ui" line="311" />
-        <location filename="../ui_report.h" line="264" />
+        <location filename="../report.ui" line="311"/>
+        <location filename="../ui_report.h" line="264"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>

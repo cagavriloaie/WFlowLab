@@ -15,9 +15,9 @@
 #include <fstream>    // File stream operations
 #include <iomanip>    // I/O manipulators
 #include <iostream>   // Standard I/O streams
-#include <mutex>      // C++11 mutual exclusion primitives
 #include <sstream>    // String stream operations
-#include <thread>     // C++11 thread support
+// NOTE: #include <mutex> removed - no longer needed with QThread
+// NOTE: #include <thread> removed - using QThread instead for thread safety
 
 // Qt headers
 #include <QApplication>
@@ -30,6 +30,7 @@
 #include <QPainter>                 // Qt painter for drawing
 #include <QPrinter>                 // Qt printer support
 #include <QString>                  // Qt string class
+#include <QThread>                  // Qt thread support for worker threads
 #include <QTimer>                   // Qt timer for periodic events
 #include <QValidator>               // Qt validator base class
 #include <QtPrintSupport/QPrinter>  // Qt printer support
@@ -37,6 +38,7 @@
 #include <Windows.h>
 
 // Project-specific headers
+#include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
 #include "colors.h"            // Centralized color definitions
 #include "definitions.h"       // Project-specific constants and definitions
 #include "logger.h"            // Logging system
@@ -47,111 +49,9 @@
 #include "ui_tableBoard.h"     // UI definition for table board
 #include "waterdensity.h"      // Header for water density calculations
 
-QString TableBoard::report;
-
-std::mutex printTablePdfThreadMutex;
-
-/**
- * \brief Generates and saves a PDF document from an HTML report.
- *
- * This function converts the provided HTML report into a PDF document
- * using QTextDocument and QPrinter. The resulting PDF file is saved
- * to disk with a timestamped filename in the target directory.
- *
- * \param report HTML content to be rendered and exported as a PDF.
- */
-
-void TableBoard::printPdfThread(QString report) {
-    // Get MainWindow instance thread-safely
-    MainWindow* mainwindow = MainWindowInstance::getInstance();
-    if (!mainwindow) {
-        qCritical() << "TableBoard::printPdfThread: MainWindow instance is null!";
-        return;
-    }
-
-    // Generate a unique timestamp for the file name
-    QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
-
-    // Construct the file name using QDir
-    QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults) + QDir::separator() +
-                       QString("FM_") + timestamp + ".pdf";
-
-    // Lock the mutex to ensure exclusive access to the shared resource
-    std::lock_guard<std::mutex> lock(printTablePdfThreadMutex);
-
-    // Check if the directory exists, and create it if not
-    QDir resultDir(QString::fromStdString(mainwindow->selectedInfo.pathResults));
-
-    if (!resultDir.exists() && !resultDir.mkpath(".")) {
-        Logger::error(LogCategory::UserAction,
-                      QString("Creare director rezultate eșuată: %1")
-                          .arg(QString::fromStdString(mainwindow->selectedInfo.pathResults)));
-        return;
-    }
-
-    // Initialize the printer
-    QPrinter printer(QPrinter::PrinterResolution);
-
-    // Set the output format to PDF
-    printer.setOutputFormat(QPrinter::PdfFormat);
-
-    // Set the output file name
-    printer.setOutputFileName(fileName);
-
-    // Optionally set a custom or default page size
-    QPageSize pageSize = QPageSize(QPageSize::A4);  // Customize as needed
-    printer.setPageSize(pageSize);
-
-    // Set margins dynamically
-    qreal leftMargin = 1.0;
-    qreal topMargin = 1.0;
-    qreal rightMargin = 1.0;
-    qreal bottomMargin = 1.0;
-    printer.setPageMargins(QMarginsF(leftMargin, topMargin, rightMargin, bottomMargin));
-
-    // Set color mode based on document needs
-    printer.setColorMode(QPrinter::ColorMode::Color);
-
-    printer.setResolution(PDF_RESOLUTION_DPI);  // Higher resolution for better quality
-
-    // Optional: Handle printer errors
-    if (!printer.isValid()) {
-        Logger::error(LogCategory::UserAction, "Inițializare printer eșuată pentru generare PDF");
-    }
-
-    // Initialize QTextDocument with the provided HTML report
-    QTextDocument outputReport;
-    outputReport.setHtml(report);
-
-    // Check if the PDF generation is successful
-    if (outputReport.isEmpty() || !printer.isValid()) {
-        Logger::error(LogCategory::UserAction, "Export PDF eșuat: document gol sau printer invalid");
-        return;
-    }
-
-    // Print the document to the PDF file
-    outputReport.print(&printer);
-
-    // Log successful PDF generation with file size
-    QFileInfo pdfFileInfo(fileName);
-    qint64 fileSize = pdfFileInfo.size();
-    QString fileSizeStr;
-    if (fileSize < 1024) {
-        fileSizeStr = QString("%1 bytes").arg(fileSize);
-    } else if (fileSize < 1024 * 1024) {
-        fileSizeStr = QString("%1 KB").arg(fileSize / 1024.0, 0, 'f', 1);
-    } else {
-        fileSizeStr = QString("%1 MB").arg(fileSize / (1024.0 * 1024.0), 0, 'f', 2);
-    }
-
-    Logger::info(LogCategory::UserAction,
-                 QString("PDF exportat: %1 (%2)").arg(fileName).arg(fileSizeStr));
-
-    // Convert the file path to a URL and open it in the default PDF viewer
-    QString fileUrl = QUrl::fromLocalFile(fileName).toString();
-
-    QDesktopServices::openUrl(QUrl(fileUrl));
-}
+// NOTE: QString TableBoard::report removed - using QThread signal/slot pattern instead
+// NOTE: std::mutex printTablePdfThreadMutex removed - no longer needed with QThread
+// NOTE: printPdfThread() function removed - PDF generation now handled by PdfGeneratorWorker with QThread
 
 /**
  * \brief Saves the current input data to a timestamped text file.
@@ -599,6 +499,11 @@ TableBoard::TableBoard(QWidget* _parent) : QDialog(_parent), parent(_parent), ui
     // Attempt to cast the parent widget to MainWindow
     mainwindow = dynamic_cast<MainWindow*>(parent);
 
+    // Validate cast succeeded - critical for safe operation
+    if (!mainwindow) {
+        qCritical() << "TableBoard::TableBoard: Failed to cast parent to MainWindow*";
+    }
+
     // Translate UI elements to the current language
     Translate();
 
@@ -999,23 +904,25 @@ void TableBoard::onCalculateClicked() {
                         streamObj << std::fixed << std::setprecision(2) << error;
                         if (vectorCheckNumber[iter]->isChecked()) {
                             vectorFirstError[iter]->setText(streamObj.str().c_str());
+                            // Set palette first (for background color)
+                            if (iter % 4 == 0 || iter % 4 == 1) {
+                                vectorFirstError[iter]->setPalette(paletteOddRowErr);
+                            } else {
+                                vectorFirstError[iter]->setPalette(paletteEvenRowErr);
+                            }
+                            // Then set state property (for text color via stylesheet)
                             if (abs(error) > maximumError) {
                                 vectorFirstError[iter]->setProperty("state", "error");
-                            vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
-                            vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
+                                vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
+                                vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
                                 resultAllTests[iter] = "RESPINS";
                             } else {
                                 vectorFirstError[iter]->setProperty("state", "");
-                            vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
-                            vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
+                                vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
+                                vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
                             }
                         } else {
                             vectorFirstError[iter]->setText("");
-                        }
-                        if (iter % 4 == 0 || iter % 4 == 1) {
-                            vectorFirstError[iter]->setPalette(paletteOddRowErr);
-                        } else {
-                            vectorFirstError[iter]->setPalette(paletteEvenRowErr);
                         }
                     }
                 }
@@ -1053,6 +960,13 @@ void TableBoard::onCalculateClicked() {
                         streamObj << std::fixed << std::setprecision(2) << error;
                         if (vectorCheckNumber[iter]->isChecked()) {
                             vectorSecondError[iter]->setText(streamObj.str().c_str());
+                            // Set palette first (for background color)
+                            if (iter % 4 == 0 || iter % 4 == 1) {
+                                vectorSecondError[iter]->setPalette(paletteOddRowErr);
+                            } else {
+                                vectorSecondError[iter]->setPalette(paletteEvenRowErr);
+                            }
+                            // Then set state property (for text color via stylesheet)
                             if (abs(error) > nominalError) {
                                 vectorSecondError[iter]->setProperty("state", "error");
                                 vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
@@ -1065,11 +979,6 @@ void TableBoard::onCalculateClicked() {
                             }
                         } else {
                             vectorSecondError[iter]->setText("");
-                        }
-                        if (iter % 4 == 0 || iter % 4 == 1) {
-                            vectorSecondError[iter]->setPalette(paletteOddRowErr);
-                        } else {
-                            vectorSecondError[iter]->setPalette(paletteEvenRowErr);
                         }
                     }
                 }
@@ -1109,10 +1018,17 @@ void TableBoard::onCalculateClicked() {
                         streamObj << std::fixed << std::setprecision(2) << error;
                         if (vectorCheckNumber[iter]->isChecked()) {
                             vectorThirdError[iter]->setText(streamObj.str().c_str());
+                            // Set palette first (for background color)
+                            if (iter % 4 == 0 || iter % 4 == 1) {
+                                vectorThirdError[iter]->setPalette(paletteOddRowErr);
+                            } else {
+                                vectorThirdError[iter]->setPalette(paletteEvenRowErr);
+                            }
+                            // Then set state property (for text color via stylesheet)
                             if (abs(error) > nominalError) {
                                 vectorThirdError[iter]->setProperty("state", "error");
-                                vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
-                                vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
+                                vectorThirdError[iter]->style()->unpolish(vectorThirdError[iter]);
+                                vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
                                 resultAllTests[iter] = "RESPINS";
                             } else {
                                 vectorThirdError[iter]->setProperty("state", "");
@@ -1120,12 +1036,7 @@ void TableBoard::onCalculateClicked() {
                                 vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
                             }
                         } else {
-                            vectorFirstError[iter]->setText("");
-                        }
-                        if (iter % 4 == 0 || iter % 4 == 1) {
-                            vectorThirdError[iter]->setPalette(paletteOddRowErr);
-                        } else {
-                            vectorThirdError[iter]->setPalette(paletteEvenRowErr);
+                            vectorThirdError[iter]->setText("");
                         }
                     }
                 }
@@ -1213,21 +1124,23 @@ void TableBoard::onCalculateClicked() {
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorFirstError[iter]->setText(streamObj.str().c_str());
+                    // Set palette first (for background color)
+                    if (iter % 4 == 0 || iter % 4 == 1) {
+                        vectorFirstError[iter]->setPalette(paletteOddRowErr);
+                    } else {
+                        vectorFirstError[iter]->setPalette(paletteEvenRowErr);
+                    }
+                    // Then set state property (for text color via stylesheet)
                     if (abs(error) > maximumError) {
                         vectorFirstError[iter]->setProperty("state", "error");
-                                vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
-                                vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
+                        vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
+                        vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
                         result = false;
                         resultAllTests[iter] = "RESPINS";
                     } else {
                         vectorFirstError[iter]->setProperty("state", "");
                         vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
                         vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
-                    }
-                    if (iter % 4 == 0 || iter % 4 == 1) {
-                        vectorFirstError[iter]->setPalette(paletteOddRowErr);
-                    } else {
-                        vectorFirstError[iter]->setPalette(paletteEvenRowErr);
                     }
                 }
             }
@@ -1264,20 +1177,22 @@ void TableBoard::onCalculateClicked() {
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorSecondError[iter]->setText(streamObj.str().c_str());
-                    if (abs(error) > maximumError) {
-                        vectorSecondError[iter]->setProperty("state", "error");
-                                vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
-                                vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
-                        resultAllTests[iter] = "RESPINS";
-                    } else {
-                        vectorSecondError[iter]->setProperty("state", "");
-                                style()->unpolish(this);
-                                style()->polish(this);
-                    }
+                    // Set palette first (for background color)
                     if (iter % 4 == 0 || iter % 4 == 1) {
                         vectorSecondError[iter]->setPalette(paletteOddRowErr);
                     } else {
                         vectorSecondError[iter]->setPalette(paletteEvenRowErr);
+                    }
+                    // Then set state property (for text color via stylesheet)
+                    if (abs(error) > maximumError) {
+                        vectorSecondError[iter]->setProperty("state", "error");
+                        vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
+                        vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
+                        resultAllTests[iter] = "RESPINS";
+                    } else {
+                        vectorSecondError[iter]->setProperty("state", "");
+                        vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
+                        vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
                     }
                 }
             }
@@ -1314,21 +1229,22 @@ void TableBoard::onCalculateClicked() {
                     streamObj.str("");
                     streamObj << std::fixed << std::setprecision(2) << error;
                     vectorThirdError[iter]->setText(streamObj.str().c_str());
-                    if (abs(error) > maximumError) {
-                        vectorThirdError[iter]->setProperty("state", "error");
-                                vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
-                                vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
-                        resultAllTests[iter] = "RESPINS";
-                    } else {
-                        vectorThirdError[iter]->setProperty("state", "");
-                                style()->unpolish(this);
-                                style()->polish(this);
-                    }
-
+                    // Set palette first (for background color)
                     if (iter % 4 == 0 || iter % 4 == 1) {
                         vectorThirdError[iter]->setPalette(paletteOddRowErr);
                     } else {
                         vectorThirdError[iter]->setPalette(paletteEvenRowErr);
+                    }
+                    // Then set state property (for text color via stylesheet)
+                    if (abs(error) > maximumError) {
+                        vectorThirdError[iter]->setProperty("state", "error");
+                        vectorThirdError[iter]->style()->unpolish(vectorThirdError[iter]);
+                        vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
+                        resultAllTests[iter] = "RESPINS";
+                    } else {
+                        vectorThirdError[iter]->setProperty("state", "");
+                        vectorThirdError[iter]->style()->unpolish(vectorThirdError[iter]);
+                        vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
                     }
                 }
             }
@@ -1588,6 +1504,10 @@ void TableBoard::onPrintPdfDocClicked() {
     }
     double nominalWaterMeterError = mainwindow->selectedInfo.nominalError;
     double maximumWaterMeterError = mainwindow->selectedInfo.maximumError;
+
+    // Declare report variable at function scope
+    QString report;
+
     if (mainwindow->selectedInfo.selectedLanguage == ROMANIAN) {
         size_t totalEntries{0};
         report =
@@ -1779,6 +1699,32 @@ void TableBoard::onPrintPdfDocClicked() {
             double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
             double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
             double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+            // Determine error cell styles based on whether they exceed limits
+            bool bErrorFirstExceeds = false;
+            bool bErrorSecondExceeds = false;
+            bool bErrorThirdExceeds = false;
+            try {
+                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
+                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
+                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
+            } catch (...) {
+                // If parsing fails, mark as exceeding to highlight the issue
+                bErrorFirstExceeds = true;
+                bErrorSecondExceeds = true;
+                bErrorThirdExceeds = true;
+            }
+
+            QString errorFirstStyle = bErrorFirstExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+            QString errorSecondStyle = bErrorSecondExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+            QString errorThirdStyle = bErrorThirdExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+
             report +=
                 QString("    <tr>") +
                 "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN +
@@ -1791,7 +1737,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleFirst + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeFirst + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst +
+                "        <td style=\"" + errorFirstStyle + "\">" + errorFirst +
                 "</td>" + "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -1803,7 +1749,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleSecond + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeSecond + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond +
+                "        <td style=\"" + errorSecondStyle + "\">" + errorSecond +
                 "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 QString::number(nominalFlowRate) + "&nbsp;</td>" +
@@ -1814,7 +1760,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleThird + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeThird + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird +
+                "        <td style=\"" + errorThirdStyle + "\">" + errorThird +
                 "</td>" + "    </tr>";
         };
         report += QString("</tbody>") + "</table>";
@@ -1895,6 +1841,32 @@ void TableBoard::onPrintPdfDocClicked() {
                 double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
                 double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
                 double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+                // Determine error cell styles based on whether they exceed limits
+                bool bErrorFirstExceeds = false;
+                bool bErrorSecondExceeds = false;
+                bool bErrorThirdExceeds = false;
+                try {
+                    bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
+                    bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
+                    bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
+                } catch (...) {
+                    // If parsing fails, mark as exceeding to highlight the issue
+                    bErrorFirstExceeds = true;
+                    bErrorSecondExceeds = true;
+                    bErrorThirdExceeds = true;
+                }
+
+                QString errorFirstStyle = bErrorFirstExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+                QString errorSecondStyle = bErrorSecondExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+                QString errorThirdStyle = bErrorThirdExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+
                 report += QString("    <tr>") +
                           "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" +
                           SN + "</th>" +
@@ -1908,7 +1880,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           registerVolumeDoubleFirst + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeFirst + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorFirstStyle + "\">" +
                           errorFirst + "</td>" +
                           "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                           resultTests + "</th>" + "    </tr>" + "    <tr>" +
@@ -1922,7 +1894,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           registerVolumeDoubleSecond + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeSecond + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorSecondStyle + "\">" +
                           errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           QString::number(nominalFlowRate) + "&nbsp;</td>" +
@@ -1934,7 +1906,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           registerVolumeDoubleThird + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeThird + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorThirdStyle + "\">" +
                           errorThird + "</td>" + "    </tr>";
             };
             report += QString("</tbody>") + "</table>";
@@ -1943,19 +1915,13 @@ void TableBoard::onPrintPdfDocClicked() {
         report += QString("<br><pre><h3>") + "  Verificator metrolog                   Responsabil tehnic<br><br>" +
                   "  Nume ________________________          Nume ________________________<br>" + "<br>" +
                   "  Semnatura ___________________          Semnatura ___________________<br>" + "</h3></pre>";
-
-        ui->pbPrint->setEnabled(false);
-        QTimerGenerareFM->start(2000);
-
-        std::thread pdfThread(printPdfThread, report);
-        pdfThread.detach();
     }
 
     // English translation
     else {
         size_t totalEntries{0};
-        report = QString("<!DOCTYPE html>\n") + report =
-                     QString("<!DOCTYPE html>\n") + "<html>\n" + "<head>\n" + "   <style>\n" + "       table {\n" +
+        report =
+            QString("<!DOCTYPE html>\n") + "<html>\n" + "<head>\n" + "   <style>\n" + "       table {\n" +
                      "           width: 100%;\n" + "           border-spacing: 0;" +  // Ensures no space between cells
                      "       }\n" + "       th, td {\n" + "           border: 1px solid black;\n" +
                      "           width: 100%;\n" + "           font-family: Courier New;\n" +
@@ -2134,6 +2100,32 @@ void TableBoard::onPrintPdfDocClicked() {
             double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
             double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
             double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+            // Determine error cell styles based on whether they exceed limits
+            bool bErrorFirstExceeds = false;
+            bool bErrorSecondExceeds = false;
+            bool bErrorThirdExceeds = false;
+            try {
+                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
+                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
+                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
+            } catch (...) {
+                // If parsing fails, mark as exceeding to highlight the issue
+                bErrorFirstExceeds = true;
+                bErrorSecondExceeds = true;
+                bErrorThirdExceeds = true;
+            }
+
+            QString errorFirstStyle = bErrorFirstExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+            QString errorSecondStyle = bErrorSecondExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+            QString errorThirdStyle = bErrorThirdExceeds ?
+                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "text-align: right; border: 1px solid black; padding-right: 5px;";
+
             report +=
                 QString("    <tr>") +
                 "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN +
@@ -2146,7 +2138,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleFirst + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeFirst + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorFirst +
+                "        <td style=\"" + errorFirstStyle + "\">" + errorFirst +
                 "</td>" + "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -2158,7 +2150,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleSecond + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeSecond + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorSecond +
+                "        <td style=\"" + errorSecondStyle + "\">" + errorSecond +
                 "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 QString::number(nominalFlowRate) + "&nbsp;</td>" +
@@ -2169,7 +2161,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 registerVolumeDoubleThird + "&nbsp;</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 realVolumeThird + "</td>" +
-                "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + errorThird +
+                "        <td style=\"" + errorThirdStyle + "\">" + errorThird +
                 "</td>" + "    </tr>";
         };
         report += QString("</tbody>") + "</table>";
@@ -2237,6 +2229,32 @@ void TableBoard::onPrintPdfDocClicked() {
                 double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
                 double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
                 double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+                // Determine error cell styles based on whether they exceed limits
+                bool bErrorFirstExceeds = false;
+                bool bErrorSecondExceeds = false;
+                bool bErrorThirdExceeds = false;
+                try {
+                    bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
+                    bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
+                    bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
+                } catch (...) {
+                    // If parsing fails, mark as exceeding to highlight the issue
+                    bErrorFirstExceeds = true;
+                    bErrorSecondExceeds = true;
+                    bErrorThirdExceeds = true;
+                }
+
+                QString errorFirstStyle = bErrorFirstExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+                QString errorSecondStyle = bErrorSecondExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+                QString errorThirdStyle = bErrorThirdExceeds ?
+                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "text-align: right; border: 1px solid black; padding-right: 5px;";
+
                 report += QString("    <tr>") +
                           "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" +
                           SN + "</th>" +
@@ -2250,7 +2268,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           QString::number(registerVolumeDoubleFirst) + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeFirst + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorFirstStyle + "\">" +
                           errorFirst + "</td>" +
                           "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                           resultTests + "</th>" + "    </tr>" + "    <tr>" +
@@ -2264,7 +2282,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           QString::number(registerVolumeDoubleSecond) + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeSecond + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorSecondStyle + "\">" +
                           errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           QString::number(nominalFlowRate) + "&nbsp;</td>" +
@@ -2276,7 +2294,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           QString::number(registerVolumeDoubleThird) + "&nbsp;</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           realVolumeThird + "</td>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          "        <td style=\"" + errorThirdStyle + "\">" +
                           errorThird + "</td>" + "    </tr>";
             };
             report += QString("</tbody>") + "</table>";
@@ -2284,13 +2302,49 @@ void TableBoard::onPrintPdfDocClicked() {
         report += QString("<br><pre><h3>") + "  Metrological Verifier                   Technical Responsible<br><br>" +
                   "  Name ________________________           Name _______________________<br>" + "<br>" +
                   "  Signature ___________________           Signature __________________<br>" + "</h3></pre>";
-
-        ui->pbPrint->setEnabled(false);
-        QTimerGenerareFM->start(2000);
-
-        std::thread pdfThread(printPdfThread, report);
-        pdfThread.detach();
     }
+
+    // PDF generation code (shared for both Romanian and English)
+    ui->pbPrint->setEnabled(false);
+    QTimerGenerareFM->start(2000);
+
+    // Get MainWindow instance thread-safely
+    MainWindow* pMainWindow = MainWindowInstance::getInstance();
+    if (!pMainWindow) {
+        qCritical() << "TableBoard::onPrintPdfDocClicked:" << tr("MainWindow instance is null!");
+        ui->pbPrint->setEnabled(true);
+        QTimerGenerareFM->stop();
+        return;
+    }
+
+    // Validate path before use - critical security check
+    QString pathResults = QString::fromStdString(pMainWindow->selectedInfo.pathResults);
+    QString validatedPath = MainWindow::validateAndSanitizePath(pathResults, true);
+
+    if (validatedPath.isEmpty()) {
+        qCritical() << "TableBoard::onPrintPdfDocClicked:" << tr("Invalid or unsafe path:") << pathResults;
+        Logger::error(LogCategory::UserAction,
+                     tr("FM Report failed - invalid path: %1").arg(pathResults));
+        ui->pbPrint->setEnabled(true);
+        QTimerGenerareFM->stop();
+        return;
+    }
+
+    // Create worker and thread for PDF generation
+    QThread* pdfThread = new QThread();
+    PdfGeneratorWorker* worker = new PdfGeneratorWorker();
+    worker->moveToThread(pdfThread);
+
+    // Connect signals and slots
+    connect(pdfThread, &QThread::started, worker, [worker, report, validatedPath]() {
+        worker->generatePdf(report, validatedPath, "FM_");
+    });
+    connect(worker, &PdfGeneratorWorker::finished, pdfThread, &QThread::quit);
+    connect(worker, &PdfGeneratorWorker::finished, worker, &PdfGeneratorWorker::deleteLater);
+    connect(pdfThread, &QThread::finished, pdfThread, &QThread::deleteLater);
+
+    // Start the thread
+    pdfThread->start();
 }
 
 /**
@@ -2498,18 +2552,16 @@ void TableBoard::onCopy23Clicked() {
 void TableBoard::onReportClicked() {
     onCalculateClicked();
 
+    // Use Qt parent-child ownership - safe deletion with deleteLater
     if (reportMeasurementsDialog) {
-        delete reportMeasurementsDialog;
+        reportMeasurementsDialog->deleteLater();  // Qt-safe deletion
         reportMeasurementsDialog = nullptr;
     }
 
-    if (!reportMeasurementsDialog) {
-        reportMeasurementsDialog = new ReportMeasurements(this, vectorCheckNumber, vectorSerialNumber, resultAllTests);
-    }
+    // Create new dialog with 'this' as parent - Qt will handle cleanup
+    reportMeasurementsDialog = new ReportMeasurements(this, vectorCheckNumber, vectorSerialNumber, resultAllTests);
 
-    if (reportMeasurementsDialog) {
-        reportMeasurementsDialog->show();
-    }
+    reportMeasurementsDialog->show();
 }
 
 /**

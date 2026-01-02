@@ -20,7 +20,8 @@
 
 #include <unistd.h>  // POSIX API for various functionalities
 
-#include <mutex>  // Include for std::mutex
+#include <atomic>  // Include for std::atomic (thread-safe counter)
+#include <mutex>   // Include for std::mutex
 
 #include "logger.h"         // Include header for logging system
 #include "mainwindow.h"     // Include header for MainWindow
@@ -28,8 +29,8 @@
 #include "ui_mainwindow.h"  // Generated UI header file for MainWindow
 
 namespace {
-MainWindow* mainwindow;
-unsigned positionTable = 0;
+MainWindow* mainwindow = nullptr;       // Initialize to nullptr to prevent undefined behavior
+std::atomic<unsigned> positionTable{0}; // Thread-safe counter for Modbus position tracking
 }  // namespace
 
 std::mutex modbusLock;
@@ -53,6 +54,11 @@ std::mutex modbusLock;
 Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     ui->setupUi(this);                               // Setup the user interface defined in Ui::Interface
     mainwindow = dynamic_cast<MainWindow*>(parent);  // Cast parent to MainWindow*
+
+    // Validate cast succeeded - critical for safe operation
+    if (!mainwindow) {
+        qCritical() << "Interface::Interface: Failed to cast parent to MainWindow*";
+    }
 
     // Create validator with 'this' as parent for automatic memory management
     QIntValidator* timeoutValidator = new QIntValidator(0, 1000, this);
@@ -91,8 +97,9 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     ui->cbSelectSerial_1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     ui->cbSelectSerial_2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    modbusDevice_1 = new QModbusRtuSerialClient(this);
-    modbusDevice_2 = new QModbusRtuSerialClient(this);
+    // Initialize to nullptr - lazy initialization when actually needed
+    modbusDevice_1 = nullptr;
+    modbusDevice_2 = nullptr;
 
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
@@ -282,7 +289,7 @@ bool Interface::checkModbusAddresses() {
             connect(reply_1, &QModbusReply::finished, this, &Interface::onReadModbusReady);
         } else {
             // Handle immediately finished reply (broadcast replies)
-            delete reply_1;
+            reply_1->deleteLater();  // Use Qt-safe deletion for Qt objects
         }
     }
 
@@ -302,7 +309,7 @@ bool Interface::checkModbusAddresses() {
             connect(reply_2, &QModbusReply::finished, this, &Interface::onReadModbusReady);
         } else {
             // Handle immediately finished reply (broadcast replies)
-            delete reply_2;
+            reply_2->deleteLater();  // Use Qt-safe deletion for Qt objects
         }
     }
 

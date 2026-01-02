@@ -20,6 +20,7 @@
 #include <QTranslator>                         // Qt class for providing translations in the application.
 #include <QtSerialBus/QModbusRtuSerialClient>  // Qt class for Modbus RTU serial client communication.
 
+#include <atomic>  // For std::atomic (thread-safe variables)
 #include <memory>  // For std::unique_ptr
 
 #include "helpabout.h"   // Custom header for HelpAbout class.
@@ -122,8 +123,8 @@ class MainWindow : public QMainWindow {
     std::unique_ptr<Interface> interfaceDialog;        /**< Pointer to the interface dialog. */
     std::unique_ptr<QActionGroup> alignmentGroup;      /**< Action group for alignment settings. */
     std::unique_ptr<QLabel> statusBarLabel;            /**< Permanent label widget in the status bar. */
-    size_t MAX_NR_WATER_METERS{20};           /**< Maximum number of water meters supported. */
-    size_t NUMBER_ENTRIES_METER_FLOW_DB{0};   /**< Number of entries in meter flow database. */
+    size_t MAX_NR_WATER_METERS{20};                  /**< Maximum number of water meters supported. */
+    std::atomic<size_t> NUMBER_ENTRIES_METER_FLOW_DB{0};   /**< Number of entries in meter flow database (thread-safe). */
     std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
     QList<QSerialPortInfo> ports;
     QString statusBarMessage;
@@ -176,6 +177,22 @@ class MainWindow : public QMainWindow {
      * \param message The message to set in the status bar.
      */
     void setStatusBarMessage(const QString message);
+
+    /**
+     * \brief Validates and sanitizes a file path for security.
+     *
+     * Ensures that:
+     * - Path is normalized to canonical form
+     * - Path doesn't contain "..", "~", or other dangerous patterns
+     * - Path is within the application directory (only if strictMode is true)
+     * - Path exists or can be created (if allowCreate is true)
+     *
+     * \param path The path to validate
+     * \param allowCreate Whether to create the directory if it doesn't exist
+     * \param strictMode If true, enforces path must be within application directory (default: false)
+     * \return Validated canonical path, or empty string if invalid
+     */
+    static QString validateAndSanitizePath(const QString& path, bool allowCreate = false, bool strictMode = false);
 
   protected:
     /**
