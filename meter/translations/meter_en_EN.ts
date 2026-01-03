@@ -260,6 +260,61 @@
         <translation>&amp;Connect Ports</translation>
     </message>
     <message>
+        <location filename="../interface.cpp" line="477"/>
+        <location filename="../interface.cpp" line="606"/>
+        <location filename="../interface.cpp" line="827"/>
+        <location filename="../interface.cpp" line="956"/>
+        <source>Invalid Timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="477"/>
+        <location filename="../interface.cpp" line="827"/>
+        <source>Timeout 1 is more than 1000 ms.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="606"/>
+        <location filename="../interface.cpp" line="956"/>
+        <source>Timeout 2 is more than 1000 ms.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="646"/>
+        <location filename="../interface.cpp" line="996"/>
+        <source>Modbus Device %1 connection status: %2
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="648"/>
+        <location filename="../interface.cpp" line="651"/>
+        <location filename="../interface.cpp" line="998"/>
+        <location filename="../interface.cpp" line="1001"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="648"/>
+        <location filename="../interface.cpp" line="651"/>
+        <location filename="../interface.cpp" line="998"/>
+        <location filename="../interface.cpp" line="1001"/>
+        <source>Failure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="649"/>
+        <location filename="../interface.cpp" line="999"/>
+        <source>Modbus Device %1 connection status: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="653"/>
+        <location filename="../interface.cpp" line="1003"/>
+        <source>MODBUS Connection Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../interface.cpp" line="1063"/>
         <location filename="../interface.cpp" line="1212"/>
         <source>Error</source>
@@ -280,6 +335,26 @@
         <location filename="../interface.cpp" line="1065"/>
         <source>MODBUS serial ports DB have been updated.</source>
         <translation>MODBUS serial ports DB have been updated.</translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="1110"/>
+        <source>Configuration Saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="1110"/>
+        <source>Current MODBUS configuration is saved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="1113"/>
+        <source>Configuration Not Saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../interface.cpp" line="1114"/>
+        <source>Serial port selections must be different to save configuration.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="1249"/>
