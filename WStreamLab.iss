@@ -31,7 +31,7 @@ VersionInfoProductName={#AppName}
 VersionInfoProductVersion=1.8.0
 
 ; Output settings
-OutputBaseFilename={#AppName}_v{#AppVersion}_Setup
+OutputBaseFilename={#AppName}-{#AppVersion}.0-Setup-x64
 OutputDir={#AppOutputDir}
 OutputManifestFile={#AppExeName}
 SetupLogging=yes
