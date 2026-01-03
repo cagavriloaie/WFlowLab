@@ -9,6 +9,12 @@
 #define AppWizardImage "build\WStreamLab.bmp"
 #define AppWizardSmallImage "build\WStreamLab.bmp"
 
+; Auto-copy latest files from Release to build folder before compilation
+#expr Exec('cmd.exe', '/c copy /Y "meter\release\' + AppExeName + '" "build\' + AppExeName + '"', '', SW_HIDE)
+#expr Exec('cmd.exe', '/c if not exist "build\translations" mkdir "build\translations"', '', SW_HIDE)
+#expr Exec('cmd.exe', '/c copy /Y "meter\translations\*.qm" "build\translations\"', '', SW_HIDE)
+#pragma message "Auto-copied latest executable and translations to build folder"
+
 [Setup]
 ; Unique identifier for the application
 AppId={{3F8A2C5E-1B4D-4A7C-9E2F-6D8B5A4C3E1F}
@@ -33,14 +39,13 @@ VersionInfoProductVersion=1.8.0
 ; Output settings
 OutputBaseFilename={#AppName}-{#AppVersion}.0-Setup-x64
 OutputDir={#AppOutputDir}
-OutputManifestFile={#AppExeName}
 SetupLogging=yes
 
 ; Installation settings
 DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
-UninstallDisplayName={#AppName} v{#AppVersion} Uninstall
-DefaultUserInfoName=John Doe
+UninstallDisplayName={#AppName}
+DefaultUserInfoName=Constantin
 DefaultUserInfoOrg=ELCOST
 PrivilegesRequired=admin
 AllowCancelDuringInstall=yes

@@ -1761,8 +1761,8 @@ void TableBoard::onPrintPdfDocClicked() {
             report +=
                 QString("    <tr>") +
                 "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN +
-                "</th>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 2px;\">" +
-                QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                "</th>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                QString::number(minimumFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopFirst + "</td>" +
@@ -1774,7 +1774,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "</td>" + "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                QString::number(trasitionFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopSecond + "</td>" +
@@ -1785,7 +1785,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "        <td style=\"" + errorSecondStyle + "\">" + errorSecond +
                 "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                QString::number(nominalFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopThird + "</td>" +
@@ -1906,8 +1906,8 @@ void TableBoard::onPrintPdfDocClicked() {
                 report += QString("    <tr>") +
                           "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" +
                           SN + "</th>" +
-                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 2px;\">" +
-                          QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                          "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
+                          QString::number(minimumFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startFirst + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -1921,7 +1921,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                           resultTests + "</th>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                          QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                          QString::number(trasitionFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startSecond + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -1933,7 +1933,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           "        <td style=\"" + errorSecondStyle + "\">" +
                           errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                          QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                          QString::number(nominalFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startThird + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -2179,7 +2179,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 QString("    <tr>") +
                 "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" + SN +
                 "</th>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                QString::number(minimumFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startFirst +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopFirst + "</td>" +
@@ -2191,7 +2191,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "</td>" + "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                 resultTests + "</th>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                QString::number(trasitionFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startSecond +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopSecond + "</td>" +
@@ -2202,7 +2202,7 @@ void TableBoard::onPrintPdfDocClicked() {
                 "        <td style=\"" + errorSecondStyle + "\">" + errorSecond +
                 "</td>" + "    </tr>" + "    <tr>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                QString::number(nominalFlowRate) + "</td>" +
                 "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" + startThird +
                 "</td>" + "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                 stopThird + "</td>" +
@@ -2308,7 +2308,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           "        <th style=\"text-align: left; border: 1px solid black;\" rowspan=\"3\"><br>&nbsp;" +
                           SN + "</th>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                          QString::number(minimumFlowRate) + "&nbsp;</td>" +
+                          QString::number(minimumFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startFirst + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -2322,7 +2322,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           "        <th style=\"text-align: center; border: 1px solid black;\" rowspan=\"3\">" +
                           resultTests + "</th>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                          QString::number(trasitionFlowRate) + "&nbsp;</td>" +
+                          QString::number(trasitionFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startSecond + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
@@ -2334,7 +2334,7 @@ void TableBoard::onPrintPdfDocClicked() {
                           "        <td style=\"" + errorSecondStyle + "\">" +
                           errorSecond + "</td>" + "    </tr>" + "    <tr>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
-                          QString::number(nominalFlowRate) + "&nbsp;</td>" +
+                          QString::number(nominalFlowRate) + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +
                           startThird + "</td>" +
                           "        <td style=\"text-align: right; border: 1px solid black; padding-right: 5px;\">" +

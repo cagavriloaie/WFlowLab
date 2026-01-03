@@ -20,6 +20,8 @@ moc_*.cpp
 moc_*.h
 qrc_*.cpp
 meter/ui_*.h
+meter/generated/
+meter/obj/
 
 # Generated resource files
 meter/*.qm

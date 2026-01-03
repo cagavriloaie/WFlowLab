@@ -106,8 +106,11 @@ void PdfGeneratorWorker::generatePdf(const QString& htmlReport,
     }
 
     // Open PDF in default viewer
-    QString fileUrl = QUrl::fromLocalFile(fileName).toString();
-    QDesktopServices::openUrl(QUrl(fileUrl));
+    bool opened = QDesktopServices::openUrl(QUrl::fromLocalFile(fileName));
+    if (!opened) {
+        Logger::warning(LogCategory::UserAction,
+                       QString("Nu s-a putut deschide automat PDF-ul: %1").arg(fileName));
+    }
 
     // Log success with file size
     QString fileSizeStr;
