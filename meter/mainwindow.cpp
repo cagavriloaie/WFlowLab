@@ -2441,7 +2441,7 @@ void MainWindow::CenterToScreen(QWidget* widget) {
  *
  * \param message The message to set in the status bar.
  */
-void MainWindow::setStatusBarMessage(const QString message) {
+void MainWindow::setStatusBarMessage(const QString& message) {
     // Update the permanent label in the status bar
     if (statusBarLabel) {
         statusBarLabel->setText(message);

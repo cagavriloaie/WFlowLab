@@ -15,6 +15,8 @@
 
 #include <cmath>  // Standard C++ math library
 
+#include <QDebug>  // Qt debug/logging functions
+
 #include "definitions.h"  // Project-specific constants and definitions
 
 /**
@@ -103,10 +105,13 @@ double getWaterDensityAtTemperature(double temperature, double correction) {
     // Find the index for interpolation
     size_t index = static_cast<size_t>(std::floor(temperature));
 
-    // Validate array index
-    if (index >= sizeof(temperaturePoints) / sizeof(temperaturePoints[0]) - 1) {
-        // Handle or log an error, or return a default value
-        return DEFAULT_DENSITY_BELOW_ZERO;  // Adjust with an appropriate default value
+    // Validate array index - ensure we can safely access densityPoints[index + 1]
+    // densityPoints has 102 elements (0-101), so we need index + 1 <= 101, i.e., index <= 100
+    constexpr size_t densityArraySize = sizeof(densityPoints) / sizeof(densityPoints[0]);
+    if (index >= densityArraySize - 1) {
+        // Temperature too high for interpolation
+        qWarning() << "WaterDensity: Index out of bounds for temperature" << temperature;
+        return DEFAULT_DENSITY_ABOVE_HUNDRED;
     }
 
     // Perform linear interpolation

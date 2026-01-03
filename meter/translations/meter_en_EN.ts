@@ -5,49 +5,49 @@
     <name>HelpAbout</name>
     <message>
         <location filename="../helpabout.ui" line="26"/>
-        <location filename="../ui_helpabout.h" line="334"/>
+        <location filename="../ui_helpabout.h" line="339"/>
         <source>WMeter - About</source>
         <translation>WMeter - About</translation>
     </message>
     <message>
-        <location filename="../helpabout.ui" line="358"/>
-        <location filename="../ui_helpabout.h" line="355"/>
+        <location filename="../helpabout.ui" line="397"/>
+        <location filename="../ui_helpabout.h" line="360"/>
         <source>Website:</source>
         <translation>Website:</translation>
     </message>
     <message>
-        <location filename="../helpabout.ui" line="432"/>
-        <location filename="../ui_helpabout.h" line="359"/>
+        <location filename="../helpabout.ui" line="471"/>
+        <location filename="../ui_helpabout.h" line="364"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="28"/>
+        <location filename="../helpabout.cpp" line="30"/>
         <source>WStreamLab - About</source>
         <translation>WStreamLab - About</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="31"/>
+        <location filename="../helpabout.cpp" line="33"/>
         <source>About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="44"/>
+        <location filename="../helpabout.cpp" line="46"/>
         <source>WStreamLab</source>
         <translation>WStreamLab</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="45"/>
+        <location filename="../helpabout.cpp" line="47"/>
         <source>Professional Water Meter Test System</source>
         <translation>Professional Water Meter Test System</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="49"/>
+        <location filename="../helpabout.cpp" line="51"/>
         <source>WStreamLab is a professional water meter testing and verification system compliant with recognized standards.</source>
         <translation>WStreamLab is a professional water meter testing and verification system compliant with recognized standards.</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="52"/>
+        <location filename="../helpabout.cpp" line="54"/>
         <source>Version:</source>
         <translation>Version:</translation>
     </message>
@@ -56,57 +56,57 @@
         <translation type="vanished">Qt Version:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="59"/>
+        <location filename="../helpabout.cpp" line="61"/>
         <source>6.7.1</source>
         <translation>6.7.1</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="60"/>
+        <location filename="../helpabout.cpp" line="62"/>
         <source>License:</source>
         <translation>License:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="61"/>
+        <location filename="../helpabout.cpp" line="63"/>
         <source>Commercial</source>
         <translation>Commercial</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="56"/>
+        <location filename="../helpabout.cpp" line="58"/>
         <source>Build:</source>
         <translation>Build:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="54"/>
+        <location filename="../helpabout.cpp" line="56"/>
         <source>Platform:</source>
         <translation>Platform:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="55"/>
+        <location filename="../helpabout.cpp" line="57"/>
         <source>Windows 8.1 or later</source>
         <translation>Windows 8.1 or later</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="57"/>
+        <location filename="../helpabout.cpp" line="59"/>
         <source>2026-01-02</source>
         <translation>2026-01-02</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="58"/>
+        <location filename="../helpabout.cpp" line="60"/>
         <source>Qt:</source>
         <translation>Qt:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="64"/>
+        <location filename="../helpabout.cpp" line="66"/>
         <source>Company:</source>
         <translation>Company:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="71"/>
+        <location filename="../helpabout.cpp" line="73"/>
         <source>Pascani, Morilor #8, Romania</source>
         <translation>Pascani, Morilor #8, Romania</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="75"/>
+        <location filename="../helpabout.cpp" line="77"/>
         <source>www.elcost.ro</source>
         <translation>www.elcost.ro</translation>
     </message>
@@ -123,18 +123,18 @@
         <translation type="vanished">Copyright:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="65"/>
+        <location filename="../helpabout.cpp" line="67"/>
         <source>© 2026 Elcost Company SRL</source>
         <translation>© 2026 Elcost Company SRL</translation>
     </message>
     <message>
-        <location filename="../helpabout.ui" line="314"/>
-        <location filename="../ui_helpabout.h" line="352"/>
+        <location filename="../helpabout.ui" line="360"/>
+        <location filename="../ui_helpabout.h" line="358"/>
         <source>Email:</source>
         <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="69"/>
+        <location filename="../helpabout.cpp" line="71"/>
         <source>office@elcost.ro</source>
         <translation>office@elcost.ro</translation>
     </message>
@@ -155,7 +155,7 @@
         <translation type="vanished">constantin</translation>
     </message>
     <message>
-        <location filename="../helpabout.cpp" line="78"/>
+        <location filename="../helpabout.cpp" line="80"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
@@ -179,106 +179,106 @@
         <translation type="vanished">RS-485/422 Serial Interface (MODBUS)</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="156"/>
+        <location filename="../interface.cpp" line="158"/>
         <source>Serial Interface 1 - MODBUS</source>
         <translation>Serial Interface 1 - MODBUS</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="157"/>
-        <location filename="../interface.cpp" line="167"/>
+        <location filename="../interface.cpp" line="159"/>
+        <location filename="../interface.cpp" line="169"/>
         <source>Serial Port:</source>
         <translation>Serial Port:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="158"/>
-        <location filename="../interface.cpp" line="168"/>
+        <location filename="../interface.cpp" line="160"/>
+        <location filename="../interface.cpp" line="170"/>
         <source>Baud Rate:</source>
         <translation>Baud Rate:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="159"/>
-        <location filename="../interface.cpp" line="169"/>
+        <location filename="../interface.cpp" line="161"/>
+        <location filename="../interface.cpp" line="171"/>
         <source>Data Bits:</source>
         <translation>Data Bits:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="160"/>
-        <location filename="../interface.cpp" line="170"/>
+        <location filename="../interface.cpp" line="162"/>
+        <location filename="../interface.cpp" line="172"/>
         <source>Parity:</source>
         <translation>Parity:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="161"/>
-        <location filename="../interface.cpp" line="171"/>
+        <location filename="../interface.cpp" line="163"/>
+        <location filename="../interface.cpp" line="173"/>
         <source>Stop Bits:</source>
         <translation>Stop Bits:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="162"/>
-        <location filename="../interface.cpp" line="172"/>
+        <location filename="../interface.cpp" line="164"/>
+        <location filename="../interface.cpp" line="174"/>
         <source>Timeout [ms]:</source>
         <translation>Timeout [ms]:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="163"/>
-        <location filename="../interface.cpp" line="173"/>
+        <location filename="../interface.cpp" line="165"/>
+        <location filename="../interface.cpp" line="175"/>
         <source>Retries:</source>
         <translation>Retries:</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="166"/>
+        <location filename="../interface.cpp" line="168"/>
         <source>Serial Interface 2 - MODBUS</source>
         <translation>Serial Interface 2 - MODBUS</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="176"/>
+        <location filename="../interface.cpp" line="178"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="177"/>
+        <location filename="../interface.cpp" line="179"/>
         <source>&amp;Save Configuration</source>
         <translation>&amp;Save Configuration</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="178"/>
+        <location filename="../interface.cpp" line="180"/>
         <source>&amp;Test Connection</source>
         <translation>&amp;Test Connection</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="179"/>
+        <location filename="../interface.cpp" line="181"/>
         <source>&amp;Refresh Ports</source>
         <translation>&amp;Refresh Ports</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="180"/>
+        <location filename="../interface.cpp" line="182"/>
         <source>&amp;Connect Ports</source>
         <translation>&amp;Connect Ports</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1061"/>
-        <location filename="../interface.cpp" line="1210"/>
+        <location filename="../interface.cpp" line="1063"/>
+        <location filename="../interface.cpp" line="1212"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1061"/>
-        <location filename="../interface.cpp" line="1210"/>
+        <location filename="../interface.cpp" line="1063"/>
+        <location filename="../interface.cpp" line="1212"/>
         <source>At least two MODBUS interfaces are required.</source>
         <translation>At least two MODBUS interfaces are required.</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1063"/>
+        <location filename="../interface.cpp" line="1065"/>
         <source>Serial Ports Updated</source>
         <translation>Serial Ports Updated</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1063"/>
+        <location filename="../interface.cpp" line="1065"/>
         <source>MODBUS serial ports DB have been updated.</source>
         <translation>MODBUS serial ports DB have been updated.</translation>
     </message>
     <message>
-        <location filename="../interface.cpp" line="1247"/>
+        <location filename="../interface.cpp" line="1249"/>
         <source>Not connected to RS-485/422 networks</source>
         <translation>Not connected to RS-485/422 networks</translation>
     </message>
@@ -286,8 +286,8 @@
 <context>
     <name>Licence</name>
     <message>
-        <location filename="../license.ui" line="288"/>
-        <location filename="../ui_license.h" line="231"/>
+        <location filename="../license.ui" line="337"/>
+        <location filename="../ui_license.h" line="262"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
@@ -295,52 +295,62 @@
 <context>
     <name>License</name>
     <message>
-        <location filename="../license.cpp" line="50"/>
+        <location filename="../license.cpp" line="63"/>
         <source>WStreamLab - License</source>
-        <translation>Water Stream Laboratory - License</translation>
+        <translation>WStreamLab - License</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="51"/>
+        <location filename="../license.cpp" line="64"/>
         <source>License Information</source>
         <translation>License Information</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="52"/>
+        <location filename="../license.cpp" line="65"/>
         <source>Certificate:</source>
         <translation>Certificate:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="53"/>
+        <location filename="../license.cpp" line="66"/>
         <source>Water density at 20 °C:</source>
         <translation>Water density at 20 °C:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="54"/>
+        <location filename="../license.cpp" line="67"/>
         <source>[kg/m³]</source>
         <translation>[kg/m³]</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="55"/>
+        <location filename="../license.cpp" line="68"/>
         <source>Archive folder:</source>
         <translation>Archive folder:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="56"/>
+        <location filename="../license.cpp" line="69"/>
         <source>Company:</source>
         <translation>Company:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="57"/>
+        <location filename="../license.cpp" line="70"/>
         <source>Volume correction:</source>
         <translation>Volume correction:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="58"/>
+        <location filename="../license.cpp" line="71"/>
         <source>Checksum:</source>
         <translation>Checksum:</translation>
     </message>
     <message>
-        <location filename="../license.cpp" line="59"/>
+        <location filename="../license.cpp" line="72"/>
+        <source>Configuration file:</source>
+        <translation>Configuration file:</translation>
+    </message>
+    <message>
+        <location filename="../license.cpp" line="73"/>
+        <source>Note: Configuration data can only be modified by regenerating the certificate through ELCOST.</source>
+        <translation>Note: Configuration data can only be modified by regenerating the certificate through ELCOST.</translation>
+    </message>
+    <message>
+        <location filename="../license.cpp" line="74"/>
         <source>Close</source>
         <translation>&amp;Close</translation>
     </message>
@@ -508,7 +518,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="424"/>
         <source>WStreamLab - Dashboard</source>
-        <translation>Water Stream Laboratory - Dashboard</translation>
+        <translation>WStreamLab - Dashboard</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="427"/>
@@ -826,7 +836,7 @@
     <message>
         <location filename="../main.cpp" line="246"/>
         <source>More than one instance of the WStreamLab program is not permitted.</source>
-        <translation>More than one instance of the Water Stream Laboratory program is not permitted.</translation>
+        <translation>More than one instance of the WStreamLab program is not permitted.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="363"/>
@@ -868,7 +878,7 @@
     </message>
     <message>
         <location filename="../report.cpp" line="166"/>
-        <location filename="../report.cpp" line="219"/>
+        <location filename="../report.cpp" line="228"/>
         <source>Autorizatia numarul:</source>
         <translation>Authorization Number:</translation>
     </message>
@@ -913,149 +923,156 @@
         <translation>Checking location: </translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="175"/>
+        <location filename="../report.cpp" line="177"/>
+        <location filename="../report.cpp" line="239"/>
         <source>6 luni</source>
         <translation>6 months</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="176"/>
-        <location filename="../report.cpp" line="228"/>
+        <location filename="../report.cpp" line="178"/>
+        <location filename="../report.cpp" line="240"/>
         <source>1 an</source>
         <translation>1 year</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="177"/>
-        <location filename="../report.cpp" line="229"/>
+        <location filename="../report.cpp" line="179"/>
+        <location filename="../report.cpp" line="241"/>
         <source>2 ani</source>
         <translation>2 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="179"/>
-        <location filename="../report.cpp" line="232"/>
+        <location filename="../report.cpp" line="182"/>
+        <location filename="../report.cpp" line="244"/>
         <source>5 ani</source>
         <translation>5 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="180"/>
-        <location filename="../report.cpp" line="238"/>
+        <location filename="../report.cpp" line="189"/>
+        <location filename="../report.cpp" line="251"/>
         <source>&amp;Generare BV</source>
         <translation>&amp;Generate BV</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="181"/>
-        <location filename="../report.cpp" line="239"/>
+        <location filename="../report.cpp" line="190"/>
+        <location filename="../report.cpp" line="252"/>
         <source>&amp;Inchide</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="220"/>
+        <location filename="../report.cpp" line="229"/>
         <source>Numar de inregistrare:</source>
         <translation>Inregistration number:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="221"/>
+        <location filename="../report.cpp" line="230"/>
         <source>Beneficiar:</source>
         <translation>Customer:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="223"/>
+        <location filename="../report.cpp" line="232"/>
         <source>Normativ:</source>
         <translation>Norm:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="224"/>
+        <location filename="../report.cpp" line="233"/>
         <source>Valabilitate:</source>
         <translation>Validity:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="225"/>
+        <location filename="../report.cpp" line="234"/>
         <source>Cost:</source>
         <translation>Cost:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="226"/>
+        <location filename="../report.cpp" line="235"/>
         <source>Verificator metrolog:</source>
         <translation>Metrological checker:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="319"/>
+        <location filename="../report.cpp" line="334"/>
         <source>MainWindow instance is null!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="548"/>
+        <location filename="../report.cpp" line="563"/>
         <source>Invalid or unsafe path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="550"/>
+        <location filename="../report.cpp" line="565"/>
         <source>BV Report failed - invalid path: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="178"/>
-        <location filename="../report.cpp" line="230"/>
+        <location filename="../report.cpp" line="180"/>
+        <location filename="../report.cpp" line="242"/>
         <source>3 ani</source>
         <translation>3 years</translation>
     </message>
     <message>
         <location filename="../report.cpp" line="164"/>
-        <location filename="../report.cpp" line="215"/>
+        <location filename="../report.cpp" line="224"/>
         <source>WStreamLab - Informatii buletin de verificare metrologica</source>
         <translation>WStreamLab - Metrological Verification Report Information</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="218"/>
+        <location filename="../report.cpp" line="227"/>
         <source>Date de verificare metrologica</source>
         <translation>Date de verificare metrologica</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="222"/>
+        <location filename="../report.cpp" line="231"/>
         <source>Cod din LT:</source>
         <translation>Cod din LT:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="227"/>
+        <location filename="../report.cpp" line="236"/>
         <source>Locul efectuarii verificarii metrologice:</source>
         <translation>Locul efectuarii verificarii metrologice:</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="231"/>
+        <location filename="../report.cpp" line="181"/>
+        <location filename="../report.cpp" line="243"/>
         <source>4 ani</source>
         <translation>4 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="233"/>
+        <location filename="../report.cpp" line="183"/>
+        <location filename="../report.cpp" line="245"/>
         <source>6 ani</source>
         <translation>6 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="234"/>
+        <location filename="../report.cpp" line="184"/>
+        <location filename="../report.cpp" line="246"/>
         <source>7 ani</source>
         <translation>7 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="235"/>
+        <location filename="../report.cpp" line="185"/>
+        <location filename="../report.cpp" line="247"/>
         <source>8 ani</source>
         <translation>8 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="236"/>
+        <location filename="../report.cpp" line="186"/>
+        <location filename="../report.cpp" line="248"/>
         <source>9 ani</source>
         <translation>9 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="237"/>
+        <location filename="../report.cpp" line="187"/>
+        <location filename="../report.cpp" line="249"/>
         <source>10 ani</source>
         <translation>10 years</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="305"/>
+        <location filename="../report.cpp" line="320"/>
         <source>Metrological Verification Report</source>
         <translation>Metrological Verification Report</translation>
     </message>
     <message>
-        <location filename="../report.cpp" line="306"/>
+        <location filename="../report.cpp" line="321"/>
         <source>Some required fields are not filled in.</source>
         <translation>Some required fields are not filled in.</translation>
     </message>
@@ -1064,69 +1081,69 @@
     <name>TableBoard</name>
     <message>
         <location filename="../tableBoard.ui" line="122"/>
-        <location filename="../ui_tableBoard.h" line="3676"/>
+        <location filename="../ui_tableBoard.h" line="3678"/>
         <source>Calculează rezultatele verificării</source>
         <translation>Calculate verification results</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="135"/>
-        <location filename="../ui_tableBoard.h" line="3680"/>
+        <location filename="../ui_tableBoard.h" line="3682"/>
         <source>Generează fișa de măsurători (Ctrl+P)</source>
         <translation>Generate measurement sheet (Ctrl+P)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="148"/>
-        <location filename="../ui_tableBoard.h" line="3684"/>
+        <location filename="../ui_tableBoard.h" line="3686"/>
         <source>Generează buletinul de verificare metrologică</source>
         <translation>Generate metrological verification report</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="177"/>
-        <location filename="../ui_tableBoard.h" line="3688"/>
+        <location filename="../ui_tableBoard.h" line="3690"/>
         <source>Deschide un fișier de rezultate salvat anterior</source>
         <translation>Open previously saved results file</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="190"/>
-        <location filename="../ui_tableBoard.h" line="3692"/>
+        <location filename="../ui_tableBoard.h" line="3694"/>
         <source>Salvează rezultatele verificării (Ctrl+S)</source>
         <translation>Save verification results (Ctrl+S)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="219"/>
-        <location filename="../ui_tableBoard.h" line="3696"/>
+        <location filename="../ui_tableBoard.h" line="3698"/>
         <source>Închide fereastra de verificare (Esc)</source>
         <translation>Close verification window (Esc)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="225"/>
-        <location filename="../ui_tableBoard.h" line="3700"/>
+        <location filename="../ui_tableBoard.h" line="3702"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="235"/>
-        <location filename="../ui_tableBoard.h" line="3703"/>
+        <location filename="../ui_tableBoard.h" line="3705"/>
         <source>Curăță toate câmpurile și resetează datele</source>
         <translation>Clear all fields and reset data</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="3608"/>
-        <location filename="../ui_tableBoard.h" line="3774"/>
+        <location filename="../ui_tableBoard.h" line="3776"/>
         <source>Copiază datele din rândul 1 în rândul 2</source>
         <translation>Copy data from row 1 to row 2</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="3611"/>
         <location filename="../tableBoard.ui" line="5502"/>
-        <location filename="../ui_tableBoard.h" line="3776"/>
-        <location filename="../ui_tableBoard.h" line="3794"/>
+        <location filename="../ui_tableBoard.h" line="3778"/>
+        <location filename="../ui_tableBoard.h" line="3796"/>
         <source>&gt;&gt;&gt;</source>
         <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="5499"/>
-        <location filename="../ui_tableBoard.h" line="3792"/>
+        <location filename="../ui_tableBoard.h" line="3794"/>
         <source>Copiază datele din rândul 2 în rândul 3</source>
         <translation>Copy data from row 2 to row 3</translation>
     </message>
@@ -1135,7 +1152,7 @@
         <translation type="vanished">Save input data</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="115"/>
+        <location filename="../tableBoard.cpp" line="116"/>
         <source>Open Input Data</source>
         <translation>Open Input Data</translation>
     </message>
@@ -1152,12 +1169,12 @@
         <translation type="vanished">Cannot open file</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="79"/>
+        <location filename="../tableBoard.cpp" line="80"/>
         <source>Save Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="80"/>
+        <location filename="../tableBoard.cpp" line="81"/>
         <source>Failed to save input data:
 %1
 
@@ -1165,23 +1182,23 @@ Error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="97"/>
+        <location filename="../tableBoard.cpp" line="98"/>
         <source>Save Successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="98"/>
+        <location filename="../tableBoard.cpp" line="99"/>
         <source>Input data saved to:
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="131"/>
+        <location filename="../tableBoard.cpp" line="132"/>
         <source>Load Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="132"/>
+        <location filename="../tableBoard.cpp" line="133"/>
         <source>Failed to load input data:
 %1
 
@@ -1189,12 +1206,12 @@ Error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="151"/>
+        <location filename="../tableBoard.cpp" line="152"/>
         <source>Load Successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="152"/>
+        <location filename="../tableBoard.cpp" line="153"/>
         <source>Input data loaded successfully from:
 %1
 
@@ -1202,151 +1219,156 @@ Entries: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="403"/>
+        <location filename="../tableBoard.cpp" line="415"/>
         <source>WStreamLab - Input Table</source>
-        <translation>Water Stream Laboratory - Input Data</translation>
+        <translation>WStreamLab - Input Data</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="409"/>
+        <location filename="../tableBoard.cpp" line="421"/>
         <source>Measurement Data</source>
         <translation>Measurement Data</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="430"/>
-        <location filename="../tableBoard.cpp" line="434"/>
-        <location filename="../tableBoard.cpp" line="438"/>
-        <source>Index</source>
-        <translation>Index</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="431"/>
-        <location filename="../tableBoard.cpp" line="435"/>
-        <location filename="../tableBoard.cpp" line="439"/>
-        <source>Start index</source>
-        <translation>Start index</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="432"/>
-        <location filename="../tableBoard.cpp" line="436"/>
-        <location filename="../tableBoard.cpp" line="440"/>
-        <source>Stop index</source>
-        <translation>Stop index</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="433"/>
-        <source>Err. Q1</source>
-        <translation>Err. Q1</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="437"/>
-        <source>Err. Q2</source>
-        <translation>Err. Q2</translation>
-    </message>
-    <message>
-        <location filename="../tableBoard.cpp" line="441"/>
-        <source>Err. Q3</source>
-        <translation>Err. Q3</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="442"/>
         <location filename="../tableBoard.cpp" line="446"/>
         <location filename="../tableBoard.cpp" line="450"/>
-        <source>Flow rate [L/h]</source>
-        <translation>Flow rate [L/h]</translation>
+        <source>Index</source>
+        <translation>Index</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="443"/>
         <location filename="../tableBoard.cpp" line="447"/>
         <location filename="../tableBoard.cpp" line="451"/>
-        <source>Mass [kg]</source>
-        <translation>Mass [kg]</translation>
+        <source>Start index</source>
+        <translation>Start index</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="444"/>
         <location filename="../tableBoard.cpp" line="448"/>
         <location filename="../tableBoard.cpp" line="452"/>
+        <source>Stop index</source>
+        <translation>Stop index</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="445"/>
+        <source>Err. Q1</source>
+        <translation>Err. Q1</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="449"/>
+        <source>Err. Q2</source>
+        <translation>Err. Q2</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="453"/>
+        <source>Err. Q3</source>
+        <translation>Err. Q3</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="454"/>
+        <location filename="../tableBoard.cpp" line="458"/>
+        <location filename="../tableBoard.cpp" line="462"/>
+        <source>Flow rate [L/h]</source>
+        <translation>Flow rate [L/h]</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="455"/>
+        <location filename="../tableBoard.cpp" line="459"/>
+        <location filename="../tableBoard.cpp" line="463"/>
+        <source>Mass [kg]</source>
+        <translation>Mass [kg]</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="456"/>
+        <location filename="../tableBoard.cpp" line="460"/>
+        <location filename="../tableBoard.cpp" line="464"/>
         <source>Temperature [°C]</source>
         <translation>Temperature [°C]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="445"/>
-        <location filename="../tableBoard.cpp" line="449"/>
-        <location filename="../tableBoard.cpp" line="453"/>
+        <location filename="../tableBoard.cpp" line="457"/>
+        <location filename="../tableBoard.cpp" line="461"/>
+        <location filename="../tableBoard.cpp" line="465"/>
         <source>Volume [L]</source>
         <translation>Volume [L]</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="457"/>
+        <location filename="../tableBoard.cpp" line="466"/>
+        <source>Seria</source>
+        <translation>Serial No.</translation>
+    </message>
+    <message>
+        <location filename="../tableBoard.cpp" line="469"/>
         <source>&amp;Data evaluate</source>
         <translation>&amp;Data evaluate</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="458"/>
+        <location filename="../tableBoard.cpp" line="470"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Generate FM</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="459"/>
+        <location filename="../tableBoard.cpp" line="471"/>
         <source>Report PDF</source>
         <translation>Generate BV</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="460"/>
+        <location filename="../tableBoard.cpp" line="472"/>
         <source>&amp;Open</source>
         <translation>&amp;Open</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="461"/>
+        <location filename="../tableBoard.cpp" line="473"/>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="462"/>
+        <location filename="../tableBoard.cpp" line="474"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="463"/>
+        <location filename="../tableBoard.cpp" line="475"/>
         <source>Clean &amp;Input</source>
         <translation>Clean &amp;Input</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1277"/>
+        <location filename="../tableBoard.cpp" line="1291"/>
         <source>Collected data from flow meters.</source>
         <translation>Collected data from flow meters.</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="1278"/>
+        <location filename="../tableBoard.cpp" line="1292"/>
         <source>Some user input data are not available or are outside the normal range!</source>
         <translation>Some user input data are not available or are outside the normal range!</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2314"/>
+        <location filename="../tableBoard.cpp" line="2363"/>
         <source>MainWindow instance is null!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2325"/>
+        <location filename="../tableBoard.cpp" line="2374"/>
         <source>Invalid or unsafe path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2327"/>
+        <location filename="../tableBoard.cpp" line="2376"/>
         <source>FM Report failed - invalid path: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2466"/>
+        <location filename="../tableBoard.cpp" line="2515"/>
         <source>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2468"/>
+        <location filename="../tableBoard.cpp" line="2517"/>
         <source>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</translation>
     </message>
     <message>
-        <location filename="../tableBoard.cpp" line="2470"/>
+        <location filename="../tableBoard.cpp" line="2519"/>
         <source>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</source>
         <translation>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</translation>
     </message>

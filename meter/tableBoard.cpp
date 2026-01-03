@@ -12,6 +12,7 @@
 
 // Standard C++ headers
 #include <algorithm>  // Standard C++ algorithms
+#include <cmath>      // Math functions (std::abs, etc.)
 #include <fstream>    // File stream operations
 #include <iomanip>    // I/O manipulators
 #include <iostream>   // Standard I/O streams
@@ -61,11 +62,11 @@
  * specified directory with a filename that includes the current timestamp.
  */
 void TableBoard::onSaveCurrentInputDataClicked() {
-    // Generate filename with timestamp (24-hour format)
+    // Generate filename with timestamp (24-hour format, ISO date format)
     QDateTime now = QDateTime::currentDateTime();
     QString fileName = QString::fromStdString(mainwindow->selectedInfo.pathResults)
-        + "/inputData/WStreamLab_"
-        + now.toString("dd-MM-yyyy_HH-mm-ss")
+        + "/inputData/FM_"
+        + now.toString("yyyy_MM_dd__HH-mm-ss")
         + TableBoardConstants::INPUT_FILE_EXTENSION;
 
     // Collect data from UI
@@ -217,6 +218,17 @@ void TableBoard::ValidatorInput() {
     for (size_t iter = 0; iter < MAX_ENTRIES; ++iter) {
         vectorCheckNumber.push_back(pCheckNumber[iter]);
         pCheckNumber[iter]->installEventFilter(this);
+
+        // Make focus visible on checkboxes for keyboard navigation
+        pCheckNumber[iter]->setStyleSheet(
+            "QCheckBox::indicator:focus {"
+            "    border: 2px solid #0078d4;"  // Windows accent blue
+            "    border-radius: 2px;"
+            "}"
+            "QCheckBox:focus {"
+            "    outline: none;"  // Remove default outline, use custom border instead
+            "}"
+        );
     }
     QLineEdit* pSerialNumber[] = {ui->leSN1,  ui->leSN2,  ui->leSN3,  ui->leSN4,  ui->leSN5,  ui->leSN6,  ui->leSN7,
                                   ui->leSN8,  ui->leSN9,  ui->leSN10, ui->leSN11, ui->leSN12, ui->leSN13, ui->leSN14,
@@ -451,7 +463,7 @@ void TableBoard::Translate() {
     ui->lbMass3->setText(tr("Mass [kg]", nullptr));
     ui->lbTemperature3->setText(tr("Temperature [\302\260C]"));
     ui->lbVolume3->setText(tr("Volume [L]", nullptr));
-    ui->lbSN->setText("Seria (Tip)");
+    ui->lbSN->setText(tr("Seria"));
 
     // Buttons
     ui->pbCalculate->setText(tr("&Data evaluate"));
@@ -502,6 +514,8 @@ TableBoard::TableBoard(QWidget* _parent) : QDialog(_parent), parent(_parent), ui
     // Validate cast succeeded - critical for safe operation
     if (!mainwindow) {
         qCritical() << "TableBoard::TableBoard: Failed to cast parent to MainWindow*";
+        // Cannot continue without valid MainWindow pointer - would cause crash
+        return;
     }
 
     // Translate UI elements to the current language
@@ -911,7 +925,7 @@ void TableBoard::onCalculateClicked() {
                                 vectorFirstError[iter]->setPalette(paletteEvenRowErr);
                             }
                             // Then set state property (for text color via stylesheet)
-                            if (abs(error) > maximumError) {
+                            if (std::abs(error) > maximumError) {
                                 vectorFirstError[iter]->setProperty("state", "error");
                                 vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
                                 vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
@@ -967,7 +981,7 @@ void TableBoard::onCalculateClicked() {
                                 vectorSecondError[iter]->setPalette(paletteEvenRowErr);
                             }
                             // Then set state property (for text color via stylesheet)
-                            if (abs(error) > nominalError) {
+                            if (std::abs(error) > nominalError) {
                                 vectorSecondError[iter]->setProperty("state", "error");
                                 vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
                                 vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
@@ -1025,7 +1039,7 @@ void TableBoard::onCalculateClicked() {
                                 vectorThirdError[iter]->setPalette(paletteEvenRowErr);
                             }
                             // Then set state property (for text color via stylesheet)
-                            if (abs(error) > nominalError) {
+                            if (std::abs(error) > nominalError) {
                                 vectorThirdError[iter]->setProperty("state", "error");
                                 vectorThirdError[iter]->style()->unpolish(vectorThirdError[iter]);
                                 vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
@@ -1131,7 +1145,7 @@ void TableBoard::onCalculateClicked() {
                         vectorFirstError[iter]->setPalette(paletteEvenRowErr);
                     }
                     // Then set state property (for text color via stylesheet)
-                    if (abs(error) > maximumError) {
+                    if (std::abs(error) > maximumError) {
                         vectorFirstError[iter]->setProperty("state", "error");
                         vectorFirstError[iter]->style()->unpolish(vectorFirstError[iter]);
                         vectorFirstError[iter]->style()->polish(vectorFirstError[iter]);
@@ -1184,7 +1198,7 @@ void TableBoard::onCalculateClicked() {
                         vectorSecondError[iter]->setPalette(paletteEvenRowErr);
                     }
                     // Then set state property (for text color via stylesheet)
-                    if (abs(error) > maximumError) {
+                    if (std::abs(error) > maximumError) {
                         vectorSecondError[iter]->setProperty("state", "error");
                         vectorSecondError[iter]->style()->unpolish(vectorSecondError[iter]);
                         vectorSecondError[iter]->style()->polish(vectorSecondError[iter]);
@@ -1236,7 +1250,7 @@ void TableBoard::onCalculateClicked() {
                         vectorThirdError[iter]->setPalette(paletteEvenRowErr);
                     }
                     // Then set state property (for text color via stylesheet)
-                    if (abs(error) > maximumError) {
+                    if (std::abs(error) > maximumError) {
                         vectorThirdError[iter]->setProperty("state", "error");
                         vectorThirdError[iter]->style()->unpolish(vectorThirdError[iter]);
                         vectorThirdError[iter]->style()->polish(vectorThirdError[iter]);
@@ -1325,6 +1339,12 @@ void TableBoard::onNumberOfWaterMetersChanged() {
 void TableBoard::onCbClicked(bool checked) {
     QObject* obj = sender();                              // Get the object that triggered the signal
     QCheckBox* checkBox = dynamic_cast<QCheckBox*>(obj);  // Attempt to cast to QCheckBox
+
+    // Validate cast succeeded - critical for safe operation
+    if (!checkBox) {
+        qCritical() << "TableBoard::onCbClicked: Failed to cast sender to QCheckBox*";
+        return;
+    }
 
     // Find the checkbox in the vectorCheckNumber
     auto iter = std::find(vectorCheckNumber.begin(), vectorCheckNumber.end(), checkBox);
@@ -1521,7 +1541,7 @@ void TableBoard::onPrintPdfDocClicked() {
 
             "<body style=\"font-family:'Courier New'\" \"font-weight: 700\" "
             "style=\"font-size: 4\" style=\"text-align: left\" >" +
-            "<h4>" + companyName + "<br>" + ">>>> Instalatie de verificare debitmetre si contoare de apa >>>></h4>" +
+            "<h4>" + companyName + "<br>" + "WStreamLab</h4>" +
             "<h4 style=\"text-align: center\"><u>Fisa de masuratori</u></h4>" + "<h4>" + formattedTime + "<br>" +
             "Numar certificat:&nbsp;" + certificate + "&nbsp;<br>" + "Temperatura:&nbsp;" +
             to_string_with_precision(ambientTemperature, 1).c_str() + "&nbsp;[°C]<br>" + "Presiune atmosferica:&nbsp;" +
@@ -1534,7 +1554,7 @@ void TableBoard::onPrintPdfDocClicked() {
 
             "<style>"
             "     th, td {"
-            "          text-align: center;"
+            "          text-align: right;"
             "      }"
             "</style>";
 
@@ -1688,27 +1708,40 @@ void TableBoard::onPrintPdfDocClicked() {
             ++totalEntries;
             QString resultTests{"ADMIS"};
             try {
-                bool bFirst = std::abs(std::stod(errorFirst.toStdString().c_str())) <= maximumWaterMeterError;
-                bool bSecond = std::abs(std::stod(errorSecond.toStdString().c_str())) <= nominalWaterMeterError;
-                bool bThird = std::abs(std::stod(errorThird.toStdString().c_str())) <= nominalWaterMeterError;
+                bool bFirst = std::abs(std::stod(errorFirst.toStdString())) <= maximumWaterMeterError;
+                bool bSecond = std::abs(std::stod(errorSecond.toStdString())) <= nominalWaterMeterError;
+                bool bThird = std::abs(std::stod(errorThird.toStdString())) <= nominalWaterMeterError;
                 resultTests = (bFirst && bSecond && bThird ? "ADMIS" : "RESPINS");
-            } catch (...) {
+            } catch (const std::exception& e) {
+                qWarning() << "Failed to parse error values - First:" << errorFirst
+                           << "Second:" << errorSecond << "Third:" << errorThird
+                           << "- Error:" << e.what();
                 resultTests = "RESPINS";
             }
             resultAllTests[count++] = resultTests;
-            double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
-            double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
-            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+            // Parse flow rates with validation
+            bool okMin, okTrans, okNom;
+            double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble(&okMin);
+            double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble(&okTrans);
+            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble(&okNom);
+
+            if (!okMin || !okTrans || !okNom) {
+                qWarning() << "Invalid flow rate format - Min:" << ui->leFlowRateMinumum->text()
+                           << "Trans:" << ui->leFlowRateTransitoriu->text()
+                           << "Nom:" << ui->leFlowRateNominal->text();
+            }
 
             // Determine error cell styles based on whether they exceed limits
             bool bErrorFirstExceeds = false;
             bool bErrorSecondExceeds = false;
             bool bErrorThirdExceeds = false;
             try {
-                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
-                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
-                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
-            } catch (...) {
+                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString())) > maximumWaterMeterError;
+                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString())) > nominalWaterMeterError;
+                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString())) > nominalWaterMeterError;
+            } catch (const std::exception& e) {
+                qWarning() << "Failed to parse error values for exceeds check - Error:" << e.what();
                 // If parsing fails, mark as exceeding to highlight the issue
                 bErrorFirstExceeds = true;
                 bErrorSecondExceeds = true;
@@ -1830,11 +1863,14 @@ void TableBoard::onPrintPdfDocClicked() {
                 ++totalEntries;
                 QString resultTests{"ADMIS"};
                 try {
-                    bool bFirst = std::abs(std::stod(errorFirst.toStdString().c_str())) < maximumWaterMeterError;
-                    bool bSecond = std::abs(std::stod(errorSecond.toStdString().c_str())) < nominalWaterMeterError;
-                    bool bThird = std::abs(std::stod(errorThird.toStdString().c_str())) < nominalWaterMeterError;
+                    bool bFirst = std::abs(std::stod(errorFirst.toStdString())) < maximumWaterMeterError;
+                    bool bSecond = std::abs(std::stod(errorSecond.toStdString())) < nominalWaterMeterError;
+                    bool bThird = std::abs(std::stod(errorThird.toStdString())) < nominalWaterMeterError;
                     resultTests = (bFirst && bSecond && bThird ? "ADMIS" : "RESPINS");
-                } catch (...) {
+                } catch (const std::exception& e) {
+                    qWarning() << "Failed to parse error values - First:" << errorFirst
+                               << "Second:" << errorSecond << "Third:" << errorThird
+                               << "- Error:" << e.what();
                     resultTests = "RESPINS";
                 }
                 resultAllTests[count++] = resultTests;
@@ -1932,7 +1968,7 @@ void TableBoard::onPrintPdfDocClicked() {
 
                      "<body style=\"font-family:'Courier New'\" \"font-weight: 700\" "
                      "style=\"font-size: 5\" style=\"text-align: left\" >" +
-                     "<h4>" + companyName + "</h4>\n" + "<h4 class=\"header\">Water meters test bench</h4>\n" +
+                     "<h4>" + companyName + "<br>" + "WStreamLab</h4>\n" +
                      "<h4 class=\"header\"><u>Measurement sheet</u></h4><br>\n" + "<h4>" + formattedTime + "<br>\n" +
                      "Certificate number:&nbsp;" + certificate + "&nbsp;<br>" + "Temperature:&nbsp;" +
                      to_string_with_precision(ambientTemperature, 2).c_str() + "&nbsp;[°C]<br>" +
@@ -2089,27 +2125,40 @@ void TableBoard::onPrintPdfDocClicked() {
             ++totalEntries;
             QString resultTests{"PASSED"};
             try {
-                bool bFirst = std::abs(std::stod(errorFirst.toStdString().c_str())) < maximumWaterMeterError;
-                bool bSecond = std::abs(std::stod(errorFirst.toStdString().c_str())) < nominalWaterMeterError;
-                bool bThird = std::abs(std::stod(errorFirst.toStdString().c_str())) < nominalWaterMeterError;
+                bool bFirst = std::abs(std::stod(errorFirst.toStdString())) < maximumWaterMeterError;
+                bool bSecond = std::abs(std::stod(errorSecond.toStdString())) < nominalWaterMeterError;
+                bool bThird = std::abs(std::stod(errorThird.toStdString())) < nominalWaterMeterError;
                 resultTests = (bFirst && bSecond && bThird ? "PASSED" : "FAILED");
-            } catch (...) {
+            } catch (const std::exception& e) {
+                qWarning() << "Failed to parse error values - First:" << errorFirst
+                           << "Second:" << errorSecond << "Third:" << errorThird
+                           << "- Error:" << e.what();
                 resultTests = "FAILED";
             }
             resultAllTests[count++] = resultTests;
-            double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble();
-            double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble();
-            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble();
+
+            // Parse flow rates with validation
+            bool okMin, okTrans, okNom;
+            double minimumFlowRate = ui->leFlowRateMinumum->text().toDouble(&okMin);
+            double trasitionFlowRate = ui->leFlowRateTransitoriu->text().toDouble(&okTrans);
+            double nominalFlowRate = ui->leFlowRateNominal->text().toDouble(&okNom);
+
+            if (!okMin || !okTrans || !okNom) {
+                qWarning() << "Invalid flow rate format - Min:" << ui->leFlowRateMinumum->text()
+                           << "Trans:" << ui->leFlowRateTransitoriu->text()
+                           << "Nom:" << ui->leFlowRateNominal->text();
+            }
 
             // Determine error cell styles based on whether they exceed limits
             bool bErrorFirstExceeds = false;
             bool bErrorSecondExceeds = false;
             bool bErrorThirdExceeds = false;
             try {
-                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString().c_str())) > maximumWaterMeterError;
-                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString().c_str())) > nominalWaterMeterError;
-                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString().c_str())) > nominalWaterMeterError;
-            } catch (...) {
+                bErrorFirstExceeds = std::abs(std::stod(errorFirst.toStdString())) > maximumWaterMeterError;
+                bErrorSecondExceeds = std::abs(std::stod(errorSecond.toStdString())) > nominalWaterMeterError;
+                bErrorThirdExceeds = std::abs(std::stod(errorThird.toStdString())) > nominalWaterMeterError;
+            } catch (const std::exception& e) {
+                qWarning() << "Failed to parse error values for exceeds check - Error:" << e.what();
                 // If parsing fails, mark as exceeding to highlight the issue
                 bErrorFirstExceeds = true;
                 bErrorSecondExceeds = true;

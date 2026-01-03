@@ -8178,6 +8178,7 @@
   <tabstop>leMass1</tabstop>
   <tabstop>leTemperature1</tabstop>
   <tabstop>leVolume1</tabstop>
+  <tabstop>pbCopy12</tabstop>
   <tabstop>leStart2_1</tabstop>
   <tabstop>leStart2_2</tabstop>
   <tabstop>leStart2_3</tabstop>
@@ -8287,7 +8288,6 @@
   <tabstop>cbSet18</tabstop>
   <tabstop>cbSet19</tabstop>
   <tabstop>cbSet20</tabstop>
-  <tabstop>pbCopy12</tabstop>
   <tabstop>pbCopy23</tabstop>
  </tabstops>
  <resources/>

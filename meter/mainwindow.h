@@ -176,7 +176,7 @@ class MainWindow : public QMainWindow {
      *
      * \param message The message to set in the status bar.
      */
-    void setStatusBarMessage(const QString message);
+    void setStatusBarMessage(const QString& message);
 
     /**
      * \brief Validates and sanitizes a file path for security.

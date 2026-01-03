@@ -58,6 +58,8 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     // Validate cast succeeded - critical for safe operation
     if (!mainwindow) {
         qCritical() << "Interface::Interface: Failed to cast parent to MainWindow*";
+        // Cannot continue without valid MainWindow pointer - would cause crash
+        return;
     }
 
     // Create validator with 'this' as parent for automatic memory management

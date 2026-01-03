@@ -3553,7 +3553,8 @@ public:
         QWidget::setTabOrder(leFlowRateMinumum, leMass1);
         QWidget::setTabOrder(leMass1, leTemperature1);
         QWidget::setTabOrder(leTemperature1, leVolume1);
-        QWidget::setTabOrder(leVolume1, leStart2_1);
+        QWidget::setTabOrder(leVolume1, pbCopy12);
+        QWidget::setTabOrder(pbCopy12, leStart2_1);
         QWidget::setTabOrder(leStart2_1, leStart2_2);
         QWidget::setTabOrder(leStart2_2, leStart2_3);
         QWidget::setTabOrder(leStart2_3, leStart2_4);
@@ -3662,6 +3663,7 @@ public:
         QWidget::setTabOrder(cbSet17, cbSet18);
         QWidget::setTabOrder(cbSet18, cbSet19);
         QWidget::setTabOrder(cbSet19, cbSet20);
+        QWidget::setTabOrder(cbSet20, pbCopy23);
 
         retranslateUi(TableBoard);
 

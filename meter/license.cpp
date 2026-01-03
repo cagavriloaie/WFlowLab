@@ -32,6 +32,14 @@ License::License(QWidget* parent) : QDialog(parent), ui(new Ui::Licence) {
 
     ui->setupUi(this);                               ///< Set up the user interface.
     mainwindow = dynamic_cast<MainWindow*>(parent);  ///< Cast parent to MainWindow pointer.
+
+    // Validate cast succeeded - critical for safe operation
+    if (!mainwindow) {
+        qCritical() << "License::License: Failed to cast parent to MainWindow*";
+        // Cannot continue without valid MainWindow pointer - would cause crash
+        return;
+    }
+
     Translate();                                     ///< Translate UI elements.
 
     // Force small font size for ELCOST info label using stylesheet

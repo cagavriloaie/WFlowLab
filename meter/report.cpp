@@ -172,11 +172,20 @@ void ReportMeasurements::Translate() {
     ui->lbCost->setText(tr("Cost: "));
     ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog: "));
     ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
-    ui->cbValabilitate->addItem(tr("6 luni"));
-    ui->cbValabilitate->addItem(tr("1 an"));
-    ui->cbValabilitate->addItem(tr("2 ani"));
-    ui->cbValabilitate->addItem(tr("3 ani"));
-    ui->cbValabilitate->addItem(tr("5 ani"));
+
+    // Re-translate ComboBox items (do not add new items - they exist from constructor)
+    ui->cbValabilitate->setItemText(0, tr("6 luni"));
+    ui->cbValabilitate->setItemText(1, tr("1 an"));
+    ui->cbValabilitate->setItemText(2, tr("2 ani"));
+    ui->cbValabilitate->setItemText(3, tr("3 ani"));
+    ui->cbValabilitate->setItemText(4, tr("4 ani"));
+    ui->cbValabilitate->setItemText(5, tr("5 ani"));
+    ui->cbValabilitate->setItemText(6, tr("6 ani"));
+    ui->cbValabilitate->setItemText(7, tr("7 ani"));
+    ui->cbValabilitate->setItemText(8, tr("8 ani"));
+    ui->cbValabilitate->setItemText(9, tr("9 ani"));
+    ui->cbValabilitate->setItemText(10, tr("10 ani"));
+
     ui->pbGenerareBV->setText(tr("&Generare BV"));
     ui->pbInchide->setText(tr("&Inchide"));
 }
@@ -225,6 +234,9 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     ui->lbCost->setText(tr("Cost:"));
     ui->lbVerificatorMetrolog->setText(tr("Verificator metrolog:"));
     ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii metrologice:"));
+
+    // Populate validity ComboBox (items added only once in constructor)
+    ui->cbValabilitate->addItem(tr("6 luni"));
     ui->cbValabilitate->addItem(tr("1 an"));
     ui->cbValabilitate->addItem(tr("2 ani"));
     ui->cbValabilitate->addItem(tr("3 ani"));
@@ -235,6 +247,7 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     ui->cbValabilitate->addItem(tr("8 ani"));
     ui->cbValabilitate->addItem(tr("9 ani"));
     ui->cbValabilitate->addItem(tr("10 ani"));
+
     ui->pbGenerareBV->setText(tr("&Generare BV"));
     ui->pbInchide->setText(tr("&Inchide"));
 
@@ -252,7 +265,9 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     ui->leBeneficiar->setText(settings.value("beneficiary", "Termo Util").toString());
     ui->leCoduldinLt->setText(settings.value("ltCode", "1.06.28.1.1").toString());
     ui->leNormativ->setText(settings.value("standard", "NML").toString());
-    ui->cbValabilitate->setCurrentIndex(settings.value("validityYears", 6).toInt());
+    // ComboBox index: 0="6 luni", 1="1 an", 2="2 ani", ..., 6="6 ani", 7="7 ani", ..., 10="10 ani"
+    // Previous default was index 6 (7 ani), now index 7 for same value
+    ui->cbValabilitate->setCurrentIndex(settings.value("validityYears", 7).toInt());
     ui->leCost->setText(settings.value("cost", 100).toString());
     ui->leVerificatorMetrolog->setText(settings.value("metrologistName", "Adrian Pintilie").toString());
     ui->leLoculEfectuariiVerificarii->setText(

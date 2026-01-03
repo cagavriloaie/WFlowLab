@@ -44,7 +44,8 @@ QPushButton:hover {
 }
 
 QPushButton:focus {
-    border: 1px solid #003d82;     /* Darker blue focus indicator */
+    border: 2px solid #5B9BD5;     /* Subtle blue border */
+    background-color: #E3F2FD;     /* Light blue background */
     outline: none;
 }
 
@@ -101,7 +102,8 @@ QRadioButton::indicator:unchecked {
 }
 
 QRadioButton:focus {
-    outline: 1px dotted #0078D7;   /* AppColors::Primary */
+    outline: 2px solid #5B9BD5;    /* Subtle blue focus indicator */
+    outline-offset: 2px;
 }
 
 QRadioButton:disabled {
@@ -191,7 +193,8 @@ QComboBox::down-arrow {
 }
 
 QComboBox:focus {
-    border: 2px solid #0078D7;
+    border: 2px solid #5B9BD5;     /* Subtle blue border */
+    background-color: #E3F2FD;     /* Light blue background */
 }
 
 /* QLineEdit */
@@ -204,7 +207,8 @@ QLineEdit {
 }
 
 QLineEdit:focus {
-    border: 2px solid #0078D7;
+    border: 2px solid #5B9BD5;     /* Subtle blue border */
+    background-color: #E3F2FD;     /* Light blue background */
 }
 
 /* Error and success states for QLineEdit */
