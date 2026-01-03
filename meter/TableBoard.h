@@ -24,7 +24,7 @@
 #include <sstream>
 
 // Project-specific headers
-#include "report.h"
+#include "Report.h"
 #include "InputDataSerializer.h"
 
 namespace Ui {

@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'interface.ui'
+** Form generated from reading UI file 'Interface.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.7.1
 **

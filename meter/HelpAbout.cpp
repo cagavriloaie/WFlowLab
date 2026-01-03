@@ -9,12 +9,12 @@
  * \date To be defined
  */
 
-#include "helpabout.h"  // Include the header file for HelpAbout dialog
+#include "HelpAbout.h"  // Include the header file for HelpAbout dialog
 
 #include <QResizeEvent>    // Include for QResizeEvent override
 
 #include "definitions.h"   // Include project-wide constants and definitions
-#include "ui_helpabout.h"  // Include the generated UI header file
+#include "ui_HelpAbout.h"  // Include the generated UI header file
 
 /**
  * \brief Updates the About dialog with localized text.

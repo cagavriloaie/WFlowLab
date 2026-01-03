@@ -43,11 +43,11 @@
 #include "colors.h"            // Centralized color definitions
 #include "definitions.h"       // Project-specific constants and definitions
 #include "logger.h"            // Logging system
-#include "mainwindow.h"        // Your application's main window
+#include "MainWindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
-#include "tableBoard.h"        // Header for table board functionality
-#include "ui_mainwindow.h"     // UI definition for main window
-#include "ui_tableBoard.h"     // UI definition for table board
+#include "TableBoard.h"        // Header for table board functionality
+#include "ui_MainWindow.h"     // UI definition for main window
+#include "ui_TableBoard.h"     // UI definition for table board
 #include "waterdensity.h"      // Header for water density calculations
 
 // NOTE: QString TableBoard::report removed - using QThread signal/slot pattern instead

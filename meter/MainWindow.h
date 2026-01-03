@@ -23,10 +23,10 @@
 #include <atomic>  // For std::atomic (thread-safe variables)
 #include <memory>  // For std::unique_ptr
 
-#include "helpabout.h"   // Custom header for HelpAbout class.
-#include "interface.h"   // Custom header for Interface class.
-#include "license.h"     // Custom header for License class.
-#include "tableBoard.h"  // Custom header for TableBoard class.
+#include "HelpAbout.h"   // Custom header for HelpAbout class.
+#include "Interface.h"   // Custom header for Interface class.
+#include "License.h"     // Custom header for License class.
+#include "TableBoard.h"  // Custom header for TableBoard class.
 
 enum SELECTED_LANGUAGE { ROMANIAN, ENGLISH, DEFAULT = ENGLISH };
 

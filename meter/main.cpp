@@ -34,7 +34,7 @@
 
 #include <fstream>  // File stream operations
 
-#include "mainwindow.h"  // Include header for MainWindow class
+#include "MainWindow.h"  // Include header for MainWindow class
 #include "logger.h"      // Include header for Logger class
 
 /**

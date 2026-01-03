@@ -9,7 +9,7 @@
  * \note Assumes the presence of specific UI elements and connections defined in the associated .ui file.
  */
 
-#include "report.h"  // Header for report functionality
+#include "Report.h"  // Header for report functionality
 
 #include <QDateTime>
 #include <QDesktopServices>
@@ -26,11 +26,11 @@
 #include <sstream>    // String stream operations
 
 #include "logger.h"            // Logging system
-#include "mainwindow.h"        // Your application's main window
+#include "MainWindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
 #include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
-#include "ui_mainwindow.h"     // UI definition for main window
-#include "ui_report.h"         // UI definition for report dialog
+#include "ui_MainWindow.h"     // UI definition for main window
+#include "ui_Report.h"         // UI definition for report dialog
 
 // NOTE: printPdfThread() function removed - PDF generation now handled by PdfGeneratorWorker with QThread
 

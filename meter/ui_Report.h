@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'report.ui'
+** Form generated from reading UI file 'Report.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.7.1
 **

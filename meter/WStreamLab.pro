@@ -29,22 +29,22 @@ message("===========================================")
     error("main.cpp not found! Cannot build application.")
 }
 
-!exists(mainwindow.h) {
-    error("mainwindow.h not found! Cannot build application.")
+!exists(MainWindow.h) {
+    error("MainWindow.h not found! Cannot build application.")
 }
 
-!exists(mainwindow.cpp) {
-    error("mainwindow.cpp not found! Cannot build application.")
+!exists(MainWindow.cpp) {
+    error("MainWindow.cpp not found! Cannot build application.")
 }
 
 # Check UI files
 REQUIRED_UI_FILES = \
-    mainwindow.ui \
-    helpabout.ui \
-    license.ui \
-    report.ui \
-    tableBoard.ui \
-    interface.ui
+    MainWindow.ui \
+    HelpAbout.ui \
+    License.ui \
+    Report.ui \
+    TableBoard.ui \
+    Interface.ui
 
 for(file, REQUIRED_UI_FILES) {
     !exists($$file) {
@@ -115,12 +115,12 @@ message("Found $$size(HEADERS) header files")
 # ============================================
 
 FORMS += \
-    mainwindow.ui \
-    helpabout.ui \
-    license.ui \
-    report.ui \
-    tableBoard.ui \
-    interface.ui
+    MainWindow.ui \
+    HelpAbout.ui \
+    License.ui \
+    Report.ui \
+    TableBoard.ui \
+    Interface.ui
 
 # ============================================
 # RESOURCES

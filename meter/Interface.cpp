@@ -9,7 +9,7 @@
  * \date To be defined
  */
 
-#include "interface.h"  // Include header for Interface dialog
+#include "Interface.h"  // Include header for Interface dialog
 
 #include <QMessageBox>                         // Qt class for displaying message boxes
 #include <QSettings>                           // Qt class for persistent application settings
@@ -24,9 +24,9 @@
 #include <mutex>   // Include for std::mutex
 
 #include "logger.h"         // Include header for logging system
-#include "mainwindow.h"     // Include header for MainWindow
-#include "ui_interface.h"   // Generated UI header file for Interface dialog
-#include "ui_mainwindow.h"  // Generated UI header file for MainWindow
+#include "MainWindow.h"     // Include header for MainWindow
+#include "ui_Interface.h"   // Generated UI header file for Interface dialog
+#include "ui_MainWindow.h"  // Generated UI header file for MainWindow
 
 namespace {
 MainWindow* mainwindow = nullptr;       // Initialize to nullptr to prevent undefined behavior
@@ -106,7 +106,7 @@ std::mutex modbusLock;
  * \brief Implementation of the Interface class.
  */
 
-#include "interface.h"
+#include "Interface.h"
 
 /**
  * \brief Constructs the Interface dialog.

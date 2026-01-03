@@ -41,9 +41,9 @@
 #include "definitions.h"      ///< Custom application-specific definitions.
 #include "flow-meter-type.h"  ///< Header defining flow meter types.
 #include "logger.h"           ///< Header for logging system.
-#include "mainwindow.h"       ///< Header for the main application window.
+#include "MainWindow.h"       ///< Header for the main application window.
 #include "md5.h"              ///< Header for MD5 hashing functionality.
-#include "ui_mainwindow.h"    ///< User interface header generated from Qt Designer.
+#include "ui_MainWindow.h"    ///< User interface header generated from Qt Designer.
 #include "waterdensity.h"     ///< Header for water density calculations.
 
 // Additional Qt headers (unique includes only)
