@@ -467,8 +467,8 @@ void ReportMeasurements::onPrintClicked() {
     streamObjCostTVA << std::fixed << std::setprecision(2);
     streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
     std::string totalCostTVA = streamObjCostTVA.str();
-    // TODO but the switch handles cases 0, 1, and 2.
-    for (size_t row = 0; row < 1; ++row)  // Assuming you want to iterate only once based on the provided loop condition
+    // Generate 3 table rows: location+total, TVA, and grand total
+    for (size_t row = 0; row < 3; ++row)
     {
         htmlTable << "     <tr style=\"height: 20px;\">\n";
 
