@@ -175,7 +175,7 @@ void Interface::Translate() {
     ui->lbNumberOfRetries_2->setText(tr("Retries:"));
 
     // Buttons
-    ui->pbClose->setText(tr("&Close"));
+    ui->pbClose->setText(tr("C&lose"));
     ui->pbSaveConfiguration->setText(tr("&Save Configuration"));
     ui->pbTestConnection->setText(tr("&Test Connection"));
     ui->pbRefreshSerialPort->setText(tr("&Refresh Ports"));

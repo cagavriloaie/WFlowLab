@@ -71,7 +71,7 @@ void License::Translate() {
     ui->lbChecksum->setText(tr("Checksum:"));                   ///< Set text for checksum label.
     ui->lbFileLocation->setText(tr("Configuration file:"));     ///< Set text for file location label.
     ui->lbElcostInfo->setText(tr("Note: Configuration data can only be modified by regenerating the certificate through ELCOST."));  ///< Set info text.
-    ui->pbClose->setText(tr("Close"));                          ///< Set text for close button.
+    ui->pbClose->setText(tr("&Close"));                         ///< Set text for close button.
 }
 
 /**

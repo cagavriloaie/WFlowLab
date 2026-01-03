@@ -232,8 +232,12 @@
     </message>
     <message>
         <location filename="../interface.cpp" line="178"/>
+        <source>C&amp;lose</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+        <translation type="vanished">&amp;Close</translation>
     </message>
     <message>
         <location filename="../interface.cpp" line="179"/>
@@ -351,8 +355,12 @@
     </message>
     <message>
         <location filename="../license.cpp" line="74"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Close</translation>
+    </message>
+    <message>
         <source>Close</source>
-        <translation>&amp;Close</translation>
+        <translation type="vanished">&amp;Close</translation>
     </message>
 </context>
 <context>
@@ -1081,69 +1089,69 @@
     <name>TableBoard</name>
     <message>
         <location filename="../tableBoard.ui" line="122"/>
-        <location filename="../ui_tableBoard.h" line="3678"/>
+        <location filename="../ui_tableBoard.h" line="3675"/>
         <source>Calculează rezultatele verificării</source>
         <translation>Calculate verification results</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="135"/>
-        <location filename="../ui_tableBoard.h" line="3682"/>
+        <location filename="../ui_tableBoard.h" line="3679"/>
         <source>Generează fișa de măsurători (Ctrl+P)</source>
         <translation>Generate measurement sheet (Ctrl+P)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="148"/>
-        <location filename="../ui_tableBoard.h" line="3686"/>
+        <location filename="../ui_tableBoard.h" line="3683"/>
         <source>Generează buletinul de verificare metrologică</source>
         <translation>Generate metrological verification report</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="177"/>
-        <location filename="../ui_tableBoard.h" line="3690"/>
+        <location filename="../ui_tableBoard.h" line="3687"/>
         <source>Deschide un fișier de rezultate salvat anterior</source>
         <translation>Open previously saved results file</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="190"/>
-        <location filename="../ui_tableBoard.h" line="3694"/>
+        <location filename="../ui_tableBoard.h" line="3691"/>
         <source>Salvează rezultatele verificării (Ctrl+S)</source>
         <translation>Save verification results (Ctrl+S)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="219"/>
-        <location filename="../ui_tableBoard.h" line="3698"/>
+        <location filename="../ui_tableBoard.h" line="3695"/>
         <source>Închide fereastra de verificare (Esc)</source>
         <translation>Close verification window (Esc)</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="225"/>
-        <location filename="../ui_tableBoard.h" line="3702"/>
+        <location filename="../ui_tableBoard.h" line="3699"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="235"/>
-        <location filename="../ui_tableBoard.h" line="3705"/>
+        <location filename="../ui_tableBoard.h" line="3702"/>
         <source>Curăță toate câmpurile și resetează datele</source>
         <translation>Clear all fields and reset data</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="3608"/>
-        <location filename="../ui_tableBoard.h" line="3776"/>
+        <location filename="../ui_tableBoard.h" line="3773"/>
         <source>Copiază datele din rândul 1 în rândul 2</source>
         <translation>Copy data from row 1 to row 2</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="3611"/>
         <location filename="../tableBoard.ui" line="5502"/>
-        <location filename="../ui_tableBoard.h" line="3778"/>
-        <location filename="../ui_tableBoard.h" line="3796"/>
+        <location filename="../ui_tableBoard.h" line="3775"/>
+        <location filename="../ui_tableBoard.h" line="3793"/>
         <source>&gt;&gt;&gt;</source>
         <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../tableBoard.ui" line="5499"/>
-        <location filename="../ui_tableBoard.h" line="3794"/>
+        <location filename="../ui_tableBoard.h" line="3791"/>
         <source>Copiază datele din rândul 2 în rândul 3</source>
         <translation>Copy data from row 2 to row 3</translation>
     </message>
@@ -1309,8 +1317,12 @@ Entries: %2</source>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="471"/>
+        <source>&amp;Report PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Report PDF</source>
-        <translation>Generate BV</translation>
+        <translation type="vanished">Generate BV</translation>
     </message>
     <message>
         <location filename="../tableBoard.cpp" line="472"/>

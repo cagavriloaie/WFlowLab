@@ -468,7 +468,7 @@ void TableBoard::Translate() {
     // Buttons
     ui->pbCalculate->setText(tr("&Data evaluate"));
     ui->pbPrint->setText(tr("&Print PDF"));
-    ui->pbReport->setText(tr("Report PDF"));
+    ui->pbReport->setText(tr("&Report PDF"));
     ui->pbOpen->setText(tr("&Open"));
     ui->pbSaveResults->setText(tr("&Save"));
     ui->pbClose->setText(tr("&Close"));

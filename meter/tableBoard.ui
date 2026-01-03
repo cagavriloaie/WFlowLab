@@ -3699,7 +3699,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -5590,7 +5590,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -7451,7 +7451,7 @@
                    </font>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
+                   <enum>Qt::NoFocus</enum>
                   </property>
                  </widget>
                 </item>
@@ -8177,7 +8177,6 @@
   <tabstop>leFlowRateMinumum</tabstop>
   <tabstop>leMass1</tabstop>
   <tabstop>leTemperature1</tabstop>
-  <tabstop>leVolume1</tabstop>
   <tabstop>pbCopy12</tabstop>
   <tabstop>leStart2_1</tabstop>
   <tabstop>leStart2_2</tabstop>
@@ -8222,7 +8221,7 @@
   <tabstop>leFlowRateTransitoriu</tabstop>
   <tabstop>leMass2</tabstop>
   <tabstop>leTemperature2</tabstop>
-  <tabstop>leVolume2</tabstop>
+  <tabstop>pbCopy23</tabstop>
   <tabstop>leStart3_1</tabstop>
   <tabstop>leStart3_2</tabstop>
   <tabstop>leStart3_3</tabstop>
@@ -8266,7 +8265,6 @@
   <tabstop>leFlowRateNominal</tabstop>
   <tabstop>leMass3</tabstop>
   <tabstop>leTemperature3</tabstop>
-  <tabstop>leVolume3</tabstop>
   <tabstop>cbSet</tabstop>
   <tabstop>cbSet1</tabstop>
   <tabstop>cbSet2</tabstop>
@@ -8288,7 +8286,6 @@
   <tabstop>cbSet18</tabstop>
   <tabstop>cbSet19</tabstop>
   <tabstop>cbSet20</tabstop>
-  <tabstop>pbCopy23</tabstop>
  </tabstops>
  <resources/>
  <connections/>
