@@ -95,6 +95,20 @@ QMAKE_CXXFLAGS += -Wall -Wextra -Werror
 }
 
 # ============================================
+# GENERATED FILES DIRECTORIES
+# ============================================
+
+# Keep generated files separate from source code
+# This prevents ui_*.h, moc_*.cpp, and other build artifacts
+# from cluttering the source directory
+UI_DIR = $$OUT_PWD/generated/ui
+MOC_DIR = $$OUT_PWD/generated/moc
+RCC_DIR = $$OUT_PWD/generated/rcc
+OBJECTS_DIR = $$OUT_PWD/obj
+
+message("Generated files directory: $$OUT_PWD/generated")
+
+# ============================================
 # SOURCE FILES
 # ============================================
 
