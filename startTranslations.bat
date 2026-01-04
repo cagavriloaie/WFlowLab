@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
 REM === Project paths ===
 set "projectDir=C:\Users\Constantin\Desktop\WS_corrected\WS"
 set "qtBinDir=C:\Qt\6.7.1\mingw_64\bin"
-set "meterDir=%projectDir%\meter"
+set "meterDir=%projectDir%\src"
 set "translationsDir=%meterDir%\translations"
 set "meterProFile=%meterDir%\WStreamLab.pro"
 
@@ -50,7 +50,7 @@ REM ==========================================================
 REM OPTION 2: GENERATE .QM FILES
 REM ==========================================================
 if "%userChoice%"=="2" (
-    echo Generating .qm files in meter\translations ...
+    echo Generating .qm files in src\translations ...
 
     if not exist "%translationsDir%\*.ts" (
         echo ERROR: No .ts files found in %translationsDir%

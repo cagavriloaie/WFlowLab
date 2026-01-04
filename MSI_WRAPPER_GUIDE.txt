@@ -1,0 +1,52 @@
+================================================================================
+MSI WRAPPER QUICK REFERENCE GUIDE
+================================================================================
+
+When BuildInstaller.bat opens MSI Wrapper, follow these steps:
+
+STEP 1: Load the Input File
+----------------------------
+- Click "..." button next to "Select EXE or MSI File"
+- Navigate to: output\WStreamLab-1.8.0-Setup-x64.exe
+- Click "Open"
+
+STEP 2: Set Output Location
+----------------------------
+- Click "..." button next to "Output MSI File"
+- Navigate to: output\
+- Filename: WStreamLab-1.8.0-Setup-x64.msi
+- Click "Save"
+
+STEP 3: Configure Product Information (if not auto-filled)
+-----------------------------------------------------------
+- Product Name: WStreamLab
+- Product Version: 1.8.0.0
+- Manufacturer: ELCOST
+- Product Language: English
+- Upgrade Code: {3F8A2C5E-1B4D-4A7C-9E2F-6D8B5A4C3E1F}
+  (IMPORTANT: Keep this the same for all versions!)
+
+STEP 4: Wrap the MSI
+--------------------
+- Click the "Wrap" button (usually at bottom)
+- Wait for completion (progress bar)
+- Click "OK" when done
+
+STEP 5: Save Project (Optional but Recommended)
+------------------------------------------------
+- File → Save Project As
+- Save as: WStreamLab.mwrp
+- This saves your settings for next time
+
+STEP 6: Return to Build Script
+-------------------------------
+- Close MSI Wrapper
+- Press any key in the BuildInstaller.bat window
+- Script will verify MSI was created
+
+================================================================================
+TIPS:
+- The Upgrade Code MUST stay the same across all versions
+- Product Code should be auto-generated (different each time)
+- If you save the project, loading it next time is faster
+================================================================================

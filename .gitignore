@@ -2,8 +2,8 @@
 **/Debug/
 **/Release/
 output/
-meter/debug/
-meter/release/
+src/debug/
+src/release/
 
 # Build directory - Option 2: Keep DLLs and plugins for easy deployment
 # Only exclude the executable (rebuilt on each compile)
@@ -19,16 +19,16 @@ Makefile.*
 moc_*.cpp
 moc_*.h
 qrc_*.cpp
-meter/ui_*.h
-meter/generated/
-meter/obj/
+src/ui_*.h
+src/generated/
+src/obj/
 
 # Generated resource files
-meter/*.qm
+src/*.qm
 
 # Documentation copies (source is in root)
-meter/PROCES_CALCUL_VERIFICARE_CONTOARE.md
-meter/VERIFICATION_METHOD_PROCESS.md
+src/PROCES_CALCUL_VERIFICARE_CONTOARE.md
+src/VERIFICATION_METHOD_PROCESS.md
 
 # Backup files
 *.backup
@@ -41,8 +41,8 @@ nul
 *.temp
 
 # User-specific files
-meter/UsersCONSTA~*
-meter/*.json
+src/UsersCONSTA~*
+src/*.json
 cfgs/*.conf
 
 # IDE and editor files

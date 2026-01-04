@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MsiWrapperConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>11.0</Version>
+
+  <!-- Application Information -->
+  <AppName>WStreamLab</AppName>
+  <AppVersion>1.8.0.0</AppVersion>
+  <AppPublisher>ELCOST</AppPublisher>
+  <AppURL>http://www.elcost.com/</AppURL>
+  <AppComment>Water Meter Calibration Software</AppComment>
+
+  <!-- Input/Output -->
+  <SetupFile>output\WStreamLab-1.8.0-Setup-x64.exe</SetupFile>
+  <OutputFile>output\WStreamLab-1.8.0-Setup-x64.msi</OutputFile>
+
+  <!-- MSI Configuration -->
+  <UpgradeCode>{3F8A2C5E-1B4D-4A7C-9E2F-6D8B5A4C3E1F}</UpgradeCode>
+  <ProductCode>{A8F3B2C1-5D4E-4F6A-9B8C-7D6E5F4A3B2C}</ProductCode>
+
+  <!-- Installation -->
+  <InstallDir>[ProgramFilesFolder]\WStreamLab</InstallDir>
+  <ProgramMenuFolder>WStreamLab</ProgramMenuFolder>
+  <CreateDesktopShortcut>true</CreateDesktopShortcut>
+  <CreateStartMenuShortcut>true</CreateStartMenuShortcut>
+
+  <!-- System -->
+  <RequireAdmin>true</RequireAdmin>
+  <Platform>x64</Platform>
+  <Language>1033</Language>
+
+  <!-- Upgrade -->
+  <RemovePreviousVersions>true</RemovePreviousVersions>
+  <PreventDowngrade>true</PreventDowngrade>
+
+  <!-- Advanced -->
+  <WrapMode>2</WrapMode>
+  <RunAfterInstall>true</RunAfterInstall>
+  <EnableLogging>true</EnableLogging>
+</MsiWrapperConfig>

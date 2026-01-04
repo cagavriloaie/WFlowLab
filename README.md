@@ -104,18 +104,27 @@ Where:
 4. **Generate installer:**
    - Build the Release version
    - Run `deploy.bat` to prepare deployment files
-   - Use Inno Setup with `WStreamLab.iss` to create installer
+   - Run `BuildInstaller.bat` to create both .exe and .msi installers
 
 ### Build Scripts
 
-- `deploy.bat` - Prepares application for deployment (copies Qt dependencies)
-- `startTranslations.bat` - Updates translation files (.ts files)
+- **`BuildInstaller.bat`** - Automated installer builder
+  - Compiles Inno Setup script to create .exe installer
+  - Generates .msi installer using MSI Wrapper
+  - Output files in `output/` directory:
+    - `WStreamLab-1.8.0-Setup-x64.exe` - Windows installer (Inno Setup)
+    - `WStreamLab-1.8.0-Setup-x64.msi` - MSI package (for enterprise deployment)
+  - See `MSI_WRAPPER_GUIDE.txt` for MSI generation steps
+
+- **`deploy.bat`** - Prepares application for deployment (copies Qt dependencies)
+
+- **`startTranslations.bat`** - Updates translation files (.ts files)
 
 ## Project Structure
 
 ```
 WStreamLab/
-├── meter/              # Main application source code
+├── src/                # Main application source code
 ├── configs/            # Configuration files for different locations
 ├── manuals/            # User manuals (PDF)
 ├── templates/          # Standard templates and configurations

@@ -10,9 +10,9 @@
 #define AppWizardSmallImage "build\WStreamLab.bmp"
 
 ; Auto-copy latest files from Release to build folder before compilation
-#expr Exec('cmd.exe', '/c copy /Y "meter\release\' + AppExeName + '" "build\' + AppExeName + '"', '', SW_HIDE)
+#expr Exec('cmd.exe', '/c copy /Y "src\release\' + AppExeName + '" "build\' + AppExeName + '"', '', SW_HIDE)
 #expr Exec('cmd.exe', '/c if not exist "build\translations" mkdir "build\translations"', '', SW_HIDE)
-#expr Exec('cmd.exe', '/c copy /Y "meter\translations\*.qm" "build\translations\"', '', SW_HIDE)
+#expr Exec('cmd.exe', '/c copy /Y "src\translations\*.qm" "build\translations\"', '', SW_HIDE)
 #pragma message "Auto-copied latest executable and translations to build folder"
 
 [Setup]
