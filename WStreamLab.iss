@@ -86,6 +86,7 @@ Name: "desktopicon"; Description: "Create a desktop icon"; GroupDescription: "Ad
 [Files]
 ; Documentation
 Source: ".\build\{#AppReadme}"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\build\LICENSE_RO_EN.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\PROCES_CALCUL_VERIFICARE_CONTOARE.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\build\VERIFICATION_METHOD_PROCESS.md"; DestDir: "{app}"; Flags: ignoreversion
 
@@ -160,6 +161,7 @@ Type: files; Name: "{app}\{#AppIconName}"
 
 ; Documentation
 Type: files; Name: "{app}\README*.txt"
+Type: files; Name: "{app}\LICENSE*"
 Type: files; Name: "{app}\PROCES_CALCUL_VERIFICARE_CONTOARE.md"
 Type: files; Name: "{app}\VERIFICATION_METHOD_PROCESS.md"
 

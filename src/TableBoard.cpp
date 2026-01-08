@@ -779,7 +779,7 @@ void TableBoard::onCalculateClicked() {
          * Only one compile-time flag must be active:
          *   CLASSIC_VOLUME_CORRECTION  - classical model (V = k × m)
          *   INM_VOLUME_CORRECTION      - model using real density at 20 °C and an ideal reference, INM Bucuresti
-         *   ELCOST_VOLUME_CORRECTION     - CULI-type correction
+         *   ELCOST_VOLUME_CORRECTION   - correction developed by ELCOST
          */
 
         std::string volumeCorrectionType = mainwindow->optionsConfiguration["volume_correction"];
@@ -822,7 +822,7 @@ void TableBoard::onCalculateClicked() {
 
         else if (volumeCorrectionType == "ELCOST_VOLUME_CORRECTION") {
             /*
-             * CULI-type correction derived from the classic formula:
+             * ELCOST type correction derived from the classic formula:
              *     Vol_corrected(T) = K(T) × (ro_ideal20 / ro_real20)
              */
             const double rho_ideal20 = 998.2009;

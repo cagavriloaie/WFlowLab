@@ -1,0 +1,203 @@
+================================================================================
+                        LICENȚĂ SOFTWARE WStreamLab
+================================================================================
+
+Copyright © 2023-2026 ELCOST Company srl
+Toate drepturile rezervate.
+
+Website: http://www.elcost.com/
+Email: office@elcost.com
+
+================================================================================
+                            ACORD DE LICENȚĂ
+================================================================================
+
+Vă mulțumim că ați ales WStreamLab! Această licență definește modul în care
+puteți utiliza software-ul nostru de verificare a contoarelor de apă.
+Vă rugăm să o citiți cu atenție.
+
+--------------------------------------------------------------------------------
+1. CE PUTEȚI FACE
+--------------------------------------------------------------------------------
+
+✓ Instalați și utilizați WStreamLab pe mai multe computere din rețeaua locală
+  (LAN) a organizației dumneavoastră
+
+✓ Utilizați software-ul pentru verificarea și etalonarea contoarelor de apă
+  în conformitate cu standardele metrologice (OIML R49, MID)
+
+✓ Păstrați fișierele de configurare (watermeters.conf, watermeters.csv)
+  la actualizarea la versiuni mai noi
+
+--------------------------------------------------------------------------------
+2. CE NU PUTEȚI FACE
+--------------------------------------------------------------------------------
+
+✗ Distribuiți software-ul către părți din afara organizației dumneavoastră
+
+✗ Modificați fișierul de licență sau mecanismul de licențiere
+
+✗ Realizați inginerie inversă, decompilați sau dezasamblați software-ul
+
+✗ Creați lucrări derivate sau modificări bazate pe acest software
+
+✗ Partajați licența dumneavoastră cu utilizatori neautorizați
+
+--------------------------------------------------------------------------------
+3. VALIDITATEA LICENȚEI
+--------------------------------------------------------------------------------
+
+Fiecare instalare trebuie licențiată corespunzător folosind un fișier de
+licență valid.
+
+ELCOST își rezervă dreptul de a revoca orice licență software din motive
+incluzând, dar fără a se limita la:
+  • Încălcarea acestui acord de licență
+  • Detectarea pirateriei sau utilizării neautorizate
+  • Violarea termenilor și condițiilor
+
+--------------------------------------------------------------------------------
+4. SUPORT ȘI ACTUALIZĂRI
+--------------------------------------------------------------------------------
+
+Utilizatorii licențiați au dreptul la:
+  • Suport tehnic în timpul programului de lucru
+  • Actualizări software și remedieri de erori
+  • Documentație și ghiduri de utilizare
+
+Contactați-ne la office@elcost.com pentru asistență.
+
+--------------------------------------------------------------------------------
+5. DECLINAREA GARANȚIEI
+--------------------------------------------------------------------------------
+
+SOFTWARE-UL ESTE FURNIZAT "CA ATARE", FĂRĂ GARANȚIE DE ORICE FEL, EXPRESĂ
+SAU IMPLICITĂ, INCLUZÂND, DAR FĂRĂ A SE LIMITA LA GARANȚIILE DE
+COMERCIALIZARE, POTRIVIRE PENTRU UN ANUMIT SCOP ȘI NEÎNCĂLCARE.
+
+ÎN NICIUN CAZ ELCOST COMPANY SRL SAU DEȚINĂTORII DREPTURILOR DE AUTOR NU
+VOR FI RĂSPUNZĂTORI PENTRU NICIO REVENDICARE, DAUNE SAU ALTE RĂSPUNDERI,
+ÎNTR-O ACȚIUNE CONTRACTUALĂ, DELICTUALĂ SAU ALTFEL, REZULTATE DIN SAU ÎN
+LEGĂTURĂ CU SOFTWARE-UL SAU UTILIZAREA SAU ALTE OPERAȚIUNI CU SOFTWARE-UL.
+
+--------------------------------------------------------------------------------
+6. CONFORMITATE
+--------------------------------------------------------------------------------
+
+Prin utilizarea WStreamLab, sunteți de acord să respectați toate legile și
+reglementările aplicabile, inclusiv standardele metrologice și cerințele de
+protecție a datelor.
+
+================================================================================
+
+Pentru întrebări despre licențiere, vă rugăm să contactați:
+
+ELCOST Company srl
+Website: http://www.elcost.com/
+Email: office@elcost.com
+
+Vă mulțumim că utilizați WStreamLab!
+
+================================================================================
+
+
+
+
+================================================================================
+                        WStreamLab Software License
+================================================================================
+
+Copyright © 2023-2026 ELCOST Company srl
+All rights reserved.
+
+Website: http://www.elcost.com/
+Email: office@elcost.com
+
+================================================================================
+                            License Agreement
+================================================================================
+
+Thank you for choosing WStreamLab! This license defines how you can use our
+water meter calibration software. Please read it carefully.
+
+--------------------------------------------------------------------------------
+1. WHAT YOU CAN DO
+--------------------------------------------------------------------------------
+
+✓ Install and use WStreamLab on multiple computers within your organization's
+  local area network (LAN)
+
+✓ Use the software for water meter verification and calibration in accordance
+  with metrological standards (OIML R49, MID)
+
+✓ Keep your configuration files (watermeters.conf, watermeters.csv) when
+  upgrading to newer versions
+
+--------------------------------------------------------------------------------
+2. WHAT YOU CANNOT DO
+--------------------------------------------------------------------------------
+
+✗ Distribute the software to any parties outside your organization
+
+✗ Tamper with the license file or licensing mechanism
+
+✗ Reverse engineer, decompile, or disassemble the software
+
+✗ Create derivative works or modifications based on this software
+
+✗ Share your license with unauthorized users
+
+--------------------------------------------------------------------------------
+3. LICENSE VALIDITY
+--------------------------------------------------------------------------------
+
+Each installation must be properly licensed using a valid license file.
+
+ELCOST reserves the right to revoke any software license for reasons including,
+but not limited to:
+  • Breach of this license agreement
+  • Detection of piracy or unauthorized use
+  • Violation of terms and conditions
+
+--------------------------------------------------------------------------------
+4. SUPPORT AND UPDATES
+--------------------------------------------------------------------------------
+
+Licensed users are entitled to:
+  • Technical support during business hours
+  • Software updates and bug fixes
+  • Documentation and user guides
+
+Contact us at office@elcost.com for assistance.
+
+--------------------------------------------------------------------------------
+5. WARRANTY DISCLAIMER
+--------------------------------------------------------------------------------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL ELCOST COMPANY SRL OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS WITH THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+6. COMPLIANCE
+--------------------------------------------------------------------------------
+
+By using WStreamLab, you agree to comply with all applicable laws and
+regulations, including metrological standards and data protection requirements.
+
+================================================================================
+
+For questions about licensing, please contact:
+
+ELCOST Company srl
+Website: http://www.elcost.com/
+Email: office@elcost.com
+
+Thank you for using WStreamLab!
+
+================================================================================
