@@ -26,116 +26,116 @@ namespace AppColors {
 // ============================================
 
 /// Primary action color
-const QColor Primary(0, 120, 215);  // #0078D7
+const QColor PRIMARY(0, 120, 215);  // #0078D7
 
 /// Primary hover state
-const QColor PrimaryHover(0, 102, 204);  // Slightly darker
+const QColor PRIMARY_HOVER(0, 102, 204);  // Slightly darker
 
 /// Primary pressed state
-const QColor PrimaryPressed(0, 90, 180);  // Darker
+const QColor PRIMARY_PRESSED(0, 90, 180);  // Darker
 
 /// Focus indicator
-const QColor Focus(0, 120, 215);  // #0078D7
+const QColor FOCUS(0, 120, 215);  // #0078D7
 
 // ============================================
 // State Colors
 // ============================================
 
 /// Success state - Light green
-const QColor Success(220, 235, 220);  // #DCEBDC - rgb(220, 235, 220)
+const QColor SUCCESS(220, 235, 220);  // #DCEBDC - rgb(220, 235, 220)
 
 /// Success background
-const QColor SuccessBackground(220, 235, 220);  // #DCEBDC
+const QColor SUCCESS_BACKGROUND(220, 235, 220);  // #DCEBDC
 
 /// Warning state
-const QColor Warning(255, 200, 0);  // Yellow-orange
+const QColor WARNING_COLOR(255, 200, 0);  // Yellow-orange
 
 /// Warning background
-const QColor WarningBackground(255, 245, 200);  // Light yellow
+const QColor WARNING_BACKGROUND(255, 245, 200);  // Light yellow
 
 /// Error state - Red
-const QColor Error(255, 0, 0);  // red
+const QColor ERROR_COLOR(255, 0, 0);  // red
 
 /// Error pressed
-const QColor ErrorPressed(200, 0, 0);  // Darker red
+const QColor ERROR_PRESSED_COLOR(200, 0, 0);  // Darker red
 
 // ============================================
 // Background Colors
 // ============================================
 
 /// Main application background
-const QColor Background(240, 240, 240);  // #F0F0F0
+const QColor BACKGROUND(240, 240, 240);  // #F0F0F0
 
 /// Surface color (cards, dialogs)
-const QColor Surface(255, 255, 255);  // #FFFFFF
+const QColor SURFACE(255, 255, 255);  // #FFFFFF
 
 /// Hover background - Light gray
-const QColor BackgroundHover(215, 217, 215);  // #D7D9D7
+const QColor BACKGROUND_HOVER(215, 217, 215);  // #D7D9D7
 
 /// Disabled background
-const QColor BackgroundDisabled(200, 200, 200);  // Light gray
+const QColor BACKGROUND_DISABLED(200, 200, 200);  // Light gray
 
 /// Selection background
-const QColor SelectionBackground(173, 216, 230);  // #ADD8E6
+const QColor SELECTION_BACKGROUND(173, 216, 230);  // #ADD8E6
 
 /// Alternating row background
-const QColor BackgroundAlternate(250, 250, 250);  // #FAFAFA
+const QColor BACKGROUND_ALTERNATE(250, 250, 250);  // #FAFAFA
 
 /// Very light background for normal/inactive state
-const QColor BackgroundNormal(250, 250, 250);  // #FAFAFA
+const QColor BACKGROUND_NORMAL(250, 250, 250);  // #FAFAFA
 
 /// Light background for standard elements
-const QColor BackgroundLight(240, 240, 240);  // #F0F0F0
+const QColor BACKGROUND_LIGHT(240, 240, 240);  // #F0F0F0
 
 /// Group box background
-const QColor BackgroundGroupBox(230, 230, 255);  // #E6E6FF
+const QColor BACKGROUND_GROUP_BOX(230, 230, 255);  // #E6E6FF
 
 /// Error row background
-const QColor BackgroundError(245, 220, 220);  // #F5DCDC
+const QColor BACKGROUND_ERROR(245, 220, 220);  // #F5DCDC
 
 // ============================================
 // Border Colors
 // ============================================
 
 /// Standard border - Light blue
-const QColor Border(173, 216, 230);  // #ADD8E6
+const QColor BORDER(173, 216, 230);  // #ADD8E6
 
 /// Border hover - Medium gray
-const QColor BorderHover(170, 170, 170);  // #AAA
+const QColor BORDER_HOVER(170, 170, 170);  // #AAA
 
 /// Border focus - Primary blue
-const QColor BorderFocus(0, 120, 215);  // #0078D7
+const QColor BORDER_FOCUS(0, 120, 215);  // #0078D7
 
 /// Standard border - Gray
-const QColor BorderStandard(204, 204, 204);  // #CCC
+const QColor BORDER_STANDARD(204, 204, 204);  // #CCC
 
 /// Group box border
-const QColor BorderGroupBox(0, 0, 0, 92);  // rgba(0, 0, 0, 0.36)
+const QColor BORDER_GROUP_BOX(0, 0, 0, 92);  // rgba(0, 0, 0, 0.36)
 
 /// Divider/separator color
-const QColor Divider(204, 204, 204);  // #CCC
+const QColor DIVIDER(204, 204, 204);  // #CCC
 
 // ============================================
 // Text Colors
 // ============================================
 
 /// Primary text - Black
-const QColor TextPrimary(0, 0, 0);  // black
+const QColor TEXT_PRIMARY(0, 0, 0);  // black
 
 /// Secondary text - Gray
-const QColor TextSecondary(100, 100, 100);  // Gray
+const QColor TEXT_SECONDARY(100, 100, 100);  // Gray
 
 /// Disabled text - Light gray
-const QColor TextDisabled(153, 153, 153);  // #999
+const QColor TEXT_DISABLED(153, 153, 153);  // #999
 
 /// Text on colored backgrounds - White
-const QColor TextOnColor(255, 255, 255);  // white
+const QColor TEXT_ON_COLOR(255, 255, 255);  // white
 
 /// Link text - Primary blue
-const QColor TextLink(0, 120, 215);  // #0078D7
+const QColor TEXT_LINK(0, 120, 215);  // #0078D7
 
 /// Error text - Red
-const QColor TextError(255, 0, 0);  // red
+const QColor TEXT_ERROR(255, 0, 0);  // red
 
 // ============================================
 // Helper Functions

@@ -45,7 +45,7 @@ class License : public QDialog {
      * This function sets text for various UI components like labels and buttons
      * based on the current application language settings.
      */
-    void Translate();
+    void translate();
 
     Ui::Licence* ui;  ///< Pointer to the UI object.
 

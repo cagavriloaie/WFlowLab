@@ -104,13 +104,13 @@ public:
      * @brief Verifică dacă logging-ul este activat
      * @return true dacă logging este activ
      */
-    bool isEnabled() const { return m_enabled; }
+    bool isEnabled() const { return enabled; }
 
     /**
      * @brief Activează/dezactivează logging-ul
      * @param enabled true pentru activare
      */
-    void setEnabled(bool enabled) { m_enabled = enabled; }
+    void setEnabled(bool enabled) { this->enabled = enabled; }
 
 private:
     Logger();
@@ -172,13 +172,13 @@ private:
     void loadSettings();
 
 private:
-    QString m_logPath;           // Cale folder log-uri
-    int m_maxDays;               // Zile păstrare (default: 30)
-    qint64 m_maxFileSize;        // Dimensiune max per fișier (default: 10MB)
-    bool m_enabled;              // Logging activat/dezactivat
-    mutable QMutex m_mutex;      // Thread-safety (mutable pentru funcții const)
-    QDate m_currentLogDate;      // Data fișierului log curent
-    QString m_currentLogFile;    // Cale fișier log curent
+    QString logPath;           // Cale folder log-uri
+    int maxDays;               // Zile păstrare (default: 30)
+    qint64 maxFileSize;        // Dimensiune max per fișier (default: 10MB)
+    bool enabled;              // Logging activat/dezactivat
+    mutable QMutex mutex;      // Thread-safety (mutable pentru funcții const)
+    QDate currentLogDate;      // Data fișierului log curent
+    QString currentLogFile;    // Cale fișier log curent
 };
 
 #endif // LOGGER_H

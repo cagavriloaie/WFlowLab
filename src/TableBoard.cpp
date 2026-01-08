@@ -40,15 +40,15 @@
 
 // Project-specific headers
 #include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
-#include "colors.h"            // Centralized color definitions
+#include "Colors.h"            // Centralized color definitions
 #include "definitions.h"       // Project-specific constants and definitions
-#include "logger.h"            // Logging system
+#include "Logger.h"            // Logging system
 #include "MainWindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
 #include "TableBoard.h"        // Header for table board functionality
 #include "ui_MainWindow.h"     // UI definition for main window
 #include "ui_TableBoard.h"     // UI definition for table board
-#include "waterdensity.h"      // Header for water density calculations
+#include "WaterDensity.h"      // Header for water density calculations
 
 // NOTE: QString TableBoard::report removed - using QThread signal/slot pattern instead
 // NOTE: std::mutex printTablePdfThreadMutex removed - no longer needed with QThread
@@ -201,7 +201,7 @@ bool XOR(bool a, bool b) {
  *
  * \note Assumes the existence of specific UI elements (e.g., ui->lbN1, ui->cbSet1, ui->leSN1).
  */
-void TableBoard::ValidatorInput() {
+void TableBoard::validateInput() {
     QLabel* pNumber[] = {ui->lbN1,  ui->lbN2,  ui->lbN3,  ui->lbN4,  ui->lbN5,  ui->lbN6,  ui->lbN7,
                          ui->lbN8,  ui->lbN9,  ui->lbN10, ui->lbN11, ui->lbN12, ui->lbN13, ui->lbN14,
                          ui->lbN15, ui->lbN16, ui->lbN17, ui->lbN18, ui->lbN19, ui->lbN20};
@@ -392,7 +392,7 @@ void TableBoard::ValidatorInput() {
     ui->leVolume3->setReadOnly(true);
 
     QPalette paletteDiactivatedLineEdit;
-    paletteDiactivatedLineEdit.setColor(QPalette::Base, AppColors::Success);
+    paletteDiactivatedLineEdit.setColor(QPalette::Base, AppColors::SUCCESS);
 
     for (auto iter = begin(vectorCheckNumber); iter != end(vectorCheckNumber); ++iter) {
         (*iter)->setCheckState(Qt::Checked);
@@ -407,7 +407,7 @@ void TableBoard::ValidatorInput() {
  * text elements to their translated versions, ensuring the interface
  * reflects the current language settings.
  */
-void TableBoard::Translate() {
+void TableBoard::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 
@@ -485,8 +485,8 @@ void TableBoard::Translate() {
                               .arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
     ui->lbIndex3->setText(QString("Index [L] -  Q3: %1 L/h  Eroare: %2%")
                               .arg(QString::number(nominalFlowMain), QString::number(nominalError)));
-    if (reportMeasurementsDialog != nullptr) {
-        reportMeasurementsDialog->Translate();
+    if (reportMeasurementsDialog) {
+        reportMeasurementsDialog->translate();
     }
 }
 
@@ -519,10 +519,10 @@ TableBoard::TableBoard(QWidget* _parent) : QDialog(_parent), parent(_parent), ui
     }
 
     // Translate UI elements to the current language
-    Translate();
+    translate();
 
     // Validate input fields if needed
-    ValidatorInput();
+    validateInput();
 
     // Connect signals to slots - Modern Qt5+ syntax
     connect(ui->pbCalculate, &QPushButton::clicked, this, &TableBoard::onCalculateClicked);
@@ -638,13 +638,13 @@ void TableBoard::onCalculateClicked() {
                      .arg(mainwindow->selectedInfo.entriesNumber));
 
     QPalette paletteOddRowErr;
-    paletteOddRowErr.setColor(QPalette::Base, AppColors::Success);
+    paletteOddRowErr.setColor(QPalette::Base, AppColors::SUCCESS);
     QPalette paletteEvenRowErr;
-    paletteEvenRowErr.setColor(QPalette::Base, AppColors::BackgroundAlternate);
+    paletteEvenRowErr.setColor(QPalette::Base, AppColors::BACKGROUND_ALTERNATE);
     QPalette paletteNormal;
-    paletteNormal.setColor(QPalette::Base, AppColors::BackgroundNormal);
+    paletteNormal.setColor(QPalette::Base, AppColors::BACKGROUND_NORMAL);
     QPalette paletteErr;
-    paletteErr.setColor(QPalette::Base, AppColors::BackgroundError);
+    paletteErr.setColor(QPalette::Base, AppColors::BACKGROUND_ERROR);
 
     for (size_t iter = 0; iter < 20; ++iter)
         resultAllTests[iter] = "RESPINS";
@@ -1316,7 +1316,7 @@ void TableBoard::onCloseClicked() {
  * newly selected water meter type, refreshing the UI accordingly.
  */
 void TableBoard::onTypeMeterChanged() {
-    PopulateTable();
+    populateTable();
 }
 
 /**
@@ -1326,7 +1326,7 @@ void TableBoard::onTypeMeterChanged() {
  * number of water meters, refreshing the UI with the corresponding data.
  */
 void TableBoard::onNumberOfWaterMetersChanged() {
-    PopulateTable();
+    populateTable();
 }
 
 /**
@@ -2408,7 +2408,7 @@ void TableBoard::showEvent(QShowEvent* event) {
     Q_UNUSED(event);
 
     // Populate the table with data when the dialog is shown
-    PopulateTable();
+    populateTable();
 
     // Set focus to the first serial number field (row 1, column "Serie tip")
     if (!vectorSerialNumber.empty() && vectorSerialNumber[0]) {
@@ -2429,8 +2429,8 @@ void TableBoard::showEvent(QShowEvent* event) {
  *       entries, nameWaterMeter, minimumFlowMain, transitoriuFlowMain,
  *       nominalFlowMain, nominalError, and maximumError.
  */
-void TableBoard::PopulateTable() {
-    Translate();  // Update UI with translated strings if necessary
+void TableBoard::populateTable() {
+    translate();  // Update UI with translated strings if necessary
 
     // Retrieve data from main window
     entries = mainwindow->selectedInfo.entriesNumber;
@@ -2601,14 +2601,11 @@ void TableBoard::onCopy23Clicked() {
 void TableBoard::onReportClicked() {
     onCalculateClicked();
 
-    // Use Qt parent-child ownership - safe deletion with deleteLater
-    if (reportMeasurementsDialog) {
-        reportMeasurementsDialog->deleteLater();  // Qt-safe deletion
-        reportMeasurementsDialog = nullptr;
-    }
+    // Reset unique_ptr (automatically calls deleteLater via custom deleter)
+    reportMeasurementsDialog.reset();
 
-    // Create new dialog with 'this' as parent - Qt will handle cleanup
-    reportMeasurementsDialog = new ReportMeasurements(this, vectorCheckNumber, vectorSerialNumber, resultAllTests);
+    // Create new dialog with 'this' as parent - managed by unique_ptr with Qt-safe deletion
+    reportMeasurementsDialog.reset(new ReportMeasurements(this, vectorCheckNumber, vectorSerialNumber, resultAllTests));
 
     reportMeasurementsDialog->show();
 }

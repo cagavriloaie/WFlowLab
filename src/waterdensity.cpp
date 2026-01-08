@@ -11,7 +11,7 @@
  * \date Creation date to be added
  */
 
-#include "waterdensity.h"  // Header file for water density calculations
+#include "WaterDensity.h"  // Header file for water density calculations
 
 #include <cmath>  // Standard C++ math library
 

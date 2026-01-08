@@ -123,8 +123,8 @@ class MainWindow : public QMainWindow {
     std::unique_ptr<Interface> interfaceDialog;        /**< Pointer to the interface dialog. */
     std::unique_ptr<QActionGroup> alignmentGroup;      /**< Action group for alignment settings. */
     std::unique_ptr<QLabel> statusBarLabel;            /**< Permanent label widget in the status bar. */
-    size_t MAX_NR_WATER_METERS{20};                  /**< Maximum number of water meters supported. */
-    std::atomic<size_t> NUMBER_ENTRIES_METER_FLOW_DB{0};   /**< Number of entries in meter flow database (thread-safe). */
+    size_t maxNrWaterMeters{20};                  /**< Maximum number of water meters supported. */
+    std::atomic<size_t> numberEntriesMeterFlowDb{0};   /**< Number of entries in meter flow database (thread-safe). */
     std::map<std::string, std::string> optionsConfiguration; /**< Map for storing configuration options. */
     QList<QSerialPortInfo> ports;
     QString statusBarMessage;
@@ -135,7 +135,7 @@ class MainWindow : public QMainWindow {
     /**
      * \brief Translates the UI components to the selected language.
      */
-    void Translate();
+    void translate();
 
     /**
      * \brief Sets the value of a QLabel with specified precision.
@@ -153,23 +153,23 @@ class MainWindow : public QMainWindow {
     /**
      * \brief Initializes the ComboBox for selecting meter types.
      */
-    void SelectMeterComboBox();
+    void selectMeterComboBox();
 
     /**
      * \brief Reads the application configuration from settings.
      */
-    void ReadConfiguration();
+    void readConfiguration();
 
     /**
      * \brief Sets the default configuration settings.
      */
-    void SetDefaultConfiguration();
+    void setDefaultConfiguration();
 
     /**
      * \brief Centers a given widget to the screen.
      * \param widget Pointer to the widget to center.
      */
-    void CenterToScreen(QWidget* widget);
+    void centerToScreen(QWidget* widget);
 
     /**
      * \brief Sets the message in the status bar.

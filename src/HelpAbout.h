@@ -45,7 +45,7 @@ class HelpAbout : public QDialog {
      * This method translates UI elements such as labels, buttons, and text to the
      * current locale/language set in the application.
      */
-    void Translate();
+    void translate();
 
   private:
     Ui::HelpAbout* ui;  ///< Pointer to the UI object.

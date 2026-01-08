@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "Logger.h"
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QSettings>
@@ -13,9 +13,9 @@ const QString LOG_FILE_PREFIX = "wstreamlab_";
 const QString LOG_FILE_EXTENSION = ".log";
 
 Logger::Logger()
-    : m_maxDays(DEFAULT_MAX_DAYS)
-    , m_maxFileSize(DEFAULT_MAX_FILE_SIZE)
-    , m_enabled(true)
+    : maxDays(DEFAULT_MAX_DAYS)
+    , maxFileSize(DEFAULT_MAX_FILE_SIZE)
+    , enabled(true)
 {
     loadSettings();
     initializeLogDirectory();
@@ -55,27 +55,27 @@ void Logger::critical(LogCategory category, const QString& message)
 
 void Logger::setMaxDays(int days)
 {
-    QMutexLocker locker(&m_mutex);
-    m_maxDays = days;
+    QMutexLocker locker(&mutex);
+    maxDays = days;
 }
 
 void Logger::setMaxFileSize(qint64 bytes)
 {
-    QMutexLocker locker(&m_mutex);
-    m_maxFileSize = bytes;
+    QMutexLocker locker(&mutex);
+    maxFileSize = bytes;
 }
 
 void Logger::setLogPath(const QString& path)
 {
-    QMutexLocker locker(&m_mutex);
-    m_logPath = path;
+    QMutexLocker locker(&mutex);
+    logPath = path;
     initializeLogDirectory();
 }
 
 QStringList Logger::getLogFiles() const
 {
-    QMutexLocker locker(&m_mutex);
-    QDir logDir(m_logPath);
+    QMutexLocker locker(&mutex);
+    QDir logDir(logPath);
     QStringList filters;
     filters << LOG_FILE_PREFIX + "*" + LOG_FILE_EXTENSION;
 
@@ -91,9 +91,9 @@ QStringList Logger::getLogFiles() const
 
 QString Logger::getLogContent(const QDate& date) const
 {
-    QMutexLocker locker(&m_mutex);
+    QMutexLocker locker(&mutex);
     QString fileName = LOG_FILE_PREFIX + date.toString("yyyy-MM-dd") + LOG_FILE_EXTENSION;
-    QString filePath = m_logPath + "/" + fileName;
+    QString filePath = logPath + "/" + fileName;
 
     QFile file(filePath);
     if (!file.exists()) {
@@ -114,13 +114,13 @@ QString Logger::getLogContent(const QDate& date) const
 
 void Logger::cleanOldLogs()
 {
-    QMutexLocker locker(&m_mutex);
-    QDir logDir(m_logPath);
+    QMutexLocker locker(&mutex);
+    QDir logDir(logPath);
     QStringList filters;
     filters << LOG_FILE_PREFIX + "*" + LOG_FILE_EXTENSION;
 
     QFileInfoList fileList = logDir.entryInfoList(filters, QDir::Files);
-    QDate cutoffDate = QDate::currentDate().addDays(-m_maxDays);
+    QDate cutoffDate = QDate::currentDate().addDays(-maxDays);
 
     for (const QFileInfo& fileInfo : fileList) {
         // Extract data din numele fișierului: wstreamlab_YYYY-MM-DD.log
@@ -136,11 +136,11 @@ void Logger::cleanOldLogs()
 
 void Logger::writeLog(const QString& level, LogCategory category, const QString& message)
 {
-    if (!m_enabled) {
+    if (!enabled) {
         return;
     }
 
-    QMutexLocker locker(&m_mutex);
+    QMutexLocker locker(&mutex);
 
     // Verifică rotația (nouă zi sau fișier prea mare)
     rotateLogIfNeeded();
@@ -149,7 +149,7 @@ void Logger::writeLog(const QString& level, LogCategory category, const QString&
     QString logEntry = formatLogEntry(level, category, message);
 
     // Deschide fișierul în append mode
-    QFile file(m_currentLogFile);
+    QFile file(currentLogFile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         // Nu putem loga - silent fail
         return;
@@ -167,24 +167,24 @@ void Logger::rotateLogIfNeeded()
     QString currentFilePath = getCurrentLogFilePath();
 
     // Verifică dacă e nouă zi
-    if (m_currentLogDate != currentDate) {
-        m_currentLogDate = currentDate;
-        m_currentLogFile = currentFilePath;
+    if (currentLogDate != currentDate) {
+        currentLogDate = currentDate;
+        currentLogFile = currentFilePath;
         // Cleanup fișiere vechi
         cleanOldLogs();
         return;
     }
 
     // Verifică dimensiunea fișierului
-    QFileInfo fileInfo(m_currentLogFile);
-    if (fileInfo.exists() && fileInfo.size() >= m_maxFileSize) {
+    QFileInfo fileInfo(currentLogFile);
+    if (fileInfo.exists() && fileInfo.size() >= maxFileSize) {
         // Split fișier - adaugă timestamp la nume
         QString timestamp = QDateTime::currentDateTime().toString("_HHmmss");
         QString baseName = fileInfo.baseName();
-        QString newName = m_logPath + "/" + baseName + timestamp + LOG_FILE_EXTENSION;
+        QString newName = logPath + "/" + baseName + timestamp + LOG_FILE_EXTENSION;
 
         // Redenumește fișierul curent
-        QFile::rename(m_currentLogFile, newName);
+        QFile::rename(currentLogFile, newName);
 
         // Fișierul curent va fi recreat la următoarea scriere
     }
@@ -221,22 +221,22 @@ QString Logger::categoryToString(LogCategory category) const
 QString Logger::getCurrentLogFilePath() const
 {
     QString fileName = LOG_FILE_PREFIX + QDate::currentDate().toString("yyyy-MM-dd") + LOG_FILE_EXTENSION;
-    return m_logPath + "/" + fileName;
+    return logPath + "/" + fileName;
 }
 
 void Logger::initializeLogDirectory()
 {
-    if (m_logPath.isEmpty()) {
-        m_logPath = getDefaultLogPath();
+    if (logPath.isEmpty()) {
+        logPath = getDefaultLogPath();
     }
 
     QDir dir;
-    if (!dir.exists(m_logPath)) {
-        dir.mkpath(m_logPath);
+    if (!dir.exists(logPath)) {
+        dir.mkpath(logPath);
     }
 
-    m_currentLogDate = QDate::currentDate();
-    m_currentLogFile = getCurrentLogFilePath();
+    currentLogDate = QDate::currentDate();
+    currentLogFile = getCurrentLogFilePath();
 }
 
 QString Logger::getDefaultLogPath() const
@@ -262,15 +262,15 @@ void Logger::loadSettings()
     if (!settings.contains("Enabled")) {
         settings.setValue("Enabled", 1);
     }
-    m_enabled = settings.value("Enabled", 1).toInt() != 0;
+    enabled = settings.value("Enabled", 1).toInt() != 0;
 
     // MaxDays (default: 30) - Creează cheia dacă nu există
     if (!settings.contains("MaxDays")) {
         settings.setValue("MaxDays", DEFAULT_MAX_DAYS);
     }
-    m_maxDays = settings.value("MaxDays", DEFAULT_MAX_DAYS).toInt();
-    if (m_maxDays <= 0) {
-        m_maxDays = DEFAULT_MAX_DAYS;
+    maxDays = settings.value("MaxDays", DEFAULT_MAX_DAYS).toInt();
+    if (maxDays <= 0) {
+        maxDays = DEFAULT_MAX_DAYS;
         settings.setValue("MaxDays", DEFAULT_MAX_DAYS); // Corectează valoare invalidă
     }
 
@@ -283,13 +283,13 @@ void Logger::loadSettings()
         maxSizeMB = 10;
         settings.setValue("MaxFileSizeMB", 10); // Corectează valoare invalidă
     }
-    m_maxFileSize = static_cast<qint64>(maxSizeMB) * 1024 * 1024;
+    maxFileSize = static_cast<qint64>(maxSizeMB) * 1024 * 1024;
 
     // LogPath (default: gol = folder aplicație) - Creează cheia dacă nu există
     if (!settings.contains("LogPath")) {
         settings.setValue("LogPath", "");
     }
-    m_logPath = settings.value("LogPath", "").toString();
+    logPath = settings.value("LogPath", "").toString();
 
     // Sincronizare imediată în Registry
     settings.sync();

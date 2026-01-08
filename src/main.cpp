@@ -33,9 +33,10 @@
 #include <winnt.h>    // Windows NT definitions
 
 #include <fstream>  // File stream operations
+#include <memory>    // Smart pointers (std::unique_ptr, std::make_unique)
 
 #include "MainWindow.h"  // Include header for MainWindow class
-#include "logger.h"      // Include header for Logger class
+#include "Logger.h"      // Include header for Logger class
 
 /**
  * \brief Custom widget that displays a pixelated image.
@@ -278,24 +279,22 @@ int main(int argc, char* argv[]) {
 
     // Unique key for shared memory
     QString key = QString("Constantin + 365566a75ebf0c4a5cbf");
-    QSharedMemory* shared = new QSharedMemory(key);
+    auto shared = std::make_unique<QSharedMemory>(key);
 
     // Load translations
     if (loadTranslations()) {
         MainWindow mainWindow;
 
         // Check if another instance is already running
-        if (!checkAndHandleMultipleInstances(shared)) {
+        if (!checkAndHandleMultipleInstances(shared.get())) {
             mainWindow.show();
             int exitCode = a.exec();
             Logger::info(LogCategory::System, "Aplicație închisă");
-            delete shared;
-            return exitCode;
+            return exitCode;  // shared auto-deleted by unique_ptr
         } else {
             Logger::warning(LogCategory::System, "Tentativă pornire instanță dublă blocată");
         }
     }
 
-    delete shared;
-    return 0;
+    return 0;  // shared auto-deleted by unique_ptr
 }

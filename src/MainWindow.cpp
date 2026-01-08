@@ -39,12 +39,12 @@
 
 // Custom headers
 #include "definitions.h"      ///< Custom application-specific definitions.
-#include "flow-meter-type.h"  ///< Header defining flow meter types.
-#include "logger.h"           ///< Header for logging system.
+#include "FlowMeterType.h"  ///< Header defining flow meter types.
+#include "Logger.h"           ///< Header for logging system.
 #include "MainWindow.h"       ///< Header for the main application window.
-#include "md5.h"              ///< Header for MD5 hashing functionality.
+#include "MD5.h"              ///< Header for MD5 hashing functionality.
 #include "ui_MainWindow.h"    ///< User interface header generated from Qt Designer.
-#include "waterdensity.h"     ///< Header for water density calculations.
+#include "WaterDensity.h"     ///< Header for water density calculations.
 
 // Additional Qt headers (unique includes only)
 #include <QFile>                ///< Provides functions to read from and write to files.
@@ -76,7 +76,7 @@ std::wstring ExePath() {
  * - "density_20": Default value is "998.2009".
  * - "control": Default value is "004b3d5b6f320ab986035bf8252ea845".
  */
-void MainWindow::SetDefaultConfiguration() {
+void MainWindow::setDefaultConfiguration() {
     optionsConfiguration.clear();
     optionsConfiguration["company"] = "Elcost Company";
     optionsConfiguration["archive"] = "C:/Stand/Fise";
@@ -114,13 +114,13 @@ void MainWindow::SetDefaultConfiguration() {
  *     density_20=998.2009>
  *     control=f1807e24ccba79a76baa08194b7fa9bf>
  */
-void MainWindow::ReadConfiguration() {
+void MainWindow::readConfiguration() {
     std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
     std::ifstream inConfigurationFile(pathToConfig.c_str());
 
     // If the configuration file cannot be opened, fall back to defaults
     if (!inConfigurationFile.is_open()) {
-        SetDefaultConfiguration();
+        setDefaultConfiguration();
         Logger::warning(LogCategory::System, "Fișier configurație lipsă - folosește default settings");
 
         QString msg = QString("The configuration file could not be opened. "
@@ -153,7 +153,7 @@ void MainWindow::ReadConfiguration() {
         optionsConfiguration.find("certificate") == optionsConfiguration.end() ||
         optionsConfiguration.find("density_20") == optionsConfiguration.end() ||
         optionsConfiguration.find("control") == optionsConfiguration.end()) {
-        SetDefaultConfiguration();
+        setDefaultConfiguration();
         Logger::error(LogCategory::System, "Fișier configurație incomplet - lipsesc chei obligatorii");
         QString msg = QString("The configuration file does not contain all "
                               "mandatory entries. Default settings will be used.");
@@ -167,7 +167,7 @@ void MainWindow::ReadConfiguration() {
     std::string md5Calculate = md5(wordControl);
 
     if (md5Read != md5Calculate) {
-        SetDefaultConfiguration();
+        setDefaultConfiguration();
         Logger::error(LogCategory::System, "Verificare integritate configurație eșuată - MD5 checksum invalid");
         QString msg = QString("The configuration file failed the MD5 integrity check. "
                               "Default settings will be used.");
@@ -285,7 +285,7 @@ void MainWindow::updateSelectedInfo() {
     int selectedWaterMeter = ui->cbWaterMeterType->currentIndex();
 
     // Defensive check: Ensure database is initialized
-    size_t dbSize = NUMBER_ENTRIES_METER_FLOW_DB.load();
+    size_t dbSize = numberEntriesMeterFlowDb.load();
     if (dbSize == 0) {
         qCritical() << "updateSelectedInfo: Flow meter database not initialized!";
         return;
@@ -321,7 +321,7 @@ void MainWindow::updateSelectedInfo() {
  * 2. Creates directories for results and input data using selectedInfo.pathResults.
  * 3. Updates various QLabel widgets in the UI with values from selectedInfo.
  */
-void MainWindow::SelectMeterComboBox() {
+void MainWindow::selectMeterComboBox() {
     // Update selectedInfo with information based on the selected water meter
     updateSelectedInfo();
 
@@ -416,7 +416,7 @@ QString MainWindow::validateAndSanitizePath(const QString& path, bool allowCreat
  * It sets the window title, menu titles, action texts, labels, group box titles,
  * radio button texts, and push button texts.
  */
-void MainWindow::Translate() {
+void MainWindow::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 
@@ -521,7 +521,7 @@ MainWindow::MainWindow(QWidget* parent)
     onSetRomanian();
 
     // Read configuration settings
-    ReadConfiguration();
+    readConfiguration();
 
     // Register this instance with the thread-safe singleton
     MainWindowInstance::setInstance(this);
@@ -530,7 +530,7 @@ MainWindow::MainWindow(QWidget* parent)
     this->setStyleSheet(styleSheet());
 
     // Center the main window on the screen
-    CenterToScreen(this);
+    centerToScreen(this);
 
     // Initialize UI elements
     ui->lbConnected->setText(tr("RS485/RS422 protocol MODBUS ITF off."));
@@ -562,10 +562,10 @@ MainWindow::MainWindow(QWidget* parent)
     // ui->rbInterface->setEnabled(true);
 
     licenseDialog->setModal(true);
-    CenterToScreen(licenseDialog.get());
+    centerToScreen(licenseDialog.get());
 
     helpAbout->setModal(true);
-    CenterToScreen(helpAbout.get());
+    centerToScreen(helpAbout.get());
 
     alignmentGroup->addAction(ui->action_English);
     alignmentGroup->addAction(ui->action_Romana);
@@ -579,29 +579,29 @@ MainWindow::MainWindow(QWidget* parent)
     // Clear existing items if any
     ui->cbNumberOfWaterMeters->clear();
 
-    // Populate cbNumberOfWaterMeters with numbers from 1 to MAX_NR_WATER_METERS
+    // Populate cbNumberOfWaterMeters with numbers from 1 to maxNrWaterMeters
     for (unsigned int i = 1; i <= MAX_NUMBER_FLOW_METERS; ++i) {
         ui->cbNumberOfWaterMeters->addItem(QString::number(i));
     }
 
-    NUMBER_ENTRIES_METER_FLOW_DB = meterFlowTypesVector.size();
+    numberEntriesMeterFlowDb = meterFlowTypesVector.size();
 
     // Copy elements from meterFlowTypesVector to FlowMeterDB
     auto* database = FlowMeterDB::getDatabase();
-    for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
+    for (size_t iter = 0; iter < numberEntriesMeterFlowDb; ++iter) {
         database[iter] = meterFlowTypesVector.at(iter);
     }
 
     // Populate cbWaterMeterType with names from FlowMeterDB
     ui->cbWaterMeterType->clear();  // Clear existing items if any
-    for (size_t iter = 0; iter < NUMBER_ENTRIES_METER_FLOW_DB; ++iter) {
+    for (size_t iter = 0; iter < numberEntriesMeterFlowDb; ++iter) {
         ui->cbWaterMeterType->addItem(QString::fromStdString(database[iter].nameWaterMeter));
     }
 
     // Log number of water meters loaded
     Logger::info(LogCategory::System,
                  QString("Bază de date apometre încărcată: %1 tipuri disponibile")
-                     .arg(NUMBER_ENTRIES_METER_FLOW_DB));
+                     .arg(numberEntriesMeterFlowDb));
 
     // Connect QComboBox signals to custom slots
     connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this,
@@ -648,7 +648,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->rbGravimetric->setChecked(true);
     ui->rbManual->setChecked(true);
 
-    SelectMeterComboBox();
+    selectMeterComboBox();
 
     ui->lbConnected->hide();
     installEventFilter(this);
@@ -729,7 +729,7 @@ MainWindow::~MainWindow() {
 void MainWindow::onMeterTypeChanged(int index) {
     Q_UNUSED(index);
     QString oldMeter = QString::fromStdString(selectedInfo.nameWaterMeter);
-    SelectMeterComboBox();
+    selectMeterComboBox();
     QString newMeter = QString::fromStdString(selectedInfo.nameWaterMeter);
 
     if (oldMeter != newMeter && !newMeter.isEmpty()) {
@@ -2290,15 +2290,15 @@ void MainWindow::onSetRomanian() {
         qApp->installTranslator(appTranslator);
 
         // Translate UI elements in various components
-        Translate();  // Assuming Translate() function handles translation in MainWindow
+        translate();  // Assuming Translate() function handles translation in MainWindow
         if (inputData)
-            inputData->Translate();  // Translate UI in inputData if available
+            inputData->translate();  // Translate UI in inputData if available
         if (licenseDialog)
-            licenseDialog->Translate();  // Translate UI in licenseDialog if available
+            licenseDialog->translate();  // Translate UI in licenseDialog if available
         if (helpAbout)
-            helpAbout->Translate();  // Translate UI in helpAbout if available
+            helpAbout->translate();  // Translate UI in helpAbout if available
         if (interfaceDialog)
-            interfaceDialog->Translate();  // Translate UI in interfaceDialog if available
+            interfaceDialog->translate();  // Translate UI in interfaceDialog if available
 
         // Set the selected language to Romanian
         selectedInfo.selectedLanguage = ROMANIAN;
@@ -2338,15 +2338,15 @@ void MainWindow::onSetEnglish() {
         qApp->installTranslator(appTranslator);
 
         // Translate UI elements in various components
-        Translate();  // Assuming Translate() function handles translation in MainWindow
+        translate();  // Assuming Translate() function handles translation in MainWindow
         if (inputData)
-            inputData->Translate();  // Translate UI in inputData if available
+            inputData->translate();  // Translate UI in inputData if available
         if (licenseDialog)
-            licenseDialog->Translate();  // Translate UI in licenseDialog if available
+            licenseDialog->translate();  // Translate UI in licenseDialog if available
         if (helpAbout)
-            helpAbout->Translate();  // Translate UI in helpAbout if available
+            helpAbout->translate();  // Translate UI in helpAbout if available
         if (interfaceDialog)
-            interfaceDialog->Translate();  // Translate UI in interfaceDialog if available
+            interfaceDialog->translate();  // Translate UI in interfaceDialog if available
 
         // Set the selected language to English
         selectedInfo.selectedLanguage = ENGLISH;
@@ -2417,7 +2417,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
  *
  * \param widget The widget to be centered.
  */
-void MainWindow::CenterToScreen(QWidget* widget) {
+void MainWindow::centerToScreen(QWidget* widget) {
     if (!widget)
         return;
 

@@ -19,7 +19,7 @@
 #include <QTextDocument>
 #include <QUrl>
 
-#include "logger.h"  // For logging
+#include "Logger.h"  // For logging
 
 PdfGeneratorWorker::PdfGeneratorWorker(QObject* parent)
     : QObject(parent) {

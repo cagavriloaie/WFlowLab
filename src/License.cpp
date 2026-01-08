@@ -40,7 +40,7 @@ License::License(QWidget* parent) : QDialog(parent), ui(new Ui::Licence) {
         return;
     }
 
-    Translate();                                     ///< Translate UI elements.
+    translate();                                     ///< Translate UI elements.
 
     // Force small font size for ELCOST info label using stylesheet
     ui->lbElcostInfo->setStyleSheet("QLabel { font-size: 9px; font-family: Verdana; font-style: italic; }");
@@ -56,7 +56,7 @@ License::License(QWidget* parent) : QDialog(parent), ui(new Ui::Licence) {
  * in the License dialog using Qt's tr() mechanism, ensuring all
  * UI elements display text according to the application's current locale.
  */
-void License::Translate() {
+void License::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 

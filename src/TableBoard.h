@@ -77,14 +77,14 @@ class TableBoard : public QDialog {
      *
      * Invoked to ensure input data in the table cells meets specified criteria.
      */
-    void ValidatorInput();
+    void validateInput();
 
     /**
      * \brief Populates the table with initial data.
      *
      * Initializes and fills the table with default or stored data.
      */
-    void PopulateTable();
+    void populateTable();
 
     // NOTE: printPdfThread() removed - using PdfGeneratorWorker with QThread instead
 
@@ -93,16 +93,25 @@ class TableBoard : public QDialog {
      *
      * Adjusts all visible UI elements to display text in the chosen language.
      */
-    void Translate();
+    void translate();
 
   private:
     QWidget* parent;     ///< Pointer to the parent widget.
     Ui::TableBoard* ui;  ///< User interface object for the TableBoard dialog.
     MainWindow* mainwindow{nullptr};  ///< Pointer to MainWindow obtained via parent cast.
 
+    // Custom deleter for Qt objects that need deleteLater()
+    struct QObjectDeleter {
+        void operator()(QObject* obj) const {
+            if (obj) {
+                obj->deleteLater();
+            }
+        }
+    };
+
     // Member variables grouped by functionality
     size_t entries{0};                                      ///< Number of entries in the table.
-    ReportMeasurements* reportMeasurementsDialog{nullptr};  ///< Pointer to the report measurements dialog.
+    std::unique_ptr<ReportMeasurements, QObjectDeleter> reportMeasurementsDialog;  ///< Smart pointer to the report measurements dialog.
     std::string nameWaterMeter;                             ///< Name of the water meter being tested.
     double minimumFlowMain{0};                              ///< Minimum flow rate.
     double transitoriuFlowMain{0};                          ///< Transitional flow rate.

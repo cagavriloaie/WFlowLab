@@ -57,7 +57,7 @@ class ReportMeasurements : public QDialog {
     /**
      * \brief Translates the UI elements to the selected language.
      */
-    void Translate();
+    void translate();
 
     // NOTE: printPdfThread() removed - using PdfGeneratorWorker with QThread instead
 

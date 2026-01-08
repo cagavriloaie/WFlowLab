@@ -25,7 +25,7 @@
 #include <iomanip>    // I/O manipulators
 #include <sstream>    // String stream operations
 
-#include "logger.h"            // Logging system
+#include "Logger.h"            // Logging system
 #include "MainWindow.h"        // Your application's main window
 #include "MainWindowInstance.h"  // Thread-safe singleton for MainWindow access
 #include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
@@ -157,7 +157,7 @@ std::string convertNumberToWords(int num, bool addSuffix = false) {
  * report.Translate();
  * \endcode
  */
-void ReportMeasurements::Translate() {
+void ReportMeasurements::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 

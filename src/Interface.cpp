@@ -23,7 +23,7 @@
 #include <atomic>  // Include for std::atomic (thread-safe counter)
 #include <mutex>   // Include for std::mutex
 
-#include "logger.h"         // Include header for logging system
+#include "Logger.h"         // Include header for logging system
 #include "MainWindow.h"     // Include header for MainWindow
 #include "ui_Interface.h"   // Generated UI header file for Interface dialog
 #include "ui_MainWindow.h"  // Generated UI header file for MainWindow
@@ -166,8 +166,8 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     ui->cbSelectSerial_2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     // Initialize to nullptr - lazy initialization when actually needed
-    modbusDevice_1 = nullptr;
-    modbusDevice_2 = nullptr;
+    modbusDevice_1.reset();
+    modbusDevice_2.reset();
 
     QSettings settings(REGISTRY_PATH, QSettings::NativeFormat);
     settings.sync();
@@ -196,7 +196,7 @@ Interface::Interface(QWidget* parent) : QDialog(parent), ui(new Ui::Interface) {
     nodesModbusCom1.emplace_back(1);
     nodesModbusCom2.emplace_back(1);
 
-    Translate();
+    translate();
 }
 
 /**
@@ -216,7 +216,7 @@ Interface::~Interface() {
  * This function sets the translated text for various widgets in the UI
  * based on the current language settings.
  */
-void Interface::Translate() {
+void Interface::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 
@@ -327,13 +327,13 @@ bool Interface::checkModbusAddresses() {
         return false;
     }
 
-    QModbusRtuSerialClient* portModbus_1 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_1);
+    QModbusRtuSerialClient* portModbus_1 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_1.get());
     if (!portModbus_1) {
         qWarning() << "Failed to cast modbusDevice_1 to QModbusRtuSerialClient.";
         return false;
     }
 
-    QModbusRtuSerialClient* portModbus_2 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_2);
+    QModbusRtuSerialClient* portModbus_2 = qobject_cast<QModbusRtuSerialClient*>(modbusDevice_2.get());
     if (!portModbus_2) {
         qWarning() << "Failed to cast modbusDevice_2 to QModbusRtuSerialClient.";
         return false;
@@ -393,14 +393,14 @@ bool Interface::checkModbusAddresses() {
  */
 void Interface::onConnectClicked() {
     // Disconnect any existing serial port connections
-    DisconnectSerialPort();
+    disconnectSerialPort();
 
     if (!modbusDevice_1) {
-        modbusDevice_1 = new QModbusRtuSerialClient(this);
+        modbusDevice_1.reset(new QModbusRtuSerialClient(this));
     }
 
     if (!modbusDevice_2) {
-        modbusDevice_2 = new QModbusRtuSerialClient(this);
+        modbusDevice_2.reset(new QModbusRtuSerialClient(this));
     }
 
     // Check if either modbusDevice_1 or modbusDevice_2 is not set
@@ -409,7 +409,7 @@ void Interface::onConnectClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
 
     // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
@@ -437,14 +437,14 @@ void Interface::onConnectClicked() {
             ui->pbTestConnection->setDisabled(false);
             ui->pbRefreshSerialPort->setDisabled(false);
 
-            DisconnectSerialPort();  // Disconnect any existing serial port connections
+            disconnectSerialPort();  // Disconnect any existing serial port connections
         }
     } else {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
 
     // Configure serial parameters for modbusDevice_1 using lookup tables
@@ -466,7 +466,7 @@ void Interface::onConnectClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
         return;
     }
 
@@ -487,14 +487,14 @@ void Interface::onConnectClicked() {
             ui->pbTestConnection->setDisabled(false);
             ui->pbRefreshSerialPort->setDisabled(false);
 
-            DisconnectSerialPort();  // Disconnect any existing serial port connections
+            disconnectSerialPort();  // Disconnect any existing serial port connections
         }
     } else {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
     // Configure serial parameters for modbusDevice_2 using lookup tables
     configureModbusSerialParameters(
@@ -516,7 +516,7 @@ void Interface::onConnectClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
         return;
     }
 
@@ -585,14 +585,14 @@ void Interface::onConnectClicked() {
  */
 void Interface::onTestConfigurationClicked() {
     // Disconnect any existing serial port connections
-    DisconnectSerialPort();
+    disconnectSerialPort();
 
     if (!modbusDevice_1) {
-        modbusDevice_1 = new QModbusRtuSerialClient(this);
+        modbusDevice_1.reset(new QModbusRtuSerialClient(this));
     }
 
     if (!modbusDevice_2) {
-        modbusDevice_2 = new QModbusRtuSerialClient(this);
+        modbusDevice_2.reset(new QModbusRtuSerialClient(this));
     }
 
     // Check if either modbusDevice_1 or modbusDevice_2 is not set
@@ -601,7 +601,7 @@ void Interface::onTestConfigurationClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
 
     // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
@@ -629,14 +629,14 @@ void Interface::onTestConfigurationClicked() {
             ui->pbTestConnection->setDisabled(false);
             ui->pbRefreshSerialPort->setDisabled(false);
 
-            DisconnectSerialPort();  // Disconnect any existing serial port connections
+            disconnectSerialPort();  // Disconnect any existing serial port connections
         }
     } else {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
 
     // Configure serial parameters for modbusDevice_1 using lookup tables
@@ -658,7 +658,7 @@ void Interface::onTestConfigurationClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
         return;
     }
 
@@ -679,14 +679,14 @@ void Interface::onTestConfigurationClicked() {
             ui->pbTestConnection->setDisabled(false);
             ui->pbRefreshSerialPort->setDisabled(false);
 
-            DisconnectSerialPort();  // Disconnect any existing serial port connections
+            disconnectSerialPort();  // Disconnect any existing serial port connections
         }
     } else {
         // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
     }
     // Configure serial parameters for modbusDevice_2 using lookup tables
     configureModbusSerialParameters(
@@ -708,7 +708,7 @@ void Interface::onTestConfigurationClicked() {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
 
-        DisconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();  // Disconnect any existing serial port connections
         return;
     }
 
@@ -758,7 +758,7 @@ void Interface::onTestConfigurationClicked() {
 
     checkModbusAddresses();
 
-    DisconnectSerialPort();  // Disconnect any existing serial port connections
+    disconnectSerialPort();  // Disconnect any existing serial port connections
 }
 
 /**
@@ -795,7 +795,7 @@ void Interface::onRefreshSerialPortClicked() {
     }
 
     // Disconnect from any existing serial port connections
-    DisconnectSerialPort();
+    disconnectSerialPort();
 
     // Re-enable the "Refresh Ports" button
     ui->pbRefreshSerialPort->setEnabled(true);
@@ -916,7 +916,7 @@ void Interface::showEvent(QShowEvent* event) {
     ui->cbSelectSerial_2->clear();
 
     // Disconnect from the current serial port if any
-    DisconnectSerialPort();
+    disconnectSerialPort();
 
     // Re-enable the "Refresh Ports" button after populating serial ports
     ui->pbRefreshSerialPort->setEnabled(true);
@@ -976,7 +976,7 @@ void Interface::showEvent(QShowEvent* event) {
  * It updates the UI to reflect the disconnection state and turns off the LED indicator for the serial connection.
  * Additionally, it deletes the ModbusClient object and sets the pointer to null.
  */
-void Interface::DisconnectSerialPort() {
+void Interface::disconnectSerialPort() {
     // Check if the ModbusClient pointers are valid before deleting them
     // Use deleteLater() for safe Qt object deletion instead of raw delete
     if (modbusDevice_1) {
@@ -1007,7 +1007,7 @@ void Interface::DisconnectSerialPort() {
 }
 
 void Interface::onSelectSerialChanged() {
-    DisconnectSerialPort();
+    disconnectSerialPort();
 }
 
 /**
@@ -1015,7 +1015,7 @@ void Interface::onSelectSerialChanged() {
  * Disconnects the serial port to apply the new baud rate setting.
  */
 void Interface::onBaudRateChanged() {
-    DisconnectSerialPort();
+    disconnectSerialPort();
 }
 
 /**
@@ -1023,7 +1023,7 @@ void Interface::onBaudRateChanged() {
  * Disconnects the serial port to apply the new data bits setting.
  */
 void Interface::onSelectDataBitsChanged() {
-    DisconnectSerialPort();
+    disconnectSerialPort();
 }
 
 /**
@@ -1031,7 +1031,7 @@ void Interface::onSelectDataBitsChanged() {
  * Disconnects the serial port to apply the new parity setting.
  */
 void Interface::onSelectParityChanged() {
-    DisconnectSerialPort();
+    disconnectSerialPort();
 }
 
 /**
@@ -1039,5 +1039,5 @@ void Interface::onSelectParityChanged() {
  * Disconnects the serial port to apply the new stop bits setting.
  */
 void Interface::onSelectStopBitsChanged() {
-    DisconnectSerialPort();
+    disconnectSerialPort();
 }

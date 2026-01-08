@@ -53,7 +53,7 @@ class Interface : public QDialog {
      * This function translates all UI elements to the current language
      * using the current locale settings.
      */
-    void Translate();
+    void translate();
 
     /**
      * \brief Checks if the Modbus address is valid.
@@ -63,14 +63,23 @@ class Interface : public QDialog {
     bool checkModbusAddresses();
 
   private:
+    // Custom deleter for Qt objects that need deleteLater()
+    struct QObjectDeleter {
+        void operator()(QObject* obj) const {
+            if (obj) {
+                obj->deleteLater();
+            }
+        }
+    };
+
     Ui::Interface* ui;            /**< The user interface object. */
     QVector<QString> entries;     /**< A vector of strings for storing entries. */
     bool isOpenModbusPort{false}; /**< Flag indicating if the Modbus port is open. */
     std::vector<qint16> nodesModbusCom1;
     std::vector<qint16> nodesModbusCom2;
 
-    QModbusClient* modbusDevice_1{nullptr}; /**< Pointer to the first Modbus client device. */
-    QModbusClient* modbusDevice_2{nullptr}; /**< Pointer to the second Modbus client device. */
+    std::unique_ptr<QModbusClient, QObjectDeleter> modbusDevice_1; /**< Smart pointer to the first Modbus client device. */
+    std::unique_ptr<QModbusClient, QObjectDeleter> modbusDevice_2; /**< Smart pointer to the second Modbus client device. */
 
     /**
      * \brief Disconnects from the serial port.
@@ -78,7 +87,7 @@ class Interface : public QDialog {
      * This function disconnects from the current serial port,
      * closing the connection and releasing associated resources.
      */
-    void DisconnectSerialPort();
+    void disconnectSerialPort();
 
     QList<QSerialPortInfo> serialPorts;
 

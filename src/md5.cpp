@@ -34,14 +34,14 @@
  *       of this documentation and/or software.
  */
 
-#include "md5.h"
+#include "MD5.h"
 
 // Implementation of MD5 methods follows here
 
 #define _CRT_SECURE_NO_WARNINGS
 
 /* interface header */
-#include "md5.h"
+#include "MD5.h"
 
 /* system implementation headers */
 #include <stdio.h>

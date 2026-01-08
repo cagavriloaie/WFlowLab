@@ -22,7 +22,7 @@
  * Sets the window title and updates all labels in the About dialog
  * to display the appropriate translations according to the current language.
  */
-void HelpAbout::Translate() {
+void HelpAbout::translate() {
     // Retranslate UI elements from .ui file (tooltips, etc.)
     ui->retranslateUi(this);
 
@@ -91,7 +91,7 @@ void HelpAbout::Translate() {
  */
 HelpAbout::HelpAbout(QWidget* parent) : QDialog(parent), ui(new Ui::HelpAbout) {
     ui->setupUi(this);
-    Translate();  // Call the translation function
+    translate();  // Call the translation function
 
     // Load and set application icon (compact size for About dialog)
     QPixmap appIcon(":/WStreamLab.ico");
