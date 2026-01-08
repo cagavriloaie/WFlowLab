@@ -96,7 +96,7 @@ Source: ".\build\{#AppIconName}"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Configuration files (preserve user settings on reinstall)
 Source: ".\build\watermeters.conf"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: onlyifdoesntexist
+Source: ".\build\watermeters.csv"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall
 
 ; MinGW Runtime DLLs
 Source: ".\build\libgcc_s_seh-1.dll"; DestDir: "{app}"; Flags: ignoreversion

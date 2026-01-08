@@ -41,13 +41,13 @@ Volumul de referință reprezintă volumul real de apă care a trecut prin conto
 
 ### 4.1. Metoda Volumetrică
 
-Apa este colectată într-un rezervor etalon cu volum cunoscut și calibrat.
+Apa trece prin contorul verificat și este colectată într-un rezervor etalon calibrat. **Valoarea convențional adevărată este cea citită pe debitmetrul folosit ca etalon secundar** (nu volumul rezervorului).
 
 ```
-V_referință = V_etalon [L]
+V_referință = V_debitmetru_etalon [L]
 ```
 
-Volumul se citește direct de pe etalonul volumetric calibrat.
+**Principiu**: Debitmetrul etalon secundar măsoară volumul real de apă care a trecut prin sistem, această valoare fiind considerată referința metrologică pentru calculul erorii contorului testat.
 
 ### 4.2. Metoda Gravimetrică - Variantă CLASICĂ
 
@@ -62,7 +62,13 @@ Unde:
 - `T` = temperatura apei [°C]
 - `K(T)` = factor de conversie [L/kg] obținut din tabele standard de densitate a apei
 
-**Factorul K(T)** este o funcție de temperatură care compensează variația densității apei cu temperatura. Se obține prin interpolare din tabele metrologice standard (de exemplu, tabelele OIML R49).
+**Factorul K(T)** este o funcție de temperatură care compensează variația densității apei cu temperatura și include efectul forței arhimedice. Se obține prin interpolare din tabele metrologice standard (de exemplu, tabelele OIML R49).
+
+**Relație matematică**:
+```
+K(T) ≈ 1 / ρ(T)  [L/kg]
+```
+Factorul K este aproximativ invers proporțional cu densitatea apei la temperatura T și include corecția pentru forța arhimedică.
 
 **Principiu**:
 - La 4°C: densitatea apei = 1.000 kg/L → K(4°C) ≈ 1.000 L/kg
@@ -87,7 +93,7 @@ Parametrii:
 - `ρ_ideal(T)` = densitatea teoretică a apei pure la temperatura T [kg/m³] - din tabele
 - `ρ_real20` = densitatea reală a apei măsurată la 20°C [kg/m³]
 - `ρ_ideal20` = densitatea teoretică a apei pure la 20°C = 998.203 kg/m³
-- `1.00105` = factor de corecție pentru dilatarea termică a recipientului de măsurare
+- `1.00105` = factor de corecție volumică a apei (compensează dilatarea termică a recipientului de măsurare și efectul forței arhimedice)
 
 **Volum final**:
 ```
@@ -96,9 +102,11 @@ V_referință = [(1000 × 1.00105) / ρ_real(T)] × m [L]
 
 **Principiu**: Metoda INM ține cont de:
 1. Diferențele între densitatea reală a apei disponibile (care poate conține impurități) și densitatea teoretică
-2. Dilatarea termică a recipientului de măsurare (factorul 1.00105)
+2. Corecția volumică prin factorul 1.00105 care include:
+   - Dilatarea termică a recipientului de măsurare
+   - Efectul forței arhimedice asupra apei
 
-### 4.4. Metoda Gravimetrică - Variantă ELCOST/CULI
+### 4.4. Metoda Gravimetrică - Variantă ELCOST
 
 Această metodă folosește un factor de calibrare determinat experimental.
 
@@ -247,7 +255,7 @@ INTRARE DATE
 1. **Precizia măsurătorilor**:
    - Temperatura trebuie măsurată cu precizie de ±0.1°C
    - Masa trebuie măsurată cu balanță de precizie (±0.01 kg sau mai bine)
-   - Indexurile trebuie citite cu precizia maximă a contorului (de obicei ±0.001 L)
+   - Indexurile trebuie citite cu precizia maximă a contorului
 
 2. **Număr de măsurători**: Se efectuează minimum 3 măsurători la fiecare debit caracteristic (Q1, Q2, Q3)
 

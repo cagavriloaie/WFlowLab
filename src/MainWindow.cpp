@@ -1863,15 +1863,13 @@ void MainWindow::onWaterDensityPage() {
                << (isRomanian ? "Factorul de Corectie Volumetrica (K)" : "Volume Correction Factor (K)") << R"(</h3>
                 <p>)"
                << (isRomanian
-                    ? "Factorul K corectează volumul de apa masurat la temperatura de test la volumul echivalent la temperatura de referinta (20&deg;C). "
-                      "Aceasta compenseaza dilatarea/contractarea termica a apei."
-                    : "The K factor corrects the water volume measured at test temperature to the equivalent volume at reference temperature (20&deg;C). "
-                      "This compensates for thermal expansion/contraction of water.") << R"(</p>
-                <div class="formula">K(T) = &rho;(T) / &rho;(20&deg;C)</div>
+                    ? "Factorul K este folosit pentru conversia masei de apa in volum, compensand variatia densitatii cu temperatura si incluzand efectul fortei arhimedice."
+                    : "Factor K is used for converting water mass to volume, compensating for density variation with temperature and including the Archimedes force effect.") << R"(</p>
+                <div class="formula">K(T) &asymp; 1 / &rho;(T)  [L/kg]</div>
                 <p>)"
                << (isRomanian
-                    ? "unde &rho;(T) este densitatea la temperatura T, iar &rho;(20&deg;C) &asymp; 998.2 kg/m&sup3;"
-                    : "where &rho;(T) is density at temperature T, and &rho;(20&deg;C) &asymp; 998.2 kg/m&sup3;") << R"(</p>
+                    ? "unde &rho;(T) este densitatea apei la temperatura T [kg/m&sup3;]."
+                    : "where &rho;(T) is water density at temperature T [kg/m&sup3;].") << R"(</p>
             </div>
 
             <div class="info-section">

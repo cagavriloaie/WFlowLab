@@ -62,8 +62,7 @@ V 1.8 (01.2026) – Îmbunătățiri UI și adăugarea documentației metodei de
    1. Rulați fișierul de instalare WStreamLab_Setup.exe
    2. Urmați instrucțiunile asistentului de instalare
    3. Acceptați acordul de licență
-   4. Selectați directorul de instalare (implicit: C:\Program Files\Water Stream Laboratory)
-   5. Aplicația va crea automat directoarele necesare pentru:
+   4. Aplicația va crea automat directoarele necesare pentru:
       - Fișiere de configurare
       - Rapoarte PDF generate
       - Date de măsurare salvate
@@ -226,8 +225,7 @@ V 1.8 (01.2026) – UI improvements and addition of verification method document
    1. Run the installation file WStreamLab_Setup.exe
    2. Follow the installation wizard instructions
    3. Accept the license agreement
-   4. Select installation directory (default: C:\Program Files\Water Stream Laboratory)
-   5. The application will automatically create necessary directories for:
+   4. The application will automatically create necessary directories for:
       - Configuration files
       - Generated PDF reports
       - Saved measurement data

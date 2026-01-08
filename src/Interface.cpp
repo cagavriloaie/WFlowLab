@@ -449,7 +449,7 @@ void Interface::onConnectClicked() {
 
     // Configure serial parameters for modbusDevice_1 using lookup tables
     configureModbusSerialParameters(
-        modbusDevice_1,
+        modbusDevice_1.get(),
         ui->cbBaudRate_1->currentIndex(),
         ui->cbSelectDataBits_1->currentIndex(),
         ui->cbSelectParity_1->currentIndex(),
@@ -498,7 +498,7 @@ void Interface::onConnectClicked() {
     }
     // Configure serial parameters for modbusDevice_2 using lookup tables
     configureModbusSerialParameters(
-        modbusDevice_2,
+        modbusDevice_2.get(),
         ui->cbBaudRate_2->currentIndex(),
         ui->cbSelectDataBits_2->currentIndex(),
         ui->cbSelectParity_2->currentIndex(),
@@ -641,7 +641,7 @@ void Interface::onTestConfigurationClicked() {
 
     // Configure serial parameters for modbusDevice_1 using lookup tables
     configureModbusSerialParameters(
-        modbusDevice_1,
+        modbusDevice_1.get(),
         ui->cbBaudRate_1->currentIndex(),
         ui->cbSelectDataBits_1->currentIndex(),
         ui->cbSelectParity_1->currentIndex(),
@@ -690,7 +690,7 @@ void Interface::onTestConfigurationClicked() {
     }
     // Configure serial parameters for modbusDevice_2 using lookup tables
     configureModbusSerialParameters(
-        modbusDevice_2,
+        modbusDevice_2.get(),
         ui->cbBaudRate_2->currentIndex(),
         ui->cbSelectDataBits_2->currentIndex(),
         ui->cbSelectParity_2->currentIndex(),
@@ -977,20 +977,18 @@ void Interface::showEvent(QShowEvent* event) {
  * Additionally, it deletes the ModbusClient object and sets the pointer to null.
  */
 void Interface::disconnectSerialPort() {
-    // Check if the ModbusClient pointers are valid before deleting them
-    // Use deleteLater() for safe Qt object deletion instead of raw delete
+    // Check if the ModbusClient pointers are valid before resetting them
+    // Custom deleter (QObjectDeleter) will call deleteLater() automatically
     if (modbusDevice_1) {
         modbusDevice_1->disconnectDevice();
-        modbusDevice_1->deleteLater();
-        modbusDevice_1 = nullptr;
         Logger::info(LogCategory::System, "Deconectare interfață Modbus device 1");
+        modbusDevice_1.reset();  // Custom deleter calls deleteLater()
     }
 
     if (modbusDevice_2) {
         modbusDevice_2->disconnectDevice();
-        modbusDevice_2->deleteLater();
-        modbusDevice_2 = nullptr;
         Logger::info(LogCategory::System, "Deconectare interfață Modbus device 2");
+        modbusDevice_2.reset();  // Custom deleter calls deleteLater()
     }
 
     // Update UI indicators if mainwindow is valid

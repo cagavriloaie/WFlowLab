@@ -41,13 +41,13 @@ The reference volume represents the actual volume of water that passed through t
 
 ### 4.1. Volumetric Method
 
-Water is collected in a standard tank with known and calibrated volume.
+Water flows through the meter under test and is collected in a calibrated standard tank. **The conventionally true value is the one read on the flow meter used as a secondary standard** (not the tank volume).
 
 ```
-V_reference = V_standard [L]
+V_reference = V_standard_flowmeter [L]
 ```
 
-The volume is read directly from the calibrated volumetric standard.
+**Principle**: The secondary standard flow meter measures the actual volume of water that passed through the system, this value being considered the metrological reference for calculating the error of the tested meter.
 
 ### 4.2. Gravimetric Method - CLASSIC Variant
 
@@ -62,7 +62,13 @@ Where:
 - `T` = water temperature [°C]
 - `K(T)` = conversion factor [L/kg] obtained from standard density tables
 
-**Factor K(T)** is a temperature function that compensates for water density variation with temperature. It is obtained by interpolation from standard metrological tables (e.g., OIML R49 tables).
+**Factor K(T)** is a temperature function that compensates for water density variation with temperature and includes the Archimedes force effect. It is obtained by interpolation from standard metrological tables (e.g., OIML R49 tables).
+
+**Mathematical relationship**:
+```
+K(T) ≈ 1 / ρ(T)  [L/kg]
+```
+Factor K is approximately inversely proportional to water density at temperature T and includes the Archimedes force correction.
 
 **Principle**:
 - At 4°C: water density = 1.000 kg/L → K(4°C) ≈ 1.000 L/kg
@@ -87,7 +93,7 @@ Parameters:
 - `ρ_ideal(T)` = theoretical density of pure water at temperature T [kg/m³] - from tables
 - `ρ_real20` = actual water density measured at 20°C [kg/m³]
 - `ρ_ideal20` = theoretical density of pure water at 20°C = 998.203 kg/m³
-- `1.00105` = correction factor for thermal expansion of measurement vessel
+- `1.00105` = volumetric correction factor for water (compensates for thermal expansion of measurement vessel and Archimedes force effect)
 
 **Final volume**:
 ```
@@ -96,9 +102,11 @@ V_reference = [(1000 × 1.00105) / ρ_real(T)] × m [L]
 
 **Principle**: The INM method accounts for:
 1. Differences between actual available water density (which may contain impurities) and theoretical density
-2. Thermal expansion of measurement vessel (factor 1.00105)
+2. Volumetric correction through factor 1.00105 which includes:
+   - Thermal expansion of measurement vessel
+   - Archimedes force effect on water
 
-### 4.4. Gravimetric Method - ELCOST/CULI Variant
+### 4.4. Gravimetric Method - ELCOST Variant
 
 This method uses an experimentally determined calibration factor.
 
@@ -247,7 +255,7 @@ INPUT DATA
 1. **Measurement precision**:
    - Temperature must be measured with ±0.1°C precision
    - Mass must be measured with precision scale (±0.01 kg or better)
-   - Indexes must be read with maximum meter precision (usually ±0.001 L)
+   - Indexes must be read with maximum meter precision
 
 2. **Number of measurements**: Minimum 3 measurements at each characteristic flow rate (Q1, Q2, Q3)
 

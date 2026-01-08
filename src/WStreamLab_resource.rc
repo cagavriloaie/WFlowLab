@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	"C:/Users/Constantin/Desktop/WS_corrected/WS/meter/WStreamLab.ico"
+IDI_ICON1	ICON	"C:/Users/Constantin/Desktop/WS_corrected/WS/src/WStreamLab.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 1,8,0,0
