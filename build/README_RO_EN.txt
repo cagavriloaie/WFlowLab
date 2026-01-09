@@ -18,7 +18,7 @@ generează rapoarte PDF detaliate și asigură conformitatea cu standardele metr
    • Calcul automat al erorilor de măsurare
    • Corecție a volumului de apă în funcție de temperatură și densitate
    • Suport multi-lingv (Română / English)
-   • Bază de date extinsă cu tipuri de apometre
+   • Bază de date extensibila cu tipuri de apometre
    • Salvare și încărcare date de măsurare
    • Interfață intuitivă cu validare în timp real
 

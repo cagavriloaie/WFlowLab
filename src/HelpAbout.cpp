@@ -52,7 +52,7 @@ void HelpAbout::translate() {
 
     // Version information
     setLabelText(ui->lbVersion, tr("Version:"));
-    setLabelText(ui->lbVersionValue, QString::fromUtf8(VERSION_BUILD));
+    setLabelText(ui->lbVersionValue, QString::fromUtf8(APP_VERSION_STRING));
     setLabelText(ui->lbPlatform, tr("Platform:"));
     setLabelText(ui->lbPlatformValue, tr("Windows 8.1 or later"));
     setLabelText(ui->lbBuildDate, tr("Build:"));

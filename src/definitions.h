@@ -14,12 +14,32 @@
 #include <cstddef>  // For NULL, size_t, ptrdiff_t, and other standard library facilities related to sizes and offsets.
 
 // Version information - Single source of truth
-constexpr int APP_VERSION_MAJOR = 1;
-constexpr int APP_VERSION_MINOR = 8;
-constexpr int APP_VERSION_PATCH = 0;
-constexpr int APP_VERSION_REVISION = 0;
-constexpr const char* APP_VERSION_STRING = "1.8.0";
-constexpr const char* VERSION_BUILD = "1.8.0.0";  ///< Full version number
+#define APP_VERSION_MAJOR 1
+#define APP_VERSION_MINOR 8
+#define APP_VERSION_PATCH 0
+#define APP_VERSION_REVISION 0
+
+// Helper macros for stringification
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+
+// Automatically construct version strings from components
+#define APP_VERSION_STRING \
+    TOSTRING(APP_VERSION_MAJOR) "." \
+    TOSTRING(APP_VERSION_MINOR) "." \
+    TOSTRING(APP_VERSION_PATCH)
+
+#define VERSION_BUILD \
+    TOSTRING(APP_VERSION_MAJOR) "." \
+    TOSTRING(APP_VERSION_MINOR) "." \
+    TOSTRING(APP_VERSION_PATCH) "." \
+    TOSTRING(APP_VERSION_REVISION)
+
+// Constexpr versions for programmatic access
+constexpr int AppVersionMajor = APP_VERSION_MAJOR;
+constexpr int AppVersionMinor = APP_VERSION_MINOR;
+constexpr int AppVersionPatch = APP_VERSION_PATCH;
+constexpr int AppVersionRevision = APP_VERSION_REVISION;
 
 // Registry path for application settings
 constexpr const char* REGISTRY_PATH = "HKEY_CURRENT_USER\\SOFTWARE\\WStreamLab";  ///< Windows registry path for storing application settings

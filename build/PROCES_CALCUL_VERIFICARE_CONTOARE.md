@@ -21,7 +21,7 @@ Pentru fiecare măsurătoare (se efectuează până la 20 măsurători la diferi
 
 1. Se notează **indexul inițial** al contorului: `Index_Start` [L]
 2. Apa trece prin contor și este colectată:
-   - **Metodă volumetrică**: într-un rezervor etalon calibrat
+   - **Metodă volumetrică**: într-un rezervor etalon calibrat si un debitmetrul folosit ca etalon secundar
    - **Metodă gravimetrică**: într-un rezervor pe o balanță de precizie
 3. Se măsoară parametrii specifici metodei (vezi secțiunea 4)
 4. Se notează **indexul final** al contorului: `Index_Stop` [L]
