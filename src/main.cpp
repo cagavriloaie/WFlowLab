@@ -16,27 +16,27 @@
  * --recursive
  */
 
-#include <QApplication>   // Qt application handling
-#include <QDir>           // Qt directory handling
-#include <QEventLoop>     // Qt event loop for event handling
-#include <QFile>          // Qt file handling
-#include <QLocale>        // Qt locale for language detection
-#include <QMessageBox>    // Qt message box for displaying alerts
-#include <QPainter>       // Qt painter for drawing operations
-#include <QSharedMemory>  // Qt class for managing shared memory segments
-#include <QString>        // Qt string class
-#include <QThread>        // Qt thread management
-#include <QTimer>         // Qt timer class for periodic events
-#include <QTranslator>    // Qt translator for internationalization
+#include <QApplication>       // Qt application handling
+#include <QCoreApplication>   // Qt core application functions
+#include <QDir>               // Qt directory handling
+#include <QEventLoop>         // Qt event loop for event handling
+#include <QFile>              // Qt file handling
+#include <QLocale>            // Qt locale for language detection
+#include <QMessageBox>        // Qt message box for displaying alerts
+#include <QPainter>           // Qt painter for drawing operations
+#include <QSharedMemory>      // Qt class for managing shared memory segments
+#include <QString>            // Qt string class
+#include <QTextStream>        // Qt text stream for file I/O
+#include <QThread>            // Qt thread management
+#include <QTimer>             // Qt timer class for periodic events
+#include <QTranslator>        // Qt translator for internationalization
 
-#include <windows.h>  // Windows API main header
-#include <winnt.h>    // Windows NT definitions
-
-#include <fstream>  // File stream operations
-#include <memory>    // Smart pointers (std::unique_ptr, std::make_unique)
+#include <fstream>  // File stream operations (legacy)
+#include <memory>   // Smart pointers (std::unique_ptr, std::make_unique)
 
 #include "MainWindow.h"  // Include header for MainWindow class
 #include "Logger.h"      // Include header for Logger class
+#include "definitions.h" // Include header for application constants and version
 
 /**
  * \brief Custom widget that displays a pixelated image.
@@ -87,15 +87,12 @@ class PixelImageWidget : public QMainWindow {
     /**
      * \brief Retrieves the path of the executable file.
      *
-     * Retrieves the path of the current executable file.
+     * Retrieves the path of the current executable file using Qt.
      *
-     * \return std::wstring containing the path of the executable.
+     * \return QString containing the path of the executable directory.
      */
-    std::wstring ExePath() {
-        TCHAR buffer[MAX_PATH] = {0};
-        GetModuleFileName(NULL, buffer, MAX_PATH);
-        std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
-        return std::wstring(buffer).substr(0, pos);
+    QString ExePath() {
+        return QCoreApplication::applicationDirPath();
     }
 
     /**
@@ -127,24 +124,31 @@ class PixelImageWidget : public QMainWindow {
         painter.setFont(font);
 
         // Constructing message to display
-        QString message("\n"
+        QString message = QString("\n"
                         "   > WStreamLab\n"
                         "   > Elcost Company\n"
-                        "   > Ver [1.5 01.25]\n");
+                        "   > Ver [%1 01.26]\n").arg(APP_VERSION_STRING);
 
         // Reading configuration file for additional company information
-        std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
-        std::ifstream inConfigurationFile(pathToConfig.c_str());
+        QString pathToConfig = QDir(ExePath()).filePath("watermeters.conf");
+        QFile inConfigurationFile(pathToConfig);
         std::map<std::string, std::string> optionsConfiguration;
-        if (inConfigurationFile.is_open()) {
-            std::string key;
-            while (std::getline(inConfigurationFile, key, '=')) {
-                std::string value;
-                if (std::getline(inConfigurationFile, value, '>')) {
-                    optionsConfiguration[key] = value;
-                    std::getline(inConfigurationFile, value);
+        if (inConfigurationFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream stream(&inConfigurationFile);
+            while (!stream.atEnd()) {
+                QString line = stream.readLine();
+                int posEq = line.indexOf('=');
+                int posGt = line.indexOf('>');
+
+                if (posEq != -1 && posGt != -1 && posGt > posEq) {
+                    QString key = line.left(posEq);
+                    QString value = line.mid(posEq + 1, posGt - posEq - 1);
+                    if (!key.isEmpty()) {
+                        optionsConfiguration[key.toStdString()] = value.toStdString();
+                    }
                 }
             }
+            inConfigurationFile.close();
         }
 
         // Adding company information to the message
@@ -269,7 +273,8 @@ int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
     // Log application startup
-    QString startupInfo = QString("Aplicație pornită - Versiune: 1.5, Utilizator: %1, PC: %2")
+    QString startupInfo = QString("Aplicație pornită - Versiune: %1, Utilizator: %2, PC: %3")
+        .arg(APP_VERSION_STRING)
         .arg(qgetenv("USERNAME"))
         .arg(qgetenv("COMPUTERNAME"));
     Logger::info(LogCategory::System, startupInfo);

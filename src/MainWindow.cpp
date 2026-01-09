@@ -20,6 +20,7 @@
 #include <sstream>     ///< Implements input/output operations on memory-based streams.
 
 // Qt headers
+#include <QCoreApplication>  ///< Qt core application functions
 #include <QDesktopServices>  ///< Access to the desktop services such as opening a URL.
 #include <QDir>              ///< Provides access to directory structures and their contents.
 #include <QKeyEvent>         ///< Provides key event handling.
@@ -31,11 +32,9 @@
 #include <QPushButton>  ///< Provides push button widget.
 #include <QSettings>    ///< Persistent platform-independent application settings.
 #include <QStatusBar>
-#include <QTimer>      ///< Provides timers for single-shot and repeating actions.
-#include <QValidator>  ///< Base class for all validators that can be easily attached to input widgets.
-
-// Windows-specific headers
-#include <windows.h>  ///< Main Windows SDK header providing core Windows APIs.
+#include <QTextStream>  ///< Qt text stream for file I/O
+#include <QTimer>       ///< Provides timers for single-shot and repeating actions.
+#include <QValidator>   ///< Base class for all validators that can be easily attached to input widgets.
 
 // Custom headers
 #include "definitions.h"      ///< Custom application-specific definitions.
@@ -57,11 +56,15 @@
 
 extern QTranslator* appTranslator;
 
-std::wstring ExePath() {
-    TCHAR buffer[MAX_PATH] = {0};
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    std::wstring::size_type pos = std::wstring(buffer).find_last_of(L"\\/");
-    return std::wstring(buffer).substr(0, pos);
+/**
+ * \brief Retrieves the path of the executable file.
+ *
+ * Retrieves the path of the current executable file using Qt.
+ *
+ * \return QString containing the path of the executable directory.
+ */
+QString ExePath() {
+    return QCoreApplication::applicationDirPath();
 }
 
 /**
@@ -115,11 +118,11 @@ void MainWindow::setDefaultConfiguration() {
  *     control=f1807e24ccba79a76baa08194b7fa9bf>
  */
 void MainWindow::readConfiguration() {
-    std::wstring pathToConfig = ExePath() + L"\\watermeters.conf";
-    std::ifstream inConfigurationFile(pathToConfig.c_str());
+    QString pathToConfig = QDir(ExePath()).filePath("watermeters.conf");
+    QFile inConfigurationFile(pathToConfig);
 
     // If the configuration file cannot be opened, fall back to defaults
-    if (!inConfigurationFile.is_open()) {
+    if (!inConfigurationFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         setDefaultConfiguration();
         Logger::warning(LogCategory::System, "Fișier configurație lipsă - folosește default settings");
 
@@ -130,21 +133,23 @@ void MainWindow::readConfiguration() {
     }
 
     // Parse configuration lines of the form: key=value>
-    std::string line;
-    while (std::getline(inConfigurationFile, line)) {
-        auto posEq = line.find('=');
-        auto posGt = line.find('>');
+    QTextStream stream(&inConfigurationFile);
+    while (!stream.atEnd()) {
+        QString line = stream.readLine();
+        int posEq = line.indexOf('=');
+        int posGt = line.indexOf('>');
 
         // Ignore malformed lines
-        if (posEq == std::string::npos || posGt == std::string::npos || posGt <= posEq)
+        if (posEq == -1 || posGt == -1 || posGt <= posEq)
             continue;
 
-        std::string key = line.substr(0, posEq);
-        std::string value = line.substr(posEq + 1, posGt - posEq - 1);
+        QString key = line.left(posEq);
+        QString value = line.mid(posEq + 1, posGt - posEq - 1);
 
-        if (!key.empty())
-            optionsConfiguration[key] = value;
+        if (!key.isEmpty())
+            optionsConfiguration[key.toStdString()] = value.toStdString();
     }
+    inConfigurationFile.close();
 
     // Validate presence of all mandatory configuration keys
     if (optionsConfiguration.find("company") == optionsConfiguration.end() ||

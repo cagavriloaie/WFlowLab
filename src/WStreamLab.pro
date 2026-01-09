@@ -83,15 +83,25 @@ QT += core gui printsupport widgets serialbus
 # Set C++ standard to C++17
 CONFIG += c++17
 
-# Enable all warnings and treat them as errors
-QMAKE_CXXFLAGS += -Wall -Wextra -Werror
+# Enable warnings
+CONFIG += warn_on
 
-# Compiler identification
+# Compiler-specific warning and error settings
 *-g++* {
     message("Compiler: GCC/MinGW")
+    # Enable all warnings, extra warnings, and treat them as errors
+    QMAKE_CXXFLAGS += -Wall -Wextra -Werror -pedantic
+    # Show all errors during compilation
+    QMAKE_CXXFLAGS += -fmax-errors=0
 }
+
 *-msvc* {
     message("Compiler: MSVC")
+    # Enable maximum warning level and treat warnings as errors
+    QMAKE_CXXFLAGS += /W4 /WX
+    # Disable specific warnings that are too strict for Qt
+    QMAKE_CXXFLAGS += /wd4127  # conditional expression is constant (Qt macros)
+    QMAKE_CXXFLAGS += /wd4512  # assignment operator could not be generated
 }
 
 # ============================================
