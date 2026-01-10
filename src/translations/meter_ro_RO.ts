@@ -319,7 +319,7 @@
         <translation>Portul serial trebuie sa fie diferit pentru salvare configuratie</translation>
     </message>
     <message>
-        <location filename="../Interface.cpp" line="999"/>
+        <location filename="../Interface.cpp" line="997"/>
         <source>Not connected to RS-485/422 networks</source>
         <translation>Neconectat la rețelele RS-485/422</translation>
     </message>
@@ -1287,8 +1287,8 @@ Entries: %2</source>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="469"/>
-        <source>&amp;Data evaluate</source>
-        <translation>&amp;Evaluează Date</translation>
+        <source>&amp;Verify</source>
+        <translation>&amp;Verifică</translation>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="470"/>

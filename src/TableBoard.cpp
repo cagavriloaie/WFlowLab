@@ -466,7 +466,7 @@ void TableBoard::translate() {
     ui->lbSN->setText(tr("Seria"));
 
     // Buttons
-    ui->pbCalculate->setText(tr("&Data evaluate"));
+    ui->pbCalculate->setText(tr("&Verify"));
     ui->pbPrint->setText(tr("&Print PDF"));
     ui->pbReport->setText(tr("&Report PDF"));
     ui->pbOpen->setText(tr("&Open"));
@@ -1555,6 +1555,7 @@ void TableBoard::onPrintPdfDocClicked() {
             "<style>"
             "     th, td {"
             "          text-align: right;"
+            "          padding-right: 5px;"
             "      }"
             "</style>";
 
@@ -1662,7 +1663,7 @@ void TableBoard::onPrintPdfDocClicked() {
                   "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum contor [L]</th>"
                   "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum etalon [L]</th>"
                   "\n            <th style=\"border: 1px solid black;\" width=\"9%\">Eroare [%]</th>"
-                  "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Rezultate</th>"
+                  "\n            <th style=\"border: 1px solid black; white-space: nowrap;\" width=\"15%\">Rezultate</th>"
                   "\n        </tr>" +
                   "\n    </thead>" + "\n    <tbody>";
 
@@ -1749,13 +1750,13 @@ void TableBoard::onPrintPdfDocClicked() {
             }
 
             QString errorFirstStyle = bErrorFirstExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
             QString errorSecondStyle = bErrorSecondExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
             QString errorThirdStyle = bErrorThirdExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
 
             report +=
@@ -1816,7 +1817,7 @@ void TableBoard::onPrintPdfDocClicked() {
                         "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum contor [L]</th>"
                         "\n            <th style=\"border: 1px solid black;\" width=\"14%\">Volum etalon [L]</th>"
                         "\n            <th style=\"border: 1px solid black;\" width=\"9%\">Eroare [%]</th>"
-                        "\n            <th style=\"border: 1px solid black;\" width=\"15%\">Rezultate</th>"
+                        "\n            <th style=\"border: 1px solid black; white-space: nowrap;\" width=\"15%\">Rezultate</th>"
                         "\n        </tr>" +
                         "\n    </thead>" + "\n    <tbody>";
                     header = false;
@@ -1894,13 +1895,13 @@ void TableBoard::onPrintPdfDocClicked() {
                 }
 
                 QString errorFirstStyle = bErrorFirstExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
                 QString errorSecondStyle = bErrorSecondExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
                 QString errorThirdStyle = bErrorThirdExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
 
                 report += QString("    <tr>") +
@@ -1962,7 +1963,8 @@ void TableBoard::onPrintPdfDocClicked() {
                      "       }\n" + "       th, td {\n" + "           border: 1px solid black;\n" +
                      "           width: 100%;\n" + "           font-family: Courier New;\n" +
                      "           font-size: 9px;\n" +  // Corrected font-size
-                     "           font-weight: 700;\n" + "           table-layout: fixed;\n" + "       }\n" +
+                     "           font-weight: 700;\n" + "           table-layout: fixed;\n" +
+                     "           padding-right: 5px;\n" + "       }\n" +
                      "       th {\n" + "           word-wrap: break-word;\n" + "       }\n" + "   </style>\n" +
                      "</head>\n" + "<body>\n" + "</body>\n" + "</html>\n" +
 
@@ -2082,7 +2084,7 @@ void TableBoard::onPrintPdfDocClicked() {
                   "            <th style=\"border: 1px solid black;\" width=\"14%\">Meter Volume [L]</th>\n" +
                   "            <th style=\"border: 1px solid black;\" width=\"14%\">Reference Volume [L]</th>\n" +
                   "            <th style=\"border: 1px solid black;\" width=\"9%\">Error [%]</th>\n" +
-                  "            <th style=\"border: 1px solid black;\" width=\"15%\">Results</th>\n" +
+                  "            <th style=\"border: 1px solid black; white-space: nowrap;\" width=\"15%\">Results</th>\n" +
                   "        </tr>\n" + "    </thead>\n" + "    <tbody>";
         unsigned iter{0};
         size_t entriesTable = mainwindow->selectedInfo.entriesNumber;
@@ -2166,13 +2168,13 @@ void TableBoard::onPrintPdfDocClicked() {
             }
 
             QString errorFirstStyle = bErrorFirstExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
             QString errorSecondStyle = bErrorSecondExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
             QString errorThirdStyle = bErrorThirdExceeds ?
-                "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                 "text-align: right; border: 1px solid black; padding-right: 5px;";
 
             report +=
@@ -2232,7 +2234,7 @@ void TableBoard::onPrintPdfDocClicked() {
                         "            <th style=\"border: 1px solid black;\" width=\"14%\">Meter Volume [L]</th>\n" +
                         "            <th style=\"border: 1px solid black;\" width=\"14%\">Reference Volume [L]</th>\n" +
                         "            <th style=\"border: 1px solid black;\" width=\"9%\">Error [%]</th>\n" +
-                        "            <th style=\"border: 1px solid black;\" width=\"15%\">Results</th>\n" +
+                        "            <th style=\"border: 1px solid black; white-space: nowrap;\" width=\"15%\">Results</th>\n" +
                         "        </tr>\n" + "    </thead>\n" + "    <tbody>";
                     header = false;
                 }
@@ -2295,13 +2297,13 @@ void TableBoard::onPrintPdfDocClicked() {
                 }
 
                 QString errorFirstStyle = bErrorFirstExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
                 QString errorSecondStyle = bErrorSecondExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
                 QString errorThirdStyle = bErrorThirdExceeds ?
-                    "color: red; font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
+                    "font-weight: bold; text-align: right; border: 1px solid black; padding-right: 5px;" :
                     "text-align: right; border: 1px solid black; padding-right: 5px;";
 
                 report += QString("    <tr>") +

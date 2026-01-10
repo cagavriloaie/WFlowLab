@@ -11,7 +11,7 @@ Before starting measurements, configure:
 - **Meter type**: DN (nominal diameter), metrological class, characteristic flow rates (Q1, Q2, Q3)
 - **Measurement method**: Volumetric or Gravimetric
 - **Correction method** (for gravimetric): Classic, INM or ELCOST
-- **Environmental conditions**: Temperature (T), Pressure (P), Humidity
+- **Environmental conditions**: Temperature (t), Pressure (P), Humidity
 
 ## 3. Measurement Process
 
@@ -21,8 +21,8 @@ For each measurement (up to 20 measurements at different flow rates):
 
 1. Record the meter's **initial index**: `Index_Start` [L]
 2. Water flows through the meter and is collected:
-   - **Volumetric method**: in a calibrated standard tank
-   - **Gravimetric method**: in a tank on a precision scale
+   - **Volumetric method**: uses an electromagnetic flowmeter as a secondary standard for measuring the conventionally true volume
+   - **Gravimetric method**: uses a precision balance to measure water mass which is then converted to volume
 3. Measure method-specific parameters (see section 4)
 4. Record the meter's **final index**: `Index_Stop` [L]
 5. Calculate reference volume and error
@@ -31,9 +31,7 @@ For each measurement (up to 20 measurements at different flow rates):
 
 - Index Start and Index Stop [L]
 - **For volumetric method**: Standard volume [L]
-- **For gravimetric method**:
-  - Collected water mass [kg]
-  - Water temperature [°C]
+- **For gravimetric method**: Collected water mass [kg], Water temperature [°C]
 
 ## 4. Reference Volume Calculation
 
@@ -54,79 +52,17 @@ V_reference = V_standard_flowmeter [L]
 Water is weighed, and mass is converted to volume using a temperature-dependent correction factor.
 
 ```
-V_reference = K(T) × m
+V_reference = K(t) × m
 ```
 
 Where:
 - `m` = measured water mass [kg]
-- `T` = water temperature [°C]
-- `K(T)` = conversion factor [L/kg] obtained from standard density tables
+- `t` = water temperature [°C]
+- `K(t)` = conversion factor [L/kg]
 
-**Factor K(T)** is a temperature function that compensates for water density variation with temperature and includes the Archimedes force effect. It is obtained by interpolation from standard metrological tables (e.g., OIML R49 tables).
+**Factor K(t)** is a temperature function that compensates for water density variation with temperature and includes the Archimedes force effect. It is obtained by interpolation from standard metrological tables (e.g., OIML R49 tables).
 
-**Mathematical relationship**:
-```
-K(T) ≈ 1 / ρ(T)  [L/kg]
-```
-Factor K is approximately inversely proportional to water density at temperature T and includes the Archimedes force correction.
-
-**Principle**:
-- At 4°C: water density = 1.000 kg/L → K(4°C) ≈ 1.000 L/kg
-- At 20°C: water density ≈ 0.998 kg/L → K(20°C) ≈ 1.002 L/kg
-- At higher temperatures, density decreases, so K increases
-
-### 4.3. Gravimetric Method - INM Variant (Bucharest Metrology Institute)
-
-This method applies an additional correction based on actual water density.
-
-```
-V_corrected = (1000 × 1.00105) / ρ_real(T)
-```
-
-Where actual density is calculated:
-
-```
-ρ_real(T) = ρ_ideal(T) × (ρ_real20 / ρ_ideal20)
-```
-
-Parameters:
-- `ρ_ideal(T)` = theoretical density of pure water at temperature T [kg/m³] - from tables
-- `ρ_real20` = actual water density measured at 20°C [kg/m³]
-- `ρ_ideal20` = theoretical density of pure water at 20°C = 998.203 kg/m³
-- `1.00105` = volumetric correction factor for water (compensates for thermal expansion of measurement vessel and Archimedes force effect)
-
-**Final volume**:
-```
-V_reference = [(1000 × 1.00105) / ρ_real(T)] × m [L]
-```
-
-**Principle**: The INM method accounts for:
-1. Differences between actual available water density (which may contain impurities) and theoretical density
-2. Volumetric correction through factor 1.00105 which includes:
-   - Thermal expansion of measurement vessel
-   - Archimedes force effect on water
-
-### 4.4. Gravimetric Method - ELCOST Variant
-
-This method uses an experimentally determined calibration factor.
-
-```
-V_reference = K(T) × calibration_factor × m
-```
-
-Where:
-```
-calibration_factor = ρ_ideal20 / ρ_real20
-```
-
-Parameters:
-- `K(T)` = temperature-dependent conversion factor [L/kg]
-- `calibration_factor` = ratio between theoretical and actual density at 20°C
-- `m` = water mass [kg]
-- `ρ_ideal20` = 998.203 kg/m³ (theoretical density at 20°C)
-- `ρ_real20` = actual measured density at 20°C [kg/m³]
-
-**Principle**: Combines temperature correction K(T) with calibration based on actual water density used in the laboratory.
+### 4.3. The beneficiary can agree with BRML/INM to obtain the installation calibration certificate using other methods provided by this program.
 
 ## 5. Error Calculation
 
@@ -167,7 +103,7 @@ Where:
 - Index_Start = 2000.00 L
 - Index_Stop = 2100.50 L
 - Mass = 100.00 kg
-- Temperature = 20°C → K(20°C) ≈ 1.002 L/kg
+- Temperature = 20°C → K(t=20°C) ≈ 1.002 L/kg
 - V_reference = 1.002 × 100.00 = 100.20 L
 - V_indicated = 100.50 L
 - Error = (100.50 - 100.20) / 100.20 × 100 = **+0.30%**
@@ -224,10 +160,10 @@ INPUT DATA
     ↓
 ┌───────────────────────────────────────┐
 │ REFERENCE VOLUME CALCULATION          │
-│ - Volumetric: V = V_standard          │
-│ - Classic: V = K(T) × m               │
-│ - INM: V = [1000×1.00105/ρ(T)] × m    │
-│ - ELCOST: V = K(T) × calibr × m       │
+│ - Volumetric: Standard flowmeter      │
+│ - Classic: Mass corrected by temp.    │
+│ - INM: Mass with density correction   │
+│ - ELCOST: Mass with calibration       │
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
@@ -244,29 +180,11 @@ INPUT DATA
 │ LIMIT VERIFICATION                    │
 │ |E| ≤ MPE ?                           │
 └───────────────────────────────────────┘
-    ↓
+      Yes ↓              ↓ No
 ┌─────────────┐      ┌─────────────┐
 │    PASS     │      │    FAIL     │
 └─────────────┘      └─────────────┘
 ```
-
-## 8. Important Notes
-
-1. **Measurement precision**:
-   - Temperature must be measured with ±0.1°C precision
-   - Mass must be measured with precision scale (±0.01 kg or better)
-   - Indexes must be read with maximum meter precision
-
-2. **Number of measurements**: Minimum 3 measurements at each characteristic flow rate (Q1, Q2, Q3)
-
-3. **Stability conditions**:
-   - Flow rate must be stable during measurement
-   - Water temperature must be uniform
-   - Air bubbles must be eliminated from circuit
-
-4. **Measurement validation**: Each measurement can be marked as valid/invalid via checkbox
-
-5. **Reporting**: Results are recorded in metrological verification bulletin according to current regulations
 
 ---
 

@@ -79,6 +79,9 @@ constexpr double RHO_WATER_IDEAL_20_GRAD_C = 998.2009;
 // Correction Factor for Air Buoyancy
 constexpr double CORRECTION_FACTOR_AIR_BUOYANCY = 1.00105;
 
+// Romanian tax for added value
+constexpr double TVA = 0.21;
+
 // Default volume correction values
 constexpr double DEFAULT_VOLUME_CORRECTION_BELOW_ZERO =
     1.00116;  ///< Default volume correction factor when temperature is below zero

@@ -11,7 +11,7 @@ Acest document descrie procesul de calcul utilizat pentru verificarea metrologic
 - **Tipul contorului**: DN (diametru nominal), clasă metrologică, debite caracteristice (Q1, Q2, Q3)
 - **Metoda de măsurare**: Volumetrică sau Gravimetrică
 - **Metoda de corecție** (pentru gravimetrică): Clasică, INM sau ELCOST
-- **Condiții ambientale**: Temperatură (T), Presiune (P), Umiditate
+- **Condiții ambientale**: Temperatură (t), Presiune (P), Umiditate
 
 ## 3. Procesul de Măsurare
 
@@ -21,8 +21,8 @@ Pentru fiecare măsurătoare (se efectuează până la 20 măsurători la diferi
 
 1. Se notează **indexul inițial** al contorului: `Index_Start` [L]
 2. Apa trece prin contor și este colectată:
-   - **Metodă volumetrică**: într-un rezervor etalon calibrat si un debitmetrul folosit ca etalon secundar
-   - **Metodă gravimetrică**: într-un rezervor pe o balanță de precizie
+   - **Metodă volumetrică**: foloseste un debitmetru electromagnetic ca etalon secundar pentru contorizarea volumului conventional adevarat
+   - **Metodă gravimetrică**: foloseste o balanta de precizie pentru masurarea masei de apa ce este apoi convertita in volum
 3. Se măsoară parametrii specifici metodei (vezi secțiunea 4)
 4. Se notează **indexul final** al contorului: `Index_Stop` [L]
 5. Se calculează volumul de referință și eroarea
@@ -31,9 +31,7 @@ Pentru fiecare măsurătoare (se efectuează până la 20 măsurători la diferi
 
 - Index Start și Index Stop [L]
 - **Pentru metoda volumetrică**: Volumul etalon [L]
-- **Pentru metoda gravimetrică**:
-  - Masă apă colectată [kg]
-  - Temperatură apă [°C]
+- **Pentru metoda gravimetrică**: Masă apă colectată [kg], Temperatură apă [°C]
 
 ## 4. Calcul Volum de Referință
 
@@ -54,79 +52,17 @@ V_referință = V_debitmetru_etalon [L]
 Apa este cântărită, iar masa se convertește în volum folosind un factor de corecție dependent de temperatură.
 
 ```
-V_referință = K(T) × m
+V_referință = K(t) × m
 ```
 
 Unde:
 - `m` = masa apei măsurată [kg]
-- `T` = temperatura apei [°C]
-- `K(T)` = factor de conversie [L/kg] obținut din tabele standard de densitate a apei
+- `t` = temperatura apei [°C]
+- `K(t)` = factor de conversie [L/kg]
 
-**Factorul K(T)** este o funcție de temperatură care compensează variația densității apei cu temperatura și include efectul forței arhimedice. Se obține prin interpolare din tabele metrologice standard (de exemplu, tabelele OIML R49).
+**Factorul K(t)** este o funcție de temperatură care compensează variația densității apei cu temperatura și include efectul forței arhimedice. Se obține prin interpolare din tabele metrologice standard (de exemplu, tabelele OIML R49).
 
-**Relație matematică**:
-```
-K(T) ≈ 1 / ρ(T)  [L/kg]
-```
-Factorul K este aproximativ invers proporțional cu densitatea apei la temperatura T și include corecția pentru forța arhimedică.
-
-**Principiu**:
-- La 4°C: densitatea apei = 1.000 kg/L → K(4°C) ≈ 1.000 L/kg
-- La 20°C: densitatea apei ≈ 0.998 kg/L → K(20°C) ≈ 1.002 L/kg
-- La temperaturi mai mari, densitatea scade, deci K crește
-
-### 4.3. Metoda Gravimetrică - Variantă INM (Institutul de Metrologie București)
-
-Această metodă aplică o corecție suplimentară bazată pe densitatea reală a apei.
-
-```
-V_corectat = (1000 × 1.00105) / ρ_real(T)
-```
-
-Unde densitatea reală se calculează:
-
-```
-ρ_real(T) = ρ_ideal(T) × (ρ_real20 / ρ_ideal20)
-```
-
-Parametrii:
-- `ρ_ideal(T)` = densitatea teoretică a apei pure la temperatura T [kg/m³] - din tabele
-- `ρ_real20` = densitatea reală a apei măsurată la 20°C [kg/m³]
-- `ρ_ideal20` = densitatea teoretică a apei pure la 20°C = 998.203 kg/m³
-- `1.00105` = factor de corecție volumică a apei (compensează dilatarea termică a recipientului de măsurare și efectul forței arhimedice)
-
-**Volum final**:
-```
-V_referință = [(1000 × 1.00105) / ρ_real(T)] × m [L]
-```
-
-**Principiu**: Metoda INM ține cont de:
-1. Diferențele între densitatea reală a apei disponibile (care poate conține impurități) și densitatea teoretică
-2. Corecția volumică prin factorul 1.00105 care include:
-   - Dilatarea termică a recipientului de măsurare
-   - Efectul forței arhimedice asupra apei
-
-### 4.4. Metoda Gravimetrică - Variantă ELCOST
-
-Această metodă folosește un factor de calibrare determinat experimental.
-
-```
-V_referință = K(T) × factor_calibrare × m
-```
-
-Unde:
-```
-factor_calibrare = ρ_ideal20 / ρ_real20
-```
-
-Parametrii:
-- `K(T)` = factor de conversie dependent de temperatură [L/kg]
-- `factor_calibrare` = raportul între densitatea teoretică și cea reală la 20°C
-- `m` = masa apei [kg]
-- `ρ_ideal20` = 998.203 kg/m³ (densitate teoretică la 20°C)
-- `ρ_real20` = densitate reală măsurată la 20°C [kg/m³]
-
-**Principiu**: Combină corecția de temperatură K(T) cu o calibrare bazată pe densitatea reală a apei utilizate în laborator.
+### 4.3. Beneficiarul poate conveni cu BRML/INM obținerea certificatului de etalonare a instalației folosind alte metode puse la dispoziție de acest program.
 
 ## 5. Calcul Eroare
 
@@ -167,7 +103,7 @@ Unde:
 - Index_Start = 2000.00 L
 - Index_Stop = 2100.50 L
 - Masă = 100.00 kg
-- Temperatură = 20°C → K(20°C) ≈ 1.002 L/kg
+- Temperatură = 20°C → K(t=20°C) ≈ 1.002 L/kg
 - V_referință = 1.002 × 100.00 = 100.20 L
 - V_indicat = 100.50 L
 - Eroare = (100.50 - 100.20) / 100.20 × 100 = **+0.30%**
@@ -224,10 +160,10 @@ INTRARE DATE
     ↓
 ┌───────────────────────────────────────┐
 │ CALCUL VOLUM REFERINȚĂ                │
-│ - Volumetrică: V = V_etalon           │
-│ - Clasică: V = K(T) × m               │
-│ - INM: V = [1000×1.00105/ρ(T)] × m    │
-│ - ELCOST: V = K(T) × calibr × m       │
+│ - Volumetrică: Debitmetru etalon      │
+│ - Clasică: Masă corectată după temp.  │
+│ - INM: Masă cu corecție densitate     │
+│ - ELCOST: Masă cu calibrare           │
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
@@ -244,29 +180,11 @@ INTRARE DATE
 │ VERIFICARE LIMITE                     │
 │ |E| ≤ EMA ?                           │
 └───────────────────────────────────────┘
-    ↓
+       Da ↓              ↓ Nu
 ┌─────────────┐      ┌─────────────┐
 │   ADMIS     │      │  RESPINS    │
 └─────────────┘      └─────────────┘
 ```
-
-## 8. Observații Importante
-
-1. **Precizia măsurătorilor**:
-   - Temperatura trebuie măsurată cu precizie de ±0.1°C
-   - Masa trebuie măsurată cu balanță de precizie (±0.01 kg sau mai bine)
-   - Indexurile trebuie citite cu precizia maximă a contorului
-
-2. **Număr de măsurători**: Se efectuează minimum 3 măsurători la fiecare debit caracteristic (Q1, Q2, Q3)
-
-3. **Condiții de stabilitate**:
-   - Debitul trebuie să fie stabil în timpul măsurării
-   - Temperatura apei trebuie să fie uniformă
-   - Trebuie eliminate bulele de aer din circuit
-
-4. **Validarea măsurătorilor**: Fiecare măsurătoare poate fi marcată ca validă/invalidă prin checkbox
-
-5. **Raportare**: Rezultatele se consemnează în buletin de verificare metrologică conform reglementărilor în vigoare
 
 ---
 

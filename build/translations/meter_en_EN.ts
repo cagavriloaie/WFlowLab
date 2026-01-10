@@ -311,7 +311,7 @@
         <translation>Serial port selections must be different to save configuration.</translation>
     </message>
     <message>
-        <location filename="../Interface.cpp" line="999"/>
+        <location filename="../Interface.cpp" line="997"/>
         <source>Not connected to RS-485/422 networks</source>
         <translation>Not connected to RS-485/422 networks</translation>
     </message>
@@ -1286,8 +1286,12 @@ Entries: %2</translation>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="469"/>
+        <source>&amp;Verify</source>
+        <translation>&amp;Verify</translation>
+    </message>
+    <message>
         <source>&amp;Data evaluate</source>
-        <translation>&amp;Data evaluate</translation>
+        <translation type="vanished">&amp;Verify</translation>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="470"/>

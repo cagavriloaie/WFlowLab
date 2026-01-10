@@ -77,7 +77,8 @@ V 1.8 (01.2026) – Îmbunătățiri UI și adăugarea documentației metodei de
    3. Selectați metoda de măsurare (Volumetrică sau Gravimetrică)
    4. Introduceți datele de măsurare în tabelul principal
    5. Apăsați "Calculate" pentru calculul automat al erorilor
-   6. Generați raportul PDF prin "Print PDF" sau "Report PDF"
+   6. Generați fișa măsurători PDF prin "Generare FM"
+   7. Generați buletin verificare metrologică PDF prin "Generare BV"
 
 **Utilizare**
 Asigurați-vă că aveți instalat un cititor PDF (de ex., Adobe Acrobat Reader) pentru
@@ -90,7 +91,7 @@ Setările aplicației sunt salvate automat în Windows Registry la:
    HKEY_CURRENT_USER\Software\ELCOST\WStreamLab
 
 Fișierul de licență se află la:
-   C:\Program Files\Water Stream Laboratory\watermeters.conf
+   C:\Program Files (x86)\WStreamLab\watermeters.conf
 
 Exemplu de fișier de licență:
     company=Elcost Company>
@@ -240,7 +241,8 @@ V 1.8 (01.2026) – UI improvements and addition of verification method document
    3. Select measurement method (Volumetric or Gravimetric)
    4. Enter measurement data in the main table
    5. Press "Calculate" for automatic error calculation
-   6. Generate PDF report via "Print PDF" or "Report PDF"
+   6. Generate measurement sheet PDF via "Generate FM"
+   7. Generate metrological verification bulletin PDF via "Generate BV"
 
 **Usage**
 Ensure you have a PDF reader (e.g., Adobe Acrobat Reader) installed to view measurement sheets.
@@ -252,7 +254,7 @@ Application settings are automatically stored in the Windows Registry at:
    HKEY_CURRENT_USER\Software\ELCOST\WStreamLab
 
 The license file is located at:
-   C:\Program Files\Water Stream Laboratory\watermeters.conf
+   C:\Program Files (x86)\WStreamLab\watermeters.conf
 
 Example license file:
     company=Elcost Company>

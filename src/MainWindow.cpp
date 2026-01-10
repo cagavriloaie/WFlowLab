@@ -1858,54 +1858,6 @@ void MainWindow::onWaterDensityPage() {
             </div>
         </div>
 
-        <!-- Information Card -->
-        <div class="card">
-            <h2>)"
-           << (isRomanian ? "Informatii Tehnice" : "Technical Information") << R"(</h2>
-
-            <div class="info-section">
-                <h3>)"
-               << (isRomanian ? "Factorul de Corectie Volumetrica (K)" : "Volume Correction Factor (K)") << R"(</h3>
-                <p>)"
-               << (isRomanian
-                    ? "Factorul K este folosit pentru conversia masei de apa in volum, compensand variatia densitatii cu temperatura si incluzand efectul fortei arhimedice."
-                    : "Factor K is used for converting water mass to volume, compensating for density variation with temperature and including the Archimedes force effect.") << R"(</p>
-                <div class="formula">K(T) &asymp; 1 / &rho;(T)  [L/kg]</div>
-                <p>)"
-               << (isRomanian
-                    ? "unde &rho;(T) este densitatea apei la temperatura T [kg/m&sup3;]."
-                    : "where &rho;(T) is water density at temperature T [kg/m&sup3;].") << R"(</p>
-            </div>
-
-            <div class="info-section">
-                <h3>)"
-               << (isRomanian ? "Standarde si Referinte" : "Standards & References") << R"(</h3>
-                <ul>
-                    <li><strong>ISO 4064</strong> - )"
-                   << (isRomanian ? "Contoare de apa pentru apa potabila rece si apa calda"
-                                  : "Water meters for cold potable water and hot water") << R"(</li>
-                    <li><strong>OIML R 49</strong> - )"
-                   << (isRomanian ? "Contoare de apa pentru apa potabila rece si apa calda"
-                                  : "Water meters for cold potable water and hot water") << R"(</li>
-                    <li><strong>ISO/TR 15377</strong> - )"
-                   << (isRomanian ? "Ghid pentru selectia si utilizarea contoarelor de apa"
-                                  : "Measurement of water flow in closed conduits") << R"(</li>
-                </ul>
-            </div>
-
-            <div class="info-section">
-                <h3>)"
-               << (isRomanian ? "Temperaturi Critice" : "Critical Temperatures") << R"(</h3>
-                <ul>
-                    <li><strong>4&deg;C</strong> - )"
-                   << (isRomanian ? "Temperatura la care apa are densitatea maxima (999.9720 kg/m&sup3;)"
-                                  : "Temperature at which water has maximum density (999.9720 kg/m&sup3;)") << R"(</li>
-                    <li><strong>20&deg;C</strong> - )"
-                   << (isRomanian ? "Temperatura de referinta standard pentru verificari metrologice"
-                                  : "Standard reference temperature for metrological verification") << R"(</li>
-                </ul>
-            </div>
-        </div>
 
         <!-- Interactive Calculator -->
         <div class="card">

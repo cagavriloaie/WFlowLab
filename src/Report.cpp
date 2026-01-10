@@ -460,12 +460,12 @@ void ReportMeasurements::onPrintClicked() {
 
     std::ostringstream streamObjTVA;
     streamObjTVA << std::fixed << std::setprecision(2);
-    streamObjTVA << costRon.toDouble() * entriesTableUsed * 0.19;
+    streamObjTVA << costRon.toDouble() * entriesTableUsed * TVA;
     std::string totalTVA = streamObjTVA.str();
 
     std::ostringstream streamObjCostTVA;
     streamObjCostTVA << std::fixed << std::setprecision(2);
-    streamObjCostTVA << costRon.toDouble() * entriesTableUsed * 1.19;
+    streamObjCostTVA << costRon.toDouble() * entriesTableUsed * (1 + TVA);
     std::string totalCostTVA = streamObjCostTVA.str();
     // Generate 3 table rows: location+total, TVA, and grand total
     for (size_t row = 0; row < 3; ++row)

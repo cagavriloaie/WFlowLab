@@ -88,9 +88,7 @@ if "%userChoice%"=="3" (
         echo -------------------------------------------
 
         for %%F in (
-            meter_en_EN.ts
             meter_en_EN.qm
-            meter_ro_RO.ts
             meter_ro_RO.qm
         ) do (
             if exist "%translationsDir%\%%F" (
