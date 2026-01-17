@@ -89,6 +89,18 @@ class Interface : public QDialog {
      */
     void disconnectSerialPort();
 
+    /**
+     * \brief Configures and connects Modbus devices.
+     *
+     * This helper function contains the common logic for both
+     * onConnectClicked() and onTestConfigurationClicked().
+     *
+     * \param keepConnection If true, keeps connection and updates status bar.
+     *                       If false, disconnects after testing.
+     * \return true if both devices connected successfully, false otherwise.
+     */
+    bool configureAndConnectModbusDevices(bool keepConnection);
+
     QList<QSerialPortInfo> serialPorts;
 
   private slots:

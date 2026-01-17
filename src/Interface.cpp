@@ -385,69 +385,55 @@ bool Interface::checkModbusAddresses() {
 }
 
 /**
- * \brief Slot function to handle the Test Configuration button click event.
+ * \brief Helper function to configure and connect Modbus devices.
  *
- * This function tests the Modbus connection by setting the Modbus device parameters
- * and attempting to connect. It updates the UI elements and displays the result
- * of the connection attempt.
+ * This function contains the common logic for both onConnectClicked() and
+ * onTestConfigurationClicked(), reducing code duplication.
+ *
+ * \param keepConnection If true, keeps connection and updates status bar.
+ *                       If false, disconnects after testing.
+ * \return true if both devices connected successfully, false otherwise.
  */
-void Interface::onConnectClicked() {
+bool Interface::configureAndConnectModbusDevices(bool keepConnection) {
     // Disconnect any existing serial port connections
     disconnectSerialPort();
 
+    // Initialize Modbus devices if needed
     if (!modbusDevice_1) {
         modbusDevice_1.reset(new QModbusRtuSerialClient(this));
     }
-
     if (!modbusDevice_2) {
         modbusDevice_2.reset(new QModbusRtuSerialClient(this));
     }
 
-    // Check if either modbusDevice_1 or modbusDevice_2 is not set
+    // Verify both devices are initialized
     if (!modbusDevice_1 || !modbusDevice_2) {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();
+        return false;
     }
 
-    // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    // Disable buttons while configuring
     ui->pbTestConnection->setDisabled(true);
     ui->pbRefreshSerialPort->setDisabled(true);
 
-    // Ensure serialPorts is properly initialized
-    QList<QSerialPortInfo> serialPorts = QSerialPortInfo::availablePorts();
-
-    // Get the selected index from the combo box
+    // Get available serial ports
+    QList<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
     int selectedIndex_1 = ui->cbSelectSerial_1->currentIndex();
+    int selectedIndex_2 = ui->cbSelectSerial_2->currentIndex();
 
-    // Check if the index is valid
-    if (selectedIndex_1 >= 0 && selectedIndex_1 < serialPorts.size()) {
-        // Get the selected serial port information
-        QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-        QString serialName_1 = serialPortInfo_1.portName();
-
-        // Ensure modbusDevice_1 is initialized
-        if (modbusDevice_1 != nullptr) {
-            // Set the connection parameter for modbusDevice_1
-            modbusDevice_1->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_1);
-        } else {
-            // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-            ui->pbTestConnection->setDisabled(false);
-            ui->pbRefreshSerialPort->setDisabled(false);
-
-            disconnectSerialPort();  // Disconnect any existing serial port connections
-        }
-    } else {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    // Validate and configure device 1
+    if (selectedIndex_1 < 0 || selectedIndex_1 >= availablePorts.size()) {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();
+        return false;
     }
 
-    // Configure serial parameters for modbusDevice_1 using lookup tables
+    QString serialName_1 = availablePorts.at(selectedIndex_1).portName();
+    modbusDevice_1->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_1);
+
     configureModbusSerialParameters(
         modbusDevice_1.get(),
         ui->cbBaudRate_1->currentIndex(),
@@ -456,47 +442,30 @@ void Interface::onConnectClicked() {
         ui->cbSelectStopBits_1->currentIndex()
     );
 
+    // Validate and set timeout for device 1
     bool ok_1;
     int timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
-    if (ok_1 && timeout_1 > 0 && timeout_1 <= 1000) {
-        modbusDevice_1->setTimeout(timeout_1);
-    } else {
-        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 1 is more than 1000 ms."));
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    if (!ok_1 || timeout_1 <= 0 || timeout_1 > 1000) {
+        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 1 must be between 1 and 1000 ms."));
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-        return;
+        disconnectSerialPort();
+        return false;
     }
+    modbusDevice_1->setTimeout(timeout_1);
+    modbusDevice_1->setNumberOfRetries(ui->cbNumberRetries_1->currentIndex());
 
-    // Set number of retries for modbusDevice_1 based on user selection
-    int retries_1 = ui->cbNumberRetries_1->currentIndex();
-    modbusDevice_1->setNumberOfRetries(retries_1);
-
-    // Configure serial port parameters for modbusDevice_2
-    int selectedIndex_2 = ui->cbSelectSerial_2->currentIndex();
-    if (selectedIndex_2 >= 0 && selectedIndex_2 < serialPorts.size()) {
-        QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-        QString serialName_2 = serialPortInfo_2.portName();
-
-        if (modbusDevice_2 != nullptr) {
-            modbusDevice_2->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_2);
-        } else {
-            // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-            ui->pbTestConnection->setDisabled(false);
-            ui->pbRefreshSerialPort->setDisabled(false);
-
-            disconnectSerialPort();  // Disconnect any existing serial port connections
-        }
-    } else {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    // Validate and configure device 2
+    if (selectedIndex_2 < 0 || selectedIndex_2 >= availablePorts.size()) {
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
+        disconnectSerialPort();
+        return false;
     }
-    // Configure serial parameters for modbusDevice_2 using lookup tables
+
+    QString serialName_2 = availablePorts.at(selectedIndex_2).portName();
+    modbusDevice_2->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_2);
+
     configureModbusSerialParameters(
         modbusDevice_2.get(),
         ui->cbBaudRate_2->currentIndex(),
@@ -505,260 +474,87 @@ void Interface::onConnectClicked() {
         ui->cbSelectStopBits_2->currentIndex()
     );
 
-    // Set timeout for modbusDevice_2 based on user input
+    // Validate and set timeout for device 2
     bool ok_2;
     int timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
-    if (ok_2 && timeout_2 > 0 && timeout_2 <= 1000) {
-        modbusDevice_2->setTimeout(timeout_2);
-    } else {
-        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 2 is more than 1000 ms."));
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    if (!ok_2 || timeout_2 <= 0 || timeout_2 > 1000) {
+        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 2 must be between 1 and 1000 ms."));
         ui->pbTestConnection->setDisabled(false);
         ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-        return;
+        disconnectSerialPort();
+        return false;
     }
+    modbusDevice_2->setTimeout(timeout_2);
+    modbusDevice_2->setNumberOfRetries(ui->cbNumberRetries_2->currentIndex());
 
-    // Set number of retries for modbusDevice_2 based on user selection
-    int retries_2 = ui->cbNumberRetries_2->currentIndex();
-    modbusDevice_2->setNumberOfRetries(retries_2);
-
-    // Attempt to open modbusDevice_1 with configured parameters
-    bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
-    if (!modbusDevice_1_opened) {
+    // Attempt to connect both devices
+    bool device1_opened = modbusDevice_1->connectDevice();
+    if (!device1_opened) {
         Logger::warning(LogCategory::System,
                         QString("Conectare Modbus device 1 eșuată: %1").arg(modbusDevice_1->errorString()));
     } else {
         Logger::info(LogCategory::System, "Conectare Modbus device 1 reușită");
     }
 
-    // Attempt to open modbusDevice_2 with configured parameters
-    bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
-    if (!modbusDevice_2_opened) {
+    bool device2_opened = modbusDevice_2->connectDevice();
+    if (!device2_opened) {
         Logger::warning(LogCategory::System,
                         QString("Conectare Modbus device 2 eșuată: %1").arg(modbusDevice_2->errorString()));
     } else {
         Logger::info(LogCategory::System, "Conectare Modbus device 2 reușită");
     }
 
-    // Create a message box to display the connection status
+    // Display connection status
     QString statusMessage;
-
-    QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-    QString serialName_1 = serialPortInfo_1.portName();
-
-    QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-    QString serialName_2 = serialPortInfo_2.portName();
-
     statusMessage += QString(tr("Modbus Device %1 connection status: %2\n"))
                          .arg(serialName_1)
-                         .arg(modbusDevice_1_opened ? tr("Success") : tr("Failure"));
+                         .arg(device1_opened ? tr("Success") : tr("Failure"));
     statusMessage += QString(tr("Modbus Device %1 connection status: %2"))
                          .arg(serialName_2)
-                         .arg(modbusDevice_2_opened ? tr("Success") : tr("Failure"));
-
+                         .arg(device2_opened ? tr("Success") : tr("Failure"));
     QMessageBox::information(this, tr("MODBUS Connection Status"), statusMessage);
 
-    // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
+    // Re-enable buttons
     ui->pbTestConnection->setDisabled(false);
     ui->pbRefreshSerialPort->setDisabled(false);
 
+    // Check Modbus addresses
     checkModbusAddresses();
 
-    if (mainwindow) {
-        if (modbusDevice_1_opened && modbusDevice_1_opened) {
-            mainwindow->statusBarMessage = " > MODBUS Interface Mode Operation / Connected";
-        } else {
-            mainwindow->statusBarMessage = " > MODBUS Interface Mode Operation / Not Connected";
+    bool bothConnected = device1_opened && device2_opened;
+
+    if (keepConnection) {
+        // Update status bar for persistent connection
+        if (mainwindow) {
+            mainwindow->statusBarMessage = bothConnected
+                ? " > MODBUS Interface Mode Operation / Connected"
+                : " > MODBUS Interface Mode Operation / Not Connected";
+            mainwindow->setStatusBarMessage(mainwindow->statusBarMessage);
         }
-        mainwindow->setStatusBarMessage(mainwindow->statusBarMessage);
+    } else {
+        // Disconnect after test
+        disconnectSerialPort();
     }
+
+    return bothConnected;
+}
+
+/**
+ * \brief Slot function to handle the Connect button click event.
+ *
+ * This function connects to the Modbus devices and keeps the connection open.
+ */
+void Interface::onConnectClicked() {
+    configureAndConnectModbusDevices(true);  // Keep connection
 }
 
 /**
  * \brief Slot function to handle the Test Configuration button click event.
  *
- * This function tests the Modbus connection by setting the Modbus device parameters
- * and attempting to connect. It updates the UI elements and displays the result
- * of the connection attempt.
+ * This function tests the Modbus connection and disconnects afterward.
  */
 void Interface::onTestConfigurationClicked() {
-    // Disconnect any existing serial port connections
-    disconnectSerialPort();
-
-    if (!modbusDevice_1) {
-        modbusDevice_1.reset(new QModbusRtuSerialClient(this));
-    }
-
-    if (!modbusDevice_2) {
-        modbusDevice_2.reset(new QModbusRtuSerialClient(this));
-    }
-
-    // Check if either modbusDevice_1 or modbusDevice_2 is not set
-    if (!modbusDevice_1 || !modbusDevice_2) {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-        ui->pbTestConnection->setDisabled(false);
-        ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-    }
-
-    // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-    ui->pbTestConnection->setDisabled(true);
-    ui->pbRefreshSerialPort->setDisabled(true);
-
-    // Ensure serialPorts is properly initialized
-    QList<QSerialPortInfo> serialPorts = QSerialPortInfo::availablePorts();
-
-    // Get the selected index from the combo box
-    int selectedIndex_1 = ui->cbSelectSerial_1->currentIndex();
-
-    // Check if the index is valid
-    if (selectedIndex_1 >= 0 && selectedIndex_1 < serialPorts.size()) {
-        // Get the selected serial port information
-        QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-        QString serialName_1 = serialPortInfo_1.portName();
-
-        // Ensure modbusDevice_1 is initialized
-        if (modbusDevice_1 != nullptr) {
-            // Set the connection parameter for modbusDevice_1
-            modbusDevice_1->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_1);
-        } else {
-            // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-            ui->pbTestConnection->setDisabled(false);
-            ui->pbRefreshSerialPort->setDisabled(false);
-
-            disconnectSerialPort();  // Disconnect any existing serial port connections
-        }
-    } else {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-        ui->pbTestConnection->setDisabled(false);
-        ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-    }
-
-    // Configure serial parameters for modbusDevice_1 using lookup tables
-    configureModbusSerialParameters(
-        modbusDevice_1.get(),
-        ui->cbBaudRate_1->currentIndex(),
-        ui->cbSelectDataBits_1->currentIndex(),
-        ui->cbSelectParity_1->currentIndex(),
-        ui->cbSelectStopBits_1->currentIndex()
-    );
-
-    bool ok_1;
-    int timeout_1 = ui->leTimeout_1->text().toInt(&ok_1);
-    if (ok_1 && timeout_1 > 0 && timeout_1 <= 1000) {
-        modbusDevice_1->setTimeout(timeout_1);
-    } else {
-        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 1 is more than 1000 ms."));
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-        ui->pbTestConnection->setDisabled(false);
-        ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-        return;
-    }
-
-    // Set number of retries for modbusDevice_1 based on user selection
-    int retries_1 = ui->cbNumberRetries_1->currentIndex();
-    modbusDevice_1->setNumberOfRetries(retries_1);
-
-    // Configure serial port parameters for modbusDevice_2
-    int selectedIndex_2 = ui->cbSelectSerial_2->currentIndex();
-    if (selectedIndex_2 >= 0 && selectedIndex_2 < serialPorts.size()) {
-        QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-        QString serialName_2 = serialPortInfo_2.portName();
-
-        if (modbusDevice_2 != nullptr) {
-            modbusDevice_2->setConnectionParameter(QModbusDevice::SerialPortNameParameter, serialName_2);
-        } else {
-            // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-            ui->pbTestConnection->setDisabled(false);
-            ui->pbRefreshSerialPort->setDisabled(false);
-
-            disconnectSerialPort();  // Disconnect any existing serial port connections
-        }
-    } else {
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-        ui->pbTestConnection->setDisabled(false);
-        ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-    }
-    // Configure serial parameters for modbusDevice_2 using lookup tables
-    configureModbusSerialParameters(
-        modbusDevice_2.get(),
-        ui->cbBaudRate_2->currentIndex(),
-        ui->cbSelectDataBits_2->currentIndex(),
-        ui->cbSelectParity_2->currentIndex(),
-        ui->cbSelectStopBits_2->currentIndex()
-    );
-
-    // Set timeout for modbusDevice_2 based on user input
-    bool ok_2;
-    int timeout_2 = ui->leTimeout_2->text().toInt(&ok_2);
-    if (ok_2 && timeout_2 > 0 && timeout_2 <= 1000) {
-        modbusDevice_2->setTimeout(timeout_2);
-    } else {
-        QMessageBox::warning(this, tr("Invalid Timeout"), tr("Timeout 2 is more than 1000 ms."));
-        // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-        ui->pbTestConnection->setDisabled(false);
-        ui->pbRefreshSerialPort->setDisabled(false);
-
-        disconnectSerialPort();  // Disconnect any existing serial port connections
-        return;
-    }
-
-    // Set number of retries for modbusDevice_2 based on user selection
-    int retries_2 = ui->cbNumberRetries_2->currentIndex();
-    modbusDevice_2->setNumberOfRetries(retries_2);
-
-    // Attempt to open modbusDevice_1 with configured parameters
-    bool modbusDevice_1_opened = modbusDevice_1->connectDevice();
-    if (!modbusDevice_1_opened) {
-        Logger::warning(LogCategory::System,
-                        QString("Conectare Modbus device 1 eșuată: %1").arg(modbusDevice_1->errorString()));
-    } else {
-        Logger::info(LogCategory::System, "Conectare Modbus device 1 reușită");
-    }
-
-    // Attempt to open modbusDevice_2 with configured parameters
-    bool modbusDevice_2_opened = modbusDevice_2->connectDevice();
-    if (!modbusDevice_2_opened) {
-        Logger::warning(LogCategory::System,
-                        QString("Conectare Modbus device 2 eșuată: %1").arg(modbusDevice_2->errorString()));
-    } else {
-        Logger::info(LogCategory::System, "Conectare Modbus device 2 reușită");
-    }
-
-    // Create a message box to display the connection status
-    QString statusMessage;
-
-    QSerialPortInfo serialPortInfo_1 = serialPorts.at(selectedIndex_1);
-    QString serialName_1 = serialPortInfo_1.portName();
-
-    QSerialPortInfo serialPortInfo_2 = serialPorts.at(selectedIndex_2);
-    QString serialName_2 = serialPortInfo_2.portName();
-
-    statusMessage += QString(tr("Modbus Device %1 connection status: %2\n"))
-                         .arg(serialName_1)
-                         .arg(modbusDevice_1_opened ? tr("Success") : tr("Failure"));
-    statusMessage += QString(tr("Modbus Device %1 connection status: %2"))
-                         .arg(serialName_2)
-                         .arg(modbusDevice_2_opened ? tr("Success") : tr("Failure"));
-
-    QMessageBox::information(this, tr("MODBUS Connection Status"), statusMessage);
-
-    // Disable the "Test Connection" and "Refresh Serial Ports" buttons while configuring
-    ui->pbTestConnection->setDisabled(false);
-    ui->pbRefreshSerialPort->setDisabled(false);
-
-    checkModbusAddresses();
-
-    disconnectSerialPort();  // Disconnect any existing serial port connections
+    configureAndConnectModbusDevices(false);  // Disconnect after test
 }
 
 /**
@@ -883,8 +679,8 @@ void Interface::showEvent(QShowEvent* event) {
     ui->pbClose->setEnabled(true);
     ui->pbTestConnection->setEnabled(true);
 
-    // Populate baud rate options
-    QStringList baudRates{"1200", "2400", "4800", "9600", "19200", "38400", "57600"};
+    // Populate baud rate options (must match BAUD_RATES array order)
+    QStringList baudRates{"1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200"};
     ui->cbBaudRate_1->addItems(baudRates);
     ui->cbBaudRate_2->addItems(baudRates);
 
@@ -961,7 +757,7 @@ void Interface::showEvent(QShowEvent* event) {
         ui->pbTestConnection->setEnabled(false);
         QMessageBox::critical(this, tr("Error"), tr("At least two MODBUS interfaces are required."));
     } else {
-        foreach (const QSerialPortInfo& port, serialPorts) {
+        for (const QSerialPortInfo& port : serialPorts) {
             QString serialPort = port.portName() + " - " + port.description();
             ui->cbSelectSerial_1->addItem(serialPort);
             ui->cbSelectSerial_2->addItem(serialPort);
