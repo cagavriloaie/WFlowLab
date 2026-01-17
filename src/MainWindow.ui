@@ -93,15 +93,21 @@
             <layout class="QGridLayout" name="gridLayout_6">
              <item row="1" column="1">
               <widget class="QComboBox" name="cbWaterMeterType">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>300</width>
+                 <width>400</width>
                  <height>28</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>300</width>
+                 <width>400</width>
                  <height>28</height>
                 </size>
                </property>
@@ -161,14 +167,14 @@
                    <height>28</height>
                   </size>
                  </property>
-                 <property name="toolTip">
-                  <string>Presiunea atmosferică în mbar</string>
-                 </property>
                  <property name="font">
                   <font>
                    <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Presiunea atmosferică în mbar</string>
                  </property>
                  <property name="cursorPosition">
                   <number>0</number>
@@ -212,14 +218,14 @@
                    <height>28</height>
                   </size>
                  </property>
-                 <property name="toolTip">
-                  <string>Temperatura ambiantă în grade Celsius</string>
-                 </property>
                  <property name="font">
                   <font>
                    <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Temperatura ambiantă în grade Celsius</string>
                  </property>
                 </widget>
                </item>
@@ -355,14 +361,14 @@
                    <height>28</height>
                   </size>
                  </property>
-                 <property name="toolTip">
-                  <string>Umiditatea relativă a aerului în procente</string>
-                 </property>
                  <property name="font">
                   <font>
                    <family>Verdana</family>
                    <pointsize>12</pointsize>
                   </font>
+                 </property>
+                 <property name="toolTip">
+                  <string>Umiditatea relativă a aerului în procente</string>
                  </property>
                 </widget>
                </item>
@@ -452,14 +458,14 @@
                  <height>20</height>
                 </size>
                </property>
-               <property name="toolTip">
-                <string>Metoda gravimetrică - determinare prin cântărire</string>
-               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Metoda gravimetrică - determinare prin cântărire</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -483,14 +489,14 @@
                  <height>20</height>
                 </size>
                </property>
-               <property name="toolTip">
-                <string>Metoda volumetrică - determinare prin măsurare volum</string>
-               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Metoda volumetrică - determinare prin măsurare volum</string>
                </property>
                <property name="text">
                 <string/>
@@ -561,14 +567,14 @@
                  <height>20</height>
                 </size>
                </property>
-               <property name="toolTip">
-                <string>Introducere manuală a valorilor</string>
-               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Introducere manuală a valorilor</string>
                </property>
                <property name="text">
                 <string/>
@@ -589,14 +595,14 @@
                  <height>20</height>
                 </size>
                </property>
-               <property name="toolTip">
-                <string>Citire automată prin interfață de comunicare</string>
-               </property>
                <property name="font">
                 <font>
                  <family>Verdana</family>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Citire automată prin interfață de comunicare</string>
                </property>
                <property name="text">
                 <string/>
@@ -936,7 +942,7 @@
      <x>0</x>
      <y>0</y>
      <width>580</width>
-     <height>30</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

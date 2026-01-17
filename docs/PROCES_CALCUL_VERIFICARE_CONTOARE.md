@@ -2,7 +2,7 @@
 
 ## 1. Introducere
 
-Acest document descrie procesul de calcul utilizat pentru verificarea metrologică a contoarelor de apă. Verificarea constă în măsurarea precisiei contorului prin compararea volumului indicat de contor cu un volum de referință obținut prin metode calibrate.
+Acest document descrie procesul de calcul utilizat pentru verificarea metrologică a contoarelor de apă. Verificarea constă în măsurarea preciziei contorului prin compararea volumului indicat de contor cu un volum de referință obținut prin metode calibrate.
 
 ## 2. Configurare Inițială
 
@@ -10,7 +10,7 @@ Acest document descrie procesul de calcul utilizat pentru verificarea metrologic
 
 - **Tipul contorului**: DN (diametru nominal), clasă metrologică, debite caracteristice (Q1, Q2, Q3)
 - **Metoda de măsurare**: Volumetrică sau Gravimetrică
-- **Metoda de corecție** (pentru gravimetrică): Clasică, INM sau ELCOST
+- **Metoda de corecție** (pentru gravimetrică): Clasică, INM sau ELCOST  (este setata la certificare)
 - **Condiții ambientale**: Temperatură (t), Presiune (P), Umiditate
 
 ## 3. Procesul de Măsurare
@@ -117,7 +117,7 @@ Fiecare clasă de contor are erori maxime admisibile (EMA) definite conform stan
 | Zona de debit | Interval debit | Eroare Max. Admisibilă |
 |---------------|----------------|------------------------|
 | Zona inferioară | Q1 ≤ Q < Q2 | ±5% (clasa B) sau ±2% (clasa C) |
-| Zona superioară | Q2 ≤ Q ≤ Q4 | ±2% (clasa B) sau ±1% (clasa C) |
+| Zona superioară | Q2 ≤ Q ≤ Q3 | ±2% (clasa B) sau ±1% (clasa C) |
 
 ### 6.2. Criteriu de Admitere
 
@@ -159,11 +159,10 @@ INTRARE DATE
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
-│ CALCUL VOLUM REFERINȚĂ                │
-│ - Volumetrică: Debitmetru etalon      │
-│ - Clasică: Masă corectată după temp.  │
-│ - INM: Masă cu corecție densitate     │
-│ - ELCOST: Masă cu calibrare           │
+│ CALCUL VOLUM REFERINȚĂ                    │
+│ - Volumetrică: Debitmetru etalon        │
+│ - Gravimetrica: Volum corectat cu       │
+│   densitatea in functie de temperatura  │
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐

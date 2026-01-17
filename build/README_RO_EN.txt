@@ -76,7 +76,7 @@ V 1.8 (01.2026) – Îmbunătățiri UI și adăugarea documentației metodei de
       - Condițiile de laborator (temperatură, presiune, umiditate)
    3. Selectați metoda de măsurare (Volumetrică sau Gravimetrică)
    4. Introduceți datele de măsurare în tabelul principal
-   5. Apăsați "Calculate" pentru calculul automat al erorilor
+   5. Apăsați "Verifica" pentru calculul automat al erorilor
    6. Generați fișa măsurători PDF prin "Generare FM"
    7. Generați buletin verificare metrologică PDF prin "Generare BV"
 
@@ -240,7 +240,7 @@ V 1.8 (01.2026) – UI improvements and addition of verification method document
       - Laboratory conditions (temperature, pressure, humidity)
    3. Select measurement method (Volumetric or Gravimetric)
    4. Enter measurement data in the main table
-   5. Press "Calculate" for automatic error calculation
+   5. Press "Verify" for automatic error calculation
    6. Generate measurement sheet PDF via "Generate FM"
    7. Generate metrological verification bulletin PDF via "Generate BV"
 

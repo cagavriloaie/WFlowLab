@@ -678,7 +678,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="443"/>
         <source>Type of water meter:</source>
-        <translation>Tipul de apometru</translation>
+        <translation>Tipul de apometru:</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="448"/>

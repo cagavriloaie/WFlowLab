@@ -684,6 +684,8 @@ MainWindow::MainWindow(QWidget* parent)
         statusBarMessage = tr("Mod de operare stand: manual");
         setStatusBarMessage(statusBarMessage);
     });
+
+   ui->cbWaterMeterType->setFixedWidth(320);
 }
 
 /**

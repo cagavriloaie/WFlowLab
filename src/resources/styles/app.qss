@@ -37,21 +37,66 @@ QPushButton {
     font-weight: 500;              /* Slightly bold for readability */
 }
 
-QPushButton:hover {
+QPushButton:hover,
+QPushButton:focus:hover {
     background-color: #1E90FF;     /* Brighter blue on hover */
     border: 1px solid #0078D7;     /* Blue border on hover */
     color: #ffffff;                /* White text on hover */
 }
 
 QPushButton:focus {
-    border: 2px solid #5B9BD5;     /* Subtle blue border */
-    background-color: #E3F2FD;     /* Light blue background */
+    border: 1px solid #0078D7;     /* Same as normal state */
+    background-color: #C8E0FF;     /* Same as normal state */
+    color: #212529;                /* Same as normal state */
     outline: none;
 }
 
 QPushButton:disabled {
     background-color: #adb5bd;     /* Light gray when disabled */
     color: #e9ecef;                /* Faded white text */
+    border: 1px solid #ced4da;
+}
+
+/* Specific styles for main action buttons to ensure consistency */
+QPushButton#pbNewSession,
+QPushButton#pbExitApplication {
+    min-height: 20px;
+    padding: 3px 12px;
+    border: 1px solid #0078D7;
+    background-color: #C8E0FF;
+    color: #212529;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+QPushButton#pbNewSession:hover,
+QPushButton#pbExitApplication:hover,
+QPushButton#pbNewSession:focus:hover,
+QPushButton#pbExitApplication:focus:hover {
+    background-color: #1E90FF;
+    border: 1px solid #0078D7;
+    color: #ffffff;
+}
+
+QPushButton#pbNewSession:focus,
+QPushButton#pbExitApplication:focus {
+    border: 1px solid #0078D7;
+    background-color: #C8E0FF;
+    color: #212529;
+    outline: none;
+}
+
+QPushButton#pbNewSession:pressed,
+QPushButton#pbExitApplication:pressed {
+    background-color: #0066CC;
+    border: 1px solid #004999;
+    color: #ffffff;
+}
+
+QPushButton#pbNewSession:disabled,
+QPushButton#pbExitApplication:disabled {
+    background-color: #adb5bd;
+    color: #e9ecef;
     border: 1px solid #ced4da;
 }
 

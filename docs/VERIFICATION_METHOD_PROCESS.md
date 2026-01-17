@@ -10,7 +10,7 @@ Before starting measurements, configure:
 
 - **Meter type**: DN (nominal diameter), metrological class, characteristic flow rates (Q1, Q2, Q3)
 - **Measurement method**: Volumetric or Gravimetric
-- **Correction method** (for gravimetric): Classic, INM or ELCOST
+- **Correction method** (for gravimetric): Classic, INM or ELCOST  (is set at certification)
 - **Environmental conditions**: Temperature (t), Pressure (P), Humidity
 
 ## 3. Measurement Process
@@ -117,7 +117,7 @@ Each meter class has maximum permissible errors (MPE) defined according to metro
 | Flow zone | Flow range | Maximum Permissible Error |
 |-----------|------------|---------------------------|
 | Lower zone | Q1 ≤ Q < Q2 | ±5% (class B) or ±2% (class C) |
-| Upper zone | Q2 ≤ Q ≤ Q4 | ±2% (class B) or ±1% (class C) |
+| Upper zone | Q2 ≤ Q ≤ Q3 | ±2% (class B) or ±1% (class C) |
 
 ### 6.2. Acceptance Criterion
 
@@ -159,11 +159,10 @@ INPUT DATA
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
-│ REFERENCE VOLUME CALCULATION          │
-│ - Volumetric: Standard flowmeter      │
-│ - Classic: Mass corrected by temp.    │
-│ - INM: Mass with density correction   │
-│ - ELCOST: Mass with calibration       │
+│ REFERENCE VOLUME CALCULATION              │
+│ - Volumetric: Standard flowmeter        │
+│ - Gravimetric: Volume corrected with    │
+│   density based on temperature          │
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐

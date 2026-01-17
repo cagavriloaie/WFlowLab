@@ -1290,10 +1290,6 @@ Entries: %2</translation>
         <translation>&amp;Verify</translation>
     </message>
     <message>
-        <source>&amp;Data evaluate</source>
-        <translation type="vanished">&amp;Verify</translation>
-    </message>
-    <message>
         <location filename="../TableBoard.cpp" line="470"/>
         <source>&amp;Print PDF</source>
         <translation>&amp;Generate FM</translation>

@@ -36,8 +36,6 @@
 #include <QValidator>               // Qt validator base class
 #include <QtPrintSupport/QPrinter>  // Qt printer support
 
-#include <Windows.h>
-
 // Project-specific headers
 #include "PdfGeneratorWorker.h"  // Thread-safe PDF generation worker
 #include "Colors.h"            // Centralized color definitions
