@@ -159,10 +159,10 @@ INPUT DATA
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
-│ REFERENCE VOLUME CALCULATION              │
-│ - Volumetric: Standard flowmeter        │
-│ - Gravimetric: Volume corrected with    │
-│   density based on temperature          │
+│ REFERENCE VOLUME CALCULATION          │
+│ - Volumetric: Standard flowmeter      │
+│ - Gravimetric: Volume corrected with  │
+│   density based on temperature        │
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐

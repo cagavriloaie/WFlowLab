@@ -159,10 +159,10 @@ INTRARE DATE
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
-│ CALCUL VOLUM REFERINȚĂ                    │
-│ - Volumetrică: Debitmetru etalon        │
-│ - Gravimetrica: Volum corectat cu       │
-│   densitatea in functie de temperatura  │
+│ CALCUL VOLUM REFERINȚĂ                │
+│ - Volumetrică: Debitmetru etalon      │
+│ - Gravimetrică: Volum corectat cu     │
+│   densitatea în funcție de temperatură│
 └───────────────────────────────────────┘
     ↓
 ┌───────────────────────────────────────┐
