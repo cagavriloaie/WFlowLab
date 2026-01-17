@@ -213,16 +213,7 @@ class MainWindow : public QMainWindow {
      * \param event The event that occurred.
      * \return True if the event was handled, otherwise false.
      */
-    bool eventFilter(QObject* obj, QEvent* event) override {
-        if (event->type() == QEvent::MouseButtonPress) {
-            // Check if the event occurred on this window
-            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-            if (rect().contains(mouseEvent->pos())) {
-                activateWindow();
-            }
-        }
-        return QMainWindow::eventFilter(obj, event);
-    }
+    bool eventFilter(QObject* obj, QEvent* event) override;
 
   private slots:
     /**

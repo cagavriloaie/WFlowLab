@@ -34,7 +34,8 @@
 #include <QStatusBar>
 #include <QTextStream>  ///< Qt text stream for file I/O
 #include <QTimer>       ///< Provides timers for single-shot and repeating actions.
-#include <QValidator>   ///< Base class for all validators that can be easily attached to input widgets.
+#include <QValidator>        ///< Base class for all validators that can be easily attached to input widgets.
+#include <QDoubleValidator>  ///< Validator for floating point input with range and precision constraints.
 
 // Custom headers
 #include "definitions.h"      ///< Custom application-specific definitions.
@@ -546,14 +547,40 @@ MainWindow::MainWindow(QWidget* parent)
     // LabConditions
     settings.beginGroup("LabConditions");
 
-    // Set temperature with default value "18"
-    ui->leTemperature->setText(settings.value("temperature", "18").toString());
+    // Input validators for environmental conditions
+    auto* validatorTemperature = new QDoubleValidator(0.0, 100.0, 1, this);
+    validatorTemperature->setNotation(QDoubleValidator::StandardNotation);
+    ui->leTemperature->setValidator(validatorTemperature);
 
-    // Set humidity with default value "51"
-    ui->leHumidity->setText(settings.value("humidity", "51").toString());
+    auto* validatorHumidity = new QDoubleValidator(0.0, 100.0, 1, this);
+    validatorHumidity->setNotation(QDoubleValidator::StandardNotation);
+    ui->leHumidity->setValidator(validatorHumidity);
 
-    // Set pressure with default value "1026"
-    ui->lePressure->setText(settings.value("pressure", "1026").toString());
+    auto* validatorPressure = new QDoubleValidator(800.0, 1100.0, 1, this);
+    validatorPressure->setNotation(QDoubleValidator::StandardNotation);
+    ui->lePressure->setValidator(validatorPressure);
+
+    // Load and validate temperature (default: 18, range: 0-100)
+    bool ok = false;
+    double tempValue = settings.value("temperature", "18").toString().toDouble(&ok);
+    if (!ok || tempValue < 0.0 || tempValue > 100.0) {
+        tempValue = 18.0;
+    }
+    ui->leTemperature->setText(QString::number(tempValue, 'f', 1));
+
+    // Load and validate humidity (default: 51, range: 0-100)
+    double humidityValue = settings.value("humidity", "51").toString().toDouble(&ok);
+    if (!ok || humidityValue < 0.0 || humidityValue > 100.0) {
+        humidityValue = 51.0;
+    }
+    ui->leHumidity->setText(QString::number(humidityValue, 'f', 1));
+
+    // Load and validate pressure (default: 1026, range: 800-1100)
+    double pressureValue = settings.value("pressure", "1026").toString().toDouble(&ok);
+    if (!ok || pressureValue < 800.0 || pressureValue > 1100.0) {
+        pressureValue = 1026.0;
+    }
+    ui->lePressure->setText(QString::number(pressureValue, 'f', 1));
 
     settings.endGroup();
     settings.sync();
@@ -658,6 +685,11 @@ MainWindow::MainWindow(QWidget* parent)
     ui->lbConnected->hide();
     installEventFilter(this);
 
+    // Install event filters for auto-complete on focus out
+    ui->leTemperature->installEventFilter(this);
+    ui->leHumidity->installEventFilter(this);
+    ui->lePressure->installEventFilter(this);
+
     settings.beginGroup("BenchConfiguration");
 
     int numberWaterMeters = 20;
@@ -724,6 +756,37 @@ MainWindow::~MainWindow() {
     settings.sync();
 
     // UI resources are automatically cleaned up by unique_ptr
+}
+
+/**
+ * \brief Filters events for the main window and child widgets.
+ *
+ * Handles MouseButtonPress to activate the window and FocusOut to
+ * auto-complete empty environmental condition fields with default values.
+ *
+ * \param obj The object that received the event.
+ * \param event The event that occurred.
+ * \return True if the event was handled, otherwise false.
+ */
+bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
+    if (event->type() == QEvent::MouseButtonPress) {
+        // Check if the event occurred on this window
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        if (rect().contains(mouseEvent->pos())) {
+            activateWindow();
+        }
+    }
+    // Auto-complete empty environmental condition fields on focus out
+    if (event->type() == QEvent::FocusOut) {
+        if (obj == ui->leTemperature && ui->leTemperature->text().trimmed().isEmpty()) {
+            ui->leTemperature->setText("18.0");
+        } else if (obj == ui->leHumidity && ui->leHumidity->text().trimmed().isEmpty()) {
+            ui->leHumidity->setText("51.0");
+        } else if (obj == ui->lePressure && ui->lePressure->text().trimmed().isEmpty()) {
+            ui->lePressure->setText("1026.0");
+        }
+    }
+    return QMainWindow::eventFilter(obj, event);
 }
 
 /**

@@ -333,43 +333,60 @@ void TableBoard::validateInput() {
     ui->leTemperature1->installEventFilter(this);
     ui->leTemperature2->installEventFilter(this);
     ui->leTemperature3->installEventFilter(this);
-    QRegularExpression rx("\\b[A-Z0-9.-]*", QRegularExpression::CaseInsensitiveOption);
+    // Validator for serial numbers: alphanumeric with dots and dashes
+    QRegularExpression rx("^[A-Z0-9][A-Z0-9.-]{0,19}$", QRegularExpression::CaseInsensitiveOption);
     auto validatorAlphanumeric = new QRegularExpressionValidator(rx, this);
-    QDoubleValidator* validatorDoubleNumber = new QDoubleValidator(this);
-    // Set natural numbers as input for SN input line
+
+    // Validator for index values: 0-9999999999, 3 decimals
+    auto* validatorIndex = new QDoubleValidator(0.0, 9999999999.0, 3, this);
+    validatorIndex->setNotation(QDoubleValidator::StandardNotation);
+
+    // Validator for flow rate: 0-999999999, 3 decimals
+    auto* validatorFlowRate = new QDoubleValidator(0.0, 999999999.0, 3, this);
+    validatorFlowRate->setNotation(QDoubleValidator::StandardNotation);
+
+    // Validator for mass: 0-100000, 4 decimals
+    auto* validatorMass = new QDoubleValidator(0.0, 100000.0, 4, this);
+    validatorMass->setNotation(QDoubleValidator::StandardNotation);
+
+    // Validator for water temperature: 0-100°C, 2 decimals
+    auto* validatorWaterTemp = new QDoubleValidator(0.0, 100.0, 2, this);
+    validatorWaterTemp->setNotation(QDoubleValidator::StandardNotation);
+
+    // Set validator for serial number input fields
     for (auto iter = begin(vectorSerialNumber); iter != end(vectorSerialNumber); ++iter) {
         (*iter)->setValidator(validatorAlphanumeric);
     }
-    // Set natural numbers as input for minimal flow input line
+    // Set validators for minimal flow input fields
     for (auto iter = begin(vectorFirstIndexStart); iter != end(vectorFirstIndexStart); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
     for (auto iter = begin(vectorFirstIndexStop); iter != end(vectorFirstIndexStop); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
-    ui->leFlowRateMinumum->setValidator(validatorDoubleNumber);
-    ui->leMass1->setValidator(validatorDoubleNumber);
-    ui->leTemperature1->setValidator(validatorDoubleNumber);
-    // Set natural numbers as input for transient flow input line
+    ui->leFlowRateMinumum->setValidator(validatorFlowRate);
+    ui->leMass1->setValidator(validatorMass);
+    ui->leTemperature1->setValidator(validatorWaterTemp);
+    // Set validators for transient flow input fields
     for (auto iter = begin(vectorSecondIndexStart); iter != end(vectorSecondIndexStart); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
     for (auto iter = begin(vectorSecondIndexStop); iter != end(vectorSecondIndexStop); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
-    ui->leFlowRateTransitoriu->setValidator(validatorDoubleNumber);
-    ui->leMass2->setValidator(validatorDoubleNumber);
-    ui->leTemperature2->setValidator(validatorDoubleNumber);
-    // set natural numbers as input for nominal flow input line
+    ui->leFlowRateTransitoriu->setValidator(validatorFlowRate);
+    ui->leMass2->setValidator(validatorMass);
+    ui->leTemperature2->setValidator(validatorWaterTemp);
+    // Set validators for nominal flow input fields
     for (auto iter = begin(vectorThirdIndexStart); iter != end(vectorThirdIndexStart); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
     for (auto iter = begin(vectorThirdIndexStop); iter != end(vectorThirdIndexStop); ++iter) {
-        (*iter)->setValidator(validatorDoubleNumber);
+        (*iter)->setValidator(validatorIndex);
     }
-    ui->leFlowRateNominal->setValidator(validatorDoubleNumber);
-    ui->leMass3->setValidator(validatorDoubleNumber);
-    ui->leTemperature3->setValidator(validatorDoubleNumber);
+    ui->leFlowRateNominal->setValidator(validatorFlowRate);
+    ui->leMass3->setValidator(validatorMass);
+    ui->leTemperature3->setValidator(validatorWaterTemp);
     for (auto iter = begin(vectorFirstError); iter != end(vectorFirstError); ++iter) {
         (*iter)->setReadOnly(true);
     }
