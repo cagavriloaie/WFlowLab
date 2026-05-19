@@ -640,7 +640,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="1083"/>
         <source>Eroare citire</source>
-        <translation>Eroare citire</translation>
+        <translation>Read Error</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="1084"/>
@@ -1351,17 +1351,17 @@ Entries: %2</translation>
     <message>
         <location filename="../TableBoard.cpp" line="2515"/>
         <source>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Q1: %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Q1: %1  [L/h]  Error: %2 %</translation>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="2517"/>
         <source>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Q2:  %1  [L/h]  Error: %2 %</translation>
     </message>
     <message>
         <location filename="../TableBoard.cpp" line="2519"/>
         <source>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</source>
-        <translation>Index [L] -  Q3: %1  [L/h]  Eroare: %2 %</translation>
+        <translation>Index [L] -  Q3: %1  [L/h]  Error: %2 %</translation>
     </message>
 </context>
 <context>

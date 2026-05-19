@@ -168,6 +168,13 @@ class TableBoard : public QDialog {
      */
     void applyInputData(const InputDataSerializer::InputData& data);
 
+    /**
+     * \brief Sets programmatic tab order for all editable fields.
+     *
+     * Must be called after the widget vectors are populated in validateInput().
+     */
+    void setupTabOrder();
+
   public slots:
     /**
      * \brief Slot called when the type of water meter is changed.

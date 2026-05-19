@@ -413,6 +413,108 @@ void TableBoard::validateInput() {
         (*iter)->setCheckState(Qt::Checked);
     }
     ui->cbSet->setCheckState(Qt::Checked);
+
+    setupTabOrder();
+}
+
+void TableBoard::setupTabOrder() {
+    const bool skipVolumes = mainwindow->selectedInfo.rbGravimetric_new;
+
+    // Apply read-only background color to a QLineEdit
+    auto setReadOnlyColor = [](QLineEdit* le, bool readOnly) {
+        le->setProperty("state", readOnly ? "success" : "");
+        le->style()->unpolish(le);
+        le->style()->polish(le);
+    };
+
+    // leVolume1/2/3: colored only when gravimetric (non-editable)
+    setReadOnlyColor(ui->leVolume1, skipVolumes);
+    setReadOnlyColor(ui->leVolume2, skipVolumes);
+    setReadOnlyColor(ui->leVolume3, skipVolumes);
+
+    // leError fields are always non-editable
+    for (auto* le : vectorFirstError)  setReadOnlyColor(le, true);
+    for (auto* le : vectorSecondError) setReadOnlyColor(le, true);
+    for (auto* le : vectorThirdError)  setReadOnlyColor(le, true);
+
+    // Buttons excluded from tab navigation
+    const Qt::FocusPolicy noTab = Qt::NoFocus;
+    ui->pbCalculate->setFocusPolicy(noTab);
+    ui->pbPrint->setFocusPolicy(noTab);
+    ui->pbReport->setFocusPolicy(noTab);
+    ui->pbOpen->setFocusPolicy(noTab);
+    ui->pbSaveResults->setFocusPolicy(noTab);
+    ui->pbClose->setFocusPolicy(noTab);
+    ui->pbClean->setFocusPolicy(noTab);
+    ui->pbCopy12->setFocusPolicy(noTab);
+    ui->pbCopy23->setFocusPolicy(noTab);
+
+    // Update focus policy so skipped volumes never receive tab focus
+    const Qt::FocusPolicy volumePolicy = skipVolumes ? Qt::NoFocus : Qt::StrongFocus;
+    ui->leVolume1->setFocusPolicy(volumePolicy);
+    ui->leVolume2->setFocusPolicy(volumePolicy);
+    ui->leVolume3->setFocusPolicy(volumePolicy);
+
+    // leSN1..leSN20
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorSerialNumber[i], vectorSerialNumber[i + 1]);
+
+    // leSN20 -> leStart1_1..leStart1_20
+    QWidget::setTabOrder(vectorSerialNumber[19], vectorFirstIndexStart[0]);
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorFirstIndexStart[i], vectorFirstIndexStart[i + 1]);
+
+    // leStart1_20 -> leStop1_1..leStop1_20
+    QWidget::setTabOrder(vectorFirstIndexStart[19], vectorFirstIndexStop[0]);
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorFirstIndexStop[i], vectorFirstIndexStop[i + 1]);
+
+    // leStop1_20 -> leFlowRateMinumum -> leMass1 -> leTemperature1 -> [leVolume1] -> leStart2_1
+    QWidget::setTabOrder(vectorFirstIndexStop[19], ui->leFlowRateMinumum);
+    QWidget::setTabOrder(ui->leFlowRateMinumum, ui->leMass1);
+    QWidget::setTabOrder(ui->leMass1, ui->leTemperature1);
+    if (skipVolumes) {
+        QWidget::setTabOrder(ui->leTemperature1, vectorSecondIndexStart[0]);
+    } else {
+        QWidget::setTabOrder(ui->leTemperature1, ui->leVolume1);
+        QWidget::setTabOrder(ui->leVolume1, vectorSecondIndexStart[0]);
+    }
+
+    // leStart2_1..leStart2_20
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorSecondIndexStart[i], vectorSecondIndexStart[i + 1]);
+
+    // leStart2_20 -> leStop2_1..leStop2_20
+    QWidget::setTabOrder(vectorSecondIndexStart[19], vectorSecondIndexStop[0]);
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorSecondIndexStop[i], vectorSecondIndexStop[i + 1]);
+
+    // leStop2_20 -> leFlowRateTransitoriu -> leMass2 -> leTemperature2 -> [leVolume2] -> leStart3_1
+    QWidget::setTabOrder(vectorSecondIndexStop[19], ui->leFlowRateTransitoriu);
+    QWidget::setTabOrder(ui->leFlowRateTransitoriu, ui->leMass2);
+    QWidget::setTabOrder(ui->leMass2, ui->leTemperature2);
+    if (skipVolumes) {
+        QWidget::setTabOrder(ui->leTemperature2, vectorThirdIndexStart[0]);
+    } else {
+        QWidget::setTabOrder(ui->leTemperature2, ui->leVolume2);
+        QWidget::setTabOrder(ui->leVolume2, vectorThirdIndexStart[0]);
+    }
+
+    // leStart3_1..leStart3_20
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorThirdIndexStart[i], vectorThirdIndexStart[i + 1]);
+
+    // leStart3_20 -> leStop3_1..leStop3_20
+    QWidget::setTabOrder(vectorThirdIndexStart[19], vectorThirdIndexStop[0]);
+    for (int i = 0; i < 19; ++i)
+        QWidget::setTabOrder(vectorThirdIndexStop[i], vectorThirdIndexStop[i + 1]);
+
+    // leStop3_20 -> leFlowRateNominal -> leMass3 -> leTemperature3 -> [leVolume3]
+    QWidget::setTabOrder(vectorThirdIndexStop[19], ui->leFlowRateNominal);
+    QWidget::setTabOrder(ui->leFlowRateNominal, ui->leMass3);
+    QWidget::setTabOrder(ui->leMass3, ui->leTemperature3);
+    if (!skipVolumes)
+        QWidget::setTabOrder(ui->leTemperature3, ui->leVolume3);
 }
 
 /**
@@ -494,11 +596,11 @@ void TableBoard::translate() {
     ui->pbSaveResults->setContentsMargins(10, 0, 10, 0);
     ui->pbClose->setContentsMargins(10, 0, 10, 0);
     ui->pbClean->setContentsMargins(10, 0, 10, 0);
-    ui->lbIndex1->setText(QString("Index [L] -  Q1: %1 L/h  Eroare: %2%")
+    ui->lbIndex1->setText(tr("Index [L] -  Q1: %1  [L/h]  Eroare: %2 %")
                               .arg(QString::number(minimumFlowMain), QString::number(maximumError)));
-    ui->lbIndex2->setText(QString("Index [L] -  Q2:  %1 L/h  Eroare: %2%")
+    ui->lbIndex2->setText(tr("Index [L] -  Q2:  %1  [L/h]  Eroare: %2 %")
                               .arg(QString::number(transitoriuFlowMain), QString::number(nominalError)));
-    ui->lbIndex3->setText(QString("Index [L] -  Q3: %1 L/h  Eroare: %2%")
+    ui->lbIndex3->setText(tr("Index [L] -  Q3: %1  [L/h]  Eroare: %2 %")
                               .arg(QString::number(nominalFlowMain), QString::number(nominalError)));
     if (reportMeasurementsDialog) {
         reportMeasurementsDialog->translate();
@@ -1407,10 +1509,12 @@ bool TableBoard::eventFilter(QObject* target, QEvent* event) {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
 
-        // Handle Enter (Return) key press
+        // Handle Enter (Return) key press — post a Tab event so Qt's native
+        // focus traversal runs after the current event is fully settled.
         if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) {
-            focusNextChild();  // Focus on the next child widget
-            return true;       // Event handled
+            QApplication::postEvent(target,
+                new QKeyEvent(QEvent::KeyPress, Qt::Key_Tab, Qt::NoModifier));
+            return true;
         }
     }
 
@@ -1464,6 +1568,8 @@ void TableBoard::onMeasurementTypeChanged() {
     setBackgroundAndReadOnly(ui->leVolume1, isGravimetric);
     setBackgroundAndReadOnly(ui->leVolume2, isGravimetric);
     setBackgroundAndReadOnly(ui->leVolume3, isGravimetric);
+
+    setupTabOrder();
 }
 
 /**
