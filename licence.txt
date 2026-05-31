@@ -1,0 +1,70 @@
+1. Fisierul de configurare "watermeters.conf"
+
+company=AQUA BIS SA>
+archive=C:/Stand/Fise>
+volume_correction=CLASSIC_VOLUME_CORRECTION>
+certificate=CE 06.02-2025/15>
+density_20=998.2009>
+control=0aec6e65080cb221b57ed9d88ae3e3ea>1. Configurarea fișierului **watermeters.conf**
+
+Fișierul de configurare trebuie să conțină următoarele informații:
+
+company=AQUA BIS SA>
+archive=C:/Stand/Fise>
+volume_correction=CLASSIC_VOLUME_CORRECTION>
+certificate=CE 06.02-2025/15>
+density_20=998.2009>
+control=0aec6e65080cb221b57ed9d88ae3e3ea>
+
+2. Completarea parametrilor
+
+Se completează toate câmpurile necesare conform cerințelor aplicației.
+
+3. Generarea codului de control (MD5)
+
+Accesați site-ul https://www.md5hashgenerator.com/ și calculați valoarea MD5 pentru șirul obținut prin concatenarea valorilor parametrilor **company** și **volume_correction**.
+
+Exemplu:
+
+Șir utilizat pentru calcul:
+AQUA BIS SACLASSIC_VOLUME_CORRECTION
+
+Valoare MD5 rezultată:
+0aec6e65080cb221b57ed9d88ae3e3ea
+
+Valoarea obținută se introduce în câmpul **control** din fișierul de configurare.
+
+4. Copierea fișierului de configurare
+
+Deschideți aplicația **Command Prompt** cu drepturi de administrator (clic dreapta și selectarea opțiunii „Run as administrator”).
+
+Navigați în directorul în care este instalată aplicația și copiați fișierul de configurare folosind comanda:
+
+C:\Program Files (x86)\WStreamLab> copy C:\Users\Constantin\Desktop\watermeters.conf .
+
+Observație:
+Simbolul „.” reprezintă directorul curent. În exemplul de mai sus, fișierul va fi copiat în directorul:
+
+C:\Program Files (x86)\WStreamLab
+
+5. Modificări ulterioare
+
+Parametrii **archive**, **certificate**, **density_20** și **control** pot fi modificați ulterior fără a afecta validitatea licenței.
+
+Orice modificare a parametrilor **company** sau **volume_correction** necesită recalcularea valorii MD5 și actualizarea câmpului **control**.
+
+
+2. Se completeaza tot ceea ce este necesar
+
+3. Pe site-ul https://www.md5hashgenerator.com/ se calculeaza MD5 pentru sirul format din "company" + "volume_correction":
+
+sir: AQUA BIS SACLASSIC_VOLUME_CORRECTION
+md5: 0aec6e65080cb221b57ed9d88ae3e3ea
+
+4. in mod administrator (butonul drept de la mouse cand se lanseaza), se porneste "Command Prompt" si se copie in locul in care este istalat acest fisier:
+
+C:\Program Files (x86)\WStreamLab> copy C:\Users\Constantin\Desktop\watermeters.conf .
+
+Obs: locatia "." inseamna folderul curect care in acest caz este "C:\Program Files (x86)\WStreamLab"
+
+5 Modificarile ulterioare la: "archive", "certificate", "density_20" sau "control" nu au efect asupra licentei si pot fi facute ulterior.
