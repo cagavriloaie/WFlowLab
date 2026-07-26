@@ -161,15 +161,26 @@ void TableBoard::onOpenInputDataClicked() {
  * \return String representation of the number with four decimal places.
  */
 std::string precision_4(double number) {
-    int integer_part = static_cast<int>(number);                           ///< Integer part of the number.
-    int decimal_part = static_cast<int>((number - integer_part) * 10000);  ///< Decimal part of the number.
+    int integer_part = static_cast<int>(number);
+    int decimal_part = static_cast<int>((number - integer_part) * 10000);
 
-    if (decimal_part >= 10) {
-        return std::to_string(integer_part) + "." + std::to_string(decimal_part);  ///< Return the formatted string.
-    } else {
-        return std::to_string(integer_part) + ".0" +
-               std::to_string(decimal_part);  ///< Return the formatted string with leading zero.
+    // Asigură padding corect (e.g., 0.0901 → decimal_part = 901, dar string = "0901")
+    std::string decimal_str = std::to_string(decimal_part);
+    while (decimal_str.length() < 4) {
+        decimal_str = "0" + decimal_str;
     }
+
+    // Elimină trailing zeros
+    while (!decimal_str.empty() && decimal_str.back() == '0') {
+        decimal_str.pop_back();
+    }
+
+    // Dacă nu mai sunt zecimale, returnează doar integer
+    if (decimal_str.empty()) {
+        return std::to_string(integer_part);
+    }
+
+    return std::to_string(integer_part) + "." + decimal_str;
 }
 
 /**
@@ -1571,6 +1582,17 @@ void TableBoard::onMeasurementTypeChanged() {
     setupTabOrder();
 }
 
+QString formatWithPrecision(double value, int decimals) {
+    QString str = to_string_with_precision(value, decimals).c_str();
+
+    // Elimină zerourile finale
+    if (str.contains('.')) {
+        str.remove(QRegularExpression("0+$"));  // Elimina zerourile finale
+        str.remove(QRegularExpression("\\.$")); // Elimina punctul dacă nu mai sunt cifre
+    }
+    return str;
+}
+
 /**
  * \brief Slot triggered when the "Print PDF" button is clicked.
  *
@@ -1619,13 +1641,15 @@ void TableBoard::onPrintPdfDocClicked() {
         methodMeasurement = "Gravitmetric";
     }
     double minimumFlow = mainwindow->selectedInfo.minimumFlow;
-    double trasitionFlow = mainwindow->selectedInfo.transitionFlow;
+    double transitionFlow = mainwindow->selectedInfo.transitionFlow;
     double nominalFlow = mainwindow->selectedInfo.nominalFlow;
     double maximumFlow = mainwindow->selectedInfo.maximumFlow;
-    QString minimumFlowString = to_string_with_precision(minimumFlow, 0).c_str();
-    QString transitionFlowString = to_string_with_precision(trasitionFlow, 0).c_str();
-    QString nominalFlowString = to_string_with_precision(nominalFlow, 0).c_str();
-    QString maximumFlowString = to_string_with_precision(maximumFlow, 0).c_str();
+
+    QString minimumFlowString = formatWithPrecision(minimumFlow, 2);
+    QString transitionFlowString = formatWithPrecision(transitionFlow, 2);
+    QString nominalFlowString = formatWithPrecision(nominalFlow, 2);
+    QString maximumFlowString = formatWithPrecision(maximumFlow, 2);
+
     auto size = minimumFlowString.size();
     for (auto iter = 1; iter < 10 - size; iter++) {
         minimumFlowString = QString("&nbsp;") + minimumFlowString;
@@ -1800,7 +1824,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleFirst = QString::number(
                 (vectorFirstIndexStop[iter]->text().toDouble() - vectorFirstIndexStart[iter]->text().toDouble()));
             QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
-            QString realVolumeFirst = QString(precision_4(ui->leVolume1->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeFirst = ui->leVolume1->text() + "&nbsp;";
             if (vectorFirstIndexStart[iter]->text() == "" || vectorFirstIndexStop[iter]->text() == "") {
                 registerVolumeDoubleFirst = "";
             }
@@ -1809,7 +1833,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleSecond = QString::number(
                 (vectorSecondIndexStop[iter]->text().toDouble() - vectorSecondIndexStart[iter]->text().toDouble()));
             QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
-            QString realVolumeSecond = QString(precision_4(ui->leVolume2->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeSecond =  ui->leVolume2->text() + "&nbsp;";
             if (vectorSecondIndexStart[iter]->text() == "" || vectorSecondIndexStop[iter]->text() == "") {
                 registerVolumeDoubleSecond = "";
             }
@@ -1818,7 +1842,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleThird = QString::number(
                 (vectorThirdIndexStop[iter]->text().toDouble() - vectorThirdIndexStart[iter]->text().toDouble()));
             QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
-            QString realVolumeThird = QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeThird =  ui->leVolume3->text() + "&nbsp;";
             if (vectorThirdIndexStart[iter]->text() == "" || vectorThirdIndexStop[iter]->text() == "") {
                 registerVolumeDoubleThird = "";
             }
@@ -1952,7 +1976,7 @@ void TableBoard::onPrintPdfDocClicked() {
                     QString::number((vectorFirstIndexStop[iterEntry]->text().toDouble() -
                                      vectorFirstIndexStart[iterEntry]->text().toDouble()));
                 QString errorFirst = vectorFirstError[iterEntry]->text() + "&nbsp;";
-                QString realVolumeFirst = QString(precision_4(ui->leVolume1->text().toDouble()).c_str()) + "&nbsp;";
+                QString realVolumeFirst = QString(ui->leVolume1->text()) + "&nbsp;";
                 if (vectorFirstIndexStart[iterEntry]->text() == "" || vectorFirstIndexStop[iterEntry]->text() == "") {
                     registerVolumeDoubleFirst = "";
                 }
@@ -1962,7 +1986,7 @@ void TableBoard::onPrintPdfDocClicked() {
                     QString::number((vectorSecondIndexStop[iterEntry]->text().toDouble() -
                                      vectorSecondIndexStart[iterEntry]->text().toDouble()));
                 QString errorSecond = vectorSecondError[iterEntry]->text() + "&nbsp;";
-                QString realVolumeSecond = QString(precision_4(ui->leVolume2->text().toDouble()).c_str()) + "&nbsp;";
+                QString realVolumeSecond = QString(ui->leVolume2->text()) + "&nbsp;";
                 if (vectorSecondIndexStart[iterEntry]->text() == "" || vectorSecondIndexStop[iterEntry]->text() == "") {
                     registerVolumeDoubleSecond = "";
                 }
@@ -1972,7 +1996,7 @@ void TableBoard::onPrintPdfDocClicked() {
                     QString::number((vectorThirdIndexStop[iterEntry]->text().toDouble() -
                                      vectorThirdIndexStart[iterEntry]->text().toDouble()));
                 QString errorThird = vectorThirdError[iterEntry]->text() + "&nbsp;";
-                QString realVolumeThird = QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) + "&nbsp;";
+                QString realVolumeThird = QString(ui->leVolume3->text()) + "&nbsp;";
                 if (vectorThirdIndexStart[iterEntry]->text() == "" || vectorThirdIndexStop[iterEntry]->text() == "") {
                     registerVolumeDoubleThird = "";
                 }
@@ -2218,7 +2242,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleFirst = QString::number(
                 (vectorFirstIndexStop[iter]->text().toDouble() - vectorFirstIndexStart[iter]->text().toDouble()));
             QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
-            QString realVolumeFirst = QString(precision_4(ui->leVolume1->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeFirst = QString(ui->leVolume1->text()) + "&nbsp;";
             if (vectorFirstIndexStart[iter]->text() == "" || vectorFirstIndexStop[iter]->text() == "") {
                 registerVolumeDoubleFirst = "";
             }
@@ -2227,7 +2251,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleSecond = QString::number(
                 (vectorSecondIndexStop[iter]->text().toDouble() - vectorSecondIndexStart[iter]->text().toDouble()));
             QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
-            QString realVolumeSecond = QString(precision_4(ui->leVolume2->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeSecond = QString(ui->leVolume2->text()) + "&nbsp;";
             if (vectorSecondIndexStart[iter]->text() == "" || vectorSecondIndexStop[iter]->text() == "") {
                 registerVolumeDoubleSecond = "";
             }
@@ -2236,7 +2260,7 @@ void TableBoard::onPrintPdfDocClicked() {
             QString registerVolumeDoubleThird = QString::number(
                 (vectorThirdIndexStop[iter]->text().toDouble() - vectorThirdIndexStart[iter]->text().toDouble()));
             QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
-            QString realVolumeThird = QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) + "&nbsp;";
+            QString realVolumeThird = QString(ui->leVolume3->text()) + "&nbsp;";
             if (vectorThirdIndexStart[iter]->text() == "" || vectorThirdIndexStop[iter]->text() == "") {
                 registerVolumeDoubleThird = "";
             }
@@ -2361,26 +2385,29 @@ void TableBoard::onPrintPdfDocClicked() {
                 if (!vectorCheckNumber[iter]->checkState()) {
                     continue;
                 }
+
                 QString SN = vectorSerialNumber[iter]->text();
                 QString startFirst = vectorFirstIndexStart[iter]->text() + "&nbsp;";
                 QString stopFirst = vectorFirstIndexStop[iter]->text() + "&nbsp;";
                 double registerVolumeDoubleFirst =
                     (vectorFirstIndexStop[iter]->text().toDouble() - vectorFirstIndexStart[iter]->text().toDouble());
                 QString errorFirst = vectorFirstError[iter]->text() + "&nbsp;";
-                QString realVolumeFirst = QString(precision_4(ui->leVolume1->text().toDouble()).c_str()) + "&nbsp;";
+                QString realVolumeFirst =QString(ui->leVolume1->text()) + "&nbsp;";
+
                 QString startSecond = vectorSecondIndexStart[iter]->text() + "&nbsp;";
                 QString stopSecond = vectorSecondIndexStop[iter]->text() + "&nbsp;";
                 double registerVolumeDoubleSecond =
                     (vectorSecondIndexStop[iter]->text().toDouble() - vectorSecondIndexStart[iter]->text().toDouble());
                 QString errorSecond = vectorSecondError[iter]->text() + "&nbsp;";
-                QString realVolumeSecond = QString(precision_4(ui->leVolume2->text().toDouble()).c_str()) + "&nbsp;";
-                ;
+                QString realVolumeSecond = QString(ui->leVolume2->text()) + "&nbsp;";
+
                 QString startThird = vectorThirdIndexStart[iter]->text() + "&nbsp;";
                 QString stopThird = vectorThirdIndexStop[iter]->text() + "&nbsp;";
                 double registerVolumeDoubleThird =
                     (vectorThirdIndexStop[iter]->text().toDouble() - vectorThirdIndexStart[iter]->text().toDouble());
                 QString errorThird = vectorThirdError[iter]->text() + "&nbsp;";
-                QString realVolumeThird = QString(precision_4(ui->leVolume3->text().toDouble()).c_str()) + "&nbsp;";
+                QString realVolumeThird = QString(ui->leVolume3->text()) + "&nbsp;";
+
                 if (XOR(startFirst.isEmpty(), stopFirst.isEmpty()) ||
                     XOR(startSecond.isEmpty(), stopSecond.isEmpty()) ||
                     XOR(startThird.isEmpty(), stopThird.isEmpty()) || SN.isEmpty()) {

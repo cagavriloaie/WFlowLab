@@ -11,6 +11,7 @@
  * \date Insert date
  */
 
+
 // C++ Standard Library headers
 #include <filesystem>  ///< Provides facilities to manipulate and query file systems and their components.
 #include <fstream>     ///< Input/output stream class to operate on files.
@@ -1963,7 +1964,7 @@ void MainWindow::onWaterDensityPage() {
         <div class="card">
 )";
     output << "            <h2>"
-           << (isRomanian ? "Tabel Date Complete" : "Complete Data Table")
+           << (isRomanian ? "Tabel Complet de Date" : "Complete Data Table")
            << "</h2>\n";
     output << R"(            <div class="controls">
 )";
