@@ -1,8 +1,0 @@
-[2026-01-04 20:57:02] [INFO] [System] Aplicație pornită - Versiune: 1.5, Utilizator: Constantin, PC: DESKTOP-872MSQN
-[2026-01-04 20:57:03] [INFO] [System] Configurație încărcată cu succes din watermeters.conf
-[2026-01-04 20:57:03] [INFO] [System] Bază de date apometre încărcată: 55 tipuri disponibile
-[2026-01-04 20:57:03] [INFO] [UserAction] Număr contoare schimbat: 1 → 11
-[2026-01-04 20:57:03] [INFO] [UserAction] Tip apometru schimbat: "Itron Flodis DN 15" → "Itron Flodis DN 25 R160"
-[2026-01-04 20:57:09] [INFO] [Metrology] Sesiune verificare început: Itron Flodis DN 25 R160, DN=25mm, Q_nom=6300.000 m³/h, Q_max=7875.000 m³/h, Q_t=62.990 m³/h, Q_min=39.3700 m³/h, Mod=Gravimetric, Interface=Manual, Entries=11, Temp=18°C, Presiune=1026mbar, Umiditate=51%, Certificat=CE 06.02-2025/15
-[2026-01-04 20:57:34] [INFO] [Metrology] Sesiune verificare terminată: Itron Flodis DN 25 R160
-[2026-01-04 20:57:34] [INFO] [System] Aplicație închisă

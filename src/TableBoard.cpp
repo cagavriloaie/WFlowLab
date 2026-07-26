@@ -13,7 +13,6 @@
 // Standard C++ headers
 #include <algorithm>  // Standard C++ algorithms
 #include <cmath>      // Math functions (std::abs, etc.)
-#include <fstream>    // File stream operations
 #include <iomanip>    // I/O manipulators
 #include <iostream>   // Standard I/O streams
 #include <sstream>    // String stream operations
@@ -649,7 +648,7 @@ TableBoard::TableBoard(QWidget* _parent) : QDialog(_parent), parent(_parent), ui
     connect(ui->pbOpen, &QPushButton::clicked, this, &TableBoard::onOpenInputDataClicked);
     connect(ui->pbPrint, &QPushButton::clicked, this, &TableBoard::onPrintPdfDocClicked);
     connect(ui->pbReport, &QPushButton::clicked, this, &TableBoard::onReportClicked);
-    connect(ui->cbSet, &QCheckBox::stateChanged, this, &TableBoard::onSelectAllChanged);
+    connect(ui->cbSet, &QCheckBox::checkStateChanged, this, &TableBoard::onSelectAllChanged);
 
     connect(ui->pbCopy12, &QPushButton::clicked, this, &TableBoard::onCopy12Clicked);
     connect(ui->pbCopy23, &QPushButton::clicked, this, &TableBoard::onCopy23Clicked);

@@ -12,12 +12,15 @@
  */
 
 // C++ Standard Library headers
-#include <algorithm>
 #include <filesystem>  ///< Provides facilities to manipulate and query file systems and their components.
 #include <fstream>     ///< Input/output stream class to operate on files.
 #include <iomanip>     ///< Manipulators for formatting output.
 #include <map>         ///< Associative containers that store elements in a mapped fashion.
 #include <sstream>     ///< Implements input/output operations on memory-based streams.
+#include <QMessageBox>
+#include <QString>
+#include <QTextStream>
+#include <QIODevice>
 
 // Qt headers
 #include <QCoreApplication>  ///< Qt core application functions
@@ -630,11 +633,11 @@ MainWindow::MainWindow(QWidget* parent)
         ui->cbWaterMeterType->addItem(QString::fromStdString(database[iter].nameWaterMeter));
     }
 
-    // Log number of water meters loaded
-    Logger::info(LogCategory::System,
-                 QString("Bază de date apometre încărcată: %1 tipuri disponibile")
-                     .arg(numberEntriesMeterFlowDb));
-
+    Logger::info(
+        LogCategory::System,
+        QString("Bază de date apometre încărcată: %1 tipuri disponibile")
+            .arg(numberEntriesMeterFlowDb.load())
+        );
     // Connect QComboBox signals to custom slots
     connect(ui->cbNumberOfWaterMeters, &QComboBox::currentIndexChanged, this,
             &MainWindow::onNumberOfWaterMetersChanged);
