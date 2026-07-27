@@ -294,6 +294,10 @@ ReportMeasurements::~ReportMeasurements() {
     delete ui;
 }
 
+
+
+
+
 /**
  * \brief Slot invoked when the "Generate BV" button is clicked.
  *
@@ -303,13 +307,13 @@ ReportMeasurements::~ReportMeasurements() {
 void ReportMeasurements::onPrintClicked() {
     // Collect line edits in a vector
     std::vector<QLineEdit*> lineEdits = {ui->leAutorizatiaNumarul,
-                                         ui->leNumarInregistrare,
-                                         ui->leBeneficiar,
-                                         ui->leCoduldinLt,
-                                         ui->leNormativ,
-                                         ui->leCost,
-                                         ui->leVerificatorMetrolog,
-                                         ui->leLoculEfectuariiVerificarii};
+                                          ui->leNumarInregistrare,
+                                          ui->leBeneficiar,
+                                          ui->leCoduldinLt,
+                                          ui->leNormativ,
+                                          ui->leCost,
+                                          ui->leVerificatorMetrolog,
+                                          ui->leLoculEfectuariiVerificarii};
 
     // Check whether any required field is empty
     bool anyFieldEmpty = std::any_of(lineEdits.begin(), lineEdits.end(),
@@ -396,16 +400,48 @@ void ReportMeasurements::onPrintClicked() {
               << "      width: 35%;\n"  // Increased width for column 5
               << "      word-break: break-word;\n"
               << "    }\n"
+              << "    table.header-table {\n"
+              << "      border-collapse: collapse;\n"
+              << "      width: 100%;\n"
+              << "      font-size: 11px;\n"
+              << "      table-layout: fixed;\n"
+              << "    }\n"
+              << "    table.header-table td {\n"
+              << "      border: 1px solid #000000;\n"  // Full black frame around every header cell
+              << "      padding: 6px;\n"
+              << "      text-align: center;\n"
+              << "      vertical-align: middle;\n"
+              << "    }\n"
               << "  </style>\n"
               << "</head>\n"
               << "<body>\n"
+              << "  <table class=\"header-table\" width=\"100%\" border=\"1\" cellspacing=\"0\" cellpadding=\"6\" "
+                 "style=\"border-collapse: collapse; border: 1px solid #000000; table-layout: fixed; font-size: "
+                 "11px;\">\n"
+              << "    <tr>\n"
+              << "      <td rowspan=\"2\" width=\"25%\" style=\"border: 1px solid #000000; padding: 6px; text-align: "
+                 "left; vertical-align: middle;\"><strong>AQUABIS S.A.</strong><br><strong>LABORATOR "
+                 "DE</strong><br><strong>METROLOGIE</strong></td>\n"
+              << "      <td width=\"50%\" style=\"border: 1px solid #000000; padding: 6px; text-align: center; "
+                 "vertical-align: middle;\"><strong>PROCEDURA GENERALA</strong></td>\n"
+              << "      <td rowspan=\"2\" width=\"25%\" style=\"border: 1px solid #000000; padding: 6px; text-align: "
+                 "center; vertical-align: middle;\"><strong>Cod: PGLM-10</strong></td>\n"
+              << "    </tr>\n"
+              << "    <tr>\n"
+              << "      <td width=\"50%\" style=\"border: 1px solid #000000; padding: 6px; text-align: center; "
+                 "vertical-align: middle;\"><strong>RAPORTAREA REZULTATELOR</strong></td>\n"
+              << "    </tr>\n"
+              << "  </table>\n"
+              << "  <p style=\"font-size: 12px; line-height: 0.6;\">Anexa nr.5 - Model - Buletin de verificare metrologica cod F-02-PML 3-01"
+              << "  <br>\n"
               << "  <p style=\"font-size: 10px; line-height: 0.6;\">Laboratorul de metrologie al "
               << companyLaboratory.toStdString() << "</p>\n"
               << "  <p style=\"font-size: 10px; line-height: 0.6;\">Autorizatia nr. "
               << autorizationNumarul.toStdString() << "</p>\n"
+              << "  <br>\n"
               << "  <center>\n"
               << "    <p style=\"font-size: 13px; line-height: 0.6;\">Buletin de verificare metrologica</p>\n"
-              << "    <p style=\"font-size: 13px; line-height: 0.6;\">nr. "
+              << "    <p style=\"font-size: 10px; line-height: 0.6;\">nr. "
               << ui->leNumarInregistrare->text().toStdString()
               << " data emiterii: " << std::put_time(localTime, "%d-%m-%Y")
               << " ora: " << std::put_time(localTime, "%H:%M") << "<br>\n"
@@ -413,6 +449,8 @@ void ReportMeasurements::onPrintClicked() {
               << "  <p style=\"font-size: 10px; text-align:left;\">Mijloacele de masurare apartinand "
               << detinator.toStdString()
               << ", prezentate la verificare metrologica, au obtinut urmatoarele rezultate:</p>\n"
+
+
               << "<center>\n"
               << "  <table class=\"first\">\n"
               << "    <thead>\n"
@@ -467,34 +505,34 @@ void ReportMeasurements::onPrintClicked() {
     streamObjCostTVA << std::fixed << std::setprecision(2);
     streamObjCostTVA << costRon.toDouble() * entriesTableUsed * (1 + TVA);
     std::string totalCostTVA = streamObjCostTVA.str();
-    // Generate 3 table rows: location+total, TVA, and grand total
+    // Generate 3 table rows: Total, TVA and grand total, with the verification location in a
+    // single cell on the left spanning all 3 rows
     for (size_t row = 0; row < 3; ++row)
     {
         htmlTable << "     <tr style=\"height: 20px;\">\n";
 
-        switch (row) {
-        case 0:
-            htmlTable << "        <td style=\"no-border\" colspan=6 style=\"text-align:left;\">Locul efectuarii "
-                         "verificarii metrologice: "
+        if (row == 0) {
+            htmlTable << "        <td colspan=\"6\" rowspan=\"3\" style=\"border: 1px solid #dddddd; "
+                         "text-align:left; vertical-align:top;\">Locul efectuarii verificarii metrologice: "
                       << ui->leLoculEfectuariiVerificarii->text().toStdString() << "<br><br>"
                       << "Data si ora finalizarii masurarilor "
-                         "metrologic:____________________________________________________</td>\n"
-                      << "        <td>Total</td>\n"
-                      << "        <td>" << totalCost << "</td>\n";
+                         "metrologic:____________________________________________________</td>\n";
+        }
+
+        switch (row) {
+        case 0:
+            htmlTable << "        <td style=\"border: 1px solid #dddddd;\">Total</td>\n"
+                      << "        <td style=\"border: 1px solid #dddddd;\">" << totalCost << "</td>\n";
             break;
 
         case 1:
-            htmlTable << "        <td style=\"no-border\" colspan=6 class=\"left\">Costul total al verificarii "
-                         "metrologice, fara TVA, este "
-                      << totalCost << " lei.</td>\n"
-                      << "        <td><strong>TVA</strong></td>\n"
-                      << "        <td>" << totalTVA << "</td>\n";
+            htmlTable << "        <td style=\"border: 1px solid #dddddd;\"><strong>TVA</strong></td>\n"
+                      << "        <td style=\"border: 1px solid #dddddd;\">" << totalTVA << "</td>\n";
             break;
 
         case 2:
-            htmlTable << "        <td style=\"no-border\" colspan=6></td>\n"
-                      << "        <td><strong>Total general</strong></td>\n"
-                      << "        <td>" << totalCostTVA << "</td>\n";
+            htmlTable << "        <td style=\"border: 1px solid #dddddd;\"><strong>Total general</strong></td>\n"
+                      << "        <td style=\"border: 1px solid #dddddd;\">" << totalCostTVA << "</td>\n";
             break;
         }
 
@@ -562,7 +600,7 @@ void ReportMeasurements::onPrintClicked() {
     if (validatedPath.isEmpty()) {
         qCritical() << "ReportMeasurements::onPrintClicked:" << tr("Invalid or unsafe path:") << pathResults;
         Logger::error(LogCategory::UserAction,
-                     tr("BV Report failed - invalid path: %1").arg(pathResults));
+                      tr("BV Report failed - invalid path: %1").arg(pathResults));
         return;
     }
 
@@ -604,6 +642,7 @@ void ReportMeasurements::onPrintClicked() {
     settings.sync();
 }
 
+
 /**
  * \brief Slot triggered when the "Close" button is clicked.
  *
@@ -612,6 +651,7 @@ void ReportMeasurements::onPrintClicked() {
 void ReportMeasurements::onCloseClicked() {
     this->hide();
 }
+
 
 /**
  * \brief Slot triggered when the timer for "Generate BV" button is stopped.

@@ -54,17 +54,6 @@ for(file, REQUIRED_UI_FILES) {
 
 message("All required UI files found: $$size(REQUIRED_UI_FILES) files")
 
-# Windows-specific icon check
-win32 {
-    !isEmpty(RC_ICONS) {
-        !exists($$RC_ICONS) {
-            warning("Application icon not found: $$RC_ICONS")
-        } else {
-            message("Application icon found: $$RC_ICONS")
-        }
-    }
-}
-
 # ============================================
 # Qt MODULES
 # ============================================
@@ -159,6 +148,15 @@ RESOURCES += resources.qrc
 # Include the icon for Windows
 win32 {
     RC_ICONS = WStreamLab.ico
+
+    # Icon check must stay after RC_ICONS is assigned, otherwise it never runs
+    !isEmpty(RC_ICONS) {
+        !exists($$RC_ICONS) {
+            warning("Application icon not found: $$RC_ICONS")
+        } else {
+            message("Application icon found: $$RC_ICONS")
+        }
+    }
 }
 
 # ============================================
@@ -191,20 +189,19 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # POST-BUILD VALIDATION
 # ============================================
 
+# The post-link command is emitted verbatim into the Makefile and executed by
+# sh.exe, not cmd.exe. Nested double quotes and a backslash before a closing
+# quote break the shell, so keep this free of quotes and of "cmd /c" wrappers.
 win32 {
     CONFIG(debug, debug|release) {
-        QMAKE_POST_LINK += cmd /c "echo Post-build validation... && \
-            if exist \"$$OUT_PWD\\debug\\$$TARGET.exe\" (echo [OK] Debug executable created successfully) else (echo [ERROR] Debug executable not found!) && \
-            copy /Y \"$$PWD\\..\\PROCES_CALCUL_VERIFICARE_CONTOARE.md\" \"$$OUT_PWD\\debug\\\" >nul 2>&1 && \
-            copy /Y \"$$PWD\\..\\VERIFICATION_METHOD_PROCESS.md\" \"$$OUT_PWD\\debug\\\" >nul 2>&1 && \
-            echo [OK] Documentation files copied to debug folder"
+        DEPLOY_DIR = $$shell_path($$OUT_PWD/debug)
     } else {
-        QMAKE_POST_LINK += cmd /c "echo Post-build validation... && \
-            if exist \"$$OUT_PWD\\release\\$$TARGET.exe\" (echo [OK] Release executable created successfully) else (echo [ERROR] Release executable not found!) && \
-            copy /Y \"$$PWD\\..\\PROCES_CALCUL_VERIFICARE_CONTOARE.md\" \"$$OUT_PWD\\release\\\" >nul 2>&1 && \
-            copy /Y \"$$PWD\\..\\VERIFICATION_METHOD_PROCESS.md\" \"$$OUT_PWD\\release\\\" >nul 2>&1 && \
-            echo [OK] Documentation files copied to release folder"
+        DEPLOY_DIR = $$shell_path($$OUT_PWD/release)
     }
+    DOC_DIR = $$shell_path($$PWD/..)
+
+    QMAKE_POST_LINK += copy /Y $$DOC_DIR\\PROCES_CALCUL_VERIFICARE_CONTOARE.md $$DEPLOY_DIR > nul &
+    QMAKE_POST_LINK += copy /Y $$DOC_DIR\\VERIFICATION_METHOD_PROCESS.md $$DEPLOY_DIR > nul
 }
 
 unix {
