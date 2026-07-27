@@ -51,6 +51,28 @@
 // NOTE: std::mutex printTablePdfThreadMutex removed - no longer needed with QThread
 // NOTE: printPdfThread() function removed - PDF generation now handled by PdfGeneratorWorker with QThread
 
+namespace {
+/**
+ * \brief Focus style shared by every checkbox of the selection column.
+ *
+ * Must be applied to all of them, including the "select all" header checkbox:
+ * a widget with a style sheet is painted by QStyleSheetStyle instead of the
+ * native style, so styling only part of the column makes its indicators differ
+ * in size and position from the unstyled ones.
+ */
+QString checkBoxFocusStyle()
+{
+    return QStringLiteral(
+        "QCheckBox::indicator:focus {"
+        "    border: 2px solid #0078d4;"  // Windows accent blue
+        "    border-radius: 2px;"
+        "}"
+        "QCheckBox:focus {"
+        "    outline: none;"  // Remove default outline, use custom border instead
+        "}");
+}
+}  // namespace
+
 /**
  * \brief Saves the current input data to a timestamped text file.
  *
@@ -228,15 +250,7 @@ void TableBoard::validateInput() {
         pCheckNumber[iter]->installEventFilter(this);
 
         // Make focus visible on checkboxes for keyboard navigation
-        pCheckNumber[iter]->setStyleSheet(
-            "QCheckBox::indicator:focus {"
-            "    border: 2px solid #0078d4;"  // Windows accent blue
-            "    border-radius: 2px;"
-            "}"
-            "QCheckBox:focus {"
-            "    outline: none;"  // Remove default outline, use custom border instead
-            "}"
-        );
+        pCheckNumber[iter]->setStyleSheet(checkBoxFocusStyle());
     }
     QLineEdit* pSerialNumber[] = {ui->leSN1,  ui->leSN2,  ui->leSN3,  ui->leSN4,  ui->leSN5,  ui->leSN6,  ui->leSN7,
                                   ui->leSN8,  ui->leSN9,  ui->leSN10, ui->leSN11, ui->leSN12, ui->leSN13, ui->leSN14,
@@ -328,6 +342,7 @@ void TableBoard::validateInput() {
         vectorThirdError.push_back(pThirdError[iter]);
     }
     ui->cbSet->installEventFilter(this);
+    ui->cbSet->setStyleSheet(checkBoxFocusStyle());
     ui->pbCalculate->installEventFilter(this);
     ui->pbClean->installEventFilter(this);
     ui->pbClose->installEventFilter(this);

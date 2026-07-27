@@ -174,17 +174,18 @@ void ReportMeasurements::translate() {
     ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii:"));
 
     // Re-translate ComboBox items (do not add new items - they exist from constructor)
-    ui->cbValabilitate->setItemText(0, tr("6 luni"));
-    ui->cbValabilitate->setItemText(1, tr("1 an"));
-    ui->cbValabilitate->setItemText(2, tr("2 ani"));
-    ui->cbValabilitate->setItemText(3, tr("3 ani"));
-    ui->cbValabilitate->setItemText(4, tr("4 ani"));
-    ui->cbValabilitate->setItemText(5, tr("5 ani"));
-    ui->cbValabilitate->setItemText(6, tr("6 ani"));
-    ui->cbValabilitate->setItemText(7, tr("7 ani"));
-    ui->cbValabilitate->setItemText(8, tr("8 ani"));
-    ui->cbValabilitate->setItemText(9, tr("9 ani"));
-    ui->cbValabilitate->setItemText(10, tr("10 ani"));
+    ui->cbValabilitate->setItemText(0, tr("0 ani"));
+    ui->cbValabilitate->setItemText(1, tr("6 luni"));
+    ui->cbValabilitate->setItemText(2, tr("1 an"));
+    ui->cbValabilitate->setItemText(3, tr("2 ani"));
+    ui->cbValabilitate->setItemText(4, tr("3 ani"));
+    ui->cbValabilitate->setItemText(5, tr("4 ani"));
+    ui->cbValabilitate->setItemText(6, tr("5 ani"));
+    ui->cbValabilitate->setItemText(7, tr("6 ani"));
+    ui->cbValabilitate->setItemText(8, tr("7 ani"));
+    ui->cbValabilitate->setItemText(9, tr("8 ani"));
+    ui->cbValabilitate->setItemText(10, tr("9 ani"));
+    ui->cbValabilitate->setItemText(11, tr("10 ani"));
 
     ui->pbGenerareBV->setText(tr("&Generare BV"));
     ui->pbInchide->setText(tr("&Inchide"));
@@ -236,6 +237,7 @@ ReportMeasurements::ReportMeasurements(QWidget* parent, const std::vector<QCheck
     ui->lbLoculEfectuariiVerificarii->setText(tr("Locul efectuarii verificarii metrologice:"));
 
     // Populate validity ComboBox (items added only once in constructor)
+    ui->cbValabilitate->addItem(tr("0 ani"));
     ui->cbValabilitate->addItem(tr("6 luni"));
     ui->cbValabilitate->addItem(tr("1 an"));
     ui->cbValabilitate->addItem(tr("2 ani"));
@@ -420,8 +422,9 @@ void ReportMeasurements::onPrintClicked() {
                  "11px;\">\n"
               << "    <tr>\n"
               << "      <td rowspan=\"2\" width=\"25%\" style=\"border: 1px solid #000000; padding: 6px; text-align: "
-                 "left; vertical-align: middle;\"><strong>AQUABIS S.A.</strong><br><strong>LABORATOR "
-                 "DE</strong><br><strong>METROLOGIE</strong></td>\n"
+                 "left; vertical-align: middle;\"><strong>"
+              << companyLaboratory.toHtmlEscaped().toStdString()
+              << "</strong><br><strong>LABORATOR DE</strong><br><strong>METROLOGIE</strong></td>\n"
               << "      <td width=\"50%\" style=\"border: 1px solid #000000; padding: 6px; text-align: center; "
                  "vertical-align: middle;\"><strong>PROCEDURA GENERALA</strong></td>\n"
               << "      <td rowspan=\"2\" width=\"25%\" style=\"border: 1px solid #000000; padding: 6px; text-align: "
@@ -478,6 +481,9 @@ void ReportMeasurements::onPrintClicked() {
         ++entriesTableUsed;
         QString resultEntry = resultAllTestsCopy[row];
 
+        // A rejected meter gets no period of validity, whatever the dialog has selected
+        QString entryValability = (resultEntry == "RESPINS") ? tr("0 ani") : checkValability;
+
         htmlTable << "      <tr style=\"height: 20px;\">\n"
                   << "        <td class=\"reduced-height\">1</td>\n"
                   << "        <td class=\"reduced-height\">" << meterType.toStdString() << "<br>"
@@ -486,7 +492,7 @@ void ReportMeasurements::onPrintClicked() {
                   << "        <td class=\"reduced-height\">" << nmlNtmNorms.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << certiticateLaboratory.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << resultEntry.toStdString() << "</td>\n"
-                  << "        <td class=\"reduced-height\">" << checkValability.toStdString() << "</td>\n"
+                  << "        <td class=\"reduced-height\">" << entryValability.toStdString() << "</td>\n"
                   << "        <td class=\"reduced-height\">" << costRon.toStdString() << "</td>\n"
                   << "      </tr>\n";
     }

@@ -189,19 +189,24 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # POST-BUILD VALIDATION
 # ============================================
 
-# The post-link command is emitted verbatim into the Makefile and executed by
-# sh.exe, not cmd.exe. Nested double quotes and a backslash before a closing
-# quote break the shell, so keep this free of quotes and of "cmd /c" wrappers.
+# The post-link command is emitted verbatim into the Makefile and is run by
+# whichever shell mingw32-make finds: cmd.exe, or sh.exe when Git Bash is in
+# PATH. It must therefore avoid anything cmd-only ("copy" and "> nul" are cmd
+# builtins, so sh reports "copy: command not found" and fails the build) as well
+# as anything sh-only. qmake's own installer is a real executable and runs under
+# both. Keep the paths in forward slashes: sh eats backslashes as escapes.
+# Keep this free of nested double quotes and of "cmd /c" wrappers.
 win32 {
     CONFIG(debug, debug|release) {
-        DEPLOY_DIR = $$shell_path($$OUT_PWD/debug)
+        DEPLOY_DIR = $$OUT_PWD/debug
     } else {
-        DEPLOY_DIR = $$shell_path($$OUT_PWD/release)
+        DEPLOY_DIR = $$OUT_PWD/release
     }
-    DOC_DIR = $$shell_path($$PWD/..)
+    DOC_DIR = $$PWD/../docs
 
-    QMAKE_POST_LINK += copy /Y $$DOC_DIR\\PROCES_CALCUL_VERIFICARE_CONTOARE.md $$DEPLOY_DIR > nul &
-    QMAKE_POST_LINK += copy /Y $$DOC_DIR\\VERIFICATION_METHOD_PROCESS.md $$DEPLOY_DIR > nul
+    QINSTALL = $$QMAKE_QMAKE -install qinstall
+    QMAKE_POST_LINK += $$QINSTALL $$DOC_DIR/PROCES_CALCUL_VERIFICARE_CONTOARE.md $$DEPLOY_DIR/PROCES_CALCUL_VERIFICARE_CONTOARE.md &&
+    QMAKE_POST_LINK += $$QINSTALL $$DOC_DIR/VERIFICATION_METHOD_PROCESS.md $$DEPLOY_DIR/VERIFICATION_METHOD_PROCESS.md
 }
 
 unix {
