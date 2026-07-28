@@ -14,11 +14,10 @@
 #include <QMessageBox>                         // Qt class for displaying message boxes
 #include <QSettings>                           // Qt class for persistent application settings
 #include <QStringList>                         // Qt class for manipulating string lists
+#include <QThread>                              // Qt class providing a portable msleep()
 #include <QtSerialBus/QModbusClient>           // Qt class for Modbus client functionality
 #include <QtSerialBus/QModbusRtuSerialServer>  // Qt class for Modbus RTU serial server
 #include <QtSerialPort/QSerialPort>            // Qt class for serial port communication
-
-#include <unistd.h>  // POSIX API for various functionalities
 
 #include <atomic>  // Include for std::atomic (thread-safe counter)
 #include <mutex>   // Include for std::mutex
@@ -313,7 +312,7 @@ extern const std::vector<qint16> nodesModbusCom1;
 bool Interface::checkModbusAddresses() {
     std::lock_guard<std::mutex> lock(modbusLock);  // Lock to ensure thread safety
 
-    usleep(50000);  // Delay before sending requests (50 ms)
+    QThread::msleep(50);  // Delay before sending requests (50 ms)
 
     // Ensure modbusDevice_1 is properly initialized
     if (!modbusDevice_1) {

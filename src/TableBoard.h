@@ -111,6 +111,11 @@ class TableBoard : public QDialog {
 
     // Member variables grouped by functionality
     size_t entries{0};                                      ///< Number of entries in the table.
+    // PASS/FAIL ("ADMIS"/"RESPINS") per row from the last calculation. Was a
+    // free-standing global in TableBoard.cpp; moved here so it can't be
+    // written from outside TableBoard and isn't shared mutable state across
+    // translation units.
+    QString resultAllTests[MAX_ARRAY_SIZE];
     std::unique_ptr<ReportMeasurements, QObjectDeleter> reportMeasurementsDialog;  ///< Smart pointer to the report measurements dialog.
     std::string nameWaterMeter;                             ///< Name of the water meter being tested.
     double minimumFlowMain{0};                              ///< Minimum flow rate.

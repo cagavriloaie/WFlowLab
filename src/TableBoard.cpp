@@ -25,7 +25,6 @@
 #include <QDoubleValidator>  // Qt validator for double values
 #include <QFileDialog>       // Qt file dialog
 #include <QMainWindow>       // Qt main window
-#include <QMainWindow>
 #include <QMessageBox>              // Qt message box for alerts
 #include <QPainter>                 // Qt painter for drawing
 #include <QPrinter>                 // Qt printer support
@@ -171,38 +170,6 @@ void TableBoard::onOpenInputDataClicked() {
     QMessageBox::information(this, tr("Load Successful"),
         tr("Input data loaded successfully from:\n%1\n\nEntries: %2")
         .arg(fileName).arg(data.entriesNumber));
-}
-
-/**
- * \brief Converts a double to a string with four decimal places.
- *
- * This function formats the given double value as a string with
- * exactly four digits after the decimal point.
- *
- * \param number The double value to convert.
- * \return String representation of the number with four decimal places.
- */
-std::string precision_4(double number) {
-    int integer_part = static_cast<int>(number);
-    int decimal_part = static_cast<int>((number - integer_part) * 10000);
-
-    // Asigură padding corect (e.g., 0.0901 → decimal_part = 901, dar string = "0901")
-    std::string decimal_str = std::to_string(decimal_part);
-    while (decimal_str.length() < 4) {
-        decimal_str = "0" + decimal_str;
-    }
-
-    // Elimină trailing zeros
-    while (!decimal_str.empty() && decimal_str.back() == '0') {
-        decimal_str.pop_back();
-    }
-
-    // Dacă nu mai sunt zecimale, returnează doar integer
-    if (decimal_str.empty()) {
-        return std::to_string(integer_part);
-    }
-
-    return std::to_string(integer_part) + "." + decimal_str;
 }
 
 /**
@@ -757,8 +724,6 @@ void TableBoard::onCleanClicked() {
     ui->leVolume3->clear();              ///< Clear volume input field for entry 3.
 }
 
-QString resultAllTests[20];
-
 /**
  * \brief Slot triggered by the "Calculate" button.
  *
@@ -924,7 +889,9 @@ void TableBoard::onCalculateClicked() {
          *   ELCOST_VOLUME_CORRECTION   - correction developed by ELCOST
          */
 
-        std::string volumeCorrectionType = mainwindow->optionsConfiguration["volume_correction"];
+        auto volumeCorrectionIt = mainwindow->optionsConfiguration.find("volume_correction");
+        const bool volumeCorrectionKeyFound = (volumeCorrectionIt != mainwindow->optionsConfiguration.end());
+        std::string volumeCorrectionType = volumeCorrectionKeyFound ? volumeCorrectionIt->second : std::string();
 
         if (volumeCorrectionType == "CLASSIC_VOLUME_CORRECTION") {
             /*
@@ -946,10 +913,13 @@ void TableBoard::onCalculateClicked() {
              */
             const double rho_ideal20 = 998.2009;
             double rho_real20 = rho_ideal20;  // Default to ideal density
-            try {
-                rho_real20 = std::stof(mainwindow->optionsConfiguration["density_20"]);
-            } catch (const std::exception& e) {
-                qWarning() << "Invalid density_20 configuration, using default:" << e.what();
+            auto density20It = mainwindow->optionsConfiguration.find("density_20");
+            if (density20It != mainwindow->optionsConfiguration.end()) {
+                try {
+                    rho_real20 = std::stof(density20It->second);
+                } catch (const std::exception& e) {
+                    qWarning() << "Invalid density_20 configuration, using default:" << e.what();
+                }
             }
 
             double rho = get_ro(temperatureFirst) * rho_real20 / rho_ideal20;
@@ -969,10 +939,13 @@ void TableBoard::onCalculateClicked() {
              */
             const double rho_ideal20 = 998.2009;
             double rho_real20 = rho_ideal20;  // Default to ideal density
-            try {
-                rho_real20 = std::stof(mainwindow->optionsConfiguration["density_20"]);
-            } catch (const std::exception& e) {
-                qWarning() << "Invalid density_20 configuration, using default:" << e.what();
+            auto density20It = mainwindow->optionsConfiguration.find("density_20");
+            if (density20It != mainwindow->optionsConfiguration.end()) {
+                try {
+                    rho_real20 = std::stof(density20It->second);
+                } catch (const std::exception& e) {
+                    qWarning() << "Invalid density_20 configuration, using default:" << e.what();
+                }
             }
             const double calibrationFactor = rho_ideal20 / rho_real20;
 
@@ -982,16 +955,27 @@ void TableBoard::onCalculateClicked() {
         }
 
         else {
-            QString msg = QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
-                              .arg(QString::fromStdString(volumeCorrectionType))
-                              .arg("  CLASSIC_VOLUME_CORRECTION")
-                              .arg("  INM_VOLUME_CORRECTION")
-                              .arg("  ELCOST_VOLUME_CORRECTION");
+            QString msg = volumeCorrectionKeyFound
+                ? QString("Unknown volume correction type: %1\n\nAllowed values are:\n%2\n%3\n%4")
+                      .arg(QString::fromStdString(volumeCorrectionType))
+                      .arg("  CLASSIC_VOLUME_CORRECTION")
+                      .arg("  INM_VOLUME_CORRECTION")
+                      .arg("  ELCOST_VOLUME_CORRECTION")
+                : QString("Missing required configuration key \"volume_correction\" in watermeters.conf.\n\n"
+                          "Allowed values are:\n%1\n%2\n%3")
+                      .arg("  CLASSIC_VOLUME_CORRECTION")
+                      .arg("  INM_VOLUME_CORRECTION")
+                      .arg("  ELCOST_VOLUME_CORRECTION");
 
+            Logger::error(LogCategory::System, msg);
             QMessageBox box(QMessageBox::Critical, "Error", msg, QMessageBox::Ok, nullptr);
-            ;
             box.exec();
             QCoreApplication::exit(1);
+            // exit() only requests that the Qt event loop stop; it does not unwind
+            // the call stack. Without this return, execution would fall through and
+            // compute volumes/errors using the default-initialized (zero) correction
+            // factors before the application actually terminates.
+            return;
         }
 
         /*
@@ -1008,27 +992,26 @@ void TableBoard::onCalculateClicked() {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeFirst;
             ui->leVolume1->setText(streamObj.str().c_str());
-        } else {
         }
 
         if (VolumeSecond > 0 && result_t2 && result_m2) {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeSecond;
             ui->leVolume2->setText(streamObj.str().c_str());
-        } else {
         }
 
         if (VolumeThird > 0 && result_t3 && result_m3) {
             streamObj.str("");
             streamObj << std::fixed << std::setprecision(4) << VolumeThird;
             ui->leVolume3->setText(streamObj.str().c_str());
-        } else {
         }
         /// Q minim
-        if (VolumeFirst > 0 && result_t1 && result_m1)
-            for (unsigned iter = 0; iter < entries; ++iter) {
-                resultAllTests[iter] = "ADMIS";
+        for (unsigned iter = 0; iter < entries; ++iter) {
+            resultAllTests[iter] = "ADMIS";
+        }
 
+        if (VolumeFirst > 0 && result_t1 && result_m1) {
+            for (unsigned iter = 0; iter < entries; ++iter) {
                 if (vectorCheckNumber[iter]->isChecked()) {
                     double start{0};
                     bool bStart{false};
@@ -1083,8 +1066,21 @@ void TableBoard::onCalculateClicked() {
                     }
                 }
             }
+        } else {
+            // Q1 reference volume could not be established (invalid temperature/mass
+            // input) - the flow rate was never actually verified, so it must not be
+            // silently reported as ADMIS.
+            result = false;
+            Logger::error(LogCategory::Metrology,
+                          "Q1 nu a putut fi verificat: volum de referință invalid - măsurătorile marcate RESPINS");
+            for (unsigned iter = 0; iter < entries; ++iter) {
+                if (vectorCheckNumber[iter]->isChecked()) {
+                    resultAllTests[iter] = "RESPINS";
+                }
+            }
+        }
         /// Q transitor
-        if (VolumeSecond > 0 && result_t2 && result_m2)
+        if (VolumeSecond > 0 && result_t2 && result_m2) {
             for (unsigned iter = 0; iter < entries; ++iter) {
                 if (vectorCheckNumber[iter]->isChecked()) {
                     double start{0};
@@ -1139,8 +1135,21 @@ void TableBoard::onCalculateClicked() {
                     }
                 }
             }
+        } else {
+            // Q2 reference volume could not be established (invalid temperature/mass
+            // input) - the flow rate was never actually verified, so it must not be
+            // silently reported as ADMIS.
+            result = false;
+            Logger::error(LogCategory::Metrology,
+                          "Q2 nu a putut fi verificat: volum de referință invalid - măsurătorile marcate RESPINS");
+            for (unsigned iter = 0; iter < entries; ++iter) {
+                if (vectorCheckNumber[iter]->isChecked()) {
+                    resultAllTests[iter] = "RESPINS";
+                }
+            }
+        }
         /// Q nominal
-        if (VolumeThird > 0 && result_t3 && result_m3)
+        if (VolumeThird > 0 && result_t3 && result_m3) {
             for (unsigned iter = 0; iter < entries; ++iter) {
                 if (vectorCheckNumber[iter]->isChecked()) {
                     double start{0};
@@ -1197,6 +1206,19 @@ void TableBoard::onCalculateClicked() {
                     }
                 }
             }
+        } else {
+            // Q3 reference volume could not be established (invalid temperature/mass
+            // input) - the flow rate was never actually verified, so it must not be
+            // silently reported as ADMIS.
+            result = false;
+            Logger::error(LogCategory::Metrology,
+                          "Q3 nu a putut fi verificat: volum de referință invalid - măsurătorile marcate RESPINS");
+            for (unsigned iter = 0; iter < entries; ++iter) {
+                if (vectorCheckNumber[iter]->isChecked()) {
+                    resultAllTests[iter] = "RESPINS";
+                }
+            }
+        }
         result = result_t1 && result_m1 && result_t2 && result_m2 && result_t3 && result_m3 && result;
     } else {
         double tmp{0};

@@ -17,12 +17,16 @@
 #include <vector>
 #include <cstdint>
 
+#include "definitions.h"  // Single source of truth for MAX_ENTRIES/MAX_ARRAY_SIZE
+
 /**
  * \brief Namespace for TableBoard-related constants
  */
 namespace TableBoardConstants {
     constexpr int AUTOHIDE_MESSAGE_DURATION_MS = 3000;  ///< Duration for auto-hide messages (3 seconds)
-    constexpr size_t MAX_ENTRIES = 20;                  ///< Maximum number of water meter entries
+    // Derived from the global MAX_ENTRIES (definitions.h) instead of a separate
+    // literal, so the two can no longer drift out of sync.
+    constexpr size_t MAX_ENTRIES = ::MAX_ENTRIES;       ///< Maximum number of water meter entries
     constexpr const char* INPUT_FILE_EXTENSION = ".in"; ///< Input file extension
     constexpr const char* INPUT_FILE_FILTER = "Input data (*.in);;All files (*.*)"; ///< File dialog filter
 }

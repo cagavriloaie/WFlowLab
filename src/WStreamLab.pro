@@ -157,6 +157,18 @@ win32 {
             message("Application icon found: $$RC_ICONS")
         }
     }
+
+    # win32-g++ (MinGW) inherits its clean-rule commands (DEL_FILE/DEL_TREE) from
+    # the unix branch of spec_post.prf, i.e. "rm -f" / "rm -rf". The Qt-bundled
+    # MinGW toolchain (C:\Qt\Tools\mingw*\bin) does not ship rm.exe, so every
+    # compiler_*_clean target fails to find the command and make reports
+    # "Error 2 (ignored)" for each one — harmless (the recipe is ignore-prefixed),
+    # but noisy, and dependent on whatever happens to be on PATH (e.g. Git's
+    # usr/bin) on a given machine. Force the native, always-present cmd.exe
+    # commands instead, matching what qmake already uses by default for MSVC.
+    QMAKE_DEL_FILE = del
+    QMAKE_DEL_DIR  = rmdir
+    QMAKE_DEL_TREE = rmdir /s /q
 }
 
 # ============================================
